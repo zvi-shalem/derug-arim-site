@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פרויקט אלכסון — מדד לכידה מוסדית</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f8; color: #222; direction: rtl; line-height: 1.6; }
+        a { color: #1565c0; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Nav */
+        .top-nav { background: #1a1a2e; color: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        .nav-title { font-size: 1.1em; font-weight: 700; padding: 12px 0; cursor: pointer; }
+        .nav-tabs { display: flex; }
+        .nav-tab { padding: 14px 18px; cursor: pointer; font-size: 0.85em; border-bottom: 3px solid transparent; color: #aab; white-space: nowrap; transition: all 0.2s; }
+        .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+        .nav-tab.active { color: #fff; border-bottom-color: #cc0000; font-weight: 600; }
+
+        #app { padding: 20px; max-width: 1200px; margin: 0 auto; min-height: 60vh; }
+
+        /* Hero */
+        .ministry-hero { background: linear-gradient(135deg, #1a1a2e, #2a1a1e, #3a1a1e); color: #fff; border-radius: 12px; padding: 30px; margin: 0 auto 28px; max-width: 960px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid rgba(204,0,0,0.3); }
+        .ministry-hero h2 { font-size: 1.3em; margin-bottom: 14px; color: #ff6644; border-bottom: 1px solid rgba(255,100,68,0.3); padding-bottom: 10px; }
+        .ministry-hero p { font-size: 0.92em; color: #d0c8c4; line-height: 1.8; margin-bottom: 12px; }
+        .ministry-hero strong { color: #ff8866; }
+
+        /* Legend */
+        .level-legend { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px 24px; margin: 0 auto 24px; max-width: 960px; }
+        .level-legend h3 { color: #1a1a2e; margin-bottom: 12px; font-size: 1.05em; cursor: pointer; display: flex; justify-content: space-between; }
+        .level-legend h3 .arrow { font-size: 0.8em; color: #888; transition: transform 0.2s; }
+        .level-legend.collapsed .legend-body { display: none; }
+        .level-legend.collapsed .arrow { transform: rotate(180deg); }
+        .legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; font-size: 0.88em; }
+        .legend-stars { font-size: 1.1em; letter-spacing: 1px; white-space: nowrap; min-width: 100px; text-align: center; }
+        .legend-name { font-weight: 700; color: #1a1a2e; min-width: 70px; }
+        .legend-desc { color: #666; font-size: 0.88em; }
+        .star-red { color: #cc0000; }
+        .star-david { color: #1a5fb4; }
+
+        /* City Grid */
+        .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; max-width: 960px; margin: 0 auto 30px; }
+        .city-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 18px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .city-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); border-color: #cc0000; }
+        .city-card .city-name { font-size: 1.15em; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+        .city-card .stars { font-size: 1.3em; letter-spacing: 2px; margin: 6px 0; }
+        .city-card .level-label { font-size: 0.82em; font-weight: 600; padding: 3px 10px; border-radius: 12px; display: inline-block; color: #fff; }
+        .city-card .justification { font-size: 0.82em; color: #666; margin-top: 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .city-card .meta-row { display: flex; gap: 12px; margin-top: 8px; font-size: 0.78em; color: #888; flex-wrap: wrap; }
+
+        /* Back button */
+        .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f0f5; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 0.9em; color: #555; margin-bottom: 16px; transition: all 0.2s; }
+        .back-btn:hover { background: #e0e0e8; color: #222; }
+
+        /* City Detail */
+        .city-header { background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; max-width: 960px; margin-left: auto; margin-right: auto; }
+        .city-header h1 { font-size: 1.5em; color: #1a1a2e; margin-bottom: 6px; }
+        .city-header .stars { font-size: 1.6em; letter-spacing: 3px; margin: 8px 0; }
+        .city-header .level-badge { display: inline-block; padding: 4px 14px; border-radius: 14px; color: #fff; font-weight: 600; font-size: 0.9em; }
+        .city-header .justification-full { font-size: 0.92em; color: #555; margin-top: 12px; line-height: 1.7; }
+        .city-header .actors { font-size: 0.85em; color: #cc0000; margin-top: 8px; }
+        .city-header .source-link { font-size: 0.82em; margin-top: 8px; }
+        .detail-wrap { max-width: 960px; margin: 0 auto; }
+
+        .section-title { font-size: 1.15em; color: #1a1a2e; margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #eee; display: flex; align-items: center; gap: 8px; }
+        .section-title .count { background: #cc0000; color: #fff; font-size: 0.7em; padding: 2px 8px; border-radius: 10px; }
+
+        /* Protocol Card */
+        .protocol-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; border-right: 4px solid #cc8844; }
+        .pc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+        .pc-category { font-size: 0.78em; padding: 2px 10px; border-radius: 10px; font-weight: 600; background: #fff3e0; color: #e65100; }
+        .pc-outcome { font-size: 0.78em; padding: 2px 10px; border-radius: 10px; font-weight: 600; background: #fce4ec; color: #c62828; }
+        .pc-date { font-size: 0.82em; color: #888; }
+        .pc-summary { font-size: 0.92em; color: #333; line-height: 1.7; margin-bottom: 8px; }
+        .pc-quote { background: #f9f5f0; border-right: 3px solid #cc8844; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85em; color: #555; line-height: 1.6; margin: 8px 0; }
+        .pc-source { font-size: 0.78em; color: #888; margin-top: 6px; }
+        .pc-source a { color: #1565c0; }
+        .pc-proposer { font-size: 0.82em; color: #666; margin-top: 4px; }
+
+        /* Program Card */
+        .program-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; transition: all 0.2s; }
+        .program-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .pg-clickable { cursor: pointer; }
+        .pg-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .pg-name { font-weight: 700; color: #1a1a2e; font-size: 1em; }
+        .pg-org { font-size: 0.85em; color: #666; margin-top: 2px; }
+        .pg-rating { font-size: 0.75em; padding: 2px 8px; border-radius: 10px; font-weight: 600; color: #fff; white-space: nowrap; }
+        .pg-stats { display: flex; gap: 16px; margin-top: 8px; font-size: 0.82em; color: #555; flex-wrap: wrap; }
+        .pg-concepts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .concept-tag { font-size: 0.75em; padding: 2px 10px; border-radius: 10px; color: #fff; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .concept-tag:hover { opacity: 0.8; transform: scale(1.05); text-decoration: none; }
+        .pg-source { font-size: 0.75em; color: #aaa; margin-top: 6px; }
+
+        /* Program Expanded */
+        .pg-expanded { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee; }
+        .pg-expanded.open { display: block; }
+        .pg-why { margin-bottom: 12px; }
+        .pg-why h4 { font-size: 0.92em; color: #8b0000; margin-bottom: 6px; }
+        .pg-concept-explain { background: #fff5f5; border: 1px solid #fdd; border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; font-size: 0.85em; }
+        .pg-concept-explain .ce-label { font-weight: 600; margin-bottom: 4px; }
+        .pg-concept-explain .ce-hidden { color: #cc0000; }
+        .pg-concept-explain .ce-link { font-size: 0.82em; margin-top: 4px; }
+        .pg-org-research { background: #f5f5ff; border: 1px solid #ddf; border-radius: 8px; padding: 12px 14px; margin-top: 10px; }
+        .pg-org-research h4 { font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+        .pg-org-research .or-thesis { font-size: 0.85em; color: #555; margin-bottom: 6px; }
+        .pg-org-research .or-findings { font-size: 0.82em; color: #666; padding-right: 16px; }
+        .pg-org-research .or-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .or-link { font-size: 0.78em; padding: 3px 10px; background: #e8eaf6; border-radius: 6px; color: #1565c0; }
+
+        /* Depth chain */
+        .depth-section { margin-top: 12px; }
+        .depth-section h4 { font-size: 0.92em; color: #8b0000; margin-bottom: 8px; }
+        .depth-desc { border-right: 4px solid #cc0000; padding: 10px 14px; background: #fff5f5; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-size: 0.88em; line-height: 1.6; }
+        .depth-step { background: #fafafa; border: 1px solid #eee; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; border-right: 4px solid; }
+        .ds-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .ds-icon { font-size: 1.2em; }
+        .ds-title { font-weight: 700; color: #1a1a2e; font-size: 0.92em; }
+        .ds-subtitle { font-size: 0.78em; color: #888; }
+        .ds-summary { font-size: 0.85em; color: #444; line-height: 1.6; }
+        .ds-content { margin-top: 8px; font-size: 0.85em; color: #555; line-height: 1.6; }
+        .ds-next { font-size: 0.82em; color: #cc0000; font-style: italic; margin-top: 6px; }
+        .depth-quote { background: #f9f5f0; border-right: 3px solid #cc8844; padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.88em; color: #555; margin: 6px 0; line-height: 1.5; }
+        .depth-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .depth-link { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; background: #1a1a2e; color: #fff; border-radius: 8px; font-size: 0.82em; }
+        .depth-link:hover { background: #2a2a3e; text-decoration: none; color: #fff; }
+
+        /* News */
+        .news-item { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; }
+        .ni-title { font-size: 0.92em; color: #1a1a2e; }
+        .ni-meta { font-size: 0.78em; color: #888; margin-top: 4px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+        /* Articles */
+        .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; max-width: 960px; margin: 0 auto; }
+        .article-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px; cursor: pointer; transition: all 0.2s; border-top: 4px solid; }
+        .article-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .article-card h3 { font-size: 1.1em; color: #1a1a2e; margin-bottom: 8px; }
+        .article-card .surface { font-size: 0.85em; color: #666; margin-bottom: 8px; }
+        .article-card .hidden { font-size: 0.85em; color: #cc0000; font-weight: 500; }
+        .article-card .ev-count { font-size: 0.78em; color: #888; margin-top: 8px; }
+
+        .article-detail { max-width: 800px; margin: 0 auto; }
+        .article-detail h1 { font-size: 1.5em; color: #1a1a2e; margin-bottom: 12px; }
+        .dual-meaning { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+        .meaning-box { padding: 16px; border-radius: 10px; }
+        .meaning-surface { background: #f0f8f0; border: 1px solid #c8e6c9; }
+        .meaning-hidden { background: #fff5f5; border: 1px solid #ffcdd2; }
+        .meaning-box h4 { font-size: 0.88em; margin-bottom: 6px; }
+        .meaning-box p { font-size: 0.88em; line-height: 1.6; }
+        .evidence-list { margin-top: 20px; }
+        .evidence-item { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; border-right: 3px solid #cc0000; }
+        .ev-source { font-weight: 700; color: #1a1a2e; font-size: 0.9em; margin-bottom: 4px; }
+        .ev-text { font-size: 0.88em; color: #444; line-height: 1.6; }
+        .ev-url { font-size: 0.78em; margin-top: 6px; }
+        .article-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+        .article-ext-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #1a1a2e; color: #fff; border-radius: 8px; font-size: 0.85em; }
+        .article-ext-link:hover { background: #2a2a3e; text-decoration: none; color: #fff; }
+        .article-programs { margin-top: 24px; background: #f5f5f8; border-radius: 10px; padding: 16px 20px; }
+        .article-programs h3 { font-size: 1em; color: #1a1a2e; margin-bottom: 10px; }
+        .ap-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #e8e8e8; font-size: 0.85em; }
+        .ap-item:last-child { border-bottom: none; }
+
+        /* Gap indicator */
+        .gap-indicator { background: #fffde7; border: 1px solid #fff9c4; border-radius: 8px; padding: 10px 14px; font-size: 0.82em; color: #f57f17; margin-top: 12px; }
+
+        /* About */
+        .about-section { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 24px; max-width: 960px; margin: 30px auto; }
+        .about-section h3 { color: #1a1a2e; margin-bottom: 12px; }
+        .about-section p { font-size: 0.92em; color: #555; line-height: 1.7; margin-bottom: 10px; }
+        .data-sources { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .source-tag { background: #f0f0f5; border: 1px solid #ddd; padding: 4px 12px; border-radius: 14px; font-size: 0.78em; color: #555; }
+        footer { text-align: center; padding: 20px; color: #888; font-size: 0.82em; border-top: 1px solid #eee; margin-top: 30px; }
+        footer a { color: #888; }
+
+        @media (max-width: 768px) {
+            .nav-inner { flex-direction: column; padding: 8px 16px; }
+            .nav-tabs { width: 100%; overflow-x: auto; }
+            .city-grid, .articles-grid { grid-template-columns: 1fr; }
+            .dual-meaning { grid-template-columns: 1fr; }
+            .ministry-hero { padding: 20px; }
+            .city-header { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-inner">
+        <div class="nav-title" onclick="navigate('#/')">פרויקט אלכסון — מדד לכידה מוסדית</div>
+        <div class="nav-tabs" id="nav-tabs">
+            <div class="nav-tab active" onclick="navigate('#/')">מדד לכידה</div>
+            <div class="nav-tab" onclick="navigate('#/articles')">מאמרים</div>
+        </div>
+    </div>
+</nav>
+
+<div id="app"></div>
+
+<footer>
+    פרויקט אלכסון — מדד לכידה מוסדית | עדכון אחרון: פברואר 2026<br>
+    <a href="index.html">גרסה מספרית (0-100)</a> |
+    <a href="research/" target="_blank">דוחות מחקר מלאים</a>
+</footer>
+
+<script src="data.js?v=13"></script>
+<script src="protocol_findings.js?v=13"></script>
+<script src="suspicious_concepts.js?v=13"></script>
+<script src="depth_data.js?v=13"></script>
+<script src="research_data.js?v=13"></script>
+<script src="research_orgs.js?v=13"></script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════════════
+
+const LEVELS = [
+    { id: 1, name: "נקי", color: "#44aa44", desc: "אין ממצאים משמעותיים של חדירה אידיאולוגית" },
+    { id: 2, name: "שפה", color: "#88aa44", desc: "שפה פרוגרסיבית מזוהה בפרוטוקולים או תוכניות" },
+    { id: 3, name: "סמלי", color: "#ccaa00", desc: "הצהרות סמליות, מינוי יועצים, תוכניות מפוזרות" },
+    { id: 4, name: "תוכניות", color: "#ff8800", desc: "תוכניות אידיאולוגיות פעילות בבתי ספר" },
+    { id: 5, name: "מבני", color: "#dd4400", desc: "שינויים מבניים: ועדות ייעודיות, הסכמים, קריטריונים מחייבים" },
+    { id: 6, name: "תקציבי", color: "#cc0000", desc: "שורות תקציב ייעודיות לארגונים אידיאולוגיים" },
+    { id: 7, name: "מוסדי שלם", color: "#8b0000", desc: "לכידה מוסדית מלאה: ועדות + תקציב + מדיניות + אכיפה" },
+];
+
+const CITY_LEVELS = [
+    { name: "חיפה", key: "HAIFA", level: 7, findings: 5, dec22: false,
+      justification: "ועדה סטטוטורית ל\"שוויון מגדרי\" עם סמכות מדיניות, קריטריוני מימון הדורשים קידום \"שוויון מגדרי\" (כולל להט\"ב), יועצת ראש עיר ל\"שוויון מגדרי\", הסכם קואליציוני עם מרצ, תוכנית עיר רגישה מגדרית שאושרה בהצבעה. ההסלמה השלמה ביותר בארץ.",
+      key_actors: ["נעמה לזימי (חיים בחיפה)", "ביאטריס כץ-רוזן (יועצת מגדרית)", "הרב דב חיון (מרצ)"],
+      munzenberg_url: "research/munzenberg_municipal.html" },
+    { name: "הרצליה", key: "HERZLIYA", level: 6, findings: 7, dec22: true,
+      justification: "קטגוריית תקציב סטטוטורית 'זהות יהודית דמוקרטית' מאז 2022. רק 2 ארגונים מקבלים מימון: יסודות לצמיחה דרור (196K ₪) והמחנות העולים (60K ₪). 33% מהתקציב עקבי בלתי מחולק — קטגוריה נבנתה עבור ארגונים ספציפיים. ביצור דצמבר 2022.",
+      key_actors: ["ראש העיר משה פדלון", "נציגי סיעת הגנה"],
+      munzenberg_url: "research/munzenberg_municipal.html" },
+    { name: "גבעתיים", key: "GIVATAYIM", level: 5, findings: 5, dec22: true,
+      justification: "5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022 — ביצור מוסדי מונע-הגנה לפני ממשלת נתניהו-בן גביר. ועדת קהילה להט\"בית, שינויים מבניים מחייבים.",
+      key_actors: ["רונן קפלן (3 ממצאים)"],
+      munzenberg_url: "research/munzenberg_municipal.html" },
+    { name: "רעננה", key: "RAANANA", level: 5, findings: 5, dec22: true,
+      justification: "5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022. מימון עירוני ישיר לארגון חושן — עוקף קיצוץ 85% של משרד החינוך. מרצ בראש יוזמות: מירב מאיר (3 ממצאים). קשר NIF→חושן→עירייה.",
+      key_actors: ["מירב מאיר (מרצ, 3 ממצאים)"],
+      munzenberg_url: "research/munzenberg_municipal.html" },
+    { name: "כרמיאל", key: "KARMIEL", level: 4, findings: 0, dec22: false,
+      justification: "ציון חשיפה חינוכית גבוה ביותר (48.7) — 44 פריסות תוכניות מסומנות מתוך 250, יחס תקציב חתרני של 22%. אפס ממצאים בפרוטוקולים. חדירה תוכניתית ללא ביצור מבני.",
+      key_actors: [], munzenberg_url: null },
+    { name: "באר שבע", key: "BEER_SHEVA", level: 4, findings: 0, dec22: false,
+      justification: "חדירה דרך ערוץ עוקף: ארגון דלת פתוחה הוצג בועדת בריאות (לא חינוך) לצד משרד הבריאות ואוניברסיטת בן-גוריון — מעטה אקדמי-רפואי לתוכן אידיאולוגי. חשיפה חינוכית 34.5.",
+      key_actors: [], munzenberg_url: "research/munzenberg_municipal.html" },
+    { name: "הוד השרון", key: "HOD_HASHARON", level: 4, findings: 1, dec22: false,
+      justification: "ממצא פרוטוקולי אחד + ציון חשיפה חינוכית גבוה (32.8). 42 פריסות תוכניות מסומנות מתוך 329, יחס תקציב חתרני 9.5%.",
+      key_actors: [], munzenberg_url: null },
+    { name: "רמת השרון", key: "RAMAT_HASHARON", level: 4, findings: 0, dec22: false,
+      justification: "חוזה ישיר 138,000 ₪ עם דלת פתוחה (שורת תקציב 16648). ציון חשיפה חינוכית גבוה ביותר (60.3) — 54 פריסות חתרניות מתוך 318. נתוני חינוך בלבד, ללא פרוטוקולים מנותחים.",
+      key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true },
+    { name: "תל אביב-יפו", key: "TEL_AVIV", level: 4, findings: 0, dec22: false,
+      justification: "ועדת פלורליזם עירונית + ארגון בינה כנותן שירותים. 171 פריסות חתרניות מ-1,411 כוללות. חשיפה חינוכית 52.7. נתוני חינוך בלבד.",
+      key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true },
+    { name: "רמת גן", key: "RAMAT_GAN", level: 4, findings: 0, dec22: false,
+      justification: "תוכניות עירוניות פעילות בגני ילדים: 'גנים מודעי מגדר' — הכשרת גננות לחינוך המאתגר 'משטרת גבריות' ומעודד 'אקטיביזם' בגיל הרך. 'משפחה מגוונת' — חלוקת ספר 'בתים בכל מיני צבעים' לכל הגנים. שיתוף עם 'המכון לחינוך דמוקרטי'.",
+      key_actors: [], munzenberg_url: null,
+      source_url: "https://www.ramat-gan.muni.il/education-kinder-gardens/content-pages/urban-plans-and-initiatives", partial: true },
+    { name: "גבעת שמואל", key: "GIVAT_SHMUEL", level: 3, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית בינונית (19.4), 14 פריסות מסומנות מתוך 149. אפס ממצאים בפרוטוקולים, אפס דגלים אדומים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "אריאל", key: "ariel", level: 3, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית בינונית (17.1), 8 פריסות מסומנות מתוך 91. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "קרית אונו", key: "KIRYAT_ONO", level: 3, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית בינונית (16.4), 18 פריסות מסומנות מתוך 241. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "ראש העין", key: "ROSH_HAAYIN", level: 3, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית בינונית (14.7), 19 פריסות מסומנות מתוך 362. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "קרית שמונה", key: "KIRYAT_SHMONA", level: 3, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית גבוהה (41.6) אך רק 4 פריסות חתרניות מתוך 87 — עיר קטנה, מדגם מוגבל.",
+      key_actors: [], munzenberg_url: null, partial: true },
+    { name: "ירושלים", key: "JERUSALEM", level: 3, findings: 0, dec22: false,
+      justification: "שתי הצגות פנים לועדת מעמד האישה (נאמני תורה ועבודה + קולך, מכון הרטמן + מרכז אדוה) — עדות סמלית בלבד, לא זרימת תקציבים. 89% מהפרוטוקולים סרוקים ללא OCR.",
+      key_actors: [], munzenberg_url: null, partial: true },
+    { name: "קרית גת", key: "KIRYAT_GAT", level: 2, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית נמוכה (13.9), 29 פריסות מסומנות מתוך 484. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "אפרת", key: "EFRAT", level: 2, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית נמוכה מאוד (6.3), אפס פריסות חתרניות, אפס תקציב חתרני.",
+      key_actors: [], munzenberg_url: null },
+    { name: "עמנואל", key: "EMANUEL", level: 1, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית מינימלית (3.7), אפס פריסות חתרניות. אין ראיות ללכידה מוסדית.",
+      key_actors: [], munzenberg_url: null },
+    { name: "נתיבות", key: "NETIVOT", level: 1, findings: 0, dec22: false,
+      justification: "חשיפה חינוכית מינימלית (2.8), 3 פריסות מסומנות מתוך 165 — רעש סטטיסטי.",
+      key_actors: [], munzenberg_url: null },
+];
+
+// Built-in Münzenberg article
+const BUILTIN_ARTICLES = {
+    munzenberg: {
+        name_he: 'שיטת מינצנברג — ארגוני חזית',
+        short_label: 'מינצנברג',
+        color: '#37474f',
+        surface_meaning: 'ארגוני חברה אזרחית, עמותות, קרנות פילנתרופיות — מערכת פלורליסטית בריאה.',
+        hidden_meaning: 'ארגוני חזית (front organizations) — רשת של ישויות משפטיות נפרדות הפועלות תחת הנחיה מרכזית. שיטה שפיתח וילי מינצנברג, מנהל התעמולה של הקומינטרן. העיקרון: הארגונים הטובים ביותר הם אלה שבהם כל החברים חושבים שהם פועלים מרצון חופשי.',
+        evidence: [
+            { source: 'רשת דרור ישראל — 6 ישויות, הנהגה אחת', text: '6 ישויות משפטיות נפרדות (דרור ישראל, יסודות לצמיחה, הנוער העובד, המעורר, אדם חברה וטבע, דרור בתי חינוך) תחת הנהגה ריכוזית אחת. תקציב 230M ₪/שנה.', url: null },
+            { source: 'רשת חינוך מיני/מגדרי — 9 ישויות בתיאום', text: '9 ישויות נפרדות (מידע אמין על מין, מגע בתיאום, חוש"ן, SEI ועוד) — לא ארגון יחיד. "דלת מסתובבת" מהמשרד לקבלנות חיצונית. 136 בתי ספר.', url: null },
+            { source: 'דצמבר 2022 — ביצור מונע בין-עירוני', text: 'הרצליה, רעננה וגבעתיים ביצרו בו-זמנית מנגנוני מימון ומוסדות לפני הקמת ממשלת נתניהו-בן גביר — תיאום בין-עירוני שלא יכול להיות מקרי.', url: null },
+            { source: '~8 אנשים מניעים 23 ממצאים', text: 'מתוך 23 ממצאי פרוטוקולים מאומתים, כ-8 יוזמים בלבד אחראים לכולם. ריכוז יוזמה קיצוני.', url: null },
+        ],
+        research_url: 'research/munzenberg_municipal.html',
+        rosetta_url: null
+    }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════
+
+function renderStars(level) {
+    let html = '';
+    const redCount = level === 7 ? 7 : level - 1;
+    for (let i = 0; i < 7; i++) {
+        if (i < redCount) html += '<span class="star-red">&#9733;</span>';
+        else html += '<span class="star-david">&#10017;</span>';
+    }
+    return html;
+}
+
+function getLevel(id) { return LEVELS.find(l => l.id === id); }
+
+function getCityData(key) {
+    if (typeof DATA === 'undefined') return null;
+    return DATA.rankings.find(c => c.protocol_key === key || c.protocol_key === key.toUpperCase());
+}
+
+function getCityProtocols(key) {
+    if (typeof PROTOCOL_FINDINGS === 'undefined') return [];
+    return PROTOCOL_FINDINGS.findings.filter(f => f.city === key || f.city === key.toUpperCase());
+}
+
+function getConceptsForProgram(program) {
+    const concepts = new Set();
+    if (typeof SUSPICIOUS_CONCEPTS === 'undefined') return [];
+    const text = (program.name || '') + ' ' + (program.org || '');
+    SUSPICIOUS_CONCEPTS.keyword_rules.forEach(rule => {
+        if (rule.pattern.test(text)) concepts.add(rule.concept);
+    });
+    // Also check depth chain name match → program_concepts
+    if (typeof DEPTH_CHAINS !== 'undefined') {
+        for (const [pid, dc] of Object.entries(DEPTH_CHAINS)) {
+            if (dc.program_name === program.name && SUSPICIOUS_CONCEPTS.program_concepts[pid]) {
+                SUSPICIOUS_CONCEPTS.program_concepts[pid].forEach(c => concepts.add(c));
+            }
+        }
+    }
+    return [...concepts];
+}
+
+function getDepthChain(programName) {
+    if (typeof DEPTH_CHAINS === 'undefined') return null;
+    for (const [id, data] of Object.entries(DEPTH_CHAINS)) {
+        if (data.program_name === programName) return data;
+    }
+    return null;
+}
+
+function getOrgResearch(orgKey) {
+    if (!orgKey || typeof RESEARCH_ORGS === 'undefined') return null;
+    return RESEARCH_ORGS.orgs[orgKey] || null;
+}
+
+function getAllConcepts() {
+    const result = {};
+    if (typeof SUSPICIOUS_CONCEPTS !== 'undefined') {
+        Object.entries(SUSPICIOUS_CONCEPTS.concepts).forEach(([k, v]) => { result[k] = v; });
+    }
+    Object.entries(BUILTIN_ARTICLES).forEach(([k, v]) => { result[k] = v; });
+    return result;
+}
+
+function formatBudget(n) {
+    if (!n) return '-';
+    return n.toLocaleString('he-IL', { maximumFractionDigits: 0 }) + ' ₪';
+}
+
+function ratingColor(r) {
+    if (r >= 5) return '#c62828';
+    if (r >= 4) return '#e65100';
+    return '#f9a825';
+}
+
+function navigate(hash) { location.hash = hash; }
+
+function escHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// VIEW: MAIN GRID
+// ═══════════════════════════════════════════════════════════════
+
+function renderMainGrid() {
+    const sorted = [...CITY_LEVELS].sort((a, b) => b.level - a.level || a.name.localeCompare(b.name, 'he'));
+    const app = document.getElementById('app');
+
+    app.innerHTML = `
+    <!-- Ministry Hero -->
+    <div class="ministry-hero">
+        <h2>חתרנות ממוסדת — סיכום מצב</h2>
+        <p>
+            537 פרוטוקולי מועצות עיר נותחו ידנית. 23 החלטות מועצה מאומתות זוהו ב-5 ערים.
+            6,064 תוכניות חינוך נבדקו מול 31 ארגונים שנחקרו לעומק.
+            <strong>הממצא המרכזי: ~8 אנשים מניעים את כל 23 ההחלטות.</strong>
+        </p>
+        <p>
+            הפער הקריטי: רדיקלים מודעים להבדל בין רפורמה למהפכה מבנית.
+            שמרנים אינם מבחינים בין "קידום מעמד האישה" (ערך ליברלי מקובל) לבין "שוויון מגדרי" (מסגרת תיאורטית לפירוק קטגוריות).
+            <strong>זו לא סכנה — זו ודאות מבנית:</strong> כוונה ממוקדת מתמדת ללא שינוי במודעות = תוצאה בלתי נמנעת.
+        </p>
+    </div>
+
+    <!-- Level Legend -->
+    <div class="level-legend" id="legend">
+        <h3 onclick="toggleLegend()">7 רמות לכידה מוסדית <span class="arrow">&#9650;</span></h3>
+        <div class="legend-body">
+            <div class="legend-grid">
+                ${LEVELS.map(l => `
+                    <div class="legend-item">
+                        <div class="legend-stars">${renderStars(l.id)}</div>
+                        <div class="legend-name" style="color:${l.color}">${l.name}</div>
+                        <div class="legend-desc">${l.desc}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    </div>
+
+    <!-- City Grid -->
+    <div class="city-grid">
+        ${sorted.map(city => {
+            const lv = getLevel(city.level);
+            const cd = getCityData(city.key);
+            const progCount = cd ? cd.proven_programs_count : 0;
+            const totalDeploy = cd ? cd.proven_programs.reduce((s, p) => s + (p.deployments || 0), 0) : 0;
+            return `
+            <div class="city-card" onclick="navigate('#/city/${city.key}')">
+                <div class="city-name">${escHtml(city.name)}</div>
+                <div class="stars">${renderStars(city.level)}</div>
+                <span class="level-label" style="background:${lv.color}">רמה ${city.level} — ${lv.name}</span>
+                <div class="justification">${escHtml(city.justification)}</div>
+                <div class="meta-row">
+                    ${city.findings > 0 ? `<span>${city.findings} החלטות מועצה</span>` : ''}
+                    ${progCount > 0 ? `<span>${progCount} תוכניות</span>` : ''}
+                    ${totalDeploy > 0 ? `<span>${totalDeploy} פריסות בבתי ספר</span>` : ''}
+                    ${city.dec22 ? '<span style="color:#cc0000">ביצור דצמבר 2022</span>' : ''}
+                    ${city.partial ? '<span style="color:#f57f17">נתונים חלקיים</span>' : ''}
+                </div>
+            </div>`;
+        }).join('')}
+    </div>
+
+    <!-- About -->
+    <div class="about-section">
+        <h3>אודות המדד</h3>
+        <p>
+            בשונה ממדדים כמותיים (ספירת מילות מפתח), מדד הלכידה המוסדית מבוסס על <strong>סוג הראיות</strong>:
+            האם ממצא הוא שפה בלבד, תוכנית פעילה, שינוי מבני, או נעילה מוסדית.
+            כל ממצא מגובה במקור ציבורי הזמין לבדיקה.
+        </p>
+        <p>
+            הערה חשובה: "מעמד האישה" הוא ערך ליברלי מקובל ולגיטימי. "שוויון מגדרי" הוא שפה חדשה שמטרתה שונה —
+            לא שוויון, אלא פירוק קטגוריות (ג'ודית באטלר, 1990). ההחלפה הלשונית עצמה היא אינדיקטור ללכידה.
+        </p>
+        <div class="data-sources">
+            <span class="source-tag">537 פרוטוקולי מועצות עיר</span>
+            <span class="source-tag">6,064 תוכניות חינוך (גפ"ן)</span>
+            <span class="source-tag">23 החלטות מועצה מאומתות</span>
+            <span class="source-tag">31 ארגונים נחקרו לעומק</span>
+            <span class="source-tag">GuideStar — רשם העמותות</span>
+            <span class="source-tag">obudget.org — תקציב פתוח</span>
+        </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// VIEW: CITY DETAIL
+// ═══════════════════════════════════════════════════════════════
+
+function renderCityDetail(key) {
+    const city = CITY_LEVELS.find(c => c.key === key);
+    if (!city) { renderMainGrid(); return; }
+
+    const lv = getLevel(city.level);
+    const cd = getCityData(key);
+    const protocols = getCityProtocols(key);
+    const programs = cd ? cd.proven_programs : [];
+    const news = cd ? (cd.news_actions_detail || []) : [];
+    const totalDeploy = programs.reduce((s, p) => s + (p.deployments || 0), 0);
+    const totalBudget = cd ? cd.proven_budget : 0;
+
+    const app = document.getElementById('app');
+    app.innerHTML = `
+    <div class="detail-wrap">
+        <div class="back-btn" onclick="navigate('#/')">&#8594; חזרה למדד</div>
+
+        <!-- City Header -->
+        <div class="city-header">
+            <h1>${escHtml(city.name)}</h1>
+            <div class="stars">${renderStars(city.level)}</div>
+            <span class="level-badge" style="background:${lv.color}">רמה ${city.level} — ${lv.name}</span>
+            <div class="justification-full">${escHtml(city.justification)}</div>
+            ${city.key_actors.length ? `<div class="actors">שחקני מפתח: ${city.key_actors.map(a => escHtml(a)).join(' | ')}</div>` : ''}
+            ${city.source_url ? `<div class="source-link">מקור: <a href="${city.source_url}" target="_blank" rel="noopener">${city.source_url}</a></div>` : ''}
+            ${city.munzenberg_url ? `<div class="source-link"><a href="${city.munzenberg_url}" target="_blank" rel="noopener">ניתוח שיטת מינצנברג</a></div>` : ''}
+            ${cd ? `<div class="meta-row" style="margin-top:12px">
+                <span>תקציב חינוך כולל: ${formatBudget(cd.total_edu_budget)}</span>
+                <span>תקציב תוכניות בעייתיות: ${formatBudget(totalBudget)} (${cd.proven_budget_pct || 0}%)</span>
+                <span>${totalDeploy} פריסות בבתי ספר</span>
+            </div>` : ''}
+        </div>
+
+        <!-- Protocols Section -->
+        ${protocols.length > 0 ? `
+        <h2 class="section-title">החלטות מועצת עיר <span class="count">${protocols.length}</span></h2>
+        ${protocols.map(p => `
+            <div class="protocol-card">
+                <div class="pc-header">
+                    <span class="pc-category">${escHtml(p.category_he || p.category)}</span>
+                    <span class="pc-outcome">${escHtml(p.outcome_he || p.outcome)}</span>
+                    ${p.date ? `<span class="pc-date">${p.date}</span>` : ''}
+                </div>
+                <div class="pc-summary">${escHtml(p.summary_he)}</div>
+                ${p.quote_he ? `<div class="pc-quote">"${escHtml(p.quote_he)}"</div>` : ''}
+                ${p.proposer ? `<div class="pc-proposer">יוזם/ת: ${escHtml(p.proposer)}</div>` : ''}
+                <div class="pc-source">
+                    מקור: ${p.document ? escHtml(p.document) : ''}
+                    ${p.source_url ? ` | <a href="${p.source_url}" target="_blank" rel="noopener">קישור למקור</a>` : ''}
+                </div>
+            </div>
+        `).join('')}
+        ` : (city.findings > 0 ? `<h2 class="section-title">החלטות מועצת עיר <span class="count">${city.findings}</span></h2>
+            <div class="gap-indicator">נתוני פרוטוקולים קיימים אך טרם נטענו למערכת.</div>` : '')}
+
+        <!-- Programs Section -->
+        ${programs.length > 0 ? `
+        <h2 class="section-title">תוכניות חינוכיות בעייתיות <span class="count">${programs.length}</span></h2>
+        ${programs.map((p, i) => renderProgramCard(p, i)).join('')}
+        ` : `
+        ${cd ? '' : '<div class="gap-indicator">נתוני תוכניות חינוכיות טרם נטענו לעיר זו. מחקר מעמיק נוסף נדרש.</div>'}
+        `}
+
+        <!-- News Section -->
+        ${news.length > 0 ? `
+        <h2 class="section-title">חדשות רלוונטיות <span class="count">${news.length}</span></h2>
+        ${news.map(n => `
+            <div class="news-item">
+                <div class="ni-title"><a href="${n.link}" target="_blank" rel="noopener">${escHtml(n.title)}</a></div>
+                <div class="ni-meta">
+                    <span>${escHtml(n.source || '')}</span>
+                    <span>${n.published || ''}</span>
+                    <span>${escHtml(n.evidence || '')}</span>
+                </div>
+            </div>
+        `).join('')}
+        ` : ''}
+
+        <!-- Gaps -->
+        ${city.partial ? '<div class="gap-indicator">נתונים חלקיים — חלק מערוצי המידע (פרוטוקולים, תוכניות, או חדשות) טרם נותחו לעיר זו.</div>' : ''}
+        ${!cd ? '<div class="gap-indicator">לעיר זו אין עדיין נתוני תוכניות חינוך מפורטים. יש לבצע מחקר מעמיק נוסף (Gemini Deep Research).</div>' : ''}
+    </div>`;
+}
+
+function renderProgramCard(program, index) {
+    const concepts = getConceptsForProgram(program);
+    const depth = getDepthChain(program.name);
+    const orgRes = getOrgResearch(program.org_key);
+    const allConcepts = getAllConcepts();
+    const hasExpanded = concepts.length > 0 || depth || orgRes;
+
+    return `
+    <div class="program-card" id="prog-${index}">
+        <div class="pg-clickable" onclick="toggleProgram(${index})">
+            <div class="pg-header">
+                <div>
+                    <div class="pg-name">${escHtml(program.name)}</div>
+                    <div class="pg-org">${escHtml(program.org)}</div>
+                </div>
+                <span class="pg-rating" style="background:${ratingColor(program.rating)}">${program.rating}/5</span>
+            </div>
+            <div class="pg-stats">
+                <span>תקציב: ${formatBudget(program.budget)}</span>
+                <span>${program.deployments || 0} בתי ספר</span>
+                ${program.tier ? `<span>שכבה: ${program.tier}</span>` : ''}
+            </div>
+            ${concepts.length > 0 ? `
+            <div class="pg-concepts">
+                ${concepts.map(c => {
+                    const concept = allConcepts[c];
+                    return concept ? `<a class="concept-tag" style="background:${concept.color}" href="#/article/${c}" onclick="event.stopPropagation()">${concept.short_label || concept.name_he}</a>` : '';
+                }).join('')}
+            </div>` : ''}
+        </div>
+        <div class="pg-source">מקור: ${escHtml(program.source || 'גפ"ן — קטלוג ההעשרה, משרד החינוך')}</div>
+
+        ${hasExpanded ? `
+        <div class="pg-expanded" id="pg-exp-${index}">
+            <!-- Why problematic -->
+            ${concepts.length > 0 ? `
+            <div class="pg-why">
+                <h4>למה התוכנית בעייתית?</h4>
+                ${concepts.map(c => {
+                    const concept = allConcepts[c];
+                    if (!concept) return '';
+                    return `
+                    <div class="pg-concept-explain">
+                        <div class="ce-label" style="color:${concept.color}">${concept.name_he}</div>
+                        <div class="ce-hidden">${escHtml(concept.hidden_meaning).substring(0, 200)}${concept.hidden_meaning.length > 200 ? '...' : ''}</div>
+                        <div class="ce-link"><a href="#/article/${c}">קרא עוד: מאמר מלא על ${concept.name_he} &larr;</a></div>
+                    </div>`;
+                }).join('')}
+            </div>` : ''}
+
+            <!-- Depth chain -->
+            ${depth ? `
+            <div class="depth-section">
+                <h4>ראיות מעמיקות</h4>
+                ${depth.deep_description ? `<div class="depth-desc">${depth.deep_description}</div>` : ''}
+                ${(depth.depth_chain || []).map(step => `
+                    <div class="depth-step" style="border-right-color:${step.color || '#cc0000'}">
+                        <div class="ds-header">
+                            <span class="ds-icon">${step.icon || ''}</span>
+                            <div>
+                                <div class="ds-title">${step.title_he || ''}</div>
+                                <div class="ds-subtitle">${step.subtitle_he || ''}</div>
+                            </div>
+                        </div>
+                        <div class="ds-summary">${step.summary_he || ''}</div>
+                        <div class="ds-content">${step.content_he || ''}</div>
+                        ${step.next_prompt ? `<div class="ds-next">${escHtml(step.next_prompt)}</div>` : ''}
+                    </div>
+                `).join('')}
+                ${(depth.related_links || []).length > 0 ? `
+                <div class="depth-links">
+                    ${depth.related_links.map(l => `
+                        <a class="depth-link" href="${l.url}" target="_blank" rel="noopener">
+                            ${l.icon || ''} ${escHtml(l.title_he || '')}
+                        </a>
+                    `).join('')}
+                </div>` : ''}
+            </div>` : ''}
+
+            <!-- Org research -->
+            ${orgRes ? `
+            <div class="pg-org-research">
+                <h4>ארגון מפעיל: ${escHtml(orgRes.name_he)}</h4>
+                <div class="or-thesis">${escHtml(orgRes.thesis)}</div>
+                <ul class="or-findings">
+                    ${(orgRes.key_findings || []).slice(0, 4).map(f => `<li>${escHtml(f)}</li>`).join('')}
+                </ul>
+                <div class="or-links">
+                    ${orgRes.report_url ? `<a class="or-link" href="${orgRes.report_url}" target="_blank" rel="noopener">דוח מחקר מלא</a>` : ''}
+                    ${(orgRes.source_links || []).map(sl => `<a class="or-link" href="${sl.url}" target="_blank" rel="noopener">${escHtml(sl.label)}</a>`).join('')}
+                </div>
+                <div style="font-size:0.78em;color:#888;margin-top:6px">
+                    סיכון: ${orgRes.risk || '-'} | ניטרליות: ${orgRes.neutrality || '-'}/5 | שקיפות: ${orgRes.transparency || '-'}/5
+                    | תקציב: ${formatBudget(orgRes.revenue_nis)}
+                </div>
+            </div>` : ''}
+        </div>` : ''}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// VIEW: ARTICLES
+// ═══════════════════════════════════════════════════════════════
+
+function renderArticles() {
+    const concepts = getAllConcepts();
+    const app = document.getElementById('app');
+
+    app.innerHTML = `
+    <h1 style="text-align:center;margin:20px 0 8px;font-size:1.5em;color:#1a1a2e">מאמרים — עומק רעיוני</h1>
+    <p style="text-align:center;color:#666;margin-bottom:24px;font-size:0.9em;max-width:700px;margin-left:auto;margin-right:auto">
+        כל מונח כאן נראה תמים על פניו. המאמרים חושפים את המשמעות הכפולה — מה שההורים שומעים ומה שהמקורות האקדמיים אומרים.
+        <br>"מעמד האישה" היה מספיק. ההחלפה ל"שוויון מגדרי" היא עצמה האינדיקטור.
+    </p>
+
+    <div class="articles-grid">
+        ${Object.entries(concepts).map(([id, c]) => `
+            <div class="article-card" style="border-top-color:${c.color}" onclick="navigate('#/article/${id}')">
+                <h3>${escHtml(c.name_he)}</h3>
+                <div class="surface"><strong>מה ההורים שומעים:</strong> ${escHtml(c.surface_meaning).substring(0, 120)}...</div>
+                <div class="hidden"><strong>מה המקורות אומרים:</strong> ${escHtml(c.hidden_meaning).substring(0, 120)}...</div>
+                <div class="ev-count">${(c.evidence || []).length} מקורות מתועדים</div>
+            </div>
+        `).join('')}
+
+        <!-- External articles -->
+        <div class="article-card" style="border-top-color:#1a1a2e" onclick="window.open('https://aosshalem-dev.github.io/progressive-rosetta-stone/', '_blank')">
+            <h3>אבן רוזטה — מילון ההסוואה</h3>
+            <div class="surface">כיצד מונחים ניטרליים מסווים תוכן אידיאולוגי</div>
+            <div class="hidden">מיפוי שיטתי: "אזרחות פעילה" = אקטיביזם, "פדגוגיה חדשנית" = פדגוגיה ביקורתית, "צדק חברתי" = CRT</div>
+            <div class="ev-count">מאמר חיצוני &larr;</div>
+        </div>
+
+        <div class="article-card" style="border-top-color:#e91e63" onclick="window.open('https://aosshalem-dev.github.io/shefi-research/', '_blank')">
+            <h3>מחקר שפ"י — שירות פסיכולוגי ייעוצי</h3>
+            <div class="surface">השירות הפסיכולוגי-ייעוצי של משרד החינוך</div>
+            <div class="hidden">הנהלת שפ"י לשעבר עברה ל-SafeSchool. "דלת מסתובבת" בין הרגולטור למפוקח.</div>
+            <div class="ev-count">מאמר חיצוני &larr;</div>
+        </div>
+
+        <div class="article-card" style="border-top-color:#1565c0" onclick="window.open('https://aosshalem-dev.github.io/sel-research/', '_blank')">
+            <h3>מחקר SEL — למידה רגשית-חברתית</h3>
+            <div class="surface">מדריך מקיף: כיצד SEL הפכה לכלי להסטת זהות חינוכית</div>
+            <div class="hidden">מפריירה דרך מרקוזה ועד יישום בבתי ספר ישראליים. 136 מסגרות, 1,300+ "מיומנויות", אפס הגדרה קוהרנטית.</div>
+            <div class="ev-count">מאמר חיצוני &larr;</div>
+        </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// VIEW: ARTICLE DETAIL
+// ═══════════════════════════════════════════════════════════════
+
+function renderArticleDetail(conceptId) {
+    const allConcepts = getAllConcepts();
+    const concept = allConcepts[conceptId];
+    if (!concept) { renderArticles(); return; }
+
+    // Find programs that trigger this concept
+    const linkedPrograms = [];
+    if (typeof DATA !== 'undefined') {
+        DATA.rankings.forEach(city => {
+            (city.proven_programs || []).forEach(p => {
+                const concepts = getConceptsForProgram(p);
+                if (concepts.includes(conceptId)) {
+                    linkedPrograms.push({ program: p, city: city.city, cityKey: city.protocol_key });
+                }
+            });
+        });
+    }
+
+    const app = document.getElementById('app');
+    app.innerHTML = `
+    <div class="article-detail">
+        <div class="back-btn" onclick="navigate('#/articles')">&#8594; חזרה למאמרים</div>
+
+        <h1 style="border-right:5px solid ${concept.color};padding-right:14px">${escHtml(concept.name_he)}</h1>
+
+        <div class="dual-meaning">
+            <div class="meaning-box meaning-surface">
+                <h4 style="color:#2e7d32">מה ההורים שומעים</h4>
+                <p>${escHtml(concept.surface_meaning)}</p>
+            </div>
+            <div class="meaning-box meaning-hidden">
+                <h4 style="color:#c62828">מה המקורות האקדמיים אומרים</h4>
+                <p>${escHtml(concept.hidden_meaning)}</p>
+            </div>
+        </div>
+
+        <!-- Evidence chain -->
+        <div class="evidence-list">
+            <h2 class="section-title">שרשרת ראיות <span class="count">${(concept.evidence || []).length}</span></h2>
+            ${(concept.evidence || []).map(ev => `
+                <div class="evidence-item">
+                    <div class="ev-source">${escHtml(ev.source)}</div>
+                    <div class="ev-text">${escHtml(ev.text)}</div>
+                    ${ev.url ? `<div class="ev-url"><a href="${ev.url}" target="_blank" rel="noopener">${ev.url}</a></div>` : ''}
+                </div>
+            `).join('')}
+        </div>
+
+        <!-- External links -->
+        <div class="article-links">
+            ${concept.research_url ? `<a class="article-ext-link" href="${concept.research_url}" target="_blank" rel="noopener">מחקר מלא &larr;</a>` : ''}
+            ${concept.rosetta_url ? `<a class="article-ext-link" href="${concept.rosetta_url}" target="_blank" rel="noopener">אבן רוזטה &larr;</a>` : ''}
+        </div>
+
+        <!-- Linked programs -->
+        ${linkedPrograms.length > 0 ? `
+        <div class="article-programs">
+            <h3>תוכניות המפעילות מושג זה <span class="count" style="background:#cc0000;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">${linkedPrograms.length}</span></h3>
+            ${linkedPrograms.map(lp => `
+                <div class="ap-item">
+                    <span>
+                        <strong>${escHtml(lp.program.name)}</strong>
+                        <span style="color:#888;margin-right:8px">(${escHtml(lp.city)})</span>
+                    </span>
+                    <span>
+                        ${formatBudget(lp.program.budget)}
+                        | ${lp.program.deployments || 0} בתי ספר
+                        <a href="#/city/${lp.cityKey}" style="margin-right:8px">לעיר &larr;</a>
+                    </span>
+                </div>
+            `).join('')}
+        </div>` : ''}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════════════════════
+
+function toggleProgram(index) {
+    const exp = document.getElementById('pg-exp-' + index);
+    if (exp) exp.classList.toggle('open');
+}
+
+function toggleLegend() {
+    document.getElementById('legend').classList.toggle('collapsed');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ROUTER
+// ═══════════════════════════════════════════════════════════════
+
+function route() {
+    const hash = location.hash || '#/';
+    const tabs = document.querySelectorAll('#nav-tabs .nav-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+
+    if (hash.startsWith('#/city/')) {
+        tabs[0].classList.add('active');
+        renderCityDetail(hash.split('/')[2]);
+    } else if (hash.startsWith('#/article/')) {
+        tabs[1].classList.add('active');
+        renderArticleDetail(hash.split('/')[2]);
+    } else if (hash === '#/articles') {
+        tabs[1].classList.add('active');
+        renderArticles();
+    } else {
+        tabs[0].classList.add('active');
+        renderMainGrid();
+    }
+
+    window.scrollTo(0, 0);
+}
+
+window.addEventListener('hashchange', route);
+route();
+</script>
+
+</body>
+</html>

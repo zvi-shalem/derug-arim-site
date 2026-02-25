@@ -217,7 +217,7 @@
 // ═══════════════════════════════════════════════════════════════
 
 const LEVELS = [
-    { id: 1, name: "נקי", color: "#44aa44", desc: "אין ממצאים משמעותיים של חדירה אידיאולוגית" },
+    { id: 1, name: "נקי", color: "#44aa44", desc: "אין ממצאים משמעותיים של נוכחות אידיאולוגית" },
     { id: 2, name: "שפה", color: "#88aa44", desc: "שפה פרוגרסיבית מזוהה בפרוטוקולים או תוכניות" },
     { id: 3, name: "סמלי", color: "#ccaa00", desc: "הצהרות סמליות, מינוי יועצים, תוכניות מפוזרות" },
     { id: 4, name: "תוכניות", color: "#ff8800", desc: "תוכניות אידיאולוגיות פעילות בבתי ספר" },
@@ -244,19 +244,19 @@ const CITY_LEVELS = [
       key_actors: ["מירב מאיר (מרצ, 3 ממצאים)"],
       munzenberg_url: "research/munzenberg_municipal.html" },
     { name: "כרמיאל", key: "KARMIEL", level: 4, findings: 0, dec22: false,
-      justification: "ציון חשיפה חינוכית גבוה ביותר (48.7) — 44 פריסות תוכניות מסומנות מתוך 250, יחס תקציב חתרני של 22%. אפס ממצאים בפרוטוקולים. חדירה תוכניתית ללא ביצור מבני.",
+      justification: "ציון חשיפה חינוכית גבוה ביותר (48.7) — 44 פריסות תוכניות מסומנות מתוך 250, יחס תקציב מסומן 22%. אפס ממצאים בפרוטוקולים. נוכחות תוכניתית ללא ביצור מבני.",
       key_actors: [], munzenberg_url: null },
     { name: "באר שבע", key: "BEER_SHEVA", level: 4, findings: 0, dec22: false,
-      justification: "חדירה דרך ערוץ עוקף: ארגון דלת פתוחה הוצג בועדת בריאות (לא חינוך) לצד משרד הבריאות ואוניברסיטת בן-גוריון — מעטה אקדמי-רפואי לתוכן אידיאולוגי. חשיפה חינוכית 34.5.",
+      justification: "ארגון דלת פתוחה הוצג בועדת בריאות (לא חינוך) לצד משרד הבריאות ואוניברסיטת בן-גוריון. כניסה דרך ערוץ רפואי-אקדמי. חשיפה חינוכית 34.5.",
       key_actors: [], munzenberg_url: "research/munzenberg_municipal.html" },
     { name: "הוד השרון", key: "HOD_HASHARON", level: 4, findings: 1, dec22: false,
-      justification: "ממצא פרוטוקולי אחד + ציון חשיפה חינוכית גבוה (32.8). 42 פריסות תוכניות מסומנות מתוך 329, יחס תקציב חתרני 9.5%.",
+      justification: "ממצא פרוטוקולי אחד + ציון חשיפה חינוכית גבוה (32.8). 42 פריסות תוכניות מסומנות מתוך 329, יחס תקציב מסומן 9.5%.",
       key_actors: [], munzenberg_url: null },
     { name: "רמת השרון", key: "RAMAT_HASHARON", level: 4, findings: 0, dec22: false,
-      justification: "חוזה ישיר 138,000 ₪ עם דלת פתוחה (שורת תקציב 16648). ציון חשיפה חינוכית גבוה ביותר (60.3) — 54 פריסות חתרניות מתוך 318. נתוני חינוך בלבד, ללא פרוטוקולים מנותחים.",
+      justification: "חוזה ישיר 138,000 ₪ עם דלת פתוחה (שורת תקציב 16648). ציון חשיפה חינוכית גבוה ביותר (60.3) — 54 פריסות מסומנות מתוך 318. נתוני חינוך בלבד, ללא פרוטוקולים מנותחים.",
       key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true },
     { name: "תל אביב-יפו", key: "TEL_AVIV", level: 4, findings: 0, dec22: false,
-      justification: "ועדת פלורליזם עירונית + ארגון בינה כנותן שירותים. 171 פריסות חתרניות מ-1,411 כוללות. חשיפה חינוכית 52.7. נתוני חינוך בלבד.",
+      justification: "ועדת פלורליזם עירונית + ארגון בינה כנותן שירותים. 171 פריסות מסומנות מ-1,411 כוללות. חשיפה חינוכית 52.7. נתוני חינוך בלבד.",
       key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true },
     { name: "רמת גן", key: "RAMAT_GAN", level: 4, findings: 0, dec22: false,
       justification: "תוכניות עירוניות פעילות בגני ילדים: 'גנים מודעי מגדר' — הכשרת גננות לחינוך המאתגר 'משטרת גבריות' ומעודד 'אקטיביזם' בגיל הרך. 'משפחה מגוונת' — חלוקת ספר 'בתים בכל מיני צבעים' לכל הגנים. שיתוף עם 'המכון לחינוך דמוקרטי'.",
@@ -275,7 +275,7 @@ const CITY_LEVELS = [
       justification: "חשיפה חינוכית בינונית (14.7), 19 פריסות מסומנות מתוך 362. אפס ממצאים בפרוטוקולים.",
       key_actors: [], munzenberg_url: null },
     { name: "קרית שמונה", key: "KIRYAT_SHMONA", level: 3, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית גבוהה (41.6) אך רק 4 פריסות חתרניות מתוך 87 — עיר קטנה, מדגם מוגבל.",
+      justification: "חשיפה חינוכית גבוהה (41.6) אך רק 4 פריסות מסומנות מתוך 87 — עיר קטנה, מדגם מוגבל.",
       key_actors: [], munzenberg_url: null, partial: true },
     { name: "ירושלים", key: "JERUSALEM", level: 3, findings: 0, dec22: false,
       justification: "שתי הצגות פנים לועדת מעמד האישה (נאמני תורה ועבודה + קולך, מכון הרטמן + מרכז אדוה) — עדות סמלית בלבד, לא זרימת תקציבים. 89% מהפרוטוקולים סרוקים ללא OCR.",
@@ -284,10 +284,10 @@ const CITY_LEVELS = [
       justification: "חשיפה חינוכית נמוכה (13.9), 29 פריסות מסומנות מתוך 484. אפס ממצאים בפרוטוקולים.",
       key_actors: [], munzenberg_url: null },
     { name: "אפרת", key: "EFRAT", level: 2, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית נמוכה מאוד (6.3), אפס פריסות חתרניות, אפס תקציב חתרני.",
+      justification: "חשיפה חינוכית נמוכה מאוד (6.3), אפס פריסות מסומנות, אפס תקציב מסומן.",
       key_actors: [], munzenberg_url: null },
     { name: "עמנואל", key: "EMANUEL", level: 1, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית מינימלית (3.7), אפס פריסות חתרניות. אין ראיות ללכידה מוסדית.",
+      justification: "חשיפה חינוכית מינימלית (3.7), אפס פריסות מסומנות. אין ראיות לנוכחות אידיאולוגית.",
       key_actors: [], munzenberg_url: null },
     { name: "נתיבות", key: "NETIVOT", level: 1, findings: 0, dec22: false,
       justification: "חשיפה חינוכית מינימלית (2.8), 3 פריסות מסומנות מתוך 165 — רעש סטטיסטי.",
@@ -473,7 +473,7 @@ function renderMainGrid() {
             "אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן הפיכה קומוניסטית בכיתה
             ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד
             והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה"
-            <div style="font-style:normal;color:#666;margin-top:6px;font-size:0.85em">— ד"ר ניר מיכאלי, <a href="research/hameorer_dashboard.html" target="_blank" style="color:#666">הרצאה בבית ספר קדמה, דקה 55:00</a>.
+            <div style="font-style:normal;color:#666;margin-top:6px;font-size:0.85em">— ד"ר ניר מיכאלי, <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&amp;t=3300" target="_blank" style="color:#666">הרצאה בבית ספר קדמה, דקה 55:00</a> (<a href="research/hameorer_dashboard.html" target="_blank" style="color:#666">ניתוח מלא</a>).
             מרצה בכיר במכללת דוד ילין. לשעבר ראש המזכירות הפדגוגית של התנועה הקיבוצית.
             שותף <a href="research/kibbutzim_pedagogy_dashboard.html" target="_blank" style="color:#666">לדוח מדען הראשי של משרד החינוך (2024)</a> עם ד"ר קרן קטקו-איילי.</div>
         </blockquote>

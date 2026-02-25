@@ -305,8 +305,8 @@ const BUILTIN_ARTICLES = {
         evidence: [
             { source: 'רשת דרור ישראל — 6 ישויות, הנהגה אחת', text: '6 ישויות משפטיות נפרדות (דרור ישראל, יסודות לצמיחה, הנוער העובד, המעורר, אדם חברה וטבע, דרור בתי חינוך) תחת הנהגה ריכוזית אחת. תקציב 230M ₪/שנה.', url: null },
             { source: 'רשת חינוך מיני/מגדרי — 9 ישויות בתיאום', text: '9 ישויות נפרדות (מידע אמין על מין, מגע בתיאום, חוש"ן, SEI ועוד) — לא ארגון יחיד. "דלת מסתובבת" מהמשרד לקבלנות חיצונית. 136 בתי ספר.', url: null },
-            { source: 'דצמבר 2022 — ביצור מונע בין-עירוני', text: 'הרצליה, רעננה וגבעתיים ביצרו בו-זמנית מנגנוני מימון ומוסדות לפני הקמת ממשלת נתניהו-בן גביר — תיאום בין-עירוני שלא יכול להיות מקרי.', url: null },
-            { source: '~8 אנשים מניעים 23 ממצאים', text: 'מתוך 23 ממצאי פרוטוקולים מאומתים, כ-8 יוזמים בלבד אחראים לכולם. ריכוז יוזמה קיצוני.', url: null },
+            { source: 'דצמבר 2022 — פעולה בין-עירונית בו-זמנית', text: 'הרצליה, רעננה וגבעתיים העבירו בו-זמנית הצעות לביצור מנגנוני מימון ומוסדות מגדריים, שבועות לפני הקמת ממשלת נתניהו-בן גביר.', url: null },
+            { source: '10 יוזמים → 23 החלטות', text: 'מתוך 23 ממצאי פרוטוקולים מאומתים ב-5 ערים, 10 יוזמים מזוהים בשם. קפלן ומאיר — 3 הצעות כ"א. פדלון — 2. פירוט בדף הראשי.', url: null },
         ],
         research_url: 'research/munzenberg_municipal.html',
         rosetta_url: null
@@ -404,8 +404,40 @@ function escHtml(s) {
 
 function renderMainGrid() {
     const sorted = [...CITY_LEVELS].sort((a, b) => b.level - a.level || a.name.localeCompare(b.name, 'he'));
-    const app = document.getElementById('app');
 
+    // Compute proposer/city breakdown from protocol data
+    const _bd = (() => {
+        if (typeof PROTOCOL_FINDINGS === 'undefined' || !PROTOCOL_FINDINGS.proposers) return { tableHtml: '', proposerHtml: '' };
+        const cities = {};
+        const pStats = {};
+        PROTOCOL_FINDINGS.findings.forEach(f => {
+            if (!cities[f.city]) cities[f.city] = { name: f.city_he, count: 0, proposers: {} };
+            cities[f.city].count++;
+            if (f.proposer_key && PROTOCOL_FINDINGS.proposers[f.proposer_key]) {
+                const p = PROTOCOL_FINDINGS.proposers[f.proposer_key];
+                if (!cities[f.city].proposers[f.proposer_key]) cities[f.city].proposers[f.proposer_key] = { name: p.name, count: 0 };
+                cities[f.city].proposers[f.proposer_key].count++;
+                if (!pStats[f.proposer_key]) pStats[f.proposer_key] = { ...p, count: 0, key: f.proposer_key };
+                pStats[f.proposer_key].count++;
+            }
+        });
+        const order = ['HERZLIYA','HAIFA','GIVATAYIM','RAANANA','HOD_HASHARON'];
+        const rows = order.map(k => {
+            const c = cities[k]; if (!c) return '';
+            const pList = Object.values(c.proposers).map(p => p.name + (p.count > 1 ? ' (' + p.count + ')' : '')).join(', ') || '—';
+            return '<tr><td style="padding:4px 10px">' + c.name + '</td><td style="padding:4px 10px;text-align:center">' + c.count + '</td><td style="padding:4px 10px;font-size:0.85em">' + pList + '</td></tr>';
+        }).join('');
+        const tableHtml = '<table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:0.9em">' +
+            '<thead><tr style="background:#f0f0f0;text-align:right"><th style="padding:5px 10px;border-bottom:2px solid #ddd">עיר</th><th style="padding:5px 10px;border-bottom:2px solid #ddd;text-align:center">החלטות</th><th style="padding:5px 10px;border-bottom:2px solid #ddd">יוזמים</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody></table>';
+        const pSorted = Object.values(pStats).sort((a,b) => b.count - a.count);
+        const proposerHtml = pSorted.map(p =>
+            '<a href="research/proposer_' + p.key + '.html" target="_blank" style="color:#1a1a2e;text-decoration:none;border-bottom:1px dashed #999">' + p.name + '</a> (' + p.city_he + ', ' + p.count + ')'
+        ).join(' · ');
+        return { tableHtml, proposerHtml, pCount: pSorted.length };
+    })();
+
+    const app = document.getElementById('app');
     app.innerHTML = `
     <!-- Hero: Concrete Example First -->
     <div class="ministry-hero">
@@ -429,8 +461,12 @@ function renderMainGrid() {
 
         <h3 style="margin:20px 0 8px;font-size:1.1em;color:#1a1a2e">היקף — מה נמצא</h3>
         <p>
-            537 פרוטוקולי מועצות עיר. 23 החלטות מועצה מאומתות ב-5 ערים. ~8 אנשים מופיעים בכולן.
+            537 פרוטוקולי מועצות עיר נסרקו. 23 החלטות מועצה מאומתות ב-5 ערים.
             6,064 תוכניות חינוך (<a href="https://apps.education.gov.il/gefen" target="_blank" style="color:#cc0000">קטלוג גפ"ן</a>) נבדקו מול 37 ארגונים.
+        </p>
+        ${_bd.tableHtml}
+        <p style="font-size:0.85em;color:#555;margin-top:4px">
+            ${_bd.pCount || 10} יוזמים מזוהים בשם: ${_bd.proposerHtml}
         </p>
         <p>
             <strong>צינור מימון מתועד:</strong>

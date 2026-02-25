@@ -16,6 +16,7 @@ const PROTOCOL_FINDINGS = {
     // ═══ HAIFA (5 findings) ═══
     {
       id: "haifa-1",
+      proposer_key: "lazimi",
       city: "HAIFA",
       city_he: "חיפה",
       index: 359,
@@ -33,6 +34,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "haifa-2",
+      proposer_key: null,
       city: "HAIFA",
       city_he: "חיפה",
       index: 727,
@@ -49,6 +51,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "haifa-3",
+      proposer_key: null,
       city: "HAIFA",
       city_he: "חיפה",
       index: 812,
@@ -65,6 +68,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "haifa-4",
+      proposer_key: null,
       city: "HAIFA",
       city_he: "חיפה",
       index: 606,
@@ -81,6 +85,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "haifa-5",
+      proposer_key: null,
       city: "HAIFA",
       city_he: "חיפה",
       index: 590,
@@ -99,6 +104,7 @@ const PROTOCOL_FINDINGS = {
     // ═══ HERZLIYA (7 findings) ═══
     {
       id: "herzliya-1",
+      proposer_key: "padlon",
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 195,
@@ -116,6 +122,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "herzliya-2",
+      proposer_key: null,
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 194,
@@ -133,6 +140,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "herzliya-3",
+      proposer_key: "oren_yanai",
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 252,
@@ -150,6 +158,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "herzliya-4",
+      proposer_key: "fabian",
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 327,
@@ -167,6 +176,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "herzliya-5",
+      proposer_key: "padlon",
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 236,
@@ -184,6 +194,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "herzliya-6",
+      proposer_key: null,
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 32,
@@ -200,6 +211,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "herzliya-7",
+      proposer_key: null,
       city: "HERZLIYA",
       city_he: "הרצליה",
       index: 17,
@@ -218,6 +230,7 @@ const PROTOCOL_FINDINGS = {
     // ═══ GIVATAYIM (5 findings) ═══
     {
       id: "givatayim-1",
+      proposer_key: "kaplan",
       city: "GIVATAYIM",
       city_he: "גבעתיים",
       index: 169,
@@ -235,6 +248,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "givatayim-2",
+      proposer_key: "wolfson",
       city: "GIVATAYIM",
       city_he: "גבעתיים",
       index: 492,
@@ -252,6 +266,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "givatayim-3",
+      proposer_key: "kaplan",
       city: "GIVATAYIM",
       city_he: "גבעתיים",
       index: 210,
@@ -269,6 +284,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "givatayim-4",
+      proposer_key: "koren",
       city: "GIVATAYIM",
       city_he: "גבעתיים",
       index: 31,
@@ -286,6 +302,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "givatayim-5",
+      proposer_key: "kaplan",
       city: "GIVATAYIM",
       city_he: "גבעתיים",
       index: 267,
@@ -305,6 +322,7 @@ const PROTOCOL_FINDINGS = {
     // ═══ RAANANA (5 findings) ═══
     {
       id: "raanana-1",
+      proposer_key: "meir",
       city: "RAANANA",
       city_he: "רעננה",
       index: 131,
@@ -322,6 +340,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "raanana-2",
+      proposer_key: "meir",
       city: "RAANANA",
       city_he: "רעננה",
       index: 231,
@@ -339,6 +358,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "raanana-3",
+      proposer_key: "meir",
       city: "RAANANA",
       city_he: "רעננה",
       index: 656,
@@ -356,6 +376,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "raanana-4",
+      proposer_key: "weintraub",
       city: "RAANANA",
       city_he: "רעננה",
       index: 767,
@@ -373,6 +394,7 @@ const PROTOCOL_FINDINGS = {
     },
     {
       id: "raanana-5",
+      proposer_key: "ayash",
       city: "RAANANA",
       city_he: "רעננה",
       index: 765,
@@ -392,6 +414,7 @@ const PROTOCOL_FINDINGS = {
     // ═══ HOD HASHARON (1 finding) ═══
     {
       id: "hodhasharon-1",
+      proposer_key: null,
       city: "HOD_HASHARON",
       city_he: "הוד השרון",
       index: 671,
@@ -407,4 +430,17 @@ const PROTOCOL_FINDINGS = {
       source_url: "https://www.hod-hasharon.muni.il/protocols/"
     }
   ]
+,
+  proposers: {
+    lazimi: { name: "נעמה לזימי", city: "HAIFA", city_he: "חיפה", role: "חברת מועצת העירייה" },
+    padlon: { name: "משה פדלון", city: "HERZLIYA", city_he: "הרצליה", role: "ראש העיר" },
+    oren_yanai: { name: "דנה אורן ינאי", city: "HERZLIYA", city_he: "הרצליה", role: "חברת מועצה" },
+    fabian: { name: "פביאן", city: "HERZLIYA", city_he: "הרצליה", role: "חבר מועצה" },
+    kaplan: { name: "רונאן קפלן", city: "GIVATAYIM", city_he: "גבעתיים", role: "חבר מועצה" },
+    wolfson: { name: "ויוי וולפסון", city: "GIVATAYIM", city_he: "גבעתיים", role: "חברת מועצה" },
+    koren: { name: "ניר קורן", city: "GIVATAYIM", city_he: "גבעתיים", role: "חבר מועצה" },
+    meir: { name: "מירב מאיר", city: "RAANANA", city_he: "רעננה", role: "חברת מועצה, מרצ רעננה" },
+    weintraub: { name: "רונית וינטראוב", city: "RAANANA", city_he: "רעננה", role: "חברת מועצה" },
+    ayash: { name: "לורן עייאש", city: "RAANANA", city_he: "רעננה", role: "חברת מועצה" }
+  }
 };

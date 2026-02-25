@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אונסק"ו ומערכת החינוך בישראל — מיפוי מוסדי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+}
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #333; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+
+/* ── Blockquote ── */
+blockquote {
+    border-right: 3px solid #ddd; padding: 10px 16px; margin: 14px 0;
+    background: #f9f9f9; font-style: italic; color: #444; font-size: 0.92em; line-height: 1.7;
+}
+blockquote .source { font-style: normal; color: #888; font-size: 0.82em; margin-top: 6px; }
+blockquote .source a { color: #888; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; margin: 16px 0; }
+.timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 18px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -24px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: #cc0000; border: 2px solid #fff;
+}
+.tl-year { font-weight: 700; color: #cc0000; font-size: 0.88em; }
+.tl-text { font-size: 0.88em; color: #444; margin-top: 2px; }
+.tl-text a { color: #1565c0; }
+
+/* ── Ring map ── */
+.ring-map { margin: 20px 0; }
+.ring-layer {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+    border-right: 4px solid #ccc;
+}
+.ring-layer.core { border-right-color: #cc0000; }
+.ring-layer.ring1 { border-right-color: #e65100; }
+.ring-layer.ring2 { border-right-color: #f9a825; }
+.ring-layer.ring3 { border-right-color: #558b2f; }
+.ring-label { font-weight: 700; font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+.ring-items { font-size: 0.88em; color: #555; }
+.ring-items ul { padding-right: 20px; margin: 4px 0; }
+.ring-items li { margin-bottom: 4px; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #f0f0f5; color: #333; padding: 8px 12px; text-align: right; border-bottom: 2px solid #ddd; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+
+/* ── Onion layers ── */
+.onion-chain { margin: 16px 0; }
+.onion-layer {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; margin-bottom: 6px;
+    border-radius: 6px; font-size: 0.9em;
+}
+.onion-num {
+    width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.82em; color: #fff; flex-shrink: 0;
+}
+.onion-name { font-weight: 600; }
+.onion-desc { color: #666; font-size: 0.88em; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Footer ── */
+footer {
+    background: #fff; color: #888; padding: 20px;
+    text-align: center; font-size: 0.82em; border-top: 1px solid #eee;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>אונסק"ו ומערכת החינוך בישראל</span>
+            <a href="../index_v2.html">← דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('pipeline')">צנרת השפעה</button>
+            <button class="nav-tab" onclick="navigate('pedagogy')">שרשרת פדגוגית</button>
+            <button class="nav-tab" onclick="navigate('chairs')">קתדרות וממשקים</button>
+            <button class="nav-tab" onclick="navigate('tolerance')">תקנת הסובלנות</button>
+            <button class="nav-tab" onclick="navigate('sources')">מקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>אונסק"ו ומערכת החינוך בישראל</h1>
+    <div class="subtitle">מיפוי ממשקים מוסדיים לאחר הפרישה הרשמית (2018)</div>
+    <div class="meta">ישראל פרשה מאונסק"ו ב-31.12.2018 | הממשקים המוסדיים ממשיכים לפעול</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>עובדות יסוד</h2>
+
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">פרישת ישראל</div>
+                    <div class="value">2018</div>
+                    <div class="note">בהודעת שר החינוך נפתלי בנט</div>
+                </div>
+                <div class="metric">
+                    <div class="label">קתדרות אונסק"ו בישראל</div>
+                    <div class="value">8+</div>
+                    <div class="note">באוניברסיטאות ומכללות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">הוועד הישראלי לאונסק"ו</div>
+                    <div class="value">פעיל</div>
+                    <div class="note">שר החינוך כנשיא, מנכ"ל כיו"ר</div>
+                </div>
+            </div>
+
+            <p>
+                ב-31 בדצמבר 2018, ישראל הפסיקה את חברותה הרשמית באונסק"ו. הסיבה המיידית: סדרת החלטות מ-2016 שהתייחסו להר הבית במונחים אסלאמיים בלבד, ללא אזכור הקשר היהודי.
+            </p>
+            <p>
+                למרות הפרישה, הוועד הישראלי לאונסק"ו ממשיך לפעול תחת משרד החינוך. שר החינוך משמש כנשיא הוועד, מנכ"ל המשרד כיו"ר. קתדרות אונסק"ו באוניברסיטאות ומכללות ממשיכות לפעול. תוכניות המבוססות על מסגרות אונסק"ו (SDG4, יעד-משנה 4.7) מיושמות בבתי ספר.
+            </p>
+            <p class="src">
+                מקורות: <a href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">אונסקו בישראל — משרד החינוך (PDF)</a> |
+                <a href="https://en.wikipedia.org/wiki/Israel_and_UNESCO" target="_blank">Israel and UNESCO — Wikipedia</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>החלטות אונסק"ו בנושא הר הבית (2016)</h2>
+            <p>
+                אונסק"ו אישרה החלטות שהתייחסו להר הבית במונחים אסלאמיים בלבד ("אל-חרם אל-שריף"), ללא אזכור המושגים "הר הבית" או "Temple Mount". ההחלטות התקבלו ברוב קולות המדינות החברות.
+            </p>
+            <p>
+                ממשלת ישראל הגדירה את ההחלטות כהכחשת הקשר ההיסטורי בין עם ישראל להר הבית.
+                הפרישה הרשמית אושרה ב-2017 ונכנסה לתוקף ב-31.12.2018.
+            </p>
+            <p class="src">
+                <a href="https://unesdoc.unesco.org/ark:/48223/pf0000245694" target="_blank">UNESCO Executive Board Decision 200 EX/25 (2016)</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>אג'נדה 2030 ומשרד החינוך</h2>
+            <p>
+                מדינת ישראל אימצה בספטמבר 2015 את אג'נדה 2030 לפיתוח בר-קיימא של האו"ם, כולל 17 יעדי הפיתוח (SDGs). אונסק"ו מוביל את יעד SDG4 (חינוך), ובפרט יעד-משנה 4.7: חינוך לפיתוח בר-קיימא, זכויות אדם, שוויון מגדרי ואזרחות גלובלית.
+            </p>
+            <p>
+                משרד החינוך מפעיל את תוכנית ISDG: תלמידי ז'-י"ב מפתחים מיזמים המקדמים יעדי SDGs. ביולי 2023 פרסם המשרד הודעה רשמית ובה דברי שר החינוך יואב קיש: "תלמידי ישראל פורצים גבולות ומפתחים יוזמות יוצאות דופן."
+            </p>
+            <p>
+                מסגרות אונסק"ו ליעד 4.7 — Incheon Framework ו-ESD for 2030 — אינן מחייבות משפטית. הן מספקות שפה, יעדים וכלי מדידה למדינות. היישום תלוי בגורמים המקומיים.
+            </p>
+            <p class="src">
+                <a href="https://www.gov.il" target="_blank">gov.il — אג'נדה 2030</a> |
+                <a href="https://apps.education.gov.il" target="_blank">פורטל עובדי הוראה — ISDG</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: PIPELINE ═══════ -->
+    <div id="view-pipeline" class="view">
+
+        <div class="section">
+            <h2>מודל "מערכת השמש" — מבנה השפעה</h2>
+            <p>
+                חוקרי הקומינטרן תיארו את שיטת "מערכת השמש" של וילי מינצנברג: ליבה ארגונית שסביבה מעגלי ארגוני-חזית וארגוני-ביניים המקרינים השפעה לתחומים ייעודיים.
+            </p>
+            <blockquote>
+                "מטווין מייחס למינצברג את המצאת השיטה של 'מערכת השמש'. במרכז, השמש הגדולה אך החבויה, המפלגה או הארגון הקומוניסטי; ומסביבה מערכת שלמה של ארגונים שמופעלים על ידי קומוניסטים ברמות שונות של החלטיות והשפעה"
+                <div class="source">— אמנון לורד, "רצח בין ידידים"</div>
+            </blockquote>
+            <p>
+                המסמך הנבחן מציע הקבלה חינוכית-עכשווית לדגם זה:
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>צנרת ההשפעה — ארבע טבעות</h2>
+
+            <div class="ring-map">
+                <div class="ring-layer core">
+                    <div class="ring-label">ליבה: שפה גלובלית ומסגרות-אם</div>
+                    <div class="ring-items">
+                        <ul>
+                            <li>Agenda 2030, יעד SDG4 (ובפרט 4.7)</li>
+                            <li>חינוך לפיתוח בר-קיימא (ESD)</li>
+                            <li>אזרחות גלובלית (GCED)</li>
+                            <li>מסגרות יישום: Incheon Framework, ESD for 2030</li>
+                        </ul>
+                        <p style="font-size:0.85em;color:#666;margin-top:6px">אינה "פקודה משפטית" אלא אקו-סיסטם של שפה, מטרות, תוצרים ומדדים. מדינות מאמצות חלקים, מתרגמות לסילבוסים וקולות-קוראים.</p>
+                    </div>
+                </div>
+
+                <div class="ring-layer ring1">
+                    <div class="ring-label">טבעת I: זרועות אונסק"ו בישראל</div>
+                    <div class="ring-items">
+                        <ul>
+                            <li>רשת UNITWIN/UNESCO Chairs — 8+ קתדרות באקדמיה ישראלית</li>
+                            <li>רשת בתי-הספר ASPnet — זיקה היסטורית, כיום מוגבלת</li>
+                            <li>מרכזי ידע, מורשת, ערים לומדות</li>
+                        </ul>
+                        <p style="font-size:0.85em;color:#666;margin-top:6px">תרגום הליבה לשדות הוראה ומחקר. הפקת תוכן (מאמרים, קורסים, הנחיות), אירועים (כנסים, וובינרים), ושלוחות קהילה-אקדמיה.</p>
+                    </div>
+                </div>
+
+                <div class="ring-layer ring2">
+                    <div class="ring-label">טבעת II: מתווכים מקומיים</div>
+                    <div class="ring-items">
+                        <ul>
+                            <li>משרד החינוך — אגף קשרי חוץ, המזכירות הפדגוגית, שפ"י</li>
+                            <li>הוועד הישראלי לאונסק"ו — שר החינוך כנשיא, מנכ"ל כיו"ר</li>
+                            <li>מטה אזרחות וחיים משותפים</li>
+                            <li>עמותות וזרועות יישום</li>
+                        </ul>
+                        <p style="font-size:0.85em;color:#666;margin-top:6px">ממירה שפה גלובלית לנהלים, חוזרי מנכ"ל, קולות-קוראים ותיקי תוכניות.</p>
+                    </div>
+                </div>
+
+                <div class="ring-layer ring3">
+                    <div class="ring-label">טבעת III: נקודות קצה — היכן הפדגוגיה פוגשת כיתה</div>
+                    <div class="ring-items">
+                        <ul>
+                            <li>מכללות להכשרת מורים — קורסים ברוח GCED/ESD</li>
+                            <li>בתי-ספר: תוכנית ISDG, "כישורי חיים", שבועות סובלנות</li>
+                            <li>מנגנוני תקצוב — קולות-קוראים עם קריטריונים ערכיים כתנאי למימון</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מנגנוני העברה</h2>
+            <table>
+                <tr><th>ערוץ</th><th>דוגמאות</th></tr>
+                <tr><td>פדגוגי</td><td>קורסים, סילבוסים, תוכניות התפתחות מקצועית למורים</td></tr>
+                <tr><td>ארגוני</td><td>קולות-קוראים, חוברות הנחיה, טפסי הערכה, קריטריוני אישור ומימון</td></tr>
+                <tr><td>ציבורי-מדעי</td><td>כנסים, ניירות עמדה מטעם קתדרות אונסק"ו, הפצת מטריקות</td></tr>
+                <tr><td>הישגים</td><td>פרסים, תחרויות, פרויקטי תלמידים, הצהרות רשמיות</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: PEDAGOGY ═══════ -->
+    <div id="view-pedagogy" class="view">
+
+        <div class="section">
+            <h2>שרשרת שמות: מפדגוגיה מאואיסטית ל"חשיבה ביקורתית"</h2>
+            <p>
+                המסמך הנבחן מתעד שרשרת של שינויי מותג לאותה שיטה פדגוגית. כל שלב מרחיק את השם מהמשמעות המקורית:
+            </p>
+
+            <div class="onion-chain">
+                <div class="onion-layer" style="background:#fef2f2">
+                    <div class="onion-num" style="background:#cc0000">1</div>
+                    <div>
+                        <div class="onion-name">פדגוגיה מאואיסטית</div>
+                        <div class="onion-desc">מקור: שיטות האינדוקטרינציה של מאו דזה-דונג. קמפיין נגד "ארבעת הדברים הישנים" — תרבות, רעיונות, הרגלים, מנהגים.</div>
+                    </div>
+                </div>
+                <div class="onion-layer" style="background:#fff5f5">
+                    <div class="onion-num" style="background:#e65100">2</div>
+                    <div>
+                        <div class="onion-name">פדגוגיה רדיקלית</div>
+                        <div class="onion-desc">פאולו פריירה (ברזיל). התבסס במפורש על מאו. ייבא את השיטה לעולם המערבי.</div>
+                    </div>
+                </div>
+                <div class="onion-layer" style="background:#fff8f0">
+                    <div class="onion-num" style="background:#f9a825">3</div>
+                    <div>
+                        <div class="onion-name">פדגוגיה ביקורתית</div>
+                        <div class="onion-desc">הנרי ג'ירו (צפון אמריקה). שינוי שם מכוון — "רדיקלית" לא תפסה אצל מורים.</div>
+                    </div>
+                </div>
+                <div class="onion-layer" style="background:#f5f5ff">
+                    <div class="onion-num" style="background:#1565c0">4</div>
+                    <div>
+                        <div class="onion-name">פדגוגיה אקטיביסטית</div>
+                        <div class="onion-desc">קרן קטקו-איילי (ישראל, 2020). "להעלות בשר על העצמות" של הפדגוגיה הביקורתית.</div>
+                    </div>
+                </div>
+                <div class="onion-layer" style="background:#f0f8f0">
+                    <div class="onion-num" style="background:#558b2f">5</div>
+                    <div>
+                        <div class="onion-name">"חשיבה ביקורתית"</div>
+                        <div class="onion-desc">הגרסה המעומעמת ביותר. בשימוש זה, אינה חשיבה עצמאית מבוססת ראיות אלא ניסוח אחר לגישה אנטגוניסטית כלפי החברה הקיימת.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ג'ירו על שינוי השם</h2>
+            <blockquote>
+                "אני חושב שזה באמת התחיל בשיחות עם פאולו, כי דחינו את העיקרון של 'פדגוגיה רדיקלית'. הנקודה שלו הייתה שככל שהמונח הזה חשוב, היה בו משהו בלעדי מדי, שלא אפשר לרוב המורים להזדהות איתו. חשבנו ש'ביקורתי' יהיה מונח שייתן את הגמישות הפוליטית."
+                <div class="source">— הנרי ג'ירו, ראיון</div>
+            </blockquote>
+            <p>
+                ג'ירו מתאר את הבחירה ב"ביקורתית" על פני "רדיקלית" כהחלטה שיווקית מודעת. השיטה לא השתנתה — השם השתנה.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>ג'ירו על עמימות אסטרטגית</h2>
+            <blockquote>
+                "על מנת שכוח באמת ירגיש מאוים, עליו לחוש באופן כלשהו בנוכחותו של כוח אחר — או, ליתר דיוק, אנרגיה — שאותו הוא אינו מצליח להגדיר ולכן אינו יודע כיצד לשלוט בו."
+                <div class="source">— הנרי ג'ירו, מאמר</div>
+            </blockquote>
+            <blockquote>
+                "תראו, יש לי קצת מזה במחלקה שלי. אנשים שם נוטים להאמין שמוסר פוליטי נחשב כמידה טובה. בעצם זהו רק הנעה מתוך בושה. ואני תוהה איך מרחיבים את השיח הזה? איך מזמינים אנשים, מפתים אתכם, משתמשים בכוח שלכם ומקריבים אתכם לצד הדרך?"
+                <div class="source">— הנרי ג'ירו, הרצאה</div>
+            </blockquote>
+        </div>
+
+        <div class="section">
+            <h2>מחקר REACT — שלבי התפתחות החינוך</h2>
+            <p>
+                מחקר "חינוך פוליטי בעת משבר לאומי — המשגה מחודשת ומודל יישומי REACT" מומן על ידי לשכת המדען הראשי של משרד החינוך.
+                משתתפים: ניר מיכאלי, קרן קטקו-איילי, אדר כהן.
+            </p>
+            <blockquote>
+                "ממערכת בעלת אופי אידיאולוגי־ציוני מובהק (Ichilov, 2013), דרך תקופה ארוכה של גישה ממלכתית־פורמלית שנמנעה מעיסוק במחלוקות פוליטיות (מיכאלי, 2014), ועד הכרה עכשווית בחשיבות טיפוח החשיבה הביקורתית והמעורבות האזרחית הפעילה."
+                <div class="source">
+                    — מחקר REACT,
+                    <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">דוח מלא (PDF)</a>
+                </div>
+            </blockquote>
+            <p>שלושת השלבים המתוארים:</p>
+            <table>
+                <tr><th>שלב</th><th>תיאור במחקר</th><th>תיאור במונחי המסמך הנבחן</th></tr>
+                <tr><td>1</td><td>חינוך ציוני</td><td>חינוך ציוני</td></tr>
+                <tr><td>2</td><td>גישה ממלכתית-פורמלית (ניטרלית)</td><td>תקופת ביניים ניטרלית</td></tr>
+                <tr><td>3</td><td>חשיבה ביקורתית ואזרחות פעילה</td><td>פדגוגיה ביקורתית (ראו שרשרת שמות למעלה)</td></tr>
+            </table>
+            <p>
+                כותבי המחקר פרסמו אותו מודל פדגוגי לשני קהלים שונים:
+            </p>
+            <table>
+                <tr><th></th><th>2020 (קהל אקדמי)</th><th>2024 (קהל ממשלתי)</th></tr>
+                <tr><td>שם</td><td>"פדגוגיה אקטיביסטית"</td><td>"REACT / SPEL"</td></tr>
+                <tr><td>שפה</td><td>המורה כסוכן פוליטי, שינוי חברתי</td><td>חשיבה ביקורתית, מנחה ניטרלי</td></tr>
+                <tr><td>מימון</td><td>ACRI (עמותת זכויות האזרח)</td><td>לשכת המדען הראשי, משרד החינוך</td></tr>
+            </table>
+            <p class="src">
+                2020: <a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">Katko-Ayali, Practical Five-Level Model for Activist Pedagogy</a> |
+                2024: <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">REACT report</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>ניר מיכאלי — ציטוטים ממקור ראשון</h2>
+            <p>ניר מיכאלי כיהן כיו"ר המזכירות הפדגוגית במשרד החינוך, רקטור במכללת אורנים, ראש קבוצת מחקר "חינוך פוליטי" בסמינר הקיבוצים.</p>
+
+            <blockquote>
+                "דווקא פה אני כן רוצה לנצל את העובדה שפוליטיקה נחשבת נכבה. אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה."
+                <div class="source">— הרצאה בבית הספר קדמה, <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">YouTube דקה 55:00</a></div>
+            </blockquote>
+            <blockquote>
+                "כל פעם שדברים על ביג דאטה, קופצת לי הטראומה של פרסום נתוני המיצ"ב, נתוני המיצ"ב ומה שהוא מעולל ומחולל למערכת, וכל מאגר מידע שנמצא איפשהו סופו, בסופו ובסוף להתגלגל לידי הציבור, ואנחנו צריכים להיות מאוד מאוד זהירים באיזה מידע אנחנו אוספים ואיזה מידע אנחנו לא אוספים."
+                <div class="source">— ערוץ משרד החינוך, <a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&t=145" target="_blank">YouTube דקה 02:25</a></div>
+            </blockquote>
+            <blockquote>
+                "שתיהן, מסלילות את כלל האוכלוסייה למה שהפילוסוף הרברט מרקוזה קרא לו, חד-ממדיות מחשבתית."
+                <div class="source">— הרצאה בבית הספר קדמה</div>
+            </blockquote>
+            <blockquote>
+                "עכשיו פתאום באים אלינו ואומרים לנו, רגע, אתם גם צריכים, ממש מהפכה, לפתח חשיבה ביקורתית... רגע, יש פה מהפכה תודעתית!"
+                <div class="source">— ערוץ משרד החינוך</div>
+            </blockquote>
+        </div>
+
+        <div class="section">
+            <h2>קרן קטקו-איילי — הגדרת אקטיביזם</h2>
+            <blockquote>
+                "מקצה הציר של האזרחות הפעילה-אקטיבית נפתח ציר נוסף — ספקטרום האקטיביזם, המתייחס לפעילויות המאתגרות וחותרות תחת הסדר הקיים. האקטיביזם קשור לשינוי המציאות — כלומר, לפעולות המתרחשות בהקשר חברתי, ציבורי ופוליטי מול כוחות דיכוי."
+                <div class="source">— קטקו-איילי, 2020, Practical Five-Level Model for Activist Pedagogy</div>
+            </blockquote>
+            <p>"אזרחות פעילה" מוגדרת כהכנה לשלב הבא: "אקטיביזם" כנגד "כוחות דיכוי". זו לא השתתפות אזרחית — זה מודל לשינוי מבני.</p>
+        </div>
+
+        <div class="section">
+            <h2>מקרה בוחן: בית הספר ליד"ה, ירושלים</h2>
+            <p>
+                תוכנית "עתודה הומניסטית" בבית הספר ליד"ה בירושלים, שנת הלימודים תשפ"ה. בית ספר עם מבחן קבלה ותלמידים ברמה אקדמית גבוהה.
+            </p>
+            <p>
+                בשיעור ספרות, תלמידים קיבלו תרגיל להשוות בין שני שירים על כפרים רוסיים. כשתלמיד שאל מדוע נבחרו דווקא שירים אלו, מורה הודה: למידה אמיתית מערערת זהות, יוצרת משבר, ותחושות מצוקה הן עדות להצלחת התהליך.
+            </p>
+            <p>
+                מורה אחרת הקדישה דקות ארוכות להסביר לכיתה מדוע שאלותיו של התלמיד היו "מסוכנות ופוגעניות" — הפרה של ה"מרחב הבטוח". באותה שיחה אמרה לו: "התפיסות [הציוניות] של אבא שלך לא רלוונטיות כי הוא לא עבר תהליך."
+            </p>
+            <p>
+                מנהלת בית הספר הבינה את הבעייתיות אך לא טיפלה. ציון הבגרות בספרות הותנה בהשתתפות בסדנה על המאמר "רק ציפורי מסע יודעות: על הגירה ופליטות בשירה".
+            </p>
+            <p class="src">
+                <a href="https://ntdtv.co.il/israel/10522" target="_blank">ntdtv.co.il — אונסק"ו כנחש גנוסטי (אוגוסט 2025)</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>אונסק"ו ופדגוגיה ביקורתית</h2>
+            <p>
+                במאמר "Knowledge-driven actions: Transforming higher education", אונסק"ו מזכירה במפורש את הרברט מרקוזה — ניאו-מרקסיסט דומיננטי של אמצע המאה העשרים — כמי שחזונו רלוונטי לעתיד ההשכלה הגבוהה.
+            </p>
+            <p>
+                פרופ' נמרוד אלוני, יו"ר קתדרת אונסק"ו בסמינר הקיבוצים, פועל בצמוד ל"מרכז לפדגוגיה ביקורתית" באותה מכללה. על ג'ירו כתב:
+            </p>
+            <blockquote>
+                "הנרי ג'ירו הוא אכן מניפולטור פרוגרסיבי ופוסטמודרני שאין לו גרם של רספקט לביסוס רציונלי של אמת וצדק."
+                <div class="source">— פרופ' נמרוד אלוני, תפוצת חוקרי חינוך (1992)</div>
+            </blockquote>
+            <p>אלוני מתבסס רבות על ג'ירו בעבודתו האקדמית.</p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CHAIRS ═══════ -->
+    <div id="view-chairs" class="view">
+
+        <div class="section">
+            <h2>קתדרות אונסק"ו באקדמיה הישראלית</h2>
+            <p>
+                תוכנית UNITWIN/UNESCO Chairs מפעילה קתדרות מחקר באוניברסיטאות ומכללות ברחבי העולם. בישראל פועלות מספר קתדרות, גם לאחר הפרישה הרשמית:
+            </p>
+            <table>
+                <tr><th>מוסד</th><th>תחום הקתדרה</th><th>רלוונטיות ל-SDG4/4.7</th></tr>
+                <tr><td>סמינר הקיבוצים</td><td>חינוך הומניסטי</td><td>גבוהה — צמוד למרכז לפדגוגיה ביקורתית. יו"ר: פרופ' נמרוד אלוני</td></tr>
+                <tr><td>בר-אילן</td><td>סובלנות ושלום (Tolerance & Peace)</td><td>גבוהה — תואם ישירות יעד 4.7</td></tr>
+                <tr><td>בית-ברל</td><td>הכשרת מורים רב-תרבותית</td><td>גבוהה — הכשרת מורים ברוח GCED</td></tr>
+                <tr><td>אוניברסיטת תל-אביב</td><td>מורשת מודרנית (Modern Heritage)</td><td>בינונית</td></tr>
+                <tr><td>בצלאל</td><td>נוף עירוני היסטורי (HUL)</td><td>בינונית — מסמכי HUL הופכים לסילבוסים ומדיניות עירונית</td></tr>
+                <tr><td>טכניון</td><td>הנדסה בת-קיימא לקהילות</td><td>בינונית</td></tr>
+                <tr><td>בן-גוריון</td><td>יחסי צמח-מים</td><td>נמוכה</td></tr>
+            </table>
+            <p class="src">
+                <a href="https://www.unesco.org/en/unitwin" target="_blank">UNESCO UNITWIN/Chairs Programme</a> |
+                <a href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">אונסקו בישראל — משרד החינוך</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>הוועד הישראלי לאונסק"ו</h2>
+            <p>
+                הגוף הייעוצי למשרד החינוך בתחום אונסק"ו. שר החינוך משמש כנשיא הוועד (ex officio). מנכ"ל משרד החינוך משמש כיו"ר. הוועד כולל נציגי משרדי ממשלה וגופים ציבוריים/אקדמיים.
+            </p>
+            <p>
+                הוועדה הלאומית הישראלית רשומה בדפי אונסק"ו תחת משרד החינוך. היא פועלת כזרוע הייעוץ המקצועית של המשרד בנושאי אונסק"ו.
+            </p>
+            <p class="src">
+                <a href="https://he.wikipedia.org/wiki/%D7%94%D7%95%D7%95%D7%A2%D7%93_%D7%94%D7%99%D7%A9%D7%A8%D7%90%D7%9C%D7%99_%D7%9C%D7%90%D7%95%D7%A0%D7%A1%D7%A7%22%D7%95" target="_blank">ויקיפדיה</a> |
+                <a href="https://www.unesco.org" target="_blank">unesco.org — National Commissions</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>תוכנית ISDG</h2>
+            <p>
+                תלמידי ז'-י"ב מפתחים מיזמים המקדמים יעדי SDGs. התוכנית מתועדת ב"מרחב הפדגוגי" של משרד החינוך ובחוזר מנכ"ל ייעודי. מדדי הערכה כוללים "עמדה" ו"פעולה" לצד ידע — העדפת מדדים עמדתיים על פני קוגניטיביים.
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: TOLERANCE ═══════ -->
+    <div id="view-tolerance" class="view">
+
+        <div class="section">
+            <h2>תקנת הסובלנות 20-46-03-11</h2>
+            <p>
+                ישראל אימצה את תקנת הסובלנות ב-2016. התקנה מאפשרת לארגוני חברה אזרחית להעביר סדנאות והכשרות בבתי-ספר, תחת מטריית תקציבית של "חינוך לסובלנות".
+            </p>
+
+            <h3>ציר זמן: אונסק"ו וחינוך לסובלנות</h3>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-year">1974</div>
+                    <div class="tl-text">אונסק"ו מאמץ את ההמלצה הגלובלית הראשונה: Recommendation concerning education for international understanding, co-operation and peace</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1995</div>
+                    <div class="tl-text">הצהרת עקרונות הסובלנות (Declaration of Principles on Tolerance). סעיף 4: "חינוך הוא האמצעי היעיל ביותר למניעת אי-סובלנות"</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">1996</div>
+                    <div class="tl-text">יום הסובלנות הבין-לאומי (16 בנובמבר), החלטת העצרת הכללית 51/95</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2006</div>
+                    <div class="tl-text">UNESCO Guidelines on Intercultural Education — עקרונות מדיניות לקידום סובלנות במערכות חינוך</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2015</div>
+                    <div class="tl-text">GCED: Topics and Learning Objectives — יעדי חינוך לאזרחות גלובלית כולל סובלנות</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2016</div>
+                    <div class="tl-text"><strong>ישראל מאמצת את תקנת הסובלנות 20-46-03-11</strong></div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2020–2030</div>
+                    <div class="tl-text">ESD for 2030 — שילוב ערכי שלום, אחריות גלובלית וסובלנות</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2023</div>
+                    <div class="tl-text">כל 194 המדינות מאמצות את Recommendation on Education for Peace, Human Rights and Sustainable Development</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מפעילי התקנה בתוך משרד החינוך</h2>
+            <table>
+                <tr><th>גוף</th><th>תפקיד</th></tr>
+                <tr><td>שפ"י — אגף תכניות סיוע ומניעה</td><td>הגוף המקצועי המוביל. ניהול קולות-קוראים ותקציבים</td></tr>
+                <tr><td>היחידה למיניות ומניעת פגיעה</td><td>תוכן ופיקוח מקצועי</td></tr>
+                <tr><td>מפקחים מחוזיים</td><td>אישור פעילויות ברמת המחוז</td></tr>
+                <tr><td>מטה אזרחות וחיים משותפים</td><td>תוכניות "מסובלנות למניעת גזענות", "שבוע הסובלנות"</td></tr>
+                <tr><td>ועדת הקצבות ארצית</td><td>אישור סופי של תקצוב</td></tr>
+            </table>
+            <p>
+                הפעילויות ממומנות "כחלק מתוכנית כישורי חיים". התקצוב מותנה באישור המפקח על הייעוץ החינוכי במחוז או המדריך המחוזי ביחידה למיניות ומניעת פגיעה.
+            </p>
+            <p class="src">
+                מקור: מסמכי קריטריונים של משרד החינוך, קול קורא 16501 (תשפ"ד) |
+                פרוטוקולי ועדות כנסת
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: SOURCES ═══════ -->
+    <div id="view-sources" class="view">
+
+        <div class="section">
+            <h2>מקורות ומסמכים</h2>
+
+            <h3>מסמך מקור</h3>
+            <p>"מה עושה אונסק"ו בפס הייצור הציוני?" — חדירה ועריכה נוזקתית של קוד ההפעלה התרבותי והמדעי של העם היושב בציון</p>
+
+            <h3>מסמכי אונסק"ו</h3>
+            <ul style="padding-right:20px;font-size:0.9em;color:#444">
+                <li><a href="https://unesdoc.unesco.org" target="_blank">UNESCO Digital Library</a> — מסמכי מדיניות חינוכית</li>
+                <li>Incheon Declaration / Framework for Action (SDG4)</li>
+                <li>ESD for 2030 — Education for Sustainable Development</li>
+                <li>Global Citizenship Education: Topics and Learning Objectives (2015)</li>
+                <li>Declaration of Principles on Tolerance (1995)</li>
+                <li>Recommendation on Education for Peace (2023 update)</li>
+                <li>Knowledge-driven actions: Transforming higher education</li>
+            </ul>
+
+            <h3>מסמכי משרד החינוך</h3>
+            <ul style="padding-right:20px;font-size:0.9em;color:#444">
+                <li><a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">דוח REACT — חינוך פוליטי בעת משבר לאומי</a></li>
+                <li><a href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">אונסקו בישראל — משרד החינוך</a></li>
+                <li>קול קורא 16501 — תקנת הסובלנות (תשפ"ד)</li>
+                <li>חוזר מנכ"ל — תוכנית ISDG</li>
+            </ul>
+
+            <h3>מאמרים אקדמיים</h3>
+            <ul style="padding-right:20px;font-size:0.9em;color:#444">
+                <li>Katko-Ayali (2020): Practical Five-Level Model for Activist Pedagogy and Promoting Active Citizenship</li>
+                <li>Cohen, A. (2022): Dissonance as an Educational Tool for Coping with Students' Racist Attitudes — <span style="color:#888">ממומן ע"י ACRI</span></li>
+                <li>Aloni, N.: Ecohumanism, democratic culture and activist pedagogy</li>
+                <li>Bailey, A. (2017): Tracking Privilege-Preserving Epistemic Pushback — Hypatia</li>
+            </ul>
+
+            <h3>סרטונים</h3>
+            <ul style="padding-right:20px;font-size:0.9em;color:#444">
+                <li><a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">מיכאלי — הרצאה בבית הספר קדמה</a></li>
+                <li><a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&t=145" target="_blank">מיכאלי — ערוץ משרד החינוך (ביג דאטה)</a></li>
+            </ul>
+
+            <h3>כותבי מחקר REACT</h3>
+            <table>
+                <tr><th>שם</th><th>תפקידים</th></tr>
+                <tr><td>ניר מיכאלי</td><td>יו"ר המזכירות הפדגוגית (לשעבר), רקטור מכללת אורנים, ראש קבוצת מחקר "חינוך פוליטי" — סמינר הקיבוצים</td></tr>
+                <tr><td>קרן קטקו-איילי</td><td>מייסדת קהילת מורים אקטיביסטיים, סגל מכללה אקדמית לחינוך, חלוצת "פדגוגיה אקטיביסטית" בישראל</td></tr>
+                <tr><td>אדר כהן</td><td>מנהל אקדמי מחלקת הוראה — האוניברסיטה העברית, מפקח לשעבר על לימודי אזרחות — משרד החינוך</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>
+    אונסק"ו ומערכת החינוך בישראל — מיפוי מוסדי | עדכון אחרון: פברואר 2026<br>
+    <a href="../index_v2.html">← דירוג חתרנות מוסדית</a> |
+    <a href="../">דף ראשי</a>
+</footer>
+
+<script>
+function navigate(tab) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const view = document.getElementById('view-' + tab);
+    if (view) {
+        view.classList.add('active');
+        const tabs = document.querySelectorAll('.nav-tab');
+        const tabNames = ['overview','pipeline','pedagogy','chairs','tolerance','sources'];
+        const idx = tabNames.indexOf(tab);
+        if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+    }
+    window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

@@ -458,28 +458,56 @@ function renderMainGrid() {
 
     const app = document.getElementById('app');
     app.innerHTML = `
-    <!-- Hero: Concrete Example First -->
+    <!-- Hero -->
     <div class="ministry-hero">
-        <h2>דוגמה אחת. שאר הממצאים למטה.</h2>
+        <h2>רקע ברמת המדינה. ממצאים ברמת הרשות.</h2>
+
+        <h3 style="margin:16px 0 8px;font-size:1.05em">מיכאלי וקטקו-איילי — שני מסמכים, אותו מודל</h3>
         <p>
-            תוכנית בשם <strong>"בטיחות ברשת"</strong> פועלת ב-<a href="research/safeschool_dashboard.html" target="_blank" style="color:#cc0000">1,200+ בתי ספר</a>.
-            מאחורי חומת תשלום, סרטון מלמד תלמידים חמש זהויות מגדריות:
-            סיסג'נדר, טרנסג'נדר, בי-ג'נדר, פאן-ג'נדר, אי-ג'נדר.
-            בדירקטוריון יושבים <a href="research/safeschool_dashboard.html#board" target="_blank" style="color:#cc0000">4 בכירים לשעבר ממשרד החינוך</a>, כולל מנכ"ל לשעבר כיו"ר ומשקיע מרכזי.
-            הדירוג האוטומטי של התוכנית: 1/10 (מינימלי) — כי האלגוריתם לא רואה תוכן מאחורי paywall.
+            ד"ר ניר מיכאלי וקרן קטקו-איילי פרסמו ב-2024
+            <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank" style="color:#cc0000">דוח מחקר במימון לשכת המדען הראשי של משרד החינוך</a>:
+            "חינוך פוליטי בעת משבר לאומי". הדוח מציע מודל REACT ומסגרת
+            <a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank" style="color:#cc0000">SPEL</a>
+            — "למידה חברתית-פוליטית-רגשית" — הרחבה של SEL עם ממד פוליטי מפורש.
+        </p>
+        <p>
+            אותה חוקרת. אותו מודל פדגוגי. שני מסמכים:<br>
+            <strong>2020</strong> (קהל אקדמי): "<a href="research/safeschool_evidence.html" target="_blank" style="color:#cc0000">פדגוגיה אקטיביסטית</a>" — הוראה שמטרתה שינוי חברתי. המורה כסוכן פוליטי.<br>
+            <strong>2024</strong> (קהל ממשלתי): "חשיבה ביקורתית" — פיתוח כישורי חשיבה. מורה כמנחה ניטרלי.<br>
+            קטקו-איילי מגדירה "אזרחות פעילה" כמודל שמטרתו שינוי מבני של החברה — לא השתתפות אזרחית רגילה.
+            <a href="research/kibbutzim_pedagogy_dashboard.html" target="_blank" style="color:#cc0000">ניתוח מלא →</a>
         </p>
 
-        <blockquote style="border-right:3px solid #888;padding:8px 16px;margin:16px 0;color:#444;font-style:italic;background:#f5f5f5">
+        <blockquote style="border-right:3px solid #ddd;padding:8px 16px;margin:16px 0;color:#444;font-style:italic;background:#f9f9f9">
             "אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן הפיכה קומוניסטית בכיתה
             ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד
             והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה"
-            <div style="font-style:normal;color:#666;margin-top:6px;font-size:0.85em">— ד"ר ניר מיכאלי, <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&amp;t=3300" target="_blank" style="color:#666">הרצאה בבית ספר קדמה, דקה 55:00</a> (<a href="research/hameorer_dashboard.html" target="_blank" style="color:#666">ניתוח מלא</a>).
-            מרצה בכיר במכללת דוד ילין. לשעבר ראש המזכירות הפדגוגית של התנועה הקיבוצית.
-            שותף <a href="research/kibbutzim_pedagogy_dashboard.html" target="_blank" style="color:#666">לדוח מדען הראשי של משרד החינוך (2024)</a> עם ד"ר קרן קטקו-איילי.</div>
+            <div style="font-style:normal;color:#666;margin-top:6px;font-size:0.85em">— ד"ר ניר מיכאלי, <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&amp;t=3300" target="_blank" style="color:#888">הרצאה בבית ספר קדמה, דקה 55:00</a></div>
         </blockquote>
 
-        <h3 style="margin:20px 0 8px;font-size:1.1em;color:#1a1a2e">היקף — מה נמצא</h3>
+        <blockquote style="border-right:3px solid #ddd;padding:8px 16px;margin:8px 0;color:#444;font-style:italic;background:#f9f9f9">
+            "כל פעם שדברים על ביג דאטה, קופצת לי הטראומה של פרסום נתוני המיצ"ב...
+            ואנחנו צריכים להיות מאוד מאוד זהירים באיזה מידע אנחנו אוספים ואיזה מידע אנחנו לא אוספים"
+            <div style="font-style:normal;color:#666;margin-top:6px;font-size:0.85em">— ד"ר ניר מיכאלי, <a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&amp;t=145" target="_blank" style="color:#888">ערוץ משרד החינוך, דקה 02:25</a></div>
+        </blockquote>
+
+        <p style="font-size:0.9em;color:#555;margin-top:12px">
+            שתי האמירות יחד: בכיתה אפשר לעשות מה שרוצים, והורים לא ידעו. חשיפת נתונים היא "טראומה".
+            הסתרת מידע מהורים אינה תקלה — אלא חלק מהשיטה.
+            הרקע הזה קיים ברמת המדינה, דה-פקטו, ללא קשר לזהות הממשלה.
+        </p>
+
+        <h3 style="margin:20px 0 8px;font-size:1.05em">SafeSchool — דוגמה בקנה מידה ארצי</h3>
         <p>
+            תוכנית <a href="research/safeschool_dashboard.html" target="_blank" style="color:#cc0000">"בטיחות ברשת" (SafeSchool)</a> פועלת ב-1,200+ בתי ספר.
+            מאחורי חומת תשלום, סרטון מלמד תלמידים חמש זהויות מגדריות.
+            בדירקטוריון יושבים <a href="research/safeschool_dashboard.html#board" target="_blank" style="color:#cc0000">4 בכירים לשעבר ממשרד החינוך</a>, כולל מנכ"ל לשעבר כיו"ר ומשקיע.
+            <a href="research/safeschool_evidence.html" target="_blank" style="color:#cc0000">ניתוח ראיות מלא →</a>
+        </p>
+
+        <h3 style="margin:20px 0 8px;font-size:1.05em">מה נמצא ברשויות המקומיות</h3>
+        <p>
+            מדד זה בוחן את התהליכים ברמת הרשויות — תחת הרקע המדינתי שתואר למעלה.
             537 פרוטוקולי מועצות עיר נסרקו. 23 החלטות מועצה מאומתות ב-5 ערים.
             6,064 תוכניות חינוך (<a href="https://apps.education.gov.il/gefen" target="_blank" style="color:#cc0000">קטלוג גפ"ן</a>) נבדקו מול 37 ארגונים.
         </p>
@@ -488,27 +516,12 @@ function renderMainGrid() {
             ${_bd.pCount || 10} יוזמים מזוהים בשם: ${_bd.proposerHtml}
         </p>
         <p>
-            <strong>צינור מימון מתועד:</strong>
+            <strong>צינור מימון:</strong>
             <a href="https://projects.propublica.org/nonprofits/organizations/205884201" target="_blank" style="color:#cc0000">Schusterman ($1M)</a> + Wexner + Gates ($2M) →
-            <a href="research/casel_dashboard.html" target="_blank" style="color:#cc0000">CASEL ($12M הכנסות/שנה)</a> →
-            <a href="research/avney_rosha_dashboard.html" target="_blank" style="color:#cc0000">אבני ראשה (3,000+ מנהלים, 40%)</a> →
+            <a href="research/casel_dashboard.html" target="_blank" style="color:#cc0000">CASEL ($12M/שנה)</a> →
+            <a href="research/avney_rosha_dashboard.html" target="_blank" style="color:#cc0000">אבני ראשה (3,000+ מנהלים)</a> →
             חוזרי מנכ"ל (<a href="https://cms.education.gov.il/EducationCMS/Applications/Mankal/" target="_blank" style="color:#cc0000">2015, 2018, 2021</a>) → כיתות.
-            המונח SEL אינו מופיע בחוזרי המנכ"ל. התכנים מוטמעים תחת "כישורי חיים" ו"אקלים חינוכי מיטבי".
-            <a href="https://aosshalem-dev.github.io/sel-research/" target="_blank" style="color:#cc0000">7 מדינות בארה"ב הגבילו תוכניות SEL בחקיקה</a>. בישראל אין דיון ציבורי בנושא.
-        </p>
-
-        <h3 style="margin:20px 0 8px;font-size:1.1em;color:#1a1a2e">שני דפוסים חוזרים</h3>
-        <p>
-            <strong>דפוס 1 — החלפת שפה:</strong> המונח "קידום מעמד האישה" הוחלף ב"שוויון מגדרי" בפרוטוקולים.
-            הראשון מתאר ערך ליברלי. השני מתייחס למסגרת תיאורטית (<a href="https://en.wikipedia.org/wiki/Gender_Trouble" target="_blank" style="color:#cc0000">באטלר, 1990</a>) שמטרתה המוצהרת היא פירוק קטגוריות.
-            ההחלפה מתועדת ונמדדת.
-            <a href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank" style="color:#cc0000">מילון מלא →</a>
-        </p>
-        <p>
-            <strong>דפוס 2 — מבנה ארגוני:</strong> ארגונים נפרדים משפטית, מתואמים בפועל.
-            <a href="research/dror_israel_dashboard.html" target="_blank" style="color:#cc0000">רשת דרור ישראל</a>: 6 ישויות משפטיות, הנהגה אחת, <a href="https://next.obudget.org" target="_blank" style="color:#cc0000">230M ₪/שנה תקציב ממשלתי</a>.
-            רשת חינוך מיני/מגדרי: <a href="research/maga_betiaum_dashboard.html" target="_blank" style="color:#cc0000">9 ישויות, 136 בתי ספר, 15 ערים</a>.
-            <a href="research/munzenberg_municipal.html" target="_blank" style="color:#cc0000">ניתוח מבני מלא →</a>
+            <a href="https://aosshalem-dev.github.io/sel-research/" target="_blank" style="color:#cc0000">7 מדינות בארה"ב הגבילו תוכניות SEL</a>. בישראל אין דיון ציבורי.
         </p>
     </div>
 

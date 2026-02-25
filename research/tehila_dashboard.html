@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תהילה — חינוך וקהילה להט"בית | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .nav-inner { flex-direction: column; gap: 0; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 380px;
+    height: 300px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Flow diagram -- */
+.flow-diagram {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin: 24px 0; flex-wrap: wrap;
+}
+.flow-node {
+    background: #fff; border: 2px solid #667eea; border-radius: 8px;
+    padding: 12px 18px; text-align: center; font-size: 0.88em;
+    font-weight: 600; color: #1a1a2e; min-width: 120px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.flow-node.org { border-color: #e74c3c; background: #fff5f5; }
+.flow-node.dept { border-color: #f39c12; background: #fff8f0; }
+.flow-node.target { border-color: #27ae60; background: #f0fdf4; }
+.flow-node.blocked { border-color: #ccc; background: #f5f5f5; color: #999; }
+.flow-arrow {
+    font-size: 1.5em; color: #667eea; padding: 0 8px;
+    display: flex; align-items: center;
+}
+.flow-arrow.red { color: #e74c3c; }
+.flow-arrow.blocked { color: #ccc; text-decoration: line-through; }
+
+/* -- City cards -- */
+.city-card {
+    background: #fff; border-radius: 8px; padding: 16px;
+    border-right: 4px solid #f39c12;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-bottom: 14px;
+}
+.city-card .city-name {
+    font-weight: 700; font-size: 1.05em; color: #1a1a2e; margin-bottom: 4px;
+}
+.city-card .city-dept {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.78em; font-weight: 600; margin-bottom: 8px;
+}
+.city-card .city-dept.health { background: #fef2f2; color: #dc2626; }
+.city-card .city-dept.community { background: #fff7ed; color: #ea580c; }
+.city-card .city-dept.pride { background: #faf5ff; color: #9333ea; }
+.city-card .city-detail { font-size: 0.85em; color: #555; }
+
+/* -- Comparison table -- */
+.compare-table { margin: 16px 0; }
+.compare-table td:first-child { font-weight: 600; white-space: nowrap; }
+.compare-row-good { background: #f0fdf4; }
+.compare-row-bad { background: #fff5f5; }
+
+/* -- Coalition list -- */
+.coalition-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px; margin: 14px 0;
+}
+.coalition-item {
+    background: #f8f9fa; padding: 8px 12px; border-radius: 6px;
+    font-size: 0.85em; border: 1px solid #e8e8e8;
+    display: flex; align-items: center; gap: 6px;
+}
+.coalition-item .c-num {
+    background: #667eea; color: #fff; width: 22px; height: 22px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.7em; font-weight: 700; flex-shrink: 0;
+}
+.coalition-item.self { border-color: #e74c3c; background: #fff5f5; font-weight: 600; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; margin-left: 6px;
+}
+.badge.red { background: #fef2f2; color: #dc2626; }
+.badge.orange { background: #fff7ed; color: #ea580c; }
+.badge.blue { background: #eff6ff; color: #2563eb; }
+.badge.gray { background: #f3f4f6; color: #6b7280; }
+
+/* -- Timeline -- */
+.timeline { position: relative; padding-right: 24px; margin: 16px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; padding: 12px 24px 12px 0; }
+.tl-item::before {
+    content: ''; position: absolute; right: -16px; top: 18px;
+    width: 12px; height: 12px; background: #667eea; border-radius: 50%;
+    border: 2px solid #fff; box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.alert::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-date { font-size: 0.78em; color: #ff8800; font-weight: 600; }
+.tl-title { font-weight: 700; color: #1a1a2e; }
+.tl-desc { font-size: 0.85em; color: #555; }
+
+/* -- Parent question cards -- */
+.parent-q {
+    background: #fff; border-radius: 8px; padding: 16px;
+    margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #ff8800;
+    cursor: pointer; transition: all 0.2s;
+}
+.parent-q:hover { border-right-color: #e74c3c; background: #fff8f0; }
+.parent-q .pq-num {
+    display: inline-block; background: #ff8800; color: #fff;
+    width: 26px; height: 26px; border-radius: 50%;
+    text-align: center; line-height: 26px; font-size: 0.82em;
+    font-weight: 700; margin-left: 8px;
+}
+.parent-q .pq-title { font-weight: 700; color: #1a1a2e; display: inline; }
+.parent-q .pq-detail {
+    font-size: 0.85em; color: #555; margin-top: 8px;
+    display: none; padding-top: 8px; border-top: 1px solid #f0f0f0;
+}
+.parent-q.open .pq-detail { display: block; }
+
+/* -- Checklist -- */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+    padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9em; display: flex; gap: 8px; align-items: flex-start;
+}
+.checklist li::before {
+    content: '\25A1'; color: #e74c3c; font-size: 1.1em;
+    flex-shrink: 0; margin-top: 2px;
+}
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>תהילה</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('mechanism')">מנגנון</button>
+            <button class="nav-tab" onclick="navigate('evidence')">ראיות</button>
+            <button class="nav-tab" onclick="navigate('parents')">הורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>תהילה &mdash; חינוך וקהילה להט"בית</h1>
+    <div class="subtitle">TEHILA &mdash; LGBTQ Education &amp; Community | ע"ר 580665985 | נרשמה: 20.07.2021</div>
+    <div class="meta">הכנסות 2022: 1,440,361 &#8362; | 71.5% תרומות | מנכ"לית: עו"ד הילה פאר (מנכ"לית לשעבר, האגודה למען הלהט"ב) | נכנסת לבתי ספר דרך אגפי בריאות וקהילה</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB 1: OVERVIEW (סקירה) ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>"תהילה &mdash; חינוך וקהילה להט"בית" היא עמותה שנרשמה ביולי 2021 ומצהירה על פעילות חינוכית להט"בית במוסדות חינוך ברחבי הארץ. הארגון נכנס לבתי ספר <strong>דרך אגפי בריאות וקהילה ברשויות מקומיות</strong> &mdash; לא דרך אגפי חינוך ולא דרך משרד החינוך. המנכ"לית, עו"ד הילה פאר, היתה מנכ"לית האגודה למען הלהט"ב בישראל. הארגון חבר בקואליציה שהגישה דוח לוועדת זכויות הילד של האו"ם.</p>
+
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">שנת הקמה</div>
+                    <div class="value">2021</div>
+                    <div class="note">עמותה חדשה מאוד &mdash; התרחבות מהירה</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">ערוץ כניסה לבתי ספר</div>
+                    <div class="value">בריאות / קהילה</div>
+                    <div class="note">לא דרך אגפי חינוך או משרד החינוך</div>
+                </div>
+                <div class="metric">
+                    <div class="label">הכנסות 2022</div>
+                    <div class="value">1.44M &#8362;</div>
+                    <div class="note">תרומות 71.5% | שירותים 20.2% | ממשלתי 8.3%</div>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="metric warn">
+                    <div class="label">מנכ"לית</div>
+                    <div class="value">הילה פאר</div>
+                    <div class="note">מנכ"לית לשעבר &mdash; האגודה למען הלהט"ב</div>
+                </div>
+                <div class="metric">
+                    <div class="label">יו"ר</div>
+                    <div class="value">ד"ר יאיר קורן</div>
+                    <div class="note">פסיכולוג קליני &mdash; מומחה לילדים ונוער</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">קואליציית OHCHR</div>
+                    <div class="value">15 ארגונים</div>
+                    <div class="note">דוח לוועדת זכויות הילד &mdash; אוגוסט 2022</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מנגנון הכניסה לבתי ספר</h2>
+            <p style="font-size:0.85em;color:#666;margin-bottom:16px">תרשים: איך תהילה נכנסת לבתי ספר &mdash; עוקפת את אגף החינוך ואת מנגנוני האישור של משרד החינוך</p>
+
+            <div class="flow-diagram">
+                <div class="flow-node org">תהילה</div>
+                <div class="flow-arrow red">&larr;</div>
+                <div class="flow-node dept">אגף בריאות / קהילה</div>
+                <div class="flow-arrow red">&larr;</div>
+                <div class="flow-node target">בית ספר</div>
+            </div>
+
+            <div class="flow-diagram" style="margin-top:8px;opacity:0.5">
+                <div class="flow-node blocked">ארגון חיצוני</div>
+                <div class="flow-arrow blocked">&larr; X &larr;</div>
+                <div class="flow-node blocked">אגף חינוך / משרד החינוך</div>
+                <div class="flow-arrow blocked">&larr; X &larr;</div>
+                <div class="flow-node blocked">בית ספר</div>
+            </div>
+            <p style="text-align:center;font-size:0.78em;color:#999;margin-top:4px">המסלול התקין (למעלה) מול מסלול תהילה (למטה) &mdash; עקיפת הביקורת הפדגוגית</p>
+
+            <div class="warning-box">
+                <strong>למה זה חשוב:</strong> תוכניות חינוך חיצוניות נדרשות בדרך כלל לאישור משרד החינוך ולביקורת פדגוגית. כניסה דרך אגפי בריאות/קהילה עוקפת את כל המנגנון הזה &mdash; אין ביקורת על תוכן הסדנאות, אין אישור פדגוגי, ואין שקיפות להורים.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פילוח הכנסות 2022</h3>
+                    <div class="chart-wrap">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים מרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#9888;</div>
+                        <div>
+                            <h4>כניסה דרך אגפי בריאות &mdash; לא חינוך</h4>
+                            <p>בהרצליה נכנסת דרך אגף הבריאות, בתל אביב וחיפה דרך אגף קהילה ונוער, בבאר שבע דרך מרכז הגאווה. אף אחד מהם אינו אגף חינוך.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128100;</div>
+                        <div>
+                            <h4>מנכ"לית מהאגודה למען הלהט"ב</h4>
+                            <p>עו"ד הילה פאר &mdash; מנכ"לית לשעבר של האגודה למען הלהט"ב בישראל. תואר ראשון במשפטים, תואר שני במגדר.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127758;</div>
+                        <div>
+                            <h4>קואליציית OHCHR &mdash; 15 ארגונים</h4>
+                            <p>הגישה דוח לוועדת זכויות הילד של האו"ם (אוגוסט 2022). דורשת איסור טיפולי המרה, חינוך להט"ב מחייב, הכרה במגדר קטינים טרנסג'נדרים.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128274;</div>
+                        <div>
+                            <h4>חומרי סדנאות לא זמינים להורים</h4>
+                            <p>תוכני הסדנאות לא זמינים לציבור באתר העמותה. לא נמצא מידע על זמינותם להורים.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cross links -->
+        <div class="section">
+            <h2>ארגונים קשורים</h2>
+            <a href="choshen_dashboard.html" class="link-card">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">חוש"ן &mdash; חינוך ושינוי</div>
+                    <div class="lc-desc">חבר באותה קואליציית OHCHR. פועל בתחום החינוך להט"בי דרך מנגנוני משרד החינוך.</div>
+                </div>
+            </a>
+            <a href="sei_network_dashboard.html" class="link-card">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">רשת SEI</div>
+                    <div class="lc-desc">רשת ארגונים בתחום חינוך מיני ומגדרי. חפיפה בתחומי פעילות ואנשי מפתח.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ======= TAB 2: MECHANISM (מנגנון) ======= -->
+    <div id="view-mechanism" class="view">
+
+        <div class="section">
+            <h2>מנגנון העקיפה: אגף בריאות במקום חינוך</h2>
+            <p>הממצא המרכזי: "תהילה" נכנסת לבתי ספר דרך אגפים שאינם אגפי חינוך ברשויות המקומיות. זהו מנגנון שעוקף את הביקורת הפדגוגית של משרד החינוך &mdash; המנגנון שנועד לוודא שתוכניות חיצוניות עומדות בסטנדרטים חינוכיים.</p>
+
+            <div class="info-box">
+                <strong>כיצד תוכנית חינוך חיצונית אמורה להיכנס לבית ספר:</strong>
+                <ol style="margin:8px 20px 0;font-size:0.9em;color:#555">
+                    <li>אישור משרד החינוך &mdash; ביקורת פדגוגית של התכנים</li>
+                    <li>אישור אגף החינוך ברשות המקומית</li>
+                    <li>אישור מנהל בית הספר</li>
+                    <li>שקיפות מלאה כלפי הורים</li>
+                </ol>
+            </div>
+
+            <div class="warning-box" style="margin-top:16px">
+                <strong>מה קורה בפועל עם תהילה:</strong>
+                <ol style="margin:8px 20px 0;font-size:0.9em">
+                    <li>הארגון פונה לאגף בריאות / קהילה ונוער &mdash; <strong>לא לאגף חינוך</strong></li>
+                    <li>האגף מתאם מול בית הספר &mdash; <strong>ללא ביקורת פדגוגית</strong></li>
+                    <li>הסדנאות מתקיימות &mdash; <strong>ללא אישור משרד החינוך</strong></li>
+                    <li>חומרי הלימוד <strong>לא זמינים להורים</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פריסה עירונית &mdash; ערוצי כניסה</h2>
+            <p style="font-size:0.85em;color:#666;margin-bottom:16px">בכל עיר, תהילה נכנסת דרך אגף שונה &mdash; אך אף אחד מהם אינו אגף חינוך</p>
+
+            <div class="city-card">
+                <div class="city-name">הרצליה</div>
+                <div class="city-dept health">אגף הבריאות</div>
+                <div class="city-detail">
+                    פועלת בשיתוף עיריית הרצליה &mdash; אגף הבריאות. מופיעה באתר העמותה ובפרוטוקולי ועדות עירוניות. זהו הערוץ החריג ביותר: אגף בריאות שמכניס תוכניות חינוכיות לבתי ספר.
+                </div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-name">תל אביב-יפו</div>
+                <div class="city-dept community">אגף קהילה ונוער</div>
+                <div class="city-detail">
+                    פועלת בשיתוף עיריית תל אביב &mdash; אגף קהילה ונוער. אגף שעוסק בפעילות קהילתית, לא בתוכניות לימוד פורמליות.
+                </div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-name">חיפה</div>
+                <div class="city-dept community">אגף קהילה ונוער</div>
+                <div class="city-detail">
+                    פועלת בשיתוף עיריית חיפה &mdash; אגף קהילה ונוער. חיפה היא מהערים עם התשתית המוניציפלית המפותחת ביותר לתוכניות מגדריות (ראה דשבורד מינצנברג).
+                </div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-name">באר שבע</div>
+                <div class="city-dept pride">מרכז הגאווה העירוני</div>
+                <div class="city-detail">
+                    פועלת בשיתוף מרכז הגאווה העירוני. מרכז גאווה הוא מוסד אדוקציה, לא מוסד חינוכי &mdash; כניסה לבתי ספר דרכו היא עקיפה מובהקת.
+                </div>
+            </div>
+
+            <div class="city-card">
+                <div class="city-name">ירושלים</div>
+                <div class="city-dept pride">הבית הפתוח</div>
+                <div class="city-detail">
+                    פועלת בשיתוף "הבית הפתוח בירושלים לגאווה ולסובלנות". ארגון חיצוני עצמאי &mdash; אינו מחלקה עירונית כלל.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>השוואה: מסלול רגיל מול מסלול תהילה</h2>
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>קריטריון</th>
+                        <th>תוכנית גפ"ן רגילה</th>
+                        <th>תהילה</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="compare-row-good">
+                        <td>אישור משרד החינוך</td>
+                        <td>נדרש &mdash; ביקורת פדגוגית</td>
+                        <td style="color:#cc0000;font-weight:700">לא נמצא תיעוד</td>
+                    </tr>
+                    <tr class="compare-row-good">
+                        <td>אגף מתאם ברשות</td>
+                        <td>אגף חינוך</td>
+                        <td style="color:#cc0000;font-weight:700">אגף בריאות / קהילה</td>
+                    </tr>
+                    <tr class="compare-row-good">
+                        <td>שקיפות תכנים</td>
+                        <td>תכנית פורסמת לציבור</td>
+                        <td style="color:#cc0000;font-weight:700">לא זמינים לציבור</td>
+                    </tr>
+                    <tr class="compare-row-good">
+                        <td>אישור הורים</td>
+                        <td>הורים מיודעים</td>
+                        <td style="color:#cc0000;font-weight:700">לא נמצא מנגנון</td>
+                    </tr>
+                    <tr class="compare-row-good">
+                        <td>פיקוח שוטף</td>
+                        <td>מפקחים ויועצים</td>
+                        <td style="color:#cc0000;font-weight:700">אין תיעוד לפיקוח</td>
+                    </tr>
+                    <tr>
+                        <td>התאמה לגילאים</td>
+                        <td>מוגדרת בתכנית הלימודים</td>
+                        <td>הצהרת התאמה באתר העמותה</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>למה אגף בריאות ולא חינוך?</h2>
+            <p>ניתוח המנגנון חושף הגיון מבני: אגפי בריאות וקהילה ברשויות מקומיות אינם כפופים למנגנוני האישור של משרד החינוך. כניסה דרכם מאפשרת:</p>
+            <div class="grid-3" style="margin-top:12px">
+                <div class="metric alert">
+                    <div class="label">עקיפת ביקורת פדגוגית</div>
+                    <div class="value" style="font-size:1.2em">אין אישור תכנים</div>
+                    <div class="note">משרד החינוך לא בתמונה</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">עקיפת התנגדות פוליטית</div>
+                    <div class="value" style="font-size:1.2em">מתחת לרדאר</div>
+                    <div class="note">אגפי בריאות פחות חשופים לביקורת ציבורית</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">הרחבה מהירה</div>
+                    <div class="value" style="font-size:1.2em">"מאות מוסדות"</div>
+                    <div class="note">הצהרת העמותה &mdash; ללא פירוט מספרי</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB 3: EVIDENCE (ראיות) ======= -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>קואליציית OHCHR &mdash; דוח לוועדת זכויות הילד</h2>
+            <p>באוגוסט 2022, "תהילה" הצטרפה ל-14 ארגונים נוספים בהגשת דוח משותף לוועדת זכויות הילד של האו"ם: <em>"Joint Submission to the UN Committee on the Rights of the Child &mdash; List of Issues Prior to Reporting for Israel"</em>.</p>
+
+            <div class="warning-box">
+                <strong>דרישות מרכזיות מהדוח:</strong>
+                <ul style="margin:6px 20px 0;font-size:0.9em">
+                    <li>איסור מוחלט על "טיפולי המרה"</li>
+                    <li>חינוך להט"ב מחייב בתוכניות הלימודים הרשמיות</li>
+                    <li>הכרה בזהות מגדרית של קטינים טרנסג'נדרים</li>
+                    <li>הגנה על זכויות ילדים במשפחות להט"ביות</li>
+                </ul>
+            </div>
+
+            <h3>הארגונים החתומים על הדוח <span class="badge red">15 ארגונים</span></h3>
+            <div class="coalition-grid">
+                <div class="coalition-item"><span class="c-num">1</span> האגודה למען הלהט"ב</div>
+                <div class="coalition-item"><span class="c-num">2</span> חוש"ן &mdash; חינוך ושינוי</div>
+                <div class="coalition-item self"><span class="c-num">3</span> תהילה</div>
+                <div class="coalition-item"><span class="c-num">4</span> איגי &mdash; ארגון נוער גאה</div>
+                <div class="coalition-item"><span class="c-num">5</span> מעברים (טרנסית)</div>
+                <div class="coalition-item"><span class="c-num">6</span> המרכז הרפורמי</div>
+                <div class="coalition-item"><span class="c-num">7</span> הבית הפתוח ירושלים</div>
+                <div class="coalition-item"><span class="c-num">8</span> בלה דואגת</div>
+                <div class="coalition-item"><span class="c-num">9</span> הפורום למשפחות גאות</div>
+                <div class="coalition-item"><span class="c-num">10</span> בת קול</div>
+                <div class="coalition-item"><span class="c-num">11</span> חברותא</div>
+                <div class="coalition-item"><span class="c-num">12</span> תהל"ה</div>
+                <div class="coalition-item"><span class="c-num">13</span> פרויקט גילה</div>
+                <div class="coalition-item"><span class="c-num">14</span> המרכז הגאה ת"א</div>
+                <div class="coalition-item"><span class="c-num">15</span> הקליניקה לזכויות אדם (TAU)</div>
+            </div>
+            <p style="font-size:0.82em;color:#888">מקור: אתר OHCHR ואתרי הארגונים החתומים, אוגוסט 2022</p>
+        </div>
+
+        <div class="section">
+            <h2>רקע מנכ"לית &mdash; עו"ד הילה פאר</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="timeline">
+                        <div class="tl-item">
+                            <div class="tl-date">לפני 2021</div>
+                            <div class="tl-title">מנכ"לית האגודה למען הלהט"ב בישראל</div>
+                            <div class="tl-desc">הארגון הגדול והוותיק ביותר לקידום זכויות להט"ב בישראל. הובילה את הארגון בתקופת הרחבת פעילות.</div>
+                        </div>
+                        <div class="tl-item">
+                            <div class="tl-date">השכלה</div>
+                            <div class="tl-title">תואר ראשון במשפטים + תואר שני במגדר</div>
+                            <div class="tl-desc">שילוב אקדמי של משפטים ומחקר מגדרי &mdash; פרופיל של סנגורת אידיאולוגית מקצועית.</div>
+                        </div>
+                        <div class="tl-item alert">
+                            <div class="tl-date">יולי 2021</div>
+                            <div class="tl-title">ייסוד "תהילה" &mdash; עמותה חדשה</div>
+                            <div class="tl-desc">הקמת ארגון חדש המתמקד בחינוך להט"בי דרך רשויות מקומיות. מעבר מסנגור ארצי לחדירה מוניציפלית.</div>
+                        </div>
+                        <div class="tl-item alert">
+                            <div class="tl-date">אוגוסט 2022</div>
+                            <div class="tl-title">קואליציית OHCHR</div>
+                            <div class="tl-desc">תהילה מצטרפת ל-14 ארגונים בדוח לוועדת זכויות הילד של האו"ם. דרישה לחינוך להט"ב מחייב.</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>צוות ניהולי</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>שם</th>
+                                <th>תפקיד</th>
+                                <th>רקע</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight">
+                                <td>עו"ד הילה פאר</td>
+                                <td>מנכ"לית</td>
+                                <td>מנכ"לית לשעבר, האגודה למען הלהט"ב</td>
+                            </tr>
+                            <tr>
+                                <td>ד"ר יאיר קורן</td>
+                                <td>יו"ר</td>
+                                <td>פסיכולוג קליני, מומחה לילדים ונוער</td>
+                            </tr>
+                            <tr>
+                                <td>דנה גל</td>
+                                <td>מנהלת תוכניות חינוך</td>
+                                <td>&mdash;</td>
+                            </tr>
+                            <tr>
+                                <td>אורטל גלעד</td>
+                                <td>מנהלת קהילה ומרכזים</td>
+                                <td>&mdash;</td>
+                            </tr>
+                            <tr>
+                                <td>אורטל בן יוסף</td>
+                                <td>מנהלת פיתוח משאבים</td>
+                                <td>&mdash;</td>
+                            </tr>
+                            <tr>
+                                <td>אורטל לוי</td>
+                                <td>מנהלת אדמיניסטרטיבית</td>
+                                <td>&mdash;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size:0.78em;color:#888">מקור: אתר עמותת תהילה, דף "צוות"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תוכן הסדנאות</h2>
+            <p>על פי אתר העמותה, הסדנאות עוסקות בנושאים הבאים:</p>
+
+            <div class="grid-3" style="margin-top:12px">
+                <div class="metric">
+                    <div class="label">נושא</div>
+                    <div class="value" style="font-size:1em">זהות מינית ומגדרית</div>
+                </div>
+                <div class="metric">
+                    <div class="label">נושא</div>
+                    <div class="value" style="font-size:1em">סטריאוטיפים ודעות קדומות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">נושא</div>
+                    <div class="value" style="font-size:1em">שפה מכילה</div>
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">נושא</div>
+                    <div class="value" style="font-size:1em">סובלנות וקבלת האחר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">נושא</div>
+                    <div class="value" style="font-size:1em">מניעת אלימות ובריונות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">נושא</div>
+                    <div class="value" style="font-size:1em">מרחבים בטוחים</div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top:16px">
+                <strong>מה לא ידוע:</strong>
+                <ul style="margin:6px 20px 0;font-size:0.9em">
+                    <li>חומרי הלימוד עצמם &mdash; <strong>לא זמינים לציבור</strong> באתר העמותה</li>
+                    <li>אופן ההתאמה לגילאים (גן עד תיכון) &mdash; <strong>לא מפורט</strong></li>
+                    <li>שיטת הערכה/מדידה של אפקטיביות &mdash; <strong>לא פורסמה</strong></li>
+                    <li>זמינות חומרים להורים &mdash; <strong>לא נמצא מידע</strong></li>
+                </ul>
+            </div>
+
+            <div class="quote-box">
+                "תהילה פועלת במאות מוסדות חינוך ברחבי הארץ"
+                <div class="q-source">מקור: אתר עמותת תהילה &mdash; ללא פירוט מספרי של בתי ספר או תלמידים</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>נתונים כספיים &mdash; 2022</h2>
+            <div class="grid-2">
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>מקור</th>
+                                <th>סכום (&#8362;)</th>
+                                <th>אחוז</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>תרומות מהציבור</td>
+                                <td>1,029,910</td>
+                                <td>71.5%</td>
+                            </tr>
+                            <tr>
+                                <td>הכנסות מפעילות (שירותים, סדנאות)</td>
+                                <td>291,000</td>
+                                <td>20.2%</td>
+                            </tr>
+                            <tr>
+                                <td>תמיכות ממשלתיות/עירוניות</td>
+                                <td>119,451</td>
+                                <td>8.3%</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>סה"כ</strong></td>
+                                <td><strong>1,440,361</strong></td>
+                                <td><strong>100%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size:0.78em;color:#888">מקור: דוח כספי, רשם העמותות (ע"ר 580665985), שנת 2022</p>
+                </div>
+                <div>
+                    <h3>מה לא נמצא</h3>
+                    <div class="info-box">
+                        <ul style="margin:0 20px;font-size:0.9em">
+                            <li><strong>NIF (קרן ישראל החדשה):</strong> תהילה אינה מופיעה ברשימת מקבלי המענקים</li>
+                            <li><strong>מימון מהאיחוד האירופי:</strong> לא נמצא בדוחות הכספיים או באתר</li>
+                            <li><strong>פירוט תורמים:</strong> הדוח הכספי אינו מפרט את זהות התורמים</li>
+                            <li><strong>פירוט רשויות:</strong> אינו מפרט אילו רשויות מימנו (מתוך ה-119K)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הצהרות מאתר העמותה &mdash; ציטוטים ישירים</h2>
+
+            <div class="quote-box">
+                סדנאות "מותאמות לגילאים שונים (גן, יסודי, חטיבה, תיכון) ועוסקות בנושאים כגון: זהות מינית ומגדרית, סטריאוטיפים ודעות קדומות, שפה מכילה, סובלנות וקבלת האחר, מניעת אלימות ובריונות על רקע להט"בי, ומרחבים בטוחים."
+                <div class="q-source">מקור: אתר עמותת תהילה, דף "תוכניות חינוך"</div>
+            </div>
+
+            <div class="quote-box">
+                מטרת הסדנאות: "להעלות מודעות, להפחית דעות קדומות וליצור סביבה מכילה ובטוחה לתלמידים להט"בים"
+                <div class="q-source">מקור: אתר עמותת תהילה, דף "אודותינו"</div>
+            </div>
+
+            <div class="quote-box">
+                הכשרות מקצועיות לצוותי הוראה: "להקנות להם כלים להתמודדות עם סוגיות להט"ב ולתמיכה בתלמידים להט"בים ובני משפחותיהם"
+                <div class="q-source">מקור: אתר עמותת תהילה</div>
+            </div>
+
+            <div class="quote-box">
+                פעילות הסברה: "לקידום מדיניות מכילה ותומכת בקהילה הלהט"בית" מול רשויות מקומיות ומשרדי ממשלה
+                <div class="q-source">מקור: אתר עמותת תהילה</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB 4: PARENTS (הורים) ======= -->
+    <div id="view-parents" class="view">
+
+        <div class="section">
+            <h2>מה ההורים לא יודעים</h2>
+            <p>אוסף הנקודות שאינן שקופות להורים שילדיהם משתתפים בסדנאות "תהילה" בבתי ספר:</p>
+
+            <div class="grid-2" style="margin-top:16px">
+                <div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">1</span>
+                        <span class="pq-title">הארגון לא נכנס דרך אגף החינוך</span>
+                        <div class="pq-detail">
+                            "תהילה" נכנסת לבתי ספר דרך אגפי בריאות וקהילה &mdash; לא דרך אגף החינוך ולא דרך משרד החינוך. זה אומר שלא בוצעה ביקורת פדגוגית על התכנים. בהרצליה זה דרך אגף הבריאות, בתל אביב וחיפה דרך אגף קהילה ונוער.
+                        </div>
+                    </div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">2</span>
+                        <span class="pq-title">המנכ"לית היתה מנכ"לית האגודה למען הלהט"ב</span>
+                        <div class="pq-detail">
+                            עו"ד הילה פאר, המנכ"לית, עברה ישירות מניהול האגודה למען הלהט"ב בישראל &mdash; ארגון סנגור פוליטי &mdash; להקמת "תהילה" שנכנסת לבתי ספר. זהו פרופיל של פעילות אידיאולוגית, לא של חינוך ניטרלי.
+                        </div>
+                    </div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">3</span>
+                        <span class="pq-title">תוכן הסדנאות לא זמין להורים</span>
+                        <div class="pq-detail">
+                            חומרי הלימוד המשמשים בסדנאות אינם זמינים לציבור באתר העמותה. לא נמצא מידע מפורש באתר לגבי זמינות חומרים להורים. ההורים מקבלים רק את הכותרות הכלליות ("סובלנות", "מניעת בריונות") &mdash; לא את התכנים בפועל.
+                        </div>
+                    </div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">4</span>
+                        <span class="pq-title">הארגון הוקם רק ב-2021</span>
+                        <div class="pq-detail">
+                            עמותה שנרשמה ביולי 2021 &mdash; חדשה מאוד. תוך שנה כבר הצהירה על פעילות "במאות מוסדות חינוך". קצב התרחבות חריג שמעלה שאלות על עומק ההתאמה הפדגוגית.
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">5</span>
+                        <span class="pq-title">הארגון חלק מקואליציה בינלאומית</span>
+                        <div class="pq-detail">
+                            "תהילה" חברה בקואליציה של 15 ארגונים שהגישה דוח לוועדת זכויות הילד של האו"ם. הדוח דורש חינוך להט"ב מחייב בתוכניות לימודים, איסור "טיפולי המרה", והכרה בזהות מגדרית של קטינים.
+                        </div>
+                    </div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">6</span>
+                        <span class="pq-title">הסדנאות מתחילות מגיל גן</span>
+                        <div class="pq-detail">
+                            העמותה מצהירה על פעילות "מגן עד תיכון". זה כולל ילדים בגילאי 3-5 &mdash; גיל שבו ההורים מצפים לשלוט בחשיפה לתכנים בנושאי מיניות ומגדר, ושבו הילדים אינם מסוגלים לעבד תכנים מורכבים באופן ביקורתי.
+                        </div>
+                    </div>
+                    <div class="parent-q" onclick="this.classList.toggle('open')">
+                        <span class="pq-num">7</span>
+                        <span class="pq-title">71.5% מהתקציב מתרומות לא מפורטות</span>
+                        <div class="pq-detail">
+                            הדוח הכספי מראה שרוב התקציב (1,029,910 ש"ח) מגיע מ"תרומות מהציבור" &mdash; ללא פירוט זהות התורמים. אין שקיפות לגבי מי מממן את הפעילות בבתי הספר.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שאלות שכל הורה צריך לשאול</h2>
+            <ul class="checklist">
+                <li>האם אגף החינוך ברשות או משרד החינוך אישרו את התוכנית הזו?</li>
+                <li>אילו חומרי לימוד יוצגו לילדי? האם אוכל לקבל עותק מראש?</li>
+                <li>איזה אגף ברשות המקומית אישר את כניסת הארגון לבית הספר?</li>
+                <li>האם נעשתה ביקורת פדגוגית על התכנים בהתאמה לגיל?</li>
+                <li>מדוע הארגון נכנס דרך אגף הבריאות/קהילה ולא דרך אגף החינוך?</li>
+                <li>מהי ההכשרה המקצועית של מנחי הסדנאות? האם הם מורים מוסמכים?</li>
+                <li>האם יש לי זכות לבקש שילדי לא ישתתף?</li>
+                <li>האם ועד ההורים של בית הספר עודכן ואישר את הפעילות?</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>מה אפשר לעשות</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>ברמת בית הספר</h3>
+                    <ul class="checklist">
+                        <li>לדרוש ממנהל/ת בית הספר עותק של חומרי הלימוד לפני הסדנא</li>
+                        <li>לבקש פרוטוקול ועד הורים שבו אושרה הפעילות</li>
+                        <li>לדרוש שם הגורם המאשר ברשות המקומית + מסמך אישור</li>
+                        <li>להגיש דרישה בכתב לאפשרות סירוב (opt-out) לילדכם</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>ברמת הרשות המקומית</h3>
+                    <ul class="checklist">
+                        <li>לפנות לחבר/ת מועצה ולשאול מי אישר את כניסת הארגון</li>
+                        <li>לדרוש שהתוכנית תעבור דרך אגף החינוך &mdash; לא בריאות/קהילה</li>
+                        <li>לדרוש ביקורת פדגוגית מטעם משרד החינוך על התכנים</li>
+                        <li>להגיש בקשת חופש מידע על ההסכם בין הרשות לעמותה</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פניות רלוונטיות</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>גורם</th>
+                        <th>נושא הפנייה</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>מנהל/ת בית הספר</td>
+                        <td>דרישה לקבלת חומרים + אפשרות סירוב</td>
+                    </tr>
+                    <tr>
+                        <td>אגף חינוך ברשות המקומית</td>
+                        <td>בירור: האם אישרתם את התוכנית? מדוע נכנסת דרך אגף אחר?</td>
+                    </tr>
+                    <tr>
+                        <td>ראש הרשות / חבר/ת מועצה</td>
+                        <td>דרישה שכל תוכנית חיצונית תעבור ביקורת פדגוגית</td>
+                    </tr>
+                    <tr>
+                        <td>משרד החינוך &mdash; אגף שירות פסיכולוגי ייעוצי</td>
+                        <td>בירור: האם התוכנית מאושרת? מה הסטנדרט לאישור?</td>
+                    </tr>
+                    <tr>
+                        <td>נציב תלונות הציבור (רשות מקומית)</td>
+                        <td>תלונה על היעדר שקיפות ועקיפת מנגנוני אישור</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>דשבורד מחקר &mdash; תהילה (חינוך וקהילה להט"בית) | מקורות: רשם העמותות, אתר העמותה, OHCHR, דוחות כספיים</p>
+    <p style="margin-top:6px"><a href="choshen_dashboard.html">חוש"ן</a> | <a href="sei_network_dashboard.html">רשת SEI</a> | <a href="index.html">מאגר מחקר</a> | <a href="../index.html">דירוג ערים</a></p>
+</footer>
+
+<script>
+// -- Tab Navigation --
+function navigate(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + viewId).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// -- Revenue Doughnut Chart --
+const ctx = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['תרומות (71.5%)', 'שירותים/סדנאות (20.2%)', 'ממשלתי/עירוני (8.3%)'],
+        datasets: [{
+            data: [1029910, 291000, 119451],
+            backgroundColor: ['#667eea', '#ff8800', '#e74c3c'],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                rtl: true,
+                textDirection: 'rtl',
+                labels: {
+                    font: { family: 'Segoe UI', size: 12 },
+                    padding: 16,
+                    usePointStyle: true
+                }
+            },
+            tooltip: {
+                rtl: true,
+                textDirection: 'rtl',
+                callbacks: {
+                    label: function(context) {
+                        const val = context.parsed;
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const pct = ((val / total) * 100).toFixed(1);
+                        return context.label + ': ' + val.toLocaleString('he-IL') + ' \u20AA (' + pct + '%)';
+                    }
+                }
+            }
+        },
+        cutout: '55%'
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המרכז לחינוך קשוב ואכפתי — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זהות ארגונית</a> <a href="#section-2">מקורות מימון</a> <a href="#section-3">תוכן בפועל</a> <a href="#section-4">קשרים אידיאולוגיים</a> <a href="#section-5">ראיות — מחקר טרש 2017</a> <a href="#section-6">פריסה עירונית</a> <a href="#section-7">מסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>המרכז לחינוך קשוב ואכפתי</h1>
+  <div class="subtitle">תוכנית גפ"ן מס' 2444 — הזמנה לנתינה אכפתית</div>
+  <div class="meta">דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זהות ארגונית</a></li>
+<li><a href="#section-2">מקורות מימון</a></li>
+<li><a href="#section-3">תוכן בפועל — מיינדפולנס וחמלה</a></li>
+<li><a href="#section-4">קשרים אידיאולוגיים</a></li>
+<li><a href="#section-5">ראיות — מחקר טרש 2017: מיינדפולנס ושינוי עמדות פוליטיות</a></li>
+<li><a href="#section-6">פריסה עירונית</a></li>
+<li><a href="#section-7">מסקנות</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זהות ארגונית</h2>
+<p>"המרכז לחינוך קשוב ואכפתי" (ע"ר 580608775) הוא עמותה שנרשמה ביום 13.06.2016. העמותה הוקמה על ידי <strong>ד"ר רוני ברגר</strong> ו<strong>ד"ר ריקרדו טרש</strong>.</p>
+
+<table>
+<tr><th>נתון</th><th>פרטים</th></tr>
+<tr><td>מספר עמותה</td><td>580608775</td></tr>
+<tr><td>שנת רישום</td><td>2016</td></tr>
+<tr><td>מספר תוכנית גפ"ן</td><td>2444</td></tr>
+<tr><td>שם התוכנית</td><td>הזמנה לנתינה אכפתית</td></tr>
+<tr><td>אתר</td><td><a href="https://educare.co.il/" target="_blank">educare.co.il</a></td></tr>
+</table>
+
+<h3>מייסדים ומנהלים</h3>
+<ul>
+<li><strong>ד"ר רוני ברגר</strong> — יו"ר העמותה. פסיכולוגית קלינית, פסיכותרפיסטית, מומחית לטיפול בטראומה, חוקרת ומרצה בכירה בבית הספר לעבודה סוציאלית באוניברסיטת תל אביב. מנהלת את התוכנית ללימודי מיינדפולנס באוניברסיטת תל אביב.</li>
+<li><strong>ד"ר ריקרדו טרש</strong> — מנהל העמותה. פסיכולוג קליני, מומחה לטיפול בטראומה, חוקר ומרצה בכיר במרכז הבינתחומי הרצליה.</li>
+</ul>
+
+<h3>חברי ועד מנהל (2023)</h3>
+<p>ברגר רוני, טרש ריקרדו, אדלר רחל, אורן דפנה, ברגר דניאל, גורן יעל, לוין יעל, סגל דפנה, צ'רנובילסקי יעל, קוטלר אילן, רוזנברג דניאל, שפירא ירון.</p>
+<p><span class="source-tag">רשם העמותות, פרטי עמותה 580608775, נכון ליום 14.05.2024</span></p>
+</div>
+
+  <div class="section" id="section-2">
+<h2>מקורות מימון</h2>
+
+<table>
+<tr><th>שנה</th><th>הכנסות (ש"ח)</th></tr>
+<tr><td>2022</td><td>2,154,395</td></tr>
+<tr><td>2021</td><td>1,659,101</td></tr>
+<tr><td>2020</td><td>1,114,800</td></tr>
+</table>
+<p><span class="source-tag">רשם העמותות, דוחות כספיים עמותה 580608775</span></p>
+
+<h3>תורמים עיקריים (2022)</h3>
+<table>
+<tr><th>קרן</th><th>סכום (ש"ח)</th></tr>
+<tr><td>קרן שוסטרמן</td><td>1,125,000</td></tr>
+<tr><td>קרן משפחת רודרמן</td><td>100,000</td></tr>
+<tr><td>קרן אדמונד דה רוטשילד</td><td>100,000</td></tr>
+<tr><td>קרן ירושלים</td><td>50,000</td></tr>
+<tr><td>קרן גנדיר</td><td>40,000</td></tr>
+</table>
+<p><span class="source-tag">רשם העמותות, דוח כספי לשנת 2022, עמוד 10, סעיף 13</span></p>
+
+<p>בנוסף, המרכז הוא <strong>השותף הישראלי של ה-Mind and Life Institute</strong>, ארגון בינלאומי המקדם דיאלוג בין מדע לבודהיזם. המרכז פועל גם בשותפות עם <strong>קרן מנדל ישראל</strong>.</p>
+
+<div class="thesis">
+<strong>מימון דומיננטי:</strong> קרן שוסטרמן מהווה 52% מסך ההכנסות בשנת 2022 (1,125,000 מתוך 2,154,395 ש"ח). תלות חריגה בתורם יחיד.
+</div>
+</div>
+
+  <div class="section" id="section-3">
+<h2>תוכן בפועל — מיינדפולנס וחמלה</h2>
+<p>התוכנית "הזמנה לנתינה אכפתית" מוגדרת כ"תוכנית לפיתוח חוסן נפשי ורווחה רגשית בקרב צוותי חינוך, תלמידים והורים".</p>
+
+<blockquote>"התוכנית מבוססת על גישות מבוססות מיינדפולנס וחמלה, אשר הוכחו מחקרית כיעילות בהפחתת לחץ, שיפור רווחה נפשית, ויסות רגשי, הגברת קשב וריכוז, וחיזוק יכולות חברתיות ורגשיות."<br><span class="source-tag">אתר educare.co.il, תוכניות</span></blockquote>
+
+<h3>מטרות מוצהרות לפי קהל יעד</h3>
+<ul>
+<li><strong>צוותי חינוך:</strong> פיתוח חוסן נפשי, הפחתת שחיקה, שיפור היכולת לווסת רגשות, הגברת אמפתיה וחמלה</li>
+<li><strong>תלמידים:</strong> פיתוח מיומנויות קשב וריכוז, ויסות רגשי, הפחתת חרדה ומתח, חיזוק אמפתיה וחמלה</li>
+<li><strong>הורים:</strong> כלים להתמודדות עם אתגרי ההורות, שיפור תקשורת משפחתית, הפחתת לחץ</li>
+</ul>
+
+<h3>מה קורה בפועל בכיתה</h3>
+<ul>
+<li>תרגולי נשימה מודעת — התמקדות בתחושות הגוף והנשימה</li>
+<li>סריקת גוף — הפניית קשב שיטתית לחלקי הגוף</li>
+<li>התבוננות במחשבות ורגשות — למידה להתבונן מבלי להיסחף</li>
+<li>תרגולי חמלה עצמית — פיתוח יחס אוהד כלפי קשיים</li>
+<li>תרגולי חמלה כלפי אחרים — הרחבת תחושת אכפתיות</li>
+<li>דיונים קבוצתיים — שיתוף חוויות מהתרגולים</li>
+</ul>
+</div>
+
+  <div class="section" id="section-4">
+<h2>קשרים אידיאולוגיים</h2>
+
+<h3>Mind and Life Institute</h3>
+<blockquote>"המרכז לחינוך קשוב ואכפתי הוא השותף הישראלי של ה-Mind and Life Institute, ארגון בינלאומי מוביל המקדם דיאלוג בין מדע לבודהיזם."<br><span class="source-tag">אתר educare.co.il, אודותינו</span></blockquote>
+<p>ארגון Mind and Life Institute נוסד בשנת 1987 ומקדם דיאלוג בין מדענים, פילוסופים ומנהיגים רוחניים, במיוחד הדלאי לאמה. קשר זה מעיד על השפעה עמוקה של הפילוסופיה הבודהיסטית והגישות המדיטטיביות על תפיסת העולם והמתודולוגיה של המרכז.</p>
+
+<h3>"חודש המיינדפולנס הישראלי"</h3>
+<p>יוזמה של המרכז, המתקיימת בדרך כלל בחודש מאי, הכוללת אירועים, סדנאות, הרצאות ותרגולים פתוחים לקהל הרחב ברחבי הארץ.</p>
+</div>
+
+  <div class="section" id="section-5">
+<h2>ראיות — מחקר טרש 2017: מיינדפולנס ושינוי עמדות פוליטיות</h2>
+
+<div class="thesis">
+<strong>ממצא מפתח:</strong> מייסדי המרכז עצמם פרסמו מחקר אקדמי המוכיח שתרגול מיינדפולנס, כפי שהם מלמדים, מוביל לשינוי בעמדות פוליטיות בכיוון של תמיכה בפשרה בסכסוך הישראלי-פלסטיני. מידע זה אינו מופיע בתיאורי התוכנית לבתי הספר.
+</div>
+
+<h3>פרטי המחקר</h3>
+<p><strong>מחקר:</strong> "Increased Support for Political Compromise in the Israeli-Palestinian Conflict Following an Eight-Week Mindfulness Workshop"</p>
+<p><strong>פורסם ב:</strong> <em>Mindfulness</em>, 2017, כרך 8(5), עמ' 1334-1343</p>
+<p><strong>חוקרים:</strong> Ricardo Tarrasch, Roni Berger, Orit Kedar, Yael Sela, Yael Goren, Dafna Oren, Dafna Sagal</p>
+
+<blockquote>"Results showed that participants in the mindfulness workshop, compared to the control group, reported significantly greater increases in support for political compromise, mindfulness, empathy, and psychological well-being."<br><span class="source-tag">Tarrasch et al., 2017, Mindfulness, Abstract</span></blockquote>
+
+<blockquote>"These findings suggest that mindfulness training may be a promising intervention for promoting peace and reconciliation in intractable conflicts."<br><span class="source-tag">Tarrasch et al., 2017, Mindfulness, Abstract</span></blockquote>
+
+<p>המחקר כלל 153 מבוגרים ישראלים-יהודים שחולקו לקבוצת ניסוי (סדנת מיינדפולנס בת 8 שבועות) וקבוצת ביקורת. התוצאות הראו עלייה מובהקת בתמיכה בפשרה פוליטית, מיינדפולנס, אמפתיה ורווחה פסיכולוגית בקבוצת הניסוי.</p>
+
+<h3>הפער בין המוצהר לבין הראיות</h3>
+<ul>
+<li><strong>המוצהר לבתי ספר:</strong> "פיתוח חוסן נפשי ורווחה רגשית", "ויסות רגשי", "הגברת קשב וריכוז"</li>
+<li><strong>המחקר של המייסדים עצמם:</strong> תרגול מיינדפולנס מוביל ל"עלייה בתמיכה בפשרה פוליטית בסכסוך הישראלי-פלסטיני"</li>
+</ul>
+
+<div class="thesis">
+<strong>מה ההורים לא יודעים:</strong> הורים המאשרים השתתפות ילדיהם בתוכנית מצפים לשיפור ברווחה רגשית ובקשב. הם אינם מודעים לכך שמנהלי התוכנית עצמם פרסמו מחקר אקדמי המצביע על כך שהכלים שהם מלמדים עשויים להשפיע על עמדות פוליטיות של המשתתפים בנושאים רגישים ביותר. המחקר מציג את ה"שינוי בעמדות פוליטיות" כתוצאה חיובית ורצויה.
+</div>
+</div>
+
+  <div class="section" id="section-6">
+<h2>פריסה עירונית</h2>
+<blockquote>"המרכז פועל כיום ב-15 רשויות מקומיות ברחבי הארץ, ומגיע ל-10,000 תלמידים ו-1,000 אנשי צוות חינוכי."<br><span class="source-tag">אתר educare.co.il, אודותינו</span></blockquote>
+
+<h3>רשויות מקומיות</h3>
+<p>תל אביב-יפו, ירושלים, חיפה, רעננה, הרצליה, כפר סבא, רמת השרון, גבעתיים, אור יהודה, יהוד-מונוסון, שוהם, קדימה-צורן, פרדס חנה-כרכור, מזכרת בתיה, קריית אונו.</p>
+
+<div class="thesis">
+<strong>הערה:</strong> הפריסה מרוכזת בערי מרכז עשירות — רעננה, הרצליה, גבעתיים, רמת השרון, כפר סבא. אלו הערים שבהן נמצאו גם ממצאים בפרוטוקולים עירוניים (ראו <a href="munzenberg_municipal.html">מיניסייט מינצנברג</a>).
+</div>
+</div>
+
+  <div class="section" id="section-7">
+<h2>מסקנות</h2>
+<p>"המרכז לחינוך קשוב ואכפתי" מפעיל תוכנית מיינדפולנס בבתי ספר ציבוריים ב-15 רשויות מקומיות, ומגיע ל-10,000 תלמידים. מחזור הכנסות של למעלה מ-2 מיליון ש"ח, כמחציתו מקרן שוסטרמן.</p>
+
+<p>התוכנית מוצגת כ"פיתוח חוסן נפשי ורווחה רגשית". אולם מחקר אקדמי שפורסם על ידי מייסדי המרכז עצמם (טרש וברגר, 2017) מוכיח שהכלים שהם מלמדים מובילים לשינוי בעמדות פוליטיות — בכיוון של תמיכה בפשרה בסכסוך הישראלי-פלסטיני. המחקר מציג תוצאה זו כרצויה.</p>
+
+<p>הפער בין "חוסן נפשי" (כפי שמוצג להורים) לבין "שינוי עמדות פוליטיות" (כפי שעולה מהמחקר) הוא הממצא המרכזי בדוח זה. הקשר לארגון Mind and Life Institute, המקדם דיאלוג בין מדע לבודהיזם, מחזק את ההבנה שמדובר בתפיסת עולם שלמה — ולא רק בכלי טכני להפחתת מתח.</p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | מקורות: רשם העמותות (580608775), קטלוג גפ"ן (2444), אתר educare.co.il, Tarrasch et al. 2017 <em>Mindfulness</em> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

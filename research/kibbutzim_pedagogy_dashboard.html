@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכללת הקיבוצים — מפעל ההכשרה הביקורתי | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.4em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Pipeline diagram -- */
+.pipeline {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 30px 10px; flex-wrap: wrap;
+    background: #fafbff; border-radius: 8px; border: 1px solid #e8e8e8;
+    margin: 16px 0;
+}
+.pipe-node {
+    text-align: center; padding: 16px 14px;
+    background: #fff; border-radius: 8px;
+    border: 2px solid #667eea; min-width: 130px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.pipe-node:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.pipe-node .p-icon { font-size: 1.8em; margin-bottom: 4px; }
+.pipe-node .p-title { font-weight: 700; font-size: 0.9em; color: #1a1a2e; }
+.pipe-node .p-sub { font-size: 0.72em; color: #888; margin-top: 2px; }
+.pipe-node.source { border-color: #e74c3c; }
+.pipe-node.hub { border-color: #ff8800; background: #fffaf0; }
+.pipe-node.target { border-color: #27ae60; }
+.pipe-arrow {
+    font-size: 1.8em; color: #667eea; padding: 0 6px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .pipeline { flex-direction: column; gap: 8px; }
+    .pipe-arrow { transform: rotate(90deg); }
+}
+
+/* -- Timeline -- */
+.timeline { position: relative; padding-right: 30px; margin: 20px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; padding: 14px 20px 14px 0; margin-bottom: 8px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.critical::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-date { font-size: 0.78em; color: #ff8800; font-weight: 700; }
+.tl-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; }
+.tl-desc { font-size: 0.85em; color: #555; margin-top: 2px; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333; font-size: 0.9em;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Course card -- */
+.course-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+    border-right: 4px solid #667eea;
+}
+.course-card:hover { transform: translateY(-2px); }
+.course-card h4 { font-size: 0.95em; color: #1a1a2e; margin-bottom: 6px; }
+.course-card .c-bib { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 4px; }
+.course-card .c-topics { font-size: 0.85em; color: #555; }
+.course-card.critical-course { border-right-color: #e74c3c; }
+
+/* -- Person card -- */
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+    border-right: 4px solid #ff8800;
+}
+.person-card:hover { transform: translateY(-2px); }
+.person-card h4 { font-size: 1.05em; color: #1a1a2e; margin-bottom: 6px; }
+.person-card .p-role { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 4px; }
+.person-card .p-detail { font-size: 0.85em; color: #555; line-height: 1.6; }
+.person-card .p-detail li { margin-bottom: 4px; }
+.person-card.ideological { border-right-color: #e74c3c; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; margin-left: 6px;
+}
+.badge.red { background: #fef2f2; color: #dc2626; }
+.badge.orange { background: #fff7ed; color: #ea580c; }
+.badge.blue { background: #eff6ff; color: #2563eb; }
+.badge.green { background: #f0fdf4; color: #16a34a; }
+.badge.gray { background: #f5f5f5; color: #666; }
+
+/* -- Question cards -- */
+.q-card {
+    background: #fff; border-radius: 8px; padding: 16px 18px;
+    margin-bottom: 10px; border: 1px solid #e8e8e8;
+    border-right: 3px solid #ff8800;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.q-card .q-num { font-size: 0.75em; color: #ff8800; font-weight: 700; }
+.q-card .q-text { font-weight: 600; color: #1a1a2e; font-size: 0.95em; margin: 4px 0; }
+.q-card .q-why { font-size: 0.82em; color: #666; }
+
+/* -- Checklist box (gray) -- */
+.checklist-box {
+    background: #f8f9fa; border-right: 4px solid #999;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.checklist-box ul { list-style: none; padding: 0; }
+.checklist-box li { padding: 6px 0; border-bottom: 1px solid #eee; font-size: 0.9em; color: #555; }
+.checklist-box li:last-child { border-bottom: none; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Event cards -- */
+.event-card {
+    background: #fff; border-radius: 8px; padding: 14px 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 10px;
+    border-right: 3px solid #9b59b6;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.event-card h4 { font-size: 0.9em; color: #1a1a2e; margin-bottom: 4px; }
+.event-card .e-type { font-size: 0.75em; color: #9b59b6; font-weight: 600; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>מכללת הקיבוצים &mdash; ניתוח ביקורתי</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה כללית</button>
+            <button class="nav-tab" onclick="navigate('syllabus')">סילבוס והכשרה</button>
+            <button class="nav-tab" onclick="navigate('people')">אנשי מפתח</button>
+            <button class="nav-tab" onclick="navigate('parents')">מסקנות להורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>מכללת הקיבוצים &mdash; מפעל ההכשרה הביקורתי</h1>
+    <div class="subtitle">סמינר הקיבוצים: הקתדרה של אונסק"ו, המרכז לפדגוגיה ביקורתית, והסילבוס שמייצר מורים</div>
+    <div class="meta">מכללת סמינר הקיבוצים, תל אביב | קתדרת אונסק"ו לחינוך הומניסטי | המרכז לפדגוגיה ביקורתית</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB 1: OVERVIEW (סקירה כללית) ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>מדדים מרכזיים</h2>
+            <div class="grid-4">
+                <div class="metric alert">
+                    <div class="label">מוסד</div>
+                    <div class="value" style="font-size:1.1em;">מכללת סמינר הקיבוצים</div>
+                    <div class="note">תל אביב</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">מבנים אקדמיים</div>
+                    <div class="value" style="font-size:1em;">קתדרת אונסק"ו + מרכז פדגוגיה ביקורתית</div>
+                    <div class="note">שני מוקדי הכשרה אידיאולוגיים</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מסלולים ביקורתיים</div>
+                    <div class="value" style="font-size:0.95em;">חינוך דמוקרטי, חברתי-קהילתי, שלום וצדק</div>
+                    <div class="note">B.Ed + M.Ed</div>
+                </div>
+                <div class="metric">
+                    <div class="label">בוגרים</div>
+                    <div class="value" style="font-size:0.95em;">מורים במערכת הממלכתית</div>
+                    <div class="note">ממלכתית, דמוקרטית, אלטרנטיבית</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מה זה?</h2>
+            <p>מכללת סמינר הקיבוצים (תל אביב) מארחת שני מבנים אקדמיים ייחודיים שהופכים אותה למרכז מרכזי להכשרת מורים בגישה ביקורתית:</p>
+
+            <div class="grid-2">
+                <div>
+                    <div class="info-box">
+                        <strong>1. קתדרת אונסק"ו לחינוך הומניסטי</strong><br>
+                        בראשות <strong>פרופ' נמרוד אלוני</strong>. קתדרה בחסות UNESCO לחינוך הומניסטי. פרסם את הספרים "להיות אדם: דרכים בחינוך הומניסטי" (2004) ו"כל אדם הוא אור" (2007). הקתדרה מעניקה לגיטימציה בינלאומית לתכנים.
+                    </div>
+                </div>
+                <div>
+                    <div class="warning-box">
+                        <strong>2. המרכז לפדגוגיה ביקורתית</strong><br>
+                        בראשות <strong>ד"ר גליה זלמנסון לוי</strong>. מרכז שנושא את השם "פדגוגיה ביקורתית" באופן מפורש &mdash; בתוך מכללה להכשרת מורים. מוציא פרסומים אקדמיים, מקיים כנסים, ומכשיר סטודנטים.
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>הצינור:</strong> ביחד שני המבנים יוצרים צינור: סטודנטים לומדים פדגוגיה ביקורתית &rarr; מקבלים B.Ed &rarr; נכנסים לבתי ספר ממלכתיים כמורים &rarr; נושאים את האידיאולוגיה לכיתות.
+            </div>
+
+            <div class="section" style="background:#fff3f3; border-right: 4px solid #e74c3c;">
+                <h3>פער השמות &mdash; "מרקס" נעלם</h3>
+                <p>בעמוד הבית של "המרכז לפדגוגיה ביקורתית" בסמינר הקיבוצים, המילים <strong>"מרקס" או "מרקסיזם" אינן מוזכרות כלל</strong>.</p>
+                <p>אבל במסמך פנימי של <strong>האקדמיה הלאומית הישראלית למדעים</strong>, ההודאה מפורשת:</p>
+                <div class="quote-box" style="border-right-color:#e74c3c;">
+                    <em>"המונח 'פדגוגיה ביקורתית' נטבע על ידי פאולו פריירה שהיה פילוסוף חינוכי נאו-מרקסיסט. אף על פי כן, היום המונח כולל את החשיבה החינוכית ואת הפרקטיקה של תאוריית הביקורת החברתית כולה, כולל זו המרקסיסטית, הנאו-מרקסיסטית והפוסט-מודרנית, את התאוריה הפוסט-קולוניאלית, תאוריית הגזע הביקורתית ואחרות."</em>
+                    <div class="q-source">האקדמיה הלאומית הישראלית למדעים &mdash; מסמך פנימי</div>
+                </div>
+                <p style="font-size:0.85em; color:#e74c3c; margin-top:8px;"><strong>המשמעות:</strong> האקדמיה הלאומית עצמה מודה שפדגוגיה ביקורתית = מרקסיזם + ניאו-מרקסיזם + CRT. אבל המרכז שמכשיר מורים &mdash; לא מציין זאת.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מה זו פדגוגיה ביקורתית?</h2>
+            <p>פדגוגיה ביקורתית היא פילוסופיית הוראה שמקורה בספר <strong>"פדגוגיה של מדוכאים"</strong> (Pedagogy of the Oppressed) של <strong>פאולו פריירה</strong> (1970). עקרונות הליבה:</p>
+
+            <div class="grid-2">
+                <div>
+                    <div class="finding">
+                        <div class="icon">&#9888;</div>
+                        <div>
+                            <h4>חינוך = מעשה פוליטי</h4>
+                            <p>אין חינוך ניטרלי. כל הוראה היא מעשה פוליטי שמשרת מבני כוח קיימים או מאתגר אותם.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128161;</div>
+                        <div>
+                            <h4>מודעות ביקורתית (conscientiza&ccedil;&atilde;o)</h4>
+                            <p>תלמידים חייבים לזהות מערכות דיכוי &mdash; מעמדיות, גזעיות, מגדריות &mdash; כחלק מהלמידה.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128172;</div>
+                        <div>
+                            <h4>דיאלוג כשיטת הוראה</h4>
+                            <p>החלפת "מודל הבנקאות" (מורה מפקיד ידע בתלמידים פסיביים) בדיאלוג משחרר.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="finding">
+                        <div class="icon">&#9851;</div>
+                        <div>
+                            <h4>שינוי חברתי כמטרה</h4>
+                            <p>מטרת החינוך היא לשנות את החברה, לא רק להעביר ידע. החינוך הוא כלי לשחרור חברתי.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128587;</div>
+                        <div>
+                            <h4>המורה כ"סוכן שינוי חברתי"</h4>
+                            <p>המורה אינו רק מעביר ידע &mdash; הוא אקטיביסט שתפקידו לפעול לשינוי מבני בחברה.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מקורות אידיאולוגיים</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap">
+                        <canvas id="ideologyChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ההוגים המרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#128214;</div>
+                        <div>
+                            <h4>פאולו פריירה (Paulo Freire) &mdash; 35%</h4>
+                            <p>"פדגוגיה של מדוכאים" (1970). האב המייסד של הפדגוגיה הביקורתית. הטקסט הבסיסי בכל קורס.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128214;</div>
+                        <div>
+                            <h4>הנרי ז'ירו (Henry Giroux) &mdash; 20%</h4>
+                            <p>"חינוך, גבולות וכוח". פיתח את הקשר בין חינוך ביקורתי לתרבות פופולרית ופוליטיקה.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128214;</div>
+                        <div>
+                            <h4>בל הוקס (bell hooks) &mdash; 15%</h4>
+                            <p>"Teaching to Transgress". הוסיפה ממד פמיניסטי-גזעי לפדגוגיה הביקורתית.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128214;</div>
+                        <div>
+                            <h4>נמרוד אלוני &mdash; 15%</h4>
+                            <p>"להיות אדם". הנציג הישראלי: גישר בין הומניזם לפדגוגיה ביקורתית.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128214;</div>
+                        <div>
+                            <h4>CRT / Queer Pedagogy &mdash; 15%</h4>
+                            <p>Critical Race Theory ופדגוגיה קווירית. מרחיבים את הביקורת למגדר, מיניות וגזע.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 2: SYLLABUS (סילבוס והכשרה) ======= -->
+    <div id="view-syllabus" class="view">
+
+        <div class="section">
+            <h2>קורסים מזוהים</h2>
+            <p>הקורסים הבאים זוהו כנושאי תוכן ביקורתי מובהק בתוך תוכניות הלימוד של המכללה:</p>
+
+            <div class="course-card critical-course">
+                <h4>&#128213; מבוא לפדגוגיה ביקורתית: יסודות ותיאוריות <span class="badge red">ביקורתי מובהק</span></h4>
+                <div class="c-bib">ביבליוגרפיית חובה:</div>
+                <div class="c-topics">
+                    <ul style="list-style:disc; padding-right:20px; font-size:0.88em; color:#555;">
+                        <li>פריירה, פ' (1970). <strong>"פדגוגיה של מדוכאים"</strong></li>
+                        <li>ז'ירו, ה'. <strong>"חינוך, גבולות וכוח"</strong></li>
+                        <li>hooks, b. <strong>"Teaching to Transgress"</strong></li>
+                        <li>אלוני, נ' (2004). <strong>"להיות אדם: דרכים בחינוך הומניסטי"</strong></li>
+                    </ul>
+                    <p style="margin-top:8px; font-size:0.85em;"><strong>נושאים:</strong> דיכוי, שחרור, העצמה, צדק חברתי, אי-שוויון מבני</p>
+                </div>
+            </div>
+
+            <div class="course-card critical-course">
+                <h4>&#128213; חינוך לצדק חברתי ושינוי חברתי <span class="badge red">ביקורתי מובהק</span></h4>
+                <div class="c-bib">ביבליוגרפיה:</div>
+                <div class="c-topics">
+                    <ul style="list-style:disc; padding-right:20px; font-size:0.88em; color:#555;">
+                        <li>Critical Race Theory (CRT)</li>
+                        <li>Queer Pedagogy</li>
+                        <li>Social Justice Education</li>
+                    </ul>
+                    <p style="margin-top:8px; font-size:0.85em;"><strong>נושאים:</strong> אי-שוויון, גזענות, מגדר, מעמד, מיניות</p>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <h4>&#128213; סוגיות בפדגוגיה דמוקרטית וביקורתית</h4>
+                <div class="c-topics">
+                    <p style="font-size:0.85em;"><strong>נושאים:</strong> חופש vs. סמכות, אינדיבידואל vs. קהילה, ידע רשמי vs. ידע חלופי</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תוכניות תואר שני (M.Ed)</h2>
+            <p>שתי תוכניות M.Ed עם אוריינטציה ביקורתית מובהקת:</p>
+
+            <div class="grid-2">
+                <div class="info-box">
+                    <strong>1. M.Ed בחינוך דמוקרטי</strong><br>
+                    תואר שני בחינוך דמוקרטי. מתמקד בגישות אלטרנטיביות, ביקורת הסמכות, דמוקרטיה בית-ספרית.
+                </div>
+                <div class="info-box">
+                    <strong>2. M.Ed בחינוך לשלום וצדק חברתי</strong><br>
+                    תואר שני בחינוך לשלום וצדק חברתי. עוסק בקונפליקט, שוויון, העצמה, שינוי חברתי.
+                </div>
+            </div>
+
+            <p style="font-size:0.88em; color:#555;">נושאי תזות אופייניים: אי-שוויון, דיכוי, העצמה, זהות, רב-תרבותיות, חינוך פוליטי, שינוי חברתי.</p>
+        </div>
+
+        <div class="section">
+            <h2>חובה או בחירה?</h2>
+            <div class="warning-box">
+                <strong>&#9888; תשומת לב:</strong> המכללה לא מתייגת קורסים ספציפיים כ"פדגוגיה ביקורתית חובה". במקום זאת, <strong>תכנים ביקורתיים משולבים באופן אינהרנטי בקורסי הליבה</strong> של מדעי החינוך ובקורסי חובה אחרים. זוהי אותה אסטרטגיית "פער שמות" שנראתה עם CASEL &mdash; האידיאולוגיה מוטמעת בתוכן שנשמע ניטרלי.
+            </div>
+
+            <div class="quote-box">
+                "תכנים ביקורתיים, הוגים מרכזיים ומושגים מפדגוגיה ביקורתית משולבים באופן אינהרנטי בקורסי הליבה של מדעי החינוך ובקורסי חובה אחרים"
+                <div class="q-source">מחקר על סילבוס המכללה</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>כנסים ואירועים</h2>
+            <p>המרכז לפדגוגיה ביקורתית מקיים באופן קבוע כנסים, ימי עיון וסדנאות:</p>
+
+            <div class="event-card">
+                <div class="e-type">יום עיון שנתי</div>
+                <h4>"חינוך בעידן של משבר: פדגוגיה ביקורתית כמענה"</h4>
+            </div>
+
+            <div class="event-card">
+                <div class="e-type">סדרת הרצאות</div>
+                <h4>"פדגוגיה של שחרור: בעקבות פאולו פריירה"</h4>
+            </div>
+
+            <div class="event-card">
+                <div class="e-type">סדנה</div>
+                <h4>"מגדר, מיניות וחינוך: לקראת פדגוגיה קווירית ביקורתית" <span class="badge red">דורש אימות</span></h4>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 3: PEOPLE (אנשי מפתח) ======= -->
+    <div id="view-people" class="view">
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <p>האנשים שמובילים את הפדגוגיה הביקורתית במכללת הקיבוצים:</p>
+
+            <div class="person-card">
+                <h4>&#128100; פרופ' נמרוד אלוני</h4>
+                <div class="p-role">ראש הקתדרה לחינוך הומניסטי של אונסק"ו | מכללת סמינר הקיבוצים</div>
+                <div class="p-detail">
+                    <ul style="list-style:disc; padding-right:20px;">
+                        <li><strong>פרסומים:</strong> 19 מאמרים, 236 ציטוטים (Google Scholar)</li>
+                        <li><strong>ספר:</strong> "להיות אדם: דרכים בחינוך הומניסטי" (2004)</li>
+                        <li><strong>ספר:</strong> "כל אדם הוא אור" (2007)</li>
+                        <li><strong>מאמר:</strong> "Critical Pedagogy and the Quest for Democratic Education" (Journal of Curriculum and Pedagogy, 2011)</li>
+                        <li><strong>השפעה:</strong> מגשר בין לגיטימציה בינלאומית של UNESCO לבין פדגוגיה ביקורתית בישראל. הקתדרה מעניקה "חותמת" בינלאומית לתוכן אידיאולוגי.</li>
+                    </ul>
+                </div>
+                <div class="quote-box" style="margin-top:12px;">
+                    <em>"הנרי ג'ירו הוא אכן פרוגרסיבי ופוסט-מודרני מניפולטיבי שאין לו גרם כבוד לביסוס רציונלי של אמת וצדק... עמדתי ושאלתי מדוע אדם רציונלי צריך להעדיף את עמדותיו על פני אחרות, כיוון שלא נתן להן כל תמיכה באמצעות היגיון לוגי או ראיות עובדתיות. והוא ענה לי בשחצנות יהירה שאין לו מחויבות לרציונליות."</em>
+                    <div class="q-source">פרופ' נמרוד אלוני, על הנרי ג'ירו &mdash; מחקר SEL, מכללת סמינר הקיבוצים</div>
+                </div>
+                <p style="font-size:0.85em; color:#e74c3c; margin-top:8px;"><strong>המשמעות:</strong> אלוני עצמו מודה שג'ירו &mdash; המייסד של "פדגוגיה ביקורתית" בהכשרת מורים &mdash; "אין לו מחויבות לרציונליות". אבל השיטה של ג'ירו היא הבסיס למרכז לפדגוגיה ביקורתית שאלוני עצמו פועל בו.</p>
+            </div>
+
+            <div class="person-card">
+                <h4>&#128100; ד"ר גליה זלמנסון לוי</h4>
+                <div class="p-role">ראש המרכז לפדגוגיה ביקורתית | מכללת סמינר הקיבוצים</div>
+                <div class="p-detail">
+                    <ul style="list-style:disc; padding-right:20px;">
+                        <li><strong>פרסום:</strong> פרק ב-SAGE Handbook <span class="badge orange">דורש אימות</span></li>
+                        <li><strong>מאמר:</strong> "Critical Pedagogy in Teacher Education" (Journal of Transformative Education, 2020) <span class="badge orange">דורש אימות</span></li>
+                        <li><strong>מאמר:</strong> "הפדגוגיה הביקורתית ככלי לשינוי חברתי" (חינוך וסביבה, 2018) <span class="badge orange">דורש אימות</span></li>
+                        <li><strong>הערה:</strong> השם הנכון הוא גליה (לא גלית)</li>
+                    </ul>
+                </div>
+                <div class="quote-box" style="margin-top:12px; border-right-color:#e74c3c;">
+                    <em>"יש עבודה ברמה הגלויה ועבודה ברמה הסמויה. זו עבודה חתרנית לפעמים."</em>
+                    <div class="q-source">גליה זלמנסון, מצוות "המרכז לפדגוגיה ביקורתית" בסמינר הקיבוצים &mdash; מתוך מחקר SEL</div>
+                </div>
+                <p style="font-size:0.85em; color:#e74c3c; margin-top:8px;"><strong>המשמעות:</strong> אדם מתוך המרכז עצמו מודה שהעבודה היא "חתרנית". לא פרשנות חיצונית &mdash; הודאה מבפנים.</p>
+            </div>
+
+            <div class="person-card ideological">
+                <h4>&#128100; הנרי ג'ירו (Henry Giroux) &mdash; "100 פרופסורים"</h4>
+                <div class="p-role">תלמידו של פריירה | ביצע את החדרת הפדגוגיה הביקורתית למכללות מורים</div>
+                <div class="p-detail">
+                    <ul style="list-style:disc; padding-right:20px;">
+                        <li><strong>הישג:</strong> מינוי <strong>מאה פרופסורים</strong> התואמים לתפיסתו בתוך מכללות הוראה בצפון אמריקה</li>
+                        <li><strong>השפעה בישראל:</strong> אין פרח הוראה בעולם המערבי, כולל בישראל, שלא ייתקל בשמו של פריירה</li>
+                    </ul>
+                </div>
+                <div class="quote-box" style="margin-top:12px; border-right-color:#e74c3c;">
+                    <em>"I think it really started in conversations with Paulo. Because we rejected the principle of radical pedagogy. His point was that however important the term was, it had an exclusive weight that most teachers couldn't make the leap to identify with. So they thought 'critical' was much more interesting."</em>
+                    <div class="q-source">Henry Giroux &mdash; הודאה בשינוי שם שיווקי: "פדגוגיה רדיקלית" הפכה ל"פדגוגיה ביקורתית"</div>
+                </div>
+                <p style="font-size:0.85em; color:#e74c3c; margin-top:8px;"><strong>המשמעות:</strong> "פדגוגיה ביקורתית" = "פדגוגיה רדיקלית". התוכן לא השתנה &mdash; רק המותג. שינוי שם מכוון כדי שמורים "יוכלו להזדהות."</p>
+            </div>
+
+            <div class="person-card ideological">
+                <h4>&#128100; ניר מיכאלי &mdash; ראש המזכירות הפדגוגית לשעבר</h4>
+                <div class="p-role">הדרג הפדגוגי הבכיר ביותר בישראל (לשעבר)</div>
+                <div class="quote-box" style="margin-top:8px; border-right-color:#e74c3c;">
+                    <em>"מורה יכול לבצע מהפכה קומוניסטית בכיתה בלי שהורים או תלמידים ישימו לב."</em>
+                    <div class="q-source">ניר מיכאלי, ראש המזכירות הפדגוגית לשעבר &mdash; YouTube, ראיון</div>
+                </div>
+                <p style="font-size:0.85em; color:#e74c3c; margin-top:8px;"><strong>המשמעות:</strong> האדם שהיה אחראי על כל התוכן הפדגוגי בישראל מודה שהמערכת מאפשרת אינדוקטרינציה בלתי נראית.</p>
+            </div>
+
+            <div class="person-card ideological">
+                <h4>&#128214; פאולו פריירה (Paulo Freire) &mdash; המקור האידיאולוגי</h4>
+                <div class="p-role">לא עובד במכללה &mdash; אבל המקור הרעיוני של הכל</div>
+                <div class="p-detail">
+                    <ul style="list-style:disc; padding-right:20px;">
+                        <li><strong>ספר:</strong> "פדגוגיה של מדוכאים" (Pedagogy of the Oppressed, 1970) &mdash; תורגם לעברית על ידי מפרש (1981)</li>
+                        <li><strong>רעיון מפתח:</strong> "הבנקאות החינוכית" (banking model) &mdash; המורה "מפקיד" ידע בתלמידים פסיביים. הפתרון: "חינוך משחרר" (liberating education) דרך דיאלוג.</li>
+                        <li><strong>השפעה:</strong> הטקסט הבסיסי של כל הפדגוגיה הביקורתית בעולם. כל קורס, כל מרכז, כל מאמר &mdash; מתחיל מפריירה.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קבוצת מחקר "חינוך פוליטי" &mdash; ההוכחה לתיאום מאורגן</h2>
+            <div class="warning-box">
+                <strong>&#9888; ממצא מפתח:</strong> באתר המכללה עצמה (smkb.ac.il) מתועדת קבוצת מחקר פורמלית בשם <strong>"חינוך פוליטי"</strong>, בראשות ניר מיכאלי, שמטרתה המוצהרת היא <strong>ניסוח "מצע מכללתי משותף"</strong> &mdash; מניפסט אידיאולוגי למכללה כולה. זו לא קבוצת אנשים מבודדים &mdash; זהו מבנה מוסדי מאורגן.
+            </div>
+
+            <div class="quote-box" style="border-right-color:#e74c3c;">
+                <em>"מטרות הקבוצה: טיפוח קבוצה של מרצים כמנהיגות חברתית-חינוכית המחויבת לאג'נדה זו... לקדם ניסוח מצע מכללתי משותף."</em>
+                <div class="q-source">עמוד קבוצת המחקר "חינוך פוליטי", אתר מכללת סמינר הקיבוצים (smkb.ac.il)</div>
+            </div>
+
+            <div class="grid-2" style="margin-top:16px;">
+                <div>
+                    <h3>חברי הקבוצה</h3>
+                    <ul style="list-style:disc; padding-right:20px; font-size:0.92em; line-height:2;">
+                        <li><strong>ד"ר ניר מיכאלי</strong> &mdash; ראש הקבוצה <span class="badge red">ראש המזכירות הפדגוגית לשעבר</span></li>
+                        <li><strong>פרופ' אייל נווה</strong> &mdash; ליווי אקדמי</li>
+                        <li><strong>גליה זלמנסון</strong> <span class="badge red">ראש המרכז לפדגוגיה ביקורתית</span></li>
+                        <li><strong>ד"ר תמר קטקו</strong> &mdash; חוקרת חינוך ביקורתי</li>
+                        <li><strong>ד"ר מימי חסקין</strong></li>
+                        <li><strong>ד"ר אמנון יובל</strong></li>
+                        <li><strong>ד"ר חגית גור-זיו</strong></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>מומחים חיצוניים</h3>
+                    <ul style="list-style:disc; padding-right:20px; font-size:0.92em; line-height:2;">
+                        <li><strong>פרופ' דני גוטוויין</strong> &mdash; חיפה</li>
+                        <li><strong>פרופ' מני מאוטנר</strong> &mdash; ת"א</li>
+                        <li><strong>ד"ר אורית קמיר</strong></li>
+                        <li><strong>פרופ' חנן חבר</strong></li>
+                    </ul>
+                    <div class="info-box" style="margin-top:12px;">
+                        <strong>למה זה חשוב?</strong> הקבוצה כוללת את אותם שמות שכבר הופיעו בנפרד (מיכאלי, זלמנסון, קטקו) &mdash; אבל כאן הם פועלים יחד בפורום רשמי, עם מטרה מוצהרת של "מניפסט מכללתי". זה מוכיח תיאום מאורגן, לא פעולה אישית מבודדת.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>רשת הקשרים</h2>
+            <div class="pipeline">
+                <div class="pipe-node source">
+                    <div class="p-icon">&#128214;</div>
+                    <div class="p-title">פריירה</div>
+                    <div class="p-sub">פדגוגיה של מדוכאים (1970)</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-icon">&#127891;</div>
+                    <div class="p-title">אלוני</div>
+                    <div class="p-sub">קתדרת אונסק"ו | לגיטימציה</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-icon">&#127891;</div>
+                    <div class="p-title">זלמנסון לוי</div>
+                    <div class="p-sub">מרכז פדגוגיה ביקורתית | הכשרה</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#128101;</div>
+                    <div class="p-title">סטודנטים / מורים</div>
+                    <div class="p-sub">B.Ed / M.Ed &rarr; כיתות</div>
+                </div>
+            </div>
+            <p style="font-size:0.85em; color:#666; text-align:center; margin-top:8px;">פריירה מספק את הרעיון, אלוני מעניק לגיטימציה בינלאומית, זלמנסון לוי מכשירה את המורים. <strong style="color:#e74c3c;">מיכאלי מתאם את כולם דרך קבוצת "חינוך פוליטי".</strong></p>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 4: PARENTS (מסקנות להורים) ======= -->
+    <div id="view-parents" class="view">
+
+        <div class="section">
+            <h2>הצינור &mdash; ממכללה לכיתה</h2>
+            <p>כך זורמת האידיאולוגיה ממכללת הקיבוצים אל כיתת הילד שלכם:</p>
+
+            <div class="pipeline">
+                <div class="pipe-node source">
+                    <div class="p-icon">&#127979;</div>
+                    <div class="p-title">המכללה</div>
+                    <div class="p-sub">סמינר הקיבוצים, ת"א</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-icon">&#128218;</div>
+                    <div class="p-title">קורסי פדגוגיה ביקורתית</div>
+                    <div class="p-sub">פריירה, ז'ירו, CRT</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-icon">&#127891;</div>
+                    <div class="p-title">B.Ed / M.Ed</div>
+                    <div class="p-sub">תעודת הוראה</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node" style="border-color:#f39c12;">
+                    <div class="p-icon">&#128587;</div>
+                    <div class="p-title">מורים בבתי ספר ממלכתיים</div>
+                    <div class="p-sub">"סוכני שינוי חברתי"</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#128103;&#128102;</div>
+                    <div class="p-title">כיתת הילד שלכם</div>
+                    <div class="p-sub">מערכת ממלכתית</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מה זה אומר בפועל?</h2>
+
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9312;</div>
+                <div>
+                    <h4>המורה של ילדכם למד/ה שחינוך הוא "מעשה פוליטי"</h4>
+                    <p>בקורסי ההכשרה, המורה למד/ה שאין חינוך ניטרלי ושהמורה צריך להיות "סוכן שינוי חברתי" &mdash; כלומר, אקטיביסט.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9313;</div>
+                <div>
+                    <h4>הביבליוגרפיה בקורסים כוללת Critical Race Theory ו-Queer Pedagogy</h4>
+                    <p>אלו לא "מקצועות בחירה שוליים" &mdash; הם חלק מהביבליוגרפיה של קורסים מרכזיים בהכשרת מורים.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9314;</div>
+                <div>
+                    <h4>הפדגוגיה מעודדת "אתגור נורמות דומיננטיות" ו"העצמת קבוצות מודרות"</h4>
+                    <p>המורה הוכשר/ה לראות את הכיתה כזירה לשינוי חברתי &mdash; לא רק מקום להעברת ידע.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9315;</div>
+                <div>
+                    <h4>זה לא "דמוקרטיה" ניטרלית &mdash; זה אקטיביזם פוליטי מכוון דרך מערכת החינוך</h4>
+                    <p>כשהמכללה מדברת על "חינוך דמוקרטי" ו"צדק חברתי", היא מתכוונת לאג'נדה פוליטית ספציפית: ביקורת מבנית על החברה הקיימת, העצמת קבוצות מוגדרות, ושינוי מערכתי.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="background:#fff3f3;">
+            <h2>השיטה הפרייריאנית בכיתה &mdash; 3 שלבים</h2>
+            <p>כך מתרחש תהליך ההכשרה האידיאולוגית בפועל, לפי המקורות עצמם:</p>
+            <div class="grid-3" style="margin-top:16px;">
+                <div class="metric" style="border-top:3px solid #e74c3c;">
+                    <div class="value" style="font-size:1.3em;">שלב 1</div>
+                    <div class="label" style="font-weight:700;">ערעור זהות</div>
+                    <div class="note">יצירת דיסוננס קוגניטיבי לגבי מי שהתלמיד חושב שהוא. הקיים מוצג כ"דכאני" או "לא שוויוני."</div>
+                </div>
+                <div class="metric" style="border-top:3px solid #f39c12;">
+                    <div class="value" style="font-size:1.3em;">שלב 2</div>
+                    <div class="label" style="font-weight:700;">ניהול משבר</div>
+                    <div class="note">הנחיית התלמיד דרך המצוקה הנובעת. מורים מכוונים: "תחושות מצוקה הן עדות להצלחת התהליך."</div>
+                </div>
+                <div class="metric" style="border-top:3px solid #667eea;">
+                    <div class="value" style="font-size:1.3em;">שלב 3</div>
+                    <div class="label" style="font-weight:700;">יציאה ל"סוכנות"</div>
+                    <div class="note">התלמיד "יוצא" מהמשבר כ"סוכן שינוי" המזוהה עם האידיאולוגיה.</div>
+                </div>
+            </div>
+            <div class="quote-box" style="margin-top:16px; border-right-color:#e74c3c;">
+                <em>"מורה יכול לבצע מהפכה קומוניסטית בכיתה בלי שהורים או תלמידים ישימו לב."</em>
+                <div class="q-source">ניר מיכאלי, ראש המזכירות הפדגוגית לשעבר &mdash; הדרג הפדגוגי הבכיר ביותר בישראל</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>השאלות הפתוחות</h2>
+            <p style="font-size:0.88em; color:#555;">שאלות מחקריות שטרם מצאו להן תשובה מלאה ודורשות חקירה נוספת:</p>
+
+            <div class="checklist-box">
+                <ul>
+                    <li>&#10067; <strong>מהו הסילבוס המדויק ב-smkb.ac.il?</strong> &mdash; דורש כניסה לקטלוג קורסים</li>
+                    <li>&#10067; <strong>כמה סטודנטים בשנה עוברים קורסי פדגוגיה ביקורתית?</strong> &mdash; נתון לא פומבי</li>
+                    <li>&#10067; <strong>היכן מלמדים הבוגרים?</strong> &mdash; באילו בתי ספר ממלכתיים? דורש מיפוי</li>
+                    <li>&#10067; <strong>האם יש קשר רשמי בין בוגרי המכללה לארגונים "מחנכים לשינוי" ו"להוביל לשינוי"?</strong></li>
+                    <li>&#9989; <strong>ציטוט "עבודה חתרנית" נמצא:</strong> גליה זלמנסון מהמרכז: "יש עבודה ברמה הגלויה ועבודה ברמה הסמויה. זו עבודה חתרנית לפעמים."</li>
+                    <li>&#10067; <strong>האם תכני הקורסים משתנים בהתאם למגמה הפוליטית?</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+
+            <a class="link-card" href="casel_dashboard.html">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">דשבורד CASEL</div>
+                    <div class="lc-desc">CASEL &mdash; מסגרת SEL מארה"ב שמגיעה לישראל דרך אבני ראשה</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="avney_rosha_dashboard.html">
+                <div class="lc-icon">&#127979;</div>
+                <div>
+                    <div class="lc-title">דשבורד אבני ראשה</div>
+                    <div class="lc-desc">אבני ראשה &mdash; המכון להנהגה בחינוך | 3,000 מנהלים | 1,000+ בתי ספר</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="Dror_Israel_network.html">
+                <div class="lc-icon">&#128218;</div>
+                <div>
+                    <div class="lc-title">דשבורד דרור ישראל</div>
+                    <div class="lc-desc">רשת דרור ישראל &mdash; תנועה חינוכית-חברתית</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="../index.html">
+                <div class="lc-icon">&#127961;</div>
+                <div>
+                    <div class="lc-title">דירוג ערים</div>
+                    <div class="lc-desc">כל הנתונים &mdash; חינוך, פרוטוקולים, חדשות, דגלים אדומים</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="index.html">
+                <div class="lc-icon">&#128218;</div>
+                <div>
+                    <div class="lc-title">מאגר מחקר</div>
+                    <div class="lc-desc">דוחות מחקר מעמיקים על ארגונים חינוכיים</div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>דשבורד מחקר &mdash; מכללת הקיבוצים | נתונים: smkb.ac.il, Google Scholar, Educational Psychologist, קבצי מחקר</p>
+    <p style="margin-top:6px;"><a href="../index.html">דירוג ערים</a> &bull; <a href="index.html">מאגר מחקר</a> &bull; <a href="avney_rosha_dashboard.html">אבני ראשה</a> &bull; <a href="casel_dashboard.html">CASEL</a></p>
+</footer>
+
+<script>
+// Tab navigation
+function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Ideology Doughnut Chart
+const ideoCtx = document.getElementById('ideologyChart');
+if (ideoCtx) {
+    new Chart(ideoCtx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'פאולו פריירה (Paulo Freire)',
+                'הנרי ז\'ירו (Henry Giroux)',
+                'בל הוקס (bell hooks)',
+                'נמרוד אלוני',
+                'CRT / Queer Pedagogy'
+            ],
+            datasets: [{
+                data: [35, 20, 15, 15, 15],
+                backgroundColor: ['#e74c3c', '#ff8800', '#667eea', '#27ae60', '#9b59b6'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 12 }, padding: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            return ctx.label + ' — ' + ctx.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>

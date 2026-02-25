@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אבני ראשה — CASEL לישראל | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Pipeline diagram -- */
+.pipeline {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 30px 10px; flex-wrap: wrap;
+    background: #fafbff; border-radius: 8px; border: 1px solid #e8e8e8;
+    margin: 16px 0;
+}
+.pipe-node {
+    text-align: center; padding: 16px 14px;
+    background: #fff; border-radius: 8px;
+    border: 2px solid #667eea; min-width: 130px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.pipe-node:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.pipe-node .p-icon { font-size: 1.8em; margin-bottom: 4px; }
+.pipe-node .p-title { font-weight: 700; font-size: 0.9em; color: #1a1a2e; }
+.pipe-node .p-sub { font-size: 0.72em; color: #888; margin-top: 2px; }
+.pipe-node.source { border-color: #e74c3c; }
+.pipe-node.hub { border-color: #ff8800; background: #fffaf0; }
+.pipe-node.target { border-color: #27ae60; }
+.pipe-arrow {
+    font-size: 1.8em; color: #667eea; padding: 0 6px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .pipeline { flex-direction: column; gap: 8px; }
+    .pipe-arrow { transform: rotate(90deg); }
+}
+
+/* -- Timeline -- */
+.timeline { position: relative; padding-right: 30px; margin: 20px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; padding: 14px 20px 14px 0; margin-bottom: 8px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.critical::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-date { font-size: 0.78em; color: #ff8800; font-weight: 700; }
+.tl-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; }
+.tl-desc { font-size: 0.85em; color: #555; margin-top: 2px; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333; font-size: 0.9em;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Naming gap -- */
+.naming-gap {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin: 14px 0; flex-wrap: wrap;
+}
+.ng-box {
+    padding: 10px 18px; border-radius: 8px; font-weight: 700;
+    text-align: center; font-size: 0.9em;
+}
+.ng-box.usa { background: #e8f4fd; color: #1a6fb5; border: 1px solid #b3d9f2; }
+.ng-box.bridge { background: #fff5e6; color: #b87300; border: 1px solid #f0d9a8; }
+.ng-box.israel { background: #e8fde8; color: #1a7a1a; border: 1px solid #b3e8b3; }
+.ng-arrow { font-size: 1.3em; color: #999; }
+
+/* -- Funder card -- */
+.funder-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.funder-card:hover { transform: translateY(-2px); }
+.funder-card h4 { font-size: 0.95em; color: #1a1a2e; margin-bottom: 6px; }
+.funder-card .f-role { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 4px; }
+.funder-card .f-detail { font-size: 0.85em; color: #555; }
+.funder-card.primary { border-right: 4px solid #ff8800; }
+.funder-card.cross { border-right: 4px solid #e74c3c; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; margin-left: 6px;
+}
+.badge.red { background: #fef2f2; color: #dc2626; }
+.badge.orange { background: #fff7ed; color: #ea580c; }
+.badge.blue { background: #eff6ff; color: #2563eb; }
+.badge.green { background: #f0fdf4; color: #16a34a; }
+.badge.gray { background: #f5f5f5; color: #666; }
+
+/* -- Question cards -- */
+.q-card {
+    background: #fff; border-radius: 8px; padding: 16px 18px;
+    margin-bottom: 10px; border: 1px solid #e8e8e8;
+    border-right: 3px solid #ff8800;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.q-card .q-num { font-size: 0.75em; color: #ff8800; font-weight: 700; }
+.q-card .q-text { font-weight: 600; color: #1a1a2e; font-size: 0.95em; margin: 4px 0; }
+.q-card .q-why { font-size: 0.82em; color: #666; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>אבני ראשה</span>
+            <span class="risk-pill">סיכון מערכתי</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+            <a href="pipeline_institutional.html">צינור מוסדי</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('pipeline')">צינור</button>
+            <button class="nav-tab" onclick="navigate('funding')">מימון</button>
+            <button class="nav-tab" onclick="navigate('parents')">הורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>אבני ראשה &mdash; המכון להנהגה בחינוך</h1>
+    <div class="subtitle">Avney Rosha &mdash; Institute for School Leadership | נוסד: 2007 | ע"ר</div>
+    <div class="meta">תקציב: ~16M &#8362; (2022) | 40% ממנהלי ביה"ס בישראל | 1,000+ בתי ספר מיישמים | מסגרת CASEL מארה"ב</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB 1: OVERVIEW (סקירה) ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>הצינור בשורה אחת</h2>
+            <p>מסגרת <strong>CASEL</strong> האמריקאית ללמידה חברתית-רגשית (SEL) אומצה והותאמה על ידי <strong>אבני ראשה</strong>, שהוקם בשנת 2007 על ידי <strong>יד הנדיב (רוטשילד)</strong> בשותפות <strong>משרד החינוך</strong>. המכון הכשיר <strong>3,000+ מנהלים</strong> &mdash; שהם <strong>40%</strong> מכלל מנהלי בתי הספר בישראל &mdash; שמיישמים כעת את המסגרת ב-<strong>1,000+ בתי ספר</strong>. חוזרי מנכ"ל משרד החינוך מנדטים את אותו תוכן בדיוק, תחת שמות עבריים, <strong>מבלי לציין את המקור</strong>.</p>
+
+            <!-- Pipeline diagram -->
+            <div class="pipeline">
+                <div class="pipe-node source">
+                    <div class="p-icon">&#127482;&#127480;</div>
+                    <div class="p-title">CASEL</div>
+                    <div class="p-sub">ארה"ב | SEL Framework</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-icon">&#127979;</div>
+                    <div class="p-title">אבני ראשה</div>
+                    <div class="p-sub">ישראל | מאז 2007</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#128101;</div>
+                    <div class="p-title">3,000 מנהלים</div>
+                    <div class="p-sub">40% מכלל המנהלים</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#127963;</div>
+                    <div class="p-title">1,000+ בתי ספר</div>
+                    <div class="p-sub">10 אינדיקטורים ל-SEL</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מדדים מרכזיים</h2>
+            <div class="grid-4">
+                <div class="metric alert">
+                    <div class="label">מנהלים שהוכשרו</div>
+                    <div class="value">3,000+</div>
+                    <div class="note">40% מכלל מנהלי ביה"ס בישראל</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">בתי ספר מיישמים</div>
+                    <div class="value">1,000+</div>
+                    <div class="note">10 אינדיקטורים ל-SEL מערכתי</div>
+                </div>
+                <div class="metric">
+                    <div class="label">תקציב שנתי (2022)</div>
+                    <div class="value">16M &#8362;</div>
+                    <div class="note">87% מקרנות פילנתרופיות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">שנת הקמה</div>
+                    <div class="value">2007</div>
+                    <div class="note">יד הנדיב + משרד החינוך</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הערכת סיכון</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap">
+                        <canvas id="riskRadar"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים מרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#9888;</div>
+                        <div>
+                            <h4>ריכוז השפעה חסר תקדים</h4>
+                            <p>מוסד בודד הכשיר 40% ממנהלי בתי הספר בישראל. אין גוף מקביל בהיקף דומה.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128268;</div>
+                        <div>
+                            <h4>מסגרת זרה ללא ייחוס</h4>
+                            <p>10 האינדיקטורים מגיעים מ-CASEL האמריקאי, אך חוזרי משרד החינוך לא מציינים את המקור.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128176;</div>
+                        <div>
+                            <h4>מימון פילנתרופי דומיננטי</h4>
+                            <p>87% מהתקציב מקרנות (13.8M &#8362;). המדינה תורמת רק 7% (1.18M &#8362;), אבל מכירה בהכשרה כרשמית.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128683;</div>
+                        <div>
+                            <h4>Transformative SEL &mdash; הכחשה סלקטיבית</h4>
+                            <p>אבני ראשה לא מזכיר Transformative SEL, אבל המודל שלו כבר כולל "צדק חברתי" ו"הכלה" &mdash; התוכן קיים, רק לא השם.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>10 האינדיקטורים ל-SEL מערכתי (מבוסס CASEL)</h2>
+            <p>אבני ראשה אימץ והתאים את "מסגרת עשרת האינדיקטורים ל-SEL מערכתי" שפותחה על ידי CASEL. מסגרת זו מהווה מודל מקיף להטמעת למידה חברתית-רגשית בכל רבדי בית הספר.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>אינדיקטור</th>
+                        <th>תיאור</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>חזון SEL משותף</strong></td><td>הגדרה וקידום חזון משותף ל-SEL בקרב כלל קהילת בית הספר</td></tr>
+                    <tr><td>2</td><td><strong>הנהגה מחויבת ל-SEL</strong></td><td>הנהלת בית הספר מחויבת באופן פעיל לקידום SEL</td></tr>
+                    <tr><td>3</td><td><strong>אקלים בית ספרי תומך</strong></td><td>סביבה בטוחה, מכילה ותומכת המאפשרת התפתחות רגשית וחברתית</td></tr>
+                    <tr><td>4</td><td><strong>התפתחות מקצועית לצוות</strong></td><td>הכשרת מורים וצוות בית הספר במיומנויות SEL</td></tr>
+                    <tr><td>5</td><td><strong>הוראה מפורשת של מיומנויות SEL</strong></td><td>הקנייה ישירה של מיומנויות SEL כחלק מתוכנית הלימודים</td></tr>
+                    <tr class="highlight"><td>6</td><td><strong>שילוב SEL בתוכניות לימודים</strong></td><td>שילוב עקרונות SEL בכל תחומי הדעת ובפעילויות בית הספר</td></tr>
+                    <tr><td>7</td><td><strong>שותפות עם הורים וקהילה</strong></td><td>שיתוף פעולה עם הורים וגורמים בקהילה לתמיכה ב-SEL</td></tr>
+                    <tr><td>8</td><td><strong>נתונים ושיפור מתמיד</strong></td><td>איסוף נתונים והערכה מתמדת של תוכניות ה-SEL</td></tr>
+                    <tr><td>9</td><td><strong>משאבים ותמיכה</strong></td><td>הקצאת משאבים נאותים ותמיכה מתמשכת ליישום SEL</td></tr>
+                    <tr><td>10</td><td><strong>הערכה ואחריותיות</strong></td><td>קביעת מדדי הצלחה ואחריותיות ליישום אפקטיבי</td></tr>
+                </tbody>
+            </table>
+            <div class="warning-box">
+                <strong>המשמעות:</strong> SEL אינו תוכנית נקודתית אלא <strong>ליבת העשייה החינוכית</strong>. המודל דורש הטמעה הוליסטית ושיטתית &mdash; מהחזון, דרך הצוות, תכני הלימוד, האקלים ועד הקהילה. בית ספר שמיישם את 10 האינדיקטורים עובר שינוי תפיסתי מקיף.
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 2: PIPELINE (צינור) ======= -->
+    <div id="view-pipeline" class="view">
+
+        <div class="section">
+            <h2>איך CASEL הפך למדיניות ישראלית</h2>
+            <p>המעבר ממסגרת אמריקאית למדיניות חינוך ישראלית התרחש ב-3 שלבים מקבילים: אימוץ מוסדי (אבני ראשה), הכשרת מנהלים, וחוזרי מנכ"ל שמנדטים את התוכן &mdash; מבלי לציין את המקור.</p>
+
+            <h3>ציר הזמן</h3>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-date">1994</div>
+                    <div class="tl-title">CASEL נוסד בארה"ב</div>
+                    <div class="tl-desc">Collaborative for Academic, Social, and Emotional Learning &mdash; מפתח מסגרת SEL גלובלית</div>
+                </div>
+                <div class="tl-item critical">
+                    <div class="tl-date">2007</div>
+                    <div class="tl-title">אבני ראשה מוקם בישראל</div>
+                    <div class="tl-desc">יד הנדיב (רוטשילד) + משרד החינוך מקימים מכון להכשרת מנהלים. תוכנית "מפתח" (Mafteh) מושקת במקביל.</div>
+                </div>
+                <div class="tl-item critical">
+                    <div class="tl-date">ספטמבר 2014</div>
+                    <div class="tl-title">חוזר מנכ"ל תשע"ה/1(א): "כישורי חיים"</div>
+                    <div class="tl-desc">משרד החינוך מנדט "מיומנויות חברתיות-רגשיות, קוגניטיביות והתנהגותיות" &mdash; SEL בדיוק, תחת שם עברי. <strong>לא מזכיר CASEL או אבני ראשה.</strong></div>
+                </div>
+                <div class="tl-item critical">
+                    <div class="tl-date">נובמבר 2017</div>
+                    <div class="tl-title">חוזר מנכ"ל תשע"ח/3(א): "אקלים חינוכי מיטבי"</div>
+                    <div class="tl-desc">כולל "פיתוח מיומנויות חברתיות-רגשיות", "תחושת שייכות", "סובלנות וקבלת האחר" &mdash; כל מרכיבי SEL. <strong>לא מזכיר CASEL או אבני ראשה.</strong></div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2020</div>
+                    <div class="tl-title">CASEL מוסיף Transformative SEL</div>
+                    <div class="tl-desc">CASEL מוסיף "equity" ו-"social justice" כמרכיבי ליבה. אבני ראשה לא מאמץ את השם אבל כבר כולל "שוויון הזדמנויות, הכלה וצדק חברתי" במודל.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2024</div>
+                    <div class="tl-title">1,000+ בתי ספר מיישמים</div>
+                    <div class="tl-desc">3,000+ מנהלים הוכשרו. 10 האינדיקטורים מיושמים ביותר מ-1,000 בתי ספר בישראל.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>חוזרי מנכ"ל: SEL בלי השם</h2>
+            <p>משרד החינוך אינו משתמש במונח "SEL" בחוזרי מנכ"ל. במקום זאת משתמש ב: "כישורי חיים", "מיומנויות חברתיות-רגשיות", "אקלים חינוכי מיטבי". התוכן זהה, המקור לא מצוין.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>חוזר</th>
+                        <th>תאריך</th>
+                        <th>תוכן</th>
+                        <th>מזכיר CASEL?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td><strong>תשע"ה/1(א)</strong></td>
+                        <td>ספטמבר 2014</td>
+                        <td>"תוכנית הלימודים בכישורי חיים &mdash; חובה בכל שכבות הגיל"</td>
+                        <td><span class="badge red">לא</span></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>תשע"ח/3(א)</strong></td>
+                        <td>נובמבר 2017</td>
+                        <td>"אקלים חינוכי מיטבי" &mdash; כולל "פיתוח מיומנויות חברתיות-רגשיות"</td>
+                        <td><span class="badge red">לא</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quote-box">
+                "מטרת התוכנית היא להקנות לתלמידים כישורים ומיומנויות חברתיות-רגשיות, קוגניטיביות והתנהגותיות, שיסייעו להם להתמודד עם אתגרי החיים, לפתח חוסן אישי וחברתי, ולקדם אורח חיים בריא ובטוח."
+                <div class="q-source">חוזר מנכ"ל תשע"ה/1(א), ספטמבר 2014</div>
+            </div>
+
+            <div class="warning-box">
+                <strong>הדפוס:</strong> חוזרי מנכ"ל משרד החינוך מנדטים תוכן זהה למסגרת CASEL &mdash; מודעות עצמית, ניהול עצמי, מודעות חברתית, מיומנויות בינאישיות, קבלת החלטות &mdash; מבלי לציין שזו מסגרת אמריקאית שאומצה דרך מכון ספציפי.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תוכנית "מפתח" (Mafteh)</h2>
+            <p>יוזמה משותפת של <strong>יד הנדיב + משרד החינוך</strong> מאז 2007. התוכנית מתמקדת בפיתוח מנהיגות פדגוגית של מנהלים וצוותיהם.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>מה "מפתח" עושה</h3>
+                    <ul style="list-style:disc; padding-right:20px; font-size:0.9em; color:#555;">
+                        <li>פיתוח תוכניות לימודים בית-ספריות מותאמות</li>
+                        <li>הטמעת דרכי הוראה "חדשניות"</li>
+                        <li>כלי הערכה "מעצבים"</li>
+                        <li>"מיומנויות המאה ה-21" &mdash; חשיבה ביקורתית, יצירתיות, תקשורת, שיתוף פעולה</li>
+                        <li>פיתוח מקצועי של צוותי חינוך</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>למה זה חשוב</h3>
+                    <div class="info-box">
+                        <strong>"מפתח" אינה תוכנית SEL ייעודית</strong> אלא מסגרת לפיתוח מקצועי שמאפשרת ומעודדת שילוב עקרונות SEL בתוך הפרקטיקה הפדגוגית. היא משנה את דרכי ההוראה בלי שההורים רואים "תוכנית SEL" בשום מקום.
+                    </div>
+                    <div class="warning-box">
+                        <strong>שקיפות להורים:</strong> לא נמצא מידע המצביע על כך שהורים מקבלים מידע ייעודי ומפורט על תכני "מפתח". ההורים רואים "שינויים פדגוגיים" &mdash; לא את המסגרת שמאחוריהם.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Transformative SEL: האם אבני ראשה אימצו?</h2>
+            <p>בשנת 2020, CASEL הוסיף <strong>"equity" (שוויון/הוגנות)</strong> ו-<strong>"social justice" (צדק חברתי)</strong> כמרכיבי ליבה של SEL. השאלה: האם אבני ראשה הלך בעקבותיו?</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>מה נמצא</h3>
+                    <div class="finding">
+                        <div class="icon">&#10060;</div>
+                        <div>
+                            <h4>לא מוזכר "Transformative SEL"</h4>
+                            <p>באתר אבני ראשה לא נמצא אזכור מפורש למונח "Transformative SEL" או אימוץ רשמי של גרסת CASEL 2020.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#10060;</div>
+                        <div>
+                            <h4>10 האינדיקטורים לא עודכנו</h4>
+                            <p>רשימת 10 האינדיקטורים אינה כוללת "equity" או "social justice" כאינדיקטורים עצמאיים.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>אבל &mdash;</h3>
+                    <div class="finding">
+                        <div class="icon">&#9888;</div>
+                        <div>
+                            <h4>התוכן כבר קיים במודל הכללי</h4>
+                            <p>המודל המקיף של אבני ראשה כבר כולל: "שוויון הזדמנויות, הכלה וצדק חברתי" &mdash; אותו תוכן בדיוק, רק לא מתויג כ-"Transformative SEL".</p>
+                        </div>
+                    </div>
+                    <div class="quote-box">
+                        "המודל שואף לפתח מנהלים/ות שיובילו בתי ספר המקדמים מצוינות, <strong>שוויון הזדמנויות, הכלה וצדק חברתי</strong>."
+                        <div class="q-source">אתר אבני ראשה, "המודל המקיף לפיתוח מנהלים ומנהלות בתי ספר"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>המסקנה:</strong> אבני ראשה לא קיבל את <em>הכותרת</em> "Transformative SEL" אבל כבר מטמיע את <em>התוכן</em>: צדק חברתי, שוויון, והכלה כחלק אינטגרלי מהמודל הכולל. הדפוס חוזר: תוכן אמריקאי מאומץ בפועל, מבלי לתייג אותו בשמו.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>דפוס "ללא ייחוס"</h2>
+            <p>בכל שלב בצינור, המקור האמריקאי נמחק:</p>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">CASEL SEL Framework</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "10 אינדיקטורים"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משה"ח: "כישורי חיים"</div>
+            </div>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">Transformative SEL (equity)</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "הכלה, שוויון, צדק חברתי"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משה"ח: "סובלנות וקבלת האחר"</div>
+            </div>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">CASEL Competencies</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "מיומנויות SEL"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משה"ח: "מיומנויות חברתיות-רגשיות"</div>
+            </div>
+
+            <p style="font-size:0.85em; color:#666; text-align:center; margin-top:12px;">בכל שורה: אותו תוכן, שמות שונים, המקור נעלם.</p>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 3: FUNDING (מימון) ======= -->
+    <div id="view-funding" class="view">
+
+        <div class="section">
+            <h2>מבנה מימון (2022)</h2>
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">תרומות מקרנות</div>
+                    <div class="value">13.87M &#8362;</div>
+                    <div class="note">86.4% מההכנסות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">תמיכות ממשלתיות</div>
+                    <div class="value">1.18M &#8362;</div>
+                    <div class="note">7.4% &mdash; משרד החינוך</div>
+                </div>
+                <div class="metric">
+                    <div class="label">תרומות מיחידים</div>
+                    <div class="value">1M &#8362;</div>
+                    <div class="note">6.2% מההכנסות</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap">
+                        <canvas id="fundingPie"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מה המספרים אומרים</h3>
+                    <p>אבני ראשה ממומן ב-86% מקרנות פילנתרופיות, אבל משרד החינוך מכיר בהכשרה כפיתוח מקצועי רשמי. המשמעות: <strong>גופים פרטיים מממנים, המדינה מכשירה</strong> &mdash; מודל שמעניק השפעה בלתי פרופורציונלית.</p>
+                    <p style="font-size:0.82em; color:#888;">מקור: גיידסטאר ישראל, דוח כספי 2022</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שותפי מימון מרכזיים</h2>
+
+            <div class="funder-card primary">
+                <h4>יד הנדיב (קרן רוטשילד)</h4>
+                <div class="f-role">מייסד ושותף ראשי</div>
+                <div class="f-detail">הקים את המכון ב-2007. שותף מייסד גם בתוכנית "מפתח". יד הנדיב היא הזרוע הפילנתרופית של משפחת רוטשילד בישראל, ומממנת גם את מכון ון ליר, הספרייה הלאומית, ופרויקטים נוספים.</div>
+            </div>
+
+            <div class="funder-card">
+                <h4>משרד החינוך</h4>
+                <div class="f-role">שותף רשמי + מממן (1.18M &#8362;)</div>
+                <div class="f-detail">"המכון פועל בשיתוף פעולה הדוק עם משרד החינוך, ומסייע לו בגיבוש ויישום מדיניות בתחום פיתוח מנהיגות חינוכית." תוכניות ההכשרה מוכרות כפיתוח מקצועי רשמי.</div>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <div class="funder-card cross">
+                        <h4>קרן שוסטרמן <span class="badge red">מימון צולב</span></h4>
+                        <div class="f-role">שותפה &mdash; סכומים לא פומביים</div>
+                        <div class="f-detail">
+                            <strong>מממנת גם את:</strong> אבני ראשה (SEL) + מרכז טאראסץ' לחינוך קשוב (Mindfulness). אותו מממן דוחף שני צינורות מקבילים לתוך בתי הספר.<br>
+                            <span style="font-size:0.82em; color:#888;">מקור: עמודי "שותפים" באתרי אבני ראשה וטאראסץ'</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="funder-card">
+                        <h4>קרן וקסנר (Wexner Foundation)</h4>
+                        <div class="f-role">שותפה &mdash; סכומים לא פומביים</div>
+                        <div class="f-detail">
+                            מופיעה כשותפה באתר אבני ראשה. סכומים ותאריכים לא פומביים. <strong>לא נמצא שתורמת ל-CASEL</strong> בארה"ב &mdash; הקשר הוא דרך אבני ראשה בלבד.<br>
+                            <span style="font-size:0.82em; color:#888;">קרן וקסנר ידועה בתוכנית ווקסנר למנהיגות ישראלית</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>שותפים נוספים</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>קרן / גוף</th>
+                        <th>סוג</th>
+                        <th>הערות</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>קרן רש"י</td><td>פילנתרופית ישראלית</td><td>מממנת מגוון יוזמות חינוכיות</td></tr>
+                    <tr><td>קרן ג'נסיס</td><td>פילנתרופית בינלאומית</td><td>Genesis Philanthropy Group</td></tr>
+                    <tr><td>מכון ון ליר</td><td>מחקר ומדיניות</td><td>גם נתמך על ידי יד הנדיב</td></tr>
+                    <tr><td>קרן אדמונד דה רוטשילד</td><td>פילנתרופית</td><td>ענף נוסף של משפחת רוטשילד</td></tr>
+                    <tr class="highlight"><td>קרן שוסטרמן</td><td>פילנתרופית אמריקאית</td><td>מימון צולב: אבני ראשה + טאראסץ'</td></tr>
+                    <tr><td>קרן פדרמן</td><td>פילנתרופית ישראלית</td><td>&mdash;</td></tr>
+                    <tr><td>קרן וקסנר</td><td>פילנתרופית אמריקאית</td><td>Wexner Foundation</td></tr>
+                    <tr><td>קרן שחף</td><td>פילנתרופית</td><td>&mdash;</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.82em; color:#888;">מקור: אתר אבני ראשה, "אודותינו" > "שותפים"</p>
+        </div>
+
+        <div class="section">
+            <h2>מימון צולב: שוסטרמן</h2>
+            <p>קרן שוסטרמן (Schusterman Family Philanthropies) מממנת <strong>שני צינורות מקבילים</strong> לתוך בתי הספר:</p>
+
+            <div class="pipeline" style="background:#fff5f5; border-color:#fca5a5;">
+                <div class="pipe-node source" style="border-color:#e74c3c;">
+                    <div class="p-icon">&#128176;</div>
+                    <div class="p-title">קרן שוסטרמן</div>
+                    <div class="p-sub">Schusterman Philanthropies</div>
+                </div>
+                <div class="pipe-arrow" style="color:#e74c3c;">&swarr;</div>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div class="pipe-node hub">
+                        <div class="p-icon">&#127979;</div>
+                        <div class="p-title">אבני ראשה</div>
+                        <div class="p-sub">SEL &mdash; מיומנויות חברתיות-רגשיות</div>
+                    </div>
+                    <div class="pipe-node hub" style="border-color:#9b59b6; background:#faf5ff;">
+                        <div class="p-icon">&#129504;</div>
+                        <div class="p-title">מרכז טאראסץ'</div>
+                        <div class="p-sub">Mindfulness &mdash; חינוך קשוב</div>
+                    </div>
+                </div>
+                <div class="pipe-arrow" style="color:#e74c3c;">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#127963;</div>
+                    <div class="p-title">בתי ספר</div>
+                    <div class="p-sub">שני צינורות, אותו מממן</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>משמעות:</strong> אותו גוף פילנתרופי מממן הן את ה-SEL (דרך אבני ראשה) והן את ה-Mindfulness (דרך טאראסץ'). שתי התפיסות משלימות זו את זו &mdash; SEL עוסק ברגשות ויחסים, Mindfulness עוסק בתשומת לב ומודעות. ביחד הן מכסות את כל הספקטרום של "חינוך הוליסטי".
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>שם</th>
+                        <th>תפקיד</th>
+                        <th>רקע / קשרים</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>דפנה ברוורמן</strong></td><td>מנכ"לית</td><td>&mdash;</td></tr>
+                    <tr><td><strong>אלי הורוביץ</strong></td><td>יו"ר הוועד המנהל</td><td>&mdash;</td></tr>
+                    <tr class="highlight"><td><strong>פרופ' יולי תמיר</strong></td><td>חברת וועד מנהל</td><td>שרת חינוך לשעבר (2006-2009, מפלגת העבודה). נשיאת שנקר לשעבר. קשר ישיר למשרד החינוך ברמה הבכירה ביותר.</td></tr>
+                    <tr class="highlight"><td><strong>אילן כהן</strong></td><td>חבר וועד מנהל</td><td>מנכ"ל משרד ראש הממשלה לשעבר (תקופת שרון). מנכ"ל בנק דיסקונט לשעבר.</td></tr>
+                    <tr><td>פרופ' עמיה ליבליך</td><td>חברת וועד מנהל</td><td>פסיכולוגית חברתית, חוקרת</td></tr>
+                    <tr><td>דליה פדידה</td><td>חברת וועד מנהל</td><td>מנהלת ביה"ס לשעבר, מפקחת משרד החינוך</td></tr>
+                    <tr><td>פרופ' אילנה רוזן</td><td>חברת וועד מנהל</td><td>חוקרת חינוך, אונ' בן-גוריון</td></tr>
+                    <tr><td>עופר ינאי</td><td>חבר וועד מנהל</td><td>יזם, מנכ"ל נופר אנרגיה</td></tr>
+                </tbody>
+            </table>
+            <div class="warning-box">
+                <strong>קשרים פוליטיים:</strong> הנוכחות של <strong>שרת חינוך לשעבר</strong> (יולי תמיר) ושל <strong>מנכ"ל משרד רה"מ לשעבר</strong> (אילן כהן) בוועד המנהל מבטיחה ערוצי השפעה ישירים על קביעת מדיניות חינוכית.
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 4: PARENTS (הורים) ======= -->
+    <div id="view-parents" class="view">
+
+        <div class="section">
+            <h2>מה הורים לא יודעים</h2>
+            <p style="font-size:0.95em; color:#555;">להלן ממצאים עובדתיים שרוב ההורים בישראל אינם מודעים אליהם, בניגוד לצפייה הסבירה שלהם לשקיפות בנוגע לחינוך ילדיהם.</p>
+
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9312;</div>
+                <div>
+                    <h4>40% ממנהלי בתי הספר הוכשרו על ידי מכון אחד</h4>
+                    <p>אבני ראשה הכשיר 3,000+ מנהלים &mdash; 40% מכלל מנהלי בתי הספר בישראל. המשמעות: מכון בודד, שממומן ב-86% מקרנות פרטיות, מעצב את תפיסת החינוך של ארבעה מכל עשרה מנהלים. הורים אינם יודעים מיהו הגוף שהכשיר את מנהל בית הספר של ילדיהם.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9313;</div>
+                <div>
+                    <h4>המסגרת מגיעה מארגון אמריקאי (CASEL)</h4>
+                    <p>"10 האינדיקטורים ל-SEL מערכתי" שמיישמים 1,000+ בתי ספר הם התאמה של מסגרת CASEL האמריקאית. ההורים רואים "כישורי חיים" או "אקלים חינוכי" &mdash; לא "CASEL framework".</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9314;</div>
+                <div>
+                    <h4>"כישורי חיים" = SEL = מסגרת CASEL</h4>
+                    <p>חוזרי מנכ"ל משרד החינוך משתמשים בשמות עבריים ("כישורי חיים", "מיומנויות חברתיות-רגשיות") לתוכן שמקורו במסגרת CASEL &mdash; מבלי לציין זאת. ההורה לא יכול לדעת שמה שנראה כמו יוזמה ישראלית הוא למעשה תרגום של מודל אמריקאי.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9315;</div>
+                <div>
+                    <h4>תוכנית "מפתח" משנה פדגוגיה בלי שההורים יודעים</h4>
+                    <p>תוכנית "מפתח" (יד הנדיב + משה"ח) משנה דרכי הוראה ואקלים בית ספרי, אבל ההורים מקבלים מידע כללי על "שינויים פדגוגיים" &mdash; לא על התכנים הספציפיים שמופנים לצוותים החינוכיים.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon" style="font-size:2em;">&#9316;</div>
+                <div>
+                    <h4>הקשרים הפוליטיים והמימוניים</h4>
+                    <p>שרת חינוך לשעבר ומנכ"ל משרד רה"מ לשעבר יושבים בוועד המנהל. 86% מהתקציב מקרנות פילנתרופיות (רוטשילד, שוסטרמן, וקסנר). הורים אינם מודעים לרשת ההשפעה שמאחורי ה"הכשרה מקצועית" של מנהל בית הספר.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פער השמות: מה רשום מול מה זה באמת</h2>
+            <p>ההורים רואים את העמודה הימנית. המקור האמריקאי נמצא בשמאלית.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>מה ההורה רואה</th>
+                        <th>מה זה בפועל</th>
+                        <th>המקור</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td>"כישורי חיים"</td>
+                        <td>Social-Emotional Learning (SEL)</td>
+                        <td>CASEL Framework, ארה"ב</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td>"מיומנויות חברתיות-רגשיות"</td>
+                        <td>CASEL 5 Competencies</td>
+                        <td>Self-awareness, Self-management, Social awareness, Relationship skills, Responsible decision-making</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td>"אקלים חינוכי מיטבי"</td>
+                        <td>Systemic SEL Implementation</td>
+                        <td>CASEL 10 Indicators, מותאם ע"י אבני ראשה</td>
+                    </tr>
+                    <tr>
+                        <td>"פיתוח מקצועי למנהלים"</td>
+                        <td>SEL-based leadership training</td>
+                        <td>אבני ראשה (3,000 מנהלים)</td>
+                    </tr>
+                    <tr>
+                        <td>"סובלנות וקבלת האחר"</td>
+                        <td>Equity &amp; Social Justice (Transformative SEL)</td>
+                        <td>CASEL 2020 update</td>
+                    </tr>
+                    <tr>
+                        <td>"הכלה, שוויון וצמצום פערים"</td>
+                        <td>Diversity, Equity, Inclusion (DEI)</td>
+                        <td>תוכנית "מנהיגות רב-תרבותית", אבני ראשה</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>שאלות שהורים צריכים לשאול</h2>
+
+            <div class="q-card">
+                <div class="q-num">שאלה 1</div>
+                <div class="q-text">האם מנהל/ת בית הספר עבר/ה הכשרה באבני ראשה?</div>
+                <div class="q-why">40% מהמנהלים הוכשרו שם. ההורה זכאי לדעת מי עיצב את התפיסה החינוכית של מנהל ביה"ס.</div>
+            </div>
+
+            <div class="q-card">
+                <div class="q-num">שאלה 2</div>
+                <div class="q-text">האם בית הספר מיישם "10 אינדיקטורים ל-SEL מערכתי"?</div>
+                <div class="q-why">1,000+ בתי ספר מיישמים. אם כן &mdash; המסגרת מקורה ב-CASEL האמריקאי. ההורה זכאי להכיר את המקור.</div>
+            </div>
+
+            <div class="q-card">
+                <div class="q-num">שאלה 3</div>
+                <div class="q-text">מה בדיוק כולל "כישורי חיים" בתוכנית הלימודים?</div>
+                <div class="q-why">חוזר מנכ"ל קובע שזה חובה, אבל לא מפרט שמדובר ב-SEL. ההורה צריך לדרוש את התכנים המלאים.</div>
+            </div>
+
+            <div class="q-card">
+                <div class="q-num">שאלה 4</div>
+                <div class="q-text">האם בית הספר משתתף בתוכנית "מפתח"?</div>
+                <div class="q-why">"מפתח" משנה פדגוגיה מהיסוד, אבל ההורים לא מקבלים מידע מפורט. שאלו מה בדיוק השתנה ומדוע.</div>
+            </div>
+
+            <div class="q-card">
+                <div class="q-num">שאלה 5</div>
+                <div class="q-text">מי מממן את תוכניות ההכשרה של הצוות החינוכי?</div>
+                <div class="q-why">86% מתקציב אבני ראשה מקרנות פרטיות. כשגוף פרטי מכשיר את הצוות &mdash; ההורה זכאי לדעת מיהו ומה האג'נדה שלו.</div>
+            </div>
+
+            <div class="q-card">
+                <div class="q-num">שאלה 6</div>
+                <div class="q-text">האם יש תוכניות "מנהיגות רב-תרבותית" או "צדק חברתי" בבית הספר?</div>
+                <div class="q-why">אבני ראשה מכשיר מנהלים ב"הכלה, שוויון וצמצום פערים". ההורה צריך לדעת אם ואיך זה מתורגם לכיתה.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+
+            <a class="link-card" href="pipeline_institutional.html">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">הצינור המוסדי &mdash; מפת רשת</div>
+                    <div class="lc-desc">CASEL &rarr; אבני ראשה &rarr; מנהלים &rarr; כיתות &mdash; המפה המלאה</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="../index.html">
+                <div class="lc-icon">&#127961;</div>
+                <div>
+                    <div class="lc-title">דירוג ערים</div>
+                    <div class="lc-desc">כל הנתונים &mdash; חינוך, פרוטוקולים, חדשות, דגלים אדומים</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="index.html">
+                <div class="lc-icon">&#128218;</div>
+                <div>
+                    <div class="lc-title">מאגר מחקר</div>
+                    <div class="lc-desc">46 דוחות מחקר מעמיקים על ארגונים חינוכיים</div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>דשבורד מחקר &mdash; אבני ראשה &ndash; CASEL | נתונים: אתר אבני ראשה, גיידסטאר ישראל, חוזרי מנכ"ל משה"ח</p>
+    <p style="margin-top:6px;"><a href="../index.html">דירוג ערים</a> &bull; <a href="index.html">מאגר מחקר</a> &bull; <a href="pipeline_institutional.html">צינור מוסדי</a></p>
+</footer>
+
+<script>
+// Tab navigation
+function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Risk Radar Chart
+const riskCtx = document.getElementById('riskRadar');
+if (riskCtx) {
+    new Chart(riskCtx.getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['ריכוז השפעה', 'תלות במימון חיצוני', 'העדר שקיפות', 'קשרים פוליטיים', 'חדירה מוסדית', 'אי-ייחוס מקור'],
+            datasets: [{
+                label: 'רמת סיכון',
+                data: [95, 86, 80, 75, 90, 85],
+                backgroundColor: 'rgba(231, 76, 60, 0.15)',
+                borderColor: '#e74c3c',
+                borderWidth: 2,
+                pointBackgroundColor: '#e74c3c',
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { stepSize: 20, font: { size: 10 } },
+                    pointLabels: { font: { size: 11 } }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+// Funding Pie Chart
+const fundCtx = document.getElementById('fundingPie');
+if (fundCtx) {
+    new Chart(fundCtx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['תרומות מקרנות (13.87M)', 'תמיכות ממשלתיות (1.18M)', 'תרומות מיחידים (1M)'],
+            datasets: [{
+                data: [13873, 1180, 1000],
+                backgroundColor: ['#e74c3c', '#667eea', '#f39c12'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 12 }, padding: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                            const pct = ((ctx.raw / total) * 100).toFixed(1);
+                            return ctx.label + ' — ' + pct + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>

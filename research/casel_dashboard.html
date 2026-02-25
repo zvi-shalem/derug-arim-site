@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASEL — ניתוח ביקורתי | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Pipeline diagram -- */
+.pipeline {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 30px 10px; flex-wrap: wrap;
+    background: #fafbff; border-radius: 8px; border: 1px solid #e8e8e8;
+    margin: 16px 0;
+}
+.pipe-node {
+    text-align: center; padding: 16px 14px;
+    background: #fff; border-radius: 8px;
+    border: 2px solid #667eea; min-width: 130px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.pipe-node:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.pipe-node .p-icon { font-size: 1.8em; margin-bottom: 4px; }
+.pipe-node .p-title { font-weight: 700; font-size: 0.9em; color: #1a1a2e; }
+.pipe-node .p-sub { font-size: 0.72em; color: #888; margin-top: 2px; }
+.pipe-node.source { border-color: #e74c3c; }
+.pipe-node.hub { border-color: #ff8800; background: #fffaf0; }
+.pipe-node.target { border-color: #27ae60; }
+.pipe-arrow {
+    font-size: 1.8em; color: #667eea; padding: 0 6px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .pipeline { flex-direction: column; gap: 8px; }
+    .pipe-arrow { transform: rotate(90deg); }
+}
+
+/* -- Timeline -- */
+.timeline { position: relative; padding-right: 30px; margin: 20px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; padding: 14px 20px 14px 0; margin-bottom: 8px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.critical::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-date { font-size: 0.78em; color: #ff8800; font-weight: 700; }
+.tl-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; }
+.tl-desc { font-size: 0.85em; color: #555; margin-top: 2px; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333; font-size: 0.9em;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Naming gap -- */
+.naming-gap {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin: 14px 0; flex-wrap: wrap;
+}
+.ng-box {
+    padding: 10px 18px; border-radius: 8px; font-weight: 700;
+    text-align: center; font-size: 0.9em;
+}
+.ng-box.usa { background: #e8f4fd; color: #1a6fb5; border: 1px solid #b3d9f2; }
+.ng-box.bridge { background: #fff5e6; color: #b87300; border: 1px solid #f0d9a8; }
+.ng-box.israel { background: #e8fde8; color: #1a7a1a; border: 1px solid #b3e8b3; }
+.ng-arrow { font-size: 1.3em; color: #999; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; margin-left: 6px;
+}
+.badge.red { background: #fef2f2; color: #dc2626; }
+.badge.orange { background: #fff7ed; color: #ea580c; }
+.badge.blue { background: #eff6ff; color: #2563eb; }
+.badge.green { background: #f0fdf4; color: #16a34a; }
+.badge.gray { background: #f5f5f5; color: #666; }
+
+/* -- Question cards -- */
+.q-card {
+    background: #fff; border-radius: 8px; padding: 16px 18px;
+    margin-bottom: 10px; border: 1px solid #e8e8e8;
+    border-right: 3px solid #ff8800;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.q-card .q-num { font-size: 0.75em; color: #ff8800; font-weight: 700; }
+.q-card .q-text { font-weight: 600; color: #1a1a2e; font-size: 0.95em; margin: 4px 0; }
+.q-card .q-why { font-size: 0.82em; color: #666; }
+
+/* -- Funder card -- */
+.funder-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.funder-card:hover { transform: translateY(-2px); }
+.funder-card h4 { font-size: 0.95em; color: #1a1a2e; margin-bottom: 6px; }
+.funder-card .f-role { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 4px; }
+.funder-card .f-detail { font-size: 0.85em; color: #555; }
+.funder-card.primary { border-right: 4px solid #ff8800; }
+.funder-card.cross { border-right: 4px solid #e74c3c; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Checklist section -- */
+.checklist {
+    background: #f5f5f8; border-radius: 8px; padding: 20px 24px;
+    margin: 14px 0;
+}
+.checklist-item {
+    padding: 10px 0; border-bottom: 1px solid #e0e0e0;
+    font-size: 0.92em; color: #333;
+    display: flex; gap: 10px; align-items: flex-start;
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item .ci-icon { flex-shrink: 0; font-size: 1.2em; }
+
+/* -- Criticism card -- */
+.crit-card {
+    background: #fff; border-radius: 8px; padding: 14px 18px;
+    margin-bottom: 10px; border: 1px solid #e8e8e8;
+    border-right: 3px solid #e74c3c;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.crit-card h4 { font-weight: 700; color: #1a1a2e; font-size: 0.95em; margin-bottom: 4px; }
+.crit-card p { font-size: 0.85em; color: #555; }
+.crit-card .crit-source { font-size: 0.75em; color: #999; margin-top: 4px; }
+
+/* -- Competency wheel list -- */
+.comp-list { list-style: none; padding: 0; }
+.comp-list li {
+    padding: 10px 14px; margin-bottom: 8px;
+    background: #f8f9fa; border-radius: 6px;
+    border-right: 3px solid #667eea;
+    font-size: 0.92em;
+}
+.comp-list li strong { color: #2a5a8a; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>CASEL &mdash; ניתוח ביקורתי</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+            <a href="avney_rosha_dashboard.html">אבני ראשה</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה כללית</button>
+            <button class="nav-tab" onclick="navigate('evolution')">האבולוציה</button>
+            <button class="nav-tab" onclick="navigate('criticism')">ביקורת</button>
+            <button class="nav-tab" onclick="navigate('israel')">הקשר הישראלי</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>CASEL &mdash; מנגנון שליטה גלובלי בחינוך הרגשי</h1>
+    <div class="subtitle">Collaborative for Academic, Social, and Emotional Learning</div>
+    <div class="meta">נוסד: 1994, שיקגו | $18M שיא (2022) | $5M צניחה (2023) | סה"כ 2014-2024: ~$96.5M | 50 מדינות | תקני SEL בגנים + 27 מדינות K-12</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB 1: OVERVIEW (סקירה כללית) ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>מדדים מרכזיים</h2>
+            <div class="grid-4">
+                <div class="metric">
+                    <div class="label">נוסד</div>
+                    <div class="value">1994</div>
+                    <div class="note">שיקגו, ארה"ב</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">הכנסות (990)</div>
+                    <div class="value">$18M→$5M</div>
+                    <div class="note">שיא 2022, צניחת 72% ב-2023</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">תורמים מרכזיים</div>
+                    <div class="value" style="font-size:1em;">Gates, NoVo, CZI, RWJF</div>
+                    <div class="note">Gates, NoVo, Chan Zuckerberg, Robert Wood Johnson</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מדינות עם תקני SEL</div>
+                    <div class="value">50</div>
+                    <div class="note">תקני SEL בגן, 27+ ב-K-12</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מה זה CASEL?</h2>
+            <p>CASEL &mdash; Collaborative for Academic, Social, and Emotional Learning &mdash; הוא הארגון הדומיננטי בעולם בהגדרה וקידום למידה חברתית-רגשית (Social-Emotional Learning &mdash; SEL). הארגון נוסד ב-1994 על ידי <strong>ד"ר רוג'ר פ. וייסברג</strong> (Roger P. Weissberg) ו<strong>דניאל גולמן</strong> (Daniel Goleman), מחבר הספר "אינטליגנציה רגשית" (Emotional Intelligence).</p>
+            <p>"גלגל CASEL" (CASEL Wheel) מגדיר 5 יכולות ליבה:</p>
+
+            <ul class="comp-list">
+                <li><strong>1. מודעות עצמית (Self-Awareness)</strong> &mdash; הבנת הרגשות, החוזקות והחולשות של עצמך</li>
+                <li><strong>2. ניהול עצמי (Self-Management)</strong> &mdash; ויסות רגשי, שליטה עצמית, הצבת מטרות</li>
+                <li><strong>3. מודעות חברתית (Social Awareness)</strong> &mdash; אמפתיה, הבנת אחרים ונקודות מבט שונות</li>
+                <li><strong>4. מיומנויות יחסים (Relationship Skills)</strong> &mdash; תקשורת, שיתוף פעולה, פתרון קונפליקטים</li>
+                <li><strong>5. קבלת החלטות אחראית (Responsible Decision-Making)</strong> &mdash; בחירות אתיות ובטוחות</li>
+            </ul>
+
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מקורות מימון</h3>
+                    <p>הכנסות CASEL מגיעות ממספר מצומצם של קרנות פילנתרופיות גדולות. ריכוז המימון מעיד על כיוון אידיאולוגי מוגדר:</p>
+                    <div class="funder-card primary">
+                        <h4>Gates Foundation</h4>
+                        <div class="f-role">~30% מהמימון</div>
+                        <div class="f-detail">הקרן הגדולה בעולם. ממנת גם Common Core ויוזמות חינוך גלובליות.</div>
+                    </div>
+                    <div class="funder-card primary">
+                        <h4>NoVo Foundation</h4>
+                        <div class="f-role">~25% מהמימון</div>
+                        <div class="f-detail">קרן פיטר באפט. מתמקדת ב"שינוי מערכתי" וצדק חברתי.</div>
+                    </div>
+                    <div class="funder-card">
+                        <h4>Chan Zuckerberg Initiative</h4>
+                        <div class="f-role">~20% מהמימון</div>
+                        <div class="f-detail">היוזמה של מארק צוקרברג ופריסילה צ'ן. "Whole child" education.</div>
+                    </div>
+                    <div class="funder-card">
+                        <h4>Robert Wood Johnson Foundation</h4>
+                        <div class="f-role">~15% מהמימון</div>
+                        <div class="f-detail">קרן הבריאות הגדולה בארה"ב. SEL כ"בריאות ציבורית".</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הכנסות CASEL &mdash; נתוני 990 (ProPublica)</h2>
+            <p>נתונים מדיווחי מס 990 של CASEL (EIN 20-5884201), כפי שמופיעים ב-ProPublica Nonprofit Explorer. שים לב: שיא של $18M ב-2022, צניחת 72% ל-$5M ב-2023 (חופף לתגובת השמרנים נגד SEL), ואז התאוששות חלקית ב-2024.</p>
+            <div class="chart-wrap" style="height:320px;">
+                <canvas id="revenueTrendChart"></canvas>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; justify-content:center;">
+                <div class="metric" style="flex:1; min-width:120px;">
+                    <div class="label">2014</div>
+                    <div class="value" style="font-size:1.1em;">$4.1M</div>
+                </div>
+                <div class="metric" style="flex:1; min-width:120px;">
+                    <div class="label">2017</div>
+                    <div class="value" style="font-size:1.1em;">$8.4M</div>
+                </div>
+                <div class="metric" style="flex:1; min-width:120px;">
+                    <div class="label">2020</div>
+                    <div class="value" style="font-size:1.1em;">$12.5M</div>
+                </div>
+                <div class="metric alert" style="flex:1; min-width:120px;">
+                    <div class="label">2022 (שיא)</div>
+                    <div class="value" style="font-size:1.1em;">$18.0M</div>
+                </div>
+                <div class="metric warn" style="flex:1; min-width:120px;">
+                    <div class="label">2023 (צניחה)</div>
+                    <div class="value" style="font-size:1.1em;">$5.0M</div>
+                    <div class="note">-72%</div>
+                </div>
+                <div class="metric" style="flex:1; min-width:120px;">
+                    <div class="label">2024</div>
+                    <div class="value" style="font-size:1.1em;">$11.7M</div>
+                    <div class="note">התאוששות חלקית</div>
+                </div>
+            </div>
+            <p style="font-size:0.82em; color:#666; margin-top:12px; text-align:center;">מקור: ProPublica Nonprofit Explorer, IRS Form 990 filings (2011&ndash;2024)</p>
+        </div>
+
+        <div class="section">
+            <h2>תמיכה דו-מפלגתית &mdash; ואז השינוי</h2>
+            <p>במשך עשרות שנים, SEL נהנה מתמיכה דו-מפלגתית (רפובליקנים ודמוקרטים כאחד) כי היכולות נשמעו סבירות ונטולות פוליטיזציה: "מודעות עצמית", "שיתוף פעולה", "קבלת החלטות אחראית". כל 50 המדינות אימצו תקני SEL לגני ילדים.</p>
+            <p>אבל ב-2020, CASEL ביצע מפנה לכיוון <strong>"Transformative SEL"</strong> &mdash; והכל השתנה.</p>
+
+            <div class="quote-box">
+                "It was just part of what a good teacher does."
+                <div class="q-source">&mdash; Aaliyah Samuel, מנכ"לית CASEL (NPR, ספטמבר 2022)</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 2: EVOLUTION (האבולוציה) ======= -->
+    <div id="view-evolution" class="view">
+
+        <div class="section">
+            <h2>SEL 1.0 &mdash; מסגרת ניטרלית</h2>
+            <p>במשך עשרות שנים, CASEL הדגיש "יכולות" (competencies) כמו מודעות עצמית, ניהול עצמי, ומודעות חברתית. המסגרת זכתה לתמיכה דו-מפלגתית כי נראתה ניטרלית פוליטית &mdash; כלים פרקטיים לילדים, לא אידיאולוגיה.</p>
+
+            <div class="info-box">
+                <strong>מקס עדן (Max Eden), American Enterprise Institute:</strong> תיאר את SEL המקורי כ-"an attempt at values-free character education" &mdash; ניסיון לחינוך אופי חופשי מערכים פוליטיים.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2020 &mdash; המפנה: Transformative SEL</h2>
+            <p>ב-2020, CASEL אימץ רשמית את <strong>"Transformative SEL"</strong>, בהתבסס על המאמר האקדמי של <strong>Robert J. Jagers, Deborah Rivas-Drake &amp; Brittney Williams</strong> (2019):</p>
+            <div class="info-box">
+                <strong>"Transformative Social and Emotional Learning (SEL): Toward SEL in Service of Educational Equity and Excellence"</strong><br>
+                פורסם ב-<em>Educational Psychologist</em> (כתב עת אקדמי).
+            </div>
+
+            <p>המאמר מצהיר במפורש:</p>
+
+            <div class="quote-box">
+                "Transformative SEL is a means to better articulate the potential of SEL to mitigate the educational, social, and economic inequities that derive from the interrelated legacies of racialized cultural oppression."
+                <div class="q-source">&mdash; Jagers, Rivas-Drake &amp; Williams, Educational Psychologist, 2019</div>
+            </div>
+
+            <p>ועוד:</p>
+
+            <div class="quote-box">
+                מטרת Transformative SEL היא "effectively address issues such as power, privilege, prejudice, discrimination, social justice, empowerment, and self-determination."
+                <div class="q-source">&mdash; אותו מאמר</div>
+            </div>
+
+            <h3>טבלת השוואה: 5 היכולות &mdash; לפני ואחרי</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>מושג CASEL</th>
+                        <th>SEL 1.0 (מקורי)</th>
+                        <th>Transformative SEL (2020)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td><strong>מודעות עצמית</strong></td>
+                        <td>הבנת רגשות, חוזקות וחולשות</td>
+                        <td>"זהות אינטגרטיבית" דרך "גישה אינטרסקציונלית" מבוססת "תיאוריה פמיניסטית שחורה"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>מודעות חברתית</strong></td>
+                        <td>אמפתיה, הבנת אחרים</td>
+                        <td>"מודעות חברתית ביקורתית" &mdash; הבנת מערכות דיכוי, "הערכה פומבית של הקבוצה הגזעית"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>ניהול עצמי</strong></td>
+                        <td>ויסות רגשי, הצבת מטרות</td>
+                        <td>"התנגדות" + "אזרחות טרנספורמטיבית" שעשויה "לסתור או להפר חוקים קיימים"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>מיומנויות יחסים</strong></td>
+                        <td>שיתוף פעולה, פתרון קונפליקטים</td>
+                        <td>שיתוף פעולה לקידום "צדק חברתי ושוויון"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>קבלת החלטות</strong></td>
+                        <td>בחירות אתיות ובטוחות</td>
+                        <td>בחירות "לשיפור דיכוי ואי-צדק ולהגשמת שחרור"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>המשמעות:</strong> כל 5 היכולות ה"ניטרליות" קיבלו תוכן פוליטי מפורש. "ניהול עצמי" הפך ל-"התנגדות שעשויה להפר חוקים". "מודעות עצמית" הפכה ל"זהות אינטרסקציונלית". "קבלת החלטות" הפכה ל"הגשמת שחרור".
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ציטוטים מרכזיים</h2>
+
+            <div class="quote-box">
+                "Calling Transformative SEL a Trojan Horse for critical race theory would be an insult to Odysseus, who hid his fellow ancient Greek warriors within the horse and smuggled them into the city. The Transformative SEL strategy is effectively to place social-justice advocates on top of the horse, in open view, and gain entry by calling anyone who points them out 'conspiracy theorists.'"
+                <div class="q-source">&mdash; Max Eden, American Enterprise Institute (City Journal, מאי 2022)</div>
+            </div>
+
+            <div class="quote-box">
+                "Self-management now involves 'resistance' and 'transformative citizenship,' which is defined as a type of citizenship 'most closely aligned with critical democracy, as it refers to actions taken to advance policies or social changes that are consistent with human rights, social justice, and equality. Such efforts might be inconsistent with or violate existing local, state, and national laws.'"
+                <div class="q-source">&mdash; מתוך דוח Transformative SEL של CASEL עצמו</div>
+            </div>
+
+            <div class="quote-box">
+                "If we don't apply an anti-racist, abolitionist, anti-oppressive, anti-bias lens to social-emotional learning, it can very easily turn into white supremacy with a hug."
+                <div class="q-source">&mdash; Dena Simmons, מייסדת LiberatED (NPR, 2022)</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 3: CRITICISM (ביקורת) ======= -->
+    <div id="view-criticism" class="view">
+
+        <div class="section">
+            <h2>מפת הביקורת</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap">
+                        <canvas id="criticismRadar"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>עוצמת הביקורת לפי מגזר</h3>
+                    <div class="finding">
+                        <div class="icon">&#128308;</div>
+                        <div>
+                            <h4>ביקורת שמרנית: 9/10</h4>
+                            <p>ארגוני הורים, think tanks שמרנים, מדיה ימנית &mdash; ביקורת עזה ומתועדת.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128993;</div>
+                        <div>
+                            <h4>הורים: 8/10</h4>
+                            <p>התעוררות הורית ב-25+ מדינות, ארגוני הורים פעילים כמו Parents Defending Education.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128992;</div>
+                        <div>
+                            <h4>ממשל פדרלי: 8/10</h4>
+                            <p>משרד החינוך האמריקאי (מרץ 2025): SEL יכול "להסוות אפליה".</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128309;</div>
+                        <div>
+                            <h4>מחוקקים: 7/10</h4>
+                            <p>הצעות חוק לאיסור SEL בפלורידה, אוקלהומה, ויסקונסין ומדינות נוספות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128311;</div>
+                        <div>
+                            <h4>ביקורת אקדמית: 6/10</h4>
+                            <p>חוקרים שמאליים מאשרים שהתוכן הפוליטי קיים &mdash; ורואים בכך דבר חיובי.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ביקורת שמרנית &mdash; "סוס טרויאני"</h2>
+
+            <div class="crit-card">
+                <h4>Parents Defending Education</h4>
+                <p>פיתחו את "IndoctriNation Map" &mdash; מפה אינטראקטיבית המתעדת אירועי SEL בבתי ספר ברחבי ארה"ב.</p>
+                <div class="crit-source">parentsdefendingeducation.org</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>Center for Renewing America</h4>
+                <p>כולל SEL ברשימת "מונחים הקשורים ל-CRT" &mdash; מסווג אותו כחלק מהאידיאולוגיה הביקורתית בחינוך.</p>
+                <div class="crit-source">Center for Renewing America, מילון מונחי CRT</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>Washington Examiner (2021)</h4>
+                <p>פעילים שמרנים מכנים את SEL "סוס טרויאני" ל-CRT ולקידום אג'נדה טרנסג'נדרית.</p>
+                <div class="crit-source">Washington Examiner, 2021</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>The Federalist</h4>
+                <p>"It will be concealed as a number of different things... 'social-emotional learning' is the most deceptive because it doesn't sound like it involves race at all!"</p>
+                <div class="crit-source">The Federalist</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>AMAC (Association of Mature American Citizens)</h4>
+                <p>כינו את SEL "a new variant of the CRT-virus" &mdash; "וריאנט חדש של נגיף ה-CRT".</p>
+                <div class="crit-source">AMAC</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ביקורת מחוקקים ופוליטית</h2>
+
+            <div class="crit-card">
+                <h4>25+ מדינות &mdash; סכסוכי SEL</h4>
+                <p>NPR מצא עדויות לסכסוכים סביב SEL ב-25 מדינות לפחות בתקופה 2020-2022.</p>
+                <div class="crit-source">NPR, ספטמבר 2022</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>פלורידה &mdash; איסור רשמי</h4>
+                <p>אסרה SEL לצד CRT במפרט ספרי הלימוד: <strong>"Critical Race Theory, Social Justice, Culturally Responsive Teaching, Social and Emotional Learning... are prohibited."</strong></p>
+                <div class="crit-source">Florida Department of Education, מפרט ספרי לימוד</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>אוקלהומה &mdash; הצעת חוק לאיסור</h4>
+                <p>סנאטור הציע הצעת חוק לאסור SEL לחלוטין בבתי ספר ציבוריים.</p>
+                <div class="crit-source">Oklahoma State Legislature</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>ויסקונסין</h4>
+                <p>מחוקקים כללו SEL ברשימת מונחים המזוהים עם CRT.</p>
+                <div class="crit-source">Wisconsin State Legislature</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>חה"כ Elise Stefanik (ניו יורק)</h4>
+                <p>כתבה לנציבת החינוך של ניו יורק על שימוש NYSED במימון קורונה פדרלי עבור Transformative SEL. הנציבה <strong>Betty Rosa</strong> כינתה זאת "תיאוריית קונספירציה". סטפאניק השיבה: <strong>"shrouding the racist and divisive ideology with vague terminology does not diminish the harm."</strong></p>
+                <div class="crit-source">מכתב חה"כ Stefanik לנציבת החינוך של ניו יורק</div>
+            </div>
+
+            <div class="crit-card">
+                <h4>משרד החינוך האמריקאי (מרץ 2025)</h4>
+                <p>משרד החינוך הפדרלי קבע ש-SEL יכול <strong>"להסוות אפליה" (veil discrimination)</strong>.</p>
+                <div class="crit-source">EdWeek, מרץ 2025</div>
+            </div>
+
+            <div class="quote-box">
+                "This is a case of big, deep-pocketed, liberal, coastal foundations coming in, led by people who went to elite colleges who aren't from their communities, pushing ideological agendas that they find problematic and then calling them racists and idiots when they push back."
+                <div class="q-source">&mdash; Rick Hess, מנהל מדיניות חינוך, American Enterprise Institute (NPR, 2022)</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ביקורת מהשמאל &mdash; אישור מבפנים</h2>
+            <p>באופן אירוני, מבקרים <strong>מתוך</strong> עולם ה-SEL <strong>מאשרים</strong> בדיוק את מה שהשמרנים טוענים:</p>
+
+            <div class="quote-box">
+                "You can't have those conversations without talking about identity... Social-emotional learning is so that people can get along better. We also have to talk about why people don't get along."
+                <div class="q-source">&mdash; Dena Simmons, מייסדת LiberatED (NPR, 2022)</div>
+            </div>
+
+            <div class="crit-card" style="border-right-color: #667eea;">
+                <h4>Second Step Program</h4>
+                <p>תוכנית SEL מובילה בארה"ב. כוללת סעיף מפורש: <strong>"Anti-Racism and Anti-Bias Resources"</strong> &mdash; משאבים נגד גזענות והטיה.</p>
+                <div class="crit-source">אתר Second Step</div>
+            </div>
+
+            <div class="quote-box">
+                "It's pretty impossible to do social and emotional learning without larger social issues coming into play."
+                <div class="q-source">&mdash; Andrew Hartman, היסטוריון, Illinois State University (NPR, 2022)</div>
+            </div>
+
+            <div class="warning-box">
+                <strong>המשמעות:</strong> גם התומכים ב-SEL מודים שהוא כולל תוכן פוליטי מובהק. ההבדל הוא רק בשאלה האם זה דבר טוב או רע.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תגובת CASEL</h2>
+            <p>CASEL מתעקש ש-SEL "לא קשור לשום עמדה פוליטית" (not tied to any political viewpoints), אבל במקביל:</p>
+
+            <div class="finding">
+                <div class="icon">1.</div>
+                <div>
+                    <h4>פרסם את מאמר Transformative SEL</h4>
+                    <p>המקשר SEL לאינטרסקציונליות ו"דמוקרטיה ביקורתית" (critical democracy).</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon">2.</div>
+                <div>
+                    <h4>המנכ"לית הודתה</h4>
+                    <p>Aaliyah Samuel הודתה ש"זהות" (identity) היא חלק מיכולות ה-SEL.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon">3.</div>
+                <div>
+                    <h4>האתר הרשמי</h4>
+                    <p>קובע ש-SEL צריך "לטפל בצורות שונות של אי-שוויון" (address various forms of inequity) ומזכיר "קבוצות מודרות היסטורית" (historically marginalized groups).</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon">4.</div>
+                <div>
+                    <h4>הצהרה רשמית (מרץ 2025)</h4>
+                    <p>CASEL פרסם הצהרה בתגובה לביקורת הפדרלית, מבלי לחזור בו מ-Transformative SEL.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>הסתירה:</strong> CASEL טוען שהוא "לא פוליטי" תוך שהוא מפרסם מסמכים שמקשרים SEL ל"צדק חברתי", "אינטרסקציונליות", "תיאוריה פמיניסטית שחורה", ו"פעולה שעשויה להפר חוקים קיימים". הטענה ל"ניטרליות" היא חלק מהאסטרטגיה.
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ======= TAB 4: ISRAEL (הקשר הישראלי) ======= -->
+    <div id="view-israel" class="view">
+
+        <div class="section">
+            <h2>הצינור: CASEL &rarr; אבני ראשה &rarr; 1,000 בתי ספר</h2>
+            <p>המסלול שדרכו מסגרת SEL אמריקאית הפכה למדיניות חינוך ישראלית:</p>
+
+            <div class="pipeline">
+                <div class="pipe-node source">
+                    <div class="p-icon">&#127482;&#127480;</div>
+                    <div class="p-title">CASEL</div>
+                    <div class="p-sub">שיקגו | מסגרת SEL</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-icon">&#127979;</div>
+                    <div class="p-title">אבני ראשה</div>
+                    <div class="p-sub">ירושלים | מכון מנהלים</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#128101;</div>
+                    <div class="p-title">40% מנהלי ישראל</div>
+                    <div class="p-sub">3,000+ מנהלים</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-icon">&#127963;</div>
+                    <div class="p-title">1,000+ בתי ספר</div>
+                    <div class="p-sub">10 אינדיקטורים ל-SEL</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node" style="border-color:#9b59b6;">
+                    <div class="p-icon">&#128220;</div>
+                    <div class="p-title">חוזרי מנכ"ל</div>
+                    <div class="p-sub">ללא שם CASEL</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ההוכחה הישירה: אבני ראשה על CASEL</h2>
+            <p>ציטוט ישיר מתוך דף הזיכרון של CASEL לד"ר רוג'ר וייסברג (2021), שבו אבני ראשה מציג את עצמו:</p>
+
+            <div class="quote-box">
+                "'Avney Rosha' is the Israeli national institute for Principals training programs and professional development. Our R&amp;D department is dealing with SEL theories and practice them a lot during the last years — Dr. Weissberg's work was an inspiration for us all and shaped our research here in Israel."
+                <div class="q-source">&mdash; Avney Rosha Israel, דף הזיכרון של CASEL לד"ר Roger Weissberg (2021)<br>
+                מקור: <a href="https://casel.org/remembering-roger-weissberg/" style="color:#667eea;">casel.org/remembering-roger-weissberg/</a></div>
+            </div>
+
+            <div class="warning-box">
+                <strong>שורה תחתונה:</strong> אבני ראשה עצמם כותבים שעבודת CASEL "עיצבה את המחקר שלנו בישראל" (shaped our research here in Israel). אין מקום לספק בדבר הקשר הישיר.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>CASEL CEO מראיינת את אבני ראשה</h2>
+            <p><strong>Aaliyah Samuel</strong>, מנכ"לית CASEL, ראיינה את <strong>מיכל אילן</strong> מאבני ראשה בנושא יישום SEL בישראל. הראיון פורסם ב-LinkedIn תחת הכותרת:</p>
+
+            <div class="info-box">
+                <strong>"Social and Emotional Learning is the Future of Global Education"</strong><br>
+                <span style="font-size:0.85em; color:#666;">מקור: LinkedIn, מאמר של Aaliyah Samuel, CASEL CEO</span>
+            </div>
+
+            <p>המשמעות: הקשר בין CASEL לאבני ראשה אינו היסטורי בלבד &mdash; הוא פעיל, דו-כיווני, וברמת המנכ"ל.</p>
+        </div>
+
+        <div class="section">
+            <h2>הפער בשמות &mdash; הכלי המרכזי</h2>
+            <p>חוזרי מנכ"ל משרד החינוך מחייבים "כישורי חיים" ו"מיומנויות חברתיות-רגשיות" <strong>מבלי להזכיר את CASEL אף פעם</strong>:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>חוזר מנכ"ל</th>
+                        <th>תוכן</th>
+                        <th>מזכיר CASEL?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td><strong>תשע"ה/1(א)</strong><br><span style="font-size:0.8em; color:#888;">ספטמבר 2014</span></td>
+                        <td>"תוכנית הלימודים בכישורי חיים &mdash; חובה בכל שכבות הגיל"</td>
+                        <td><span class="badge red">לא</span></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>תשע"ח/3(א)</strong><br><span style="font-size:0.8em; color:#888;">נובמבר 2017</span></td>
+                        <td>"אקלים חינוכי מיטבי" &mdash; כולל "פיתוח מיומנויות חברתיות-רגשיות"</td>
+                        <td><span class="badge red">לא</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">CASEL SEL Framework</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "10 אינדיקטורים"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משה"ח: "כישורי חיים"</div>
+            </div>
+
+            <p>בנוסף, המודל של אבני ראשה עצמו כבר כולל שפה מ-Transformative SEL:</p>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">Transformative SEL (equity, social justice)</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "שוויון הזדמנויות, הכלה, צדק חברתי"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משה"ח: "סובלנות וקבלת האחר"</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מימון &mdash; אותן קרנות</h2>
+            <p>שתי קרנות אמריקאיות מממנות הן את אקוסיסטם CASEL הגלובלי והן את הזרוע הישראלית:</p>
+
+            <div class="grid-2">
+                <div>
+                    <div class="funder-card cross">
+                        <h4>קרן וקסנר (Wexner Foundation) <span class="badge red">מימון צולב</span></h4>
+                        <div class="f-role">שותפת אבני ראשה</div>
+                        <div class="f-detail">מופיעה כשותפה באתר אבני ראשה. ידועה בתוכנית וקסנר למנהיגות ישראלית &mdash; הכשרת מנהיגים בכירים מכל המגזרים.</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="funder-card cross">
+                        <h4>קרן שוסטרמן (Schusterman Family Philanthropies) <span class="badge red">מימון צולב</span></h4>
+                        <div class="f-role">שותפת אבני ראשה + מרכז טאראסץ'</div>
+                        <div class="f-detail">מממנת הן את אבני ראשה (SEL) והן את מרכז טאראסץ' לחינוך קשוב (Mindfulness). שני צינורות מקבילים לבתי ספר, אותו מממן.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>הדפוס:</strong> קרנות אמריקאיות מממנות את CASEL בארה"ב ואת אבני ראשה בישראל. אותו מקור כסף, אותו מודל SEL, אותה אידיאולוגיה &mdash; בשתי מדינות.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>השאלות הפתוחות</h2>
+
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="ci-icon">&#10067;</div>
+                    <div>האם אבני ראשה אימצה את Transformative SEL (2020) באופן רשמי?</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="ci-icon">&#10067;</div>
+                    <div>מהם הסכומים המדויקים של קרנות וקסנר ושוסטרמן לאבני ראשה?</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="ci-icon">&#10067;</div>
+                    <div>האם 10 האינדיקטורים של אבני ראשה עודכנו לכלול "equity" ו-"social justice"?</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="ci-icon">&#10067;</div>
+                    <div>מהם התכנים הספציפיים שמועברים למנהלים בהכשרות SEL?</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="ci-icon">&#10067;</div>
+                    <div>האם קיים תיעוד של תכני Transformative SEL בכיתות ישראליות?</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="ci-icon">&#10067;</div>
+                    <div>מה תגובת משרד החינוך לביקורת האמריקנית על SEL?</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+
+            <a class="link-card" href="avney_rosha_dashboard.html">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">אבני ראשה &mdash; דשבורד מחקר</div>
+                    <div class="lc-desc">הצינור המלא: CASEL &rarr; אבני ראשה &rarr; מנהלים &rarr; כיתות</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="pipeline_institutional.html">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">הצינור המוסדי &mdash; מפת רשת</div>
+                    <div class="lc-desc">מיפוי מקיף של ארגונים חינוכיים ומימון</div>
+                </div>
+            </a>
+
+            <a class="link-card" href="index.html">
+                <div class="lc-icon">&#128218;</div>
+                <div>
+                    <div class="lc-title">מאגר מחקר</div>
+                    <div class="lc-desc">כל דוחות המחקר על ארגונים חינוכיים</div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>דשבורד מחקר &mdash; CASEL ניתוח ביקורתי | מקורות: City Journal, NPR, CASEL.org, InfluenceWatch, Educational Psychologist</p>
+    <p style="margin-top:6px;"><a href="../index.html">דירוג ערים</a> &bull; <a href="index.html">מאגר מחקר</a> &bull; <a href="avney_rosha_dashboard.html">אבני ראשה</a></p>
+</footer>
+
+<script>
+// Tab navigation
+function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Revenue Doughnut Chart
+const revCtx = document.getElementById('revenueChart');
+if (revCtx) {
+    new Chart(revCtx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Gates Foundation (~30%)', 'NoVo Foundation (~25%)', 'Chan Zuckerberg Initiative (~20%)', 'Robert Wood Johnson (~15%)', 'אחרים (~10%)'],
+            datasets: [{
+                data: [30, 25, 20, 15, 10],
+                backgroundColor: ['#e74c3c', '#f39c12', '#3498db', '#27ae60', '#9b59b6'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 11 }, padding: 14 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            return ctx.label + ' — ' + ctx.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Criticism Radar Chart
+const critCtx = document.getElementById('criticismRadar');
+if (critCtx) {
+    new Chart(critCtx.getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['ביקורת שמרנית', 'ביקורת אקדמית', 'הורים', 'מחוקקים', 'ממשל פדרלי'],
+            datasets: [{
+                label: 'עוצמת ביקורת',
+                data: [90, 60, 80, 70, 80],
+                backgroundColor: 'rgba(231, 76, 60, 0.15)',
+                borderColor: '#e74c3c',
+                borderWidth: 2,
+                pointBackgroundColor: '#e74c3c',
+                pointRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { stepSize: 20, font: { size: 10 } },
+                    pointLabels: { font: { size: 12 } }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+// Revenue Trend Line Chart (ProPublica 990 data)
+const trendCtx = document.getElementById('revenueTrendChart');
+if (trendCtx) {
+    new Chart(trendCtx.getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'הכנסות ($M)',
+                data: [4.1, 5.1, 5.5, 8.4, 9.0, 9.6, 12.5, 7.2, 18.0, 5.0, 11.7],
+                borderColor: '#ff8800',
+                backgroundColor: 'rgba(255, 136, 0, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: function(ctx) {
+                    const val = ctx.raw;
+                    if (val >= 18) return '#e74c3c';
+                    if (val <= 5.1) return '#f39c12';
+                    return '#ff8800';
+                },
+                pointRadius: function(ctx) {
+                    const val = ctx.raw;
+                    return (val >= 18 || val <= 5.0) ? 8 : 5;
+                },
+                pointHoverRadius: 10,
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 20,
+                    ticks: {
+                        callback: function(val) { return '$' + val + 'M'; },
+                        font: { size: 11 }
+                    },
+                    grid: { color: 'rgba(0,0,0,0.06)' }
+                },
+                x: {
+                    ticks: { font: { size: 11 } },
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            let note = '';
+                            if (ctx.raw === 18.0) note = ' (שיא)';
+                            if (ctx.raw === 5.0) note = ' (צניחת 72%)';
+                            if (ctx.raw === 11.7) note = ' (התאוששות חלקית)';
+                            return '$' + ctx.raw + 'M' + note;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>

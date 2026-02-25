@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המכון הדמוקרטי — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+nav { position: sticky; top: 0; z-index: 100; background: #1a1a2e; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.nav-brand { font-weight: 700; font-size: 1.05em; padding: 12px 0; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 0.72em; font-weight: 600; background: #f39c12; color: #fff; margin-right: 8px; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab { padding: 14px 16px; cursor: pointer; font-size: 0.82em; border-bottom: 3px solid transparent; transition: all 0.2s; color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%); color: #fff; padding: 40px 20px 30px; text-align: center; }
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+.section { background: #fff; border-radius: 8px; padding: 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .nav-inner { flex-direction: column; gap: 0; }
+    .hero h1 { font-size: 1.3em; }
+}
+.metric { background: #f8f9fa; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid #e8e8e8; transition: transform 0.2s; }
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+.chart-wrap { position: relative; width: 100%; max-width: 500px; height: 320px; margin: 0 auto; }
+.finding { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+.warning-box { background: #fff5f5; border-right: 4px solid #cc0000; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.warning-box strong { color: #8b0000; }
+.info-box { background: #f0f4fa; border-right: 4px solid #667eea; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.info-box strong { color: #2a5a8a; }
+.depth-level { border-right: 3px solid #667eea; margin: 12px 0; background: #fafbff; border-radius: 0 8px 8px 0; overflow: hidden; }
+.depth-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; transition: background 0.2s; }
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 16px; }
+.depth-level.open .depth-body { max-height: 1200px; padding: 0 16px 16px; }
+.depth-quote { background: #fff; border-right: 3px solid #f39c12; padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 0.9em; color: #333; font-style: italic; }
+.depth-next { display: inline-block; margin-top: 10px; padding: 6px 14px; background: #f0f4fa; border-radius: 4px; font-size: 0.82em; color: #2a5a8a; cursor: default; }
+.link-card { display: flex; gap: 10px; padding: 10px 14px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8; text-decoration: none; color: inherit; transition: all 0.2s; margin-bottom: 8px; }
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78em; margin: 2px 3px; }
+.tag-blue { background: #e8eef6; color: #2a5a8a; }
+.tag-orange { background: #fff3e0; color: #e65100; }
+.tag-green { background: #e8f5e9; color: #2e7d32; }
+.tag-red { background: #ffebee; color: #c62828; }
+footer { background: #1a1a2e; color: #667; padding: 20px; text-align: center; font-size: 0.82em; }
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>המכון הדמוקרטי</span>
+            <span class="risk-pill">סיכון בינוני</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+            <a href="deep_Democratic_Institute.html">דוח מלא</a>
+            <a href="index.html">כל המחקרים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>המכון הדמוקרטי &mdash; חברה וחינוך</h1>
+    <div class="subtitle">עמותה (ע"ר) | מס' רישום 580330660 | מ-1998 (לשעבר: המכון לחינוך דמוקרטי)</div>
+    <div class="meta">69 עובדים | 10.6M &#8362; מחזור | 500+ מוסדות | 400+ בוגרי "חלוץ חינוכי" | ~44% מימון ממשלתי</div>
+</div>
+
+<div class="container">
+
+    <!-- TAB: OVERVIEW -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p><strong>המכון הדמוקרטי &mdash; חברה וחינוך</strong> הוא הזרוע המקצועית של תנועת החינוך הדמוקרטי בישראל. הוקם ב-1998 על ידי <strong>יעקב הכט</strong>, מייסד בית הספר הדמוקרטי בחדרה (1987) &mdash; בית הספר הראשון בעולם שקרא לעצמו "דמוקרטי". הארגון מכשיר מורים, מנהלים ורשויות מקומיות בשיטות "חינוך דמוקרטי": קבלת החלטות משתפת, אוטונומיית הלומד, פרלמנטים בית-ספריים, וחשיבה ביקורתית. עד 2018 נקרא "המכון לחינוך דמוקרטי" &mdash; שינוי השם שיקף הרחבה מעולם בתי הספר לחברה האזרחית, מוניציפליות וארגונים.</p>
+
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">מחזור שנתי (2024)</div>
+                    <div class="value">10.6M &#8362;</div>
+                    <div class="note">פי 5 מחציון הסקטור (2.1M)</div>
+                </div>
+                <div class="metric">
+                    <div class="label">עובדים</div>
+                    <div class="value">69</div>
+                    <div class="note">0 מתנדבים מדווחים</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">ירידת הכנסות</div>
+                    <div class="value">-7%</div>
+                    <div class="note">11.4M (2022) &rarr; 10.6M (2024)</div>
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">בוגרי חלוץ חינוכי</div>
+                    <div class="value">500+</div>
+                    <div class="note">מ-2009, ~70 בתי ספר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מוסדות מלווים</div>
+                    <div class="value">500+</div>
+                    <div class="note">כולל בתי ספר רגילים (לא רק דמוקרטיים)</div>
+                </div>
+                <div class="metric">
+                    <div class="label">חוזי משרד החינוך</div>
+                    <div class="value">~4.7M &#8362;</div>
+                    <div class="note">~44% מסך ההכנסות</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל הערכה</h3>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים מרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#127979;</div>
+                        <div>
+                            <h4>מבית ספר לתנועה חברתית</h4>
+                            <p>הוקם כגוף תמיכה לבתי ספר דמוקרטיים (~25). כיום מכשיר מורים ב-500+ מוסדות &mdash; כולל בתי ספר ממלכתיים רגילים. המעבר: מ"חלופה" ל"מיינסטרים".</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128100;</div>
+                        <div>
+                            <h4>"חלוץ חינוכי" &mdash; עתודה ניהולית</h4>
+                            <p>תוכנית 5 שנים המכשירה מורים צעירים למנהלי בתי ספר בפריפריה. 75% מגיעים לתפקידי ריכוז בשנה 3. 17% מנהלים בתי ספר. 85% יוזמים יוזמות בשנה הראשונה.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127760;</div>
+                        <div>
+                            <h4>שפה כפולה: עברית vs. אנגלית</h4>
+                            <p>בעברית: "שינוי חברתי", "תרבות דמוקרטית", "ערכים". באנגלית: "innovation", "leadership", "meaningful change". הפער: הפרזנטציה הבינלאומית מרככת את הרכיב האידיאולוגי.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128273;</div>
+                        <div>
+                            <h4>הרחבה סמנטית של "דמוקרטיה"</h4>
+                            <p>אצלם "דמוקרטיה" ≠ מערכת פוליטית. "דמוקרטיה" = תרבות יומיומית, ממשל ארגוני, פיתוח אישי. הרחבה מהפוליטי לאישי.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קו זמן</h2>
+            <table>
+                <tr><th>שנה</th><th>אירוע</th><th>משמעות</th></tr>
+                <tr><td>1987</td><td>יעקב הכט מייסד את בית הספר הדמוקרטי בחדרה</td><td>בית הספר הראשון בעולם שקורא לעצמו "דמוקרטי"</td></tr>
+                <tr><td>1993</td><td>כנס IDEC הראשון בחדרה</td><td>הפיכת הרעיון לתנועה בינלאומית</td></tr>
+                <tr class="highlight"><td>1996-98</td><td>ייסוד המכון לחינוך דמוקרטי (IDE)</td><td>מעבר מבית ספר בודד לגוף מכשיר מערכתי</td></tr>
+                <tr class="highlight"><td>2009</td><td>הקמת "חלוץ חינוכי"</td><td>מיזם משותף: המכון + משרד החינוך + קרנות פילנתרופיות</td></tr>
+                <tr><td>2010</td><td>הכט עוזב, מקים "ערי חינוך"</td><td>פיצול: המכון ממשיך ללא המייסד</td></tr>
+                <tr><td>2014</td><td>מיכל גלבוע-אטר ויותם טרון &mdash; מנכ"לים משותפים</td><td>דור שני של הנהגה</td></tr>
+                <tr class="highlight"><td>2018</td><td>שינוי שם: "המכון הדמוקרטי &mdash; חברה וחינוך"</td><td>הרחבה מעבר לחינוך + תעודת WorldBlu</td></tr>
+                <tr><td>~2024</td><td>אמית גל-אוסם וגיא פון ראלטה &mdash; מנכ"לים משותפים</td><td>דור שלישי של הנהגה</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>מבנה ארגוני ושלטון פנימי</h2>
+            <div class="info-box">
+                <strong>WorldBlu Certified (2018):</strong> הארגון הראשון והיחיד במזרח התיכון שקיבל תעודת "ארגון חופש-מרכזי" של WorldBlu. מציון 3.5+ מתוך 5 על 10 עקרונות דמוקרטיה ארגונית.
+            </div>
+            <ul style="padding-right:22px;margin:12px 0">
+                <li><strong>אסיפת המכון:</strong> כינוס חודשי של כל העובדים, מוסמך לקבל החלטות מהותיות</li>
+                <li><strong>4 ועדות ייעוץ:</strong> אסטרטגיה, תקציב/כספים, משאבי אנוש, פדגוגיה &mdash; כל העובדים משתתפים, ~7 פגישות בשנה</li>
+                <li><strong>בחירת הנהגה:</strong> ועדה מייצגת (3 ניהול + 3 נבחרי עובדים) בוחרת את המנכ"לים המשותפים</li>
+                <li><strong>מבנה מבוזר:</strong> מחלקות אוטונומיות עם סטנדרטים מקצועיים משותפים</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB: FINANCE -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מימון</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">הרכב הכנסות (הערכה)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מקורות מזוהים</h3>
+                    <table>
+                        <tr><th>מקור</th><th>סכום (&#8362;)</th><th>הערה</th></tr>
+                        <tr class="highlight"><td>חוזי משרד החינוך</td><td>~4,743,198</td><td>~44% מההכנסות</td></tr>
+                        <tr><td>שירותים כלליים (מכירת תוכניות, ייעוץ)</td><td>8,351,298</td><td>2024</td></tr>
+                        <tr><td>שירותים לרשויות מקומיות</td><td>1,237,851</td><td>2024</td></tr>
+                        <tr><td>שירותים למדינה (היסטורי)</td><td>2,777,730</td><td>2019</td></tr>
+                        <tr><td>משרד התכנון</td><td>8,500</td><td>חוגי דיאלוג ליום השואה</td></tr>
+                        <tr><td>מימון זר</td><td style="color:#27ae60;font-weight:700">לא נמצא</td><td>לא ב-NIF, לא ב-EU</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888"><strong>העברות ממשלתיות (3 שנים):</strong> 216,864 &#8362; (obudget &mdash; ייתכן שלא כולל כל הזרמים העקיפים).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>חוזי משרד החינוך &mdash; פירוט</h2>
+            <table>
+                <tr><th>סוג חוזה</th><th>סכום (&#8362;)</th></tr>
+                <tr><td>ביצוע קורסי הכשרה</td><td>1,489,710</td></tr>
+                <tr><td>חוזה תקופתי (23.4.18 &ndash; 31.10.18)</td><td>1,813,824</td></tr>
+                <tr class="highlight"><td>מכרז 12/5.2017 (4 חוזים)</td><td>1,290,240</td></tr>
+                <tr><td>הפעלת קורס מקצועי פתוח</td><td>149,184</td></tr>
+                <tr><td>אחר</td><td>240</td></tr>
+                <tr style="background:#f0f4fa;font-weight:700"><td>סה"כ</td><td>~4,743,198</td></tr>
+            </table>
+            <div class="info-box">
+                <strong>מודל "מיזם משותף":</strong> המכון פועל לעיתים במסגרת מיזם משותף עם משרד החינוך &mdash; מודל המאפשר למדינה לתקצב פעילות של עמותה ללא מכרז בשל ייחודיות השירות.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מגמת הכנסות</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">2022</div>
+                    <div class="value">11.4M &#8362;</div>
+                    <div class="note">obudget</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">2024</div>
+                    <div class="value">10.6M &#8362;</div>
+                    <div class="note">ירידה של ~7%</div>
+                </div>
+                <div class="metric">
+                    <div class="label">חציון סקטור</div>
+                    <div class="value">2.1M &#8362;</div>
+                    <div class="note">המכון = פי 5 מהחציון</div>
+                </div>
+            </div>
+            <div class="info-box">
+                <strong>ללא מימון זר מזוהה:</strong> הארגון לא מופיע ברשימות מקבלי מענקים של NIF, EU, או גורמים זרים אחרים. זה מייחד אותו מארגונים רבים אחרים בסקטור &mdash; ומצביע על מודל עסקי מבוסס חוזי שירות ולא מענקי סנגור.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מערכת גפ"ן &mdash; "צינור חמצן" תקציבי</h2>
+            <p>מערכת <strong>גפ"ן</strong> (גמישות פדגוגית ניהולית) היא שוק התוכניות של משרד החינוך. בתי ספר מקבלים 11,500 &#8362;/תלמיד ובוחרים ספקים מתוך קטלוג מאושר. המכון הדמוקרטי הוא <strong>ספק גפ"ן רשום</strong>, כך שכל בית ספר בישראל יכול לרכוש את תוכניות ההכשרה שלו מתקציב משרדי.</p>
+            <h3>תוכניות גפ"ן של חלוץ חינוכי</h3>
+            <table>
+                <tr><th>תוכנית</th><th>תיאור</th></tr>
+                <tr><td>ליווי מורים</td><td>כלים פרקטיים לניווט כיתה, ביסוס סמכות, שילוב ילדים מהחינוך המיוחד</td></tr>
+                <tr><td>מעבדת הפסקה</td><td>פיתוח מיומנויות חברתיות וכישורי מנהיגות דרך משחק ופעילות</td></tr>
+                <tr><td>החממה</td><td>ליווי קבוצות קטנות של תלמידים עם קשיי התנהגות או ויסות רגשי</td></tr>
+            </table>
+            <p style="font-size:0.85em;color:#888">מקור: <a href="https://mygefen.co.il/catalog/" target="_blank">קטלוג גפ"ן</a>, <a href="https://pob.education.gov.il/budget/gefen-tashpa/" target="_blank">מערכת גפ"ן</a></p>
+        </div>
+    </div>
+
+    <!-- TAB: CONTENT -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>האידיאולוגיה: מה באמת אומר "חינוך דמוקרטי"?</h2>
+            <p>המכון מקדם ארבעה עקרונות יסוד:</p>
+            <div class="grid-2" style="margin:16px 0">
+                <div>
+                    <div class="finding">
+                        <div class="icon">&#128172;</div>
+                        <div>
+                            <h4>דיאלוג</h4>
+                            <p>מחלוקת יוצרת מרחב לדיאלוג המאפשר קונצנזוס בסוגיות מורכבות</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127757;</div>
+                        <div>
+                            <h4>רב-תרבותיות</h4>
+                            <p>גיוון מייצר שפע והזדמנות</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="finding">
+                        <div class="icon">&#127970;</div>
+                        <div>
+                            <h4>קהילתיות</h4>
+                            <p>קהילה מטפחת צמיחה אישית וחברתית</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#129504;</div>
+                        <div>
+                            <h4>חשיבה ביקורתית / אקטיביזם</h4>
+                            <p>מאפשרת השתתפות חברתית משמעותית</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>מה זה אומר בפועל?</h3>
+            <ul style="padding-right:22px;margin:10px 0">
+                <li><strong>קבלת החלטות משתפת</strong> &mdash; "פרלמנט" בית ספרי, ועדות תלמידים</li>
+                <li><strong>בחירת התלמיד</strong> &mdash; מסלולי למידה ופעילויות לפי בחירה אישית</li>
+                <li><strong>למידה בין-גילאית</strong> &mdash; ערבוב כיתות גיל</li>
+                <li><strong>מבני ממשל דמוקרטיים</strong> בתוך בתי הספר</li>
+                <li><strong>שילוב קהילתי</strong> &mdash; למידה מחוץ לכיתה</li>
+            </ul>
+            <div class="warning-box">
+                <strong>הערה ביקורתית:</strong> הצירוף "חשיבה ביקורתית + אקטיביזם" כעקרון יחיד מאחד שני מושגים שונים. חשיבה ביקורתית היא כלי אנליטי; אקטיביזם הוא פעולה כיוונית. השילוב מטשטש את הגבול בין ניתוח לבין פעולה פוליטית.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תוכניות עיקריות</h2>
+            <table>
+                <tr><th>תוכנית</th><th>מהות</th><th>היקף</th></tr>
+                <tr class="highlight">
+                    <td><strong>חלוץ חינוכי</strong></td>
+                    <td>הכשרת מורים צעירים למנהלי בתי ספר בפריפריה (5 שנים)</td>
+                    <td>500+ בוגרים, ~70 בתי ספר, מ-2009</td>
+                </tr>
+                <tr>
+                    <td>תיבת נח</td>
+                    <td>פיתוח מודלים לחשיבה, דיאלוג ושיתוף פעולה בגני ילדים</td>
+                    <td>גיל הרך</td>
+                </tr>
+                <tr>
+                    <td>"הגן הזה הוא אני"</td>
+                    <td>פעוטות מעצבים סביבת למידה &mdash; סקרנות, יוזמה, שייכות</td>
+                    <td>גיל הרך</td>
+                </tr>
+                <tr>
+                    <td>דמוקרטיה מוניציפלית</td>
+                    <td>"צבעים בשכונה" &mdash; שיתופי ממשל מקומי עם קהילות מגוונות</td>
+                    <td>רשויות מקומיות</td>
+                </tr>
+                <tr>
+                    <td>החממה (קיבוצים)</td>
+                    <td>BA ב"יזמות חברתית-חינוכית" &mdash; הכשרת סוכני שינוי דמוקרטיים</td>
+                    <td>מכללת קיבוצים</td>
+                </tr>
+                <tr>
+                    <td>שבילים (Shvilim)</td>
+                    <td>חינוך דמוקרטי + חינוך בלתי פורמלי + גיאוגרפיה</td>
+                    <td>מכללת קיי, באר שבע</td>
+                </tr>
+                <tr>
+                    <td>נתיבים/מסראת</td>
+                    <td>פיתוח מנהיגות סטודנטים בדואים בנגב</td>
+                    <td>מכללת קיי</td>
+                </tr>
+                <tr>
+                    <td>דמוקרטיקס</td>
+                    <td>קהילה למנהיגי שינוי חברתי, כלי ניהול פרויקטים לאקטיביסטים</td>
+                    <td>פתוח</td>
+                </tr>
+                <tr>
+                    <td>מגזין "פסיק"</td>
+                    <td>8+ גיליונות: תרבות דמוקרטית, רב-תרבותיות, שיתוף, דיאלוג, אקטיביזם</td>
+                    <td>מקוון</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>פער בין עברית לאנגלית</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>מה אומרים בעברית</h3>
+                    <div class="depth-quote">"<strong>שינוי חברתי</strong>" &mdash; שינוי, לא מידע</div>
+                    <div class="depth-quote">"<strong>תרבות דמוקרטית</strong>" &mdash; מסגור אידיאולוגי</div>
+                    <div class="depth-quote">"<strong>ערכים</strong>" &mdash; לא "כלים" אלא ערכים</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.democratic.co.il" target="_blank">democratic.co.il</a></p>
+                </div>
+                <div>
+                    <h3>מה אומרים באנגלית</h3>
+                    <div class="depth-quote" style="border-right-color:#667eea">"<strong>innovation</strong>" &mdash; מילה ניטרלית-טכנולוגית</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"<strong>leadership</strong>" &mdash; השפה מנהלית</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"<strong>meaningful social change</strong>" &mdash; ז'רגון NGO</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.democratic.co.il/en/" target="_blank">democratic.co.il/en</a></p>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top:12px">
+                <strong>הפער:</strong> האתר האנגלי מרכך את המסגור האידיאולוגי. בעברית ברור שמדובר ב"עיצוב מחדש של החברה הישראלית דרך חינוך". באנגלית זה נשמע כמו NGO חינוכי גנרי. האם זה מותאם לקהלי יעד שונים? או הסתרה מכוונת?
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>"חלוץ חינוכי" &mdash; ניתוח עומק</h2>
+            <p>תוכנית הדגל של המכון. 5 שנים. שלושה מעגלי מנהיגות:</p>
+            <div class="grid-3" style="margin:16px 0">
+                <div class="metric">
+                    <div class="label">מעגל אישי</div>
+                    <div class="value" style="font-size:1.2em">&#128100;</div>
+                    <div class="note">אימון וליווי פרטני, בניית זהות מנהיגותית</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מעגל צוותי</div>
+                    <div class="value" style="font-size:1.2em">&#128101;</div>
+                    <div class="note">צוותי פעולה בבית הספר, קידום מהלכי שינוי</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מעגל רשותי</div>
+                    <div class="value" style="font-size:1.2em">&#127961;</div>
+                    <div class="note">"קהילת חלוצים" ברשות המקומית, עתודה ניהולית</div>
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">יוזמות בשנה 1</div>
+                    <div class="value">85%</div>
+                    <div class="note">מהחלוצים מפעילים יוזמות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">ריכוז בשנה 3</div>
+                    <div class="value">75%</div>
+                    <div class="note">מגיעים לתפקידי ריכוז</div>
+                </div>
+                <div class="metric">
+                    <div class="label">ניהול בתי ספר</div>
+                    <div class="value">17%</div>
+                    <div class="note">מהבוגרים מנהלים בתי ספר</div>
+                </div>
+            </div>
+            <div class="info-box" style="margin-top:16px">
+                <strong>המטרה המוצהרת:</strong> ליצור "עתודה ניהולית" &mdash; לא רק מורים טובים, אלא מנהלי בתי ספר עתידיים שיביאו תפיסת עולם דמוקרטית לליבת מערכת החינוך. 17% מהבוגרים כבר מנהלים בתי ספר.
+            </div>
+            <p style="font-size:0.85em;color:#888;margin-top:12px">מקור: <a href="deep_Halutz_Chinuchi.html">דוח חלוץ חינוכי</a> | <a href="https://www.democratic.co.il/en/educational-pioneer-program/" target="_blank">אתר רשמי</a> | <a href="https://portal.macam.ac.il/article/%D7%AA%D7%9B%D7%A0%D7%99%D7%AA-%D7%94%D7%97%D7%9C%D7%95%D7%A5-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9B%D7%99-%D7%A9%D7%9C-%D7%94%D7%9E%D7%9B%D7%95%D7%9F-%D7%9C%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%93%D7%9E/" target="_blank">MaCaM</a></p>
+        </div>
+    </div>
+
+    <!-- TAB: EVIDENCE -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת ראיות: מחינוך ליצירת השפעה מערכתית</h2>
+
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127979;</span>
+                    <div>
+                        <div class="d-title">שכבה 1: ארבע דרכים לחדור למערכת החינוך</div>
+                        <div class="d-sub">חוזים ישירים, גפ"ן, חלוץ חינוכי, צנרת אקדמית</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>המכון הדמוקרטי לא מסתמך על ערוץ יחיד. ארבעה מסלולי חדירה מקבילים:</p>
+                    <ol style="padding-right:22px;margin:10px 0">
+                        <li><strong>חוזים ישירים עם משרד החינוך</strong> &mdash; קורסי הכשרה למורים (~4.7M &#8362;)</li>
+                        <li><strong>שוק גפ"ן</strong> &mdash; בתי ספר בוחרים לרכוש תוכניות מתקציבם</li>
+                        <li><strong>חלוץ חינוכי</strong> &mdash; שתילת 500+ "סוכני שינוי" ישירות בבתי ספר בפריפריה</li>
+                        <li><strong>צנרת אקדמית</strong> &mdash; בוגרי מכללת קיבוצים ומכללת קיי נכנסים למערכת עם הכשרה דמוקרטית</li>
+                    </ol>
+                    <div class="depth-quote">"המכון אינו מפעיל בתי ספר &mdash; הוא הזרוע המקצועית של התנועה. עובד עם 500+ מוסדות כולל בתי ספר ממלכתיים רגילים."</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="deep_Democratic_Institute.html#section-5" target="_blank">דוח מחקר &mdash; פרק 5</a></p>
+                    <div class="depth-next">ומי עומד מאחורי זה? &#8595;</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128101;</span>
+                    <div>
+                        <div class="d-title">שכבה 2: צנרת מנהיגות &mdash; מנדל, מעוז, קיבוצים</div>
+                        <div class="d-sub">כל ההנהגות באות מאותן צנרות</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <table>
+                        <tr><th>מנהיג/ה</th><th>צנרת</th><th>תפקיד</th></tr>
+                        <tr><td>מיכל גלבוע-אטר</td><td><span class="tag tag-blue">מנדל (מחזור 8)</span></td><td>מנכ"לית משותפת 2014-2024</td></tr>
+                        <tr><td>גיא פון ראלטה</td><td><span class="tag tag-blue">מנדל</span> <span class="tag tag-orange">לשכת רה"מ</span></td><td>מנכ"ל משותף מ-~2024</td></tr>
+                        <tr><td>יותם טרון</td><td><span class="tag tag-orange">מעוז</span></td><td>מנכ"ל משותף 2014-2024 (עבר ל-Wix)</td></tr>
+                        <tr><td>אמית גל-אוסם</td><td><span class="tag tag-green">מכללת כנרת</span></td><td>מנכ"לית משותפת מ-~2024</td></tr>
+                    </table>
+                    <div class="depth-quote">קרן מנדל מפתחת מנהיגות חינוכית. מעוז מפתח "יוצרי שינוי במרחב הציבורי". שניהם מזינים את המכון.</div>
+                    <p><strong>שותפות אקדמית:</strong> מכללת קיבוצים (שנוסדה ע"י תנועת הקיבוצים) ומכללת קיי (באר שבע). שתיהן מייצרות צנרת של בוגרים שנכנסים למערכת החינוך עם הכשרה בחינוך דמוקרטי.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="deep_Democratic_Institute.html#section-3" target="_blank">דוח מחקר &mdash; פרק 3</a></p>
+                    <div class="depth-next">מה האידיאולוגיה שהם מזריקים? &#8595;</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128218;</span>
+                    <div>
+                        <div class="d-title">שכבה 3: הרחבת "דמוקרטיה" &mdash; מפוליטיקה לזהות</div>
+                        <div class="d-sub">שינוי סמנטי: דמוקרטיה = אורח חיים, לא מערכת שלטון</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>במסגרת המכון, "דמוקרטיה" עוברת <strong>הרחבה סמנטית</strong> מהמובן הפוליטי:</p>
+                    <ul style="padding-right:22px;margin:10px 0">
+                        <li><strong>לא</strong> מערכת בחירות ומוסדות שלטון</li>
+                        <li><strong>כן</strong> תרבות יומיומית &mdash; איך אנשים מתקשרים, מחליטים, חולקים כוח</li>
+                        <li><strong>כן</strong> ממשל ארגוני &mdash; איך מובנים מקומות עבודה ובתי ספר</li>
+                        <li><strong>כן</strong> פיתוח אישי &mdash; ביטוי עצמי, בחירה, חשיבה ביקורתית</li>
+                    </ul>
+                    <div class="depth-quote">"זוהי הרחבה מ'דמוקרטיה פוליטית' ל'דמוקרטיה אישית/ארגונית'. עקבית עם התנועה הבינלאומית (Summerhill, Sudbury Valley, IDEC) &mdash; אבל הולכת רחוק יותר באמצעות יישום על ממשל מוניציפלי ומקומות עבודה."</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="deep_Democratic_Institute.html#section-4" target="_blank">דוח מחקר &mdash; פרק 4</a>, <a href="https://wiki.democratic.co.il" target="_blank">דמוקידע</a></p>
+                    <div class="depth-next">ומה עם הביקורת? &#8595;</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#9888;&#65039;</span>
+                    <div>
+                        <div class="d-title">שכבה 4: ביקורת &mdash; אליטיזם תחת מעטה שוויון</div>
+                        <div class="d-sub">מחקר אקדמי: "הפרדה חברתית" ו"סלקטיביות"</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p><strong>פרופ' אריה קיזל (אוניברסיטת חיפה, 2012):</strong></p>
+                    <div class="depth-quote">"The Democratic Selective Education in Israel: Tikkun Olam or Separatism" &mdash; בתי ספר דמוקרטיים גובים שכר לימוד (~$1,200/שנה), מושכים משפחות ממעמד בינוני-גבוה, ועלולים לתפקד כ<strong>מנגנון מיון סוציו-אקונומי</strong> ולא ככוח דמוקרטי.</div>
+                    <p><strong>תגובת המכון (עקיפה):</strong> הפיבוט ל"חלוץ חינוכי" &mdash; בתי ספר בפריפריה, קהילות ערביות, בדואים &mdash; מתייחס ישירות לביקורת הזו. מעבר ממתן שירות לאוכלוסיות אמידות לאוכלוסיות מוחלשות.</p>
+                    <p><strong>שינוי השם ב-2018</strong> ("המכון לחינוך דמוקרטי" &rarr; "המכון הדמוקרטי &mdash; חברה וחינוך") מתרחק גם מהסטיגמה של "בתי ספר דמוקרטיים".</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://cris.haifa.ac.il/en/publications/the-democratic-selective-education-in-israel-tikkun-olam-or-separ/" target="_blank">Kizel (2012)</a></p>
+                    <div class="depth-next">ומה התמונה הכוללת? &#8595;</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127760;</span>
+                    <div>
+                        <div class="d-title">שכבה 5: השפעה על הפריפריה &mdash; חדירת ערכים ליברליים</div>
+                        <div class="d-sub">שיבוץ חלוצים בערים שמרניות: בית שמש, לוד, יישובי הדרום</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>התוכנית משבצת "חלוצים" &mdash; מורים צעירים עם הכשרה דמוקרטית &mdash; בבתי ספר בפריפריה. בערים כמו <strong>בית שמש, לוד, ויישובי הדרום</strong>, התוכנית מחדירה תפיסות ליברליות למרחבים שמרניים.</p>
+                    <div class="depth-quote">"השילוב של מנהיגות צעירה ודינמית בתוך בתי ספר בפריפריה מהווה משקל נגד לתהליכי 'הדתה' או סגירות קהילתית."<br>&mdash; דוח מחקר חלוץ חינוכי</div>
+                    <p>זהו <strong>הממצא המרכזי</strong>: מדובר לא רק בשיפור איכות ההוראה, אלא בהחדרה שיטתית של ערכים ספציפיים &mdash; שוויון, פלורליזם, סובלנות &mdash; לבתי ספר שבהם אוכלוסיית ההורים עשויה לחלוק על ערכים אלה.</p>
+                    <p>הערכים שמקדם המכון &mdash; "זכויות אדם, סובלנות ופלורליזם" &mdash; מתנגשים לעיתים עם גישות מסורתיות המדגישות סמכות היררכית ו"כבוד הרב".</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="deep_Halutz_Chinuchi.html#section-6" target="_blank">חלוץ חינוכי &mdash; חינוך, דת ומדינה</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר</h2>
+            <a class="link-card" href="deep_Democratic_Institute.html">
+                <div class="lc-icon">&#128196;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא &mdash; המכון הדמוקרטי (10 פרקים)</div>
+                    <div class="lc-desc">מבנה ארגוני, כספים, מנהיגות, אידיאולוגיה, קשרי ממשל, מחלוקות, תנועה בינלאומית</div>
+                </div>
+            </a>
+            <a class="link-card" href="deep_Halutz_Chinuchi.html">
+                <div class="lc-icon">&#128196;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר עומק &mdash; חלוץ חינוכי</div>
+                    <div class="lc-desc">תוכנית הדגל: מודל פדגוגי, מימון, גפ"ן, השפעה על הפריפריה</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.guidestar.org.il/organization/580330660" target="_blank">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">GuideStar &mdash; המכון הדמוקרטי</div>
+                    <div class="lc-desc">מס' 580330660 | כספים, מבנה, אנשים</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://next.obudget.org/i/org/association/580330660" target="_blank">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">obudget &mdash; המכון הדמוקרטי</div>
+                    <div class="lc-desc">העברות ממשלתיות, חוזים, רכש</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.democratic.co.il" target="_blank">
+                <div class="lc-icon">&#127760;</div>
+                <div>
+                    <div class="lc-title">אתר רשמי (עברית)</div>
+                    <div class="lc-desc">democratic.co.il</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://wiki.democratic.co.il" target="_blank">
+                <div class="lc-icon">&#128218;</div>
+                <div>
+                    <div class="lc-title">דמוקידע &mdash; ויקי המכון</div>
+                    <div class="lc-desc">בסיס ידע על חינוך דמוקרטי</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- TAB: CONCLUSIONS -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #f39c12">
+            <h2>סיכום</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>המכון הדמוקרטי הוא <strong>הגוף המרכזי ביותר להטמעת ערכי "חינוך דמוקרטי" במערכת החינוך הציבורית בישראל</strong>. בניגוד לארגוני advocacy רבים, הוא פועל דרך חוזי שירות ולא דרך מענקי סנגור &mdash; ואין ראיות למימון זר.</p>
+                    <p>הבעייתיות אינה במה שהארגון אומר שהוא עושה (הכשרת מורים), אלא ב<strong>מה שהוא מכניס יחד עם ההכשרה</strong>: תפיסת עולם ספציפית &mdash; ליברלית, פלורליסטית, אנטי-היררכית &mdash; המוזרקת לבתי ספר בפריפריה ללא שקיפות מלאה כלפי ההורים.</p>
+                    <p>תוכנית "חלוץ חינוכי" היא <strong>מכונת שתילה</strong> של מנהיגי חינוך עם תפיסת עולם אחידה. 17% מהבוגרים כבר מנהלים בתי ספר. זהו שינוי מבני ארוך-טווח במערכת.</p>
+
+                    <h3 style="margin-top:20px">ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th><th>הערה</th></tr>
+                        <tr><td>שקיפות</td><td style="color:#f39c12;font-weight:700">3/5</td><td>GuideStar רשום, אך דוחות שנתיים לא פורסמו, מקורות תרומה אטומים</td></tr>
+                        <tr><td>הכלה</td><td style="color:#27ae60;font-weight:700">4/5</td><td>פריפריה, ערבים, בדואים &mdash; הרחבה מעבר לאליטיזם</td></tr>
+                        <tr><td>ממשל דמוקרטי פנימי</td><td style="color:#27ae60;font-weight:700">5/5</td><td>WorldBlu certified, אסיפה, ועדות, בחירת מנהיגים</td></tr>
+                        <tr><td>חדשנות חינוכית</td><td style="color:#27ae60;font-weight:700">4/5</td><td>חלוץ חינוכי, גן ילדים, Harvard GEII</td></tr>
+                        <tr><td>אחריותיות ממשלתית</td><td style="color:#f39c12;font-weight:700">3/5</td><td>מימון ממשלתי משמעותי, דיווח תוצאות מוגבל</td></tr>
+                        <tr><td>עצמאות פוליטית</td><td style="color:#27ae60;font-weight:700">4/5</td><td>אין זיקה מפלגתית, אוריינטציה פרוגרסיבית אך לא אקטיביסטית גלויה</td></tr>
+                        <tr><td>קיימות כלכלית</td><td style="color:#27ae60;font-weight:700">4/5</td><td>10M+ &#8362;, פי 5 מחציון, מגוון מקורות</td></tr>
+                        <tr><td>השפעה חברתית</td><td style="color:#27ae60;font-weight:700">4/5</td><td>400+ בוגרים, 500+ מוסדות, אך נתוני תוצאות ארוכות-טווח דלים</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות פתוחות</h3>
+                    <ul class="q-list">
+                        <li><strong>אטימות תורמים:</strong> מי הם ה"קרנות פילנתרופיות" שמממנות את חלוץ חינוכי? אין שמות. האם יש מימון NIF, EU, או גורם פוליטי שלא נחשף?</li>
+                        <li><strong>מגמת הכנסות:</strong> ירידה מ-11.4M ל-10.6M &mdash; זמני (פוסט-7/10) או מבני? מה קרה ב-2017-2021?</li>
+                        <li><strong>נתוני תוצאות:</strong> 500+ מוסדות ואלפי "סוכני שינוי" &mdash; איפה ההערכה הבלתי תלויה? מודל YMA מוזכר אך ללא תוצאות מפורסמות.</li>
+                        <li><strong>הכט:</strong> מה הקשר של המייסד לארגון כיום? האם "ערי חינוך" מתחרה או משתפת פעולה?</li>
+                        <li><strong>הרכב דירקטוריון:</strong> ידוע רק רפאל יודלביץ'. מי השאר? מה הזיקות?</li>
+                        <li><strong>גפ"ן בפועל:</strong> כמה מ-5.9M &#8362; (לא-ממשלתי) מגיע דרך רכישות גפ"ן? מה היחס בין מימון ישיר למענקים?</li>
+                        <li><strong>פוסט-7/10:</strong> המסגור של "דיאלוג" ו"רב-תרבותיות" פוגש רוחות נגדיות. איך הארגון מסתגל?</li>
+                        <li><strong>החיבור לשמאל:</strong> ערכים פרוגרסיביים + מנדל + קיבוצים + "תרבות דמוקרטית" &mdash; הארגון פועל בלב האקוסיסטם האזרחי של השמאל-מרכז. האם ההימנעות מאקטיביזם גלוי היא אסטרטגית &mdash; כדי לשמר כשירות לחוזים ממשלתיים?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">מקורות</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_Democratic_Institute.html">
+                            <div class="lc-icon">&#128196;</div>
+                            <div><div class="lc-title">דוח מלא</div><div class="lc-desc">10 פרקים</div></div>
+                        </a>
+                        <a class="link-card" href="deep_Halutz_Chinuchi.html">
+                            <div class="lc-icon">&#128196;</div>
+                            <div><div class="lc-title">חלוץ חינוכי</div><div class="lc-desc">דוח עומק</div></div>
+                        </a>
+                        <a class="link-card" href="https://www.guidestar.org.il/organization/580330660" target="_blank">
+                            <div class="lc-icon">&#128279;</div>
+                            <div><div class="lc-title">GuideStar</div><div class="lc-desc">580330660</div></div>
+                        </a>
+                        <a class="link-card" href="https://next.obudget.org/i/org/association/580330660" target="_blank">
+                            <div class="lc-icon">&#128279;</div>
+                            <div><div class="lc-title">obudget</div><div class="lc-desc">העברות ממשלתיות</div></div>
+                        </a>
+                        <a class="link-card" href="https://globaled.gse.harvard.edu/institute-democratic-education-ide" target="_blank">
+                            <div class="lc-icon">&#127891;</div>
+                            <div><div class="lc-title">Harvard GEII</div><div class="lc-desc">הכרה אקדמית</div></div>
+                        </a>
+                        <a class="link-card" href="https://cris.haifa.ac.il/en/publications/the-democratic-selective-education-in-israel-tikkun-olam-or-separ/" target="_blank">
+                            <div class="lc-icon">&#128218;</div>
+                            <div><div class="lc-title">Kizel (2012)</div><div class="lc-desc">ביקורת אקדמית</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר &mdash; פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_Democratic_Institute.html">דוח מלא</a> | <a href="index.html">כל המחקרים</a> | פברואר 2026</p>
+    <p style="margin-top:4px">מבוסס על מקורות ציבוריים: GuideStar, obudget, democratic.co.il, Wikipedia, Harvard GEII, Kizel (2012), MaCaM.</p>
+</footer>
+
+<script>
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+/* Radar Chart — Values Assessment */
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['\u05E9\u05E7\u05D9\u05E4\u05D5\u05EA', '\u05D4\u05DB\u05DC\u05D4', '\u05DE\u05DE\u05E9\u05DC \u05D3\u05DE\u05D5\u05E7\u05E8\u05D8\u05D9', '\u05D7\u05D3\u05E9\u05E0\u05D5\u05EA \u05D7\u05D9\u05E0\u05D5\u05DB\u05D9\u05EA', '\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05DE\u05E9\u05DC\u05EA\u05D9\u05EA', '\u05E2\u05E6\u05DE\u05D0\u05D5\u05EA \u05E4\u05D5\u05DC\u05D9\u05D8\u05D9\u05EA', '\u05E7\u05D9\u05D9\u05DE\u05D5\u05EA \u05DB\u05DC\u05DB\u05DC\u05D9\u05EA', '\u05D4\u05E9\u05E4\u05E2\u05D4 \u05D7\u05D1\u05E8\u05EA\u05D9\u05EA'],
+        datasets: [{
+            label: '\u05E6\u05D9\u05D5\u05DF \u05D1\u05E4\u05D5\u05E2\u05DC',
+            data: [60, 80, 100, 80, 60, 80, 80, 80],
+            backgroundColor: 'rgba(255, 136, 0, 0.15)',
+            borderColor: 'rgba(255, 136, 0, 1)',
+            pointBackgroundColor: 'rgba(255, 136, 0, 1)',
+            borderWidth: 2
+        }, {
+            label: '\u05E6\u05E4\u05D5\u05D9',
+            data: [50, 70, 90, 85, 40, 90, 75, 60],
+            backgroundColor: 'rgba(102, 126, 234, 0.12)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false }, pointLabels: { font: { size: 11 } } } },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+/* Doughnut Chart — Funding Sources */
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: [
+            '\u05D7\u05D5\u05D6\u05D9 \u05DE\u05E9\u05E8\u05D3 \u05D4\u05D7\u05D9\u05E0\u05D5\u05DA (~44%)',
+            '\u05E9\u05D9\u05E8\u05D5\u05EA\u05D9\u05DD \u05DC\u05E8\u05E9\u05D5\u05D9\u05D5\u05EA (~12%)',
+            '\u05E8\u05DB\u05D9\u05E9\u05D5\u05EA \u05D2\u05E4"\u05DF + \u05DE\u05DB\u05D9\u05E8\u05D5\u05EA',
+            '\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA + \u05D0\u05D7\u05E8',
+            '\u05E9\u05D5\u05EA\u05E4\u05D5\u05D9\u05D5\u05EA \u05D0\u05E7\u05D3\u05DE\u05D9\u05D5\u05EA'
+        ],
+        datasets: [{
+            data: [44, 12, 25, 10, 9],
+            backgroundColor: ['#667eea', '#0d9488', '#3b82f6', '#f39c12', '#8b5cf6'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: { callbacks: { label: ctx => ctx.label + ': ~' + ctx.raw + '%' } }
+        }
+    }
+});
+</script>
+</body>
+</html>

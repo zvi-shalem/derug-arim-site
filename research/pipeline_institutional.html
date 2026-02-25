@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הצינור המוסדי — מאונסק"ו לכיתה</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #1a2a3e 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b8a8d8; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+/* ── Grids ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .pipeline-flow { flex-direction: column !important; }
+    .pipeline-flow .arrow { transform: rotate(90deg); }
+}
+
+/* ── Metrics ── */
+.metric {
+    background: #f8f6ff; border-radius: 6px; padding: 16px; text-align: center;
+    border-right: 4px solid #667eea;
+}
+.metric .value { font-size: 1.5em; font-weight: 800; color: #2a2a5e; }
+.metric .note { font-size: 0.82em; color: #666; margin-top: 4px; }
+
+.metric-red { border-right-color: #e74c3c; }
+.metric-red .value { color: #c0392b; }
+.metric-orange { border-right-color: #ff8800; }
+.metric-orange .value { color: #d35400; }
+.metric-green { border-right-color: #27ae60; }
+.metric-green .value { color: #1e8449; }
+
+/* ── Quotes ── */
+.quote-box {
+    border-right: 4px solid #667eea; background: #f0f0ff; padding: 16px 20px;
+    border-radius: 0 8px 8px 0; margin: 12px 0; font-style: italic;
+}
+.quote-box.critical { border-right-color: #e74c3c; background: #fff5f5; }
+.quote-box.warning { border-right-color: #ff8800; background: #fff8f0; }
+.q-source { font-size: 0.82em; color: #888; font-style: normal; margin-top: 6px; display: block; }
+
+/* ── Badges ── */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.75em; font-weight: 600; letter-spacing: 0.3px;
+}
+.badge-red { background: #fde; color: #c0392b; }
+.badge-orange { background: #fff0dd; color: #d35400; }
+.badge-blue { background: #e8eeff; color: #3453b8; }
+.badge-purple { background: #f0e8ff; color: #6a3ab2; }
+
+/* ── Pipeline Flow ── */
+.pipeline-flow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin: 30px 0; flex-wrap: nowrap;
+    direction: ltr;
+}
+.pipeline-node {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff; border-radius: 12px; padding: 14px 18px;
+    text-align: center; min-width: 130px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+.pipeline-node:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+.pipeline-node .node-name { font-weight: 700; font-size: 0.95em; }
+.pipeline-node .node-stat { font-size: 0.72em; opacity: 0.85; margin-top: 2px; }
+.pipeline-node.node-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.pipeline-node.node-warning { background: linear-gradient(135deg, #ff8800, #d35400); }
+.pipeline-node.node-money { background: linear-gradient(135deg, #27ae60, #1e8449); }
+.pipeline-arrow {
+    font-size: 1.5em; color: #667eea; padding: 0 4px; flex-shrink: 0;
+}
+
+/* ── Org Cards ── */
+.org-card {
+    background: #fff; border-radius: 10px; padding: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-top: 4px solid #667eea;
+    margin-bottom: 20px;
+}
+.org-card h3 { color: #1a1a2e; margin-bottom: 12px; font-size: 1.15em; }
+.org-card .org-meta { font-size: 0.85em; color: #666; margin-bottom: 12px; }
+.org-card.card-danger { border-top-color: #e74c3c; }
+.org-card.card-warning { border-top-color: #ff8800; }
+.org-card.card-money { border-top-color: #27ae60; }
+
+/* ── Evidence Chain ── */
+.evidence-chain { margin: 20px 0; }
+.chain-level {
+    border-right: 3px solid #667eea; padding: 16px 20px; margin-bottom: 0;
+    background: #fafbff; position: relative;
+}
+.chain-level:nth-child(2) { border-right-color: #ff8800; background: #fffaf5; }
+.chain-level:nth-child(3) { border-right-color: #e74c3c; background: #fff8f8; }
+.chain-level:nth-child(4) { border-right-color: #8e44ad; background: #faf5ff; }
+.chain-level h4 { font-size: 0.95em; margin-bottom: 8px; }
+.chain-level ul { padding-right: 20px; }
+.chain-level li { margin-bottom: 6px; font-size: 0.92em; }
+
+/* ── Tables ── */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+th { background: #1a1a2e; color: #fff; padding: 10px 12px; text-align: right; font-size: 0.85em; }
+td { padding: 10px 12px; border-bottom: 1px solid #e8e8e8; font-size: 0.9em; }
+tr:hover { background: #f8f6ff; }
+
+/* ── Links ── */
+.link-card {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; background: #f0f0ff; border-radius: 8px;
+    text-decoration: none; color: #2a5a8a; margin: 4px;
+    transition: background 0.2s;
+}
+.link-card:hover { background: #e0e0ff; }
+.lc-title { font-weight: 600; font-size: 0.9em; }
+.lc-desc { font-size: 0.75em; color: #888; }
+
+/* ── Expandable ── */
+.expand-section { cursor: pointer; user-select: none; }
+.expand-section::before { content: '▸ '; transition: transform 0.2s; }
+.expand-section.open::before { content: '▾ '; }
+.expand-content { display: none; padding: 10px 0 0; }
+.expand-content.open { display: block; }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        הצינור המוסדי
+        <a href="index.html">← מחקר</a>
+        <a href="../">← דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+        <button class="nav-tab" onclick="navigate('nodes')">חוליות הצינור</button>
+        <button class="nav-tab" onclick="navigate('evidence')">ראיות</button>
+        <button class="nav-tab" onclick="navigate('parents')">מה ההורים לא יודעים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>הצינור המוסדי: מאונסק"ו לכיתה</h1>
+    <div class="subtitle">כיצד רעיונות גלובליים הופכים למציאות חינוכית — בלי שההורים ידעו</div>
+    <div class="meta">6 חוליות מוסדיות | 4 מחקרי עומק | ניתוח מבוסס מקורות ציבוריים</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">40%</div><div class="lbl">מנהלי בתי הספר בוגרי אבני ראשה</div></div>
+        <div class="stat"><div class="num">1,000+</div><div class="lbl">בתי ספר מיישמים SEL מערכתי</div></div>
+        <div class="stat"><div class="num">~100M ₪</div><div class="lbl">תקציב שנתי יד הנדיב</div></div>
+        <div class="stat"><div class="num">10-12%</div><div class="lbl">מורים חדשים מסמינר הקיבוצים</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════ TAB: OVERVIEW ═══════════════════════ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>הטענה בשני משפטים</h2>
+    <p>רעיונות חינוכיים שמקורם באונסק"ו ובארגונים גלובליים מתורגמים לתוכניות לימודים ישראליות באמצעות שרשרת מוסדית קבועה — ממכללות הכשרת מורים, דרך מכונים לפיתוח מקצועי, ועד למנהלי בתי ספר. כל חוליה נראית מקצועית ועצמאית, אבל ביחד הן יוצרות צינור שבו אג'נדה חינוכית ספציפית מגיעה ל-1,000+ בתי ספר בלי שהורים ידעו על כך.</p>
+</div>
+
+<div class="section">
+    <h2>מפת הצינור</h2>
+    <div class="pipeline-flow">
+        <div class="pipeline-node" onclick="navigate('nodes')">
+            <div class="node-name">UNESCO</div>
+            <div class="node-stat">SDGs, GCED, SEL</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-node node-danger" onclick="scrollToOrg('kibbutzim')">
+            <div class="node-name">מכללת הקיבוצים</div>
+            <div class="node-stat">10-12% מורים חדשים</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-node" onclick="scrollToOrg('mofet')">
+            <div class="node-name">מכון מופ"ת</div>
+            <div class="node-stat">75% דיווח עצמי</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-node node-warning" onclick="scrollToOrg('avneyrosha')">
+            <div class="node-name">אבני ראשה</div>
+            <div class="node-stat">40% מנהלים</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-node node-money" onclick="scrollToOrg('yadhanadiv')">
+            <div class="node-name">יד הנדיב</div>
+            <div class="node-stat">~100M ₪/שנה</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-node node-danger">
+            <div class="node-name">הכיתה</div>
+            <div class="node-stat">מיליוני תלמידים</div>
+        </div>
+    </div>
+    <p style="text-align:center; font-size:0.85em; color:#888;">לחצו על כל חוליה לפרטים מלאים</p>
+</div>
+
+<div class="section">
+    <h2>מספרי מפתח</h2>
+    <div class="grid-4">
+        <div class="metric metric-red">
+            <div class="value">~1,000</div>
+            <div class="note">מורים חדשים מהקיבוצים בשנה</div>
+        </div>
+        <div class="metric metric-orange">
+            <div class="value">3,000+</div>
+            <div class="note">מנהלים הוכשרו ע"י אבני ראשה</div>
+        </div>
+        <div class="metric">
+            <div class="value">1,400+</div>
+            <div class="note">אקדמאים הוצבו דרך חותם</div>
+        </div>
+        <div class="metric metric-green">
+            <div class="value">16M ₪</div>
+            <div class="note">תקציב אבני ראשה (2022)</div>
+        </div>
+    </div>
+    <div class="grid-4">
+        <div class="metric">
+            <div class="value">10</div>
+            <div class="note">אינדיקטורים ל-SEL מערכתי (CASEL)</div>
+        </div>
+        <div class="metric metric-red">
+            <div class="value">75%</div>
+            <div class="note">מחקרי מופ"ת — דיווח עצמי</div>
+        </div>
+        <div class="metric metric-orange">
+            <div class="value">66%</div>
+            <div class="note">מחקרים — ע"י מעצבי התוכניות</div>
+        </div>
+        <div class="metric metric-green">
+            <div class="value">~10.5M ₪</div>
+            <div class="note">יד הנדיב → חינוך (2022)</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציטוטים מפתח</h2>
+    <div class="quote-box critical">
+        "יש עבודה ברמה הגלויה ועבודה ברמה הסמויה. זו עבודה סובוורסיבית לפעמים."
+        <span class="q-source">גלית זלמנסון שגב, ראש המרכז לפדגוגיה ביקורתית, מכללת סמינר הקיבוצים</span>
+    </div>
+    <div class="quote-box warning">
+        "מאז הקמתו בשנת 2007, הכשיר המכון למעלה מ-3,000 מנהלים ומנהלות, המהווים כיום כ-40% מכלל מנהלי בתי הספר בישראל."
+        <span class="q-source">אתר אבני ראשה, "אודותינו"</span>
+    </div>
+    <div class="quote-box">
+        "כיום, למעלה מ-1,000 בתי ספר בישראל מיישמים את מסגרת עשרת האינדיקטורים ל-SEL מערכתי, בהובלת מנהלים בוגרי תוכניות אבני ראשה."
+        <span class="q-source">אתר אבני ראשה, "הנהגה פדגוגית"</span>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════ TAB: NODES ═══════════════════════ -->
+<div id="view-nodes" class="view">
+
+<div class="org-card card-danger" id="org-kibbutzim">
+    <h3>מכללת סמינר הקיבוצים <span class="badge badge-red">צומת קריטי</span></h3>
+    <div class="org-meta">הכשרת מורים | כסא אונסק"ו | מרכז לפדגוגיה ביקורתית</div>
+
+    <div class="grid-3">
+        <div class="metric metric-red">
+            <div class="value">10-12.5%</div>
+            <div class="note">מכלל המורים החדשים בישראל</div>
+        </div>
+        <div class="metric">
+            <div class="value">~5,000</div>
+            <div class="note">סטודנטים בשנה</div>
+        </div>
+        <div class="metric">
+            <div class="value">800-1,000</div>
+            <div class="note">בוגרים חדשים בשנה</div>
+        </div>
+    </div>
+
+    <h3>כסא אונסק"ו לחינוך הומניסטי</h3>
+    <p><strong>פרופ' נמרוד אלוני</strong> מחזיק בכסא UNESCO Chair for Humanistic Education. הכסא מעניק <strong>יוקרה בינלאומית, הכרה מאונסק"ו, ופלטפורמה לקידום אג'נדות חינוכיות</strong>. מקדם: SDG 4 (חינוך איכותי), Global Citizenship Education (GCED), חינוך לאזרחות גלובלית.</p>
+
+    <div class="quote-box critical">
+        "יש עבודה ברמה הגלויה ועבודה ברמה הסמויה. זו עבודה סובוורסיבית לפעמים."
+        <span class="q-source">גלית זלמנסון שגב, ראש המרכז לפדגוגיה ביקורתית, מכללת סמינר הקיבוצים</span>
+    </div>
+
+    <h3>המרכז לפדגוגיה ביקורתית</h3>
+    <p>בראשות <strong>גלית זלמנסון שגב</strong>. מלמד מורים:</p>
+    <ul style="padding-right: 24px; margin-bottom: 12px;">
+        <li><strong>חשיפת יחסי כוח</strong> — כיצד יחסי כוח חברתיים, כלכליים ופוליטיים משוכפלים בכיתה</li>
+        <li><strong>אתגור נרטיבים דומיננטיים</strong> — בחינה ביקורתית של ספרי לימוד, חשיפת "הדרה והשתקה"</li>
+        <li><strong>פדגוגיה של שחרור</strong> — עידוד תלמידים להיות "סוכני שינוי"</li>
+        <li><strong>הכשרה ל"עבודה סובוורסיבית"</strong> — לאתגר נורמות מוסדיות "גם אם הדבר אינו עולה בקנה אחד עם הציפיות הממסדיות"</li>
+    </ul>
+
+    <h3>פקולטות מרכזיות בצינור</h3>
+    <p>הסטודנטים כוללים: מורים לתואר ראשון ושני, <strong>מורים בפועל בהשתלמויות</strong>, מנהלי בתי ספר, ופעילים חברתיים. המכללה מכשירה גם <strong>יועצים חינוכיים</strong> (תואר שני) — בוגרים המאיישים משרות ב<strong>שפ"י</strong> (שירות פסיכולוגי-ייעוצי של משרד החינוך).</p>
+</div>
+
+<div class="org-card" id="org-mofet">
+    <h3>מכון מופ"ת <span class="badge badge-orange">לגיטימציה מחקרית</span></h3>
+    <div class="org-meta">פיתוח מקצועי למרצים | מחקר | כתב עת "דפים" | מאז 1996</div>
+
+    <div class="grid-3">
+        <div class="metric metric-red">
+            <div class="value">75%</div>
+            <div class="note">מחקרים — דיווח עצמי</div>
+        </div>
+        <div class="metric metric-orange">
+            <div class="value">66%</div>
+            <div class="note">מחקרים — ע"י מעצבי התוכניות</div>
+        </div>
+        <div class="metric">
+            <div class="value">1,000-2,000</div>
+            <div class="note">משתתפים בכנס שנתי</div>
+        </div>
+    </div>
+
+    <h3>הבעיה המתודולוגית</h3>
+    <p>מכון מופ"ת הוקם ב-1996 ע"י משרד החינוך והמל"ג כ"זרוע אקדמית" למכללות החינוך. הביקורת המתודולוגית החוזרת:</p>
+    <div class="quote-box warning">
+        "חלק ניכר מהמחקרים במכללות לחינוך מתבצעים על ידי מרצים החוקרים את עבודתם או את התוכניות שהם עצמם מפתחים, מה שמעלה שאלות לגבי תוקף חיצוני ואובייקטיביות."
+        <span class="q-source">ד"ר יעל הרל"פ, "מחקר במכללות לחינוך: בין אתגרים להזדמנויות", דפים, 2018</span>
+    </div>
+    <p><strong>משמעות:</strong> הטיה מובנית — חוקרים מושקעים בהצלחת התוכנית. תוקף חיצוני מוגבל. תוכניות לא-יעילות ממשיכות לפעול ללא ביקורת חיצונית.</p>
+
+    <h3>תפקיד בצינור</h3>
+    <p>מופ"ת לא מכשיר מורים ישירות — הוא <strong>מכשיר מרצים במכללות</strong> ומפרסם את המחקר שמצדיק את השיטות. כתב העת "דפים" מפרסם מאמרים על: פדגוגיה ביקורתית, SEL, חינוך לדמוקרטיה, חינוך רב-תרבותי. המכון <strong>משתף פעולה עם שפ"י</strong> בקידום SEL.</p>
+    <p><strong>מנהלת נוכחית:</strong> פרופ' רבקה ודמני (מאז 2021)</p>
+</div>
+
+<div class="org-card card-warning" id="org-avneyrosha">
+    <h3>אבני ראשה — המכון להנהגה בחינוך <span class="badge badge-red">השפעה מערכתית</span></h3>
+    <div class="org-meta">הכשרת מנהלים | SEL מערכתי | מאז 2007 | תקציב 16M ₪</div>
+
+    <div class="grid-4">
+        <div class="metric metric-red">
+            <div class="value">3,000+</div>
+            <div class="note">מנהלים הוכשרו</div>
+        </div>
+        <div class="metric metric-orange">
+            <div class="value">40%</div>
+            <div class="note">מכלל מנהלי בתי הספר</div>
+        </div>
+        <div class="metric">
+            <div class="value">1,000+</div>
+            <div class="note">בתי ספר — SEL מערכתי</div>
+        </div>
+        <div class="metric metric-green">
+            <div class="value">16M ₪</div>
+            <div class="note">הכנסה 2022</div>
+        </div>
+    </div>
+
+    <h3>10 אינדיקטורים ל-SEL מערכתי</h3>
+    <p>אבני ראשה אימץ את מסגרת <strong>CASEL</strong> האמריקאית — 10 אינדיקטורים שהופכים את SEL מ"תוכנית" ל<strong>מערכת הפעלה של בית הספר</strong>:</p>
+    <ol style="padding-right: 24px; margin-bottom: 12px; font-size: 0.92em;">
+        <li>חזון SEL משותף</li>
+        <li>הנהגה מחויבת ל-SEL</li>
+        <li>אקלים בית ספרי תומך</li>
+        <li>התפתחות מקצועית לצוות</li>
+        <li>הוראה מפורשת של מיומנויות SEL</li>
+        <li>שילוב SEL בכל תחומי הדעת</li>
+        <li>שותפות עם הורים וקהילה</li>
+        <li>נתונים ושיפור מתמיד</li>
+        <li>הקצאת משאבים</li>
+        <li>הערכה ואחריותיות</li>
+    </ol>
+
+    <h3>מימון (2022)</h3>
+    <table>
+        <tr><th>מקור</th><th>סכום</th><th>אחוז</th></tr>
+        <tr><td>תרומות מקרנות</td><td>13,873,000 ₪</td><td>86%</td></tr>
+        <tr><td>תמיכות ממשלתיות</td><td>1,180,000 ₪</td><td>7%</td></tr>
+        <tr><td>תרומות מיחידים</td><td>1,000,000 ₪</td><td>6%</td></tr>
+        <tr><td><strong>סה"כ</strong></td><td><strong>16,053,000 ₪</strong></td><td>100%</td></tr>
+    </table>
+    <p style="font-size: 0.85em; color: #888;">מקור: גיידסטאר ישראל, דוח כספי 2022</p>
+
+    <h3>קרנות תומכות</h3>
+    <p>יד הנדיב (מקימה), קרן רש"י, קרן ג'נסיס, קרן ון ליר, קרן שוסטרמן, קרן פדרמן, קרן וקסנר, קרן שחף, קרן אדמונד דה רוטשילד.</p>
+
+    <h3>דירקטוריון</h3>
+    <table>
+        <tr><th>שם</th><th>תפקיד / רקע</th></tr>
+        <tr><td><strong>דפנה ברוורמן</strong></td><td>מנכ"לית</td></tr>
+        <tr><td><strong>אלי הורוביץ</strong></td><td>יו"ר הוועד המנהל</td></tr>
+        <tr><td><strong>פרופ' יולי תמיר</strong></td><td>שרת החינוך לשעבר (עבודה, 2006-2009), נשיאת שנקר לשעבר</td></tr>
+        <tr><td><strong>אילן כהן</strong></td><td>מנכ"ל משרד ראש הממשלה לשעבר (שרון), מנכ"ל דיסקונט לשעבר</td></tr>
+        <tr><td>פרופ' עמיה ליבליך</td><td>פסיכולוגית חברתית</td></tr>
+        <tr><td>פרופ' אילנה רוזן</td><td>חוקרת חינוך, אוניברסיטת בן-גוריון</td></tr>
+    </table>
+</div>
+
+<div class="org-card card-money" id="org-yadhanadiv">
+    <h3>יד הנדיב (קרן רוטשילד) <span class="badge badge-purple">מממנת הצינור</span></h3>
+    <div class="org-meta">קרן פילנתרופית | ~100M ₪/שנה | מאז 1958</div>
+
+    <div class="grid-3">
+        <div class="metric metric-green">
+            <div class="value">~100M ₪</div>
+            <div class="note">סך הקצאות שנתי</div>
+        </div>
+        <div class="metric metric-green">
+            <div class="value">~10.5M ₪</div>
+            <div class="note">הקצאה לחינוך (2022)</div>
+        </div>
+        <div class="metric">
+            <div class="value">1958</div>
+            <div class="note">שנת הקמה</div>
+        </div>
+    </div>
+
+    <h3>מה יד הנדיב מממנת</h3>
+    <table>
+        <tr><th>ארגון / תוכנית</th><th>תפקיד בצינור</th></tr>
+        <tr><td><strong>אבני ראשה</strong></td><td>הקמה + מימון שוטף. 40% ממנהלי בתי הספר. SEL מערכתי ב-1,000+ בתי ספר.</td></tr>
+        <tr><td><strong>תוכנית חותם</strong></td><td>1,400+ אקדמאים הוצבו בבתי ספר בפריפריה מאז 2010.</td></tr>
+        <tr><td><strong>יוזמה (האקדמיה הלאומית)</strong></td><td>מכון מחקר ופיתוח בחינוך. גשר בין מחקר למדיניות.</td></tr>
+        <tr><td><strong>"מפתח" — SEL ארצי</strong></td><td>תוכנית משותפת עם משרד החינוך להטמעת SEL מ-תשפ"א.</td></tr>
+    </table>
+
+    <div class="quote-box">
+        "יד הנדיב פועלת לקידום חברה חזקה ודמוקרטית בישראל, בעלת תרבות עשירה, סביבה טבעית משגשגת ושוויון הזדמנויות לכל אזרחיה."
+        <span class="q-source">אתר יד הנדיב, "אודות"</span>
+    </div>
+
+    <h3>הרשת המתואמת</h3>
+    <p>ההורים מכירים את "חותם" או "אבני ראשה" כארגונים עצמאיים, אבל <strong>מאחורי כולם עומד אותו מממן מרכזי</strong> — יד הנדיב — היוצר רשת השפעה מתואמת: מהכשרת מורים (חותם), דרך פיתוח מנהלים (אבני ראשה), ועד מחקר יישומי (יוזמה).</p>
+    <p><strong>מנכ"ל:</strong> עמיחי כהן (מאז 2019). מנכ"ל משרד ראש הממשלה לשעבר (2016-2018, נתניהו), מנכ"ל משרד המשפטים לשעבר (2013-2016).</p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════ TAB: EVIDENCE ═══════════════════════ -->
+<div id="view-evidence" class="view">
+
+<div class="section">
+    <h2>שרשרת ראיות: מאונסק"ו לכיתה</h2>
+    <div class="evidence-chain">
+        <div class="chain-level">
+            <h4>שכבה 1: המקור הגלובלי — UNESCO / CASEL</h4>
+            <ul>
+                <li>אונסק"ו מגדירה SDG 4 (חינוך איכותי), GCED (חינוך לאזרחות גלובלית), חינוך לשלום וזכויות אדם</li>
+                <li>כסא אונסק"ו במכללת הקיבוצים (פרופ' נמרוד אלוני) = זרוע ישראלית של האג'נדה</li>
+                <li>CASEL (אמריקאי) מפתח מסגרת 10 אינדיקטורים ל-SEL מערכתי — אבני ראשה מאמצת</li>
+                <li>UNESCO 2022: מצטטת מפורשות את מרקוזה, דורשת מאוניברסיטאות "לסרב למחקר התומך בפרקטיקות לא-בנות-קיימא"</li>
+            </ul>
+        </div>
+        <div class="chain-level">
+            <h4>שכבה 2: התרגום המוסדי — הכשרת מורים</h4>
+            <ul>
+                <li><strong>מכללת הקיבוצים</strong>: 800-1,000 בוגרים חדשים בשנה = 10-12.5% מכלל המורים החדשים בישראל</li>
+                <li><strong>המרכז לפדגוגיה ביקורתית</strong> (זלמנסון שגב): "עבודה סובוורסיבית" — מלמד מורים לאתגר נורמות מבפנים</li>
+                <li><strong>מכון מופ"ת</strong>: מכשיר מרצים במכללות + מפרסם את ה"מחקר" שמצדיק את השיטות (75% דיווח עצמי)</li>
+                <li><strong>חותם</strong> (יד הנדיב): 1,400 אקדמאים הוצבו בבתי ספר בפריפריה מאז 2010</li>
+            </ul>
+        </div>
+        <div class="chain-level">
+            <h4>שכבה 3: ההטמעה הניהולית — מנהלי בתי ספר</h4>
+            <ul>
+                <li><strong>אבני ראשה</strong>: הכשיר 3,000+ מנהלים = 40% מכלל המנהלים בישראל</li>
+                <li>1,000+ בתי ספר מיישמים CASEL 10 Indicators — SEL כ"מערכת הפעלה" של בית הספר</li>
+                <li><strong>יולי תמיר</strong> (שרת חינוך לשעבר) בדירקטוריון — ערוץ ישיר להשפעה על מדיניות</li>
+                <li>תקציב: 86% מקרנות פילנתרופיות, 7% ממשלה — הממשלה לא מממנת אבל מכירה רשמית</li>
+            </ul>
+        </div>
+        <div class="chain-level">
+            <h4>שכבה 4: מנגנון המימון — יד הנדיב</h4>
+            <ul>
+                <li>~100M ₪ סך הקצאות שנתי, ~10.5M ₪ ספציפית לחינוך (2022)</li>
+                <li>מממנת כל חוליה: אבני ראשה (הקמה + שוטף), חותם, יוזמה, "מפתח" (SEL ארצי)</li>
+                <li>תוכנית "מפתח" — SEL ארצית עם משרד החינוך מ-תשפ"א — ישירות לכיתה</li>
+                <li>הורים רואים "תוכנית משרד החינוך" — לא יודעים על השותפות עם קרן פילנתרופית פרטית</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השוואה: מה רואים ומה נסתר</h2>
+    <table>
+        <tr><th>מה ההורים רואים</th><th>מה נסתר</th></tr>
+        <tr>
+            <td>מכללת הקיבוצים — מכללה ותיקה ומוכרת</td>
+            <td>מרכז לפדגוגיה ביקורתית שמכשיר מורים ל"עבודה סובוורסיבית"</td>
+        </tr>
+        <tr>
+            <td>מופ"ת — "מכון מקצועי"</td>
+            <td>75% מחקרים בדיווח עצמי, 66% ע"י מעצבי התוכניות. בועה אקדמית.</td>
+        </tr>
+        <tr>
+            <td>אבני ראשה — "הכשרת מנהלים"</td>
+            <td>40% מהמנהלים הוכשרו ע"י גוף שמקדם SEL מערכתי + צדק חברתי. דירקטוריון פוליטי.</td>
+        </tr>
+        <tr>
+            <td>יד הנדיב — "קרן פילנתרופית"</td>
+            <td>מממנת כל חוליה בצינור. הורים לא יודעים שהם מולידים כולם.</td>
+        </tr>
+        <tr>
+            <td>תוכנית "מפתח" — "תוכנית משרד החינוך"</td>
+            <td>שותפות עם יד הנדיב. SEL מוטמע ללא בחירה הורית.</td>
+        </tr>
+        <tr>
+            <td>חותם — "אקדמאים מצטיינים בפריפריה"</td>
+            <td>1,400 אנשים שהוצבו בבתי ספר דרך קרן פרטית. מי מחליט מה ילמדו?</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>לוגיקת ההתבצרות</h2>
+    <p>מדוע הצינור עמיד כל כך? כי כל חוליה מחזקת את האחרות:</p>
+    <div class="grid-2">
+        <div>
+            <h3>מנגנון 1: לגיטימציה הדדית</h3>
+            <ul style="padding-right: 20px;">
+                <li>מופ"ת מפרסם "מחקר" שמצדיק את SEL</li>
+                <li>אבני ראשה מכשיר מנהלים "על סמך מחקר"</li>
+                <li>יד הנדיב מממנת "על סמך תוצאות"</li>
+                <li>הקיבוצים מכשיר מורים "על סמך אקדמיה"</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מנגנון 2: עמידות לשינוי פוליטי</h3>
+            <ul style="padding-right: 20px;">
+                <li>מכללות — עצמאות אקדמית</li>
+                <li>מופ"ת — חצי-ממשלתי, חצי-עצמאי</li>
+                <li>אבני ראשה — 86% קרנות, לא תלוי בממשלה</li>
+                <li>יד הנדיב — כסף פרטי, מחוץ לשליטה פוליטית</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════ TAB: PARENTS ═══════════════════════ -->
+<div id="view-parents" class="view">
+
+<div class="section">
+    <h2>מה ההורים לא יודעים — סיכום</h2>
+
+    <div class="org-card card-danger">
+        <h3>1. הכשרה ל"עבודה סובוורסיבית"</h3>
+        <p>הורים מניחים שמכללות מכשירות מורים ללמד תוכנית לימודים. אבל <strong>המרכז לפדגוגיה ביקורתית במכללת הקיבוצים</strong> מכשיר מורים "לאתגר נרטיבים, יחסי כוח, ומבנים מוסדיים" — כולל אתגור הנרטיב הציוני ומוסדות המדינה. ראש המרכז מודה שזו "עבודה סובוורסיבית".</p>
+    </div>
+
+    <div class="org-card card-warning">
+        <h3>2. 40% מהמנהלים הוכשרו ע"י גוף אחד</h3>
+        <p>הורים לא מודעים שאבני ראשה — מכון שמומן ב-86% מקרנות פילנתרופיות, עם שרת חינוך לשעבר בדירקטוריון — הכשיר <strong>כמעט מחצית ממנהלי בתי הספר</strong>. 1,000+ בתי ספר כבר מיישמים את מודל 10 האינדיקטורים ל-SEL. זה לא "עוד פרויקט" — זה שינוי מערכתי.</p>
+    </div>
+
+    <div class="org-card card-money">
+        <h3>3. אותו מממן מאחורי הכול</h3>
+        <p>הורים מכירים את "חותם" או "אבני ראשה" כארגונים נפרדים. הם לא יודעים שמאחורי כולם עומדת <strong>יד הנדיב (רוטשילד)</strong>, שמממנת כל חוליה: הכשרת מורים (חותם), הכשרת מנהלים (אבני ראשה), מחקר (יוזמה), ו-SEL ארצי (תוכנית "מפתח" עם משרד החינוך). רשת השפעה מתואמת שנראית כמו "מערכת ציבורית".</p>
+    </div>
+
+    <div class="org-card">
+        <h3>4. ה"מחקר" שמצדיק הכול — שאלות קשות</h3>
+        <p>75% מהמחקרים שמצדיקים את השיטות מבוססים על <strong>דיווח עצמי</strong>. 66% בוצעו <strong>ע"י מעצבי התוכניות עצמם</strong>. הורים שומעים "מבוסס מחקר" וחושבים שמדובר במדע אובייקטיבי. בפועל, חוקרים בודקים את עצמם.</p>
+    </div>
+
+    <div class="org-card">
+        <h3>5. תוכנית "מפתח" — SEL ארצי ללא בחירה</h3>
+        <p>הורים רואים "תוכנית משרד החינוך". לא יודעים שזו <strong>שותפות עם קרן פרטית</strong>. SEL — למידה חברתית-רגשית — מוטמע מ-תשפ"א כתוכנית ארצית. אין opt-in להורים. אין שקיפות על הערכים הספציפיים שמוטמעים.</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שאלות שהורים צריכים לשאול</h2>
+    <ol style="padding-right: 24px;">
+        <li>מי החליט שבית הספר של ילדי מיישם SEL? האם נשאלתי?</li>
+        <li>מנהל בית הספר עבר הכשרה באבני ראשה? מה למד שם?</li>
+        <li>מי מממן את תוכניות ה"פיתוח מקצועי" של המורים?</li>
+        <li>האם ה"חשיבה ביקורתית" כוללת אתגור ערכים שאני רוצה להנחיל?</li>
+        <li>מדוע 75% מה"מחקר" שמצדיק את השיטות מבוסס על דיווח עצמי?</li>
+        <li>האם קרן פרטית צריכה לקבוע מה ילדי לומדים על רגשות וערכים?</li>
+    </ol>
+</div>
+
+<div class="section" style="text-align:center;">
+    <h2>קישורים למחקר נוסף</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px;">
+        <a class="link-card" href="index.html"><div><div class="lc-title">כל דוחות המחקר</div><div class="lc-desc">53 דוחות מחקר עומק</div></div></a>
+        <a class="link-card" href="safeschool_dashboard.html"><div><div class="lc-title">דשבורד SafeSchool</div><div class="lc-desc">דוגמה לשרשרת ראיות</div></div></a>
+        <a class="link-card" href="munzenberg_municipal.html"><div><div class="lc-title">ניתוח מינצנברגי</div><div class="lc-desc">7 טכניקות מוניציפליות</div></div></a>
+        <a class="link-card" href="../"><div><div class="lc-title">דירוג ערים</div><div class="lc-desc">18 ערים, 5 מקורות נתונים</div></div></a>
+    </div>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<footer style="background:#1a1a2e; color:#aab; padding:20px; text-align:center; font-size:0.8em;">
+    מבוסס על מקורות ציבוריים: אתרי הארגונים, גיידסטאר ישראל, דוחות שנתיים, פרסומים אקדמיים | דירוג ערים 2026
+</footer>
+
+<script>
+function navigate(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const view = document.getElementById('view-' + viewId);
+    if (view) view.classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const tabMap = { overview: 0, nodes: 1, evidence: 2, parents: 3 };
+    if (tabMap[viewId] !== undefined) tabs[tabMap[viewId]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function scrollToOrg(orgId) {
+    navigate('nodes');
+    setTimeout(() => {
+        const el = document.getElementById('org-' + orgId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+}
+document.querySelectorAll('.expand-section').forEach(el => {
+    el.addEventListener('click', () => {
+        el.classList.toggle('open');
+        const content = el.nextElementSibling;
+        if (content) content.classList.toggle('open');
+    });
+});
+</script>
+</body>
+</html>

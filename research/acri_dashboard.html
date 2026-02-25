@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACRI — האגודה לזכויות האזרח | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Flip cards -- */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
+.flip-card {
+    perspective: 800px; cursor: pointer; height: 150px;
+}
+.flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.5s; transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 14px; text-align: center;
+}
+.flip-front {
+    background: #f0f4fa; border: 1px solid #d4daf0;
+}
+.flip-front .term-icon { font-size: 1.8em; margin-bottom: 6px; }
+.flip-front .term-name { font-weight: 700; color: #2a5a8a; font-size: 1.05em; }
+.flip-front .term-hint { font-size: 0.7em; color: #999; margin-top: 6px; }
+.flip-back {
+    background: #fff5f5; border: 1px solid #f0d4d4;
+    transform: rotateY(180deg);
+}
+.flip-back .reveal-title { font-weight: 700; color: #8b0000; font-size: 0.85em; margin-bottom: 6px; }
+.flip-back .reveal-text { font-size: 0.82em; color: #444; line-height: 1.5; }
+
+/* -- Evidence chain -- */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 800px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+.depth-next {
+    display: inline-block; margin-top: 10px; padding: 6px 14px;
+    background: #f0f4fa; border-radius: 4px; font-size: 0.82em;
+    color: #2a5a8a; cursor: default;
+}
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Value Lens -- */
+.lens-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: #f0f4fa; padding: 10px 18px; border-radius: 8px;
+    margin-bottom: 18px; border: 1px solid #d4daf0;
+}
+.lens-bar .lens-label { font-size: 0.88em; color: #555; font-weight: 600; }
+.lens-bar .lens-label.active { color: #1a1a2e; }
+.lens-switch {
+    position: relative; width: 44px; height: 24px; cursor: pointer;
+    background: #ccc; border-radius: 12px; transition: background 0.3s;
+    border: none; padding: 0;
+}
+.lens-switch.on { background: #e74c3c; }
+.lens-switch::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    transition: transform 0.3s;
+}
+.lens-switch.on::after { transform: translateX(20px); }
+.lens-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #667eea;
+    transition: all 0.3s;
+}
+.lens-card.severity-high { border-right-color: #e74c3c; }
+.lens-card.severity-medium { border-right-color: #f39c12; }
+.lens-card .lens-source { font-size: 0.78em; color: #888; margin-bottom: 6px; }
+.lens-card .lens-type {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; background: #f0f0f0; color: #555;
+    margin-bottom: 8px;
+}
+.lens-official-text { font-style: italic; color: #333; line-height: 1.7; }
+.lens-interpreted-text {
+    color: #8b0000; font-weight: 600; line-height: 1.7;
+    border-right: 3px solid #e74c3c; padding-right: 12px;
+}
+.lens-interpreted-text .sel-link {
+    color: #2a5a8a; text-decoration: underline; font-weight: 400;
+}
+
+/* -- Influence Map -- */
+.influence-map {
+    background: #fafbff; border: 1px solid #e8e8e8; border-radius: 8px;
+    padding: 24px; min-height: 350px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.inf-row {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+}
+.inf-node {
+    text-align: center; cursor: default; transition: transform 0.2s;
+}
+.inf-node:hover { transform: scale(1.05); }
+.inf-circle {
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px; font-size: 1.5em;
+    border: 2px solid;
+}
+.inf-circle.red { background: #fef2f2; border-color: #fca5a5; }
+.inf-circle.orange { background: #fff7ed; border-color: #fdba74; }
+.inf-circle.blue { background: #eff6ff; border-color: #93c5fd; }
+.inf-circle.green { background: #f0fdf4; border-color: #86efac; }
+.inf-circle.purple { background: #faf5ff; border-color: #c4b5fd; }
+.inf-name { font-size: 0.78em; font-weight: 700; color: #1a1a2e; max-width: 100px; }
+.inf-role { font-size: 0.68em; color: #888; }
+.inf-arrow { color: #ccc; font-size: 1.5em; }
+.inf-center {
+    background: #1a1a2e; color: #fff; padding: 14px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 1.1em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.inf-target {
+    background: #fff; padding: 12px; border-radius: 8px;
+    border-top: 3px solid #ff8800; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    min-width: 120px; transition: background 0.2s;
+}
+.inf-target:hover { background: #fff8f0; }
+.inf-target .inf-t-icon { font-size: 1.3em; margin-bottom: 4px; }
+.inf-target .inf-t-title { font-weight: 700; font-size: 0.82em; color: #1a1a2e; }
+.inf-target .inf-t-sub { font-size: 0.7em; color: #888; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Questions -- */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>ACRI</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+            <a href="deep_ACRI.html">דוח מלא</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>האגודה לזכויות האזרח בישראל (ACRI)</h1>
+    <div class="subtitle">Association for Civil Rights in Israel | עמותה 580011567 | נוסדה: 1972</div>
+    <div class="meta">תקציב: ~10.9M &#8362; | 36 עובדים | מטה: תל אביב-יפו | חברת INCLO, FIDH | מימון NIF + ממשלות זרות</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB: OVERVIEW ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>ACRI היא הארגון הוותיק ביותר לזכויות אדם בישראל, שנוסדה ב-1972 על מודל ה-ACLU האמריקני. הארגון משמש כ<strong>מנוע הליטיגציה המרכזי</strong> של החברה האזרחית הליברלית-שמאלית בישראל: עתירות לבג"ץ, דוחות צל לאו"ם, חינוך לזכויות בבתי ספר, ורשת סנגור בינלאומית. במהלך השנים עבר הארגון מעמדה אוניברסלית-ליברלית לעמדה <strong>פוליטית יותר</strong>: אימוץ מסגרת "אפרטהייד", מנכ"לית שהיתה ברשימת מרצ, ופעילות בינלאומית אינטנסיבית.</p>
+
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">תקציב שנתי (2022)</div>
+                    <div class="value">~10.9M &#8362;</div>
+                    <div class="note">obudget.org &mdash; פי 4 מהחציון בסקטור</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">מימון ממשלת ישראל</div>
+                    <div class="value">13K &#8362;</div>
+                    <div class="note">סה"כ כל-הזמנים &mdash; כמעט אפס</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">מימון ממשלות זרות</div>
+                    <div class="value">21.8%</div>
+                    <div class="note">ממוצע 2017-2019 &mdash; EU, נורווגיה, גרמניה</div>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">שנת ייסוד</div>
+                    <div class="value">1972</div>
+                    <div class="note">52+ שנות פעילות</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">מנכ"לית ברשימת מרצ</div>
+                    <div class="value">נועה סתת</div>
+                    <div class="note">מקום 83, בחירות אפריל 2019</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">NIF &mdash; קרן ישראל החדשה</div>
+                    <div class="value">$3.4M</div>
+                    <div class="note">2017-2021 מצטבר &mdash; ~25-30% מהתקציב</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל: תדמית מול מציאות</h3>
+                    <p style="font-size:0.85em;color:#666">הכתום = הסיכון בפועל. הכחול = מה שהארגון מציג. הפער הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים מרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#9878;</div>
+                        <div>
+                            <h4>מנכ"לית ברשימת מרצ לכנסת</h4>
+                            <p>נועה סתת היתה במקום 83 ברשימת מרצ (2019). רבת רפורמית, פעילת LGBTQ, מנהלת IRAC לשעבר. זיקה פוליטית מוצהרת שסותרת טענה ל"א-מפלגתיות".</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127758;</div>
+                        <div>
+                            <h4>דוח צל לאו"ם + מסגרת "אפרטהייד"</h4>
+                            <p>ב-2023 חתמה על דוח משותף עם 16 ארגונים המאשר "קריטריונים של אפרטהייד". ב-2022 &mdash; הצהרה על "עליונות יהודית כחוק דה-פקטו".</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127979;</div>
+                        <div>
+                            <h4>תוכניות חינוך בבתי ספר</h4>
+                            <p>"הסדנא" &mdash; הכשרת מורים, סדנאות מכינות קדם-צבאיות, תוכניות לימוד בעברית ובערבית. מוכרת על ידי משרד החינוך לגמול השתלמות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128279;</div>
+                        <div>
+                            <h4>צינור כוח אדם ACRI-B'Tselem-NIF</h4>
+                            <p>חגי אלעד: מנכ"ל ACRI (2008-14) &rarr; מנכ"ל בצלם (2014-23). חדוה רדובנוביץ: ACRI &rarr; NIF. אקו-סיסטם אחד.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>רקע</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>נועה סתת</strong></td><td>מנכ"לית (2021-)</td><td>רבת רפורמית, IRAC, Jerusalem Open House</td><td>מקום 83 ברשימת מרצ 2019</td></tr>
+                <tr><td><strong>דן יקיר</strong></td><td>נשיא (2023-); יועמ"ש 1995-2023</td><td>28 שנה כיועמ"ש הארגון</td><td>טען עשרות תיקי בג"ץ תקדימיים</td></tr>
+                <tr><td><strong>רחל ליאל</strong></td><td>יו"ר דירקטוריון (2017-)</td><td>&mdash;</td><td>&mdash;</td></tr>
+                <tr><td><strong>פרופ' ברק מדינה</strong></td><td>חבר דירקטוריון</td><td>רקטור האוניברסיטה העברית; משפט חוקתי</td><td>חיבור אקדמיה-סנגור</td></tr>
+                <tr><td><strong>חגי אלעד</strong></td><td>מנכ"ל לשעבר (2008-14)</td><td>עבר לנהל בצלם</td><td>נאם במועצת הביטחון של האו"ם</td></tr>
+                <tr><td><strong>שרון אברהם-ויס</strong></td><td>מנכ"לית לשעבר (2014-21)</td><td>עורכת דין</td><td>&mdash;</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקורות: <a href="https://www.english.acri.org.il/board-members" target="_blank">ACRI Board</a>, <a href="https://www.hamichlol.org.il/נועה_סתת" target="_blank">HaMichlol</a>, <a href="https://ngo-monitor.org/ngos/association_for_civil_rights_in_israel_acri_/" target="_blank">NGO Monitor</a></p>
+        </div>
+
+        <div class="section">
+            <h2>מפת השפעה: מהמימון הזר לכיתה ולבג"ץ</h2>
+            <p>מסלול ההשפעה של ACRI: ממשלות זרות, NIF וקרנות פרטיות מממנות ליטיגציה בבג"ץ, חינוך לזכויות בבתי ספר, ודוחות בינלאומיים.</p>
+
+            <div class="influence-map">
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">מקורות מימון</div>
+                <div class="inf-row">
+                    <div class="inf-node">
+                        <div class="inf-circle red">EU</div>
+                        <div class="inf-name">האיחוד האירופי</div>
+                        <div class="inf-role">1.94M &#8362; (2023)</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle purple">NIF</div>
+                        <div class="inf-name">קרן ישראל החדשה</div>
+                        <div class="inf-role">~$682K/שנה</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle blue">DE</div>
+                        <div class="inf-name">Bread for the World</div>
+                        <div class="inf-role">805K &#8362; (2023)</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle orange">NO</div>
+                        <div class="inf-name">נורווגיה</div>
+                        <div class="inf-role">~220K &#8362;/שנה</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle green">OSI</div>
+                        <div class="inf-name">Open Society</div>
+                        <div class="inf-role">371K &#8362; (2022)</div>
+                    </div>
+                </div>
+
+                <div class="inf-arrow">&#9660;</div>
+
+                <div class="inf-center">ACRI &mdash; האגודה לזכויות האזרח (10.9M &#8362;)</div>
+
+                <div class="inf-arrow">&#9660;</div>
+
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">ערוצי פעולה</div>
+                <div class="inf-row">
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#9878;</div>
+                        <div class="inf-t-title">עתירות בג"ץ</div>
+                        <div class="inf-t-sub">עשרות תקדימים בשנה</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#127979;</div>
+                        <div class="inf-t-title">"הסדנא" &mdash; חינוך</div>
+                        <div class="inf-t-sub">מכינות, מורים, תלמידים</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#127758;</div>
+                        <div class="inf-t-title">דוחות צל &mdash; או"ם</div>
+                        <div class="inf-t-sub">OHCHR, FIDH, INCLO</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#128195;</div>
+                        <div class="inf-t-title">דוח שנתי "מצב הזכויות"</div>
+                        <div class="inf-t-sub">10 בדצמבר &mdash; אירוע תקשורתי</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top:16px">
+                <strong>ממצא עיקרי:</strong> ACRI מקבלת כמעט אפס מימון ממשלת ישראל (13K &#8362; סה"כ כל-הזמנים) אך מקבלת ~50-60% מתקציבה מממשלות זרות, NIF וקרנות בינלאומיות. חוק המס על עמותות (2025) עלול להיות קיומי עבור הארגון.
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB: FINANCE ======= -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מקורות מימון</h2>
+            <p>ACRI מדווחת לרשם העמותות. הנתונים מגיעים מ-NGO Monitor, obudget.org, ודיווחי הרשם.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">הרכב הכנסות (הערכה)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מגמת הכנסות</h3>
+                    <table>
+                        <tr><th>שנה</th><th>הכנסות (&#8362;)</th><th>הוצאות (&#8362;)</th><th>מקור</th></tr>
+                        <tr><td>2016</td><td>~8,300,000</td><td>N/A</td><td>HaMichlol</td></tr>
+                        <tr><td>2018</td><td>~8,500,000</td><td>N/A</td><td>Kol Zchut</td></tr>
+                        <tr><td>2022</td><td>9,600,000</td><td>9,300,000</td><td>NGO Monitor</td></tr>
+                        <tr><td>2022</td><td>10,872,286</td><td>N/A</td><td>obudget.org</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888">צמיחה של ~31% בין 2016-2022 (כ-10% ריאלי). חציון סקטור: 2.6M &#8362; &mdash; ACRI פי 4 מהחציון.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מימון ממשלות זרות (2019-2023)</h2>
+            <p><strong>סה"כ מצטבר 2012-2023: 27,123,700 &#8362;</strong> &mdash; ממוצע 21.8% מהתקציב.</p>
+            <table>
+                <tr><th>תורם</th><th>2023</th><th>2022</th><th>2021</th><th>2020</th><th>2019</th></tr>
+                <tr class="highlight"><td>האיחוד האירופי</td><td>1,944,271</td><td>257,645</td><td>1,327,761</td><td>373,010</td><td>&mdash;</td></tr>
+                <tr><td>Bread for the World (גרמניה)</td><td>805,162</td><td>420,919</td><td>870,645</td><td>966,889</td><td>881,649</td></tr>
+                <tr><td>נורווגיה</td><td>217,497</td><td>208,658</td><td>218,494</td><td>219,956</td><td>222,951</td></tr>
+                <tr><td>Christian Aid (בריטניה)</td><td>64,907</td><td>&mdash;</td><td>152,898</td><td>84,412</td><td>&mdash;</td></tr>
+                <tr><td>Sigrid Rausing Trust</td><td>&mdash;</td><td>705,334</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                <tr><td>Open Society Institute</td><td>&mdash;</td><td>371,700</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                <tr><td>Moriah Fund</td><td>&mdash;</td><td>358,414</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                <tr><td>שוויץ</td><td>&mdash;</td><td>307,315</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                <tr><td>Norwegian Refugee Council</td><td>18,519</td><td>&mdash;</td><td>100,210</td><td>207,409</td><td>68,865</td></tr>
+                <tr><td>Friedrich Ebert Stiftung</td><td>28,000</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: דיווחי רשם העמותות כפי שפורסמו ב-NGO Monitor</p>
+
+            <h3>תורמים נוספים (סכומים לא עקביים)</h3>
+            <p style="font-size:0.9em">שוודיה (Diakonia), הולנד, דנמרק, ארה"ב (MEPI), Oxfam, קרן רוזה לוקסמבורג (גרמניה)</p>
+        </div>
+
+        <div class="section">
+            <h2>קרן ישראל החדשה (NIF)</h2>
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">NIF 2017-2021</div>
+                    <div class="value">$3.4M</div>
+                    <div class="note">~$682K/שנה ממוצע</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">חלק מתקציב ACRI</div>
+                    <div class="value">~25-30%</div>
+                    <div class="note">התורם העקבי הגדול ביותר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">סטטוס</div>
+                    <div class="value">Flagship</div>
+                    <div class="note">מתוארת כ"grantee דגל" של NIF</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פרויקטים ממומנים EU (2023-2024)</h2>
+            <table>
+                <tr><th>פרויקט</th><th>שותף</th><th>סכום</th></tr>
+                <tr class="highlight"><td>"Always Watching: Protecting Human Rights in Digital Age"</td><td><strong>שוברים שתיקה</strong></td><td>EUR 400,000</td></tr>
+                <tr><td>"Influence: Normalizing Human Rights and Democracy through Popular Culture"</td><td>המרכז לדמוקרטיה ליברלית</td><td>EUR 400,000</td></tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>ממצא:</strong> ACRI מבצעת פרויקט משותף עם שוברים שתיקה, ממומן 400,000 אירו מהאיחוד האירופי. שילוב ארגון זכויות אדם עם ארגון אנטי-צבאי בפרויקט אחד ממומן-חוץ הוא ממצא משמעותי.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מימון ממשלת ישראל</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">סה"כ העברות ממשלתיות</div>
+                    <div class="value">13,081 &#8362;</div>
+                    <div class="note">סה"כ כל-הזמנים &mdash; לא מיליונים</div>
+                </div>
+                <div class="metric">
+                    <div class="label">משרד המשפטים</div>
+                    <div class="value">12,704 &#8362;</div>
+                    <div class="note">הרצאות, ועדות ציבוריות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">הנהלת בתי המשפט</div>
+                    <div class="value">377 &#8362;</div>
+                    <div class="note">הרצאה בודדת</div>
+                </div>
+            </div>
+            <p style="font-size:0.9em;margin-top:12px"><strong>המשמעות:</strong> ACRI עצמאית לחלוטין ממימון ישראלי ממשלתי &mdash; אך בדיוק לכן היא חשופה לחוק המס על עמותות (80% מס על מימון ממשלות זרות).</p>
+        </div>
+    </div>
+
+    <!-- ======= TAB: CONTENT ANALYSIS ======= -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>עדשת הערכים: הצהרה רשמית מול משמעות בפועל</h2>
+            <p>הטקסטים של ACRI עוברים כאן קריאה ביקורתית. המתג מאפשר לעמת בין ההצהרות הגלויות לבין המשמעות כפי שהיא עולה מהמחקר.</p>
+
+            <div class="lens-bar">
+                <span class="lens-label active" id="lens-label-off">הצהרה רשמית</span>
+                <button class="lens-switch" id="lensSwitch" onclick="toggleValueLens()"></button>
+                <span class="lens-label" id="lens-label-on">הפרשנות המחקרית</span>
+            </div>
+
+            <div id="lens-cards">
+                <!-- Card 1: Mission -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">שליחות מוצהרת</span>
+                    <div class="lens-source">אתר ACRI הרשמי</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "לפעול להגנה על זכויות האדם והאזרח בישראל ובשטחים שבשליטת ישראל ובכל מקום שבו הפרת זכויות נעשית על ידי רשויות ישראל או מטעמן."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        ב-2023 ACRI חתמה על דוח עם 16 ארגונים המאשר "קריטריונים של אפרטהייד" ועל הצהרה בדבר "עליונות יהודית כחוק דה-פקטו". מעבר ממסגרת "זכויות אדם" למסגרת דה-לגיטימציה מדינית. הארגון עצמו מגדיר את התפקיד כ"ערוץ לחץ בינלאומי חיוני."
+                        <a class="sel-link" href="https://ngo-monitor.org/ngos/association_for_civil_rights_in_israel_acri_/" target="_blank">NGO Monitor &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Nonpartisan -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">א-מפלגתיות</span>
+                    <div class="lens-source">ACRI &mdash; מיצוב ציבורי</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "הארגון פועל בצורה א-מפלגתית. ACRI הגנה על זכויות ביטוי של פעילים ימניים, ייצגה את יגאל עמיר בנושא נישואין, והתנגדה לאיסור סמלים נאציים."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        המנכ"לית נועה סתת היתה במקום 83 ברשימת מרצ לכנסת (2019). יו"ר דירקטוריון לשעבר יולי תמיר &mdash; שרת חינוך מטעם מפלגת העבודה. חגי אלעד עבר ישירות מ-ACRI לנהל את בצלם. ההיסטוריה הבין-מפלגתית מתפוגגת.
+                        <a class="sel-link" href="https://www.hamichlol.org.il/נועה_סתת" target="_blank">HaMichlol &mdash; נועה סתת &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Education -->
+                <div class="lens-card severity-medium">
+                    <span class="lens-type">חינוך לזכויות</span>
+                    <div class="lens-source">"הסדנא" &mdash; education.acri.org.il</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "הכשרת מורים לחינוך לזכויות אדם ודמוקרטיה. סדנאות נגד גזענות מגן עד תיכון. תוכניות לימוד בעברית ובערבית. שיעורים במשפט הומניטרי בינלאומי במכינות קדם-צבאיות."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        הוראת משפט הומניטרי בינלאומי (IHL) במכינות קדם-צבאיות מעצבת איך חיילים עתידיים תופסים את הסכסוך. תוכנית נגד-גזענות ממסגרת יחסי יהודים-ערבים דרך עדשת "אפליה" ולא "סכסוך לאומי". בחירה מתודולוגית עם השלכות פוליטיות.
+                        <a class="sel-link" href="https://edu.acri.org.il/" target="_blank">אתר החינוך של ACRI &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: International -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">סנגור בינלאומי</span>
+                    <div class="lens-source">ACRI English site + INCLO membership</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "ACRI רואה בסנגור בינלאומי ערוץ חיוני. הארגון חבר ב-INCLO (רשת ליברטיות אזרחיות בינלאומית), ב-FIDH (הפדרציה הבינלאומית לזכויות אדם), ומגיש דוחות צל לגופי האו"ם."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        אסטרטגיה מוצהרת של לחץ חיצוני. האתר באנגלית מדגיש "Occupied Palestinian Territories", שפת אפרטהייד, ומיצוב באקו-סיסטם בינלאומי. האתר בעברית ממוקד יותר בזכויות אזרחיות מקומיות. קיים "עקירה סמנטית" בין הקהלים: מה שנאמר בעברית שונה ממה שנאמר באנגלית.
+                        <a class="sel-link" href="https://www.english.acri.org.il/" target="_blank">ACRI English &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מילון המונחים: מה מסתתר מאחורי המילים?</h2>
+            <p>לחצו על כרטיס כדי לחשוף את המשמעות בפועל.</p>
+
+            <div class="flip-grid">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#9878;</div>
+                            <div class="term-name">זכויות אדם</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">כולל: אימוץ מסגרת "אפרטהייד", הגנה על ארגונים מזוהים-PFLP, דוחות צל לאו"ם. "זכויות" משמש ככלי ללגיטימציה של עמדות פוליטיות.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#127760;</div>
+                            <div class="term-name">סנגור בינלאומי</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">אסטרטגיה של לחץ חיצוני מוצהרת. דוחות צל לאו"ם, מפגשים עם דיפלומטים זרים, כיסוי תקשורת בינלאומי. תקציב ממומן ~50% על ידי אותן ממשלות שלהן פונים.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#127979;</div>
+                            <div class="term-name">חינוך לדמוקרטיה</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">הגדרת "דמוקרטיה" שממוקדת בזכויות פרט והגנת מיעוטים, עם פחות דגש על ריבונות רוב או אופי יהודי-דמוקרטי. בחירה אידיאולוגית שמוצגת כ"ערכים אוניברסליים".</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128200;</div>
+                            <div class="term-name">שקיפות ארגונית</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">ACRI דורשת שקיפות מהממשלה אך: אין ישות אמריקאית גלויה, תרומות NIF זורמות דרך ערוצים מורכבים, ההרכב המלא של הדירקטוריון אינו נגיש (אתר Wix).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אבולוציה אידיאולוגית: 1972-2025</h2>
+            <table>
+                <tr><th>תקופה</th><th>מיצוב</th><th>דוגמאות</th></tr>
+                <tr><td>1972-2000</td><td>ליברלי-אוניברסלי (מודל ACLU)</td><td>הגנה על ביטוי ימני, הגנה על עצורים, צביון א-מפלגתי. רבין כינה "אגודה לזכויות חמאס".</td></tr>
+                <tr><td>2000-2015</td><td>נטייה הדרגתית שמאלה</td><td>חגי אלעד מנכ"ל (2008) &rarr; עובר לבצלם. חדוה רדובנוביץ: "היעלמות מדינה יהודית לא תהיה הטרגדיה שישראלים חוששים ממנה."</td></tr>
+                <tr class="highlight"><td>2015-2025</td><td>פוליטיזציה מוצהרת</td><td>אימוץ מסגרת "אפרטהייד" (2023), מנכ"לית מרשימת מרצ, הגנה על ארגוני PFLP, פרויקט משותף עם שוברים שתיקה.</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>חינוך: "הסדנא" &mdash; מה נכנס לבתי הספר</h2>
+            <table>
+                <tr><th>תוכנית</th><th>קהל יעד</th><th>הערת חוקר</th></tr>
+                <tr><td>הכשרת מורים (גמול השתלמות)</td><td>מורים במערכת הציבורית</td><td>מוכרת ע"י משרד החינוך</td></tr>
+                <tr><td>סדנאות במכינות קדם-צבאיות</td><td>מתגייסים עתידיים</td><td>IHL &mdash; עיצוב תפיסת הסכסוך לפני גיוס</td></tr>
+                <tr class="highlight"><td>ספר: "שיעור לחיים: חינוך נגד גזענות"</td><td>מגן עד תיכון</td><td>ממסגר יחסי יהודים-ערבים כ"גזענות/אפליה"</td></tr>
+                <tr><td>תוכניות לימוד בעברית ובערבית</td><td>תלמידים ומורים</td><td>ארגון by rights categories</td></tr>
+                <tr><td>ייעוץ לרשויות מקומיות</td><td>מוסדות חינוך</td><td>חדירה עקיפה דרך ייעוץ</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://edu.acri.org.il/" target="_blank">edu.acri.org.il</a>, <a href="https://education.acri.org.il/" target="_blank">education.acri.org.il</a></p>
+        </div>
+
+        <div class="section">
+            <h2>עברית מול אנגלית: מסר כפול?</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>אתר בעברית</h3>
+                    <ul style="padding-right:18px;font-size:0.9em">
+                        <li>דגש על זכויות עבודה, חינוך, פרטיות</li>
+                        <li>מוסדות דמוקרטיים ומחאה</li>
+                        <li>חינוך נגד גזענות</li>
+                        <li>פחות שימוש בשפת "אפרטהייד"</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>אתר באנגלית</h3>
+                    <ul style="padding-right:18px;font-size:0.9em">
+                        <li>דגש על "Occupied Palestinian Territories"</li>
+                        <li>שפת אפרטהייד בולטת</li>
+                        <li>מיצוב באקו-סיסטם בינלאומי</li>
+                        <li>סעיף "In The Knesset" ייעודי</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top:12px">
+                <strong>עקירה סמנטית:</strong> קיימת סבירות ל"עקירה סמנטית" &mdash; ACRI מגדירה "דמוקרטיה" כזכויות פרט והגנת מיעוטים, עם פחות דגש על ריבונות רוב או אופי יהודי-דמוקרטי. המסר בעברית שונה מהמסר באנגלית.
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB: EVIDENCE CHAIN ======= -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת הראיות: מארגון זכויות למנוע פוליטי</h2>
+            <p>כל שכבה עונה על הספק מהשכבה הקודמת. "זה ארגון זכויות אדם לגיטימי" &mdash; השכבה הבאה מסבירה למה הסיפור מורכב יותר.</p>
+
+            <!-- Level 1: Who runs it -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128100;</span>
+                    <div>
+                        <div class="d-title">שכבה 1: מי מנהלת את הארגון?</div>
+                        <div class="d-sub">מנכ"לית ברשימת מרצ, רבת רפורמית, פעילת LGBTQ</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p><strong>נועה סתת</strong> מונתה למנכ"לית ב-2021. לפני כן: מנהלת IRAC (הזרוע המשפטית של התנועה הרפורמית), מנהלת הבית הפתוח בירושלים (מרכז LGBTQ), מנהלת MEET (ערבים-יהודים בהייטק).</p>
+                    <div class="depth-quote">"סתת הוצבה במקום 83 ברשימת מרצ לכנסת ה-21 (אפריל 2019). מיקום סמלי, אך מבסס זיקה מפלגתית פורמלית."<br>&mdash; HaMichlol</div>
+                    <p><strong>המשמעות:</strong> המינוי מסמן מעבר מהנהגת אסטבלישמנט משפטי (עו"ד, פרופסורים) להנהגת אקטיביזם תנועתי. ארגון שטוען לא-מפלגתיות &mdash; אך מנכ"לו היתה מועמדת רשמית של מפלגה.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.hamichlol.org.il/נועה_סתת" target="_blank">HaMichlol</a>, <a href="https://www.english.acri.org.il/post/__357" target="_blank">ACRI</a></p>
+                    <div class="depth-next">אבל הארגון פועל כבר 50 שנה בצורה חוקית &mdash; מה הבעיה? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 2: Follow the money -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128176;</span>
+                    <div>
+                        <div class="d-title">שכבה 2: עקוב אחרי הכסף</div>
+                        <div class="d-sub">~50-60% מממשלות זרות + NIF + קרנות בינלאומיות</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>ACRI מקבלת כמעט אפס מימון ממשלת ישראל (13K &#8362; כל-הזמנים). התקציב הגיע מ:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>NIF:</strong> ~25-30% &mdash; $3.4M ב-2017-2021</li>
+                        <li><strong>ממשלות אירופה:</strong> ~25-30% &mdash; EU, נורווגיה, גרמניה, שוויץ, שוודיה, דנמרק, הולנד</li>
+                        <li><strong>קרנות פרטיות:</strong> ~15-20% &mdash; Sigrid Rausing, Open Society, Moriah Fund</li>
+                        <li><strong>תרומות פרטיות:</strong> ~15-20%</li>
+                    </ul>
+                    <div class="depth-quote">"ACRI is NIF's flagship grantee" &mdash; מתואר כארגון הדגל של NIF<br>&mdash; NGO Monitor</div>
+                    <p><strong>המשמעות:</strong> ארגון שמגיש דוחות צל לממשלות &mdash; ממומן על ידי אותן ממשלות. מעגל: EU מממנת ACRI &rarr; ACRI מדווחת ל-EU על הפרות ישראליות &rarr; EU לוחצת על ישראל.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://ngo-monitor.org/ngos/association_for_civil_rights_in_israel_acri_/" target="_blank">NGO Monitor</a>, <a href="https://next.obudget.org/i/org/association/580011567" target="_blank">obudget.org</a></p>
+                    <div class="depth-next">אבל ארגוני זכויות אדם צריכים מימון בינלאומי &mdash; מה בתוכן עצמו? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 3: Ideological shift -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128208;</span>
+                    <div>
+                        <div class="d-title">שכבה 3: הסטה אידיאולוגית מתועדת</div>
+                        <div class="d-sub">מ-ACLU ישראלי ל"אפרטהייד" ו"עליונות יהודית"</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>ACRI עברה מסלול מתועד:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>1972-2000:</strong> מודל ACLU. הגנה על זכויות ביטוי ימניות. א-מפלגתיות.</li>
+                        <li><strong>2023:</strong> חתימה על דוח "קריטריונים של אפרטהייד" עם 16 ארגונים.</li>
+                        <li><strong>2022:</strong> הצהרה: "עליונות יהודית היא החוק דה-פקטו."</li>
+                        <li><strong>2019:</strong> חתימה נגד פשיטת צה"ל על אדמיר (ארגון מזוהה-PFLP).</li>
+                        <li><strong>2021:</strong> הצהרה נגד הכרזת 6 ארגונים פלסטיניים כטרור.</li>
+                    </ul>
+                    <div class="depth-quote">"הכיבוש והאפרטהייד בשטחים הפלסטיניים הכבושים הפכו את העליונות היהודית לחוק דה-פקטו של המדינה."<br>&mdash; הצהרה משותפת, דצמבר 2022</div>
+                    <p><strong>המשמעות:</strong> ארגון זכויות האדם הוותיק ביותר בישראל עבר מהגנה על זכויות פרט לאימוץ מסגרת שמרבית הישראלים רואים כדה-לגיטימציה.</p>
+                    <div class="depth-next">מה ההשלכה על מערכת החינוך? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 4: Education pipeline -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127979;</span>
+                    <div>
+                        <div class="d-title">שכבה 4: הצינור לבתי הספר ולמכינות</div>
+                        <div class="d-sub">הסדנא, הכשרת מורים, ומכינות קדם-צבאיות</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>אותו ארגון שאימץ מסגרת "אפרטהייד" &mdash; מכשיר מורים, מפעיל סדנאות בבתי ספר, ומלמד משפט הומניטרי בינלאומי (IHL) במכינות קדם-צבאיות.</p>
+                    <table>
+                        <tr><th>ערוץ חינוכי</th><th>השפעה</th></tr>
+                        <tr><td>הכשרת מורים (גמול משרד החינוך)</td><td>מעצבת איך מורים מלמדים "דמוקרטיה" ו"זכויות"</td></tr>
+                        <tr class="highlight"><td>IHL במכינות קדם-צבאיות</td><td>מעצבת איך מתגייסים תופסים את הסכסוך <strong>לפני</strong> הגיוס</td></tr>
+                        <tr><td>"שיעור לחיים" &mdash; נגד גזענות</td><td>ממסגרת את יחסי יהודים-ערבים כ"גזענות"</td></tr>
+                        <tr><td>ייעוץ לרשויות מקומיות</td><td>חדירה עקיפה &mdash; לא דרך בית הספר אלא דרך הרשות</td></tr>
+                    </table>
+                    <p><strong>המשמעות:</strong> ארגון עם אג'נדה פוליטית מתועדת, ממומן זר, שמנכ"לו היתה מועמדת מרצ &mdash; מכשיר את מי שמחנך את הדור הבא. זו לא סתם "סנגור" &mdash; זו חדירה לחינוך.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://edu.acri.org.il/" target="_blank">edu.acri.org.il</a>, <a href="https://education.acri.org.il/" target="_blank">education.acri.org.il</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Links -->
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <a class="link-card" href="deep_ACRI.html">
+                <div class="lc-icon">&#128196;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא &mdash; ACRI</div>
+                    <div class="lc-desc">10 פרקים: מבנה ארגוני, כספים, הנהגה, אידיאולוגיה, ממשל, מחלוקות, הערכת ערכים, שאלות פתוחות, מקורות.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://ngo-monitor.org/ngos/association_for_civil_rights_in_israel_acri_/" target="_blank">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">NGO Monitor &mdash; ACRI</div>
+                    <div class="lc-desc">פרופיל מימון, ניתוח פעילות, דיווחי תורמים.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.guidestar.org.il/organization/580011567" target="_blank">
+                <div class="lc-icon">&#128200;</div>
+                <div>
+                    <div class="lc-title">GuideStar Israel &mdash; ACRI</div>
+                    <div class="lc-desc">עמותה 580011567 &mdash; 36 עובדים, 2 מתנדבים (2022).</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://next.obudget.org/i/org/association/580011567" target="_blank">
+                <div class="lc-icon">&#128181;</div>
+                <div>
+                    <div class="lc-title">obudget.org &mdash; העברות ממשלתיות</div>
+                    <div class="lc-desc">13,081 &#8362; סה"כ כל-הזמנים ממשלת ישראל.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ======= TAB: CONCLUSIONS ======= -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #e74c3c">
+            <h2>סיכום והמלצות</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>ACRI היא ארגון זכויות האדם הוותיק והמעוגן ביותר במוסדות בישראל. הוא משמש כ<strong>עמוד השדרה המשפטי-חוקתי</strong> של החברה האזרחית הליברלית-שמאלית &mdash; מנוע הליטיגציה המרכזי לאתגור מדיניות ממשלה. אולם, הארגון עבר מסלול מתועד: מ-ACLU ישראלי א-מפלגתי לשחקן פוליטי שמאמץ מסגרת "אפרטהייד", שמנכ"לו היתה מועמדת מרצ, שממומן כ-50-60% מממשלות זרות ו-NIF, ושמגיש דוחות צל לאותן ממשלות שמממנות אותו.</p>
+                    <p><strong>הסכנה לחינוך:</strong> אותו ארגון מכשיר מורים, מפעיל סדנאות בבתי ספר, ומלמד IHL במכינות קדם-צבאיות &mdash; כשהאידיאולוגיה שלו כבר אינה ניטרלית.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שלטון חוק</td><td style="color:#27ae60;font-weight:700">5/5</td></tr>
+                        <tr><td>זכויות פרט</td><td style="color:#27ae60;font-weight:700">5/5</td></tr>
+                        <tr><td>עצמאות שיפוטית</td><td style="color:#27ae60;font-weight:700">5/5</td></tr>
+                        <tr><td>איזון יהודי-דמוקרטי</td><td style="color:#e74c3c;font-weight:700">1/5</td></tr>
+                        <tr><td>ביטחון לאומי</td><td style="color:#e74c3c;font-weight:700">1/5</td></tr>
+                        <tr><td>אופי א-מפלגתי</td><td style="color:#f39c12;font-weight:700">2/5</td></tr>
+                        <tr><td>שקיפות כספית</td><td style="color:#27ae60;font-weight:700">4/5</td></tr>
+                        <tr><td>לגיטימציה של ישראל</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות שכל הורה צריך לשאול</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שמנכ"לית ACRI היתה ברשימת מרצ לכנסת?</li>
+                        <li>האם ידוע לכם ש-ACRI חתמה על דוח "קריטריונים של אפרטהייד" ב-2023?</li>
+                        <li>האם ידעתם ש-ACRI מכשירה מורים ומפעילה סדנאות במכינות קדם-צבאיות של ילדיכם?</li>
+                        <li>האם יודעים שהארגון ממומן כ-50-60% מממשלות זרות ו-NIF?</li>
+                        <li>האם ביקשתם לראות את תוכני "הסדנא" שמועברים לילדיכם?</li>
+                        <li>האם ACRI הגנה על ארגונים מזוהים עם ה-PFLP (ארגון טרור מוכרז)?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">ממצאים מפתיעים</h3>
+                    <ul class="q-list">
+                        <li><strong>חברות מ-5,000 ל-800:</strong> מ-5,000 חברים ירדו לפחות מ-800 ב-2010. ארגון עם צוות גדול ומימון זר &mdash; אך כמעט ללא בסיס חברים מקומי.</li>
+                        <li><strong>IAC אמריקאי (2023):</strong> ועדה מייעצת בינלאומית חדשה &mdash; 8 חברים, כולם מזרח ארה"ב, ממסד משפטי-פרוגרסיבי. כולל הרבנית שרון קליינבאום (בית הכנסת הגאה הבולט ביותר בארה"ב).</li>
+                        <li><strong>אפס ממצאי מבקר המדינה:</strong> למרות כל המחלוקות &mdash; הארגון שומר על ממשל תקין מבחינה רגולטורית.</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">קישורי מקור</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_ACRI.html">
+                            <div class="lc-icon">&#128196;</div>
+                            <div>
+                                <div class="lc-title">דוח מלא</div>
+                                <div class="lc-desc">10 פרקים, 500+ שורות</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://ngo-monitor.org/ngos/association_for_civil_rights_in_israel_acri_/" target="_blank">
+                            <div class="lc-icon">&#128279;</div>
+                            <div>
+                                <div class="lc-title">NGO Monitor</div>
+                                <div class="lc-desc">ניתוח מימון ופעילות</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://www.english.acri.org.il/" target="_blank">
+                            <div class="lc-icon">&#127760;</div>
+                            <div>
+                                <div class="lc-title">ACRI (אנגלית)</div>
+                                <div class="lc-desc">אתר רשמי באנגלית</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://www.acri.org.il/" target="_blank">
+                            <div class="lc-icon">&#128200;</div>
+                            <div>
+                                <div class="lc-title">ACRI (עברית)</div>
+                                <div class="lc-desc">אתר רשמי בעברית</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שאלות פתוחות לחקירה המשכית</h2>
+            <table>
+                <tr><th>#</th><th>שאלה</th><th>מדוע חשובה</th></tr>
+                <tr><td>1</td><td>האם ל-ACRI ישות אמריקאית רשמית מעבר ל-IAC?</td><td>מבנה תרומות US דרך NIF &mdash; חוסר שקיפות</td></tr>
+                <tr><td>2</td><td>מה יקרה אם NIF יפסיק לממן? (~25-30%)</td><td>תלות קריטית בתורם יחיד</td></tr>
+                <tr><td>3</td><td>ניתוח תוכן מפורט של חומרי "הסדנא"</td><td>חינוך ניטרלי או הטמעת עמדות?</td></tr>
+                <tr><td>4</td><td>הרכב דירקטוריון מלא + חברויות צולבות</td><td>מיפוי רשת אקו-סיסטם</td></tr>
+                <tr><td>5</td><td>השוואה שיטתית עברית-אנגלית</td><td>אימות "עקירה סמנטית"</td></tr>
+                <tr><td>6</td><td>זיקות פוליטיות של צוות בכיר (מעבר לסתת)</td><td>צינור ACRI-בצלם-NIF</td></tr>
+                <tr><td>7</td><td>היערכות לחוק המס על עמותות</td><td>80% מס על מימון זר &mdash; קיומי</td></tr>
+                <tr><td>8</td><td>היסטוריית מימון Open Society/סורוס</td><td>371K &#8362; ב-2022 &mdash; מה ההיסטוריה?</td></tr>
+                <tr><td>9</td><td>מספר חברים נוכחי</td><td>מ-5,000 ל-800 &mdash; כיום?</td></tr>
+                <tr><td>10</td><td>תוכן פרויקטי EU עם שוברים שתיקה</td><td>"Always Watching" &mdash; מה מייצר ולמי מכוון?</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>עתירות בג"ץ &mdash; תקדימים נבחרים</h2>
+            <table>
+                <tr><th>נושא</th><th>שנה</th><th>תוצאה</th></tr>
+                <tr><td>צנזורת עיתונות</td><td>מרובות</td><td>בוטלה; הובילה לביטול ב-2017</td></tr>
+                <tr><td>אילי מילר &mdash; נשים בצה"ל</td><td>1995</td><td>פתחה תפקידים צבאיים לנשים</td></tr>
+                <tr><td>קעדאן &mdash; הקצאת קרקעות לערבים</td><td>2000</td><td>אסרה אפליה בהקצאת קרקע</td></tr>
+                <tr><td>שיטות חקירה שב"כ</td><td>1999</td><td>אסרה טלטול ושיטות אחרות</td></tr>
+                <tr><td>כפאלה &mdash; עובדים זרים</td><td>2006</td><td>ביטלה שיטת עבדות מודרנית</td></tr>
+                <tr><td>מעקב שב"כ &mdash; COVID</td><td>2020</td><td>חייבה חקיקה</td></tr>
+                <tr><td>צפיפות בתי כלא</td><td>2017</td><td>חייבה הרחבת שטח מינימלי</td></tr>
+                <tr class="highlight"><td>חוק הלאום</td><td>2018-2021</td><td>נדחה בהרכב 11 שופטים</td></tr>
+                <tr class="highlight"><td>רפורמת בחירת שופטים</td><td>2023</td><td>עתירה משותפת עם 38 ארגונים</td></tr>
+                <tr class="highlight"><td>עילת הסבירות</td><td>2023</td><td>עתירה משותפת</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://www.acri.org.il/verdicts" target="_blank">acri.org.il/verdicts</a>, <a href="https://law.acri.org.il/" target="_blank">law.acri.org.il</a></p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר &mdash; פרויקט דירוג ערים | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">מאגר מחקר</a> | <a href="deep_ACRI.html">דוח מלא</a> | פברואר 2026</p>
+    <p style="margin-top:4px">מבוסס על מקורות ציבוריים: NGO Monitor, GuideStar Israel, obudget.org, HaMichlol, רשם העמותות, ACRI official sites.</p>
+</footer>
+
+<script>
+// -- Navigation --
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// -- Radar Chart --
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['מימון זר', 'חדירה לחינוך', 'פוליטיזציה', 'סנגור בינלאומי', 'הסטה אידיאולוגית'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [80, 65, 85, 90, 80],
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [30, 65, 15, 40, 20],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// -- Finance Doughnut --
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['NIF (~25-30%)', 'ממשלות אירופה (~25-30%)', 'קרנות פרטיות (~15-20%)', 'תרומות פרטיות (~15-20%)', 'ממשלת ישראל (<0.2%)'],
+        datasets: [{
+            data: [27, 27, 18, 18, 0.2],
+            backgroundColor: ['#e74c3c', '#667eea', '#f39c12', '#0d9488', '#27ae60'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.label + ': ~' + ctx.raw + '%'
+                }
+            }
+        }
+    }
+});
+
+// -- Value Lens Toggle --
+function toggleValueLens() {
+    const sw = document.getElementById('lensSwitch');
+    const isOn = sw.classList.toggle('on');
+    document.getElementById('lens-label-off').classList.toggle('active', !isOn);
+    document.getElementById('lens-label-on').classList.toggle('active', isOn);
+    document.querySelectorAll('#lens-cards .lens-text').forEach(el => {
+        const lens = el.getAttribute('data-lens');
+        el.style.display = (lens === 'official' && !isOn) || (lens === 'interpreted' && isOn) ? '' : 'none';
+    });
+}
+</script>
+</body>
+</html>

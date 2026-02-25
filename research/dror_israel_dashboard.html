@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דרור ישראל — דשבורד רשת</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #8b0000; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .nav-inner { flex-direction: column; gap: 0; }
+    .hero h1 { font-size: 1.3em; }
+    .network-svg { overflow-x: auto; }
+}
+@media (max-width: 480px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.critical { border-right: 4px solid #8b0000; }
+.metric.critical .value { color: #8b0000; }
+
+/* ── Chart container ── */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* ── Network diagram ── */
+.network-svg { text-align: center; margin: 20px 0; }
+.network-svg svg { max-width: 100%; height: auto; }
+
+/* ── Finding cards ── */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* ── Warning box ── */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* ── Info box ── */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* ── Thesis box ── */
+.thesis-box {
+    background: #fff8f0; border-right: 4px solid #ff8800;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.thesis-box strong { color: #b36b00; }
+
+/* ── Links ── */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Flow diagram ── */
+.flow-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin: 10px 0; flex-wrap: wrap;
+}
+.flow-box {
+    padding: 8px 16px; border-radius: 6px; font-size: 0.88em;
+    font-weight: 600; text-align: center; min-width: 100px;
+}
+.flow-box.gov { background: #667eea; color: #fff; }
+.flow-box.org { background: #1a1a2e; color: #fff; }
+.flow-box.sub { background: #2a5a8a; color: #fff; }
+.flow-box.output { background: #ff8800; color: #fff; }
+.flow-box.risk { background: #8b0000; color: #fff; }
+.flow-arrow { font-size: 1.3em; color: #999; }
+
+/* ── Ecosystem cards ── */
+.eco-card {
+    background: #f8f9fa; border-radius: 8px; padding: 16px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.eco-card h4 { color: #1a1a2e; font-size: 0.95em; margin-bottom: 6px; }
+.eco-card .eco-meta { font-size: 0.82em; color: #667eea; font-weight: 600; margin-bottom: 4px; }
+.eco-card p { font-size: 0.88em; color: #555; margin: 0; }
+
+/* ── Questions ── */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* ── Footer ── */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+
+/* ── Depth levels (collapsible) ── */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 1200px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>דרור ישראל — מפת רשת</span>
+            <span class="risk-pill">סיכון קריטי</span>
+            <a href="index.html">&larr; כל הדוחות</a>
+            <a href="hameorer_dashboard.html">המעורר</a>
+            <a href="deep_Maagal_Echad.html">מעגל אחד</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('finance')">מימון</button>
+            <button class="nav-tab" onclick="navigate('content')">תוכן</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">מסקנות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>דרור ישראל — האקוסיסטם החינוכי הגדול בישראל</h1>
+    <div class="subtitle">ע"ר 580274114 | רשת של 5+ ישויות משפטיות | מייסודה של הנוער העובד והלומד</div>
+    <div class="meta">230M+ &#8362; מחזור שנתי | 1,300 מחנכים | 8 בתי ספר | 14 קיבוצים עירוניים | 200,000 מוטבים | 12 ערים (המעורר)</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB 1: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות — הרשת</h2>
+            <p>תנועת <strong>דרור ישראל</strong> אינה ישות משפטית אחת, אלא <strong>רשת מתואמת</strong> של עמותות, חברות לתועלת הציבור וקיבוצים עירוניים, הפועלים בסינרגיה מלאה תחת הנהגה ריכוזית. התנועה הוקמה ב-2006 על ידי בוגרי הנוער העובד והלומד, ומפעילה כ-1,300 מחנכים המשפיעים על כ-200,000 מוטבים מדי שנה. מדובר באחד המפעלים החברתיים הגדולים והמשפיעים ביותר בישראל.</p>
+            <p>המבנה הארגוני בנוי כפירמידה של מעגלי חיים: תנועת הנוער (הנוע"ל), תנועת הבוגרים (מרח"ב), וקהילת קיבוצי הקבוצות. מבנה זה מאפשר לתנועה לשמר את חבריה מרגע הילדות ועד גיל זקנה, תוך יצירת <strong>מעטפת חברתית וכלכלית סגורה</strong>.</p>
+
+            <div class="grid-4">
+                <div class="metric critical">
+                    <div class="label">מחזור מצטבר</div>
+                    <div class="value">230M+</div>
+                    <div class="note">&#8362; שנתי, כל הישויות</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">מחנכים</div>
+                    <div class="value">1,300</div>
+                    <div class="note">אנשי תנועה — לא מורים רגילים</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">בתי ספר בבעלות</div>
+                    <div class="value">8</div>
+                    <div class="note">~2,000 תלמידים, שליטה מלאה בתוכנית</div>
+                </div>
+                <div class="metric">
+                    <div class="label">קיבוצים עירוניים</div>
+                    <div class="value">14</div>
+                    <div class="note">קומונות אידיאולוגיות בערים</div>
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">ערים (המעורר)</div>
+                    <div class="value">12</div>
+                    <div class="note">תוכנית גפ"ן 1545</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מוטבים שנתי</div>
+                    <div class="value">200K</div>
+                    <div class="note">תלמידים, חיילים, מורים</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">ישויות משפטיות</div>
+                    <div class="value">5+</div>
+                    <div class="note">אטימות מובנית</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Diagram -->
+        <div class="section">
+            <h2>מפת הרשת — ישויות וזרימת השפעה</h2>
+            <div class="network-svg">
+                <svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" style="max-width:860px">
+                    <!-- Background -->
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#667eea"/>
+                        </marker>
+                        <marker id="arrow-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#cc0000"/>
+                        </marker>
+                        <marker id="arrow-orange" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff8800"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Center: Dror Israel -->
+                    <rect x="335" y="20" width="230" height="60" rx="10" fill="#1a1a2e"/>
+                    <text x="450" y="45" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Segoe UI,Arial">דרור ישראל</text>
+                    <text x="450" y="65" text-anchor="middle" fill="#ff8800" font-size="11" font-family="Segoe UI,Arial">ע"ר 580274114 | הנהגה ריכוזית</text>
+
+                    <!-- Level 2: Subsidiaries -->
+                    <!-- Dror Schools -->
+                    <rect x="20" y="140" width="200" height="55" rx="8" fill="#2a5a8a"/>
+                    <text x="120" y="163" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="Segoe UI,Arial">דרור בתי חינוך</text>
+                    <text x="120" y="181" text-anchor="middle" fill="#b0c4de" font-size="10" font-family="Segoe UI,Arial">580015055 | 99M &#8362;</text>
+                    <line x1="335" y1="50" x2="220" y2="155" stroke="#667eea" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- Noar Oved -->
+                    <rect x="250" y="140" width="200" height="55" rx="8" fill="#2a5a8a"/>
+                    <text x="350" y="163" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="Segoe UI,Arial">הנוער העובד והלומד</text>
+                    <text x="350" y="181" text-anchor="middle" fill="#b0c4de" font-size="10" font-family="Segoe UI,Arial">580297075 | 87M &#8362;</text>
+                    <line x1="430" y1="80" x2="370" y2="140" stroke="#667eea" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- Yesodot -->
+                    <rect x="480" y="140" width="200" height="55" rx="8" fill="#2a5a8a"/>
+                    <text x="580" y="163" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="Segoe UI,Arial">יסודות לצמיחה דרור</text>
+                    <text x="580" y="181" text-anchor="middle" fill="#b0c4de" font-size="10" font-family="Segoe UI,Arial">580295533 | 34M &#8362;</text>
+                    <line x1="520" y1="80" x2="560" y2="140" stroke="#667eea" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- Dror Rehabilitation -->
+                    <rect x="700" y="140" width="185" height="55" rx="8" fill="#4a6a8a"/>
+                    <text x="792" y="163" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">דרור שיקום ושילוב</text>
+                    <text x="792" y="181" text-anchor="middle" fill="#b0c4de" font-size="10" font-family="Segoe UI,Arial">580017945 | 8.5M &#8362;</text>
+                    <line x1="565" y1="55" x2="700" y2="155" stroke="#667eea" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                    <!-- Level 3: Programs & Outputs -->
+                    <!-- 8 Schools -->
+                    <rect x="10" y="250" width="140" height="45" rx="6" fill="#e74c3c"/>
+                    <text x="80" y="270" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">8 בתי ספר</text>
+                    <text x="80" y="285" text-anchor="middle" fill="#fcc" font-size="10" font-family="Segoe UI,Arial">~2,000 תלמידים</text>
+                    <line x1="100" y1="195" x2="85" y2="250" stroke="#cc0000" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+                    <!-- HaMeorer -->
+                    <rect x="170" y="250" width="150" height="45" rx="6" fill="#ff8800"/>
+                    <text x="245" y="270" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">המעורר (גפ"ן 1545)</text>
+                    <text x="245" y="285" text-anchor="middle" fill="#ffe0b0" font-size="10" font-family="Segoe UI,Arial">12 ערים | ~200 מדריכים</text>
+                    <line x1="550" y1="195" x2="260" y2="250" stroke="#ff8800" stroke-width="2" marker-end="url(#arrow-orange)"/>
+
+                    <!-- Youth Movement -->
+                    <rect x="340" y="250" width="170" height="45" rx="6" fill="#e74c3c"/>
+                    <text x="425" y="270" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">תנועת נוער (סניפים)</text>
+                    <text x="425" y="285" text-anchor="middle" fill="#fcc" font-size="10" font-family="Segoe UI,Arial">צינור גיוס לאקטיביזם</text>
+                    <line x1="340" y1="195" x2="410" y2="250" stroke="#cc0000" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+                    <!-- Adam Chevra VeTeva -->
+                    <rect x="530" y="250" width="170" height="45" rx="6" fill="#0d9488"/>
+                    <text x="615" y="270" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">אדם חברה וטבע</text>
+                    <text x="615" y="285" text-anchor="middle" fill="#b0e0db" font-size="10" font-family="Segoe UI,Arial">חינוך סביבתי</text>
+                    <line x1="580" y1="195" x2="610" y2="250" stroke="#667eea" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                    <!-- US Friends -->
+                    <rect x="720" y="250" width="165" height="45" rx="6" fill="#4a6a8a"/>
+                    <text x="802" y="270" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">US Friends of Dror</text>
+                    <text x="802" y="285" text-anchor="middle" fill="#b0c4de" font-size="10" font-family="Segoe UI,Arial">EIN 88-3346322 | ~$1.7M</text>
+                    <line x1="792" y1="195" x2="800" y2="250" stroke="#667eea" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                    <!-- Level 4: Impact targets -->
+                    <rect x="10" y="350" width="120" height="40" rx="6" fill="#f0f4fa" stroke="#667eea" stroke-width="1.5"/>
+                    <text x="70" y="375" text-anchor="middle" fill="#2a5a8a" font-size="11" font-weight="600" font-family="Segoe UI,Arial">שליטה בתוכנית</text>
+                    <line x1="75" y1="295" x2="72" y2="350" stroke="#667eea" stroke-width="1" stroke-dasharray="4,3"/>
+
+                    <rect x="155" y="350" width="120" height="40" rx="6" fill="#fff5f5" stroke="#cc0000" stroke-width="1.5"/>
+                    <text x="215" y="375" text-anchor="middle" fill="#8b0000" font-size="11" font-weight="600" font-family="Segoe UI,Arial">צה"ל, משטרה, מג"ב</text>
+                    <line x1="240" y1="295" x2="220" y2="350" stroke="#cc0000" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <rect x="300" y="350" width="120" height="40" rx="6" fill="#fff5f5" stroke="#cc0000" stroke-width="1.5"/>
+                    <text x="360" y="375" text-anchor="middle" fill="#8b0000" font-size="11" font-weight="600" font-family="Segoe UI,Arial">אקטיביזם פוליטי</text>
+                    <line x1="420" y1="295" x2="365" y2="350" stroke="#cc0000" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <rect x="445" y="350" width="140" height="40" rx="6" fill="#f0f4fa" stroke="#667eea" stroke-width="1.5"/>
+                    <text x="515" y="375" text-anchor="middle" fill="#2a5a8a" font-size="11" font-weight="600" font-family="Segoe UI,Arial">חינוך סביבתי-ערכי</text>
+                    <line x1="610" y1="295" x2="520" y2="350" stroke="#667eea" stroke-width="1" stroke-dasharray="4,3"/>
+
+                    <rect x="610" y="350" width="130" height="40" rx="6" fill="#f0f4fa" stroke="#667eea" stroke-width="1.5"/>
+                    <text x="675" y="375" text-anchor="middle" fill="#2a5a8a" font-size="11" font-weight="600" font-family="Segoe UI,Arial">גיוס תרומות מחו"ל</text>
+                    <line x1="800" y1="295" x2="680" y2="350" stroke="#667eea" stroke-width="1" stroke-dasharray="4,3"/>
+
+                    <!-- Connected: Maagal Echad -->
+                    <rect x="100" y="430" width="180" height="50" rx="8" fill="#8b0000"/>
+                    <text x="190" y="452" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="Segoe UI,Arial">מעגל אחד</text>
+                    <text x="190" y="470" text-anchor="middle" fill="#fcc" font-size="10" font-family="Segoe UI,Arial">בוגרי דרור | סוציאליזם גלוי</text>
+                    <line x1="360" y1="390" x2="220" y2="430" stroke="#8b0000" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>
+
+                    <!-- Connected: Histadrut -->
+                    <rect x="350" y="430" width="200" height="50" rx="8" fill="#4a6a8a"/>
+                    <text x="450" y="452" text-anchor="middle" fill="#fff" font-size="13" font-weight="600" font-family="Segoe UI,Arial">ההסתדרות הכללית</text>
+                    <text x="450" y="470" text-anchor="middle" fill="#b0c4de" font-size="10" font-family="Segoe UI,Arial">גוף-אב | מימון + לגיטימציה</text>
+                    <line x1="350" y1="195" x2="430" y2="430" stroke="#4a6a8a" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+
+                    <!-- Connected: NIF -->
+                    <rect x="620" y="430" width="170" height="50" rx="8" fill="#e74c3c"/>
+                    <text x="705" y="452" text-anchor="middle" fill="#fff" font-size="12" font-weight="600" font-family="Segoe UI,Arial">קרן חדשה / קרן פורד</text>
+                    <text x="705" y="470" text-anchor="middle" fill="#fcc" font-size="10" font-family="Segoe UI,Arial">מימון זר היסטורי</text>
+                    <line x1="802" y1="295" x2="720" y2="430" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>
+
+                    <!-- Legend -->
+                    <rect x="20" y="530" width="860" height="70" rx="8" fill="#f8f9fa" stroke="#e8e8e8"/>
+                    <text x="840" y="552" text-anchor="end" fill="#1a1a2e" font-size="12" font-weight="700" font-family="Segoe UI,Arial">מקרא:</text>
+                    <rect x="640" y="542" width="14" height="14" rx="2" fill="#1a1a2e"/>
+                    <text x="632" y="554" text-anchor="end" fill="#555" font-size="11" font-family="Segoe UI,Arial">ארגון-אם</text>
+                    <rect x="490" y="542" width="14" height="14" rx="2" fill="#2a5a8a"/>
+                    <text x="482" y="554" text-anchor="end" fill="#555" font-size="11" font-family="Segoe UI,Arial">זרוע ביצועית</text>
+                    <rect x="340" y="542" width="14" height="14" rx="2" fill="#e74c3c"/>
+                    <text x="332" y="554" text-anchor="end" fill="#555" font-size="11" font-family="Segoe UI,Arial">סיכון גבוה</text>
+                    <rect x="200" y="542" width="14" height="14" rx="2" fill="#ff8800"/>
+                    <text x="192" y="554" text-anchor="end" fill="#555" font-size="11" font-family="Segoe UI,Arial">תוכנית דגל</text>
+                    <line x1="30" y1="575" x2="70" y2="575" stroke="#667eea" stroke-width="2"/>
+                    <text x="80" y="579" fill="#555" font-size="11" font-family="Segoe UI,Arial">שליטה ישירה</text>
+                    <line x1="200" y1="575" x2="240" y2="575" stroke="#cc0000" stroke-width="2" stroke-dasharray="6,3"/>
+                    <text x="250" y="579" fill="#555" font-size="11" font-family="Segoe UI,Arial">קשר אידיאולוגי / מימוני</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ישויות הרשת — פירוט</h2>
+            <table>
+                <tr><th>ישות</th><th>ח.פ / עמותה</th><th>תפקיד ברשת</th><th>מחזור (2024)</th></tr>
+                <tr class="highlight"><td><strong>דרור ישראל</strong></td><td>580274114</td><td>ארגון-אם, הנהגה אידיאולוגית וריכוזית</td><td>—</td></tr>
+                <tr><td>דרור בתי חינוך</td><td>580015055</td><td>8 בתי ספר, חינוך פורמלי ומקצועי</td><td>99,170,109 &#8362;</td></tr>
+                <tr><td>הנוער העובד והלומד</td><td>580297075</td><td>תנועת נוער, תקציבים ממשלתיים עיקריים</td><td>87,584,168 &#8362;</td></tr>
+                <tr><td>יסודות לצמיחה דרור</td><td>580295533</td><td>זרוע קהילתית, גפ"ן, "המעורר"</td><td>34,787,771 &#8362;</td></tr>
+                <tr><td>דרור שיקום ושילוב</td><td>580017945</td><td>שירותי רווחה ושיקום</td><td>8,549,525 &#8362;</td></tr>
+                <tr><td>US Friends of Dror Israel</td><td>EIN 88-3346322</td><td>גיוס תרומות בארה"ב</td><td>~$1,700,000</td></tr>
+            </table>
+            <div class="info-box">
+                <strong>שליטה צולבת:</strong> אותם אנשים מכהנים בתפקידי מפתח ברוטציה בין העמותות השונות. פסח האוספטר (רכז התנועה) הוא דמות המפתח. מבנה זה מבטיח נאמנות אידיאולוגית מוחלטת ומניעת זליגה של השפעות חיצוניות.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ניתוח סיכון: תדמית מול מציאות</h2>
+            <div class="grid-2">
+                <div>
+                    <p style="font-size:0.85em;color:#666;text-align:center">השטח הכתום מראה את הסיכון בפועל. השטח הכחול — מה שהארגון מציג. הפער ביניהם הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים קריטיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#9878;</div>
+                        <div>
+                            <h4>שליטה מוחלטת ב-8 בתי ספר</h4>
+                            <p>דרור בתי חינוך מפעילה 8 בתי ספר עם ~2,000 תלמידים. שליטה מלאה בתוכנית הלימודים — <strong>ללא פיקוח הורי מספק</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128176;</div>
+                        <div>
+                            <h4>230M+ &#8362; — אטימות מבנית</h4>
+                            <p>המחזור המצטבר עולה על 230 מיליון &#8362; שנתי. ריבוי הישויות מקשה על מעקב אחר זרימת כספים ביניהן.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127979;</div>
+                        <div>
+                            <h4>1,300 אנשי תנועה כ"מחנכים"</h4>
+                            <p>המדריכים אינם מורים חיצוניים אלא חברי קיבוצים עירוניים — מגויסים למשימה אידיאולוגית ארוכת טווח.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128218;</div>
+                        <div>
+                            <h4>צינור גיוס מגיל ילדות</h4>
+                            <p>תנועת הנוע"ל משמשת צינור גיוס לאקטיביזם פרוגרסיבי. בוגרים מייסדים ארגונים כמו "מעגל אחד" — סוציאליזם גלוי.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>פסח האוספטר</strong></td><td>רכז תנועת דרור ישראל</td><td>מנהיג בלתי מעורער, שחקן פוליטי, תביעות השתקה</td></tr>
+                <tr><td><strong>ענבל רון</strong></td><td>מנכ"לית דרור בתי חינוך</td><td>קשרים מול משרד החינוך ומשרד העבודה</td></tr>
+                <tr><td><strong>ניצן רוזנווקס-זיו</strong></td><td>רכזת הנוע"ל</td><td>זרוע הצעירים והפעילות הסניפית</td></tr>
+                <tr><td><strong>שי רוזן</strong></td><td>מנכ"ל יסודות לצמיחה</td><td>ממשקים מול רשויות מקומיות</td></tr>
+                <tr class="highlight"><td><strong>ד"ר ניר מיכאלי</strong></td><td>הוגה הפדגוגיה</td><td>"אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש"</td></tr>
+                <tr class="highlight"><td><strong>עמיחי בן דרור</strong></td><td>מנכ"ל דרור ישראל לשעבר</td><td>הורשע: 15 חודשי מאסר + 100K &#8362; קנס</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB 2: FINANCE ═══════ -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>תמונה כלכלית — רשת דרור ישראל</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">התפלגות הכנסות לפי ישות (2024)</h3>
+                    <div class="chart-wrap" style="height:300px">
+                        <canvas id="entityRevenueChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="text-align:center">מקורות מימון — כלל הרשת</h3>
+                    <div class="chart-wrap" style="height:300px">
+                        <canvas id="fundingSourcesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פירוט הכנסות לפי מקור וישות</h2>
+            <table>
+                <tr><th>ישות</th><th>הכנסות מהמדינה</th><th>תרומות</th><th>שירותים / אחר</th><th>סה"כ</th></tr>
+                <tr><td>דרור בתי חינוך</td><td>~89,000,000 &#8362;</td><td>~3,500,000 &#8362;</td><td>~10,500,000 &#8362;</td><td><strong>99,170,109 &#8362;</strong></td></tr>
+                <tr><td>הנוער העובד והלומד</td><td>~51,000,000 &#8362;</td><td>~6,000,000 &#8362;</td><td>~21,000,000 &#8362;</td><td><strong>87,584,168 &#8362;</strong></td></tr>
+                <tr><td>יסודות לצמיחה</td><td>~13,900,000 &#8362;</td><td>~7,000,000 &#8362;</td><td>~13,800,000 &#8362;</td><td><strong>34,787,771 &#8362;</strong></td></tr>
+                <tr><td>דרור שיקום</td><td colspan="3" style="text-align:center;color:#888">נתונים חלקיים</td><td><strong>8,549,525 &#8362;</strong></td></tr>
+                <tr class="highlight"><td><strong>סה"כ מזוהה</strong></td><td><strong>~153,900,000 &#8362;</strong></td><td><strong>~16,500,000 &#8362;</strong></td><td><strong>~45,300,000 &#8362;</strong></td><td><strong>230,091,573 &#8362;</strong></td></tr>
+            </table>
+            <div class="warning-box">
+                <strong>תלות קריטית במדינה:</strong> כ-67% מההכנסות המצטברות מגיעות ישירות מתקציבי המדינה (תמיכות, שירותים, מיזמים). זו תלות שנותנת לארגון תמריץ לטפח קשרים ממשלתיים — ובמקביל מקנה לו כוח פוליטי כלפי מקבלי ההחלטות.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>זרימת כספים בין ישויות — אטימות מובנית</h2>
+            <p>ריבוי הישויות המשפטיות מייצר <strong>חומת אטימות מובנית</strong>. כל עמותה מתמחה בממשק אחר: דרור בתי חינוך מול משרד החינוך, הנוע"ל מול משרד העבודה, יסודות מול רשויות מקומיות, US Friends מול תורמים אמריקאים.</p>
+
+            <div class="flow-row">
+                <div class="flow-box gov">משרד החינוך</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box sub">דרור בתי חינוך</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box org">דרור ישראל</div>
+            </div>
+            <div class="flow-row">
+                <div class="flow-box gov">משרד העבודה</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box sub">הנוע"ל</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box org">דרור ישראל</div>
+            </div>
+            <div class="flow-row">
+                <div class="flow-box gov">רשויות מקומיות</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box sub">יסודות לצמיחה</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box org">דרור ישראל</div>
+            </div>
+            <div class="flow-row">
+                <div class="flow-box gov">תורמים אמריקאים</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box sub">US Friends</div>
+                <span class="flow-arrow">&larr;</span>
+                <div class="flow-box org">דרור ישראל</div>
+            </div>
+
+            <div class="thesis-box" style="margin-top:16px">
+                <strong>הבעיה:</strong> הורה שמנסה להבין לאן הולך הכסף שנועד לחנך את ילדו צריך לעקוב אחר 5+ ישויות משפטיות, דוחות כספיים נפרדים, ומערכת "דלתות מסתובבות" של מנהלים. זו אטימות מובנית — לא תקלה.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מימון זר — קרן חדשה וקרן פורד</h2>
+            <p>בעוד שהתנועה מדגישה כיום תרומות מקהילות יהודיות קונצנזואליות (CJP בוסטון, פדרציית דטרויט), בעבר היא נשענה על <strong>הקרן החדשה לישראל (NIF)</strong> וקרן פורד.</p>
+            <div class="warning-box">
+                <strong>קרן פורד &#8594; NIF &#8594; דרור ישראל:</strong> קרן פורד העבירה $20M לקרן החדשה לישראל. חלק מהכספים הופנו לפעילות דרור ישראל והנוע"ל. קרן פורד מימנה בעבר ארגונים רדיקליים ואנטי-ציוניים (ראו: NGO Monitor).
+                <p style="font-size:0.82em;color:#555;margin-top:8px">מקור: PND (Philanthropy News Digest); NGO Monitor; GuideStar Israel.</p>
+            </div>
+            <p>כיום, המימון הזר מוסווה לעיתים כ"תרומות לחירום" או "שיקום קהילות", מה שמקשה על מעקב אחר האג'נדה הפוליטית של התורמים.</p>
+        </div>
+
+        <div class="section">
+            <h2>פרשת בני המושבים — 110M &#8362;</h2>
+            <div class="grid-3">
+                <div class="metric critical">
+                    <div class="label">סכום שהועבר</div>
+                    <div class="value">110M &#8362;</div>
+                    <div class="note">2008-2012, ללא פיקוח</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">פער כספי</div>
+                    <div class="value">~30M &#8362;</div>
+                    <div class="note">יועד לנוער — הוסט למטרות אחרות</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">עונש מנכ"ל</div>
+                    <div class="value">15 חודשים</div>
+                    <div class="note">מאסר + 100K &#8362; קנס</div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <strong>מבקר המדינה (דוח 67א', 2016):</strong> 110M &#8362; הועברו לתנועת דרור ישראל באמצעות תנועת המושבים ללא פיקוח נאות. ~30M &#8362; יועדו לפעילויות נוער אך שימשו להקמת קיבוצים עירוניים ומימון חברי התנועה. בני המושבים דרשו פיצול — הנהגת הנוע"ל הגיבה בשימועי פיטורין, חסימת חשבונות בנק, ותביעות השתקה (SLAPP).
+                <p style="font-size:0.82em;color:#555;margin-top:8px">מקורות: מבקר המדינה דוח 67א'; הארץ; גלובס; "המקום הכי חם בגיהנום".</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB 3: CONTENT ═══════ -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>פדגוגיה חברתית — מה מסתתר מאחורי המילים</h2>
+            <p>הליבה של דרור ישראל היא "הפדגוגיה החברתית" — מושג הנשמע חיובי אך בחינה מעמיקה מגלה שהוא מבוסס על <strong>פדגוגיה ביקורתית</strong> מבית מדרשם של תיאורטיקנים מרקסיסטים כמו פאולו פריירה. פדגוגיה זו אינה שואפת להקניית ידע, אלא ל"שחרור" התלמיד דרך הטלת ספק במבני הכוח הקיימים.</p>
+
+            <h3>עקרונות הפדגוגיה — תרגום לשפה ברורה</h3>
+            <table>
+                <tr><th>עיקרון מוצהר</th><th>התרגום</th><th>השפעה</th></tr>
+                <tr><td>"קריאה מחדש של המציאות"</td><td>הצגת הקפיטליזם, הלאומיות, המסורת ככשל</td><td>ניכור מהחברה הקיימת</td></tr>
+                <tr class="highlight"><td>"סימון הראוי"</td><td>אוטופיה שיתופית כמטרה, שלילת מודלים קיימים</td><td>רדיקליזציה ערכית</td></tr>
+                <tr><td>"הגשמה ומרד"</td><td>עידוד "מרד" במוסכמות, עזיבת בית לטובת קיבוץ</td><td>ניתוק ממשפחה</td></tr>
+                <tr class="highlight"><td>"אדם לאדם-אדם"</td><td>אוניברסליזם קיצוני מעל זהות לאומית/דתית</td><td>שחיקת הזהות היהודית</td></tr>
+            </table>
+            <div class="depth-quote">"אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול <strong>לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש</strong>"<br>— ד"ר ניר מיכאלי, הארץ, 15 במרץ 2024</div>
+        </div>
+
+        <div class="section">
+            <h2>המעורר — חוד החנית (גפ"ן 1545)</h2>
+            <p>"המעורר" הוא מרכז ההדרכה של דרור ישראל, הפועל ב-12 ערים באמצעות ~200 מדריכים שהם חברי קיבוצים עירוניים. התוכנית חודרת ל<strong>צה"ל, משטרה, מג"ב ובתי ספר</strong>.</p>
+
+            <h3>מסר גלוי מול מסר סמוי</h3>
+            <table>
+                <tr><th>תוכנית</th><th>מסר גלוי (עברית)</th><th>מסר סמוי (אנגלית אקדמית)</th></tr>
+                <tr><td>מסע לפולין</td><td>חיבור לשורשים</td><td>שואה כמעבדה לחינוך הומניסטי אוניברסלי</td></tr>
+                <tr class="highlight"><td>דמוקרטיה ישראלית</td><td>חיזוק הממלכתיות</td><td>"challenge existing power structures"</td></tr>
+                <tr class="highlight"><td>לגעת בזה (1546)</td><td>מניעת אלימות</td><td>פירוק מיתוסים מגדריים, קידום להט"ב</td></tr>
+                <tr><td>סיורים בקו העימות</td><td>חלוציות וביטחון</td><td>"חוסן חברתי" ליברלי, יחס למיעוטים</td></tr>
+            </table>
+
+            <div class="grid-2" style="margin-top:16px">
+                <div>
+                    <h3>מה כותבים באנגלית (2020)</h3>
+                    <div class="depth-quote">"Activist pedagogy aims to empower students to become <strong>agents of social change</strong>, not merely to understand the world but to <strong>transform it</strong>."<br>— Katko-Aili &amp; Michaeli (2020)</div>
+                    <div class="depth-quote">"The program explicitly seeks to foster a <strong>critical consciousness</strong> regarding social injustices... to <strong>challenge existing power structures</strong>."<br>— p. 458</div>
+                </div>
+                <div>
+                    <h3>מה כותבים בעברית (2024)</h3>
+                    <div class="depth-quote" style="border-right-color:#667eea">"פיתוח <strong>אחריות ומעורבות חברתית</strong>."</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"פיתוח <strong>חשיבה ביקורתית</strong>, העמקת סוגיות חברתיות."</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"חיזוק תחושת השייכות והאחריות."</div>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top:12px">
+                <strong>"agents of social change" &#8800; "אחריות ומעורבות".</strong> באנגלית: "סוכני שינוי חברתי", "אתגור מבני כוח". בעברית: "אחריות", "שייכות". <a href="hameorer_dashboard.html">ניתוח מלא בדשבורד המעורר &larr;</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>8 בתי ספר — שליטה מלאה בתוכנית הלימודים</h2>
+            <p>"דרור בתי חינוך" מפעילה 8 בתי ספר עם כ-2,000 תלמידים. זו <strong>שליטה מוחלטת</strong> — הארגון קובע את תוכנית הלימודים, בוחר את המורים, ומעצב את הסביבה החינוכית. במקום שהורים בוחרים ביודעין, התוכן האידיאולוגי מוטמע בליבת הלימודים.</p>
+            <div class="thesis-box">
+                <strong>הפרטה הפוכה:</strong> בדרך כלל "הפרטה" פירושה העברת שירותים ציבוריים לידיים פרטיות. כאן, <strong>גוף אידיאולוגי פרטי</strong> מקבל כספי מדינה כדי להפעיל בתי ספר ציבוריים — ומחדיר לתוכם תכנים שלעיתים עומדים בסתירה לערכי הרוב. זו הפרטה של הערכים — לא של הלוגיסטיקה.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תנועת הנוער — צינור הגיוס</h2>
+            <p>הנוער העובד והלומד משמש כ<strong>צינור גיוס</strong> לאקטיביזם פרוגרסיבי. הנוער נחשף לערכי התנועה מגיל צעיר, עובר דרך תנועת הבוגרים (מרח"ב), ומצטרף לקיבוצים העירוניים כ"מחנך" במערכת.</p>
+            <div class="flow-row">
+                <div class="flow-box output">תנועת נוער (גיל 9+)</div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-box sub">שנת שירות / צבא</div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-box org">קיבוץ עירוני</div>
+                <span class="flow-arrow">&rarr;</span>
+                <div class="flow-box risk">"מחנך" בבית ספר</div>
+            </div>
+            <p style="margin-top:12px">בוגרי התנועה מייסדים ארגונים כמו <strong>"מעגל אחד"</strong> — שם השפה כבר גלויה: סוציאליזם מפורש, השקפת עולם שמאלנית-ביקורתית.</p>
+            <a class="link-card" href="deep_Maagal_Echad.html">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">מעגל אחד — ניתוח מעמיק</div>
+                    <div class="lc-desc">בוגרי דרור ישראל, סוציאליזם גלוי, השקפת עולם פרוגרסיבית-ביקורתית</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section">
+            <h2>התאמה לערכים מנחים</h2>
+            <table>
+                <tr><th>ערך</th><th>הערכה</th><th>פירוט</th></tr>
+                <tr class="highlight"><td>זהות יהודית</td><td style="color:#8b0000;font-weight:700">סתירה</td><td>"יהדות" = תרבות חילונית-סוציאליסטית, ריקון מתוכן דתי</td></tr>
+                <tr class="highlight"><td>ריבונות ולאומיות</td><td style="color:#8b0000;font-weight:700">סתירה</td><td>דגש קיצוני על אוניברסליזם, ערעור זכות בלעדית</td></tr>
+                <tr class="highlight"><td>מבנה המשפחה</td><td style="color:#8b0000;font-weight:700">סתירה</td><td>אג'נדות מגדריות ("לגעת בזה"), פירוק סמכות הורית</td></tr>
+                <tr class="highlight"><td>שקיפות ויושרה</td><td style="color:#8b0000;font-weight:700">סתירה</td><td>פרשת בני המושבים, תביעות השתקה, ריבוי ישויות</td></tr>
+                <tr><td>חינוך למצוינות</td><td style="color:#f39c12;font-weight:700">חלקי</td><td>דגש על "מנהיגות לשינוי" — לא מצוינות אקדמית</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB 4: CONCLUSIONS ═══════ -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #8b0000">
+            <h2>ניתוח אפקט הרשת</h2>
+            <p>הכוח של דרור ישראל אינו בגודלה של כל ישות בנפרד, אלא ב<strong>אפקט הרשת</strong> — הסינרגיה בין מרכיבים שנראים עצמאיים אך פועלים כמערכת אחת מתואמת.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>ארבעה מנועי ההשפעה</h3>
+
+                    <div class="eco-card">
+                        <div class="eco-meta">מנוע 1: שליטה ישירה</div>
+                        <h4>8 בתי ספר + תנועת נוער</h4>
+                        <p>שליטה מוחלטת בתוכנית הלימודים ב-8 בתי ספר (~2,000 תלמידים). תנועת הנוער משמשת צינור גיוס מגיל 9. הארגון <strong>מייצר את קהל היעד שלו עצמו</strong>.</p>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-meta">מנוע 2: חדירה מוסדית</div>
+                        <h4>גפ"ן + "שותף חינוכי" + צה"ל</h4>
+                        <p>"המעורר" חודר ל-12 ערים דרך גפ"ן. "שותף חינוכי" מכניס מאות מתנדבים למערכת ללא מכרז. חדירה לסגלי פיקוד בצה"ל, משטרה ומג"ב.</p>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-meta">מנוע 3: אטימות כלכלית</div>
+                        <h4>5+ ישויות = מסך עשן</h4>
+                        <p>כל ישות פונה לגורם מממן אחר. זרימת כספים בין הישויות קשה למעקב. 230M+ &#8362; שנתי — כשהמימון הממשלתי מהווה ~67%.</p>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-meta">מנוע 4: צינור הבוגרים</div>
+                        <h4>נוער &#8594; קיבוץ &#8594; "מחנך" &#8594; ארגון חדש</h4>
+                        <p>המערכת <strong>מתחדשת עצמית</strong>: בוגרי הנוע"ל מצטרפים לקיבוצים, הופכים למחנכים, מייסדים ארגונים חדשים (מעגל אחד). מעגל סגור.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>מודל האקוסיסטם</h3>
+                    <div class="chart-wrap" style="height:320px">
+                        <canvas id="ecosystemRadar"></canvas>
+                    </div>
+                    <div class="thesis-box" style="margin-top:16px">
+                        <strong>המודל:</strong> דרור ישראל יצרה <strong>"מדינה בתוך מדינה"</strong> — מערכת סגורה שמייצרת את הקהל שלה (תנועת נוער), מחנכת אותו (בתי ספר + קיבוצים), מעסיקה אותו (1,300 מדריכים), וממחזרת אותו (צינור בוגרים). כל זאת ב<strong>מימון ציבורי</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מה ההורים לא יודעים</h2>
+            <div class="grid-2">
+                <div>
+                    <ul class="q-list">
+                        <li><strong>"חינוך ערכי" ו"אזרחות דמוקרטית"</strong> — תוויות לפדגוגיה ביקורתית. התוכן האמיתי מפורש רק באנגלית אקדמית: "agents of social change", "challenge power structures".</li>
+                        <li><strong>תנועת הנוער מזינה אקטיביזם</strong> — לא רק "מעורבות אזרחית". הצינור: נוע"ל &#8594; שנת שירות &#8594; קיבוץ עירוני &#8594; ארגון פוליטי.</li>
+                        <li><strong>ריבוי ישויות = אטימות</strong> — הורה שמנסה להבין לאן הולך הכסף נתקל ב-5+ עמותות, דוחות נפרדים, ו"דלתות מסתובבות" של מנהלים.</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="q-list">
+                        <li><strong>8 בתי ספר = שליטה מלאה</strong> — תוכנית לימודים, בחירת מורים, סביבה חינוכית — הכל תחת שליטת ארגון אידיאולוגי, עם פיקוח הורי מינימלי.</li>
+                        <li><strong>פרשה פלילית מוכחת</strong> — 110M &#8362; ללא פיקוח, הרשעה של מנכ"ל, תביעות השתקה נגד מבקרים. זו לא רק בעיית תוכן — זו בעיית שלטון תאגידי.</li>
+                        <li><strong>"לגעת בזה" מאותה רשת</strong> — אותם מדריכים, אותה אידיאולוגיה. "המעורר" מכשיר את הקרקע; "לגעת בזה" מכניס את התוכן המגדרי.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ציוני ערכים — סיכום</h2>
+            <div class="grid-2">
+                <div>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שקיפות מימונית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>ניטרליות חינוכית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>בחירת הורים</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>התאמה לערכים מסורתיים</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>חדירה מוסדית</td><td style="color:#8b0000;font-weight:700">5/5 (מקסימום)</td></tr>
+                        <tr><td>שלמות כלכלית</td><td style="color:#e74c3c;font-weight:700">1/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות להורים</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שהארגון שמפעיל תוכניות בבית הספר שלכם הורשע מנכ"ל שלו לשעבר?</li>
+                        <li>האם ידוע לכם ש-5+ עמותות שונות הן למעשה ישות אחת מתואמת?</li>
+                        <li>כשההוגה אומר "הפיכה קומוניסטית בכיתה" — האם זה "חינוך ערכי"?</li>
+                        <li>האם "לגעת בזה" (חינוך מגדרי) פועלת בבית הספר שלכם — מאותה רשת?</li>
+                        <li>האם ידעתם ש-67% מהתקציב מגיע מהמדינה — כלומר מכם?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <a class="link-card" href="hameorer_dashboard.html">
+                    <div class="lc-icon">&#128196;</div>
+                    <div>
+                        <div class="lc-title">המעורר — דשבורד מלא</div>
+                        <div class="lc-desc">ניתוח תוכן, שרשרת ראיות, חדירה לביטחון</div>
+                    </div>
+                </a>
+                <a class="link-card" href="deep_Maagal_Echad.html">
+                    <div class="lc-icon">&#128279;</div>
+                    <div>
+                        <div class="lc-title">מעגל אחד — בוגרי דרור</div>
+                        <div class="lc-desc">סוציאליזם גלוי, ניתוח אידיאולוגי</div>
+                    </div>
+                </a>
+                <a class="link-card" href="Dror_Israel_network.html">
+                    <div class="lc-icon">&#128218;</div>
+                    <div>
+                        <div class="lc-title">דוח מחקר מלא — רשת דרור</div>
+                        <div class="lc-desc">9 פרקים, כל הישויות, כל הממצאים</div>
+                    </div>
+                </a>
+                <a class="link-card" href="https://www.guidestar.org.il/organization/580274114" target="_blank">
+                    <div class="lc-icon">&#127963;</div>
+                    <div>
+                        <div class="lc-title">GuideStar — דרור ישראל</div>
+                        <div class="lc-desc">נתונים כספיים רשמיים</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר — רשת דרור ישראל | <a href="index.html">כל הדוחות</a> | <a href="hameorer_dashboard.html">המעורר</a> | <a href="deep_Maagal_Echad.html">מעגל אחד</a> | פברואר 2026</p>
+    <p style="margin-top:4px">כל הנתונים מבוססים על מקורות גלויים: מבקר המדינה (דוח 67א'), GuideStar, גפ"ן, Journal of Curriculum Studies, הארץ, גלובס, פרוטוקולים עירוניים.</p>
+</footer>
+
+<script>
+// ── Navigation ──
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── Radar Chart: Risk Profile ──
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['חדירה מוסדית', 'אטימות כלכלית', 'שליטה בתוכן', 'צינור גיוס', 'מימון ממשלתי', 'חדירה לביטחון'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [95, 90, 95, 85, 90, 90],
+            backgroundColor: 'rgba(139, 0, 0, 0.2)',
+            borderColor: 'rgba(139, 0, 0, 1)',
+            pointBackgroundColor: 'rgba(139, 0, 0, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [70, 20, 30, 40, 50, 30],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 11 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// ── Doughnut Chart: Entity Revenue ──
+const entityCtx = document.getElementById('entityRevenueChart').getContext('2d');
+new Chart(entityCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['דרור בתי חינוך (99M)', 'הנוע"ל (87M)', 'יסודות לצמיחה (35M)', 'דרור שיקום (8.5M)'],
+        datasets: [{
+            data: [99.2, 87.6, 34.8, 8.5],
+            backgroundColor: ['#2a5a8a', '#667eea', '#0d9488', '#4a6a8a'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        return ctx.label + ': ' + ctx.raw.toFixed(1) + 'M \u20AA';
+                    }
+                }
+            }
+        }
+    }
+});
+
+// ── Doughnut Chart: Funding Sources ──
+const fundCtx = document.getElementById('fundingSourcesChart').getContext('2d');
+new Chart(fundCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['תקציבי מדינה (~154M)', 'שירותים / אחר (~45M)', 'תרומות ישראל + חו"ל (~16.5M)', 'מימון זר (US Friends ~6M)'],
+        datasets: [{
+            data: [154, 45.3, 16.5, 6],
+            backgroundColor: ['#e74c3c', '#667eea', '#0d9488', '#f39c12'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        var total = 221.8;
+                        var pct = ((ctx.raw / total) * 100).toFixed(0);
+                        return ctx.label + ' (' + pct + '%)';
+                    }
+                }
+            }
+        }
+    }
+});
+
+// ── Radar Chart: Ecosystem ──
+const ecoCtx = document.getElementById('ecosystemRadar').getContext('2d');
+new Chart(ecoCtx, {
+    type: 'radar',
+    data: {
+        labels: ['בתי ספר (שליטה)', 'תנועת נוער (גיוס)', 'גפ"ן (חדירה)', 'צה"ל/משטרה', 'מימון ציבורי', 'ריבוי ישויות (אטימות)', 'קיבוצים עירוניים', 'בוגרים (מחזור)'],
+        datasets: [{
+            label: 'עוצמת מרכיב',
+            data: [90, 85, 80, 85, 95, 90, 80, 75],
+            backgroundColor: 'rgba(255, 136, 0, 0.2)',
+            borderColor: '#ff8800',
+            pointBackgroundColor: '#ff8800',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 10 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEI Network — רשת האגודה לחינוך מיני | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Network Map -- */
+.network-map {
+    background: #fafbff; border: 1px solid #e8e8e8; border-radius: 8px;
+    padding: 24px; min-height: 400px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.net-row {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+}
+.net-node {
+    text-align: center; cursor: default; transition: transform 0.2s;
+}
+.net-node:hover { transform: scale(1.05); }
+.net-circle {
+    width: 70px; height: 70px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px; font-size: 0.75em; font-weight: 700;
+    border: 3px solid; text-align: center; padding: 4px;
+    line-height: 1.2;
+}
+.net-circle.red { background: #fef2f2; border-color: #fca5a5; color: #991b1b; }
+.net-circle.orange { background: #fff7ed; border-color: #fdba74; color: #9a3412; }
+.net-circle.blue { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.net-circle.green { background: #f0fdf4; border-color: #86efac; color: #166534; }
+.net-circle.purple { background: #faf5ff; border-color: #c4b5fd; color: #5b21b6; }
+.net-circle.dark { background: #1a1a2e; border-color: #ff8800; color: #fff; }
+.net-name { font-size: 0.78em; font-weight: 700; color: #1a1a2e; max-width: 110px; }
+.net-role { font-size: 0.68em; color: #888; max-width: 110px; }
+.net-arrow { color: #ccc; font-size: 1.5em; }
+.net-center {
+    background: #1a1a2e; color: #fff; padding: 18px 32px;
+    border-radius: 12px; font-weight: 700; font-size: 1.15em;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    text-align: center; line-height: 1.5;
+    border: 2px solid #ff8800;
+}
+.net-center small { display: block; font-size: 0.65em; color: #ff8800; font-weight: 400; }
+
+/* -- Influence Map -- */
+.influence-map {
+    background: #fafbff; border: 1px solid #e8e8e8; border-radius: 8px;
+    padding: 24px; min-height: 350px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.inf-row {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+}
+.inf-node {
+    text-align: center; cursor: default; transition: transform 0.2s;
+}
+.inf-node:hover { transform: scale(1.05); }
+.inf-circle {
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px; font-size: 1.5em;
+    border: 2px solid;
+}
+.inf-circle.red { background: #fef2f2; border-color: #fca5a5; }
+.inf-circle.orange { background: #fff7ed; border-color: #fdba74; }
+.inf-circle.blue { background: #eff6ff; border-color: #93c5fd; }
+.inf-circle.green { background: #f0fdf4; border-color: #86efac; }
+.inf-circle.purple { background: #faf5ff; border-color: #c4b5fd; }
+.inf-name { font-size: 0.78em; font-weight: 700; color: #1a1a2e; max-width: 100px; }
+.inf-role { font-size: 0.68em; color: #888; }
+.inf-arrow { color: #ccc; font-size: 1.5em; }
+.inf-target {
+    background: #fff; padding: 12px; border-radius: 8px;
+    border-top: 3px solid #ff8800; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    min-width: 120px; transition: background 0.2s;
+}
+.inf-target:hover { background: #fff8f0; }
+.inf-target .inf-t-icon { font-size: 1.3em; margin-bottom: 4px; }
+.inf-target .inf-t-title { font-weight: 700; font-size: 0.82em; color: #1a1a2e; }
+.inf-target .inf-t-sub { font-size: 0.7em; color: #888; }
+
+/* -- Evidence chain -- */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 1200px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+.depth-next {
+    display: inline-block; margin-top: 10px; padding: 6px 14px;
+    background: #f0f4fa; border-radius: 4px; font-size: 0.82em;
+    color: #2a5a8a; cursor: default;
+}
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Identity card -- */
+.identity-card {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a3a5a 100%);
+    color: #fff; border-radius: 12px; padding: 24px;
+    margin-bottom: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.identity-card h3 { color: #ff8800; margin-bottom: 12px; font-size: 1.1em; }
+.id-row { display: flex; gap: 8px; margin: 6px 0; align-items: baseline; }
+.id-label { color: #8899bb; font-size: 0.85em; min-width: 120px; flex-shrink: 0; }
+.id-value { color: #fff; font-weight: 600; font-size: 0.95em; }
+.id-arrow { color: #ff8800; margin: 0 8px; }
+
+/* -- Gap cards -- */
+.gap-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #e74c3c;
+}
+.gap-card h4 { color: #1a1a2e; margin-bottom: 8px; }
+.gap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+.gap-side { padding: 12px; border-radius: 6px; font-size: 0.9em; }
+.gap-marketing { background: #f0fdf4; border: 1px solid #86efac; }
+.gap-marketing .gap-label { color: #166534; font-weight: 700; font-size: 0.78em; margin-bottom: 4px; }
+.gap-reality { background: #fef2f2; border: 1px solid #fca5a5; }
+.gap-reality .gap-label { color: #991b1b; font-weight: 700; font-size: 0.78em; margin-bottom: 4px; }
+
+/* -- Org profile cards -- */
+.org-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #667eea;
+    transition: all 0.2s;
+}
+.org-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.org-card h3 { color: #1a1a2e; margin-bottom: 6px; }
+.org-card .org-meta { font-size: 0.82em; color: #888; margin-bottom: 10px; }
+.org-card .org-connection { font-size: 0.88em; color: #555; }
+.org-link { display: inline-block; margin-top: 8px; padding: 4px 12px; background: #f0f4fa; border-radius: 4px; font-size: 0.82em; color: #2a5a8a; text-decoration: none; }
+.org-link:hover { background: #667eea; color: #fff; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Flip cards -- */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
+.flip-card {
+    perspective: 800px; cursor: pointer; height: 150px;
+}
+.flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.5s; transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 14px; text-align: center;
+}
+.flip-front {
+    background: #f0f4fa; border: 1px solid #d4daf0;
+}
+.flip-front .term-icon { font-size: 1.8em; margin-bottom: 6px; }
+.flip-front .term-name { font-weight: 700; color: #2a5a8a; font-size: 1.05em; }
+.flip-front .term-hint { font-size: 0.7em; color: #999; margin-top: 6px; }
+.flip-back {
+    background: #fff5f5; border: 1px solid #f0d4d4;
+    transform: rotateY(180deg);
+}
+.flip-back .reveal-title { font-weight: 700; color: #8b0000; font-size: 0.85em; margin-bottom: 6px; }
+.flip-back .reveal-text { font-size: 0.82em; color: #444; line-height: 1.5; }
+
+/* -- Coalition tag -- */
+.coalition-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 0.75em; font-weight: 600; margin: 2px 4px;
+    background: #f0f4fa; color: #2a5a8a; border: 1px solid #d4daf0;
+}
+.coalition-tag.alert { background: #fef2f2; color: #991b1b; border-color: #fca5a5; }
+.coalition-tag.warn { background: #fff7ed; color: #9a3412; border-color: #fdba74; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>SEI Network</span>
+            <span class="risk-pill">סיכון קריטי</span>
+            <a href="../">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('network')">רשת</button>
+            <button class="nav-tab" onclick="navigate('evidence')">ראיות</button>
+            <button class="nav-tab" onclick="navigate('parents')">הורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>רשת SEI &mdash; האקו-סיסטם של החינוך המיני</h1>
+    <div class="subtitle">Sexuality Education Israel | עמותת תודעה 580665345 | מהפך תודעתי</div>
+    <div class="meta">הכנסות 2022: 1,041,500 &#8362; | 7 חברי ועד | הסמכה עצמית ~120 שעות | תוכנית גפ"ן 13785 | קואליציה בת 10+ ארגונים</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB: OVERVIEW ======= -->
+    <div id="view-overview" class="view active">
+
+        <!-- Identity: 3 names 1 entity -->
+        <div class="identity-card">
+            <h3>שלושה שמות &mdash; גוף אחד</h3>
+            <div class="id-row">
+                <span class="id-label">שם רשמי:</span>
+                <span class="id-value">עמותת תודעה (ע"ר 580665345)</span>
+            </div>
+            <div class="id-row">
+                <span class="id-label">שם תדמיתי:</span>
+                <span class="id-value">SEI &mdash; האגודה לחינוך מיני בישראל</span>
+            </div>
+            <div class="id-row">
+                <span class="id-label">שם תוכנית:</span>
+                <span class="id-value">מהפך תודעתי</span>
+            </div>
+            <div class="id-row">
+                <span class="id-label">אתר:</span>
+                <span class="id-value">sei.org.il = todaango.org.il &mdash; שני כתובות, אותה עמותה</span>
+            </div>
+            <div class="id-row">
+                <span class="id-label">ייסוד:</span>
+                <span class="id-value">27 באוגוסט 2018</span>
+            </div>
+            <div class="id-row">
+                <span class="id-label">יו"ר:</span>
+                <span class="id-value">אורית וולף</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מדדים מרכזיים</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">הכנסות (2022)</div>
+                    <div class="value">1.04M &#8362;</div>
+                    <div class="note">98.7% מתרומות בארץ</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">חברי ועד מנהל</div>
+                    <div class="value">7</div>
+                    <div class="note">4 בעלי תואר ד"ר</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">פיקוח חיצוני</div>
+                    <div class="value">0</div>
+                    <div class="note">הסמכה עצמית בלבד</div>
+                </div>
+            </div>
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">ארגוני רשת</div>
+                    <div class="value">6+</div>
+                    <div class="note">מידע אמין, דלת פתוחה, חוש"ן, לדעת, מגע בתיאום</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">שעות הסמכה</div>
+                    <div class="value">~120</div>
+                    <div class="note">תקן CSE פנימי &mdash; ללא גוף חיצוני</div>
+                </div>
+                <div class="metric">
+                    <div class="label">תוכנית גפ"ן</div>
+                    <div class="value">13785</div>
+                    <div class="note">"חינוך למיניות מבחירה ומניעת ניצול מיני"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מפת הרשת</h2>
+            <p>SEI פועלת כארגון-גג. הארגונים החברים מפעילים תוכניות בבתי ספר, הכשרות מנחים, וייעוץ לרשויות. כולם תחת מטרייה אחת.</p>
+
+            <div class="network-map">
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">ארגונים חברים</div>
+                <div class="net-row">
+                    <div class="net-node">
+                        <div class="net-circle red">מידע<br>אמין</div>
+                        <div class="net-name">מידע אמין על מין</div>
+                        <div class="net-role">שלומית הברון</div>
+                    </div>
+                    <div class="net-node">
+                        <div class="net-circle orange">דלת<br>פתוחה</div>
+                        <div class="net-name">דלת פתוחה</div>
+                        <div class="net-role">קידום מיניות בריאה</div>
+                    </div>
+                    <div class="net-node">
+                        <div class="net-circle blue">חוש"ן</div>
+                        <div class="net-name">חוש"ן</div>
+                        <div class="net-role">חינוך וחברה</div>
+                    </div>
+                    <div class="net-node">
+                        <div class="net-circle green">לדעת</div>
+                        <div class="net-name">עמותת לדעת</div>
+                        <div class="net-role">הכשרת מנחים</div>
+                    </div>
+                    <div class="net-node">
+                        <div class="net-circle purple">מגע<br>בתיאום</div>
+                        <div class="net-name">מגע בתיאום</div>
+                        <div class="net-role">סדנאות מגע</div>
+                    </div>
+                </div>
+
+                <div class="net-arrow">&#9660;</div>
+
+                <div class="net-center">
+                    SEI &mdash; עמותת תודעה
+                    <small>ע"ר 580665345 | מהפך תודעתי | sei.org.il</small>
+                </div>
+
+                <div class="net-arrow">&#9660;</div>
+
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">זיקות בינלאומיות וקואליציות</div>
+                <div class="net-row">
+                    <div class="net-node">
+                        <div class="net-circle red">IPPF</div>
+                        <div class="net-name">Planned Parenthood</div>
+                        <div class="net-role">פדרציה בינלאומית</div>
+                    </div>
+                    <div class="net-node">
+                        <div class="net-circle orange">WHO</div>
+                        <div class="net-name">ארגון הבריאות העולמי</div>
+                        <div class="net-role">סטנדרט CSE</div>
+                    </div>
+                    <div class="net-node">
+                        <div class="net-circle blue">חינוך<br>מיני<br>לכל</div>
+                        <div class="net-name">קואליציה</div>
+                        <div class="net-role">10+ ארגונים</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל סיכון: תדמית מול מציאות</h3>
+                    <p style="font-size:0.85em;color:#666">הכתום = הסיכון בפועל. הכחול = מה שהארגון מציג. הפער הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים מרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#9888;</div>
+                        <div>
+                            <h4>הסמכה עצמית ללא פיקוח</h4>
+                            <p>SEI מסמיכה מנחי מיניות בהכשרה של ~120 שעות. אין גוף חיצוני שמפקח על התכנים, הבוחנים או איכות ההכשרה. המסמיכים מסמיכים את עצמם.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128279;</div>
+                        <div>
+                            <h4>שלושה שמות &mdash; ישות אחת</h4>
+                            <p>"עמותת תודעה", "SEI", "מהפך תודעתי" &mdash; שלושה שמות שנראים כגופים נפרדים, אך מובילים לאותו ע"ר 580665345. מבנה שמגדיל את הנראות ומטשטש את הריכוזיות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127758;</div>
+                        <div>
+                            <h4>קשר IPPF וסטנדרט WHO</h4>
+                            <p>SEI מקדמת את סטנדרט ה-CSE של ארגון הבריאות העולמי. האגודה לתכנון המשפחה בישראל (חברת IPPF) היא חלק מאותו אקו-סיסטם. ייבוא מודלים גלובליים ללא התאמה ציבורית.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128106;</div>
+                        <div>
+                            <h4>פער שיווק-מציאות</h4>
+                            <p>משווקת כ"מניעת ניצול מיני" (שכולם בעד) אך כוללת CSE מלא: זהות מגדרית, נטייה מינית, פורנוגרפיה, הנאה מינית. הורים לא בהכרח מודעים לטווח התכנים.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הרכב כספי (2022)</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <table>
+                        <tr><th>סעיף</th><th>סכום (&#8362;)</th><th>אחוז</th></tr>
+                        <tr class="highlight"><td>הכנסות מתרומות בארץ</td><td>1,027,500</td><td>98.7%</td></tr>
+                        <tr><td>הכנסות מפעילות</td><td>14,000</td><td>1.3%</td></tr>
+                        <tr><td><strong>סה"כ הכנסות</strong></td><td><strong>1,041,500</strong></td><td>100%</td></tr>
+                        <tr><td>הוצאות הנהלה וכלליות</td><td>1,010,000</td><td>&mdash;</td></tr>
+                        <tr><td>הוצאות שכר</td><td>628,000</td><td>&mdash;</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888">מקור: דוח כספי רשם העמותות, ע"ר 580665345, שנת 2022</p>
+
+                    <div class="warning-box" style="margin-top:12px">
+                        <strong>ממצא:</strong> 98.7% מההכנסות מ"תרומות בארץ" אך אין פירוט תורמים. התורמים הספציפיים &mdash; האם NIF, קרנות פוליטיות, או פרטיים? &mdash; אינם גלויים בדוחות הציבוריים.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ועד מנהל</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>הערה</th></tr>
+                <tr class="highlight"><td><strong>אורית וולף</strong></td><td>יו"ר</td><td>מייסדת העמותה (2018)</td></tr>
+                <tr><td>אורלי דהן</td><td>חברת ועד</td><td>מייסדת</td></tr>
+                <tr><td>ד"ר אילנה קליין</td><td>חברת ועד</td><td>&mdash;</td></tr>
+                <tr><td>עדי אהרוני</td><td>חברת ועד</td><td>&mdash;</td></tr>
+                <tr><td>ד"ר מירב רוזנפלד</td><td>חברת ועד</td><td>&mdash;</td></tr>
+                <tr><td>ד"ר רוני בר-צורי</td><td>חברת ועד</td><td>&mdash;</td></tr>
+                <tr><td>ד"ר שרון פלדמן</td><td>חברת ועד</td><td>&mdash;</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://www.guidestar.org.il/organization/580665345" target="_blank">GuideStar Israel</a>, רשם העמותות, דוח 2022</p>
+
+            <div class="warning-box" style="margin-top:12px">
+                <strong>דלת מסתובבת:</strong> זוהו קשרים בין בוגרי 'מעוז' לחברי ועד, וזיקות ל'יוזמות אברהם'. פעילי אג'נדה עוברים בין ארגוני השפעה לעמדות בוועד המנהל. דפוס של הצעדה דרך המוסדות.
+            </div>
+        </div>
+
+        <!-- Cross-links -->
+        <div class="section">
+            <h2>דשבורדים קשורים</h2>
+            <div class="grid-2">
+                <a class="link-card" href="meyda_amin_dashboard.html">
+                    <div class="lc-icon">&#128196;</div>
+                    <div>
+                        <div class="lc-title">מידע אמין על מין</div>
+                        <div class="lc-desc">שלומית הברון &mdash; חברה מייסדת ב-SEI</div>
+                    </div>
+                </a>
+                <a class="link-card" href="choshen_dashboard.html">
+                    <div class="lc-icon">&#128196;</div>
+                    <div>
+                        <div class="lc-title">חוש"ן</div>
+                        <div class="lc-desc">ארגון חבר ב-SEI, 6 תוכניות גפ"ן</div>
+                    </div>
+                </a>
+                <a class="link-card" href="maga_betiaum_dashboard.html">
+                    <div class="lc-icon">&#128196;</div>
+                    <div>
+                        <div class="lc-title">מגע בתיאום</div>
+                        <div class="lc-desc">ארגון חבר &mdash; סדנאות מגע</div>
+                    </div>
+                </a>
+                <a class="link-card" href="https://www.guidestar.org.il/organization/580665345" target="_blank">
+                    <div class="lc-icon">&#128200;</div>
+                    <div>
+                        <div class="lc-title">GuideStar Israel &mdash; עמותת תודעה</div>
+                        <div class="lc-desc">ע"ר 580665345 &mdash; דוחות כספיים ונושאי משרה</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB: NETWORK ======= -->
+    <div id="view-network" class="view">
+
+        <div class="section">
+            <h2>ניתוח זהויות: שלושה שמות, ישות אחת</h2>
+            <p>המבנה המשפטי של SEI משלב שלושה שמות תחת מספר עמותה אחד. כל שם משרת קהל אחר.</p>
+
+            <table>
+                <tr><th>שם</th><th>שימוש</th><th>קהל יעד</th></tr>
+                <tr class="highlight">
+                    <td><strong>עמותת תודעה</strong></td>
+                    <td>שם רשמי &mdash; רשם העמותות, דוחות כספיים</td>
+                    <td>רגולטורים, רשויות</td>
+                </tr>
+                <tr class="highlight">
+                    <td><strong>SEI &mdash; האגודה לחינוך מיני</strong></td>
+                    <td>מותג מקצועי &mdash; אתר, כנסים, הסמכות</td>
+                    <td>אנשי מקצוע, אקדמיה</td>
+                </tr>
+                <tr class="highlight">
+                    <td><strong>מהפך תודעתי</strong></td>
+                    <td>שם התוכנית/המיזם &mdash; פעילות בשטח</td>
+                    <td>בתי ספר, קהילות, הורים</td>
+                </tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>המשמעות:</strong> הורה שמאשר "תוכנית מהפך תודעתי" בבית הספר, חוקר שבודק "עמותת תודעה" ברשם, ואיש מקצוע שנרשם להסמכת "SEI" &mdash; כולם מתייחסים לאותו גוף (580665345) מבלי שבהכרח יודעים זאת. שלושה שערי כניסה לאותה מערכת.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פרופיל ארגונים חברים</h2>
+
+            <div class="org-card" style="border-right-color:#e74c3c">
+                <h3>מידע אמין על מין</h3>
+                <div class="org-meta">מייסדת: שלומית הברון | חברה מייסדת ב-SEI | minamin.org</div>
+                <div class="org-connection">
+                    <p><strong>קשר ל-SEI:</strong> שלומית הברון היא חברה מייסדת של עמותת תודעה. "מידע אמין על מין" הוא מיזם שהיא מפעילה &mdash; סדנאות להורים, הרצאות, תוכן דיגיטלי.</p>
+                    <p><strong>פעילות:</strong> השתלמויות וקורסים בחינוך מיני ומיניות בריאה. עשרה עקרונות לחינוך מיני בעידן המסכים. ערוץ יוטיוב עם הרצאות להורים.</p>
+                    <p><strong>תפקיד ברשת:</strong> הפנים הציבוריות של SEI כלפי הורים. יוצרת אמון דרך "מידע מקצועי" &mdash; ואז מפנה להכשרות ולתוכניות של הרשת.</p>
+                </div>
+                <a class="org-link" href="meyda_amin_dashboard.html">דשבורד מידע אמין על מין &rarr;</a>
+            </div>
+
+            <div class="org-card" style="border-right-color:#f39c12">
+                <h3>דלת פתוחה &mdash; לקידום מיניות בריאה</h3>
+                <div class="org-meta">ארגון חבר ב-SEI | opendoor.org.il</div>
+                <div class="org-connection">
+                    <p><strong>קשר ל-SEI:</strong> ארגון חבר באגודה. מפעיל תוכנית הכשרה עצמאית &mdash; "תעודת הסמכה בחינוך למיניות בריאה (CSE)". משתמש באותו תקן בינלאומי.</p>
+                    <p><strong>פעילות:</strong> הכשרת מנחים, סדנאות בבתי ספר, ייעוץ לרשויות מקומיות. נמצא בשלוש ערים לפחות: חיפה (הכשרת צוותים), באר שבע (ועדת בריאות), רמת השרון (חוזה 138K &#8362;).</p>
+                    <p><strong>תפקיד ברשת:</strong> ערוץ ההכשרה האלטרנטיבי. מי ש-SEI מסמיכה &mdash; דלת פתוחה מכשירה.</p>
+                </div>
+            </div>
+
+            <div class="org-card" style="border-right-color:#667eea">
+                <h3>חוש"ן &mdash; חינוך, שוויון, נשים</h3>
+                <div class="org-meta">ארגון חבר ב-SEI | 6 תוכניות בגפ"ן</div>
+                <div class="org-connection">
+                    <p><strong>קשר ל-SEI:</strong> ארגון חבר באגודה. פועל בתחום חינוך מגדרי ושוויון.</p>
+                    <p><strong>פעילות:</strong> 6 תוכניות רשומות בגפ"ן. אולם: אפס פריסות בפועל ומשרד החינוך קיצץ 85% מתקציבו. הצעה ברעננה למימון עירוני ישיר &mdash; מנגנון עוקף כשהמימון המרכזי מתייבש.</p>
+                    <p><strong>תפקיד ברשת:</strong> זרוע החינוך המגדרי. חלק מהגשת OHCHR (דוח צל לאו"ם) יחד עם תהילה.</p>
+                </div>
+                <a class="org-link" href="choshen_dashboard.html">דשבורד חוש"ן &rarr;</a>
+            </div>
+
+            <div class="org-card" style="border-right-color:#0d9488">
+                <h3>עמותת לדעת</h3>
+                <div class="org-meta">ארגון חבר ב-SEI | ladaat.org.il</div>
+                <div class="org-connection">
+                    <p><strong>קשר ל-SEI:</strong> ארגון חבר באגודה. מפעיל קורס הכשרת מנחות ומנחים למיניות בריאה (96 שעות אקדמיות).</p>
+                    <p><strong>פעילות:</strong> הכשרת מנחים לחינוך מיני. עוד ערוץ הכשרה בתוך הרשת &mdash; 96 שעות (לעומת ~120 של SEI).</p>
+                    <p><strong>תפקיד ברשת:</strong> ערוץ הכשרה נוסף. מרבה את "המוסמכים" תחת אותה אידיאולוגיה.</p>
+                </div>
+            </div>
+
+            <div class="org-card" style="border-right-color:#8b5cf6">
+                <h3>מגע בתיאום</h3>
+                <div class="org-meta">ארגון חבר ב-SEI</div>
+                <div class="org-connection">
+                    <p><strong>קשר ל-SEI:</strong> ארגון חבר באגודה. מתמחה בסדנאות מגע והקשבה לגוף.</p>
+                    <p><strong>פעילות:</strong> סדנאות מגע בתיאום, עבודת גוף, חינוך למגע בריא. התמקדות ב"מגע מבוסס הסכמה".</p>
+                    <p><strong>תפקיד ברשת:</strong> הנישה הגופנית. מביא את תוכני ה-CSE לרמת החוויה הגופנית.</p>
+                </div>
+                <a class="org-link" href="maga_betiaum_dashboard.html">דשבורד מגע בתיאום &rarr;</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קואליציית "חינוך מיני לכל"</h2>
+            <p>SEI היא חלק מקואליציה רחבה של ארגונים הפועלים לקידום CSE במערכת החינוך. הקואליציה כוללת:</p>
+            <div style="margin:14px 0">
+                <span class="coalition-tag alert">עמותת תודעה (SEI)</span>
+                <span class="coalition-tag warn">המרכז הרפורמי לדת ומדינה</span>
+                <span class="coalition-tag warn">האגודה למען הלהט"ב בישראל</span>
+                <span class="coalition-tag">הפורום החילוני</span>
+                <span class="coalition-tag">מרכז סיוע לנפגעות תקיפה מינית</span>
+            </div>
+
+            <div class="warning-box">
+                <strong>ממצא:</strong> הקואליציה משלבת ארגון שמגדיר עצמו כ"מקצועי-חינוכי" (SEI) עם ארגוני סנגור פוליטי מובהקים (האגודה למען הלהט"ב, המרכז הרפורמי). תחת הכותרת "חינוך מיני לכל", הקואליציה דורשת מאימוץ סטנדרטים בינלאומיים ועד הטמעה בכל שכבות הגיל. הורים שומעים "מניעת פגיעה" &mdash; הקואליציה פועלת ל-CSE מלא.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>דלת מסתובבת: מעוז, יוזמות אברהם, SEI</h2>
+            <p>בחינת הרכב הוועד המנהל והשותפים חושפת רשת קשרים בין ארגוני השפעה:</p>
+            <div class="influence-map" style="min-height:280px">
+                <div class="inf-row">
+                    <div class="inf-node">
+                        <div class="inf-circle purple">&#127891;</div>
+                        <div class="inf-name">מעוז</div>
+                        <div class="inf-role">תוכנית מנהיגות</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle orange">&#128176;</div>
+                        <div class="inf-name">יוזמות אברהם</div>
+                        <div class="inf-role">מימון ואסטרטגיה</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle blue">&#127979;</div>
+                        <div class="inf-name">דלת פתוחה</div>
+                        <div class="inf-role">הכשרות CSE</div>
+                    </div>
+                </div>
+                <div class="inf-arrow">&#9660;</div>
+                <div style="background:#1a1a2e;color:#fff;padding:14px 28px;border-radius:8px;font-weight:700;font-size:1.1em;box-shadow:0 4px 12px rgba(0,0,0,0.2);text-align:center">
+                    ועד מנהל &mdash; עמותת תודעה (SEI)
+                </div>
+                <div class="inf-arrow">&#9660;</div>
+                <div class="inf-row">
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#127979;</div>
+                        <div class="inf-t-title">בתי ספר</div>
+                        <div class="inf-t-sub">תוכנית גפ"ן 13785</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#128100;</div>
+                        <div class="inf-t-title">הסמכת מנחים</div>
+                        <div class="inf-t-sub">~120 שעות CSE</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#127760;</div>
+                        <div class="inf-t-title">סנגור ציבורי</div>
+                        <div class="inf-t-sub">קואליציה + כנסת</div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size:0.82em;color:#888;margin-top:12px">מקור: GuideStar Israel, אתרי הארגונים, ניתוח רשת.</p>
+        </div>
+    </div>
+
+    <!-- ======= TAB: EVIDENCE ======= -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת ראיות: מ"מניעת ניצול" למערכת הסמכה עצמית</h2>
+            <p>ארבע שכבות ראיות. כל שכבה עונה על הספק מהקודמת. "הם רק רוצים להגן על ילדים" &mdash; השכבה הבאה מראה למה הסיפור מורכב יותר.</p>
+
+            <!-- Level 1: Self-accreditation -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128218;</span>
+                    <div>
+                        <div class="d-title">שכבה 1: מנגנון הסמכה עצמית</div>
+                        <div class="d-sub">SEI מסמיכה, SEI מגדירה את התקן, SEI מפקחת &mdash; אין גוף חיצוני</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>SEI מפעילה הכשרות מנחי מיניות של ~120 שעות. בסיום ההכשרה, הבוגרים מקבלים "תעודת הסמכה" מטעם SEI עצמה. אין גוף חיצוני &mdash; לא ממשלתי, לא אקדמי, לא רגולטורי &mdash; שמאשר את תקפות ההסמכה.</p>
+
+                    <div class="depth-quote">"SEI היא האגודה לחינוך מיני בישראל, פועלת לקידום חינוך מיני מקיף, מותאם גיל ותרבות, בבתי ספר ובקהילה."<br>&mdash; אתר SEI, sei.org.il, עמוד "אודותינו"</div>
+
+                    <p>גם ארגונים חברים אחרים ברשת מפעילים הכשרות: דלת פתוחה מעניקה "תעודת הסמכה בחינוך למיניות בריאה (CSE)", עמותת לדעת מכשירה ב-96 שעות אקדמיות. כולם תחת אותו תקן שהם עצמם הגדירו.</p>
+
+                    <p><strong>המשמעות:</strong> קהילה מקצועית סגורה שמגדירה מהו "חינוך מיני מקצועי", מכשירה מנחים לפי ההגדרה שלה, ואז מציגה את ה"מוסמכים" כבעלי סמכות. מעגליות מובנית.</p>
+                    <div class="depth-next">אבל התקן מבוסס על ארגון הבריאות העולמי &mdash; &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 2: WHO/CSE connection -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127760;</span>
+                    <div>
+                        <div class="d-title">שכבה 2: הסטנדרט הבינלאומי &mdash; WHO/IPPF/CSE</div>
+                        <div class="d-sub">ייבוא מודל גלובלי &mdash; מי מאחוריו ומה כולל</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>SEI מבססת את הלגיטימציה שלה על "סטנדרטים בינלאומיים" &mdash; בעיקר מסמך ה-CSE של WHO/ECDC ומסגרת ה-CSE של IPPF (International Planned Parenthood Federation).</p>
+
+                    <div class="depth-quote">"אנו קוראים למשרד החינוך לאמץ את המלצות ארגון הבריאות העולמי (WHO) והמרכז האירופי למניעת ובקרת מחלות (ECDC) לחינוך מיני מקיף (Comprehensive Sexuality Education &ndash; CSE), ולשלב תוכניות חינוך מיני מותאמות גיל ותרבות בכל שכבות הגיל במערכת החינוך."<br>&mdash; עצומת קואליציית "חינוך מיני לכל"</div>
+
+                    <p><strong>הקשר IPPF:</strong> האגודה לתכנון המשפחה בישראל (Israel Family Planning Association) היא חברה ב-IPPF. IPPF מגדירה CSE כ"גישה מבוססת זכויות" הכוללת: זהות מגדרית, נטייה מינית, "הנאה" כזכות, ביקורת נורמות מגדריות.</p>
+
+                    <div class="depth-quote">"חינוך מיני מקיף (CSE) הוא תהליך למידה מבוסס תכנית לימודים, העוסק בהיבטים הקוגניטיביים, הרגשיים, הפיזיים והחברתיים של המיניות. מטרתו להעצים ילדים ובני נוער בידע, מיומנויות, עמדות וערכים..."<br>&mdash; מסמך "סטנדרטים לחינוך מיני באירופה" של WHO/ECDC, מתורגם ומופץ ע"י קואליציית "חינוך מיני לכל"</div>
+
+                    <p><strong>המשמעות:</strong> ה"תקן הבינלאומי" שעליו נשענת SEI מגיע ממקום אידיאולוגי מוגדר. WHO/IPPF/CSE אינם ניטרליים &mdash; הם מקדמים גישה ספציפית למיניות שכוללת תכנים שחלק ניכר מהציבור הישראלי אינו מודע שנכנסים לבתי הספר.</p>
+                    <div class="depth-next">אבל מה הם באמת מלמדים? &mdash; &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 3: Actual content -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128214;</span>
+                    <div>
+                        <div class="d-title">שכבה 3: התוכן בפועל &mdash; ציטוטים ישירים</div>
+                        <div class="d-sub">"מניעת ניצול" = כותרת. CSE מלא = תוכן.</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>ההגדרה הרשמית של התוכנית בגפ"ן (13785) היא: <strong>"עמותת תודעה &mdash; חינוך למיניות מבחירה ומניעת ניצול מיני"</strong>. הכותרת מדגישה "מניעת ניצול" &mdash; אך הנה מה שהארגון עצמו מפרסם:</p>
+
+                    <div class="depth-quote">"התוכניות שלנו עוסקות במגוון רחב של נושאים, ביניהם: דימוי גוף, <strong>זהות מינית ומגדר</strong>, מערכות יחסים, תקשורת, הסכמה, אמצעי מניעה, מחלות מין, <strong>פורנוגרפיה</strong>, סייבר ומיניות, וזיהוי מצבי סיכון."<br>&mdash; אתר SEI, sei.org.il, עמוד "התוכניות שלנו"</div>
+
+                    <div class="depth-quote">"אנו מאמינות כי חינוך מיני מקיף הוא כלי חיוני למניעת ניצול מיני, הטרדות ואלימות מינית, ומאפשר לבני נוער לפתח <strong>מיניות בריאה, בטוחה ומכבדת, המבוססת על בחירה חופשית והסכמה</strong>."<br>&mdash; אתר SEI, sei.org.il, עמוד "הגישה שלנו"</div>
+
+                    <div class="depth-quote">"אנו שואפות להעניק לבני הנוער ידע מדויק, כלים מעשיים ומיומנויות חברתיות-רגשיות שיאפשרו להם <strong>לקבל החלטות מושכלות ובטוחות בנוגע למיניותם</strong>."<br>&mdash; אתר SEI, sei.org.il, עמוד "התוכניות שלנו"</div>
+
+                    <p><strong>הפער:</strong> הורה שמאשר תוכנית "מניעת ניצול מיני" מצפה לשיעור על גבולות גוף וזיהוי סכנות. הוא מקבל CSE מלא: זהות מגדרית, פורנוגרפיה, "מיניות מבחירה", הנאה כזכות. שני דברים שונים לחלוטין.</p>
+                    <div class="depth-next">ומי מפקח שהתוכן בסדר? &mdash; &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 4: Circle of self-validation -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128260;</span>
+                    <div>
+                        <div class="d-title">שכבה 4: מעגל ההסמכה הסגור</div>
+                        <div class="d-sub">SEI מגדירה, SEI מכשירה, SEI מסמיכה, SEI מפריסה &mdash; ואין מי שיגיד "רגע"</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>המנגנון כולו פועל במעגל סגור:</p>
+
+                    <table>
+                        <tr><th>שלב</th><th>מי עושה</th><th>מי מפקח</th></tr>
+                        <tr class="highlight"><td>הגדרת תקן מקצועי</td><td>SEI (לפי WHO/IPPF)</td><td>אף אחד</td></tr>
+                        <tr class="highlight"><td>פיתוח תכנית לימודים</td><td>SEI + ארגוני רשת</td><td>אף אחד</td></tr>
+                        <tr class="highlight"><td>הכשרת מנחים</td><td>SEI, דלת פתוחה, לדעת</td><td>SEI</td></tr>
+                        <tr class="highlight"><td>הענקת תעודה</td><td>SEI</td><td>SEI</td></tr>
+                        <tr class="highlight"><td>הפעלה בבתי ספר</td><td>מנחי SEI</td><td>SEI</td></tr>
+                        <tr><td>אישור גפ"ן</td><td>משרד החינוך</td><td>בדיקה טכנית, לא תוכנית</td></tr>
+                    </table>
+
+                    <div class="warning-box">
+                        <strong>השורה התחתונה:</strong> אותו גוף שמחליט מהו "חינוך מיני מקצועי" גם מכשיר את המנחים, גם מעניק להם תעודה, גם שולח אותם לבתי ספר, וגם מגדיר את עצמו כמומחה שצריך להיוועץ בו. אין שום גורם חיצוני &mdash; לא ממשלתי, לא אקדמי, לא הורי &mdash; ששולט בתוכן.
+                    </div>
+
+                    <p style="margin-top:12px">אישור הגפ"ן (13785) הוא אישור לוגיסטי-מנהלי: מאשר שהארגון עומד בדרישות בטיחות ותפעול, לא שתוכני ההוראה נבדקו ואושרו אידיאולוגית.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מילון מונחים: מה מסתתר מאחורי המילים?</h2>
+            <p>לחצו על כרטיס כדי לחשוף את המשמעות בפועל.</p>
+
+            <div class="flip-grid">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128218;</div>
+                            <div class="term-name">חינוך מיני מקיף (CSE)</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">לא רק "מניעת פגיעה" אלא: זהות מגדרית, נטייה מינית, הנאה כזכות, ביקורת נורמות מגדריות, פורנוגרפיה. מבוסס על WHO/IPPF.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128100;</div>
+                            <div class="term-name">מיניות מבחירה</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">נשמע כמו "הסכמה" (דבר חיובי). בפועל: מסגרת הכוללת את כל מרכיבי ה-CSE &mdash; "בחירה" גם בזהות מגדרית, נטייה, סוג מערכות יחסים.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#127891;</div>
+                            <div class="term-name">הסמכה מקצועית</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">אין גוף חיצוני שמפקח. SEI מגדירה את התקן, מכשירה, ומעניקה תעודה. המסמיכים מסמיכים את עצמם. 120 שעות בלי רגולציה.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128106;</div>
+                            <div class="term-name">התאמה רב-תרבותית</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">SEI מצהירה על "התאמה לערכים ונורמות" &mdash; אך אין פירוט פומבי של הבדלים בין גרסאות. עקרונות הליבה (CSE) נשארים זהים.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Links -->
+        <div class="section">
+            <h2>מקורות וקישורים</h2>
+            <a class="link-card" href="https://sei.org.il/" target="_blank">
+                <div class="lc-icon">&#127760;</div>
+                <div>
+                    <div class="lc-title">אתר SEI &mdash; האגודה לחינוך מיני</div>
+                    <div class="lc-desc">sei.org.il &mdash; האתר הרשמי של עמותת תודעה</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://todaango.org.il/" target="_blank">
+                <div class="lc-icon">&#127760;</div>
+                <div>
+                    <div class="lc-title">אתר עמותת תודעה</div>
+                    <div class="lc-desc">todaango.org.il &mdash; אותה עמותה, כתובת נוספת</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.guidestar.org.il/organization/580665345" target="_blank">
+                <div class="lc-icon">&#128200;</div>
+                <div>
+                    <div class="lc-title">GuideStar Israel &mdash; עמותת תודעה</div>
+                    <div class="lc-desc">ע"ר 580665345 &mdash; דוחות כספיים, נושאי משרה, מטרות</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.ippf.org/" target="_blank">
+                <div class="lc-icon">&#127758;</div>
+                <div>
+                    <div class="lc-title">IPPF &mdash; International Planned Parenthood Federation</div>
+                    <div class="lc-desc">הפדרציה הבינלאומית לתכנון המשפחה &mdash; מקור סטנדרט ה-CSE</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ======= TAB: PARENTS ======= -->
+    <div id="view-parents" class="view">
+
+        <div class="section" style="border-top:4px solid #e74c3c">
+            <h2>מה ההורים לא יודעים</h2>
+            <p style="font-size:1.05em;font-weight:600;color:#8b0000">הפער בין מה שמשווקים להורים לבין מה שנכנס לכיתה</p>
+            <p>כשבית הספר מודיע להורים על "תוכנית למניעת ניצול מיני", רוב ההורים מדמיינים שיעור על גבולות גוף וזיהוי סכנות. להלן ניתוח הפער בין השיווק לבין התוכן בפועל.</p>
+        </div>
+
+        <div class="gap-card">
+            <h4>1. היקף התוכן</h4>
+            <div class="gap-row">
+                <div class="gap-side gap-marketing">
+                    <div class="gap-label">מה ההורים שומעים</div>
+                    "מניעת ניצול מיני והתמודדות עם מצבי פגיעות מינית"
+                </div>
+                <div class="gap-side gap-reality">
+                    <div class="gap-label">מה בפועל</div>
+                    חינוך מיני מקיף (CSE): דימוי גוף, <strong>זהות מינית ומגדר</strong>, מערכות יחסים, אמצעי מניעה, מחלות מין, <strong>פורנוגרפיה</strong>, סייבר ומיניות, <strong>הנאה מינית</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="gap-card">
+            <h4>2. הזהות הארגונית</h4>
+            <div class="gap-row">
+                <div class="gap-side gap-marketing">
+                    <div class="gap-label">מה ההורים רואים</div>
+                    "מהפך תודעתי" &mdash; תוכנית חינוכית שנראית עצמאית ומקומית
+                </div>
+                <div class="gap-side gap-reality">
+                    <div class="gap-label">מה מאחורי הקלעים</div>
+                    עמותת תודעה = SEI = מהפך תודעתי. שלושה שמות לאותה ישות (580665345). חלק מרשת של 6+ ארגונים וקואליציה עם האגודה למען הלהט"ב, המרכז הרפורמי ועוד.
+                </div>
+            </div>
+        </div>
+
+        <div class="gap-card">
+            <h4>3. ה"מומחיות"</h4>
+            <div class="gap-row">
+                <div class="gap-side gap-marketing">
+                    <div class="gap-label">מה ההורים מניחים</div>
+                    "מנחים מוסמכים" &mdash; כנראה מאושרים על ידי משרד החינוך או גוף אקדמי
+                </div>
+                <div class="gap-side gap-reality">
+                    <div class="gap-label">מה בפועל</div>
+                    ההסמכה היא של SEI עצמה (~120 שעות). אין פיקוח חיצוני. אישור גפ"ן (13785) הוא מנהלי-לוגיסטי &mdash; לא אישור על תוכן ההוראה. SEI מסמיכה את המנחים שלה לפי התקן שהיא הגדירה.
+                </div>
+            </div>
+        </div>
+
+        <div class="gap-card">
+            <h4>4. הסטנדרט הבינלאומי</h4>
+            <div class="gap-row">
+                <div class="gap-side gap-marketing">
+                    <div class="gap-label">מה ההורים שומעים</div>
+                    "מבוסס על סטנדרטים בינלאומיים של ארגון הבריאות העולמי"
+                </div>
+                <div class="gap-side gap-reality">
+                    <div class="gap-label">מה הסטנדרט כולל</div>
+                    CSE של WHO/IPPF: זכויות מיניות כזכויות אדם, זהות מגדרית כספקטרום, "הנאה" כזכות, ביקורת ההטרונורמטיביות. הקואליציה דורשת הטמעה "בכל שכבות הגיל במערכת החינוך."
+                </div>
+            </div>
+        </div>
+
+        <div class="gap-card">
+            <h4>5. ה"התאמה הרב-תרבותית"</h4>
+            <div class="gap-row">
+                <div class="gap-side gap-marketing">
+                    <div class="gap-label">מה ההורים מצפים</div>
+                    התוכנית מותאמת לערכי הקהילה &mdash; חילוני, דתי, ערבי
+                </div>
+                <div class="gap-side gap-reality">
+                    <div class="gap-label">מה בפועל</div>
+                    SEI מצהירה על "התאמה" אך אין פירוט פומבי של הבדלים בתוכן בין מגזרים. אין מסמכי תוכנית לימודים נפרדים. עקרונות ליבת ה-CSE נשארים זהים &mdash; רק "אופן ההצגה והדגשים" משתנים.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שאלות שכל הורה צריך לשאול</h2>
+            <ul style="padding-right:18px;font-size:0.95em;line-height:2.2">
+                <li>מי ההסמיך את המנחה שנכנס לכיתה של ילדי? מי מפקח על המסמיכים?</li>
+                <li>האם ראיתי את תוכנית הלימודים המלאה? (לא רק שם התוכנית &mdash; את התוכן עצמו)</li>
+                <li>האם ידוע לי שהתוכנית כוללת נושאים מעבר ל"מניעת ניצול" &mdash; כמו זהות מגדרית, פורנוגרפיה, הנאה מינית?</li>
+                <li>האם ידוע לי שהארגון חלק מקואליציה עם האגודה למען הלהט"ב והמרכז הרפורמי?</li>
+                <li>האם קיבלתי הסכמה מפורשת (Opt-in) או רק הודעה (Opt-out)? האם יש לי זכות לסרב?</li>
+                <li>מה ההבדל בין "עמותת תודעה", "SEI" ו"מהפך תודעתי"? (תשובה: אין הבדל &mdash; אותו ע"ר 580665345)</li>
+                <li>מהם הסטנדרטים הבינלאומיים שעליהם מבוססת התוכנית? האם קראתי אותם?</li>
+                <li>האם ידוע לי שההסמכה של SEI אינה מוכרת על ידי שום גוף ממשלתי או אקדמי?</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>ציטוטים מפתח &mdash; מפי הארגון עצמו</h2>
+
+            <div class="depth-quote">
+                "התוכניות שלנו עוסקות במגוון רחב של נושאים, ביניהם: דימוי גוף, <strong>זהות מינית ומגדר</strong>, מערכות יחסים, תקשורת, הסכמה, אמצעי מניעה, מחלות מין, <strong>פורנוגרפיה</strong>, סייבר ומיניות, וזיהוי מצבי סיכון."
+                <br><span style="font-style:normal;font-size:0.82em;color:#888">&mdash; אתר SEI, sei.org.il, עמוד "התוכניות שלנו"</span>
+            </div>
+
+            <div class="depth-quote">
+                "אנו מאמינות כי חינוך מיני מקיף הוא כלי חיוני למניעת ניצול מיני, הטרדות ואלימות מינית, ומאפשר לבני נוער לפתח מיניות בריאה, בטוחה ומכבדת, המבוססת על <strong>בחירה חופשית והסכמה</strong>."
+                <br><span style="font-style:normal;font-size:0.82em;color:#888">&mdash; אתר SEI, sei.org.il, עמוד "הגישה שלנו"</span>
+            </div>
+
+            <div class="depth-quote">
+                "אנו קוראים למשרד החינוך לאמץ את המלצות ארגון הבריאות העולמי (WHO) והמרכז האירופי למניעת ובקרת מחלות (ECDC) לחינוך מיני מקיף (CSE), ולשלב תוכניות חינוך מיני מותאמות גיל ותרבות <strong>בכל שכבות הגיל</strong> במערכת החינוך."
+                <br><span style="font-style:normal;font-size:0.82em;color:#888">&mdash; עצומת קואליציית "חינוך מיני לכל"</span>
+            </div>
+
+            <div class="depth-quote">
+                "התוכניות שלנו מותאמות באופן ספציפי לצרכים, לערכים ולנורמות התרבותיות של כל קהילה וקהילה."
+                <br><span style="font-style:normal;font-size:0.82em;color:#888">&mdash; אתר SEI, sei.org.il, עמוד "הגישה שלנו"</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>סיכום: רמת הסיכון</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>הערכת סיכון</h3>
+                    <table>
+                        <tr><th>ציר</th><th>רמה</th></tr>
+                        <tr><td>הסמכה עצמית ללא פיקוח</td><td style="color:#e74c3c;font-weight:700">קריטי</td></tr>
+                        <tr><td>פער שיווק-תוכן</td><td style="color:#e74c3c;font-weight:700">קריטי</td></tr>
+                        <tr><td>רשת ארגונית מרוכזת</td><td style="color:#e74c3c;font-weight:700">גבוה</td></tr>
+                        <tr><td>ייבוא מודל בינלאומי</td><td style="color:#f39c12;font-weight:700">בינוני-גבוה</td></tr>
+                        <tr><td>שקיפות כספית</td><td style="color:#f39c12;font-weight:700">בינוני</td></tr>
+                        <tr><td>פריסה בבתי ספר</td><td style="color:#27ae60;font-weight:700">נמוך (נכון לגפ"ן)</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>SEI היא רשת ארגונים הפועלת כגוף הסמכה עצמי לחינוך מיני בישראל. היא מגדירה את התקן, מכשירה מנחים לפי התקן, שולחת אותם לבתי ספר, ומציגה את עצמה כסמכות המקצועית. הפער בין השיווק ("מניעת ניצול") לבין התוכן (CSE מלא) הוא הממצא המרכזי.</p>
+                    <p>הפריסה בגפ"ן נמוכה (בית ספר אחד) &mdash; אך הרשת פועלת גם מחוץ לגפ"ן: דרך רשויות מקומיות, שירותי בריאות, וקהילות. ההכשרות השונות (SEI, דלת פתוחה, לדעת) מייצרות מאגר הולך וגדל של "מנחים מוסמכים" שנכנסים למערכת החינוך.</p>
+
+                    <div class="warning-box" style="margin-top:12px">
+                        <strong>המסר להורים:</strong> בקשו לראות את תוכנית הלימודים המלאה. שאלו מי הסמיך את המנחה ומי מפקח על המסמיכים. היו מודעים שאישור גפ"ן אינו אישור על תוכן ההוראה. ואם מציעים לכם "מניעת ניצול מיני" &mdash; בדקו מה עוד כלול בחבילה.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שאלות פתוחות לחקירה המשכית</h2>
+            <table>
+                <tr><th>#</th><th>שאלה</th><th>מדוע חשובה</th></tr>
+                <tr><td>1</td><td>מי עומד מאחורי "תרומות בארץ" בסך 1,027,500 &#8362;?</td><td>NIF? קרנות פוליטיות? תורמים פרטיים? &mdash; הדוחות לא מפרטים</td></tr>
+                <tr><td>2</td><td>כמה מנחים הוסמכו ואיפה הם פועלים?</td><td>הגפ"ן מראה בית ספר אחד &mdash; אך הרשת גדולה יותר</td></tr>
+                <tr><td>3</td><td>מה ההבדל האמיתי בין "גרסה חילונית" ו"גרסה דתית"?</td><td>SEI מצהירה על "התאמה" אך ללא הוכחה פומבית</td></tr>
+                <tr><td>4</td><td>מה בדיוק כולל הפרקטיקום של 120 שעות?</td><td>סילבוס לא זמין לציבור</td></tr>
+                <tr><td>5</td><td>מה הקשר הפורמלי ל-IPPF ולאגודה לתכנון המשפחה?</td><td>חברות? שותפות? מימון?</td></tr>
+                <tr><td>6</td><td>באילו רשויות מקומיות פועלת SEI מחוץ לגפ"ן?</td><td>מימון עירוני ישיר (כמו חוש"ן ברעננה)</td></tr>
+                <tr><td>7</td><td>מה הזיקה של חברי הוועד למעוז וליוזמות אברהם?</td><td>דלת מסתובבת = הצעדה דרך המוסדות</td></tr>
+                <tr><td>8</td><td>האם SEI מגישה דוחות לגופים בינלאומיים?</td><td>כמו חוש"ן שהגיש ל-OHCHR</td></tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר &mdash; פרויקט דירוג ערים | <a href="../">דירוג ערים</a> | <a href="index.html">מאגר מחקר</a> | פברואר 2026</p>
+    <p style="margin-top:4px">מבוסס על מקורות ציבוריים: GuideStar Israel, רשם העמותות, אתרי SEI (sei.org.il, todaango.org.il), IPPF, WHO, קואליציית "חינוך מיני לכל".</p>
+</footer>
+
+<script>
+// -- Navigation --
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// -- Radar Chart --
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['הסמכה עצמית', 'פער שיווק-תוכן', 'רשת ארגונית', 'קשר בינלאומי', 'חדירה לחינוך'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [95, 90, 85, 75, 60],
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [20, 15, 25, 35, 20],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// -- Finance Doughnut --
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['תרומות בארץ (98.7%)', 'הכנסות מפעילות (1.3%)'],
+        datasets: [{
+            data: [98.7, 1.3],
+            backgroundColor: ['#667eea', '#f39c12'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 12 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.label + ': ' + ctx.raw + '%'
+                }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>

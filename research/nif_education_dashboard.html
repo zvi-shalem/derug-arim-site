@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIF — רשת מימון חינוך | דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #ff8800; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+.metric.info { border-right: 4px solid #667eea; }
+.metric.info .value { color: #667eea; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+.chart-wrap-wide {
+    position: relative; width: 100%;
+    height: 350px; margin: 0 auto;
+}
+
+/* -- Flow diagram -- */
+.flow-diagram {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 24px 0;
+}
+.flow-level {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    width: 100%;
+}
+.flow-node {
+    text-align: center; padding: 12px 18px; border-radius: 8px;
+    min-width: 100px; transition: transform 0.2s; cursor: default;
+}
+.flow-node:hover { transform: scale(1.04); }
+.flow-node.source {
+    background: #1a1a2e; color: #fff; font-weight: 700;
+    font-size: 1.1em; padding: 16px 32px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.flow-node.hub {
+    background: #ff8800; color: #fff; font-weight: 700;
+    padding: 14px 24px;
+    box-shadow: 0 3px 10px rgba(255,136,0,0.3);
+}
+.flow-node.org {
+    background: #fff; border: 2px solid #667eea;
+    font-weight: 600; color: #1a1a2e; font-size: 0.88em;
+    padding: 10px 14px; min-width: 120px;
+}
+.flow-node.org .flow-amount {
+    display: block; font-size: 0.78em; color: #e74c3c; font-weight: 700; margin-top: 4px;
+}
+.flow-node.target {
+    background: #f0fdf4; border: 2px solid #86efac;
+    font-weight: 600; color: #1a1a2e; font-size: 0.88em;
+    padding: 10px 14px;
+}
+.flow-arrow {
+    color: #ccc; font-size: 1.6em; line-height: 1;
+}
+
+/* -- Org cards -- */
+.org-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #667eea;
+    transition: all 0.2s;
+}
+.org-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.org-card.major { border-right-color: #e74c3c; }
+.org-card.medium { border-right-color: #f39c12; }
+.org-card.minor { border-right-color: #86efac; }
+.org-card .org-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+}
+.org-card .org-name { font-size: 1.15em; font-weight: 700; color: #1a1a2e; }
+.org-card .org-name-en { font-size: 0.82em; color: #888; font-weight: 400; }
+.org-card .org-amount {
+    background: #fff5f5; padding: 4px 14px; border-radius: 16px;
+    font-weight: 800; color: #e74c3c; font-size: 1.05em;
+    white-space: nowrap;
+}
+.org-card .org-years { font-size: 0.78em; color: #999; margin-bottom: 8px; }
+.org-card .org-desc { font-size: 0.9em; color: #444; margin-bottom: 8px; }
+.org-card .org-edu {
+    background: #f0f4fa; padding: 10px 14px; border-radius: 6px;
+    font-size: 0.88em; margin-top: 10px;
+}
+.org-card .org-edu strong { color: #2a5a8a; }
+.org-link {
+    display: inline-block; margin-top: 8px; padding: 4px 12px;
+    background: #667eea; color: #fff; border-radius: 4px;
+    text-decoration: none; font-size: 0.78em; font-weight: 600;
+    transition: background 0.2s;
+}
+.org-link:hover { background: #5568d0; }
+
+/* -- Coalition table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge-red { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+.badge-orange { background: #fff7ed; color: #ea580c; border: 1px solid #fdba74; }
+.badge-blue { background: #eff6ff; color: #2563eb; border: 1px solid #93c5fd; }
+.badge-green { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+.badge-gray { background: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
+
+/* -- Overlap visualization -- */
+.overlap-viz {
+    display: flex; justify-content: center; align-items: center;
+    padding: 30px 0; gap: 0; position: relative;
+    min-height: 280px;
+}
+.venn-circle {
+    border-radius: 50%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; font-size: 0.82em; font-weight: 600;
+}
+.venn-nif {
+    width: 220px; height: 220px;
+    background: rgba(255, 136, 0, 0.15); border: 3px solid #ff8800;
+    position: relative; z-index: 1;
+}
+.venn-ohchr {
+    width: 220px; height: 220px;
+    background: rgba(102, 126, 234, 0.15); border: 3px solid #667eea;
+    margin-right: -70px; position: relative; z-index: 2;
+}
+.venn-overlap-label {
+    position: absolute; z-index: 10;
+    background: #e74c3c; color: #fff; padding: 6px 14px;
+    border-radius: 16px; font-weight: 800; font-size: 1.1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+@media (max-width: 600px) {
+    .venn-nif, .venn-ohchr { width: 160px; height: 160px; font-size: 0.72em; }
+    .venn-ohchr { margin-right: -50px; }
+}
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-size: 0.78em; color: #888; font-style: normal; margin-top: 6px; }
+
+/* -- Conclusion cards -- */
+.conclusion-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-top: 3px solid #ff8800;
+}
+.conclusion-card h3 { color: #1a1a2e; margin-bottom: 8px; font-size: 1.1em; }
+.conclusion-card p { font-size: 0.9em; color: #444; }
+.conclusion-card .insight {
+    background: #f0f4fa; padding: 10px 14px; border-radius: 6px;
+    font-size: 0.88em; margin-top: 10px; color: #2a5a8a;
+}
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Negative finding -- */
+.negative-box {
+    background: #f0fdf4; border-right: 4px solid #16a34a;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.negative-box strong { color: #166534; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Shatil node -- */
+.shatil-services {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    margin: 14px 0;
+}
+.shatil-service {
+    background: #fff7ed; border: 1px solid #fdba74; border-radius: 8px;
+    padding: 12px; text-align: center;
+}
+.shatil-service .ss-icon { font-size: 1.5em; margin-bottom: 4px; }
+.shatil-service .ss-title { font-weight: 700; color: #ea580c; font-size: 0.88em; }
+.shatil-service .ss-desc { font-size: 0.78em; color: #666; margin-top: 4px; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>NIF</span>
+            <span class="risk-pill">&#x1F310; &#x202B;רשת מימון</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('orgs')">ארגונים</button>
+            <button class="nav-tab" onclick="navigate('coalitions')">קואליציות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">מסקנות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>הקרן החדשה לישראל (NIF) &mdash; רשת מימון חינוך</h1>
+    <div class="subtitle">New Israel Fund | מטה: ניו יורק | זרוע מבצעית: שתיל | נוסדה: 1979</div>
+    <div class="meta">~$1.375M/שנה לארגוני חינוך | 7 ארגונים ממומנים | 3 משרדי שתיל | כל המענקים "תמיכה כללית"</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB 1: OVERVIEW ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תמונת מצב: איך NIF מממנת חינוך בלי תוכנית חינוך</h2>
+            <p>הקרן החדשה לישראל (NIF) לא מפעילה תוכנית חינוך ייעודית. <strong>אין סעיף תקציבי לחינוך, אין ועדת חינוך, אין דוח חינוך.</strong> ובכל זאת, כ-$1.375 מיליון בשנה מגיעים לארגונים שפועלים בתוך מערכת החינוך הישראלית. איך? דרך מנגנון "תמיכה כללית" (General Support) &mdash; מענקים בלתי-ייעודיים שמאפשרים לארגונים להשתמש בכסף לכל צורך, כולל חינוך.</p>
+
+            <div class="grid-4">
+                <div class="metric alert">
+                    <div class="label">מימון שנתי לארגוני חינוך</div>
+                    <div class="value">$1.375M</div>
+                    <div class="note">נתוני 2022, Grant Lists</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">ארגונים ממומנים</div>
+                    <div class="value">7</div>
+                    <div class="note">ארגונים בעלי זיקה חינוכית</div>
+                </div>
+                <div class="metric info">
+                    <div class="label">משרדי שתיל</div>
+                    <div class="value">3</div>
+                    <div class="note">ת"א, ירושלים, נצרת</div>
+                </div>
+                <div class="metric">
+                    <div class="label">שנות מימון מתועדות</div>
+                    <div class="value">10+</div>
+                    <div class="note">2013&ndash;2022 לפחות</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תרשים זרימה: מסלול הכסף</h2>
+            <p style="font-size:0.85em;color:#666;margin-bottom:16px">NIF מעבירה כסף לארגונים כ"תמיכה כללית". שתיל מספקת ליווי מקצועי. הארגונים מפעילים תוכניות חינוכיות בבתי ספר.</p>
+            <div class="flow-diagram">
+                <div class="flow-level">
+                    <div class="flow-node source">NIF &mdash; הקרן החדשה לישראל<br><span style="font-size:0.7em;opacity:0.8">מטה ניו יורק | ~$1.375M/שנה</span></div>
+                </div>
+                <div class="flow-arrow">&#9660;</div>
+                <div class="flow-level" style="gap:24px">
+                    <div class="flow-node hub">שתיל<br><span style="font-size:0.72em">זרוע מבצעית &mdash; ייעוץ, הכשרה, קואליציות</span></div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                        <span style="font-size:0.78em;color:#999">מענקים ישירים</span>
+                        <span style="font-size:0.78em;color:#e74c3c;font-weight:700">"תמיכה כללית"</span>
+                    </div>
+                </div>
+                <div class="flow-arrow">&#9660;</div>
+                <div class="flow-level">
+                    <div class="flow-node org">ACRI<br><span class="flow-amount">$1,000,000</span></div>
+                    <div class="flow-node org">סיכוי<br><span class="flow-amount">$150,000</span></div>
+                    <div class="flow-node org">קרן אברהם<br><span class="flow-amount">$100,000</span></div>
+                    <div class="flow-node org">מוסאוא<br><span class="flow-amount">$50,000</span></div>
+                    <div class="flow-node org">מרכז אדוה<br><span class="flow-amount">$50,000</span></div>
+                    <div class="flow-node org">דו-קיום בנגב<br><span class="flow-amount">$25,000</span></div>
+                </div>
+                <div class="flow-arrow">&#9660;</div>
+                <div class="flow-level">
+                    <div class="flow-node target">&#x1F3EB; בתי ספר</div>
+                    <div class="flow-node target">&#x1F3DB; רשויות מקומיות</div>
+                    <div class="flow-node target">&#x1F393; מכללות ואוניברסיטאות</div>
+                    <div class="flow-node target">&#x1F4CB; דוחות צל לאו"ם</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>התפלגות מימון שנתי לפי ארגון</h3>
+                    <div class="chart-wrap">
+                        <canvas id="fundingDoughnut"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מנגנון "תמיכה כללית"</h3>
+                    <div class="quote-box">
+                        "סכום המימון מ-NIF ל-ACRI עומד על $1,000,000 בשנה, ומוגדר כ'תמיכה כללית' (General Support)."
+                        <div class="q-source">NIF Grant Lists 2013&ndash;2022</div>
+                    </div>
+                    <p style="font-size:0.9em">כל המענקים מוגדרים כ"תמיכה כללית". לא ניתן להפריד כמה מכל מענק מיועד לחינוך. זהו לא באג &mdash; <strong>זו תכונה.</strong> אטימות המענק מאפשרת לארגון להשתמש בכסף לפעילות חינוכית ללא דיווח נפרד, ביקורת חיצונית, או מגבלה ספציפית.</p>
+                    <p style="font-size:0.9em">כתוצאה מכך, NIF יכולה לטעון שהיא "לא מממנת חינוך" באותה נשימה שבה הארגונים שהיא מממנת מפעילים סדנאות בבתי ספר.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שתיל &mdash; הזרוע המבצעית</h2>
+            <p>שתיל אינה מעבירה כסף ישירות, אבל היא מספקת <strong>תשתית מקצועית</strong> לכל ארגוני NIF. שלושה משרדים בפריסה ארצית:</p>
+            <div class="shatil-services">
+                <div class="shatil-service">
+                    <div class="ss-icon">&#x1F4CA;</div>
+                    <div class="ss-title">ייעוץ אסטרטגי</div>
+                    <div class="ss-desc">תוכניות עבודה, מודלים ארגוניים, שיפור יעילות</div>
+                </div>
+                <div class="shatil-service">
+                    <div class="ss-icon">&#x1F4B0;</div>
+                    <div class="ss-title">הכשרת גיוס כספים</div>
+                    <div class="ss-desc">סדנאות, ניהול קמפיינים, יחסי ציבור</div>
+                </div>
+                <div class="shatil-service">
+                    <div class="ss-icon">&#x1F91D;</div>
+                    <div class="ss-title">בניית קואליציות</div>
+                    <div class="ss-desc">שיתופי פעולה בין ארגונים, רשתות, פעילות משותפת</div>
+                </div>
+                <div class="shatil-service">
+                    <div class="ss-icon">&#x1F3AF;</div>
+                    <div class="ss-title">ליווי מקצועי</div>
+                    <div class="ss-desc">תקשורת, משפט, מחקר, קידום מדיניות</div>
+                </div>
+            </div>
+            <div class="grid-3" style="margin-top:14px">
+                <div class="metric">
+                    <div class="label">תל אביב</div>
+                    <div class="value">&#x1F3E2;</div>
+                    <div class="note">משרד ראשי</div>
+                </div>
+                <div class="metric">
+                    <div class="label">ירושלים</div>
+                    <div class="value">&#x1F3E2;</div>
+                    <div class="note">כיסוי אזור המרכז</div>
+                </div>
+                <div class="metric">
+                    <div class="label">נצרת</div>
+                    <div class="value">&#x1F3E2;</div>
+                    <div class="note">כיסוי החברה הערבית</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <strong>ממצא קריטי — מחזקים:</strong> ארגון <strong>מחזקים</strong> ממומן ע"י הקרן החדשה. סדנת <strong>"הנדסת תודעה"</strong> (חגי אלקיים) — מלמדת טכניקות של "שינוי תודעתי" לפעילים חברתיים.
+            <a href="https://www.gnostocracy.com/?quote=534" target="_blank" rel="noopener" style="color:#e74c3c;font-weight:600;">צפה בוידאו מקור</a>
+            <br><span style="font-size:0.85em;color:#666;">אותה קרן חדשה שמממנת סדנאות "הנדסת תודעה" מממנת גם ארגונים שמפעילים תוכניות חינוך בבתי ספר.</span>
+        </div>
+
+        <div class="negative-box">
+            <strong>ממצא שלילי:</strong> מצמיחים (ארגון חינוכי פעיל) &mdash; <strong>לא נמצא מידע</strong> על מימון NIF.
+        </div>
+    </div>
+
+    <!-- ======= TAB 2: ORGANIZATIONS ======= -->
+    <div id="view-orgs" class="view">
+
+        <div class="section">
+            <h2>ארגונים ממומנים בעלי זיקה חינוכית</h2>
+            <p>כל הסכומים מתייחסים למענק שנתי (ממוצע). כל המענקים מוגדרים "תמיכה כללית". פעילות חינוכית היא חלק מתחום הפעילות הרחב &mdash; לא מענק ייעודי.</p>
+        </div>
+
+        <!-- ACRI -->
+        <div class="org-card major">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">האגודה לזכויות האזרח בישראל <span class="org-name-en">(ACRI)</span></div>
+                    <div class="org-years">2013&ndash;2022 | 10 שנים רצופות של מימון מתועד</div>
+                </div>
+                <div class="org-amount">$1,000,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                הארגון הוותיק ביותר לזכויות אדם בישראל. 72.7% מכלל מימון NIF לארגוני חינוך מגיעים ל-ACRI בלבד. סך מצטבר מתועד: <strong>$10,000,000</strong> (2013&ndash;2022).
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> סדנאות והרצאות לתלמידים וצוותי הוראה בנושאי זכויות אדם, דמוקרטיה וסובלנות. פיתוח חומרי לימוד. הכשרות למורים וגננות. תוכניות "חינוך לזכויות אדם" בבתי ספר במערכת הפורמלית והבלתי-פורמלית.
+            </div>
+            <a href="acri_dashboard.html" class="org-link">דשבורד ACRI &rarr;</a>
+            <a href="deep_ACRI.html" class="org-link" style="margin-right:8px">דוח מחקר מלא &rarr;</a>
+        </div>
+
+        <!-- Sikkuy -->
+        <div class="org-card medium">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">סיכוי &mdash; לקידום שוויון אזרחי <span class="org-name-en">(Sikkuy)</span></div>
+                    <div class="org-years">2015&ndash;2022 | 8 שנים מתועדות</div>
+                </div>
+                <div class="org-amount">$150,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                ארגון לקידום שוויון בין אזרחים יהודים וערבים. 10.9% ממימון NIF לארגוני חינוך.
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> קידום שוויון בחינוך בין יהודים לערבים. תוכניות השכלה אזרחית. מחקרים על פערים במערכת החינוך.
+            </div>
+        </div>
+
+        <!-- Abraham Initiatives -->
+        <div class="org-card medium">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">יוזמות קרן אברהם <span class="org-name-en">(The Abraham Initiatives)</span></div>
+                    <div class="org-years">2015&ndash;2022 | 8 שנים מתועדות</div>
+                </div>
+                <div class="org-amount">$100,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                ארגון לקידום שותפות ושוויון בין אזרחים יהודים וערבים. 7.3% ממימון NIF לארגוני חינוך.
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> תוכניות חינוך לדו-קיום בבתי ספר. מודלים לחינוך משותף יהודי-ערבי. הכשרת מורים לחינוך רב-תרבותי.
+            </div>
+        </div>
+
+        <!-- Mossawa -->
+        <div class="org-card minor">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">מרכז מוסאוא <span class="org-name-en">(Mossawa Center)</span></div>
+                    <div class="org-years">2015&ndash;2022 | 8 שנים מתועדות</div>
+                </div>
+                <div class="org-amount">$50,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                מרכז סנגור לזכויות האזרחים הערבים בישראל. 3.6% ממימון NIF לארגוני חינוך.
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> קידום זכויות האזרחים הערבים בתחום החינוך. מחקרים על אפליה במערכת החינוך. סנגור לתקצוב שוויוני.
+            </div>
+        </div>
+
+        <!-- Adva Center -->
+        <div class="org-card minor">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">מרכז אדוה <span class="org-name-en">(Adva Center)</span></div>
+                    <div class="org-years">2015&ndash;2022 | 8 שנים מתועדות</div>
+                </div>
+                <div class="org-amount">$50,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                מרכז מחקר וניתוח מדיניות חברתית. 3.6% ממימון NIF לארגוני חינוך.
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> מחקרים על פערים חברתיים בחינוך. פרסומים המשמשים לחינוך ציבורי. ניתוחי מדיניות חינוכית הנכנסים למערכת ההוראה.
+            </div>
+        </div>
+
+        <!-- Negev Coexistence Forum -->
+        <div class="org-card minor">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">הפורום לדו-קיום בנגב <span class="org-name-en">(Negev Coexistence Forum)</span></div>
+                    <div class="org-years">2015&ndash;2022 | 8 שנים מתועדות</div>
+                </div>
+                <div class="org-amount">$25,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                ארגון לקידום שוויון ודו-קיום בנגב. 1.8% ממימון NIF לארגוני חינוך.
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> פעילויות חינוכיות לדו-קיום בנגב. סדנאות בבתי ספר. מפגשים בין-תרבותיים לתלמידים.
+            </div>
+        </div>
+
+        <!-- CHOSHEN -->
+        <div class="org-card" style="border-right-color: #9333ea;">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">חוש"ן &mdash; חינוך ושינוי <span class="org-name-en">(CHOSHEN)</span></div>
+                    <div class="org-years">2014&ndash;2015 | מימון NIF הופסק</div>
+                </div>
+                <div class="org-amount">$15,000/שנה</div>
+            </div>
+            <div class="org-desc">
+                ארגון לקידום סובלנות וקבלה של קהילת הלהט"ב במערכת החינוך. מימון NIF מתועד רק בשנים 2014&ndash;2015. <strong>לא מופיע בדוחות 2022</strong>. יחד עם זאת, זוהה ב-6 תוכניות גפ"ן אך עם <strong>אפס פריסות</strong>, ותקציב משרד החינוך נחתך ב-85%.
+            </div>
+            <div class="org-edu">
+                <strong>פעילות חינוכית:</strong> הרצאות וסדנאות בבתי ספר לקידום קבלה של קהילת הלהט"ב. חומרי לימוד לצוותי חינוך. הכשרת מורים. בהחלטת מועצת עיר רעננה (2022) הוצע לממן את חוש"ן ישירות מתקציב עירוני &mdash; מנגנון עקיפה כשמימון מרכזי מתייבש.
+            </div>
+            <a href="choshen_dashboard.html" class="org-link">דשבורד חוש"ן &rarr;</a>
+            <a href="deep_CHOSHEN.html" class="org-link" style="margin-right:8px">דוח מחקר מלא &rarr;</a>
+        </div>
+
+        <!-- MECHAZKIM -->
+        <div class="org-card" style="border-right-color: #e74c3c;">
+            <div class="org-header">
+                <div>
+                    <div class="org-name">מחזקים <span class="org-name-en">(Mechazkim, ע"ר 580648327)</span></div>
+                    <div class="org-years">2017&ndash;2021 | $315,256 סה"כ | סדנת "הנדסת תודעה"</div>
+                </div>
+                <div class="org-amount" style="color:#e74c3c">$132K/שנה</div>
+            </div>
+            <div class="org-desc">
+                ארגון מחזקים ממומן ע"י הקרן החדשה לישראל. מפעיל סדנת <strong>"הנדסת תודעה"</strong> (Consciousness Engineering) — המלמדת טכניקות של שינוי תודעתי לפעילים חברתיים. <strong>חגי אלקיים</strong> מנחה את הסדנה.
+            </div>
+            <div class="org-edu">
+                <strong>משמעות:</strong> אותה קרן שמממנת סדנאות "הנדסת תודעה" מממנת גם ארגונים שמפעילים תוכניות חינוך בבתי ספר — מה שחושף את <strong>הרצף</strong>: מימון → הכשרת פעילים → חדירה לבתי ספר.
+            </div>
+            <a href="https://www.gnostocracy.com/?quote=534" target="_blank" rel="noopener" class="org-link" style="color:#e74c3c;font-weight:700">צפה בוידאו — "הנדסת תודעה" &rarr;</a>
+        </div>
+
+        <div class="section">
+            <h2>התפלגות מימון שנתי</h2>
+            <div class="chart-wrap-wide">
+                <canvas id="fundingBar"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB 3: COALITIONS ======= -->
+    <div id="view-coalitions" class="view">
+
+        <div class="section">
+            <h2>קואליציית OHCHR &mdash; דוח UPR 2018</h2>
+            <p>בשנת 2018, קואליציה של ארגונים ישראלים הגישה דוח משותף לנציבות זכויות האדם של האו"ם (OHCHR) במסגרת הסקירה התקופתית האוניברסלית (UPR) של ישראל. <strong>10 מתוך 11 הארגונים בקואליציה מקבלים מימון מ-NIF.</strong></p>
+        </div>
+
+        <div class="section">
+            <h3>חפיפת NIF-OHCHR</h3>
+            <div class="overlap-viz">
+                <div class="venn-nif">
+                    <div style="font-weight:700;color:#ff8800;font-size:1.1em">NIF</div>
+                    <div style="font-size:0.72em;color:#666;margin-top:4px">ממן 7+ ארגוני חינוך</div>
+                </div>
+                <div class="venn-ohchr">
+                    <div style="font-weight:700;color:#667eea;font-size:1.1em">OHCHR</div>
+                    <div style="font-size:0.72em;color:#666;margin-top:4px">11 ארגונים בדוח</div>
+                </div>
+                <div class="venn-overlap-label">10/11</div>
+            </div>
+            <p style="text-align:center;font-size:0.88em;color:#666;margin-top:-10px">10 מתוך 11 ארגוני הקואליציה ממומנים ע"י NIF &mdash; חפיפה של 91%</p>
+        </div>
+
+        <div class="section">
+            <h3>פירוט ארגוני הקואליציה</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ארגון</th>
+                        <th>מימון NIF (2018)</th>
+                        <th>ממומן NIF?</th>
+                        <th>זיקה חינוכית</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td><strong>ACRI</strong> &mdash; האגודה לזכויות האזרח</td>
+                        <td>$1,000,000</td>
+                        <td><span class="badge badge-red">$1M/שנה</span></td>
+                        <td>חינוך לזכויות אדם בבתי ספר</td>
+                    </tr>
+                    <tr>
+                        <td>בצלם (B'Tselem)</td>
+                        <td>$250,000</td>
+                        <td><span class="badge badge-red">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>יש דין (Yesh Din)</td>
+                        <td>$150,000</td>
+                        <td><span class="badge badge-red">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>עדאלה (Adalah)</td>
+                        <td>$150,000</td>
+                        <td><span class="badge badge-red">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>גישה (Gisha)</td>
+                        <td>$100,000</td>
+                        <td><span class="badge badge-orange">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>קו לעובד (Kav LaOved)</td>
+                        <td>$100,000</td>
+                        <td><span class="badge badge-orange">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>רופאים לזכויות אדם (PHR-Israel)</td>
+                        <td>$100,000</td>
+                        <td><span class="badge badge-orange">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>עיר עמים (Ir Amim)</td>
+                        <td>$100,000</td>
+                        <td><span class="badge badge-orange">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>שוברים שתיקה (Breaking the Silence)</td>
+                        <td>$50,000</td>
+                        <td><span class="badge badge-orange">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>הוועד הציבורי נגד עינויים (PCATI)</td>
+                        <td>$50,000</td>
+                        <td><span class="badge badge-orange">ממומן</span></td>
+                        <td><span class="badge badge-gray">עקיפה</span></td>
+                    </tr>
+                    <tr>
+                        <td>מרכז אלמיזאן לזכויות אדם (Al Mezan)</td>
+                        <td>&mdash;</td>
+                        <td><span class="badge badge-green">לא ממומן</span></td>
+                        <td>ארגון פלסטיני מעזה</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid-3" style="margin-top:20px">
+                <div class="metric alert">
+                    <div class="label">סך מימון NIF לקואליציה</div>
+                    <div class="value">$2.05M</div>
+                    <div class="note">שנת 2018 בלבד</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">אחוז ארגונים ממומנים</div>
+                    <div class="value">91%</div>
+                    <div class="note">10 מתוך 11 ארגונים</div>
+                </div>
+                <div class="metric info">
+                    <div class="label">ACRI כחלק מהקואליציה</div>
+                    <div class="value">49%</div>
+                    <div class="note">$1M מתוך $2.05M</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מנגנון האטימות: "תמיכה כללית" כמסך</h2>
+            <div class="quote-box">
+                "לא נמצא מידע בדוחות הציבוריים של NIF או ACRI המפרט באופן מדויק איזה חלק מהמימון הכללי של NIF ל-ACRI מיועד ספציפית לפעילות החינוכית."
+                <div class="q-source">ניתוח דוחות NIF Grant Lists, דוחות שנתיים ACRI</div>
+            </div>
+            <p>מנגנון "תמיכה כללית" יוצר <strong>שלוש שכבות של אטימות:</strong></p>
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">שכבה 1: NIF</div>
+                    <div class="value" style="font-size:1.2em">&#x1F4B8;</div>
+                    <div class="note">"אנחנו נותנים תמיכה כללית &mdash; הארגון מחליט על ההקצאה"</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">שכבה 2: הארגון</div>
+                    <div class="value" style="font-size:1.2em">&#x1F3E2;</div>
+                    <div class="note">"תקציב החינוך שלנו מגיע ממקורות מגוונים &mdash; לא ניתן לייחס"</div>
+                </div>
+                <div class="metric info">
+                    <div class="label">שכבה 3: בית הספר</div>
+                    <div class="value" style="font-size:1.2em">&#x1F3EB;</div>
+                    <div class="note">"הזמנו תוכנית חינוכית מוכרת &mdash; מי מממן? לא רלוונטי"</div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <strong>התוצאה:</strong> אי-אפשר לעקוב אחרי דולר ספציפי ממטה NIF בניו יורק ועד לסדנה ספציפית בכיתה ג' בחיפה. המנגנון מעוצב כך שתמיד תהיה "הכחשה סבירה" (plausible deniability).
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מימון OHCHR &mdash; התפלגות</h2>
+            <div class="chart-wrap-wide">
+                <canvas id="coalitionBar"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB 4: CONCLUSIONS ======= -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section">
+            <h2>מסקנות: רשת מימון בלי תוכנית חינוך</h2>
+        </div>
+
+        <div class="conclusion-card">
+            <h3>1. "תמיכה כללית" = השפעה חינוכית ללא אחריותיות חינוכית</h3>
+            <p>NIF מעבירה $1.375M/שנה לארגונים שמפעילים תוכניות חינוכיות בבתי ספר. אבל מכיוון שהמימון מוגדר "תמיכה כללית", אין שום גורם &mdash; לא NIF, לא הארגון, לא משרד החינוך &mdash; שנושא באחריות ספציפית על התוכן שנכנס לכיתות.</p>
+            <div class="insight">
+                <strong>המשמעות:</strong> ההשפעה החינוכית של NIF אינה נמדדת, אינה מדווחת, ואינה כפופה לביקורת &mdash; לא כי היא לא קיימת, אלא כי המנגנון מעוצב להיות אטום.
+            </div>
+        </div>
+
+        <div class="conclusion-card">
+            <h3>2. ריכוז קיצוני: ACRI = 72.7% מהרשת</h3>
+            <p>מתוך $1.375M/שנה, מיליון דולר (72.7%) הולכים לארגון אחד &mdash; ACRI. זה לא "רשת מימון" במובן הקלאסי; זו <strong>קרן שמזרימה כסף בעיקר לארגון אחד</strong>, שהוא עצמו רשת סנגור בינלאומית עם תוכניות חינוך.</p>
+            <div class="insight">
+                <strong>נקודת מפנה:</strong> מנכ"לית ACRI (נועה סתת) היתה ברשימת מרצ לכנסת. ארגון שמציג עצמו כ"א-מפלגתי" ומפעיל תוכניות "חינוך לזכויות" בבתי ספר &mdash; מנוהל ע"י מי שלה זיקה פוליטית מוצהרת.
+            </div>
+        </div>
+
+        <div class="conclusion-card">
+            <h3>3. אפקט שתיל: כפל-כוח ללא תמחור</h3>
+            <p>מעבר למענקים הישירים, שתיל (הזרוע המבצעית של NIF) מספקת שירותי ייעוץ, הכשרה וליווי לכל הארגונים הממומנים. שירותים אלו אינם מתורגמים לסכום כספי בדוחות המענקים, אבל הם <strong>מכפילי כוח משמעותיים:</strong></p>
+            <div class="grid-2" style="margin-top:12px">
+                <div>
+                    <ul style="font-size:0.9em;list-style:none;padding:0">
+                        <li style="padding:6px 0;border-bottom:1px solid #f0f0f0">&#x2714; ייעוץ אסטרטגי &mdash; אופטימיזציה של חדירה למערכת</li>
+                        <li style="padding:6px 0;border-bottom:1px solid #f0f0f0">&#x2714; הכשרת גיוס כספים &mdash; גיוון מקורות מעבר ל-NIF</li>
+                        <li style="padding:6px 0;border-bottom:1px solid #f0f0f0">&#x2714; בניית קואליציות &mdash; פעולה מתואמת (כמו דוח OHCHR)</li>
+                        <li style="padding:6px 0">&#x2714; ליווי משפטי ותקשורתי &mdash; הגנה מפני ביקורת</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="quote-box" style="margin:0">
+                        "שתיל מדווחת על ליווי של מאות ארגונים בשנה. ארגונים כמו האגודה לזכויות האזרח, חוש"ן, סיכוי, ויוזמות קרן אברהם &mdash; המקבלים מימון מ-NIF &mdash; נהנים גם משירותי שתיל."
+                        <div class="q-source">אתר שתיל, דוחות שנתיים</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion-card">
+            <h3>4. ניתוח רשת: ממן אחד, קואליציות רבות</h3>
+            <p>כשאותו ממן (NIF) מממן 91% מארגוני קואליציית OHCHR, וגם מממן ארגונים שפועלים בתוך בתי ספר, ושתיל (זרוע NIF) בונה את הקואליציות &mdash; מתקבלת רשת שבה:</p>
+            <div class="grid-3" style="margin-top:12px">
+                <div class="metric alert">
+                    <div class="label">כלפי חוץ (או"ם)</div>
+                    <div class="value" style="font-size:1.1em">דוחות צל</div>
+                    <div class="note">ACRI + 9 ארגוני NIF → OHCHR</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">כלפי פנים (חינוך)</div>
+                    <div class="value" style="font-size:1.1em">סדנאות בביה"ס</div>
+                    <div class="note">ACRI + 6 ארגוני NIF → כיתות</div>
+                </div>
+                <div class="metric info">
+                    <div class="label">מתאם</div>
+                    <div class="value" style="font-size:1.1em">שתיל</div>
+                    <div class="note">בניית קואליציות + ייעוץ אסטרטגי</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion-card">
+            <h3>5. מה לא נמצא</h3>
+            <div class="negative-box" style="margin:12px 0">
+                <strong>ממצאים שליליים חשובים:</strong>
+                <ul style="margin-top:8px;font-size:0.9em;padding-right:20px">
+                    <li><strong>אין תוכנית חינוך ייעודית של NIF</strong> &mdash; לא קיימת "שתיל לחינוך" או דומה</li>
+                    <li><strong>מחזקים ממומן ע"י NIF</strong> &mdash; ומפעיל סדנת "הנדסת תודעה" (<a href="https://www.gnostocracy.com/?quote=534" target="_blank" style="color:#e74c3c">וידאו</a>)</li>
+                    <li><strong>מצמיחים לא ממומן ע"י NIF</strong> &mdash; לא כל ארגון חינוכי שייך לרשת</li>
+                    <li><strong>חוש"ן קיבל רק $30K סה"כ</strong> (2014&ndash;2015) &mdash; מימון NIF הופסק, הארגון עבר למימון עירוני</li>
+                    <li><strong>אין ראיה לתיאום ישיר</strong> בין NIF לתוכן הסדנאות &mdash; האטימות עובדת בשני הכיוונים</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תובנה מסכמת</h2>
+            <div class="warning-box">
+                <strong>השורה התחתונה:</strong> NIF לא צריכה "תוכנית חינוך" כדי להשפיע על החינוך. היא צריכה רק לממן ארגונים שעושים את זה בעצמם &mdash; עם "תמיכה כללית" שמונעת מעקב, ושתיל שמתאמת ביניהם. זוהי לא קונספירציה; זו ארכיטקטורה ארגונית שמייצרת השפעה מבנית ללא אחריותיות מבנית.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר מעמיק</h2>
+            <a href="acri_dashboard.html" class="link-card">
+                <div class="lc-icon">&#x1F50D;</div>
+                <div>
+                    <div class="lc-title">דשבורד ACRI</div>
+                    <div class="lc-desc">ניתוח מפורט של האגודה לזכויות האזרח &mdash; מימון, תוכן, שרשרת ראיות</div>
+                </div>
+            </a>
+            <a href="choshen_dashboard.html" class="link-card">
+                <div class="lc-icon">&#x1F50D;</div>
+                <div>
+                    <div class="lc-title">דשבורד חוש"ן</div>
+                    <div class="lc-desc">ניתוח חוש"ן (חינוך ושינוי) &mdash; מימון NIF $15K, תוכניות בביה"ס, אפס פריסות</div>
+                </div>
+            </a>
+            <a href="munzenberg_municipal.html" class="link-card">
+                <div class="lc-icon">&#x1F3DB;</div>
+                <div>
+                    <div class="lc-title">ממצאי פרוטוקולים עירוניים</div>
+                    <div class="lc-desc">23 החלטות מועצה ב-5 ערים &mdash; הקשר בין מימון NIF להחלטות מקומיות</div>
+                </div>
+            </a>
+            <a href="deep_ACRI.html" class="link-card">
+                <div class="lc-icon">&#x1F4C4;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר ACRI</div>
+                    <div class="lc-desc">מחקר מקיף: מבנה ארגוני, מימון, פעילות בינלאומית, השפעה חינוכית</div>
+                </div>
+            </a>
+            <a href="deep_CHOSHEN.html" class="link-card">
+                <div class="lc-icon">&#x1F4C4;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר חוש"ן</div>
+                    <div class="lc-desc">מחקר מקיף: מימון NIF, תוכניות גפ"ן, החלטת רעננה</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section">
+            <h2>מקורות</h2>
+            <ul style="font-size:0.88em;padding-right:20px;color:#555">
+                <li>NIF Grant Lists 2013&ndash;2022 (דוחות מענקים שנתיים פומביים)</li>
+                <li>NIF 990 Tax Filings (דוחות מס אמריקאיים)</li>
+                <li>דוחות שנתיים של ACRI</li>
+                <li>אתר שתיל &mdash; shatil.org.il</li>
+                <li>"Human Rights in Israel: Joint Submission for the UPR 3rd Cycle" (2018) &mdash; הגשה לאו"ם</li>
+                <li>obudget.org &mdash; תקציב פתוח</li>
+                <li>ניתוח דוחות ארגונים: ACRI, סיכוי, קרן אברהם, מוסאוא, מרכז אדוה, הפורום לדו-קיום בנגב, חוש"ן</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    דשבורד מחקר NIF &mdash; רשת מימון חינוך | מבוסס על נתונים ציבוריים |
+    <a href="../index.html">דירוג ערים</a> |
+    <a href="index.html">מאגר מחקר</a>
+</footer>
+
+<script>
+// === Navigation ===
+function navigate(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + viewId).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// === Charts ===
+const nifOrange = '#ff8800';
+const deepBlue = '#667eea';
+const alertRed = '#e74c3c';
+const warnYellow = '#f39c12';
+const safeGreen = '#27ae60';
+
+// --- Doughnut: Funding Distribution ---
+new Chart(document.getElementById('fundingDoughnut').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+        labels: ['ACRI ($1M)', 'סיכוי ($150K)', 'קרן אברהם ($100K)', 'מוסאוא ($50K)', 'מרכז אדוה ($50K)', 'דו-קיום בנגב ($25K)'],
+        datasets: [{
+            data: [1000000, 150000, 100000, 50000, 50000, 25000],
+            backgroundColor: [alertRed, nifOrange, deepBlue, '#9333ea', warnYellow, safeGreen],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { font: { size: 11 }, padding: 12 }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        var total = ctx.dataset.data.reduce(function(a,b){return a+b},0);
+                        var pct = ((ctx.raw / total) * 100).toFixed(1);
+                        return ctx.label + ' — ' + pct + '%';
+                    }
+                }
+            }
+        }
+    }
+});
+
+// --- Bar: Annual funding per org ---
+new Chart(document.getElementById('fundingBar').getContext('2d'), {
+    type: 'bar',
+    data: {
+        labels: ['ACRI', 'סיכוי', 'קרן אברהם', 'מוסאוא', 'מרכז אדוה', 'דו-קיום בנגב', 'חוש"ן'],
+        datasets: [{
+            label: 'מענק שנתי ($)',
+            data: [1000000, 150000, 100000, 50000, 50000, 25000, 15000],
+            backgroundColor: [alertRed, nifOrange, deepBlue, '#9333ea', warnYellow, safeGreen, '#a78bfa'],
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        scales: {
+            x: {
+                ticks: {
+                    callback: function(val) {
+                        if (val >= 1000000) return '$' + (val/1000000) + 'M';
+                        return '$' + (val/1000) + 'K';
+                    }
+                },
+                grid: { color: '#f0f0f0' }
+            },
+            y: {
+                ticks: { font: { size: 12, weight: '600' } },
+                grid: { display: false }
+            }
+        },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        return '$' + ctx.raw.toLocaleString();
+                    }
+                }
+            }
+        }
+    }
+});
+
+// --- Bar: Coalition funding ---
+new Chart(document.getElementById('coalitionBar').getContext('2d'), {
+    type: 'bar',
+    data: {
+        labels: ['ACRI', 'בצלם', 'יש דין', 'עדאלה', 'גישה', 'קו לעובד', 'PHR-Israel', 'עיר עמים', 'שוברים שתיקה', 'PCATI', 'אלמיזאן'],
+        datasets: [{
+            label: 'מימון NIF 2018 ($)',
+            data: [1000000, 250000, 150000, 150000, 100000, 100000, 100000, 100000, 50000, 50000, 0],
+            backgroundColor: function(ctx) {
+                return ctx.raw === 0 ? '#d1d5db' : (ctx.raw >= 250000 ? alertRed : (ctx.raw >= 100000 ? nifOrange : warnYellow));
+            },
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        scales: {
+            x: {
+                ticks: {
+                    callback: function(val) {
+                        if (val >= 1000000) return '$' + (val/1000000) + 'M';
+                        return '$' + (val/1000) + 'K';
+                    }
+                },
+                grid: { color: '#f0f0f0' }
+            },
+            y: {
+                ticks: { font: { size: 11 } },
+                grid: { display: false }
+            }
+        },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) {
+                        if (ctx.raw === 0) return 'לא ממומן ע"י NIF';
+                        return '$' + ctx.raw.toLocaleString();
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

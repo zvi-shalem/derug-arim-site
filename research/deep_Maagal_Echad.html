@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מעגל אחד — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זהות ארגונית</a> <a href="#section-2">מקורות מימון</a> <a href="#section-3">תוכן בפועל — SBL</a> <a href="#section-4">קשרים אידיאולוגיים</a> <a href="#section-5">ראיות</a> <a href="#section-6">מסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>מעגל אחד</h1>
+  <div class="subtitle">תוכנית גפ"ן מס' 5975 — SBL (Social Based Learning)</div>
+  <div class="meta">דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <div class="thesis" style="margin-bottom: 28px;">
+<strong>ממצא מרכזי:</strong> מייסדי "מעגל אחד" הם בוגרי תנועת דרור ישראל. הארגון מצהיר שהוא פועל כחלק מ"המכון ליזמות חינוכית חברתית", אשר "מחוברות לתפיסת העולם של דרור ישראל" — תנועה סוציאליסטית-ציונית. הארגון פועל כעוסק מורשה (עסק מסחרי למטרות רווח), לא כעמותה, ומקבל תקציב ציבורי דרך מערכת הגפ"ן.
+  </div>
+
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זהות ארגונית — דרור ישראל בתוך מערכת הגפ"ן</a></li>
+<li><a href="#section-2">מקורות מימון</a></li>
+<li><a href="#section-3">תוכן בפועל — SBL: "מ'אני' ל'אנחנו', מ'פירמידה' ל'רשת'"</a></li>
+<li><a href="#section-4">קשרים אידיאולוגיים — דרור ישראל וסוציאליזם</a></li>
+<li><a href="#section-5">ראיות — מה ההורים לא יודעים</a></li>
+<li><a href="#section-6">מסקנות</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זהות ארגונית — דרור ישראל בתוך מערכת הגפ"ן</h2>
+
+<table>
+<tr><th>נתון</th><th>פרטים</th></tr>
+<tr><td>שם</td><td>מעגל אחד (One Circle)</td></tr>
+<tr><td>מספר תוכנית גפ"ן</td><td>5975</td></tr>
+<tr><td>שם תוכנית</td><td>SBL — Social Based Learning (למידה מבוססת תהליכים חברתיים)</td></tr>
+<tr><td>סוג ישות</td><td><strong>עוסק מורשה</strong> (עסק מסחרי, לא עמותה)</td></tr>
+<tr><td>אתר</td><td><a href="https://onecircle.co.il/" target="_blank">onecircle.co.il</a></td></tr>
+</table>
+
+<h3>מייסדים</h3>
+<ul>
+<li><strong>אוריאל אלמוג</strong> — "מייסד ומנהל מעגל אחד, מפתח תוכניות SBL. <strong>בוגר תנועת דרור ישראל</strong>, בעל ניסיון רב בחינוך חברתי ופדגוגיה חברתית."</li>
+<li><strong>אביב גל</strong> — "מנהלת פדגוגית במעגל אחד, מפתחת תוכניות SBL. <strong>בוגרת תנועת דרור ישראל</strong>, בעלת ניסיון רב בחינוך חברתי ופדגוגיה חברתית."</li>
+</ul>
+<p><span class="source-tag">אתר "מעגל אחד", עמוד "צוות"</span></p>
+
+<h3>הקשר ל"המכון ליזמות חינוכית חברתית"</h3>
+<blockquote>"מעגל אחד פועלת כחלק מ'המכון ליזמות חינוכית חברתית', בית ליוזמות חינוכיות חברתיות המחוברות לתפיסת העולם של דרור ישראל."<br><span class="source-tag">אתר "מעגל אחד", עמוד "אודות"</span></blockquote>
+
+<div class="thesis">
+<strong>עוסק מורשה, לא עמותה:</strong> "מעגל אחד" פועלת כישות עסקית מסחרית (עוסק מורשה). בהיותו עוסק מורשה, אין חובה לפרסם דוחות כספיים כמו לעמותה, ולכן מידע על מקורות מימון אינו זמין באופן ציבורי. הארגון פועל למטרות רווח, גם אם שירותיו נושאים אופי חינוכי-חברתי.
+</div>
+</div>
+
+  <div class="section" id="section-2">
+<h2>מקורות מימון</h2>
+
+<table>
+<tr><th>מקור</th><th>פרטים</th></tr>
+<tr><td>תקציב גפ"ן (תוכנית 5975)</td><td>132,500 ש"ח (תקציב מאושר)</td></tr>
+<tr><td>קרנות זרות / תורמים</td><td>לא פורסם — אין חובת דיווח כעוסק מורשה</td></tr>
+<tr><td>מקורות נוספים</td><td>לא ידוע — חוסר שקיפות מבני</td></tr>
+</table>
+<p><span class="source-tag">מערכת הגפ"ן, תוכנית 5975</span></p>
+
+<p>המימון מגיע מבתי ספר המקצים תקציבים מתוך סל הגפ"ן שלהם. כעוסק מורשה, אין כל שקיפות לגבי מקורות הכנסה נוספים, רווחיות, או זיקות פיננסיות לגופים אחרים ברשת דרור ישראל.</p>
+</div>
+
+  <div class="section" id="section-3">
+<h2>תוכן בפועל — SBL: "מ'אני' ל'אנחנו', מ'פירמידה' ל'רשת'"</h2>
+
+<h3>"שינוי תודעתי" — מה זה אומר בפועל?</h3>
+
+<blockquote>"<strong>שינוי תודעתי מ'אני' ל'אנחנו'</strong>: מעבר מתפיסה אינדיבידואליסטית לתפיסה קהילתית, המדגישה את חשיבות שיתוף הפעולה, הערבות ההדדית והאחריות המשותפת."<br><span class="source-tag">אתר "מעגל אחד", "הפדגוגיה שלנו"</span></blockquote>
+
+<blockquote>"<strong>מ'פירמידה' ל'רשת'</strong>: מעבר ממבנה היררכי, שבו הסמכות והכוח מרוכזים בקודקוד, למבנה שיתופי ורשתי, שבו לכל חבר/ה בקהילה יש קול והשפעה, והלמידה מתרחשת באופן אופקי ודיאלוגי."<br><span class="source-tag">אתר "מעגל אחד", "הפדגוגיה שלנו"</span></blockquote>
+
+<h3>פעילויות בפועל</h3>
+<ul>
+<li>סדנאות חווייתיות לתלמידים — למידה אקדמית עם עשייה חברתית</li>
+<li>השתלמויות למורים — כלים לפיתוח מנהיגות חברתית ובניית קהילה</li>
+<li>ליווי למנהלים — תכנון ויישום תהליכי שינוי מערכתיים</li>
+<li>פיתוח תוכניות לימודים ייחודיות המשלבות עקרונות SBL</li>
+</ul>
+
+<blockquote>"הפדגוגיה החברתית היא תפיסת עולם חינוכית המדגישה את חשיבות הקשר בין הפרט לחברה, ואת הפוטנציאל של החינוך ליצור שינוי חברתי."<br><span class="source-tag">אתר "מעגל אחד", "הפדגוגיה שלנו"</span></blockquote>
+</div>
+
+  <div class="section" id="section-4">
+<h2>קשרים אידיאולוגיים — דרור ישראל וסוציאליזם</h2>
+
+<h3>שרשרת הקשרים</h3>
+<table>
+<tr><th>שכבה</th><th>ישות</th><th>אופי</th></tr>
+<tr><td>1 — תנועה</td><td>דרור ישראל</td><td>תנועה סוציאליסטית-ציונית</td></tr>
+<tr><td>2 — מכון</td><td>המכון ליזמות חינוכית חברתית</td><td>"מחוברות לתפיסת העולם של דרור ישראל"</td></tr>
+<tr><td>3 — עסק</td><td>מעגל אחד (עוסק מורשה)</td><td>"פועלת כחלק מהמכון"</td></tr>
+<tr><td>4 — תוכנית</td><td>SBL (גפ"ן 5975)</td><td>תקציב ציבורי לבתי ספר</td></tr>
+</table>
+
+<h3>אידיאולוגיה פנימית: סוציאליזם</h3>
+<p>"מעגל אחד" אינה מצהירה במפורש על "סוציאליזם" באתר הציבורי שלה. עם זאת, תנועת "דרור ישראל" מצהירה באופן מובהק על היותה תנועה סוציאליסטית-ציונית. המושגים "מ'אני' ל'אנחנו'" (קולקטיביזם), "מ'פירמידה' ל'רשת'" (ביטול היררכיה), "ערבות הדדית" ו"אחריות קולקטיבית" הם מושגים סוציאליסטיים קלאסיים.</p>
+
+<h3>דרור בתי חינוך</h3>
+<p>"דרור בתי חינוך" היא רשת בתי ספר של תנועת דרור ישראל. הקשר של "מעגל אחד" ל"דרור בתי חינוך" נובע מהזיקה המשותפת דרך "המכון ליזמות חינוכית חברתית".</p>
+
+<div class="thesis">
+<strong>הממצא:</strong> "מעגל אחד" היא הזרוע המסחרית של דרור ישראל במערכת הגפ"ן. המייסדים הם בוגרי דרור ישראל. הארגון מצהיר שהוא "מחובר לתפיסת העולם של דרור ישראל". האידיאולוגיה הפנימית היא סוציאליזם. המבנה כעוסק מורשה (ולא כעמותה) מאפשר פעילות ללא שקיפות תקציבית.
+</div>
+</div>
+
+  <div class="section" id="section-5">
+<h2>ראיות — מה ההורים לא יודעים</h2>
+
+<h3>1. זיקה אידיאולוגית מובהקת</h3>
+<p>התוכנית אינה ניטרלית אידיאולוגית. היא מחוברת באופן ישיר לתפיסת העולם של תנועת דרור ישראל, המגדירה עצמה כתנועה סוציאליסטית-ציונית. מייסדי הארגון הם בוגרי תנועה זו.</p>
+
+<h3>2. "בניית קהילה" = שינוי תודעתי</h3>
+<p>ההורים נחשפים למונחים כמו "בניית קהילה" ו"אקלים בית ספרי" — מונחים ניטרליים לכאורה. בפועל, מדובר ב"שינוי תודעתי מ'אני' ל'אנחנו'" ו"מ'פירמידה' ל'רשת'" — מעבר מתפיסה אינדיבידואליסטית לקולקטיביסטית, וממבנה היררכי למבנה "שיתופי" — בהתאם לעקרונות סוציאליסטיים.</p>
+
+<h3>3. מבנה עסקי מסחרי</h3>
+<p>"מעגל אחד" פועלת כעוסק מורשה — ישות עסקית למטרות רווח — ולא כעמותה. היא מקבלת תקציבים ציבוריים ממשרד החינוך (גפ"ן) ללא חובת שקיפות תקציבית.</p>
+</div>
+
+  <div class="section" id="section-6">
+<h2>מסקנות</h2>
+<p>"מעגל אחד" היא דוגמה מובהקת למנגנון שדרכו אידיאולוגיה תנועתית (סוציאליזם של דרור ישראל) חודרת למערכת החינוך הציבורית דרך מערכת הגפ"ן. שרשרת הקשרים ברורה ומתועדת: דרור ישראל (תנועה) &larr; המכון ליזמות חינוכית חברתית (מכון) &larr; מעגל אחד (עוסק מורשה) &larr; SBL (תוכנית גפ"ן). בכל שלב, השפה הציבורית הופכת לניטרלית יותר — מ"סוציאליזם" ל"פדגוגיה חברתית" ל"בניית קהילה".</p>
+
+<p>המבנה כעוסק מורשה (ולא עמותה) מבטל את חובת השקיפות התקציבית. התקציב המאושר בגפ"ן (132,500 ש"ח) אינו משקף בהכרח את היקף הפעילות הכולל — ייתכנו הכנסות נוספות ממקורות שאינם גלויים לציבור.</p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | מקורות: קטלוג גפ"ן (5975), אתר onecircle.co.il, אתר דרור ישראל | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

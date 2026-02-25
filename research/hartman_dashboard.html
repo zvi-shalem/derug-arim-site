@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכון שלום הרטמן — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #f39c12; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .nav-inner { flex-direction: column; gap: 0; }
+    .hero h1 { font-size: 1.3em; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* ── Chart container ── */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* ── Finding cards ── */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* ── Flip cards ── */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
+.flip-card {
+    perspective: 800px; cursor: pointer; height: 150px;
+}
+.flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.5s; transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 14px; text-align: center;
+}
+.flip-front {
+    background: #f0f4fa; border: 1px solid #d4daf0;
+}
+.flip-front .term-icon { font-size: 1.8em; margin-bottom: 6px; }
+.flip-front .term-name { font-weight: 700; color: #2a5a8a; font-size: 1.05em; }
+.flip-front .term-hint { font-size: 0.7em; color: #999; margin-top: 6px; }
+.flip-back {
+    background: #fff5f5; border: 1px solid #f0d4d4;
+    transform: rotateY(180deg);
+}
+.flip-back .reveal-title { font-weight: 700; color: #8b0000; font-size: 0.85em; margin-bottom: 6px; }
+.flip-back .reveal-text { font-size: 0.82em; color: #444; line-height: 1.5; }
+
+/* ── Evidence chain ── */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 1200px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #f39c12;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+.depth-next {
+    display: inline-block; margin-top: 10px; padding: 6px 14px;
+    background: #f0f4fa; border-radius: 4px; font-size: 0.82em;
+    color: #2a5a8a; cursor: default;
+}
+
+/* ── Warning box ── */
+.warning-box {
+    background: #fff8f0; border-right: 4px solid #ff8800;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b4500; }
+
+/* ── Value Lens ── */
+.lens-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: #f0f4fa; padding: 10px 18px; border-radius: 8px;
+    margin-bottom: 18px; border: 1px solid #d4daf0;
+}
+.lens-bar .lens-label { font-size: 0.88em; color: #555; font-weight: 600; }
+.lens-bar .lens-label.active { color: #1a1a2e; }
+.lens-switch {
+    position: relative; width: 44px; height: 24px; cursor: pointer;
+    background: #ccc; border-radius: 12px; transition: background 0.3s;
+    border: none; padding: 0;
+}
+.lens-switch.on { background: #f39c12; }
+.lens-switch::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    transition: transform 0.3s;
+}
+.lens-switch.on::after { transform: translateX(20px); }
+.lens-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #667eea;
+    transition: all 0.3s;
+}
+.lens-card.severity-high { border-right-color: #e74c3c; }
+.lens-card.severity-medium { border-right-color: #f39c12; }
+.lens-card .lens-source { font-size: 0.78em; color: #888; margin-bottom: 6px; }
+.lens-card .lens-type {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; background: #f0f0f0; color: #555;
+    margin-bottom: 8px;
+}
+.lens-official-text { font-style: italic; color: #333; line-height: 1.7; }
+.lens-interpreted-text {
+    color: #8b4500; font-weight: 600; line-height: 1.7;
+    border-right: 3px solid #f39c12; padding-right: 12px;
+}
+.lens-interpreted-text .sel-link {
+    color: #2a5a8a; text-decoration: underline; font-weight: 400;
+}
+
+/* ── Influence Map ── */
+.influence-map {
+    background: #fafbff; border: 1px solid #e8e8e8; border-radius: 8px;
+    padding: 24px; min-height: 350px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.inf-row {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+}
+.inf-node {
+    text-align: center; cursor: default; transition: transform 0.2s;
+}
+.inf-node:hover { transform: scale(1.05); }
+.inf-circle {
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px; font-size: 1.5em;
+    border: 2px solid;
+}
+.inf-circle.red { background: #fef2f2; border-color: #fca5a5; }
+.inf-circle.orange { background: #fff7ed; border-color: #fdba74; }
+.inf-circle.blue { background: #eff6ff; border-color: #93c5fd; }
+.inf-circle.green { background: #f0fdf4; border-color: #86efac; }
+.inf-circle.purple { background: #faf5ff; border-color: #c4b5fd; }
+.inf-name { font-size: 0.78em; font-weight: 700; color: #1a1a2e; max-width: 100px; }
+.inf-role { font-size: 0.68em; color: #888; }
+.inf-arrow { color: #ccc; font-size: 1.5em; }
+.inf-center {
+    background: #1a1a2e; color: #fff; padding: 14px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 1.1em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.inf-target {
+    background: #fff; padding: 12px; border-radius: 8px;
+    border-top: 3px solid #ff8800; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    min-width: 120px; transition: background 0.2s;
+}
+.inf-target:hover { background: #fff8f0; }
+.inf-target .inf-t-icon { font-size: 1.3em; margin-bottom: 4px; }
+.inf-target .inf-t-title { font-weight: 700; font-size: 0.82em; color: #1a1a2e; }
+.inf-target .inf-t-sub { font-size: 0.7em; color: #888; }
+
+/* ── Links ── */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Questions ── */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* ── Footer ── */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>מכון שלום הרטמן</span>
+            <span class="risk-pill">השפעה גבוהה</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+            <a href="deep_Hartman.html">דוח מלא</a>
+            <a href="index.html">כל המחקרים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>מכון שלום הרטמן — Shalom Hartman Institute</h1>
+    <div class="subtitle">חל"צ 511021156 | נוסד: 1976 | 282 עובדים | ירושלים, ניו יורק, טורונטו</div>
+    <div class="meta">מחזור משולב: ~$42M | 75+ בתי ספר (בארי) | 1,000 קצינים/שנה (לב אהרן) | תורמי מפתח: CLAWS — $25M+</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>מכון שלום הרטמן הוא מרכז מחקר, הגות וחינוך יהודי בעל פריסה גלובלית. נוסד ב-1976 על ידי הרב דוד הרטמן. המכון פועל כחל"צ בישראל עם זרועות בארה"ב (501c3) ובקנדה. מציג עצמו כ"מרכז פלורליסטי" אך מקדם סדר יום ליברלי-דמוקרטי ספציפי בחינוך, בצה"ל ובמדיניות דת-מדינה.</p>
+
+            <div class="grid-3">
+                <div class="metric warn">
+                    <div class="label">מחזור שנתי (ישראל)</div>
+                    <div class="value">98.4M &#8362;</div>
+                    <div class="note">~$27M | דירוג 6 בארגוני חינוך</div>
+                </div>
+                <div class="metric">
+                    <div class="label">הכנסות ארה"ב (2024)</div>
+                    <div class="value">$24.8M</div>
+                    <div class="note">94.8% תרומות | ProPublica</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">תרומות מחו"ל</div>
+                    <div class="value">62.2%</div>
+                    <div class="note">61.3M &#8362; מתוך 98.4M &#8362;</div>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">עובדים</div>
+                    <div class="value">282</div>
+                    <div class="note">מנחים, חוקרים, מרצים</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">תכנית בארי (בתי ספר)</div>
+                    <div class="value">75+</div>
+                    <div class="note">10 רשויות אימצו כתכנית עירונית</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">לב אהרן (צה"ל)</div>
+                    <div class="value">1,000+</div>
+                    <div class="note">קצינים בכירים/שנה | 25+ מחזורים</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל השפעה: תדמית מול מציאות</h3>
+                    <p style="font-size:0.85em;color:#666">הכתום = השפעה בפועל. הכחול = מה שהמכון מציג. הפער הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים מרכזיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#127981;</div>
+                        <div>
+                            <h4>חדירה לצה"ל ולבתי ספר</h4>
+                            <p>תכנית "לב אהרן" חובה לקידום לדרגת רב-סרן. תכנית "בארי" בשליש מבתי הספר הממלכתיים. גישה ישירה לקוד הערכי של הצבא ומערכת החינוך.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128176;</div>
+                        <div>
+                            <h4>מימון זר דומיננטי</h4>
+                            <p>62.2% מהתקציב מתרומות חו"ל. קרן CLAWS תרמה $25M+ ($3.25M/שנה) &mdash; 30-50% מגיוס הכספים הפרטי. אותה קרן מימנה גם את פורום קהלת.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127891;</div>
+                        <div>
+                            <h4>אקדמיה ככיסוי לאג'נדה</h4>
+                            <p>מציג עצמו כ"מרכז מחקר" אך מפעיל לובי (מרכז מדיניות), צינור ערכי (iEngage, בארי), ויועצים לראשי ממשלה (מיכה גודמן-בנט).</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127760;</div>
+                        <div>
+                            <h4>מסרים כפולים: עברית vs. אנגלית</h4>
+                            <p>באנגלית: "ערכים" ו"חינוך". בעברית: שינוי מדיניות דת-מדינה (נישואין, גיור, שבת). שני מסרים &mdash; שני קהלי יעד.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>שכר (2024)</th><th>הערה</th></tr>
+                <tr class="highlight"><td><strong>דניאל הרטמן</strong></td><td>נשיא, יו"ר קאופמן לפילוסופיה יהודית</td><td>$502,067</td><td>בן המייסד; "ציוני מחויב מוטרד"</td></tr>
+                <tr class="highlight"><td><strong>יהודה קורצר</strong></td><td>שותף לנשיאות</td><td>$601,894</td><td>המשכורת הגבוהה ביותר; ראשון שאינו מהמשפחה</td></tr>
+                <tr><td><strong>רייצ'ל ג'ייקובי רוזנפילד</strong></td><td>CEO צפון אמריקה</td><td>$382,421</td><td>ניהול גיוס כספים</td></tr>
+                <tr><td><strong>מיכה גודמן</strong></td><td>עמית מחקר</td><td>&mdash;</td><td>יועץ פילוסופי לא-רשמי לבנט; "צמצום הסכסוך"</td></tr>
+                <tr><td><strong>יוסי קליין הלוי</strong></td><td>עמית בכיר</td><td>&mdash;</td><td>סופר רבמכר; מנהל משותף של MLI</td></tr>
+                <tr><td><strong>ד"ר טל בקר</strong></td><td>סגן נשיא</td><td>&mdash;</td><td>יועמ"ש לשעבר במשרד החוץ; הסכמי אברהם</td></tr>
+                <tr><td><strong>אנג'ליקה ברי</strong></td><td>יו"ר דירקטוריון ישראל</td><td>&mdash;</td><td>נשיאת קרן ראסל ברי ($7M תרומות)</td></tr>
+                <tr><td><strong>לינדה פרום</strong></td><td>דירקטוריון קנדה</td><td>&mdash;</td><td>סנאטורית לשעבר; יו"ר UN Watch</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://projects.propublica.org/nonprofits/organizations/133014387" target="_blank">ProPublica 990</a>, <a href="https://www.hartman.org.il/program/board-of-directors/" target="_blank">hartman.org.il</a></p>
+        </div>
+
+        <div class="section">
+            <h2>מפת השפעה: מהאקדמיה לכיתה ולמטכ"ל</h2>
+            <div class="influence-map">
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">מקורות מימון</div>
+                <div class="inf-row">
+                    <div class="inf-node">
+                        <div class="inf-circle red">$</div>
+                        <div class="inf-name">CLAWS Foundation</div>
+                        <div class="inf-role">$25M+ (2010-2020)</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle orange">$</div>
+                        <div class="inf-name">קרן ראסל ברי</div>
+                        <div class="inf-role">~$7M (2010-2012)</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle blue">$</div>
+                        <div class="inf-name">רוברט קוגוד</div>
+                        <div class="inf-role">מרכז מחקר על שמו</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle green">$</div>
+                        <div class="inf-name">משרד החינוך</div>
+                        <div class="inf-role">15.7M &#8362;/שנה</div>
+                    </div>
+                </div>
+
+                <div class="inf-arrow">&#9660;</div>
+
+                <div class="inf-center">מכון שלום הרטמן (חל"צ)</div>
+
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center">
+                    <div style="font-size:0.75em;color:#ff8800;font-weight:600;background:#fff8f0;padding:4px 12px;border-radius:4px;border:1px solid #fdba74">
+                        282 עובדים | 50+ עמיתי מחקר | 7 מרכזים | 2 תיכונים | 3 מדינות
+                    </div>
+                </div>
+
+                <div class="inf-arrow">&#9660;</div>
+
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">נקודות חדירה</div>
+                <div class="inf-row">
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#127979;</div>
+                        <div class="inf-t-title">בארי (75+ ביה"ס)</div>
+                        <div class="inf-t-sub">זהות יהודית-דמוקרטית</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#9733;</div>
+                        <div class="inf-t-title">לב אהרן (צה"ל)</div>
+                        <div class="inf-t-sub">חובה לקידום לרב-סרן</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#9961;</div>
+                        <div class="inf-t-title">iEngage (תפוצות)</div>
+                        <div class="inf-t-sub">אלפי רבנים בצ. אמריקה</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#128220;</div>
+                        <div class="inf-t-title">מדיניות דת-מדינה</div>
+                        <div class="inf-t-sub">לובי מול כנסת</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">&#127758;</div>
+                        <div class="inf-t-title">MLI (מוסלמים)</div>
+                        <div class="inf-t-sub">מנהיגות מוסלמית, 13 חודשים</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: FINANCE ═══════ -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>תמונת מימון כוללת</h2>
+            <p>מכון הרטמן פועל בשלוש מדינות. ההכנסות המשולבות (ללא כפל-ספירה של העברות) מוערכות ב-$41-42M לשנה. הזרוע האמריקאית מעבירה כ-$10.6M לישראל &mdash; 42% מהכנסותיה.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">הרכב הכנסות &mdash; ישות ישראלית</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מקורות הכנסה (ישראל, 2024)</h3>
+                    <table>
+                        <tr><th>מקור</th><th>סכום (&#8362;)</th><th>%</th></tr>
+                        <tr class="highlight"><td>תרומות מחו"ל</td><td>61,280,015</td><td>62.2%</td></tr>
+                        <tr><td>הקצבות ותמיכות מהמדינה</td><td>25,006,554</td><td>25.4%</td></tr>
+                        <tr><td>הכנסות משירותים (ממשלה)</td><td>9,813,246</td><td>10.0%</td></tr>
+                        <tr><td>תרומות מישראל + אחר</td><td>2,328,618</td><td>2.4%</td></tr>
+                        <tr style="font-weight:700;background:#f0f4fa"><td>סה"כ מחזור</td><td>98,428,433</td><td>100%</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888">מקור: <a href="https://www.guidestar.org.il/organization/511021156" target="_blank">GuideStar</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מגמת הכנסות &mdash; ארה"ב (2011&ndash;2024)</h2>
+            <div class="chart-wrap" style="max-width:800px;height:350px">
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <table>
+                <tr><th>שנה</th><th>הכנסות ($)</th><th>הוצאות ($)</th><th>רווח/הפסד ($)</th><th>נכסים ($)</th></tr>
+                <tr><td>2024</td><td>24,845,958</td><td>29,742,302</td><td style="color:#e74c3c">-4,896,344</td><td>40,775,226</td></tr>
+                <tr class="highlight"><td>2023</td><td>34,503,344</td><td>25,139,012</td><td style="color:#27ae60">+9,364,332</td><td>43,446,191</td></tr>
+                <tr><td>2022</td><td>28,361,662</td><td>25,807,479</td><td style="color:#27ae60">+2,554,183</td><td>33,555,133</td></tr>
+                <tr><td>2021</td><td>19,450,722</td><td>20,097,880</td><td style="color:#e74c3c">-647,158</td><td>33,744,747</td></tr>
+                <tr><td>2020</td><td>16,306,133</td><td>18,563,298</td><td style="color:#e74c3c">-2,257,165</td><td>33,544,814</td></tr>
+                <tr><td>2019</td><td>24,570,012</td><td>19,937,290</td><td style="color:#27ae60">+4,632,722</td><td>34,746,381</td></tr>
+                <tr><td>2018</td><td>24,714,219</td><td>17,354,381</td><td style="color:#27ae60">+7,359,838</td><td>27,922,229</td></tr>
+                <tr><td>2017</td><td>20,083,792</td><td>16,313,890</td><td style="color:#27ae60">+3,769,902</td><td>20,502,552</td></tr>
+                <tr><td>2016</td><td>14,590,914</td><td>12,836,313</td><td style="color:#27ae60">+1,754,601</td><td>15,926,358</td></tr>
+                <tr><td>2015</td><td>11,773,432</td><td>10,556,693</td><td style="color:#27ae60">+1,216,739</td><td>13,804,388</td></tr>
+                <tr><td>2014</td><td>11,603,422</td><td>9,797,852</td><td style="color:#27ae60">+1,805,570</td><td>12,915,582</td></tr>
+                <tr><td>2013</td><td>8,747,170</td><td>7,883,012</td><td style="color:#27ae60">+864,158</td><td>11,531,660</td></tr>
+                <tr><td>2012</td><td>7,678,315</td><td>7,449,018</td><td style="color:#27ae60">+229,297</td><td>6,966,715</td></tr>
+                <tr><td>2011</td><td>6,072,871</td><td>6,514,564</td><td style="color:#e74c3c">-441,693</td><td>5,907,152</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://projects.propublica.org/nonprofits/organizations/133014387" target="_blank">ProPublica</a></p>
+
+            <div class="warning-box" style="margin-top:14px">
+                <strong>הכנסות פי 4 בעשור:</strong> ההכנסות צמחו מ-$6M (2011) ל-$24.8M (2024). הנכסים צמחו פי 7 מ-$5.9M ל-$40.8M. צמיחה חריגה לארגון חינוכי יהודי.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>העברות לישראל (US &rarr; Israel)</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="grantsChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <table>
+                        <tr><th>שנה</th><th>סכום ($)</th></tr>
+                        <tr class="highlight"><td>2024</td><td>10,570,050</td></tr>
+                        <tr><td>2023</td><td>10,016,250</td></tr>
+                        <tr><td>2022</td><td>10,581,550</td></tr>
+                        <tr><td>2021</td><td>9,226,000</td></tr>
+                        <tr><td>2020</td><td>8,197,601</td></tr>
+                        <tr><td>2019</td><td>8,022,545</td></tr>
+                        <tr><td>2018</td><td>3,675,385</td></tr>
+                        <tr><td>2017</td><td>4,540,762</td></tr>
+                        <tr><td>2016</td><td>7,250,000</td></tr>
+                        <tr><td>2015</td><td>5,250,000</td></tr>
+                        <tr><td>2014</td><td>5,300,000</td></tr>
+                        <tr><td>2013</td><td>3,800,000</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>CLAWS Foundation &mdash; התורם הדומיננטי</h2>
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">סה"כ תרומות CLAWS</div>
+                    <div class="value">$25M+</div>
+                    <div class="note">2010&ndash;2020 | ~$3.25M/שנה</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">חלק מגיוס כספים פרטי</div>
+                    <div class="value">30-50%</div>
+                    <div class="note">בשנים מסוימות מחצית הגיוס</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">CLAWS גם מימנה</div>
+                    <div class="value">קהלת</div>
+                    <div class="note">$7.7M (2021) + $8.5M (2022)</div>
+                </div>
+            </div>
+            <p>קרן CLAWS נשלטת על ידי <strong>ג'פרי יאס</strong> ($65B) ו<strong>ארתור דנצ'יק</strong> ($7B), מייסדי שותפי Susquehanna International Group. אותם מיליארדרים מימנו גם את פורום קהלת שתכנן את הרפורמה המשפטית &mdash; ההפך הגמור מעמדות הרטמן.</p>
+            <p>דניאל הרטמן כינה את תורמי CLAWS "חברים טובים מאוד" ואמר: "אני לא מדבר על אנשים שאני מקבל מהם כסף... הרקורד שלנו מדבר בעד עצמו."</p>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://forward.com/news/534641/hartman-institute-received-major-donations-from-u-s-billionaires-funding-attack-on-israeli-judiciary/" target="_blank">Forward</a>, <a href="https://www.haaretz.com/israel-news/2023-02-01/ty-article/.premium/hartman-institute-received-funds-from-u-s-billionaires-funding-attack-on-israeli-courts/00000186-0d9d-db1b-a1ce-cddde8ed0000" target="_blank">Haaretz</a></p>
+        </div>
+
+        <div class="section">
+            <h2>מימון ממשלתי (ישראל)</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">משרד החינוך</div>
+                    <div class="value">15.7M &#8362;</div>
+                    <div class="note">המממן הממשלתי הגדול ביותר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">משרד ההתיישבות</div>
+                    <div class="value">834K &#8362;</div>
+                    <div class="note">מכינות קדם-צבאיות</div>
+                </div>
+                <div class="metric">
+                    <div class="label">משרד התרבות + חוץ</div>
+                    <div class="value">519K &#8362;</div>
+                    <div class="note">חומרי חינוך לתפוצות</div>
+                </div>
+            </div>
+            <p>המכון מדורג <strong>מקום 6</strong> בארגוני תכניות חינוכיות בישראל לפי מחזור. המעמד כ"מיזם משותף" עם משרד החינוך מאפשר קבלת תקציבים ללא מכרז.</p>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://next.obudget.org/i/org/association/511021156" target="_blank">obudget.org</a></p>
+        </div>
+
+        <div class="section">
+            <h2>יעילות פיננסית (Charity Navigator)</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">דירוג</div>
+                    <div class="value">4 &#9733;</div>
+                    <div class="note">ציון 100% | Charity Navigator</div>
+                </div>
+                <div class="metric">
+                    <div class="label">הוצאות תכנית</div>
+                    <div class="value">87.7%</div>
+                    <div class="note">Program Expense Ratio</div>
+                </div>
+                <div class="metric">
+                    <div class="label">עלות גיוס</div>
+                    <div class="value">$0.07</div>
+                    <div class="note">לכל דולר שנגייס</div>
+                </div>
+            </div>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://www.charitynavigator.org/ein/133014387" target="_blank">Charity Navigator</a></p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONTENT ANALYSIS ═══════ -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>עדשת הערכים: הצהרה רשמית מול המשמעות</h2>
+            <p>מכון הרטמן מציג שפה של "פלורליזם" ו"מחקר אקדמי". הניתוח הבא מעמת בין ההצהרה הרשמית למשמעות בפועל.</p>
+
+            <div class="lens-bar">
+                <span class="lens-label active" id="lens-label-off">הצהרה רשמית</span>
+                <button class="lens-switch" id="lensSwitch" onclick="toggleValueLens()"></button>
+                <span class="lens-label" id="lens-label-on">הפרשנות המחקרית</span>
+            </div>
+
+            <div id="lens-cards">
+                <!-- Card 1: Pluralism -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">אידיאולוגיה</span>
+                    <div class="lens-source">hartman.org.il &mdash; About + heb.hartman.org.il</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "מרכז פלורליסטי למחקר, להגות, ולחינוך יהודי. מעשיר את החיים המוסריים והרוחניים, מחזק את אופייה היהודי והדמוקרטי של ישראל."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "פלורליזם" = הגדרה ספציפית: כל הזרמים שווים, הפרדת דת ממדינה, ציונות ליברלית-דמוקרטית. פלורליזם שאינו כולל עמדות שמרניות-אורתודוקסיות שאינן מתיישרות. הסגל חסר ייצוג לזרמים חרדיים ולאומיים-דתיים &mdash; "תיבת תהודה" ליברלית.
+                        <a class="sel-link" href="https://www.hartman.org.il/about-the-hartman-institute/" target="_blank">About page &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Hebrew vs English -->
+                <div class="lens-card severity-medium">
+                    <span class="lens-type">מסרים כפולים</span>
+                    <div class="lens-source">השוואה: hartman.org.il vs. heb.hartman.org.il</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "Enriching moral and spiritual life, pluralism, Israel's Jewish and democratic character, rebuilding the covenant between Israel and the Jewish world."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        באנגלית: ערכים וחינוך (לתורמים בתפוצות). בעברית: שינוי מדיניות &mdash; נישואין אזרחיים, רפורמת גיור, שבת במרחב הציבורי. לקהל הישראלי מוצגת האג'נדה הפוליטית בגלוי; לקהל האמריקאי &mdash; עטיפת "ערכים" נעימה. ה"מרכז לחברה משותפת" (יהודי-ערבי) בולט באנגלית; בעברית מוצג כזהות אזרחית.
+                        <a class="sel-link" href="https://heb.hartman.org.il/" target="_blank">אתר עברי &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Academic cover -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">מיצוב מוסדי</span>
+                    <div class="lens-source">מבנה ארגוני + NPR (גודמן-בנט)</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "מרכז מחקר עם 50+ עמיתי מחקר, מרכז קוגוד למחשבה יהודית, 3,500+ מאמרים, סרטונים ופודקאסטים."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "מרכז מחקר" שמפעיל: (1) לובי &mdash; מרכז מדיניות יהדות ומדינה, (2) צינור ערכי &mdash; iEngage, בארי, לב אהרן, (3) ייעוץ פוליטי ישיר &mdash; מיכה גודמן כיועץ לראש ממשלה בנט. כמו Brookings או Heritage &mdash; אך בישראל זה עובד ללא חובת גילוי לובינג. אקדמיה ככיסוי לאדבוקסי.
+                        <a class="sel-link" href="https://www.npr.org/2021/08/25/1030886531/philosopher-micah-goodman-is-an-unofficial-counsel-to-israels-prime-minister" target="_blank">NPR &mdash; גודמן-בנט &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Be'eri -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">חינוך &mdash; בארי</span>
+                    <div class="lens-source">hartman.org.il + דוח בארי</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "חינוך לזהות יהודית-ישראלית פלורליסטית בבתי ספר ממלכתיים. פועלת ב-75+ בתי ספר. 10 רשויות מקומיות אימצו כתכנית עירונית."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        תכנית בארי מגדירה מחדש מהי "יהדות" בבתי הספר: מקורות חז"ל נקראים דרך פריזמה ליברלית-אוניברסלית. "הומניזם מול צלם אלוהים", "זכויות אדם", "אי-ציות". המקורות מ"גויירים" ערכים ליברליים לשפה חז"לית. חומרי הלימוד אינם זמינים לציבור. המורים עוברים הכשרה פנימית של המכון. עיצוב הזהות הלאומית מופקד בידי ארגון ממומן ב-62% מחו"ל.
+                        <a class="sel-link" href="deep_Baari.html">דוח בארי מלא &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מונחי מפתח: מה מסתתר מאחורי המילים?</h2>
+            <p>לחצו על כרטיס כדי לחשוף את המשמעות בפועל.</p>
+
+            <div class="flip-grid">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#9878;</div>
+                            <div class="term-name">פלורליזם</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">רפורמי ושמרני "שווים" לאורתודוקסי. בפועל: סגל ליברלי כמעט לחלוטין, ללא ייצוג חרדי או לאומי-דתי. "פלורליזם" שמדיר צד אחד.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128218;</div>
+                            <div class="term-name">מרכז מחקר</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">Think tank שמפעיל לובי בכנסת, ייעוץ לראש ממשלה, הכשרת קצינים, ותכנית חינוך ב-75+ בתי ספר. לא סתם "מחקר".</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#127466;&#127473;</div>
+                            <div class="term-name">ציונות</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">הרטמן מגדיר מחדש: ציונות ליברלית, דמוקרטית, מחייבת הצדקה. iEngage שואל "למה מדינה יהודית נחוצה" &mdash; שאלה שלעצמה כבר מכילה הנחות.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128106;</div>
+                            <div class="term-name">חברה משותפת</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">מרכז לדו-קיום יהודי-ערבי. באנגלית: "Palestinian Israeli democracy building". בעברית: "זהות אזרחית". שני מסרים לשני קהלים.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#128188;</div>
+                            <div class="term-name">מיזם משותף</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">מנגנון לקבלת כסף ממשלתי ללא מכרז. המדינה שמה 50%, המכון 50% מתרומות חו"ל. התוצאה: מימון זר עוקף ריבונות.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">&#9733;</div>
+                            <div class="term-name">לב אהרן</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">3 ימים במכון הרטמן &mdash; חובה לקידום לרב-סרן. 25+ מחזורים = עשרות אלפי קצינים. גישה ישירה של ארגון חוץ-ממשלתי לתודעת הפיקוד.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תכניות מפתח</h2>
+            <table>
+                <tr><th>תכנית</th><th>קהל יעד</th><th>היקף</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>בארי (בדיבור אחד)</strong></td><td>חטיבות ביניים + תיכונים ממלכתיים</td><td>75+ ביה"ס, 10 רשויות</td><td>וקטור ההשפעה המרכזי. שליש מביה"ס הממלכתיים נחשפו</td></tr>
+                <tr class="highlight"><td><strong>לב אהרן</strong></td><td>קצינים בדרגת רס"ן ומעלה</td><td>1,000+ קצינים/שנה</td><td>חובה לקידום. מעצבת ערכי "רוח צה"ל"</td></tr>
+                <tr><td><strong>iEngage</strong></td><td>רבנים ומחנכים בצפ"א</td><td>אלפי משתתפים</td><td>מעצבת שיח על ישראל בקהילות יהודיות בארה"ב</td></tr>
+                <tr><td><strong>מרכז מדיניות יהדות ומדינה</strong></td><td>חברי כנסת, קובעי מדיניות</td><td>ישיר</td><td>לובי מוצהר לנישואין אזרחיים, רפורמת גיור</td></tr>
+                <tr><td><strong>MLI (יוזמת מנהיגות מוסלמית)</strong></td><td>מנהיגים מוסלמים בצפ"א</td><td>13 חודשים</td><td>שנוי במחלוקת: JVP, BDS ומשתתפים קראו להפסיקו</td></tr>
+                <tr><td><strong>תיכונים</strong></td><td>בני נוער, ירושלים</td><td>700+ תלמידים</td><td>מדרשייה (בנות) + צ'ארלס סמית (בנים)</td></tr>
+                <tr><td><strong>מן הבארות</strong></td><td>מחנכים יהודים וערבים</td><td>&mdash;</td><td>"הנדסה חברתית דרך דת" &mdash; לימוד השוואתי בין דתות</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: EVIDENCE CHAIN ═══════ -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת הראיות: ממימון זר לעיצוב זהות</h2>
+            <p>כל שכבה מגלה רובד נוסף. מ"מרכז מחקר אקדמי" &mdash; דרך צינור מימון בינלאומי &mdash; אל תוך הכיתה והמטכ"ל.</p>
+
+            <!-- Level 1: The money -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128176;</span>
+                    <div>
+                        <div class="d-title">שכבה 1: צינור המימון</div>
+                        <div class="d-sub">62% מחו"ל, CLAWS כתורם דומיננטי, אותו כסף גם לקהלת</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>62.2% מהכנסות המכון בישראל מגיעים מתרומות חו"ל (61.3M &#8362;). קרן CLAWS, שנשלטת על ידי ג'פרי יאס וארתור דנצ'יק, תרמה $25M+ בעשור. בשנים מסוימות, CLAWS היוותה 30-50% מגיוס הכספים הפרטי.</p>
+                    <div class="depth-quote">"אני לא מדבר על אנשים שאני מקבל מהם כסף... הרקורד שלנו מדבר בעד עצמו."<br>&mdash; דניאל הרטמן, בתגובה לחשיפת CLAWS</div>
+                    <p><strong>הפרדוקס:</strong> אותם מיליארדרים מימנו גם את פורום קהלת ($7.7M ב-2021, $8.5M ב-2022) &mdash; שתכנן את הרפורמה המשפטית שהרטמן נלחם נגדה ברחובות.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://forward.com/news/534641/hartman-institute-received-major-donations-from-u-s-billionaires-funding-attack-on-israeli-judiciary/" target="_blank">Forward</a>, <a href="https://www.influencewatch.org/non-profit/claws-foundation/" target="_blank">InfluenceWatch</a></p>
+                    <div class="depth-next">אבל Charity Navigator נותן 4 כוכבים &mdash; אז מה הבעיה? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 2: The structure -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127981;</span>
+                    <div>
+                        <div class="d-title">שכבה 2: מבנה תלת-לאומי</div>
+                        <div class="d-sub">ישראל + ארה"ב + קנדה = העברות חוצות גבולות</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>המכון פועל בשלוש מדינות: חל"צ בישראל, 501(c)(3) בארה"ב, ישות בקנדה. הזרוע האמריקאית העבירה $10.6M לישראל ב-2024. דניאל הרטמן מקבל שכר משתי הישויות &mdash; $502K מהזרוע האמריקאית בלבד + 797K &#8362; מהישראלית.</p>
+                    <p>Charity Navigator נותן 4 כוכבים &mdash; אך 4 כוכבים מודדים <strong>יעילות פיננסית</strong>, לא <strong>השפעה אידיאולוגית</strong>. 100% דירקטוריון עצמאי אינו מפצה על תלות של 30-50% בתורם אחד.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://projects.propublica.org/nonprofits/organizations/133014387" target="_blank">ProPublica</a>, <a href="https://www.guidestar.org.il/organization/511021156" target="_blank">GuideStar IL</a></p>
+                    <div class="depth-next">אבל התוכן עצמו אקדמי ומכובד &mdash; מה הבעיה? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 3: The ideology -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128214;</span>
+                    <div>
+                        <div class="d-title">שכבה 3: אקדמיה ככיסוי</div>
+                        <div class="d-sub">"מרכז מחקר" שמפעיל לובי, מייעץ לראשי ממשלה, ומעצב תכנית לימודים</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>המכון מציג עצמו כ"מרכז מחקר" אך מפעיל בו-זמנית:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>לובי</strong> &mdash; מרכז מדיניות יהדות ומדינה תומך ישירות בחברי כנסת</li>
+                        <li><strong>ייעוץ פוליטי</strong> &mdash; מיכה גודמן שימש יועץ לא-רשמי לבנט; "צמצום הסכסוך" הפך למדיניות</li>
+                        <li><strong>צינור ערכי</strong> &mdash; iEngage מעצב כיצד רבנים אמריקאים מדברים על ישראל</li>
+                        <li><strong>הכשרה צבאית</strong> &mdash; לב אהרן חובה לקצינים</li>
+                    </ul>
+                    <p>טל בקר, סגן נשיא המכון, שימש כיועמ"ש משרד החוץ וסייע בניסוח הסכמי אברהם &mdash; קשר ישיר בין "מחקר" הרטמן למדיניות חוץ.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.npr.org/2021/08/25/1030886531/philosopher-micah-goodman-is-an-unofficial-counsel-to-israels-prime-minister" target="_blank">NPR</a>, <a href="https://www.hartman.org.il/program/judaism-and-state-policy-center/" target="_blank">מרכז מדיניות</a></p>
+                    <div class="depth-next">אבל הם בתוך המערכת &mdash; המדינה בחרה בהם &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 4: Inside the system -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128274;</span>
+                    <div>
+                        <div class="d-title">שכבה 4: בתוך המערכת ונגד המערכת</div>
+                        <div class="d-sub">מקבלים כסף מהמדינה ובמקביל פועלים לשנות את חוקיה</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>המכון מקבל 15.7M &#8362; ממשרד החינוך &mdash; ובמקביל מפעיל מרכז שלובה באופן מוצהר לשינוי חוקי דת-מדינה (נישואין, גיור, שבת). זה לא סתירה מקרית &mdash; זו אסטרטגיה:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>בארי</strong> &mdash; מכניסה את הערכים לדור הבא (75+ בתי ספר)</li>
+                        <li><strong>לב אהרן</strong> &mdash; מעצבת את הערכים בצמרת הצבאית (1,000 קצינים/שנה)</li>
+                        <li><strong>מרכז מדיניות</strong> &mdash; דוחפת שינוי חוקי ברמה הפרלמנטרית</li>
+                    </ul>
+                    <p><strong>למה הימין לא תוקף?</strong> הדוח מציין שלא נמצאו התקפות מאורגנות מאם תרצו, NGO Monitor או מוסדות חרדים. הסיבות: (1) המכון מושרש בממסד הביטחוני, (2) העטיפה האקדמית מספקת הגנה, (3) מימון ממשלתי יוצר הגנה פוליטית, (4) הימין עסוק בארגונים עוינים יותר (בצלם, שוברים שתיקה).</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://next.obudget.org/i/org/association/511021156" target="_blank">obudget.org</a>, <a href="https://www.hartman.org.il/program/judaism-and-state-policy-center/" target="_blank">מרכז מדיניות</a></p>
+                </div>
+            </div>
+
+            <!-- Level 5: MLI controversy -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127760;</span>
+                    <div>
+                        <div class="d-title">שכבה 5: יוזמת המנהיגות המוסלמית (MLI)</div>
+                        <div class="d-sub">מחלוקת חריפה &mdash; "faithwashing" או דיאלוג אמיתי?</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>מלגה בת 13 חודשים למנהיגים מוסלמים בצפון אמריקה. הביקורת:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>Jewish Voice for Peace:</strong> "faithwashing" &mdash; הלבנת הכיבוש דרך דיאלוג דתי</li>
+                        <li><strong>תנועת BDS:</strong> חותרת תחת סולידריות מוסלמית עם פלסטין</li>
+                        <li><strong>משתתפים לשעבר:</strong> פרשו בפומבי, קראו לתכנית "מפלגת ומזיקה"</li>
+                    </ul>
+                    <p>המכון המשיך להפעיל את התכנית למרות הביקורת.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.jewishvoiceforpeace.org/2015/01/27/jewish-voice-for-peace-on-the-shalom-hartman-institutes-muslim-leadership-initiative/" target="_blank">JVP</a>, <a href="https://muslimmatters.org/2018/06/06/why-i-left-the-muslim-leadership-initiative/" target="_blank">Muslim Matters</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Links -->
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <a class="link-card" href="deep_Hartman.html">
+                <div class="lc-icon">&#128196;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מעמיק &mdash; מכון הרטמן</div>
+                    <div class="lc-desc">9 פרקים: מבנה ארגוני, פיננסי, מנהיגות, אידיאולוגיה, השפעה ממשלתית, מחלוקות, הערכה ערכית</div>
+                </div>
+            </a>
+            <a class="link-card" href="deep_Baari.html">
+                <div class="lc-icon">&#127979;</div>
+                <div>
+                    <div class="lc-title">דוח בארי בדיבור אחד (גפ"ן 865)</div>
+                    <div class="lc-desc">ניתוח מעמיק של תכנית בית הספר: מבנה, מימון, תוכן, השפעה על מדיניות</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.guidestar.org.il/organization/511021156" target="_blank">
+                <div class="lc-icon">&#128200;</div>
+                <div>
+                    <div class="lc-title">GuideStar &mdash; פרופיל ישראלי</div>
+                    <div class="lc-desc">חל"צ 511021156 | דוחות כספיים, נושאי משרה</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://projects.propublica.org/nonprofits/organizations/133014387" target="_blank">
+                <div class="lc-icon">&#128202;</div>
+                <div>
+                    <div class="lc-title">ProPublica &mdash; 990 (ארה"ב)</div>
+                    <div class="lc-desc">EIN 13-3014387 | הכנסות, הוצאות, שכר בכירים</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://forward.com/news/534641/hartman-institute-received-major-donations-from-u-s-billionaires-funding-attack-on-israeli-judiciary/" target="_blank">
+                <div class="lc-icon">&#128240;</div>
+                <div>
+                    <div class="lc-title">Forward &mdash; חשיפת CLAWS</div>
+                    <div class="lc-desc">מיליארדרים שמימנו גם את הרטמן וגם את קהלת</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://next.obudget.org/i/org/association/511021156" target="_blank">
+                <div class="lc-icon">&#127975;</div>
+                <div>
+                    <div class="lc-title">obudget.org &mdash; מימון ממשלתי</div>
+                    <div class="lc-desc">פירוט הקצבות ותמיכות ממשרדי ממשלה</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONCLUSIONS ═══════ -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #ff8800">
+            <h2>סיכום והערכת ערכים</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>מכון שלום הרטמן הוא אחד הארגונים המשפיעים ביותר על עיצוב הזהות היהודית-ישראלית. הוא פועל בו-זמנית כמרכז מחקר, כמפעל חינוכי, כלובי פוליטי וכצינור מימון בינלאומי. תחת מעטפת "פלורליזם" ו"אקדמיה", המכון מקדם סדר יום ליברלי-דמוקרטי ספציפי &mdash; מבית הספר ועד למטכ"ל.</p>
+                    <p>עוצמתו האסטרטגית נובעת מהמיקום הייחודי: <strong>בתוך המערכת אך נגד חלקים ממנה</strong>. הוא מקבל כסף מהמדינה ובמקביל פועל לשנות את חוקיה. הוא מכשיר קצינים ובמקביל מבקר את ממשלתם. הוא מציג "פלורליזם" אך סגל המכון כמעט נעדר ייצוג שמרני.</p>
+                    <p>התלות ב-CLAWS (30-50% מגיוס פרטי בשנים מסוימות) מהווה סיכון ריכוזיות חמור. העובדה שאותו כסף מימן גם את קהלת מראה שלמיליארדרים אין בהכרח אג'נדה עקבית &mdash; אבל לעובדה שהרטמן תלוי בהם יש משמעות.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th><th>ראיה</th></tr>
+                        <tr><td>ממשל דמוקרטי</td><td style="color:#27ae60;font-weight:700">5/5</td><td>"פחות דמוקרטי = פחות יהודי"; התנגד לרפורמה</td></tr>
+                        <tr><td>פלורליזם דתי</td><td style="color:#27ae60;font-weight:700">5/5</td><td>שוויון זרמים = מטרה מוצהרת</td></tr>
+                        <tr><td>שקיפות כספית</td><td style="color:#f39c12;font-weight:700">4/5</td><td>4 כוכבים ב-CN; תלות CLAWS לא גולתה יזומה</td></tr>
+                        <tr><td>עצמאות אקדמית</td><td style="color:#e74c3c;font-weight:700">3/5</td><td>גודמן-בנט; לובי מוצהר; הטמעה בצה"ל</td></tr>
+                        <tr class="highlight"><td>עצמאות מתורמים</td><td style="color:#e74c3c;font-weight:700">3/5</td><td>CLAWS = 30-50% גיוס פרטי; ריכוזיות חמורה</td></tr>
+                        <tr><td>זכויות פלסטיניות</td><td style="color:#f39c12;font-weight:700">3/5</td><td>שתי מדינות; מרכז חברה משותפת; אך MLI שנוי במחלוקת</td></tr>
+                        <tr><td>שוויון מגדרי</td><td style="color:#27ae60;font-weight:700">4/5</td><td>נשים בהנהגה; תיכון לבנות</td></tr>
+                        <tr class="highlight"><td>ניטרליות חינוכית</td><td style="color:#e74c3c;font-weight:700">2/5</td><td>בארי: פרשנות ליברלית מוטה; סגל חד-כיווני</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות פתוחות</h3>
+                    <ul class="q-list">
+                        <li><strong>CLAWS לאחר 2020:</strong> האם התרומות המשיכו אחרי חשיפת Forward/Haaretz? זינוק ב-2023 ($34.5M) וירידה ב-2024 ($24.8M) &mdash; מעבר תורם?</li>
+                        <li><strong>תכני בארי:</strong> ספרי הלימוד והסילבוסים אינם זמינים לציבור באנגלית. מה בדיוק מלמדים בשליש מבתי הספר?</li>
+                        <li><strong>סילבוס לב אהרן:</strong> מה לומדים 1,000 קצינים בשלושה ימים? התכנית הקונקרטית אינה שקופה.</li>
+                        <li><strong>גודמן לאחר בנט:</strong> ממשיך לייעץ לפוליטיקאים? "צמצום הסכסוך" שרד את ממשלת בנט.</li>
+                        <li><strong>הישגי חקיקה:</strong> אילו חוקים ניתן לייחס למרכז המדיניות? גילוי לובינג בישראל חלש.</li>
+                        <li><strong>פער עברית-אנגלית:</strong> ניתוח שיטתי יחשוף אם המכון מציג מסרים שונים לקהלים שונים.</li>
+                        <li><strong>7 באוקטובר:</strong> כיצד השפיעה המלחמה על התכנות, בסיס התורמים, והקונצנזוס הפנימי?</li>
+                        <li><strong>דנצ'יק עזב את קהלת:</strong> האם הגדיל תרומות להרטמן? העיתוי מרמז.</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">קישורי מקורות</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_Hartman.html">
+                            <div class="lc-icon">&#128196;</div>
+                            <div>
+                                <div class="lc-title">דוח מלא</div>
+                                <div class="lc-desc">9 פרקים, כל המקורות</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="deep_Baari.html">
+                            <div class="lc-icon">&#127979;</div>
+                            <div>
+                                <div class="lc-title">דוח בארי</div>
+                                <div class="lc-desc">תכנית בתי הספר (גפ"ן 865)</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://www.hartman.org.il/" target="_blank">
+                            <div class="lc-icon">&#127760;</div>
+                            <div>
+                                <div class="lc-title">אתר רשמי (EN)</div>
+                                <div class="lc-desc">hartman.org.il</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://en.wikipedia.org/wiki/Shalom_Hartman_Institute" target="_blank">
+                            <div class="lc-icon">&#128214;</div>
+                            <div>
+                                <div class="lc-title">ויקיפדיה</div>
+                                <div class="lc-desc">Shalom Hartman Institute</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר &mdash; פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_Hartman.html">דוח מלא</a> | <a href="index.html">כל המחקרים</a> | פברואר 2026</p>
+    <p style="margin-top:4px">מבוסס על מקורות ציבוריים: GuideStar, ProPublica, Charity Navigator, obudget.org, Forward, Haaretz, NPR, InfluenceWatch, ויקיפדיה.</p>
+</footer>
+
+<script>
+// ── Navigation ──
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── Radar Chart ──
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['חדירה לביטחון', 'חדירה לחינוך', 'השפעה פוליטית', 'מימון זר', 'מסרים כפולים', 'ריכוזיות תורמים'],
+        datasets: [{
+            label: 'השפעה בפועל',
+            data: [90, 85, 80, 85, 70, 80],
+            backgroundColor: 'rgba(255, 136, 0, 0.2)',
+            borderColor: 'rgba(255, 136, 0, 1)',
+            pointBackgroundColor: 'rgba(255, 136, 0, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [30, 70, 25, 30, 20, 15],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// ── Finance Doughnut ──
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['תרומות מחו"ל (62.2%)', 'הקצבות מהמדינה (25.4%)', 'שירותים לממשלה (10.0%)', 'תרומות ישראל + אחר (2.4%)'],
+        datasets: [{
+            data: [62.2, 25.4, 10.0, 2.4],
+            backgroundColor: ['#e74c3c', '#667eea', '#0d9488', '#f39c12'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) { return ctx.label + ': ' + ctx.raw + '%'; }
+                }
+            }
+        }
+    }
+});
+
+// ── Revenue Line Chart (US) ──
+const revCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revCtx, {
+    type: 'line',
+    data: {
+        labels: ['2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+        datasets: [{
+            label: 'הכנסות ($M)',
+            data: [6.07, 7.68, 8.75, 11.60, 11.77, 14.59, 20.08, 24.71, 24.57, 16.31, 19.45, 28.36, 34.50, 24.85],
+            borderColor: '#ff8800',
+            backgroundColor: 'rgba(255, 136, 0, 0.1)',
+            fill: true,
+            tension: 0.3,
+            borderWidth: 3,
+            pointRadius: 4,
+            pointBackgroundColor: '#ff8800'
+        }, {
+            label: 'נכסים ($M)',
+            data: [5.91, 6.97, 11.53, 12.92, 13.80, 15.93, 20.50, 27.92, 34.75, 33.54, 33.74, 33.56, 43.45, 40.78],
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.08)',
+            fill: true,
+            tension: 0.3,
+            borderWidth: 2,
+            pointRadius: 3,
+            pointBackgroundColor: '#667eea',
+            borderDash: [5, 3]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(v) { return '$' + v + 'M'; }
+                }
+            }
+        },
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) { return ctx.dataset.label + ': $' + ctx.raw + 'M'; }
+                }
+            }
+        }
+    }
+});
+
+// ── Grants Bar Chart ──
+const gCtx = document.getElementById('grantsChart').getContext('2d');
+new Chart(gCtx, {
+    type: 'bar',
+    data: {
+        labels: ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+        datasets: [{
+            label: 'העברות לישראל ($M)',
+            data: [3.8, 5.3, 5.25, 7.25, 4.54, 3.68, 8.02, 8.20, 9.23, 10.58, 10.02, 10.57],
+            backgroundColor: '#667eea',
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(v) { return '$' + v + 'M'; }
+                }
+            }
+        },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: function(ctx) { return '$' + ctx.raw + 'M'; }
+                }
+            }
+        }
+    }
+});
+
+// ── Value Lens Toggle ──
+function toggleValueLens() {
+    var sw = document.getElementById('lensSwitch');
+    var isOn = sw.classList.toggle('on');
+    document.getElementById('lens-label-off').classList.toggle('active', !isOn);
+    document.getElementById('lens-label-on').classList.toggle('active', isOn);
+    document.querySelectorAll('#lens-cards .lens-text').forEach(function(el) {
+        var lens = el.getAttribute('data-lens');
+        el.style.display = (lens === 'official' && !isOn) || (lens === 'interpreted' && isOn) ? '' : 'none';
+    });
+}
+</script>
+
+</body>
+</html>

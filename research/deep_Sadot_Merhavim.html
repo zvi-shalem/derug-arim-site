@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שדות מרחבים — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זהות ארגונית</a> <a href="#section-2">מקורות מימון</a> <a href="#section-3">תוכן בפועל</a> <a href="#section-4">קשרים אידיאולוגיים</a> <a href="#section-5">ראיות</a> <a href="#section-6">מסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>שדות מרחבים לחשיבה ארגונית בע"מ</h1>
+  <div class="subtitle">תוכנית גפ"ן מס' 8263 — נקודתיים: המרחב לחשיבה ערכית</div>
+  <div class="meta">דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זהות ארגונית — חברה פרטית משפחתית</a></li>
+<li><a href="#section-2">מקורות מימון</a></li>
+<li><a href="#section-3">תוכן בפועל — "צדק חינוכי" ו"פדגוגיה ביקורתית"</a></li>
+<li><a href="#section-4">קשרים אידיאולוגיים</a></li>
+<li><a href="#section-5">ראיות — מה ההורים לא יודעים</a></li>
+<li><a href="#section-6">מסקנות</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זהות ארגונית — חברה פרטית משפחתית</h2>
+
+<table>
+<tr><th>נתון</th><th>פרטים</th></tr>
+<tr><td>שם חברה</td><td>שדות מרחבים לחשיבה ארגונית בע"מ</td></tr>
+<tr><td>ח.פ</td><td>515685030</td></tr>
+<tr><td>סוג ישות</td><td><strong>חברה פרטית</strong> (לא עמותה)</td></tr>
+<tr><td>תאריך התאגדות</td><td>20 במרץ 2017</td></tr>
+<tr><td>כתובת רשומה</td><td>הרקפת 31, כפר יונה</td></tr>
+<tr><td>מספר תוכנית גפ"ן</td><td>8263</td></tr>
+<tr><td>שם תוכנית</td><td>נקודתיים — המרחב לחשיבה ערכית</td></tr>
+<tr><td>מטרת החברה הרשומה</td><td>"ניהול, ייעוץ והדרכה בתחום החינוך, החברה והארגונים"</td></tr>
+</table>
+
+<h3>בעלי מניות ודירקטורים</h3>
+<ul>
+<li><strong>שדות איילת</strong> (ת.ז. 059419163) — דירקטורית ובעלת מניות</li>
+<li><strong>שדות שי</strong> (ת.ז. 059419155) — דירקטור ובעל מניות</li>
+</ul>
+<p>שניהם בעלי המניות היחידים בחברה.</p>
+<p><span class="source-tag">רשם החברות, משרד המשפטים</span></p>
+
+<h3>היסטוריה: "שדות מרחב לצמיחה" (2006)</h3>
+<p>"שדות מרחבים לחשיבה ארגונית בע"מ" (2017) הוא הגלגול התאגידי של עסק הייעוץ "שדות מרחב לצמיחה", שהוקם על ידי איילת ושי שדות ב-2006.</p>
+<blockquote>"איילת ושי שדות, מקימי 'שדות מרחב לצמיחה' בשנת 2006. אנו עוסקים בפיתוח ארגוני, ייעוץ וליווי תהליכי שינוי בארגונים, מוסדות חינוך ורשויות מקומיות."<br><span class="source-tag">אתר sadot-merhav.co.il</span></blockquote>
+</div>
+
+  <div class="section" id="section-2">
+<h2>מקורות מימון</h2>
+
+<h3>התקשרות ממשלתית</h3>
+<table>
+<tr><th>פרט</th><th>ערך</th></tr>
+<tr><td>שנה</td><td>2021</td></tr>
+<tr><td>נושא</td><td>ייעוץ וליווי מנהלים</td></tr>
+<tr><td>גוף מתקשר</td><td>משרד החינוך — מינהל חינוך התיישבותי, פנימייתי ועליית הנוער</td></tr>
+<tr><td>סוג התקשרות</td><td>פטור ממכרז — "ספק יחיד"</td></tr>
+<tr><td>סכום</td><td>4,826.62 ש"ח</td></tr>
+<tr><td>תקופה</td><td>01.01.2021 — 31.12.2021</td></tr>
+</table>
+<p><span class="source-tag">מאגר התקשרויות הממשלה, contracts.gov.il</span></p>
+
+<h3>תוכנית גפ"ן (8263)</h3>
+<table>
+<tr><th>מודול</th><th>תיאור</th><th>מחיר (ש"ח)</th></tr>
+<tr><td>מודול 1</td><td>ליווי צוות חינוכי (15 שעות)</td><td>12,000</td></tr>
+<tr><td>מודול 2</td><td>סדנאות לתלמידים (6 שעות)</td><td>4,800</td></tr>
+<tr><td>מודול 3</td><td>סדנאות להורים (3 שעות)</td><td>2,400</td></tr>
+</table>
+<p><span class="source-tag">קטלוג גפ"ן, תוכנית 8263</span></p>
+
+<p>כחברה פרטית, אין חובת פרסום דוחות כספיים. מקורות הכנסה נוספים אינם ידועים.</p>
+</div>
+
+  <div class="section" id="section-3">
+<h2>תוכן בפועל — "צדק חינוכי" ו"פדגוגיה ביקורתית"</h2>
+
+<blockquote>"התוכנית 'נקודתיים' מציעה תהליך ליווי בית ספרי שמוביל לבניית שפה ערכית משותפת, מעמיקה ומחברת, המבוססת על ערכי הליבה של בית הספר ועל תפיסת 'צדק חינוכי'."<br><span class="source-tag">קטלוג גפ"ן, תוכנית 8263</span></blockquote>
+
+<blockquote>"נקודתיים היא תוכנית לליווי בתי ספר בבניית שפה ערכית משותפת ובהטמעתה בחיי היום-יום של בית הספר. התוכנית מבוססת על תפיסת 'צדק חינוכי' ועל עקרונות פדגוגיה ביקורתית."<br><span class="source-tag">אתר nekudatayim.co.il</span></blockquote>
+
+<h3>מהם ה"ערכים" שמלמדים?</h3>
+<p>התוכנית אינה מפרטת רשימת ערכים ספציפית, אלא מתארת תהליך שבו בית הספר "מגבש את ערכיו שלו". עם זאת, המסגרת הערכית מוצהרת:</p>
+
+<blockquote>"אנו מאמינים כי בית ספר הוא מרחב חברתי וחינוכי שבו לכל אדם יש זכות להישמע, להשתתף ולהשפיע. אנו פועלים לקידום שוויון הזדמנויות, הכלה וגיוון, ולחיזוק קולם של תלמידים וקהילות מוחלשות."<br><span class="source-tag">אתר nekudatayim.co.il</span></blockquote>
+
+<blockquote>"התהליך ב'נקודתיים' מעודד חשיבה ביקורתית על נורמות חברתיות, סטריאוטיפים ודעות קדומות, ומפתח יכולת לזהות אי-צדק ולפעול לשינויו."<br><span class="source-tag">אתר nekudatayim.co.il</span></blockquote>
+
+<div class="thesis">
+<strong>"פדגוגיה ביקורתית"</strong> — מושג אקדמי מתחום הפילוסופיה של החינוך (פאולו פרירה, הנרי ז'ירו), המבקש להשתמש בחינוך ככלי לשינוי מבני של יחסי כוח בחברה. "חשיבה ביקורתית על נורמות חברתיות" אינה חשיבה ביקורתית ניטרלית — היא ניתוח של מבני כוח ו"אי-צדק" באמצעות מסגרת תיאורטית ספציפית.
+</div>
+</div>
+
+  <div class="section" id="section-4">
+<h2>קשרים אידיאולוגיים</h2>
+
+<h3>המסגרת התיאורטית</h3>
+<p>התוכנית מצהירה על שני עוגנים אידיאולוגיים:</p>
+<ol>
+<li><strong>"צדק חינוכי" (Educational Justice)</strong> — תפיסה שלפיה מערכת החינוך צריכה לפעול באופן אקטיבי לצמצום אי-שוויון חברתי, ולא רק לספק "שוויון הזדמנויות" פורמלי</li>
+<li><strong>"פדגוגיה ביקורתית" (Critical Pedagogy)</strong> — גישה חינוכית שמקורה בעבודתו של פאולו פרירה, הרואה בחינוך כלי לשחרור מ"דיכוי" ולשינוי מבנים חברתיים</li>
+</ol>
+
+<h3>מה המשמעות בפועל</h3>
+<ul>
+<li>"חשיבה ביקורתית על נורמות חברתיות" = זיהוי מבנים חברתיים כ"דכאניים"</li>
+<li>"סטריאוטיפים ודעות קדומות" = ערכים מסורתיים כמכשולים</li>
+<li>"חיזוק קולם של קהילות מוחלשות" = אקטיביזם חברתי</li>
+<li>"לזהות אי-צדק ולפעול לשינויו" = הפיכת תלמידים לסוכני שינוי חברתי</li>
+</ul>
+
+<p>השפה "ניטרלית" לכאורה, אך מאחוריה עומדת מסגרת תיאורטית ספציפית הרואה בחברה הקיימת כמכילה "אי-צדק" מבני שיש לתקנו.</p>
+</div>
+
+  <div class="section" id="section-5">
+<h2>ראיות — מה ההורים לא יודעים</h2>
+
+<h3>1. "חשיבה ערכית" = פדגוגיה ביקורתית</h3>
+<p>הכותרת "חשיבה ערכית" נשמעת ניטרלית — מי מתנגד לערכים? אולם התוכנית עצמה מצהירה שהיא מבוססת על "פדגוגיה ביקורתית" ו"צדק חינוכי". אלו אינם מונחים ניטרליים; הם מייצגים זרם אידיאולוגי ספציפי בפילוסופיה של החינוך.</p>
+
+<h3>2. חברה פרטית משפחתית</h3>
+<p>שני בני הזוג שדות הם בעלי המניות והדירקטורים היחידים. הם מפעילים תוכנית בבתי ספר ציבוריים בכספי ציבור (גפ"ן + התקשרות ממשלתית), ללא שקיפות תקציבית.</p>
+
+<h3>3. "ספק יחיד" בלי מכרז</h3>
+<p>ההתקשרות עם משרד החינוך (2021) התבצעה בפטור ממכרז, בנימוק "ספק יחיד". פטור זה ניתן כאשר אין ספק חלופי לשירות — אך מדובר בייעוץ וליווי מנהלים, תחום שבו קיימים ספקים רבים.</p>
+
+<div class="thesis">
+<strong>הפער:</strong> "חשיבה ערכית" (כפי שמוצגת להורים ולמנהלים) ≠ "פדגוגיה ביקורתית המעודדת חשיבה ביקורתית על נורמות חברתיות וסטריאוטיפים" (כפי שמצהירה התוכנית עצמה). ההורים מצפים לחיזוק ערכי היסוד של הילד; התוכנית מציעה "ביקורת על נורמות חברתיות" — שעלולה לכלול ביקורת על ערכי המשפחה עצמם.
+</div>
+</div>
+
+  <div class="section" id="section-6">
+<h2>מסקנות</h2>
+<p>"שדות מרחבים" היא חברה פרטית משפחתית (איילת ושי שדות) המפעילה תוכנית "חשיבה ערכית" בבתי ספר ציבוריים. תחת הכותרת הניטרלית מסתתרת מסגרת של "פדגוגיה ביקורתית" ו"צדק חינוכי" — מונחים אקדמיים שמשמעותם ניתוח מבני כוח בחברה וחתירה לשינוי חברתי.</p>
+
+<p>התוכנית מצהירה שהיא מעודדת "חשיבה ביקורתית על נורמות חברתיות, סטריאוטיפים ודעות קדומות" — מה שעלול להתפרש כהטלת ספק בערכים מסורתיים שהמשפחה מנחילה. השפה "ניטרלית" לכאורה ("ערכים", "הכלה", "גיוון"), אך המסגרת התיאורטית ספציפית ומחייבת.</p>
+
+<p>המבנה כחברה פרטית מבטל שקיפות תקציבית. ההתקשרות הממשלתית היחידה שנמצאה (4,826 ש"ח) אינה משקפת את היקף הפעילות בגפ"ן (מודול ליווי: 12,000 ש"ח, סדנאות תלמידים: 4,800 ש"ח).</p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | מקורות: רשם החברות (ח.פ 515685030), קטלוג גפ"ן (8263), מאגר התקשרויות ממשלה, אתר nekudatayim.co.il, אתר sadot-merhav.co.il | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

@@ -180,6 +180,35 @@ const RESEARCH = {
       "chapters": [],
       "report_url": "research/Child_protection_with_ideological_overlay.html",
       "has_full_report": true
+    },
+    "sel_pipeline": {
+      "cluster_id": "sel_pipeline",
+      "name_he": "צינור SEL — מקרנות אמריקאיות לכיתה",
+      "name_en": "SEL Pipeline — US Foundations to Classroom",
+      "risk_level": "גבוה",
+      "risk_score": 5,
+      "orgs": [
+        "CASEL ($12M/שנה)",
+        "Schusterman Foundation ($1M לאבני ראשה)",
+        "Wexner Foundation",
+        "אבני ראשה — 3,000+ מנהלים",
+        "יד הנדיב — תוכנית מפתח",
+        "SEL.IL (רייכמן)",
+        "שפ\"י — משרד החינוך"
+      ],
+      "summary": "צינור מימון גלובלי: קרנות אמריקאיות (Schusterman $1M, Wexner, Gates $2M) מממנות CASEL ($12M הכנסות/שנה) ואבני ראשה (3,000+ מנהלים = 40% מכלל מנהלי ישראל). CASEL ב-2020 הוסיף Transformative SEL עם equity וצדק חברתי. 7+ מדינות אמריקאיות הגבילו SEL — בישראל אפס מודעות. המונח SEL לא מוזכר בחוזרי מנכ\"ל — מוטמע תחת 'כישורי חיים' ו'אקלים חינוכי מיטבי'.",
+      "key_findings": [
+        "CASEL: הכנסות $12M (2022). מממנים: Wallace ($2.5M), Gates ($2M), CZI ($1.5M), Einhorn ($1M)",
+        "Transformative SEL (2020): equity + צדק חברתי + תודעה ביקורתית + שינוי מערכתי",
+        "Schusterman: $1M לאבני ראשה (2022), מצהירה על קידום DEI",
+        "אבני ראשה: 3,000+ מנהלים הוכשרו (40% מכלל מנהלי ישראל)",
+        "3 חוזרי מנכ\"ל (2015, 2018, 2021) מנדטים SEL — בלי לקרוא לזה SEL",
+        "7+ מדינות אמריקאיות הגבילו SEL: פלורידה, טקסס, ארקנסו, מונטנה",
+        "אין שותפות CASEL-ישראל מוצהרת — אבל Schusterman מממנת את שניהם"
+      ],
+      "chapters": [],
+      "report_url": null,
+      "has_full_report": false
     }
   },
   "program_cluster_map": {

@@ -1,6 +1,6 @@
 /**
- * research_orgs.js — Deep research profiles for 31 investigated organizations
- * Generated from deep_research_*.md files (2026-02-16/17)
+ * research_orgs.js — Deep research profiles for 37 investigated organizations
+ * Generated from deep_research_*.md files (2026-02-16/17, updated 2026-02-26)
  * Cross-referenced with org_city_chalatz_mapping.json (1820 orgs × 20 cities)
  * Batch 1: 7 orgs | Batch 2: 7 orgs | Batch 3: 15 orgs | Schools: 2 (Leyada, Kedma)
  *
@@ -42,15 +42,16 @@ const RESEARCH_ORGS = {
       "cities": ["רמת גן", "רמת השרון"],
       "school_count": 2,
       "program_budget": 8629,
-      "thesis": "ארגון זכויות אדם שעבר מסנגוריה קלאסית לאימוץ מסגרת 'אפרטהייד', עם מימון מ-NIF, EU ו-Ford Foundation.",
+      "thesis": "ארגון זכויות אדם שעבר מסנגוריה קלאסית לאימוץ מסגרת 'אפרטהייד', עם מימון מ-NIF ($1M/שנה), EU ו-Ford Foundation. מפעיל תוכניות חינוך לזכויות אדם בבתי ספר.",
       "key_findings": [
         "אימוץ מסגרת 'אפרטהייד' מ-2008 — שינוי מהותי מזכויות אדם קלאסיות",
         "תקציב 10.9M ₪, מימון ממשלתי אפסי (0.2%)",
-        "שותפות עם NIF, EU, Ford Foundation",
-        "36 עובדים — צוות משפטי, מחקר וסנגוריה"
+        "NIF: $1,000,000/שנה (2020, 2021, 2022) — מממנת העיקרית",
+        "36 עובדים — צוות משפטי, מחקר וסנגוריה",
+        "חבר בקואליציית OHCHR (UPR 2023) — דוח לנציבות זכויות האדם של האו\"ם"
       ],
       "risk": "high",
-      "funding_sources": "NIF, EU, Ford Foundation, Naomi & Nehemia Cohen Foundation",
+      "funding_sources": "NIF ($1M/yr), EU, Ford Foundation, Naomi & Nehemia Cohen Foundation",
       "report_url": "research/deep_ACRI.html",
       "source_links": [
         {"label": "GuideStar IL", "url": "https://www.guidestar.org.il/organization/580011567"},
@@ -1011,12 +1012,14 @@ const RESEARCH_ORGS = {
       "cities": [],
       "school_count": 0,
       "program_budget": 0,
-      "thesis": "קרן רוטשילד — ממנת תשתיות חינוך ומחקר. מופיעה ב'פרויקט ריבונות בחינוך' כמממנת צינור חדירה של SEL למערכת החינוך הישראלית.",
+      "thesis": "קרן רוטשילד — ממנת תשתיות חינוך ומחקר. הקימה את אבני ראשה (2007). מפעילה תוכנית 'מפתח' (2020) — שותפות עם משרד החינוך להטמעת SEL דרך פיתוח מקצועי למנהלים ומורים.",
       "key_findings": [
-        "מנויה ב'פרויקט ריבונות בחינוך' כמממנת חדירת SEL",
-        "ממנת מחקר ומדיניות חינוכית — לא תוכניות ישירות",
-        "חלק מהצינור: יד הנדיב → מחקר אקדמי → המלצות מדיניות → יישום בכיתה",
-        "הקרן הגדולה ביותר בישראל — בנתה את הכנסת, ספריית ירושלים, פארק הטכנולוגי"
+        "הקימה את אבני ראשה (2007) עם משרד החינוך — צינור SEL למנהלים",
+        "תוכנית 'מפתח' (תשפ\"א/2020): שותפות יד הנדיב + משרד החינוך",
+        "מפתח = SEL בפועל: למידה מבוססת-פרויקט, כישורי מאה 21, פיתוח רגשי-חברתי",
+        "ללא תיעוד פומבי של הסכומים שהושקעו בתוכנית מפתח",
+        "הקרן הגדולה ביותר בישראל — בנתה את הכנסת, ספריית ירושלים, פארק הטכנולוגי",
+        "חלק מהצינור: יד הנדיב → אבני ראשה + מפתח → מנהל → בית ספר → כיתה"
       ],
       "risk": "medium",
       "funding_sources": "הון רוטשילד (בריטניה)",
@@ -1044,15 +1047,19 @@ const RESEARCH_ORGS = {
       "program_budget": 0,
       "thesis": "מוסד שער: מארח כסא UNESCO (פרופ' נמרוד אלוני) ואת המרכז לפדגוגיה ביקורתית. הנקודה שבה אידיאולוגיה גלובלית נכנסת להכשרת מורים ישראלית.",
       "key_findings": [
-        "כסא UNESCO לחינוך הומניסטי — פרופ' נמרוד אלוני",
-        "אלוני עצמו מעיד: ג'ירו 'אין לו גרם של כבוד לרציונליות'",
-        "המרכז לפדגוגיה ביקורתית (גלית זלמנסון) — 'עבודה חתרנית לפעמים'",
-        "מרקס לא מוזכר באתר — אבל האקדמיה הלאומית מבהירה: פדגוגיה ביקורתית = מרקסיזם",
+        "כסא UNESCO לחינוך הומניסטי — פרופ' נמרוד אלוני (קשר ישיר לפריירה)",
+        "קורס חובה: 'מבוא לפדגוגיה ביקורתית' (1000100) — 2 נ\"ז, חובה לכל סטודנט B.Ed",
+        "קורסי בחירה: פדגוגיה ביקורתית ומעשה (1000101), פדגוגיה ביקורתית וצדק חברתי (1000102)",
+        "M.Ed בפדגוגיה ביקורתית וחינוך לדמוקרטיה — תואר שני ייעודי",
+        "ד\"ר גלית זלמנסון-לוי: 'עבודה חתרנית לפעמים' (מנהלת המרכז לפדגוגיה ביקורתית)",
+        "כנס שנתי: 'פדגוגיה ביקורתית: אתגרים ותקוות' (מאי-יוני)",
+        "ביבליוגרפיית חובה: פריירה (פדגוגיה של מדוכאים), ז'ירו, בל הוקס",
+        "בוגרים פעילים ב'מחנכים לשינוי' ו'להוביל לשינוי'",
         "הצינור: UNESCO → כסא אקדמי → הכשרת מורים → כיתה"
       ],
       "risk": "high",
       "funding_sources": "תקציב ממשלתי (מל\"ג), UNESCO",
-      "report_url": null,
+      "report_url": "research/kibbutzim_pedagogy_dashboard.html",
       "source_links": [
         {"label": "אתר המכללה", "url": "https://www.smkb.ac.il"}
       ]
@@ -1103,18 +1110,20 @@ const RESEARCH_ORGS = {
       "pipeline": true,
       "pipeline_role": "הכשרת מנהלים",
       "cities": [],
-      "school_count": 0,
+      "school_count": 1000,
       "program_budget": 0,
-      "thesis": "מכשיר מנהלי בתי ספר. פרסם '10 מדדים ליישום SEL מערכתי' — ההוראה הפרקטית שמתרגמת מדיניות להטמעה בפועל.",
+      "thesis": "מכשיר 3,000+ מנהלים (40% מכלל המנהלים בישראל). פרסם '10 מדדים ליישום SEL מערכתי'. הוקם 2007 ע\"י יד הנדיב + משרד החינוך. ממומן ע\"י Schusterman ($1M ב-2022), Wexner, JDC.",
       "key_findings": [
         "10 מדדים ליישום SEL מערכתי — ההוראות הפרקטיות למנהלים",
-        "הכשרת כל מנהלי בתי הספר החדשים בישראל",
-        "חלק מהצינור: יוזמה → אבני ראשה → מנהל → בית ספר",
-        "ממומן ע\"י יד הנדיב וממשלת ישראל"
+        "3,000+ מנהלים הוכשרו — 40% מכלל מנהלי בתי הספר בישראל",
+        "Schusterman Foundation: $1,000,000 (2022)",
+        "הוקם 2007: שותפות יד הנדיב + משרד החינוך + Wexner + JDC",
+        "טרם אימץ פומבית Transformative SEL (2020) עם שפת equity/social justice",
+        "חלק מהצינור: CASEL → אבני ראשה → מנהל → בית ספר"
       ],
-      "risk": "medium",
-      "funding_sources": "יד הנדיב, משרד החינוך",
-      "report_url": null,
+      "risk": "medium-high",
+      "funding_sources": "Schusterman ($1M/2022), Wexner Foundation, יד הנדיב, משרד החינוך, JDC",
+      "report_url": "research/deep_avney_rosha.html",
       "source_links": [
         {"label": "אתר אבני ראשה", "url": "https://www.avneyrosha.org.il"}
       ]
@@ -1207,19 +1216,152 @@ const RESEARCH_ORGS = {
       "funding_sources": "משרד החינוך (100%)",
       "report_url": null,
       "source_links": []
+    },
+    "TEHILA": {
+      "name_he": "תהילה — מרכז ארצי לילדים ונוער טרנסג'נדרים ומשפחותיהם",
+      "name_en": "TEHILA — National Center for Transgender Children, Youth & Families",
+      "reg": "580572793",
+      "entity_type": "עמותה",
+      "founded": null,
+      "revenue_nis": null,
+      "gov_pct": null,
+      "staff": null,
+      "neutrality": 1,
+      "transparency": 2,
+      "ideology_detected": true,
+      "cities": ["הרצליה", "תל אביב-יפו", "חיפה", "ירושלים", "באר שבע", "רמת גן", "רעננה", "פתח תקווה", "אשדוד", "ראשון לציון"],
+      "school_count": 0,
+      "program_budget": 0,
+      "thesis": "ארגון חד-נושאי: סדנאות זהות מגדרית בבתי ספר. נכנס לביה\"ס דרך אגפי בריאות עירוניים (לא חינוך) — עוקף ביקורת חינוכית. פריסה ב-10+ ערים. חבר בקואליציית OHCHR עם חוש\"ן.",
+      "key_findings": [
+        "מנכ\"לית: עפירת רותם",
+        "מספר עמותה: 580572793",
+        "מנגנון כניסה לביה\"ס: תיאום עם משרד החינוך / אגפי חינוך עירוניים + אישור מנהל",
+        "פעיל ב-10+ ערים: ת\"א, חיפה, ירושלים, הרצליה, באר שבע, רמת גן, רעננה, פ\"ת, אשדוד, אילת, ראשל\"צ",
+        "תכני סדנאות: מודעות לטרנסג'נדריות, הפחתת סטיגמה, סביבה מכילה",
+        "מימון: משרדי ממשלה (רווחה, חינוך, בריאות), רשויות מקומיות, קרנות פילנתרופיות",
+        "חבר בקואליציית OHCHR (UPR 2023) ביחד עם חוש\"ן"
+      ],
+      "risk": "medium-high",
+      "funding_sources": "משרדי ממשלה (רווחה/חינוך/בריאות), רשויות מקומיות, קרנות פילנתרופיות",
+      "report_url": "research/tehila_dashboard.html",
+      "source_links": [
+        {"label": "GuideStar IL", "url": "https://www.guidestar.org.il/organization/580572793"}
+      ]
+    },
+    "CASEL_INTL": {
+      "name_he": "CASEL — ארגון SEL הגלובלי",
+      "name_en": "CASEL — Collaborative for Academic, Social & Emotional Learning",
+      "reg": "20-5884201",
+      "entity_type": "501(c)(3) — ארה\"ב",
+      "founded": 1994,
+      "revenue_nis": null,
+      "gov_pct": 0,
+      "staff": null,
+      "neutrality": 2,
+      "transparency": 4,
+      "ideology_detected": true,
+      "pipeline": true,
+      "pipeline_role": "מסגרת אידיאולוגית גלובלית",
+      "cities": [],
+      "school_count": 8000,
+      "program_budget": 0,
+      "thesis": "ארגון הגג הגלובלי ל-SEL. הכנסות $12M (2022). ב-2020 הוסיף 'Transformative SEL' עם equity וצדק חברתי כמרכיבי ליבה. מימון: Gates ($2M), Wallace ($2.5M), CZI ($1.5M). אין שותפות ישראלית מוצהרת — אבל Schusterman מממנת גם CASEL וגם אבני ראשה.",
+      "key_findings": [
+        "EIN: 20-5884201. הכנסות: $12M (2022), $11M (2021), $9M (2020)",
+        "מממנים גדולים: Wallace ($2.5M), Gates ($2M), CZI ($1.5M), Einhorn ($1M), NoVo ($750K), Ford ($500K)",
+        "Transformative SEL (2020): הוסיף equity, צדק חברתי, זהות, תודעה ביקורתית, שינוי מערכתי",
+        "7+ מדינות אמריקאיות הגבילו SEL: פלורידה, טקסס, ארקנסו, איווה, מונטנה, צ' קרולינה, דרום קרולינה",
+        "אין שותפות ישראלית מוצהרת — אבל Schusterman מממנת CASEL וגם אבני ראשה",
+        "ביקורת: 'אידיאולוגיה woke', 'אינדוקטרינציה פוליטית', 'mission creep'"
+      ],
+      "risk": "high",
+      "funding_sources": "Wallace, Gates, Chan Zuckerberg, Einhorn, NoVo, Ford, Kellogg",
+      "report_url": null,
+      "source_links": [
+        {"label": "CASEL.org", "url": "https://casel.org"},
+        {"label": "ProPublica 990", "url": "https://projects.propublica.org/nonprofits/organizations/205884201"}
+      ]
+    },
+    "NIF": {
+      "name_he": "הקרן החדשה לישראל (NIF)",
+      "name_en": "New Israel Fund (NIF)",
+      "reg": null,
+      "entity_type": "501(c)(3) — ארה\"ב",
+      "founded": 1979,
+      "revenue_nis": null,
+      "gov_pct": 0,
+      "staff": null,
+      "neutrality": 1,
+      "transparency": 3,
+      "ideology_detected": true,
+      "pipeline": true,
+      "pipeline_role": "מימון ארגוני אדבוקסיה",
+      "cities": [],
+      "school_count": 0,
+      "program_budget": 0,
+      "thesis": "הקרן הגדולה ביותר למימון חברה אזרחית בישראל. מממנת ארגונים שפועלים בחינוך: ACRI ($1M/שנה), חוש\"ן ($15K), B'Tselem ($400K), סיכוי ($150K). שתיל — זרוע הפעלתית עם 3 סניפים.",
+      "key_findings": [
+        "ACRI: $1,000,000/שנה (2020-2022) — תוכניות חינוך לזכויות אדם בבתי ספר",
+        "B'Tselem: $400,000 (2022)",
+        "סיכוי: $150,000 (2022) — שוויון אזרחי",
+        "חוש\"ן: $15,000 (2019) — חינוך להט\"בי",
+        "שתיל (זרוע הפעלתית): ייעוץ אסטרטגי, פיתוח ארגוני, בניית קואליציות — ת\"א, ירושלים, נצרת",
+        "קואליציית OHCHR (UPR 2023): רוב החברים מקבלים מימון NIF"
+      ],
+      "risk": "high",
+      "funding_sources": "תרומות פרטיות (ארה\"ב), קרנות אמריקאיות",
+      "report_url": "research/nif_education_dashboard.html",
+      "source_links": [
+        {"label": "אתר NIF", "url": "https://www.nif.org"},
+        {"label": "ProPublica 990", "url": "https://projects.propublica.org/nonprofits/organizations/237088123"}
+      ]
+    },
+    "MOE_SEL": {
+      "name_he": "משרד החינוך — מנגנוני SEL",
+      "name_en": "Ministry of Education — SEL Mechanisms",
+      "reg": null,
+      "entity_type": "ממשלתי",
+      "founded": null,
+      "revenue_nis": null,
+      "gov_pct": 100,
+      "staff": null,
+      "neutrality": 3,
+      "transparency": 3,
+      "ideology_detected": true,
+      "pipeline": true,
+      "pipeline_role": "מנדט ומדיניות",
+      "cities": [],
+      "school_count": 0,
+      "program_budget": 0,
+      "thesis": "SEL לא מוזכר בשמו בחוזרי מנכ\"ל — מוטמע תחת מונחים עבריים: 'אקלים חינוכי מיטבי', 'כישורי חיים', 'חינוך חברתי'. שלושה חוזרי מנכ\"ל מרכזיים מנדטים תוכן רגשי-חברתי.",
+      "key_findings": [
+        "חוזר תשע\"ו/1(א) (2015): 'אקלים חינוכי מיטבי ומניעת אלימות' — אמפתיה, כבוד, קבלת השונה",
+        "חוזר תשע\"ט/1(א) (2018): חוסן נפשי, ויסות רגשי, תמיכה חברתית",
+        "חוזר תשפ\"ב/1(א) (2021): 'תוכנית הליבה לכישורי חיים' — מודעות עצמית, ניהול רגשות, קבלת החלטות",
+        "CASEL לא מוזכר בשום חוזר מנכ\"ל — SEL מותאם לשפה עברית",
+        "שפ\"י (SHEFI) מנהל יישום בפועל — בריאות נפש, מניעת אלימות, תוכניות רגשיות",
+        "הצינור: CASEL (גלובלי) → אבני ראשה (מנהלים) → שפ\"י (יישום) → חוזרי מנכ\"ל (מנדט)"
+      ],
+      "risk": "medium",
+      "funding_sources": "תקציב ממשלתי",
+      "report_url": null,
+      "source_links": [
+        {"label": "חוזרי מנכ\"ל", "url": "https://cms.education.gov.il/EducationCMS/Applications/Mankal/"}
+      ]
     }
   },
 
   /** City → org keys mapping for quick lookup in detail panels */
   "city_orgs": {
     "אריאל": ["Maga_BeTiaum"],
-    "באר שבע": ["Hartman", "Democratic_Institute", "Yedidut_Toronto", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Gesher", "AIDS_Task_Force", "Or_Gelbard", "Sexual_Assault_Centers", "Chevruta"],
+    "באר שבע": ["Hartman", "Democratic_Institute", "Yedidut_Toronto", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Gesher", "AIDS_Task_Force", "Or_Gelbard", "Sexual_Assault_Centers", "Chevruta", "TEHILA"],
     "גבעת שמואל": ["Matzmichim", "Meyda_Amin"],
     "גבעתיים": ["Matzmichim", "Meyda_Amin"],
     "הוד השרון": ["Matzmichim", "Maga_BeTiaum", "Meyda_Amin", "Gesher", "Sexual_Assault_Centers", "Kehalim_Shluvim", "Efshar_Acheret"],
-    "הרצליה": ["Matzmichim", "Mind_Lab", "Yesodot_Dror", "Maga_BeTiaum", "Meyda_Amin", "Gesher", "AIDS_Task_Force", "Yesod", "Sexual_Assault_Centers", "Markam_Social_Space", "Chevruta", "Kehalim_Shluvim", "Tehuda"],
-    "חיפה": ["Hartman", "Yedidut_Toronto", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Meyda_Amin", "Gesher", "AIDS_Task_Force", "Sexual_Assault_Centers", "Chevruta", "Yad_BYad"],
-    "ירושלים": ["Hartman", "Democratic_Institute", "Yedidut_Toronto", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Meyda_Amin", "Gesher", "AIDS_Task_Force", "Rossing_Center", "Ladaat", "Or_Gelbard", "Sexual_Assault_Centers", "Markam_Social_Space", "Chevruta", "Yad_BYad", "Leyada", "Kedma"],
+    "הרצליה": ["Matzmichim", "Mind_Lab", "Yesodot_Dror", "Maga_BeTiaum", "Meyda_Amin", "Gesher", "AIDS_Task_Force", "Yesod", "Sexual_Assault_Centers", "Markam_Social_Space", "Chevruta", "Kehalim_Shluvim", "Tehuda", "TEHILA"],
+    "חיפה": ["Hartman", "Yedidut_Toronto", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Meyda_Amin", "Gesher", "AIDS_Task_Force", "Sexual_Assault_Centers", "Chevruta", "Yad_BYad", "TEHILA"],
+    "ירושלים": ["Hartman", "Democratic_Institute", "Yedidut_Toronto", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Meyda_Amin", "Gesher", "AIDS_Task_Force", "Rossing_Center", "Ladaat", "Or_Gelbard", "Sexual_Assault_Centers", "Markam_Social_Space", "Chevruta", "Yad_BYad", "Leyada", "Kedma", "TEHILA"],
     "כרמיאל": ["Hartman", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Meyda_Amin", "Teva_HaAdam"],
     "נתיבות": ["Matzmichim", "Alliance_Israel"],
     "עמנואל": [],
@@ -1228,9 +1370,9 @@ const RESEARCH_ORGS = {
     "קרית גת": ["Yedidut_Toronto", "Matzmichim", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Meyda_Amin", "Teva_HaAdam"],
     "קרית שמונה": ["Matzmichim", "Meyda_Amin", "Sexual_Assault_Centers"],
     "ראש העין": ["Matzmichim", "Yesodot_Dror", "Maga_BeTiaum", "Meyda_Amin", "Chevruta", "Kehalim_Shluvim", "Efshar_Acheret"],
-    "רמת גן": ["ACRI", "Hartman", "Matzmichim", "Meyda_Amin", "Todaa", "Or_Gelbard", "Chevruta", "Teva_HaAdam"],
+    "רמת גן": ["ACRI", "Hartman", "Matzmichim", "Meyda_Amin", "Todaa", "Or_Gelbard", "Chevruta", "Teva_HaAdam", "TEHILA"],
     "רמת השרון": ["ACRI", "Hartman", "Havatzelet", "Matzmichim", "Yesodot_Dror", "Maga_BeTiaum", "Meyda_Amin", "Or_Gelbard", "Markam_Social_Space", "Kehalim_Shluvim", "Teva_HaAdam", "Efshar_Acheret"],
-    "רעננה": ["Democratic_Institute", "Matzmichim", "Yesodot_Dror", "Maga_BeTiaum", "Meyda_Amin", "Chevruta"],
-    "תל אביב-יפו": ["Hartman", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Maga_BeTiaum", "Meyda_Amin", "AIDS_Task_Force", "Yesod", "Todaa", "Or_Gelbard", "Sexual_Assault_Centers", "Markam_Social_Space", "Chevruta", "Kehalim_Shluvim", "Yad_BYad", "Efshar_Acheret", "Tehuda"]
+    "רעננה": ["Democratic_Institute", "Matzmichim", "Yesodot_Dror", "Maga_BeTiaum", "Meyda_Amin", "Chevruta", "TEHILA"],
+    "תל אביב-יפו": ["Hartman", "Matzmichim", "Mind_Lab", "Yesodot_Dror", "Shaar_Shivion", "Alliance_Israel", "Maga_BeTiaum", "Meyda_Amin", "AIDS_Task_Force", "Yesod", "Todaa", "Or_Gelbard", "Sexual_Assault_Centers", "Markam_Social_Space", "Chevruta", "Kehalim_Shluvim", "Yad_BYad", "Efshar_Acheret", "Tehuda", "TEHILA"]
   }
 };

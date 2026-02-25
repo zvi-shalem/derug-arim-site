@@ -407,24 +407,49 @@ function renderMainGrid() {
     const app = document.getElementById('app');
 
     app.innerHTML = `
-    <!-- Ministry Hero -->
+    <!-- Hero: Concrete Example First -->
     <div class="ministry-hero">
-        <h2>ממצאים — סיכום מצב</h2>
+        <h2>דוגמה אחת. שאר הממצאים למטה.</h2>
         <p>
-            537 פרוטוקולי מועצות עיר נותחו ידנית. 23 החלטות מועצה מאומתות זוהו ב-5 ערים.
-            6,064 תוכניות חינוך נבדקו מול 37 ארגונים שנחקרו לעומק.
-            ~8 אנשים מופיעים בכל 23 ההחלטות.
+            תוכנית בשם <strong>"בטיחות ברשת"</strong> פועלת ב-1,200+ בתי ספר.
+            מאחורי חומת תשלום, סרטון מלמד תלמידים חמש זהויות מגדריות:
+            סיסג'נדר, טרנסג'נדר, בי-ג'נדר, פאן-ג'נדר, אי-ג'נדר.
+            בדירקטוריון יושבים 4 בכירים לשעבר ממשרד החינוך, כולל מנכ"ל לשעבר כיו"ר ומשקיע מרכזי.
+            הדירוג האוטומטי של התוכנית: 1/10 (מינימלי) — כי האלגוריתם לא רואה תוכן מאחורי paywall.
+            <a href="research/safeschool_dashboard.html" target="_blank" style="color:#cc0000">מחקר מלא →</a>
+        </p>
+
+        <blockquote style="border-right:3px solid #888;padding:8px 16px;margin:16px 0;color:#444;font-style:italic;background:#f5f5f5">
+            "אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן הפיכה קומוניסטית בכיתה
+            ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד
+            והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה"
+            <div style="font-style:normal;color:#666;margin-top:6px;font-size:0.85em">— ד"ר ניר מיכאלי, הרצאה בבית ספר קדמה, דקה 55:00.
+            מרצה בכיר במכללת דוד ילין. לשעבר ראש המזכירות הפדגוגית של התנועה הקיבוצית.</div>
+        </blockquote>
+
+        <h3 style="margin:20px 0 8px;font-size:1.1em;color:#1a1a2e">היקף — מה נמצא</h3>
+        <p>
+            537 פרוטוקולי מועצות עיר. 23 החלטות מועצה מאומתות ב-5 ערים. ~8 אנשים מופיעים בכולן.
+            6,064 תוכניות חינוך נבדקו מול 37 ארגונים.
         </p>
         <p>
-            <strong>צינור מימון:</strong> קרנות אמריקאיות (Schusterman $1M, Wexner, Gates $2M) → CASEL ($12M/שנה) → אבני ראשה →
-            3,000+ מנהלים הוכשרו (40% מכלל מנהלי ישראל) → חוזרי מנכ"ל (2015, 2018, 2021) → יישום בכיתות.
+            <strong>צינור מימון מתועד:</strong> Schusterman ($1M) + Wexner + Gates ($2M) → CASEL ($12M הכנסות/שנה) → אבני ראשה (3,000+ מנהלים, 40% מכלל מנהלי ישראל) → חוזרי מנכ"ל (2015, 2018, 2021) → כיתות.
             המונח SEL אינו מופיע בחוזרי המנכ"ל. התכנים מוטמעים תחת "כישורי חיים" ו"אקלים חינוכי מיטבי".
             7 מדינות בארה"ב הגבילו תוכניות SEL בחקיקה. בישראל אין דיון ציבורי בנושא.
         </p>
+
+        <h3 style="margin:20px 0 8px;font-size:1.1em;color:#1a1a2e">שני דפוסים חוזרים</h3>
         <p>
-            המונח "קידום מעמד האישה" הוחלף ב"שוויון מגדרי" בפרוטוקולים עירוניים. מדובר בשני מושגים שונים:
-            הראשון מתאר ערך ליברלי מקובל, השני מתייחס למסגרת תיאורטית (באטלר, 1990) שמטרתה המוצהרת היא פירוק קטגוריות מגדריות.
-            ההחלפה הלשונית עצמה ניתנת למדידה ומתועדת בפרוטוקולים.
+            <strong>דפוס 1 — החלפת שפה:</strong> המונח "קידום מעמד האישה" הוחלף ב"שוויון מגדרי" בפרוטוקולים.
+            הראשון מתאר ערך ליברלי. השני מתייחס למסגרת תיאורטית (באטלר, 1990) שמטרתה המוצהרת היא פירוק קטגוריות.
+            ההחלפה מתועדת ונמדדת.
+            <a href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank" style="color:#cc0000">מילון מלא →</a>
+        </p>
+        <p>
+            <strong>דפוס 2 — מבנה ארגוני:</strong> ארגונים נפרדים משפטית, מתואמים בפועל, פועלים תחת שפה תמימה.
+            רשת דרור ישראל: 6 ישויות משפטיות, הנהגה אחת, 230M ₪/שנה תקציב ממשלתי.
+            רשת חינוך מיני/מגדרי: 9 ישויות, 136 בתי ספר, 15 ערים.
+            <a href="research/munzenberg_municipal.html" target="_blank" style="color:#cc0000">ניתוח מלא →</a>
         </p>
     </div>
 
@@ -468,18 +493,44 @@ function renderMainGrid() {
         }).join('')}
     </div>
 
-    <!-- About -->
+    <!-- Research Reports -->
     <div class="about-section">
-        <h3>אודות המדד</h3>
+        <h3>מחקרי עומק — 16 ארגונים ותוכניות</h3>
+        <div class="articles-grid" style="margin-top:12px">
+            ${[
+                {name: "SafeSchool", desc: "1,200 בתי ספר. 4 בכירי משרד החינוך לשעבר. תוכן מגדרי מאחורי paywall.", url: "research/safeschool_dashboard.html", color: "#c62828"},
+                {name: "CASEL", desc: "הכנסות $12M. Transformative SEL (2020): equity + צדק חברתי. 7 מדינות הגבילו.", url: "research/casel_dashboard.html", color: "#1565c0"},
+                {name: "אבני ראשה", desc: "3,000+ מנהלים. Schusterman $1M. 10 מדדי SEL למנהלים.", url: "research/avney_rosha_dashboard.html", color: "#e65100"},
+                {name: "מכללת הקיבוצים", desc: "קורס חובה: פדגוגיה ביקורתית. M.Ed ייעודי. כנס שנתי. פריירה + ז'ירו.", url: "research/kibbutzim_pedagogy_dashboard.html", color: "#4a148c"},
+                {name: "חוש\"ן", desc: "6 תוכניות גפ\"ן. 250 מתנדבים. קיצוץ 85% (2024). מימון NIF.", url: "research/choshen_dashboard.html", color: "#e91e63"},
+                {name: "דרור ישראל", desc: "6 ישויות משפטיות. 230M ₪/שנה ממשלתי. פדגוגיה ביקורתית. 14 קיבוצים עירוניים.", url: "research/dror_israel_dashboard.html", color: "#1b5e20"},
+                {name: "NIF", desc: "ACRI $1M/שנה. חוש\"ן $15K. שתיל: 3 סניפים. קואליציית OHCHR.", url: "research/nif_education_dashboard.html", color: "#263238"},
+                {name: "ACRI", desc: "תקציב 10.9M ₪. NIF $1M/שנה. תוכניות חינוך לזכויות אדם בבתי ספר.", url: "research/acri_dashboard.html", color: "#37474f"},
+                {name: "המעורר", desc: "ד\"ר ניר מיכאלי. SPEL: למידה פוליטית-רגשית-חברתית. מכללת דוד ילין.", url: "research/hameorer_dashboard.html", color: "#5d4037"},
+                {name: "הרטמן", desc: "מימון אמריקאי. פלורליזם דתי. 'בשבילנו' + 'בארי'.", url: "research/hartman_dashboard.html", color: "#0d47a1"},
+                {name: "מצמיחים", desc: "קפיצת תקציב 400% (2020-2023). מיתוג מחדש 2024: 'אקדמיית מצמיחים'.", url: "research/matzmichim_dashboard.html", color: "#bf360c"},
+                {name: "מגע בתיאום", desc: "חינוך מיני. 136 בתי ספר. רשת 9 ישויות.", url: "research/maga_betiaum_dashboard.html", color: "#880e4f"},
+                {name: "מידע אמין על מין", desc: "שלומית הברון. סדנאות מיניות מגיל 12. מימון לא שקוף.", url: "research/meyda_amin_dashboard.html", color: "#ad1457"},
+                {name: "המכון הדמוקרטי", desc: "גנים 'מודעי מגדר'. 'משפחות מגוונות'. רמת גן.", url: "research/democratic_institute_dashboard.html", color: "#004d40"},
+                {name: "רשת SEI", desc: "האגודה לחינוך מיני בישראל. רשת מקצועית. 24K chars מחקר עומק.", url: "research/sei_network_dashboard.html", color: "#311b92"},
+                {name: "תהילה", desc: "עמותה 580572793. סדנאות מגדר ב-10+ ערים. כניסה דרך אגפי בריאות.", url: "research/tehila_dashboard.html", color: "#b71c1c"},
+            ].map(d => `
+                <div class="article-card" style="border-top-color:${d.color}" onclick="window.open('${d.url}', '_blank')">
+                    <h3>${d.name}</h3>
+                    <div class="surface">${d.desc}</div>
+                    <div class="ev-count">מחקר מלא →</div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <!-- Methodology -->
+    <div class="about-section">
+        <h3>שיטה</h3>
         <p>
-            בשונה ממדדים כמותיים (ספירת מילות מפתח), מדד הלכידה המוסדית מבוסס על <strong>סוג הראיות</strong>:
-            האם ממצא הוא שפה בלבד, תוכנית פעילה, שינוי מבני, או נעילה מוסדית.
-            כל ממצא מגובה במקור ציבורי הזמין לבדיקה.
-        </p>
-        <p>
-            הערת שיטה: המדד מבחין בין ביטויים ליברליים קלאסיים (כגון "קידום מעמד האישה") לבין
-            טרמינולוגיה ממסגרות תיאורטיות ספציפיות (כגון "שוויון מגדרי", באטלר 1990). המעבר מהשפה הראשונה לשנייה
-            נמדד בפרוטוקולים ומתועד כאינדיקטור.
+            הדירוג מבוסס על <strong>סוג הראיות</strong>, לא על ספירת מילים:
+            שפה בלבד (רמה 2), תוכנית פעילה (4), שינוי מבני (5), שורת תקציב (6), נעילה מוסדית מלאה (7).
+            כל ממצא מגובה במקור ציבורי.
         </p>
         <div class="data-sources">
             <span class="source-tag">537 פרוטוקולי מועצות עיר</span>
@@ -691,10 +742,10 @@ function renderArticles() {
     const app = document.getElementById('app');
 
     app.innerHTML = `
-    <h1 style="text-align:center;margin:20px 0 8px;font-size:1.5em;color:#1a1a2e">מאמרים — עומק רעיוני</h1>
+    <h1 style="text-align:center;margin:20px 0 8px;font-size:1.5em;color:#1a1a2e">מושגים — משמעות כפולה מתועדת</h1>
     <p style="text-align:center;color:#666;margin-bottom:24px;font-size:0.9em;max-width:700px;margin-left:auto;margin-right:auto">
-        כל מונח כאן נראה תמים על פניו. המאמרים חושפים את המשמעות הכפולה — מה שההורים שומעים ומה שהמקורות האקדמיים אומרים.
-        <br>"מעמד האישה" היה מספיק. ההחלפה ל"שוויון מגדרי" היא עצמה האינדיקטור.
+        לכל מושג שתי משמעויות: מה שמוצג להורים ולציבור, ומה שהמקורות האקדמיים המייסדים מגדירים.
+        שתי המשמעויות מתועדות עם מקורות.
     </p>
 
     <div class="articles-grid">
@@ -709,24 +760,24 @@ function renderArticles() {
 
         <!-- External articles -->
         <div class="article-card" style="border-top-color:#1a1a2e" onclick="window.open('https://aosshalem-dev.github.io/progressive-rosetta-stone/', '_blank')">
-            <h3>אבן רוזטה — מילון ההסוואה</h3>
-            <div class="surface">כיצד מונחים ניטרליים מסווים תוכן אידיאולוגי</div>
-            <div class="hidden">מיפוי שיטתי: "אזרחות פעילה" = אקטיביזם, "פדגוגיה חדשנית" = פדגוגיה ביקורתית, "צדק חברתי" = CRT</div>
-            <div class="ev-count">מאמר חיצוני &larr;</div>
+            <h3>אבן רוזטה — מילון מונחים</h3>
+            <div class="surface">מיפוי שיטתי של מונחים ציבוריים מול ההגדרות במקורות האקדמיים המייסדים</div>
+            <div class="hidden">"אזרחות פעילה" → אקטיביזם (פריירה). "פדגוגיה חדשנית" → פדגוגיה ביקורתית (ז'ירו). "צדק חברתי" → CRT.</div>
+            <div class="ev-count">מאמר חיצוני →</div>
         </div>
 
         <div class="article-card" style="border-top-color:#e91e63" onclick="window.open('https://aosshalem-dev.github.io/shefi-research/', '_blank')">
             <h3>מחקר שפ"י — שירות פסיכולוגי ייעוצי</h3>
             <div class="surface">השירות הפסיכולוגי-ייעוצי של משרד החינוך</div>
-            <div class="hidden">הנהלת שפ"י לשעבר עברה ל-SafeSchool. "דלת מסתובבת" בין הרגולטור למפוקח.</div>
-            <div class="ev-count">מאמר חיצוני &larr;</div>
+            <div class="hidden">בכירי שפ"י לשעבר עוברים ל-SafeSchool. 4 בכירי משרד החינוך בדירקטוריון.</div>
+            <div class="ev-count">מאמר חיצוני →</div>
         </div>
 
         <div class="article-card" style="border-top-color:#1565c0" onclick="window.open('https://aosshalem-dev.github.io/sel-research/', '_blank')">
             <h3>מחקר SEL — למידה רגשית-חברתית</h3>
-            <div class="surface">מדריך מקיף: כיצד SEL הפכה לכלי להסטת זהות חינוכית</div>
-            <div class="hidden">מפריירה דרך מרקוזה ועד יישום בבתי ספר ישראליים. 136 מסגרות, 1,300+ "מיומנויות", אפס הגדרה קוהרנטית.</div>
-            <div class="ev-count">מאמר חיצוני &larr;</div>
+            <div class="surface">136 מסגרות SEL, 1,300+ "מיומנויות". ב-2020 CASEL הוסיפה equity וצדק חברתי.</div>
+            <div class="hidden">מפריירה (1968) דרך מרקוזה ועד יישום ישראלי. 7 מדינות אמריקאיות הגבילו בחקיקה.</div>
+            <div class="ev-count">מאמר חיצוני →</div>
         </div>
     </div>`;
 }

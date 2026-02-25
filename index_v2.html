@@ -398,6 +398,25 @@ function escHtml(s) {
     return d.innerHTML;
 }
 
+// Programs filtered out — generic enrichment / thinking games / boilerplate SEL language only
+const NEUTRAL_PROGRAMS = new Set([
+    'אשכולות חשיבה',
+    'המראה - המשחק ככלי חברתי רגשי',
+    'הנהגה ירוקה',
+    'SBL - SOCIAL BASED LEARNING',
+    'תקשורת וידאו',
+    'מרח מנהיגות והעשרה',
+    'חכמת המעגל',
+    'הזמנה לנתינה אכפתית',
+    'נקודתיים - המרחב לחשיבה ערכית',
+    'אני יכול להצליח (א.י.ל) ביסודי',
+    'אל הנפש- ידידות טורונטו',
+    'אווטאר- בין דמיון למציאות',
+    'נקרא יחד בערבית',
+    'מעבדה לחדשנות חינוכית',
+]);
+function filterPrograms(programs) { return programs.filter(p => !NEUTRAL_PROGRAMS.has(p.name)); }
+
 // ═══════════════════════════════════════════════════════════════
 // VIEW: MAIN GRID
 // ═══════════════════════════════════════════════════════════════
@@ -514,8 +533,9 @@ function renderMainGrid() {
         ${sorted.map(city => {
             const lv = getLevel(city.level);
             const cd = getCityData(city.key);
-            const progCount = cd ? cd.proven_programs_count : 0;
-            const totalDeploy = cd ? cd.proven_programs.reduce((s, p) => s + (p.deployments || 0), 0) : 0;
+            const filteredProgs = cd ? filterPrograms(cd.proven_programs) : [];
+            const progCount = filteredProgs.length;
+            const totalDeploy = filteredProgs.reduce((s, p) => s + (p.deployments || 0), 0);
             return `
             <div class="city-card" onclick="navigate('#/city/${city.key}')">
                 <div class="city-name">${escHtml(city.name)}</div>
@@ -572,6 +592,11 @@ function renderMainGrid() {
             שפה בלבד (רמה 2), תוכנית פעילה (4), שינוי מבני (5), שורת תקציב (6), נעילה מוסדית מלאה (7).
             כל ממצא מגובה במקור ציבורי.
         </p>
+        <p style="font-size:0.9em;color:#555">
+            <strong>הבחנה:</strong> רוב האנשים במערכת החינוך — מורים, מנהלים, חברי מועצות — משתמשים בשפת SEL כפי שנדרש מהם.
+            14 תוכניות הוסרו מהרשימה לאחר שנמצאו ניטרליות (משחקי חשיבה, העשרה כללית).
+            הממצאים מתמקדים בשחקנים ספציפיים שפועלים מתוך אג'נדה אידיאולוגית מתועדת — לא ברוב המחנכים.
+        </p>
         <div class="data-sources">
             <span class="source-tag">537 פרוטוקולי מועצות עיר</span>
             <span class="source-tag">6,064 תוכניות חינוך (גפ"ן)</span>
@@ -596,7 +621,7 @@ function renderCityDetail(key) {
     const lv = getLevel(city.level);
     const cd = getCityData(key);
     const protocols = getCityProtocols(key);
-    const programs = cd ? cd.proven_programs : [];
+    const programs = cd ? filterPrograms(cd.proven_programs) : [];
     const news = cd ? (cd.news_actions_detail || []) : [];
     const totalDeploy = programs.reduce((s, p) => s + (p.deployments || 0), 0);
     const totalBudget = cd ? cd.proven_budget : 0;
@@ -646,7 +671,8 @@ function renderCityDetail(key) {
 
         <!-- Programs Section -->
         ${programs.length > 0 ? `
-        <h2 class="section-title">תוכניות חינוכיות בעייתיות <span class="count">${programs.length}</span></h2>
+        <h2 class="section-title">תוכניות עם תוכן אידיאולוגי מאומת <span class="count">${programs.length}</span></h2>
+        <p style="font-size:0.85em;color:#666;margin:-4px 0 12px">14 תוכניות נוספות הוסרו — שפת SEL כבוילרפלייט בלבד, ללא תוכן אידיאולוגי.</p>
         ${programs.map((p, i) => renderProgramCard(p, i)).join('')}
         ` : `
         ${cd ? '' : '<div class="gap-indicator">נתוני תוכניות חינוכיות טרם נטענו לעיר זו. מחקר מעמיק נוסף נדרש.</div>'}
@@ -835,7 +861,7 @@ function renderArticleDetail(conceptId) {
     const linkedPrograms = [];
     if (typeof DATA !== 'undefined') {
         DATA.rankings.forEach(city => {
-            (city.proven_programs || []).forEach(p => {
+            filterPrograms(city.proven_programs || []).forEach(p => {
                 const concepts = getConceptsForProgram(p);
                 if (concepts.includes(conceptId)) {
                     linkedPrograms.push({ program: p, city: city.city, cityKey: city.protocol_key });

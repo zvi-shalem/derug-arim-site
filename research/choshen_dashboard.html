@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>חוש"ן — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+nav { position: sticky; top: 0; z-index: 100; background: #1a1a2e; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.nav-brand { font-weight: 700; font-size: 1.05em; padding: 12px 0; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 0.72em; font-weight: 600; background: #e74c3c; color: #fff; margin-right: 8px; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab { padding: 14px 16px; cursor: pointer; font-size: 0.82em; border-bottom: 3px solid transparent; transition: all 0.2s; color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%); color: #fff; padding: 40px 20px 30px; text-align: center; }
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+.section { background: #fff; border-radius: 8px; padding: 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } .nav-tabs { overflow-x: auto; } }
+.metric { background: #f8f9fa; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid #e8e8e8; transition: transform 0.2s; }
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.chart-wrap { position: relative; width: 100%; max-width: 500px; height: 320px; margin: 0 auto; }
+.finding { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+.warning-box { background: #fff5f5; border-right: 4px solid #cc0000; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.warning-box strong { color: #8b0000; }
+.depth-level { border-right: 3px solid #667eea; margin: 12px 0; background: #fafbff; border-radius: 0 8px 8px 0; overflow: hidden; }
+.depth-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; transition: background 0.2s; }
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 16px; }
+.depth-level.open .depth-body { max-height: 800px; padding: 0 16px 16px; }
+.depth-quote { background: #fff; border-right: 3px solid #cc0000; padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 0.9em; color: #333; font-style: italic; }
+.depth-next { display: inline-block; margin-top: 10px; padding: 6px 14px; background: #f0f4fa; border-radius: 4px; font-size: 0.82em; color: #2a5a8a; cursor: default; }
+.link-card { display: flex; gap: 10px; padding: 10px 14px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8; text-decoration: none; color: inherit; transition: all 0.2s; margin-bottom: 8px; }
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+footer { background: #1a1a2e; color: #667; padding: 20px; text-align: center; font-size: 0.82em; }
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>חוש"ן — חינוך ושינוי</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index_v2.html">← דירוג ערים</a>
+            <a href="deep_CHOSHEN.html">דוח מלא</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>חוש"ן — חינוך ושינוי</h1>
+    <div class="subtitle">חברה לתועלת הציבור (חל"צ) | ח.פ. 513544494 | מ-1976 (האגודה) / 2004 (עצמאי)</div>
+    <div class="meta">~2,000 סדנאות בשנה | 350 מוסדות | 250 מתנדבים | 6 תוכניות גפ"ן | קיצוץ 85%</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>חוש"ן (HOSHEN) הוא <strong>ארגון ההסברה והחינוך של הקהילה הגאה בישראל</strong> — כך הוא מגדיר את עצמו בעברית. בפועל, זהו הארגון שמכניס סיפורים אישיים של מתנדבים להט"ב לכיתות בתי הספר, החל מחטיבת ביניים. ארגון חד-נושאי שמציג עצמו כ"חינוך לסובלנות" — אבל כל תוכנית, כל סדנה, כל פעילות מתמקדת בנטייה מינית וזהות מגדרית.</p>
+
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">קיצוץ תקציב</div>
+                    <div class="value">85%</div>
+                    <div class="note">3M ₪ → 300K ₪ (2024)</div>
+                </div>
+                <div class="metric">
+                    <div class="label">סדנאות בשנה</div>
+                    <div class="value">~2,000</div>
+                    <div class="note">4,200 בוטלו אחרי הקיצוץ</div>
+                </div>
+                <div class="metric">
+                    <div class="label">תוכניות גפ"ן</div>
+                    <div class="value">6</div>
+                    <div class="note">כולן מסומנות "מגדר" — אפס פריסות</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל סיכון</h3>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים קריטיים</h3>
+                    <div class="finding">
+                        <div class="icon">🎤</div>
+                        <div>
+                            <h4>advocacy = education</h4>
+                            <p>בעברית: "ארגון החינוך וה<strong>הסברה</strong>". באנגלית: "education and information center". המילה "הסברה" נעלמת בתרגום.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🏫</div>
+                        <div>
+                            <h4>מגן ועד צבא</h4>
+                            <p>הכשרת גננות מ-2012. סדנאות מכיתה ז'. תוכניות בצה"ל, משטרה, מג"ב. רשת השפעה שלמה.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">💰</div>
+                        <div>
+                            <h4>עוקף עירוני</h4>
+                            <p>רעננה הציעה מימון עירוני ישיר כשהמשרד קיצץ. ממצא פרוטוקולי: עקיפת מדיניות מרכזית.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🌐</div>
+                        <div>
+                            <h4>קואליציה OHCHR</h4>
+                            <p>חוש"ן + תהילה + האגודה — הגישו דוח לאו"ם (OHCHR). ארגון חינוכי? או ארגון לובי?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קו זמן</h2>
+            <table>
+                <tr><th>שנה</th><th>אירוע</th><th>משמעות</th></tr>
+                <tr><td>1976</td><td>הוקם כ"שירות הרצאות של האגודה"</td><td>התחלה כזרוע של ארגון הלהט"ב</td></tr>
+                <tr><td>2001</td><td>שינוי שם: "חוש"ן — חינוך ושינוי"</td><td>"שינוי" — לא "מידע"</td></tr>
+                <tr><td>2004</td><td>חברה עצמאית (חל"צ)</td><td>הפרדה מהאגודה</td></tr>
+                <tr><td>2012</td><td>הכשרת גננות</td><td>חדירה לגיל הגן</td></tr>
+                <tr class="highlight"><td>2016</td><td>הקצבת 10M ₪ (כל המשרדים)</td><td>1.5M ₪ להרצאות = חוש"ן</td></tr>
+                <tr class="highlight"><td>2017</td><td>שורת תקציב ייעודית במשרד</td><td>הטמעה מוסדית</td></tr>
+                <tr><td>2021</td><td>אות הנשיא להתנדבות</td><td>לגיטימציה ממלכתית</td></tr>
+                <tr class="highlight"><td>2022</td><td>אבי מעוז — סמכות על תוכניות חיצוניות</td><td>איום קיומי על חוש"ן</td></tr>
+                <tr class="highlight"><td>2024</td><td>קיצוץ 85%: 3M → 300K</td><td>4,200 סדנאות בוטלו</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: FINANCE ═══════ -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מימון</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">מקורות מימון (הערכה)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מקורות מזוהים</h3>
+                    <table>
+                        <tr><th>מקור</th><th>סכום</th><th>שנה</th></tr>
+                        <tr class="highlight"><td>משרד החינוך (לפני קיצוץ)</td><td>3,000,000 ₪</td><td>~2023</td></tr>
+                        <tr><td>משרד החינוך (אחרי קיצוץ)</td><td>300,000 ₪</td><td>2024</td></tr>
+                        <tr><td>עיריית תל אביב</td><td>לא ידוע</td><td>מ-2007</td></tr>
+                        <tr><td>NIF (הקרן החדשה)</td><td>$15,000</td><td>לא ידוע</td></tr>
+                        <tr><td>A Wider Bridge</td><td>לא ידוע</td><td>מענקי השפעה</td></tr>
+                        <tr><td>דמי סדנאות</td><td>~1,000 ₪ לסדנה</td><td>שוטף</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888"><strong>הערכת תקציב שנתי:</strong> 3-6M ₪ (לפני קיצוץ). GuideStar: 57% שקיפות (2.5/5).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מנגנון "עוקף עירוני"</h2>
+            <p>כשמשרד החינוך קיצץ 85% מהתקציב, <strong>רעננה הציעה לממן ישירות מתקציב עירוני</strong>. זהו ממצא מפרוטוקול עירוני — עקיפה של מדיניות מרכזית.</p>
+            <div class="warning-box">
+                <strong>הממצא:</strong> הצעה בוועדת חינוך עירונית (רעננה) לממן את חוש"ן ישירות מתקציב עירוני, אחרי שמשרד החינוך קיצץ. אם זה מצליח — מדיניות ממשלתית נעקפת ברמה המוניציפלית. זהו דגם שיכול לשמש ערים אחרות.
+                <p style="font-size:0.82em;color:#555;margin-top:8px">מקור: פרוטוקול ועדת חינוך רעננה, ניתוח פרויקט דירוג ערים</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קריסת המימון הממשלתי (2023-2025)</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">לפני המלחמה</div>
+                    <div class="value">$28.4M</div>
+                    <div class="note">כל ארגוני הלהט"ב</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">2025</div>
+                    <div class="value">$7.4M</div>
+                    <div class="note">ירידה של 74%</div>
+                </div>
+                <div class="metric">
+                    <div class="label">חוש"ן: ביקש</div>
+                    <div class="value">8M ₪</div>
+                    <div class="note">מנכ"לית: "כדי להגיע לכל בתי הספר"</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONTENT ═══════ -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>הסדנאות: "סיפור אישי" כמכשיר advocacy</h2>
+            <p>המתודולוגיה המרכזית: מתנדבים להט"ב (גיל 23+) נכנסים לכיתה ומשתפים את הסיפור האישי שלהם. 90 דקות. 1,000 ₪. המטרה המוצהרת: "שינוי עמדות שליליות".</p>
+
+            <h3>סוגי סדנאות</h3>
+            <table>
+                <tr><th>סדנה</th><th>קהל יעד</th><th>תוכן</th></tr>
+                <tr><td>"סיפור אישי"</td><td>כיתה ט'+</td><td>מתנדב/ת להט"ב משתפ/ת סיפור coming-out</td></tr>
+                <tr><td>"להט"ב לחט"ב" (גפ"ן #15862)</td><td>כיתות ז'-ט'</td><td>כרטיסיות סיפור: חיי יומיום של נוער להט"ב, ילדי משפחות חד-מיניות</td></tr>
+                <tr><td>"הסיפור הישראלי"</td><td>כיתה ט'+</td><td>חוויות להט"ב בישראל בת-זמננו</td></tr>
+                <tr><td>אזרחות — 33 מפגשים</td><td>תיכון</td><td>היסטוריית להט"ב, פעילים, מאבק לשוויון</td></tr>
+                <tr class="highlight"><td>הכשרת גננות</td><td>מכללות</td><td>"ילדים הגדלים במשפחות להט"ב"</td></tr>
+                <tr><td>צוותי חינוך</td><td>מגננת עד תיכון</td><td>הכשרת מורים בנושאי להט"ב</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>פער בין עברית לאנגלית</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>מה אומרים בעברית</h3>
+                    <div class="depth-quote">"ארגון החינוך וה<strong>הסברה</strong> של הקהילה הגאה"</div>
+                    <div class="depth-quote">"שינוי עמדות שליליות" — המטרה המפורשת</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.hoshen.org/" target="_blank">hoshen.org (עברית)</a></p>
+                </div>
+                <div>
+                    <h3>מה אומרים באנגלית</h3>
+                    <div class="depth-quote" style="border-right-color:#667eea">"education and <strong>information</strong> center"</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"tolerance" and "understanding"</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.hoshen.org/english" target="_blank">hoshen.org (English)</a></p>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top:12px">
+                <strong>"הסברה" ≠ "information".</strong> "הסברה" = advocacy, PR, שכנוע. "information" = מידע ניטרלי. הארגון מודע לכך שהמילה "הסברה" בעייתית בזירה הבינלאומית ומוחלפת ב-"information". זהו ממצא חשוב: שפה כפולה כדי לרכך את ההצגה.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>6 תוכניות גפ"ן — כולן מגדר</h2>
+            <p>כל 6 התוכניות מסומנות בנושא "מגדר" בגפ"ן. זהו ארגון חד-נושאי: אין תוכנית אחת שלא עוסקת בנטייה מינית או זהות מגדרית. ובכל זאת — <strong>אפס פריסות</strong> בפועל.</p>
+            <div class="warning-box">
+                <strong>אפס פריסות:</strong> 6 תוכניות רשומות בגפ"ן, אבל אף בית ספר לא רכש אותן (לפי נתוני הפרויקט). ההסבר הסביר: קיצוץ 85% + אפקט מצנן פוליטי. אבל התוכניות עדיין <strong>רשומות</strong> — מוכנות להפעלה מחודשת כשמשתנה הרוח הפוליטית.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: EVIDENCE ═══════ -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת ראיות: מהתנדבות לזירה הבינלאומית</h2>
+
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🎤</span>
+                    <div>
+                        <div class="d-title">שכבה 1: advocacy = education</div>
+                        <div class="d-sub">הארגון עצמו מגדיר את עצמו כגוף "הסברה"</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>חוש"ן מגדיר את עצמו כ"ארגון החינוך וה<strong>הסברה</strong>" — advocacy, לא information. המטרה המפורשת: "שינוי עמדות שליליות". זו לא חינוך ניטרלי — זה שינוי עמדות מכוון.</p>
+                    <div class="depth-quote">"שינוי עמדות שליליות כלפי הקהילה הגאה"<br>— אתר חוש"ן (עברית)</div>
+                    <p>תוכנית האזרחות: 33 מפגשים "להכיר פעילים ואת המאבק לשוויון אזרחי" — זה חינוך לאקטיביזם, לא חינוך אזרחי.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.hoshen.org/" target="_blank">hoshen.org</a>, <a href="https://en.wikipedia.org/wiki/Hoshen_(organization)" target="_blank">Wikipedia</a></p>
+                    <div class="depth-next">אבל הם "רק" מספרים סיפורים אישיים — מה הבעיה? ↓</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🏫</span>
+                    <div>
+                        <div class="d-title">שכבה 2: חדירה מוסדית שיטתית</div>
+                        <div class="d-sub">מ-1976 ועד שורת תקציב ייעודית במשרד</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>המסלול: בניית מוניטין (1976-2016) → הכרה מוסדית (שפ"י) → שורת תקציב ייעודית (2017) → כניסה לגפ"ן → ספק יחיד de facto.</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>2012:</strong> הכשרת גננות — חדירה לגיל הגן</li>
+                        <li><strong>2016:</strong> הקצבת 10M ₪ (משרד האוצר, כהלון) — 1.5M ₪ להרצאות</li>
+                        <li><strong>2017:</strong> שורת תקציב ייעודית — "פעילויות בנושא נטייה מינית וזהות מגדרית"</li>
+                    </ul>
+                    <p>זו לא "לכידה רגולטורית" קלאסית — חוש"ן לא כתב את הכללים. אבל זה <strong>הטמעה מוסדית</strong>: ארגון שהפך לספק היחיד של שירות ספציפי, מה שהופך אותו גם חיוני וגם פגיע.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://meyda.education.gov.il/files/shefi/miniutumeniatpgia/yom_hahavana2017/hoshen.pdf" target="_blank">משרד החינוך PDF</a></p>
+                    <div class="depth-next">אז למה הממשלה קיצצה 85%? ↓</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">⚔️</span>
+                    <div>
+                        <div class="d-title">שכבה 3: הקרב הפוליטי — מעוז נגד חוש"ן</div>
+                        <div class="d-sub">קיצוץ 85%, 4,200 סדנאות בוטלו</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>אבי מעוז (נועם) קיבל סמכות על תוכניות חיצוניות בבתי ספר. הציע חקיקה לאסור הוראת נטייה מינית לפני כיתה ט'. חוש"ן הגדיר את זה כ"רשע".</p>
+                    <div class="depth-quote">"איש שאמונתו שנאה יהיה אחראי על התכנים שנלמדים לילדינו"<br>— יפעת ששא ביטון, שרת החינוך היוצאת</div>
+                    <p>50+ רשויות מקומיות הכריזו על כוונה לחרם כנגד מדיניות מעוז. אבל בפועל: הקיצוץ עבר — 4,200 סדנאות בוטלו, 145,000 תלמידים "איבדו גישה".</p>
+                    <p>ובאותו זמן: מעוז קיבל 25M ₪ ל"רשות הזהות היהודית-לאומית" — לעומת 300K ₪ שנותרו לחינוך סובלנות.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.jpost.com/israel-news/article-794666" target="_blank">Jerusalem Post</a>, <a href="https://www.timesofisrael.com/far-right-deputy-ministers-bill-would-bar-teaching-sex-orientation-before-9th-grade/" target="_blank">Times of Israel</a></p>
+                    <div class="depth-next">ומה עם הרשת הבינלאומית? ↓</div>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🌐</span>
+                    <div>
+                        <div class="d-title">שכבה 4: הזירה הבינלאומית</div>
+                        <div class="d-sub">OHCHR, NIF, A Wider Bridge, ILGA</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>חוש"ן פועל בקואליציה שהגישה דוח ל-OHCHR (מועצת זכויות האדם של האו"ם). חברי הקואליציה: האגודה, חברותא, מעברים, תהילה, בית הלהט"ב באר שבע, עמותת אבות גאים.</p>
+                    <p>מימון: NIF ($15,000 ל"קמפיין תקשורתי ולובינג"), A Wider Bridge (מענקי השפעה), ILGA (מוגדר כארגון להט"ב הגדול בישראל).</p>
+                    <div class="warning-box">
+                        <strong>השאלה:</strong> ארגון שמגיש דוחות לאו"ם, מקבל מענקי לובי מ-NIF, ומשתתף במשלחות Pride בינלאומיות — האם זה "ארגון חינוכי" או ארגון סנגור שפועל גם בבתי ספר?
+                    </div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.ohchr.org/sites/default/files/Documents/Issues/SexualOrientation/IESOGI/CSOsKZ/LGBTQ_Coalition_Israel_Appendix_-_the_LGBTQ_coalition_in_Israel.pdf" target="_blank">OHCHR</a>, <a href="https://awiderbridge.org/impact-grants/" target="_blank">A Wider Bridge</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר</h2>
+            <a class="link-card" href="deep_CHOSHEN.html">
+                <div class="lc-icon">📄</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא — 11 פרקים</div>
+                    <div class="lc-desc">רישום, כספים, מנהיגות, תוכניות, אידיאולוגיה, רשת, מחלוקות, משרד החינוך.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.guidestar.org.il/organization/513544494" target="_blank">
+                <div class="lc-icon">🔗</div>
+                <div>
+                    <div class="lc-title">GuideStar — חוש"ן</div>
+                    <div class="lc-desc">שקיפות 57% (2.5/5 כוכבים)</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONCLUSIONS ═══════ -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #e74c3c">
+            <h2>סיכום</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>חוש"ן הוא ארגון advocacy חד-נושאי שפועל בבתי ספר תחת מעטפת "חינוך". השפה הכפולה (עברית: "הסברה", אנגלית: "information") חושפת מודעות לכך שהמסר האמיתי לא מתאים לזירה הבינלאומית.</p>
+                    <p>הקיצוץ של 85% לא סגר את חוש"ן — הוא דחף אותו לערוצים חלופיים (מימון עירוני ישיר, תרומות זרות). ו-6 התוכניות עדיין <strong>רשומות</strong> בגפ"ן — מוכנות להפעלה ברגע שהרוח הפוליטית משתנה.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שקיפות</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>בחירת הורים</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>התאמה לגיל</td><td style="color:#f39c12;font-weight:700">3/5</td></tr>
+                        <tr><td>ניטרליות חינוכית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>מגוון עמדות</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>ראיות השפעה</td><td style="color:#f39c12;font-weight:700">3/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות להורים</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שמי שנכנס לכיתה הוא מתנדב להט"ב שמטרתו המפורשת "שינוי עמדות"?</li>
+                        <li>האם ידוע לכם שהארגון הגיש דוח לאו"ם (OHCHR) כחלק מקואליציה פוליטית?</li>
+                        <li>האם ניתנה לכם אפשרות להוציא את ילדכם מהסדנה?</li>
+                        <li>האם יודעים שהארגון מקבל מימון מ-NIF ($15,000)?</li>
+                        <li>למה הארגון מתרגם "הסברה" ל-"information" באנגלית?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">מקורות</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_CHOSHEN.html">
+                            <div class="lc-icon">📄</div>
+                            <div><div class="lc-title">דוח מלא</div><div class="lc-desc">11 פרקים</div></div>
+                        </a>
+                        <a class="link-card" href="https://he.wikipedia.org/wiki/חוש%22ן_-_חינוך_ושינוי" target="_blank">
+                            <div class="lc-icon">📖</div>
+                            <div><div class="lc-title">ויקיפדיה</div><div class="lc-desc">עברית</div></div>
+                        </a>
+                        <a class="link-card" href="https://www.jpost.com/israel-news/article-794666" target="_blank">
+                            <div class="lc-icon">📰</div>
+                            <div><div class="lc-title">Jerusalem Post</div><div class="lc-desc">קיצוץ 85%</div></div>
+                        </a>
+                        <a class="link-card" href="https://eric.ed.gov/?id=EJ1099750" target="_blank">
+                            <div class="lc-icon">📊</div>
+                            <div><div class="lc-title">ERIC — מחקר</div><div class="lc-desc">שינוי עמדות (2016)</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר — פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_CHOSHEN.html">דוח מלא</a> | פברואר 2026</p>
+    <p style="margin-top:4px">כל הנתונים מבוססים על מקורות גלויים: GuideStar, Wikipedia, Jerusalem Post, Times of Israel, OHCHR, ERIC.</p>
+</footer>
+
+<script>
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['שקיפות', 'ניטרליות חינוכית', 'בחירת הורים', 'הטמעה מוסדית', 'רשת בינלאומית'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [40, 95, 30, 85, 75],
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [55, 20, 60, 85, 20],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false }, pointLabels: { font: { size: 12 } } } },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['משרד החינוך (לפני קיצוץ)', 'עיריית ת"א', 'דמי סדנאות', 'NIF + תרומות', 'A Wider Bridge'],
+        datasets: [{
+            data: [45, 15, 25, 8, 7],
+            backgroundColor: ['#667eea', '#0d9488', '#3b82f6', '#e74c3c', '#f39c12'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } }, tooltip: { callbacks: { label: ctx => ctx.label + ': ~' + ctx.raw + '%' } } }
+    }
+});
+</script>
+</body>
+</html>

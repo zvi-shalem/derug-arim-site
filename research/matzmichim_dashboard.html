@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מצמיחים — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+nav { position: sticky; top: 0; z-index: 100; background: #1a1a2e; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.nav-brand { font-weight: 700; font-size: 1.05em; padding: 12px 0; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 0.72em; font-weight: 600; background: #e74c3c; color: #fff; margin-right: 8px; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab { padding: 14px 16px; cursor: pointer; font-size: 0.82em; border-bottom: 3px solid transparent; transition: all 0.2s; color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%); color: #fff; padding: 40px 20px 30px; text-align: center; }
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+.section { background: #fff; border-radius: 8px; padding: 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } .nav-tabs { overflow-x: auto; } }
+
+/* ── Metric cards ── */
+.metric { background: #f8f9fa; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid #e8e8e8; transition: transform 0.2s; }
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+/* ── Chart container ── */
+.chart-wrap { position: relative; width: 100%; max-width: 500px; height: 320px; margin: 0 auto; }
+
+/* ── Finding cards ── */
+.finding { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* ── Evidence chain ── */
+.depth-level { border-right: 3px solid #667eea; margin: 12px 0; background: #fafbff; border-radius: 0 8px 8px 0; overflow: hidden; }
+.depth-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; transition: background 0.2s; }
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 16px; }
+.depth-level.open .depth-body { max-height: 800px; padding: 0 16px 16px; }
+.depth-quote { background: #fff; border-right: 3px solid #cc0000; padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 0.9em; color: #333; font-style: italic; }
+.depth-next { display: inline-block; margin-top: 10px; padding: 6px 14px; background: #f0f4fa; border-radius: 4px; font-size: 0.82em; color: #2a5a8a; cursor: default; }
+
+/* ── Warning box ── */
+.warning-box { background: #fff5f5; border-right: 4px solid #cc0000; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.warning-box strong { color: #8b0000; }
+
+/* ── Value Lens ── */
+.lens-bar { display: flex; align-items: center; gap: 12px; background: #f0f4fa; padding: 10px 18px; border-radius: 8px; margin-bottom: 18px; border: 1px solid #d4daf0; }
+.lens-bar .lens-label { font-size: 0.88em; color: #555; font-weight: 600; }
+.lens-bar .lens-label.active { color: #1a1a2e; }
+.lens-switch { position: relative; width: 44px; height: 24px; cursor: pointer; background: #ccc; border-radius: 12px; transition: background 0.3s; border: none; padding: 0; }
+.lens-switch.on { background: #e74c3c; }
+.lens-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.3s; }
+.lens-switch.on::after { transform: translateX(20px); }
+.lens-card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-right: 4px solid #667eea; transition: all 0.3s; }
+.lens-card.severity-high { border-right-color: #e74c3c; }
+.lens-card.severity-medium { border-right-color: #f39c12; }
+.lens-card .lens-source { font-size: 0.78em; color: #888; margin-bottom: 6px; }
+.lens-card .lens-type { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.72em; font-weight: 600; background: #f0f0f0; color: #555; margin-bottom: 8px; }
+.lens-official-text { font-style: italic; color: #333; line-height: 1.7; }
+.lens-interpreted-text { color: #8b0000; font-weight: 600; line-height: 1.7; border-right: 3px solid #e74c3c; padding-right: 12px; }
+.lens-interpreted-text .sel-link { color: #2a5a8a; text-decoration: underline; font-weight: 400; }
+
+/* ── Influence Map ── */
+.influence-map { background: #fafbff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 24px; min-height: 350px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.inf-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.inf-node { text-align: center; cursor: default; transition: transform 0.2s; }
+.inf-node:hover { transform: scale(1.05); }
+.inf-circle { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 1.5em; border: 2px solid; }
+.inf-circle.red { background: #fef2f2; border-color: #fca5a5; }
+.inf-circle.orange { background: #fff7ed; border-color: #fdba74; }
+.inf-circle.blue { background: #eff6ff; border-color: #93c5fd; }
+.inf-circle.green { background: #f0fdf4; border-color: #86efac; }
+.inf-circle.purple { background: #faf5ff; border-color: #c4b5fd; }
+.inf-name { font-size: 0.78em; font-weight: 700; color: #1a1a2e; max-width: 100px; }
+.inf-role { font-size: 0.68em; color: #888; }
+.inf-arrow { color: #ccc; font-size: 1.5em; }
+.inf-center { background: #1a1a2e; color: #fff; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 1.1em; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.inf-target { background: #fff; padding: 12px; border-radius: 8px; border-top: 3px solid #ff8800; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); min-width: 120px; transition: background 0.2s; }
+.inf-target:hover { background: #fff8f0; }
+.inf-target .inf-t-icon { font-size: 1.3em; margin-bottom: 4px; }
+.inf-target .inf-t-title { font-weight: 700; font-size: 0.82em; color: #1a1a2e; }
+.inf-target .inf-t-sub { font-size: 0.7em; color: #888; }
+
+/* ── Links ── */
+.link-card { display: flex; gap: 10px; padding: 10px 14px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8; text-decoration: none; color: inherit; transition: all 0.2s; margin-bottom: 8px; }
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Questions ── */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* ── Footer ── */
+footer { background: #1a1a2e; color: #667; padding: 20px; text-align: center; font-size: 0.82em; }
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>אקדמיית מצמיחים</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+            <a href="deep_Matzmichim.html">דוח מלא</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>אקדמיית מצמיחים</h1>
+    <div class="subtitle">עמותה (ע"ר 580419521) | מ-2004 (מייסד: יוני צ'ונה) | תוכנית גפ"ן #927</div>
+    <div class="meta">18 ערים | 348 בתי ספר | ~90 מנחים | ~30 עובדים קבועים | 12.8M &#8362; תקציב | 300,000+ מוטבים</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>אקדמיית מצמיחים (לשעבר "SOS — לצמצום אלימות") הוקמה ב-2004 על ידי <strong>יוני צ'ונה</strong> ו-<strong>ד"ר גאורג רוסלר</strong>. הארגון מציג עצמו כתוכנית להפחתת אלימות בבתי ספר על בסיס מודל גרמני — "האקדמיה ללימודי אלימות" מהיידלברג. בפועל, הארגון מפעיל מתודולוגיית <strong>SEL (למידה רגשית-חברתית)</strong> ותיאוריית <strong>"תוקפנות מבוססת סטטוס" (SBA)</strong> שמטרתן לשנות היררכיות חברתיות ומבני כוח בכיתה.</p>
+
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">תקציב שנתי</div>
+                    <div class="value">12.8M &#8362;</div>
+                    <div class="note">2022 — GuideStar</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">מימון NIF</div>
+                    <div class="value">NIF + IVN</div>
+                    <div class="note">מוכר כ"סטארט-אפ חברתי מוביל"</div>
+                </div>
+                <div class="metric">
+                    <div class="label">בתי ספר</div>
+                    <div class="value">348</div>
+                    <div class="note">18 ערים, פריסה ארצית</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל סיכון</h3>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים קריטיים</h3>
+                    <div class="finding">
+                        <div class="icon">🔄</div>
+                        <div>
+                            <h4>"רוב דומם" → "רוב משפיע"</h4>
+                            <p>מושג הליבה: הפיכת תלמידים "ניטרליים" לסוכני שינוי חברתי. שינוי מבני כוח בכיתה — לא רק מניעת אלימות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🌐</div>
+                        <div>
+                            <h4>הרצאה במליאת האו"ם (2023)</h4>
+                            <p>צ'ונה הוזמן להרצות באו"ם על "המודל הישראלי". ממקם את מצמיחים בזירה הבינלאומית של "anti-bullying" — שער כניסה קלאסי ל-SEL.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">💰</div>
+                        <div>
+                            <h4>NIF + יד הנדיב + שוסטרמן</h4>
+                            <p>5.1M &#8362; מקרנות (40% מהתקציב). הקרן החדשה לישראל מוכרת בארגון כתומכת. קרן שוסטרמן ויד הנדיב — שותפות קבועות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🎓</div>
+                        <div>
+                            <h4>מודל "תוקפנות מבוססת סטטוס"</h4>
+                            <p>תיאוריית SBA של רוסלר: אלימות = מאבק סטטוס. הפתרון: שינוי מבני סטטוס. שפה אקדמית לריסוס מבנה כוח קיים.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קו זמן</h2>
+            <table>
+                <tr><th>שנה</th><th>אירוע</th><th>משמעות</th></tr>
+                <tr><td>2004</td><td>הקמה כ-"SOS — לצמצום אלימות"</td><td>שם של חירום. מודל גרמני</td></tr>
+                <tr class="highlight"><td>~2008</td><td>מיתוג מחדש: "מצמיחים"</td><td>מ"כיבוי שריפות" ל"צמיחה" — שינוי פרדיגמה</td></tr>
+                <tr><td>~2010</td><td>הכרה של NIF + IVN כ"סטארט-אפ חברתי מוביל"</td><td>לגיטימציה + מימון ראשוני</td></tr>
+                <tr><td>~2015</td><td>שיתוף פעולה אקדמי — בן-גוריון, כנרת, היידלברג</td><td>מעטפת מחקרית לשיטה</td></tr>
+                <tr class="highlight"><td>2017</td><td>מיזם ממשלתי משותף — 5 משרדי ממשלה</td><td>הטמעה מוסדית: חינוך, ביטחון, משפטים, ביטוח לאומי</td></tr>
+                <tr><td>2020</td><td>תוכנית "מצמיחים ברשת" — בריונות דיגיטלית</td><td>הרחבה למרחב הדיגיטלי</td></tr>
+                <tr><td>2021</td><td>תוכנית "נמ"ל הבית" — נוער יהודי-ערבי</td><td>הרחבה לזירה בין-מגזרית</td></tr>
+                <tr class="highlight"><td>2023</td><td>הרצאה במליאת האו"ם</td><td>ממיצוב מקומי למיצוב גלובלי</td></tr>
+                <tr><td>2023</td><td>מחקר הערכה — Assor 2023</td><td>ביסוס אקדמי: ירידה של 30% באלימות</td></tr>
+                <tr class="highlight"><td>2024</td><td>"מצמיחים חוסן" — תגובה למלחמה</td><td>ניצול טראומה לאומית להרחבת פעילות</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: FINANCE ═══════ -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מימון</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">מקורות מימון (2022)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>פירוט מקורות</h3>
+                    <table>
+                        <tr><th>מקור</th><th>סכום</th><th>שנה</th></tr>
+                        <tr class="highlight"><td>משרד החינוך (ממשלתי)</td><td>6,787,000 &#8362;</td><td>2022</td></tr>
+                        <tr class="highlight"><td>קרנות (NIF, יד הנדיב, שוסטרמן)</td><td>5,100,000 &#8362;</td><td>2022</td></tr>
+                        <tr><td>הכנסות אחרות (שירותים, הרצאות)</td><td>923,612 &#8362;</td><td>2022</td></tr>
+                        <tr style="font-weight:700;background:#f0f4fa"><td>סה"כ</td><td>12,810,612 &#8362;</td><td>2022</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888"><strong>מקור:</strong> GuideStar ישראל, דוח כספי שנתי 2022 (ע"ר 580419521)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מנגנון "מיזם ממשלתי משותף"</h2>
+            <p>מצמיחים פועלת במודל של <strong>מיזם ממשלתי משותף</strong> — המדינה והעמותה חולקות מימון (בדרך כלל 50-50). מודל זה מאפשר לארגון חדירה מוסדית עמוקה: ברגע שיש שותפות ממשלתית, קשה מאוד לסגור את הברז.</p>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">משרדי ממשלה שותפים</div>
+                    <div class="value">5</div>
+                    <div class="note">חינוך, ביט"ל, ביטחון, משפטים, ביט"ל</div>
+                </div>
+                <div class="metric">
+                    <div class="label">חלק ממשלתי</div>
+                    <div class="value">53%</div>
+                    <div class="note">6.8M מתוך 12.8M &#8362;</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">חלק קרנות זרות</div>
+                    <div class="value">40%</div>
+                    <div class="note">5.1M &#8362; — NIF, יד הנדיב, שוסטרמן</div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <strong>דגם המימון:</strong> 53% ממשלתי + 40% קרנות = הארגון תלוי לחלוטין בממסד ובקרנות פילנתרופיות. אם הממשלה מפסיקה לממן — הקרנות ממלאות. אם הקרנות עוזבות — הממשלה ממשיכה. שני רגליים = חוסן מוסדי גבוה. מנגנון שקשה לעצור.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שותפויות ממשלתיות</h2>
+            <table>
+                <tr><th>משרד / גוף</th><th>תחום</th><th>משמעות</th></tr>
+                <tr><td>משרד החינוך</td><td>בתי ספר יסודיים וחטיבות</td><td>אקלים כיתתי והכשרת מורים</td></tr>
+                <tr><td>המשרד לביטחון לאומי</td><td>מניעת אלימות</td><td>צמצום התנהגויות אנטי-חברתיות</td></tr>
+                <tr class="highlight"><td>משרד הביטחון</td><td>צה"ל ומכינות</td><td>לכידות יחידתית — "חוסן חברתי"</td></tr>
+                <tr><td>משרד המשפטים</td><td>זכויות ילדים</td><td>הגנה על קטינים במרחב הדיגיטלי</td></tr>
+                <tr><td>ביטוח לאומי</td><td>אוכלוסיות בסיכון</td><td>תמיכה רגשית-חברתית</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: אתר מצמיחים, שותפים ופעילות</p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONTENT ANALYSIS ═══════ -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>עדשת הערכים: הצהרה רשמית מול משמעות בפועל</h2>
+            <p>הטקסטים של "מצמיחים" עוברים קריאה ביקורתית. המתג מאפשר לעמת בין ההצהרות להורים לבין המשמעות כפי שהיא עולה מהמחקר.</p>
+
+            <div class="lens-bar">
+                <span class="lens-label active" id="lens-label-off">הצהרה רשמית</span>
+                <button class="lens-switch" id="lensSwitch" onclick="toggleValueLens()"></button>
+                <span class="lens-label" id="lens-label-on">הפרשנות המחקרית</span>
+            </div>
+
+            <div id="lens-cards">
+                <!-- Card 1: Anti-bullying framing -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">מיצוב מותגי</span>
+                    <div class="lens-source">אתר מצמיחים, אודות המודל</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "המודל שפיתחנו, 'הפחתת אלימות מבוססת סטטוס' (SBA), מציע הסבר לאלימות בבתי ספר, ומציג דרכים יעילות להתמודד איתה. המודל מבוסס על מחקרים עדכניים בתחומי הפסיכולוגיה החברתית, מדעי המוח והאבולוציה."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "הפחתת אלימות מבוססת סטטוס" = שינוי מבני הסטטוס הקיימים בכיתה. לא מניעת אלימות, אלא ריסוס היררכיות. מי מחליט מה "סטטוס חיובי" ומה "שלילי"? ה"מנחים" של מצמיחים — לא ההורים ולא הקהילה. "מדעי האבולוציה" כהצדקה מדעית לפרויקט חברתי.
+                        <a class="sel-link" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">מחקר SEL &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Silent majority -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">מושג ליבה</span>
+                    <div class="lens-source">אתר מצמיחים + מחקר Assor 2023</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "שינוי חברתי אמיתי בכיתה אינו מושג על ידי טיפול רק ב'תוקפן' או ב'קורבן', אלא על ידי הנעת ה'רוב הדומם'. התוכנית מעניקה כלים לתלמידים להפוך מ'רוב דומם' ל'רוב משפיע'."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "רוב דומם" → "רוב משפיע" = מונח קלאסי מתורת ההנעה החברתית. זהו בדיוק מנגנון ה-bystander intervention של תנועות שינוי חברתי: גיוס הניטרליים כסוכני שינוי. "הפסיביות = שותפות לפשע" — מסר שמשמש תנועות אקטיביסטיות לגיוס תומכים. בהקשר כיתתי: הילדים ה"ניטרליים" מקבלים מסר ש<strong>שתיקה = אלימות</strong>.
+                        <a class="sel-link" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">אבן רוזטה &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: SEL methodology -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">מתודולוגיה</span>
+                    <div class="lens-source">אתר מצמיחים + דוח מחקר עומק</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "מצמיחים היא מהגופים החלוציים בישראל שהטמיעו את מודל ה-SEL (Social Emotional Learning). הפדגוגיה אינה מסתפקת בהרצאות, אלא עושה שימוש במתודות חווייתיות, משחקי תפקידים ודינמיקות קבוצתיות."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        SEL = Social Emotional Learning — המתודולוגיה שזוהתה במחקר כ"סוס טרויאני" להחדרת ערכים. CASEL (הארגון הבינלאומי שמגדיר את ה-SEL) קושר מפורשות SEL ל"צדק חברתי" ו"אקטיביזם". "משחקי תפקידים" ו"דינמיקות קבוצתיות" = כלים לשינוי עמדות, לא ללימוד ידע. ההורים חושבים שילדיהם לומדים "לא להכות" — בפועל עוברים תהליך של עיצוב מחדש של ערכים חברתיים.
+                        <a class="sel-link" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">למה SEL בעייתי &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Coexistence expansion -->
+                <div class="lens-card severity-medium">
+                    <span class="lens-type">הרחבת היקף</span>
+                    <div class="lens-source">תוכנית "נמ"ל הבית" — חיפה</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "תוכנית 'נמ"ל הבית' מפגישה בני נוער יהודים וערבים, דתיים וחילונים. המטרה: יצירת שפה חברתית אחידה ופיתוח מנהיגות משותפת מעבר לשיוך המגזרי."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "שפה חברתית אחידה" = מחיקת הבדלי זהות לטובת "שפה" אחת שמצמיחים מגדירים. "מעבר לשיוך המגזרי" = ערעור על זהויות קולקטיביות קיימות (יהודית, ערבית, דתית). הארגון מחליט מהו "חיבור" ומהו "ניכור". תוכנית "דו-קיום" שפועלת מתוך הנחות יסוד של אידיאולוגיה ספציפית על מהות הזהות.
+                        <a class="sel-link" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">אבן רוזטה &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מפת השפעה: ממודל גרמני לכיתה הישראלית</h2>
+            <p>מסלול החדירה של מצמיחים — ממודל אקדמי גרמני, דרך הכרת NIF וקרנות, אל מיזם ממשלתי ב-5 משרדים ו-348 בתי ספר.</p>
+
+            <div class="influence-map">
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">מקורות השפעה</div>
+                <div class="inf-row">
+                    <div class="inf-node">
+                        <div class="inf-circle purple">🇩🇪</div>
+                        <div class="inf-name">האקדמיה ללימודי אלימות</div>
+                        <div class="inf-role">מודל גרמני — היידלברג</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle red">🏛️</div>
+                        <div class="inf-name">NIF + IVN</div>
+                        <div class="inf-role">"סטארט-אפ חברתי מוביל"</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle blue">🎓</div>
+                        <div class="inf-name">ד"ר גאורג רוסלר</div>
+                        <div class="inf-role">תיאוריית SBA — היידלברג, בן-גוריון</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle orange">📊</div>
+                        <div class="inf-name">SEL — CASEL</div>
+                        <div class="inf-role">למידה רגשית-חברתית</div>
+                    </div>
+                </div>
+
+                <div class="inf-arrow">&#9660;</div>
+
+                <div class="inf-center">אקדמיית מצמיחים (יוני צ'ונה)</div>
+
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center">
+                    <div style="font-size:0.75em;color:#e74c3c;font-weight:600;background:#fef2f2;padding:4px 12px;border-radius:4px;border:1px solid #fca5a5">
+                        ~90 מנחים | ~30 עובדים | 12.8M &#8362; | 5 משרדי ממשלה | 3 אוניברסיטאות
+                    </div>
+                </div>
+
+                <div class="inf-arrow">&#9660;</div>
+
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">נקודות חדירה</div>
+                <div class="inf-row">
+                    <div class="inf-target">
+                        <div class="inf-t-icon">🏫</div>
+                        <div class="inf-t-title">348 בתי ספר</div>
+                        <div class="inf-t-sub">18 ערים, כל המגזרים</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">⚔️</div>
+                        <div class="inf-t-title">צה"ל ומכינות</div>
+                        <div class="inf-t-sub">"לכידות יחידתית"</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">🤝</div>
+                        <div class="inf-t-title">"נמ"ל הבית"</div>
+                        <div class="inf-t-sub">נוער יהודי-ערבי</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">🌐</div>
+                        <div class="inf-t-title">האו"ם (2023)</div>
+                        <div class="inf-t-sub">מליאת העצרת</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top:16px">
+                <strong>סיכום מפת ההשפעה:</strong> ארגון שהחל כ"SOS לאלימות" חדר ל-5 משרדי ממשלה, 348 בתי ספר, הצבא, וזירה בינלאומית — תוך שנוי שם, שנוי פרדיגמה (מ"כיבוי שריפות" ל-SEL), ועם מימון 40% מקרנות פילנתרופיות שמזוהות עם אג'נדה חברתית מוגדרת.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>צוות מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>רקע</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>יוני צ'ונה</strong></td><td>מייסד ומנכ"ל</td><td>מפתח שיטה, מרצה אקדמיה</td><td>הרצאה באו"ם 2023, קשר NIF</td></tr>
+                <tr class="highlight"><td><strong>ד"ר גאורג רוסלר</strong></td><td>מנהל אקדמי, מייסד</td><td>דוקטור פסיכולוגיה — היידלברג</td><td>פיתח SBA, חוקר בן-גוריון</td></tr>
+                <tr><td><strong>אבישג מרקוב</strong></td><td>רכזת גיוס משאבים</td><td>ייעוץ חינוכי, מדעי המדינה</td><td></td></tr>
+                <tr><td><strong>עדי דרור</strong></td><td>רכזת פיתוח תוכן</td><td>פדגוגיה</td><td>עיבוד מחקרים לכלים יישומיים</td></tr>
+                <tr><td><strong>~90 מנחי שטח</strong></td><td>הנחיית סדנאות</td><td>הכשרה פנימית ייחודית</td><td>שמות לא פומביים</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: אתר מצמיחים, LinkedIn, דוח מחקר עומק</p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: EVIDENCE CHAIN ═══════ -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת ראיות: ממניעת אלימות לשינוי מבני כוח</h2>
+            <p>כל שכבה עונה על הספק מהשכבה הקודמת. אם אתה חושב "זו תוכנית נגד אלימות" — השכבה הבאה מסבירה למה זה לא פשוט כך.</p>
+
+            <!-- Level 1: What it looks like -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🛡️</span>
+                    <div>
+                        <div class="d-title">שכבה 1: מה שנראה כמו מניעת אלימות</div>
+                        <div class="d-sub">ארגון שנלחם בבריונות בבתי ספר — מה רע?</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>אקדמיית מצמיחים מציגה את עצמה כארגון <strong>להפחתת אלימות בבתי ספר</strong>. המודל נשמע הגיוני: במקום להעניש אלימות, בנה אקלים חיובי. מחקרים אקדמיים (Assor 2023) מראים ירידה של 30% באלימות. 348 בתי ספר, 5 משרדי ממשלה, הרצאה באו"ם. הכל נראה מושלם.</p>
+                    <div class="depth-quote">"מחקר הערכה מקיף הראה כי בבתי ספר שבהם יושמה תוכנית 'מצמיחים', חלה ירידה של 30% בממוצע באירועי אלימות פיזית ומילולית."<br>— אתר מצמיחים, מחקר והערכה</div>
+                    <p>ברמה השטחית, אין שום סיבה להתנגד. <strong>כל הורה רוצה שילדו יהיה בטוח</strong>. וזה בדיוק מה שהופך את התוכנית לבלתי ניתנת לתקיפה — מי נגד "הפחתת אלימות"?</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.matzmichim.org.il/" target="_blank">matzmichim.org.il</a>, מחקר Assor 2023</p>
+                    <div class="depth-next">אבל אם זה רק נגד אלימות — למה NIF מממנת? ↓</div>
+                </div>
+            </div>
+
+            <!-- Level 2: SEL methodology -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🧠</span>
+                    <div>
+                        <div class="d-title">שכבה 2: מתודולוגיית SEL — לא רק "מניעת אלימות"</div>
+                        <div class="d-sub">למידה רגשית-חברתית כשער כניסה לשינוי ערכי</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>מצמיחים מגדירים את עצמם מפורשות כמיישמי <strong>SEL — Social Emotional Learning</strong>. זו לא סתם שיטת לימוד — זו מתודולוגיה בינלאומית שהוגדרה על ידי CASEL (Collaborative for Academic, Social, and Emotional Learning) והיא כוללת:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>מודעות עצמית</strong> — "זיהוי רגשות הסבל שבבסיס התוקפנות"</li>
+                        <li><strong>מודעות חברתית</strong> — "אמפתיה עמוקה לסבלו של האחר, גם אם הוא 'שונה'"</li>
+                        <li><strong>קבלת החלטות אחראית</strong> — "הבנת ההשפעה של מילה, פוסט או מבט"</li>
+                    </ul>
+                    <div class="depth-quote">"אקדמיית מצמיחים היא מהגופים החלוציים בישראל שהטמיעו את מודל ה-SEL באופן פרקטי ומדיד."<br>— דוח מחקר עומק, פרק 7</div>
+                    <p>SEL הוא בדיוק המנגנון שזוהה במחקר כ<strong>שער כניסה להחדרת ערכים</strong>. CASEL עצמה קישרה מפורשות SEL ל"צדק חברתי" ול"אנטי-גזענות". כשמצמיחים אומרים "אמפתיה לאחר גם אם הוא שונה" — זה נשמע תמים. אבל מי מגדיר את ה"שונה"? מי מגדיר מה "אמפתיה נכונה"?</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://aosshalem-dev.github.io/sel-research/" target="_blank">מחקר SEL</a>, <a href="https://casel.org/" target="_blank">CASEL</a></p>
+                    <div class="depth-next">אבל NIF תומכת בהרבה ארגונים — מה הקשר לאידיאולוגיה? ↓</div>
+                </div>
+            </div>
+
+            <!-- Level 3: NIF connection and ideology -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🕸️</span>
+                    <div>
+                        <div class="d-title">שכבה 3: קשר NIF וזיקה אידיאולוגית</div>
+                        <div class="d-sub">מ"סטארט-אפ חברתי מוביל" ל"חיים משותפים ודמוקרטיה"</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>הקרן החדשה לישראל (NIF) לא רק "תומכת" במצמיחים — היא <strong>הכירה בהם כ"סטארט-אפ חברתי מוביל"</strong> יחד עם IVN. ו-NIF אינה קרן ניטרלית — היא מממנת ארגונים עם אג'נדה חברתית ברורה.</p>
+                    <div class="depth-quote">"הקרן החדשה לישראל תומכת בארגון זה [מצמיחים]."<br>— אתר NIF, רשימת ארגונים נתמכים</div>
+                    <p>הזיקה האידיאולוגית מתגלה במעבר של מצמיחים מ"מניעת אלימות" ל<strong>"חיים משותפים ודמוקרטיה"</strong>. תוכנית "נמ"ל הבית" מפגישה בני נוער יהודים וערבים ומפתחת "שפה חברתית אחידה מעבר לשיוך המגזרי". בהצהרות הכלליות: "חברה שבה כל אדם מרגיש שייך... חינוך לסובלנות ולקבלת האחר הוא המפתח לחברה דמוקרטית."</p>
+                    <p>השפה קלאסית: "סובלנות", "דמוקרטיה", "קבלת האחר", "חיים משותפים". ארגוני NIF משתמשים באותו לקסיקון. וכמו בארגוני NIF אחרים: 40% מהתקציב מגיע מקרנות פילנתרופיות, לא מהקהילות שבתוכן הם פועלים.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: NIF, אתר מצמיחים — אודותינו, דוח GuideStar 2022</p>
+                    <div class="depth-next">אבל הם "רק" מלמדים סובלנות — מה הבעיה האמיתית? ↓</div>
+                </div>
+            </div>
+
+            <!-- Level 4: Status change = power structure reframing -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">⚡</span>
+                    <div>
+                        <div class="d-title">שכבה 4: "שינוי סטטוס" = ריסוס מבני כוח</div>
+                        <div class="d-sub">תיאוריית SBA כמעטפת אקדמית לשינוי חברתי</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>הליבה האקדמית של מצמיחים היא תיאוריית <strong>Status-Based Aggression (SBA)</strong> של ד"ר גאורג רוסלר. התיאוריה אומרת: אלימות = מאבק על סטטוס. הפתרון: <strong>שנו את מבני הסטטוס</strong>.</p>
+                    <div class="depth-quote">"Our SBA model posits that aggressive behaviors in schools often serve as a means to attain or maintain social status. By understanding the underlying motivations for status, we can develop targeted interventions that offer prosocial alternatives to aggression."<br>— Rossler, G. (2016). Journal of Social Psychology, 156(3)</div>
+                    <p>בשפה אקדמית זה נשמע ניטרלי. אבל בפרקטיקה: <strong>מי מחליט מה "סטטוס חיובי"?</strong> מי מגדיר מה "תוקפנות" ומה "מנהיגות"? מצמיחים עצמם — דרך 90 מנחים שעברו "הכשרה ייחודית" פנימית.</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>סטטוס דומיננטי</strong> = "שליטה באחרים" = שלילי. אבל מה עם מנהיגות טבעית?</li>
+                        <li><strong>סטטוס מוסרי</strong> = "יושרה, הגינות" = חיובי. אבל מי מגדיר "הגינות"?</li>
+                        <li><strong>סטטוס חברתי</strong> = "פופולריות" = יש לשנות. אבל זו דינמיקה אנושית בסיסית.</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>הנקודה:</strong> מתחת למעטפת "מניעת אלימות" מתנהל פרויקט מתוחכם של <strong>שינוי מבני כוח וסטטוס</strong> בכיתות ישראליות. הכלים: SEL. המימון: NIF + ממשלה. המעטפת: "נגד בריונות". התוצאה: 300,000 ילדים עברו תהליך של הגדרה מחדש של "סטטוס חיובי" ו"סטטוס שלילי" — על ידי ארגון שהוכר כ"מוביל" על ידי הקרן החדשה לישראל.
+                    </div>
+                    <p style="font-size:0.85em;color:#888">מקור: Rossler 2016, Rossler & Zuna 2018, NIF, דוח GuideStar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Links -->
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <a class="link-card" href="deep_Matzmichim.html">
+                <div class="lc-icon">📄</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא — 15 פרקים</div>
+                    <div class="lc-desc">אבולוציה מושגית, שייכות, SEL, מודל SBA, מימון, שותפויות ממשלה, צוות, אתגרי עתיד.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">
+                <div class="lc-icon">🔗</div>
+                <div>
+                    <div class="lc-title">למה SEL בעייתי</div>
+                    <div class="lc-desc">מחקר מקיף: כיצד "למידה רגשית-חברתית" הפכה לכלי להחדרת תפיסות עולם.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+                <div class="lc-icon">🗝️</div>
+                <div>
+                    <div class="lc-title">אבן רוזטה — מילון ההסוואה</div>
+                    <div class="lc-desc">"שייכות", "רוב משפיע", "אקלים מצמיח", "סטטוס חיובי" — מה המילים באמת אומרות.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://www.guidestar.org.il/organization/580419521" target="_blank">
+                <div class="lc-icon">📊</div>
+                <div>
+                    <div class="lc-title">GuideStar — אקדמיית מצמיחים</div>
+                    <div class="lc-desc">דוחות כספיים, מבנה ארגוני, שקיפות</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONCLUSIONS ═══════ -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #e74c3c">
+            <h2>סיכום</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>אקדמיית מצמיחים היא ארגון SEL שמציג את עצמו כתוכנית נגד אלימות. המעטפת — "הפחתת בריונות" — בלתי ניתנת לתקיפה. אבל מתחת לפני השטח: מתודולוגיית SEL שזוהתה כשער כניסה לשינוי ערכי, תיאוריית "שינוי סטטוס" שמגדירה מחדש היררכיות חברתיות, מימון 40% מ-NIF ומקרנות פילנתרופיות בעלות אג'נדה, ומעבר הדרגתי מ"אנטי-אלימות" ל"חיים משותפים ודמוקרטיה".</p>
+                    <p>הארגון לא "מסתיר" את מה שהוא עושה — הוא <strong>ממסגר</strong> אותו בשפה שהורים לא יכולים להתנגד לה. מי נגד "הפחתת אלימות"? מי נגד "שייכות"? מי נגד "אמפתיה"? אבל "שייכות" = SEL. "אמפתיה" = שינוי עמדות. "רוב משפיע" = גיוס הניטרליים. ו-300,000 ילדים כבר עברו את התהליך.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שקיפות</td><td style="color:#f39c12;font-weight:700">3/5</td></tr>
+                        <tr><td>בחירת הורים</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>ניטרליות חינוכית</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>הטמעה מוסדית</td><td style="color:#8b0000;font-weight:700">1/5 (עמוקה מאוד)</td></tr>
+                        <tr><td>רשת בינלאומית</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>מגוון עמדות</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות להורים</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שהתוכנית מבוססת על מתודולוגיית SEL — שזוהתה כשער כניסה לשינוי ערכי?</li>
+                        <li>האם ידוע לכם ש-40% מהתקציב מגיע מקרנות כמו NIF, יד הנדיב ושוסטרמן?</li>
+                        <li>האם הוסבר לכם שהארגון מגדיר מחדש "סטטוס חיובי" ו"סטטוס שלילי" עבור ילדכם?</li>
+                        <li>האם יודעים ש"מצמיחים" הוכר כ"סטארט-אפ חברתי מוביל" על ידי הקרן החדשה לישראל?</li>
+                        <li>האם ניתנה לכם אפשרות להוציא את ילדכם מסדנאות של 3 ימים מלאים?</li>
+                        <li>האם ידעתם שהמנחים עברו "הכשרה ייחודית" פנימית — לא הכשרה ממשרד החינוך?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">מקורות</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_Matzmichim.html">
+                            <div class="lc-icon">📄</div>
+                            <div><div class="lc-title">דוח מלא</div><div class="lc-desc">15 פרקים</div></div>
+                        </a>
+                        <a class="link-card" href="https://www.guidestar.org.il/organization/580419521" target="_blank">
+                            <div class="lc-icon">📊</div>
+                            <div><div class="lc-title">GuideStar</div><div class="lc-desc">דוחות כספיים</div></div>
+                        </a>
+                        <a class="link-card" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">
+                            <div class="lc-icon">🔗</div>
+                            <div><div class="lc-title">מחקר SEL</div><div class="lc-desc">למידה רגשית-חברתית</div></div>
+                        </a>
+                        <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+                            <div class="lc-icon">🗝️</div>
+                            <div><div class="lc-title">אבן רוזטה</div><div class="lc-desc">מילון ההסוואה</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר — פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_Matzmichim.html">דוח מלא</a> | פברואר 2026</p>
+    <p style="margin-top:4px">כל הנתונים מבוססים על מקורות גלויים: GuideStar, NIF, אתר מצמיחים, Rossler (2016), Rossler & Zuna (2018), CASEL.</p>
+</footer>
+
+<script>
+// ── Navigation ──
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── Radar Chart ──
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['הטמעה מוסדית', 'תוכן SEL', 'מימון קרנות', 'רשת בינלאומית', 'שקיפות להורים'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [95, 85, 80, 70, 40],
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [95, 20, 20, 70, 80],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// ── Finance Doughnut ──
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['משרד החינוך (ממשלתי)', 'NIF', 'יד הנדיב + שוסטרמן', 'הכנסות אחרות'],
+        datasets: [{
+            data: [53, 15, 25, 7],
+            backgroundColor: ['#667eea', '#e74c3c', '#f39c12', '#0d9488'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.label + ': ~' + ctx.raw + '%'
+                }
+            }
+        }
+    }
+});
+
+// ── Value Lens Toggle ──
+function toggleValueLens() {
+    const sw = document.getElementById('lensSwitch');
+    const isOn = sw.classList.toggle('on');
+    document.getElementById('lens-label-off').classList.toggle('active', !isOn);
+    document.getElementById('lens-label-on').classList.toggle('active', isOn);
+    document.querySelectorAll('#lens-cards .lens-text').forEach(el => {
+        const lens = el.getAttribute('data-lens');
+        el.style.display = (lens === 'official' && !isOn) || (lens === 'interpreted' && isOn) ? '' : 'none';
+    });
+}
+</script>
+</body>
+</html>

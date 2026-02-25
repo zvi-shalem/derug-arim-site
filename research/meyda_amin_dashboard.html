@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מידע אמין על מין — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+/* ── Chart container ── */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* ── Finding cards ── */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* ── Flip cards ── */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
+.flip-card {
+    perspective: 800px; cursor: pointer; height: 150px;
+}
+.flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.5s; transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 14px; text-align: center;
+}
+.flip-front {
+    background: #f0f4fa; border: 1px solid #d4daf0;
+}
+.flip-front .term-icon { font-size: 1.8em; margin-bottom: 6px; }
+.flip-front .term-name { font-weight: 700; color: #2a5a8a; font-size: 1.05em; }
+.flip-front .term-hint { font-size: 0.7em; color: #999; margin-top: 6px; }
+.flip-back {
+    background: #fff5f5; border: 1px solid #f0d4d4;
+    transform: rotateY(180deg);
+}
+.flip-back .reveal-title { font-weight: 700; color: #8b0000; font-size: 0.85em; margin-bottom: 6px; }
+.flip-back .reveal-text { font-size: 0.82em; color: #444; line-height: 1.5; }
+
+/* ── Evidence chain ── */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 800px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+.depth-next {
+    display: inline-block; margin-top: 10px; padding: 6px 14px;
+    background: #f0f4fa; border-radius: 4px; font-size: 0.82em;
+    color: #2a5a8a; cursor: default;
+}
+
+/* ── Warning box ── */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* ── Value Lens ── */
+.lens-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: #f0f4fa; padding: 10px 18px; border-radius: 8px;
+    margin-bottom: 18px; border: 1px solid #d4daf0;
+}
+.lens-bar .lens-label { font-size: 0.88em; color: #555; font-weight: 600; }
+.lens-bar .lens-label.active { color: #1a1a2e; }
+.lens-switch {
+    position: relative; width: 44px; height: 24px; cursor: pointer;
+    background: #ccc; border-radius: 12px; transition: background 0.3s;
+    border: none; padding: 0;
+}
+.lens-switch.on { background: #e74c3c; }
+.lens-switch::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    transition: transform 0.3s;
+}
+.lens-switch.on::after { transform: translateX(20px); }
+.lens-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #667eea;
+    transition: all 0.3s;
+}
+.lens-card.severity-high { border-right-color: #e74c3c; }
+.lens-card.severity-medium { border-right-color: #f39c12; }
+.lens-card .lens-source { font-size: 0.78em; color: #888; margin-bottom: 6px; }
+.lens-card .lens-type {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; background: #f0f0f0; color: #555;
+    margin-bottom: 8px;
+}
+.lens-official-text { font-style: italic; color: #333; line-height: 1.7; }
+.lens-interpreted-text {
+    color: #8b0000; font-weight: 600; line-height: 1.7;
+    border-right: 3px solid #e74c3c; padding-right: 12px;
+}
+.lens-interpreted-text .sel-link {
+    color: #2a5a8a; text-decoration: underline; font-weight: 400;
+}
+
+/* ── Influence Map ── */
+.influence-map {
+    background: #fafbff; border: 1px solid #e8e8e8; border-radius: 8px;
+    padding: 24px; min-height: 350px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.inf-row {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+}
+.inf-node {
+    text-align: center; cursor: default; transition: transform 0.2s;
+}
+.inf-node:hover { transform: scale(1.05); }
+.inf-circle {
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px; font-size: 1.5em;
+    border: 2px solid;
+}
+.inf-circle.red { background: #fef2f2; border-color: #fca5a5; }
+.inf-circle.orange { background: #fff7ed; border-color: #fdba74; }
+.inf-circle.blue { background: #eff6ff; border-color: #93c5fd; }
+.inf-circle.green { background: #f0fdf4; border-color: #86efac; }
+.inf-circle.purple { background: #faf5ff; border-color: #c4b5fd; }
+.inf-name { font-size: 0.78em; font-weight: 700; color: #1a1a2e; max-width: 100px; }
+.inf-role { font-size: 0.68em; color: #888; }
+.inf-arrow { color: #ccc; font-size: 1.5em; }
+.inf-center {
+    background: #1a1a2e; color: #fff; padding: 14px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 1.1em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.inf-target {
+    background: #fff; padding: 12px; border-radius: 8px;
+    border-top: 3px solid #ff8800; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    min-width: 120px; transition: background 0.2s;
+}
+.inf-target:hover { background: #fff8f0; }
+.inf-target .inf-t-icon { font-size: 1.3em; margin-bottom: 4px; }
+.inf-target .inf-t-title { font-weight: 700; font-size: 0.82em; color: #1a1a2e; }
+.inf-target .inf-t-sub { font-size: 0.7em; color: #888; }
+
+/* ── Links ── */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Questions ── */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* ── Footer ── */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>מידע אמין על מין</span>
+            <span class="risk-pill">סיכון גבוה</span>
+            <a href="../index_v2.html">← דירוג ערים</a>
+            <a href="deep_Meyda_Amin.html">דוח מלא</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>מידע אמין על מין — שלומית הברון</h1>
+    <div class="subtitle">עוסק מורשה (לא עמותה) | תוכנית גפ"ן #2437 | הוקמה: 2014</div>
+    <div class="meta">15 ערים | 136 פריסות | ~51 בתי ספר | ~40 מנחים סמויים | 1.19M ₪ מכספי ציבור</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>"מידע אמין על מין — המרכז הישראלי לחינוך מיני" מציג עצמו כגוף מקצועי לחינוך מיני בריא מגן ועד י"ב. בפועל, מדובר ב<strong>עוסק מורשה</strong> — ישות משפטית של אדם אחד (שלומית הברון) — שמפעיל רשת של ~40 מנחים בלתי מפוקחים, מחנך ילדים החל מגיל 4-5, ומטמיע תפיסות עולם פמיניסטיות ו-LGBTQ+ ללא שקיפות כלכלית.</p>
+
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">תקציב מכספי ציבור</div>
+                    <div class="value">1.19M ₪</div>
+                    <div class="note">תוכנית גפ"ן #2437 — דרך בתי ספר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">פריסה גיאוגרפית</div>
+                    <div class="value">15 ערים</div>
+                    <div class="note">מקרית שמונה עד קרית גת</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">שקיפות כספית</div>
+                    <div class="value">אפס</div>
+                    <div class="note">עוסק מורשה — לא חייב בדיווח</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל סיכון: תדמית מול מציאות</h3>
+                    <p style="font-size:0.85em;color:#666">השטח הכתום מראה את הסיכון בפועל. השטח הירוק — מה שהארגון מציג. הפער ביניהם הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים קריטיים</h3>
+                    <div class="finding">
+                        <div class="icon">👻</div>
+                        <div>
+                            <h4>40 מנחים סמויים</h4>
+                            <p>~40 "מחנכות ומחנכים למיניות בריאה" פועלים כקבלני משנה. שמותיהם, הכשרתם ובדיקות הרקע שלהם — לא ידועים.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🏛️</div>
+                        <div>
+                            <h4>עוסק מורשה עם תקציב עמותה</h4>
+                            <p>1.19M ₪ מכספי ציבור דרך ישות של אדם אחד — ללא דירקטוריון, ללא דיווח כספי פומבי, ללא פיקוח רשם עמותות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">👶</div>
+                        <div>
+                            <h4>חינוך מיני מגיל 4-5</h4>
+                            <p>"נגיעה באיברי המין היא נעימה, בריאה ופרטית" — מועבר לילדים בגן. נורמליזציה של אוננות בגילאי גן חובה.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🔗</div>
+                        <div>
+                            <h4>רשת חינוך מיני אחת</h4>
+                            <p>הברון, מגע בתיאום, חוש"ן — כולם חברים ב-SEI (האגודה לחינוך מיני). רשת אחת, ברנדים שונים.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>רקע</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>שלומית הברון</strong></td><td>מייסדת, מנהלת, בעלת עסק</td><td>UX בכירה ב-Matrix → פעילות מגדרית</td><td>מ-UX לחינוך מיני — ללא תואר רלוונטי</td></tr>
+                <tr><td><strong>סנדי בשרטי קורדובה</strong></td><td>שותפה מייסדת</td><td>שותפה בכתיבת הספר (2019)</td><td>תפקיד נוכחי לא ברור</td></tr>
+                <tr><td><strong>~40 מנחים</strong></td><td>מעבירי סדנאות בבתי ספר</td><td>עבודה סוציאלית, הנחייה, הדרכה</td><td>שמות לא פומביים, הכשרה פנימית</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://sei.org.il/שלומית-הברון/" target="_blank">SEI</a>, <a href="https://eduisrael.com/שלומית-הברון/" target="_blank">EduIsrael</a>, <a href="https://www.themarker.com/markerweek/1.2855937" target="_blank">TheMarker</a></p>
+        </div>
+
+        <div class="section">
+            <h2>מפת השפעה: מהאקטיביזם לכיתה</h2>
+            <p>מסלול החדירה של "מידע אמין על מין" — מפעילות מגדרית דרך רשת SEI ואישור גפ"ן, אל 15 ערים ו-51 בתי ספר.</p>
+
+            <div class="influence-map">
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">רקע אישי והשפעות</div>
+                <div class="inf-row">
+                    <div class="inf-node">
+                        <div class="inf-circle red">✊</div>
+                        <div class="inf-name">"אחת מתוך אחת"</div>
+                        <div class="inf-role">2,000 עדויות, מאגר 1,800 חשודים</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle purple">📖</div>
+                        <div class="inf-name">ספר (מודן, 2019)</div>
+                        <div class="inf-role">"מידע אמין על מין"</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle blue">🏫</div>
+                        <div class="inf-name">SEI — האגודה לחינוך מיני</div>
+                        <div class="inf-role">ארגון גג, חברה מייסדת?</div>
+                    </div>
+                    <div class="inf-node">
+                        <div class="inf-circle orange">🎓</div>
+                        <div class="inf-name">מכון חרוב</div>
+                        <div class="inf-role">הרצאה — לגיטימציה אקדמית</div>
+                    </div>
+                </div>
+
+                <div class="inf-arrow">▼</div>
+
+                <div class="inf-center">מידע אמין על מין (עוסק מורשה)</div>
+
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center">
+                    <div style="font-size:0.75em;color:#e74c3c;font-weight:600;background:#fef2f2;padding:4px 12px;border-radius:4px;border:1px solid #fca5a5">
+                        ~40 מנחים סמויים (קבלני משנה) | ללא דירקטוריון | ללא פיקוח רשם עמותות
+                    </div>
+                </div>
+
+                <div class="inf-arrow">▼</div>
+
+                <div style="font-weight:600;color:#888;font-size:0.82em;letter-spacing:1px">נקודות חדירה</div>
+                <div class="inf-row">
+                    <div class="inf-target">
+                        <div class="inf-t-icon">📋</div>
+                        <div class="inf-t-title">אישור גפ"ן #2437</div>
+                        <div class="inf-t-sub">"חינוך למיניות בריאה"</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">🏫</div>
+                        <div class="inf-t-title">51 בתי ספר</div>
+                        <div class="inf-t-sub">15 ערים, מגן עד י"ב</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">👨‍👩‍👧‍👦</div>
+                        <div class="inf-t-title">הרצאות הורים</div>
+                        <div class="inf-t-sub">מעטפת לגיטימציה</div>
+                    </div>
+                    <div class="inf-target">
+                        <div class="inf-t-icon">📱</div>
+                        <div class="inf-t-title">פודקאסט + אינסטגרם</div>
+                        <div class="inf-t-sub">14K עוקבים, 17 פרקים</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top:16px">
+                <strong>מעוסקת מורשה למפעל:</strong> עוסק מורשה הוא ישות משפטית של אדם אחד. אבל 1.19M ₪ מכספי ציבור, 40 מנחים, 15 ערים — זה ארגון בינוני. הבחירה להישאר עוסק מורשה ולא להירשם כעמותה מבטיחה <strong>אפס שקיפות</strong>: לא דירקטוריון, לא דוחות כספיים, לא פיקוח רשם עמותות.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: FINANCE ═══════ -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מקורות מימון</h2>
+            <p>"מידע אמין על מין" פועל כעוסק מורשה — ולכן <strong>אינו חייב בדיווח כספי פומבי</strong>. אין דוחות רשם עמותות, אין GuideStar, אין obudget.org. המספרים שלהלן הם ממה שניתן לשחזר ממקורות גלויים.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">מקורות הכנסה (הערכה)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ערוצי הכנסה מזוהים</h3>
+                    <table>
+                        <tr><th>ערוץ</th><th>סכום</th><th>מקור</th></tr>
+                        <tr class="highlight"><td>תוכניות גפ"ן (#2437)</td><td>1,189,257 ₪</td><td>נתוני גפ"ן</td></tr>
+                        <tr><td>מרכז ייעוץ "המצפן"</td><td>לא ידוע</td><td>אתר minamin.org</td></tr>
+                        <tr><td>קורסי הכשרה</td><td>לא ידוע</td><td>סדנאות למקצוענים</td></tr>
+                        <tr><td>הרצאות (Eventer)</td><td>לא ידוע</td><td>eventer.co.il</td></tr>
+                        <tr><td>ספר (מודן, 2019)</td><td>לא ידוע</td><td>Steimatzky, E-Vrit</td></tr>
+                        <tr><td>פודקאסט</td><td>לא ידוע</td><td>17 פרקים</td></tr>
+                        <tr style="font-weight:700;background:#f0f4fa"><td>הערכת סה"כ</td><td>1.5-2.0M ₪</td><td>שמרני</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>כלכלת הפריסה</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">ממוצע לבית ספר</div>
+                    <div class="value">23,300 ₪</div>
+                    <div class="note">1.19M / 51 בתי ספר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">ממוצע לפריסה</div>
+                    <div class="value">8,741 ₪</div>
+                    <div class="note">1.19M / 136 פריסות</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">חלק המנחים?</div>
+                    <div class="value">?</div>
+                    <div class="note">40 מנחים × ? = ? ← הברון מקבלת כמה?</div>
+                </div>
+            </div>
+
+            <h3>מסלול הכסף: משרד החינוך → בית ספר → הברון</h3>
+            <p>הכסף לא מגיע ישירות ממשרד החינוך להברון. המסלול: <strong>משרד החינוך → רשות מקומית/בית ספר → רכישת תוכנית בגפ"ן → הברון (עוסק מורשה)</strong>. לכן הפעילות לא מופיעה ב-obudget.org — הכסף "נכבס" דרך תקציב בית הספר.</p>
+
+            <div class="warning-box">
+                <strong>שאלה מרכזית:</strong> אם 40 מנחים מעבירים סדנאות ב-51 בתי ספר שמייצרים 1.19M ₪ — כמה מקבלת כל מנחה? וכמה נשאר אצל הברון? כעוסק מורשה, אין חובת גילוי.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פריסה עירונית (15 ערים)</h2>
+            <table>
+                <tr><th>עיר</th><th>בתי ספר</th><th>הערה</th></tr>
+                <tr><td>גבעת שמואל</td><td>✓</td><td></td></tr>
+                <tr><td>גבעתיים</td><td>✓</td><td></td></tr>
+                <tr><td>הוד השרון</td><td>✓</td><td></td></tr>
+                <tr><td>הרצליה</td><td>✓</td><td></td></tr>
+                <tr><td>חיפה</td><td>✓</td><td></td></tr>
+                <tr><td>ירושלים</td><td>✓</td><td>אוכלוסייה מסורתית משמעותית</td></tr>
+                <tr><td>כרמיאל</td><td>✓</td><td></td></tr>
+                <tr><td>קרית אונו</td><td>✓</td><td></td></tr>
+                <tr class="highlight"><td>קרית גת</td><td>✓</td><td>אוכלוסייה מסורתית חזקה</td></tr>
+                <tr class="highlight"><td>קרית שמונה</td><td>✓</td><td>פריפריה — הורים מודעים?</td></tr>
+                <tr><td>רמת גן</td><td>✓</td><td></td></tr>
+                <tr><td>רמת השרון</td><td>✓</td><td></td></tr>
+                <tr><td>רעננה</td><td>✓</td><td></td></tr>
+                <tr><td>ראש העין</td><td>✓</td><td></td></tr>
+                <tr><td>תל אביב-יפו</td><td>✓</td><td></td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: נתוני גפ"ן, מיפוי עיר-תוכנית (מחקר הפרויקט)</p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONTENT ANALYSIS ═══════ -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>עדשת הערכים: הצהרה רשמית מול משמעות בפועל</h2>
+            <p>הטקסטים של "מידע אמין על מין" עוברים כאן קריאה ביקורתית. המתג מאפשר לעמת בין ההצהרות הגלויות לבין המשמעות כפי שהיא עולה מהמחקר.</p>
+
+            <div class="lens-bar">
+                <span class="lens-label active" id="lens-label-off">הצהרה רשמית</span>
+                <button class="lens-switch" id="lensSwitch" onclick="toggleValueLens()"></button>
+                <span class="lens-label" id="lens-label-on">הפרשנות המחקרית</span>
+            </div>
+
+            <div id="lens-cards">
+                <!-- Card 1: Professional framing -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">מיצוב מותגי</span>
+                    <div class="lens-source">אתר minamin.org + פרופיל EduIsrael</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "אחת מהדמויות המרכזיות והמשפיעות ביותר בתחום החינוך המיני בישראל. פועלת לשינוי השיח הציבורי והחינוכי סביב מיניות דרך פרספקטיבה פמיניסטית ומכלילה."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "פרספקטיבה פמיניסטית ומכלילה" = מסגרת אידיאולוגית מוצהרת, לא חינוך ניטרלי. המטרה המוצהרת היא "שינוי שיח" — לא העברת ידע אובייקטיבי. הברון עצמה עברה מ-UX ב-Matrix לאקטיביזם מגדרי — ללא תואר בפסיכולוגיה, רפואה או מדעי ההתפתחות.
+                        <a class="sel-link" href="https://eduisrael.com/שלומית-הברון/" target="_blank">פרופיל EduIsrael →</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Age-appropriate education -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">תוכן לגילאי גן</span>
+                    <div class="lens-source">מאמר HebPsy + פודקאסט "מידע אמין על מין"</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "חינוך מיני מתאים לגיל. ילדים בגילאי 4-5 לומדים שנגיעה באיברי המין היא נעימה, בריאה ופרטית. שמות אנטומיים מדויקים — פות, פין — לא שמות כינוי."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        נורמליזציה של אוננות בגילאי 4-5. פרק פודקאסט "בואו נדבר על אוננות". פרק "מי מפחד מהמילה פות?". קהילות מסורתיות — יהודיות, מוסלמיות, נוצריות — רואות בזה הפרה חמורה של גבולות הצניעות והגיל. אין מנגנון opt-out ידוע.
+                        <a class="sel-link" href="https://www.hebpsy.net/articles.asp?id=3570" target="_blank">מאמר אקדמי HebPsy →</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: LGBTQ+ -->
+                <div class="lens-card severity-high">
+                    <span class="lens-type">מתודולוגיה</span>
+                    <div class="lens-source">מאמר HebPsy — "עקרונות לחינוך מיני בישראל"</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "הפחתת הומופוביה ותמיכה בנוער להט"ב. חקירת זהות מגדרית. מיניות בריאה מבוססת על ראיות ולא על אידיאולוגיית הימנעות."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        "חקירת זהות מגדרית" לקטינים — הנושא שעליו פסיכיאטרי הילד והמתבגר בישראל התנגדו והודחו מתהליך כתיבת הנוהל. "הפחתת הומופוביה" = שינוי עמדות (advocacy), לא חינוך ניטרלי. הפרוגרמה מוצגת כ"מבוססת ראיות" אך הסקר (739 נחקרים, 72% חילונים) אינו מייצג.
+                        <a class="sel-link" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">אבן רוזטה — מילון ההסוואה →</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Activist pipeline -->
+                <div class="lens-card severity-medium">
+                    <span class="lens-type">רקע ביוגרפי</span>
+                    <div class="lens-source">TheMarker, Calcalist, Wikipedia — "אחת מתוך אחת"</div>
+                    <div class="lens-text lens-official-text" data-lens="official">
+                        "הברון הקימה את 'אחת מתוך אחת' — מיזם לאיסוף עדויות על תקיפה מינית. אספה 2,000+ עדויות, חשפה תוקפים סדרתיים, סייעה בפרשת אלון קסטיאל."
+                    </div>
+                    <div class="lens-text lens-interpreted-text" data-lens="interpreted" style="display:none">
+                        הצינור מאקטיביזם לחינוך: מי שאספה 2,000 עדויות תקיפה מינית ובנתה "מאגר אנסים" מוצפן (1,800 חשודים) — עוברת ללמד ילדים בגיל 4 על מיניות. התפיסה נוצרה מעיבוד טראומות — לא ממדע התפתחותי. "אחת מתוך אחת" נסגרה ב-2019 — הסיבות לא פורסמו.
+                        <a class="sel-link" href="https://he.wikipedia.org/wiki/אחת_מתוך_אחת" target="_blank">ויקיפדיה — אחת מתוך אחת →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מילון המונחים: מה מסתתר מאחורי המילים?</h2>
+            <p>לחצו על כרטיס כדי לחשוף את המשמעות בפועל.</p>
+
+            <div class="flip-grid">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">💚</div>
+                            <div class="term-name">מיניות בריאה</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">כולל: נורמליזציה של אוננות מגיל 4-5, חקירת זהות מגדרית, הפחתת הומופוביה. "בריאה" = פמיניסטית-פרוגרסיבית, לא ניטרלית-רפואית.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">🚦</div>
+                            <div class="term-name">כלי "הרמזור"</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">מסווג התנהגויות מיניות של ילדים לירוק/צהוב/אדום. מגדיר נגיעה עצמית כ"ירוק" (תקין) מגיל גן. מי מחליט מה "נורמלי"? SEI.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">📊</div>
+                            <div class="term-name">מבוסס ראיות</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">מבוסס על סקר אחד: 739 נחקרים, 72% חילונים, גילאי 18-19. לא מייצג אוכלוסייה מסורתית. לא עבר ביקורת עמיתים עצמאית.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="term-icon">🤝</div>
+                            <div class="term-name">פרספקטיבה מכלילה</div>
+                            <div class="term-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="reveal-title">מה בפועל:</div>
+                            <div class="reveal-text">"הכלה" = LGBTQ+ affirmation + חקירת זהות מגדרית לקטינים. "הכלה" של ערכים אחד — לא של ערכי המסורת.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>תוכנית הלימודים: מגן עד י"ב</h2>
+            <table>
+                <tr><th>קבוצת גיל</th><th>כיתות</th><th>נושאים</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td>פעוטות (3-5)</td><td>גן</td><td>שמות איברים, מגע ראוי/לא ראוי, "כללי הזהב"</td><td>נורמליזציה של נגיעה מגיל 4-5</td></tr>
+                <tr><td>ילדים צעירים (6-8)</td><td>א'-ב'</td><td>מאיפה באים תינוקות, סודות טובים/רעים</td><td></td></tr>
+                <tr><td>ילדים (8-11)</td><td>ג'-ו'</td><td>"רמזור", התבגרות, בטיחות דיגיטלית, פורנוגרפיה</td><td>חשיפה לנושא פורנוגרפיה בגיל 8</td></tr>
+                <tr class="highlight"><td>מתבגרים צעירים (12-14)</td><td>ז'-ט'</td><td>אמצעי מניעה, מחלות מין, זהות מגדרית, הסכמה</td><td>"חקירת זהות מגדרית" — הנושא השנוי ביותר</td></tr>
+                <tr><td>מתבגרים (15-18)</td><td>י'-י"ב</td><td>מיומנויות מערכת יחסים, מין בטוח, להט"ב</td><td></td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://www.hebpsy.net/articles.asp?id=3570" target="_blank">HebPsy</a>, <a href="https://www.minamin.org/" target="_blank">minamin.org</a></p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: EVIDENCE CHAIN ═══════ -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת הראיות: מהאקטיביסטית לכיתה</h2>
+            <p>כל שכבה עונה על הספק מהשכבה הקודמת. אם אתה חושב "זה חינוך מיני לגיטימי" — השכבה הבאה מסבירה למה לא.</p>
+
+            <!-- Level 1: The operator -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">👤</span>
+                    <div>
+                        <div class="d-title">שכבה 1: מי המפעילה?</div>
+                        <div class="d-sub">מ-UX ב-Matrix ל"מאגר אנסים" לחינוך מיני בגן</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>שלומית הברון — מעצבת חוויית משתמש (UX) לשעבר ב-Matrix — עזבה את ההייטק ב-2014 והקימה "אחת מתוך אחת", מיזם לאיסוף עדויות תקיפה מינית.</p>
+                    <div class="depth-quote">"לא אכפת לי אם זה חוקי או לא חוקי. זה מגעיל, זה מאיים."<br>— שלומית הברון, TheMarker</div>
+                    <p>המיזם אסף 2,000+ עדויות ובנה מאגר מוצפן של 1,800 חשודים. נסגר ב-2019. באותה שנה הברון פרסמה ספר על חינוך מיני והתחילה לפעול בבתי ספר.</p>
+                    <p><strong>המשמעות:</strong> תפיסת העולם שלה נוצרה מעיבוד אלפי עדויות טראומה — לא ממדע התפתחותי. זו לא ביקורת אישית — זה מסביר את הכיוון של התוכנית.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.themarker.com/markerweek/1.2855937" target="_blank">TheMarker</a>, <a href="https://he.wikipedia.org/wiki/אחת_מתוך_אחת" target="_blank">ויקיפדיה</a></p>
+                    <div class="depth-next">אבל היא מוכרת על ידי משרד החינוך — אז מה הבעיה? ↓</div>
+                </div>
+            </div>
+
+            <!-- Level 2: The structure -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🏛️</span>
+                    <div>
+                        <div class="d-title">שכבה 2: מבנה בלתי שקוף בכוונה</div>
+                        <div class="d-sub">עוסק מורשה עם תקציב עמותה — ללא פיקוח</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>הברון בחרה להישאר <strong>עוסק מורשה</strong> למרות מחזור של 1.19M ₪+ מכספי ציבור. זו בחירה מכוונת:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>אין דירקטוריון</strong> — שום גוף חיצוני לא מפקח על התוכן</li>
+                        <li><strong>אין דוחות כספיים פומביים</strong> — בניגוד לעמותות</li>
+                        <li><strong>אין פיקוח רשם עמותות</strong> — הרגולטור לא רואה אותה</li>
+                        <li><strong>~40 מנחים כקבלני משנה</strong> — לא עובדים, לא זכויות, לא פיקוח</li>
+                    </ul>
+                    <p>לשם השוואה: SafeSchool (בע"מ) — גם לא עמותה, אבל לפחות חברה רשומה עם דירקטוריון. הברון היא צעד מתחת — ישות של אדם אחד.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.guidestar.org.il/" target="_blank">GuideStar (לא נמצא פרופיל)</a>, <a href="https://www.obudget.org/" target="_blank">obudget.org (לא נמצאו העברות)</a></p>
+                    <div class="depth-next">אבל התוכן עצמו מקצועי — מה בדיוק הבעיה בתוכן? ↓</div>
+                </div>
+            </div>
+
+            <!-- Level 3: The content -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">📝</span>
+                    <div>
+                        <div class="d-title">שכבה 3: מה ההורים לא יודעים</div>
+                        <div class="d-sub">תוכן הסדנאות מול מה שמספרים להורים</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>ההורים מקבלים הרצאה מקבילה. מה הם <strong>לא</strong> רואים:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>התוכן הספציפי בכיתה</strong> — אין מסמך שהורים חותמים עליו עם תכנים מפורטים</li>
+                        <li><strong>איזו מנחה</strong> מאותן 40 מלמדת את ילדם, ומה ההכשרה שלה</li>
+                        <li><strong>הרקע האקטיביסטי</strong> — "אחת מתוך אחת" ו"מאגר האנסים"</li>
+                        <li><strong>חוסר האפשרות ל-opt-out</strong> — לא ברור שההורים יכולים לסרב</li>
+                    </ul>
+                    <div class="depth-quote">"בואו נדבר על אוננות" — שם פרק בפודקאסט. האם ההורים בקרית גת ובקרית שמונה יודעים שזה התוכן שמגיע לילדיהם?</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://podcasts.apple.com/il/podcast/מידע-אמין-על-מין-פודקאסט-להורים-על-חינוך-מיני/id1827790386" target="_blank">פודקאסט Apple</a>, <a href="https://www.minamin.org/" target="_blank">minamin.org</a></p>
+                    <div class="depth-next">אבל זה תואם את המדיניות הבינלאומית — UNESCO, SIECUS... ↓</div>
+                </div>
+            </div>
+
+            <!-- Level 4: The network -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🕸️</span>
+                    <div>
+                        <div class="d-title">שכבה 4: הרשת — SEI כארגון גג</div>
+                        <div class="d-sub">הברון, מגע בתיאום, חוש"ן — רשת אחת</div>
+                    </div>
+                    <span class="d-arrow">▼</span>
+                </div>
+                <div class="depth-body">
+                    <p>הברון ו"מידע אמין על מין" רשומים באתר <strong>SEI — האגודה לחינוך מיני</strong> (ע"ר 580763738). SEI מתפקד כארגון גג שמאגד את כל ספקי החינוך המיני בישראל:</p>
+                    <table>
+                        <tr><th>ארגון</th><th>קשר ל-SEI</th><th>פעיל בגפ"ן?</th></tr>
+                        <tr><td>מידע אמין על מין (הברון)</td><td>חברה + מנחה רשומה</td><td>כן (#2437)</td></tr>
+                        <tr><td>מגע בתיאום (גליה אופר)</td><td>חברה רשומה</td><td>כן (#2930, #3027)</td></tr>
+                        <tr><td>חוש"ן</td><td>אותו אקו-סיסטם</td><td>כן (6 תוכניות)</td></tr>
+                        <tr><td>לבוא (LAVO)</td><td>אותו אקו-סיסטם</td><td>כן</td></tr>
+                        <tr><td>תמורות</td><td>אותו אקו-סיסטם</td><td>כן</td></tr>
+                    </table>
+                    <p><strong>SEI עצמה</strong> — עמותה זעירה (265,740 ₪ מחזור, אפס מימון ממשלתי) — אבל חבריה מפעילים מיליוני שקלים בגפ"ן. SEI היא הרשת, לא המימון.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://sei.org.il/מידע-אמין-על-מין-המרכז-הישראלי-לחינו/" target="_blank">SEI — מידע אמין על מין</a>, <a href="https://sei.org.il/שלומית-הברון/" target="_blank">SEI — הברון</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Links -->
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <a class="link-card" href="deep_Meyda_Amin.html">
+                <div class="lc-icon">📄</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא — 13 פרקים</div>
+                    <div class="lc-desc">זהות, פריסה, תוכן, משרד החינוך, רשת קשרים, כספים, ניתוח תוכן, הורים, מחלוקות, שאלות פתוחות.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">
+                <div class="lc-icon">🔗</div>
+                <div>
+                    <div class="lc-title">למה SEL בעייתי</div>
+                    <div class="lc-desc">מחקר מקיף: כיצד "למידה רגשית-חברתית" הפכה לכלי להחדרת תפיסות עולם.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+                <div class="lc-icon">🗝️</div>
+                <div>
+                    <div class="lc-title">אבן רוזטה — מילון ההסוואה</div>
+                    <div class="lc-desc">"מיניות בריאה", "פרספקטיבה מכלילה", "מבוסס ראיות" — מה המילים באמת אומרות.</div>
+                </div>
+            </a>
+            <a class="link-card" href="maga_betiaum_dashboard.html">
+                <div class="lc-icon">🏢</div>
+                <div>
+                    <div class="lc-title">מגע בתיאום — ארגון אח ברשת SEI</div>
+                    <div class="lc-desc">חברה פרטית (בע"מ), הוקמה נובמבר 2022. אותה רשת, שם אחר.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONCLUSIONS ═══════ -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #e74c3c">
+            <h2>סיכום והמלצות</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>"מידע אמין על מין" מציג מעטפת מקצועית — ספר, פודקאסט, אישור גפ"ן, הרצאת הורים. אך מתחת לפני השטח: עוסקת מורשה אחת מפעילה רשת בלתי שקופה של 40 מנחים, שמלמדת ילדים מגיל 4 נושאים שנויים במחלוקת עמוקה, מתוך פרספקטיבה פמיניסטית-אקטיביסטית מוצהרת, ללא שום חובת שקיפות כספית.</p>
+                    <p>אין כאן "חינוך מיני ניטרלי". המפעילה עצמה מגדירה את עצמה כפעילה ב"פרספקטיבה פמיניסטית ומכלילה". המטרה מוצהרת: "שינוי השיח". זה advocacy, לא education.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שקיפות כספית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>הסכמת הורים</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>ניטרליות חינוכית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>התאמה לגיל</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>פיקוח מקצועי</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>שקיפות ארגונית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות להורים</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שמי שמלמדת את ילדכם מיניות היא אקטיביסטית מגדרית שבנתה "מאגר אנסים"?</li>
+                        <li>האם ידוע לכם שהתוכנית מלמדת ילדים בגן שנגיעה באיברי מין היא "נעימה ובריאה"?</li>
+                        <li>האם נתנו הסכמה מפורשת לתכני חקירת זהות מגדרית לילדכם?</li>
+                        <li>האם יודעים מי מ-40 המנחים מלמד את ילדכם בפועל?</li>
+                        <li>למה התוכנית פועלת כעוסק מורשה ולא כעמותה — מה יש להסתיר?</li>
+                        <li>האם ביקשתם לראות את חומרי הלימוד המלאים ונעניתם?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">קישורים למחקר</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_Meyda_Amin.html">
+                            <div class="lc-icon">📄</div>
+                            <div>
+                                <div class="lc-title">דוח מלא</div>
+                                <div class="lc-desc">13 פרקים, 670+ שורות</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://sei.org.il/שלומית-הברון/" target="_blank">
+                            <div class="lc-icon">🔗</div>
+                            <div>
+                                <div class="lc-title">SEI — פרופיל</div>
+                                <div class="lc-desc">האגודה לחינוך מיני</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://www.hebpsy.net/articles.asp?id=3570" target="_blank">
+                            <div class="lc-icon">📊</div>
+                            <div>
+                                <div class="lc-title">מאמר אקדמי</div>
+                                <div class="lc-desc">HebPsy — עקרונות חינוך מיני</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://he.wikipedia.org/wiki/אחת_מתוך_אחת" target="_blank">
+                            <div class="lc-icon">📖</div>
+                            <div>
+                                <div class="lc-title">"אחת מתוך אחת"</div>
+                                <div class="lc-desc">ויקיפדיה</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר — פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_Meyda_Amin.html">דוח מלא</a> | פברואר 2026</p>
+    <p style="margin-top:4px">כל הנתונים מבוססים על מקורות גלויים: SEI, GuideStar, גפ"ן, HebPsy, TheMarker, ויקיפדיה, פודקאסט Apple.</p>
+</footer>
+
+<script>
+// ── Navigation ──
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── Radar Chart ──
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['שקיפות כספית', 'חדירה למערכת', 'פיקוח הורים', 'תוכן אידיאולוגי', 'רשת קשרים'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [95, 75, 30, 85, 70],
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [15, 75, 70, 15, 30],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// ── Finance Doughnut ──
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['גפ"ן (בתי ספר)', 'ייעוץ + הכשרה', 'הרצאות + ספר', 'פודקאסט + אחר'],
+        datasets: [{
+            data: [70, 15, 10, 5],
+            backgroundColor: ['#667eea', '#0d9488', '#f39c12', '#e74c3c'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.label + ': ~' + ctx.raw + '%'
+                }
+            }
+        }
+    }
+});
+
+// ── Value Lens Toggle ──
+function toggleValueLens() {
+    const sw = document.getElementById('lensSwitch');
+    const isOn = sw.classList.toggle('on');
+    document.getElementById('lens-label-off').classList.toggle('active', !isOn);
+    document.getElementById('lens-label-on').classList.toggle('active', isOn);
+    document.querySelectorAll('#lens-cards .lens-text').forEach(el => {
+        const lens = el.getAttribute('data-lens');
+        el.style.display = (lens === 'official' && !isOn) || (lens === 'interpreted' && isOn) ? '' : 'none';
+    });
+}
+</script>
+</body>
+</html>

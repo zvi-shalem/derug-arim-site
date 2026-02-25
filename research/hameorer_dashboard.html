@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המעורר — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #8b0000; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.critical { border-right: 4px solid #8b0000; }
+.metric.critical .value { color: #8b0000; }
+
+/* ── Chart container ── */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* ── Finding cards ── */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* ── Evidence chain ── */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 800px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+.depth-next {
+    display: inline-block; margin-top: 10px; padding: 6px 14px;
+    background: #f0f4fa; border-radius: 4px; font-size: 0.82em;
+    color: #2a5a8a; cursor: default;
+}
+
+/* ── Warning box ── */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* ── Links ── */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Questions ── */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* ── Footer ── */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>המעורר — דרור ישראל</span>
+            <span class="risk-pill">סיכון קריטי</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+            <a href="deep_HaMeorer.html">דוח מלא</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>המעורר — תוכנית לפיתוח אחריות ומעורבות</h1>
+    <div class="subtitle">יסודות לצמיחה דרור (דרור ישראל) | עמותה ע"ר 580295533 / 580322071 | מ-1996</div>
+    <div class="meta">12 ערים | ~200 מדריכים | 14 קיבוצי מחנכים | גפ"ן #1545 | חדירה לצה"ל, משטרה ומג"ב</div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════ TAB: OVERVIEW ═══════ -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>"המעורר" הוא מרכז ההדרכה של תנועת <strong>דרור ישראל</strong> — תנועה אידיאולוגית שהוקמה ב-2006 על ידי בוגרי הנוער העובד והלומד. המעורר אינו גוף חינוכי עצמאי אלא <strong>חוד החנית הביצועי</strong> של תנועה המבקשת לעצב מחדש את החברה הישראלית דרך חדירה למערכות ממלכתיות: צה"ל, משטרת ישראל, מג"ב ומערכת החינוך הפורמלית.</p>
+            <p>הארגון פועל תחת מעטפת של "חינוך ערכי" ו"ציונות חלוצית", אך ניתוח מעמיק של תכניו, רשת קשריו ומקורות המימון שלו חושף <strong>סוכן שינוי פרוגרסיבי-סוציאליסטי</strong> הפועל בלב הקונצנזוס הישראלי.</p>
+
+            <div class="grid-3">
+                <div class="metric critical">
+                    <div class="label">רמת סיכון</div>
+                    <div class="value">קריטי</div>
+                    <div class="note">הגבוה מבין כל התוכניות</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">מדריכים</div>
+                    <div class="value">~200</div>
+                    <div class="note">חברי קיבוצים עירוניים — אנשי תנועה</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">זירות חדירה</div>
+                    <div class="value">4</div>
+                    <div class="note">צה"ל, משטרה, מג"ב, בתי ספר</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל סיכון: תדמית מול מציאות</h3>
+                    <p style="font-size:0.85em;color:#666">השטח הכתום מראה את הסיכון בפועל. השטח הכחול — מה שהארגון מציג. הפער ביניהם הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים קריטיים</h3>
+                    <div class="finding">
+                        <div class="icon">&#9878;</div>
+                        <div>
+                            <h4>חדירה לדרג הפיקודי בצה"ל ומג"ב</h4>
+                            <p>המעורר מתמקד בסגלי הפיקוד והחינוך — לא בחיילים רגילים. אסטרטגיה של "השפעה מהראש": המפקד ינחיל את הערכים לחייליו באופן אורגני.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#127979;</div>
+                        <div>
+                            <h4>200 מדריכים = אנשי תנועה</h4>
+                            <p>המדריך הפוגש את התלמידים אינו "קבלן הוראה" חיצוני אלא <strong>איש תנועה המגויס למשימה אידיאולוגית</strong>, חבר קיבוץ עירוני של דרור ישראל.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128176;</div>
+                        <div>
+                            <h4>פרשת בני המושבים — 30M &#8362; פער</h4>
+                            <p>מבקר המדינה (2016): 110M &#8362; הועברו ללא פיקוח נאות. מנכ"ל דרור ישראל לשעבר הורשע — 15 חודשי מאסר בפועל.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">&#128218;</div>
+                        <div>
+                            <h4>"ציונות" כמעטפת לפדגוגיה ביקורתית</h4>
+                            <p>הציונות של המעורר עברה "טיהור" מהמרכיבים הדתיים והלאומיים. מה שנשאר: "דמוקרטיה ישראלית" + "חשיבה ביקורתית" = פאולו פריירה.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קו זמן</h2>
+            <table>
+                <tr><th>שנה</th><th>אירוע</th><th>משמעות</th></tr>
+                <tr><td>1996</td><td>הקמת מרכז ההדרכה "המעורר"</td><td>חוד החנית של תנועת הנוער העובד והלומד</td></tr>
+                <tr><td>2006</td><td>הקמת דרור ישראל</td><td>מיזוג בוגרי הנוע"ל לתנועה אידיאולוגית מגובשת</td></tr>
+                <tr class="highlight"><td>2008-2012</td><td>110M &#8362; מתנועת המושבים</td><td>פרשת בני המושבים — העברות ללא פיקוח</td></tr>
+                <tr class="highlight"><td>2016</td><td>דוח מבקר המדינה 67א'</td><td>חשיפת הליקויים — חקירה משטרתית</td></tr>
+                <tr><td>2020</td><td>מאמר "Activist Pedagogy" (Katko-Ayali &amp; Michaeli)</td><td>חשיפה אקדמית: "סוכני שינוי חברתי", "אתגור מבני כוח"</td></tr>
+                <tr class="highlight"><td>2024</td><td>כתבת הארץ: "הפיכה קומוניסטית בכיתה"</td><td>ד"ר מיכאלי חושף את הפוטנציאל בפומבי</td></tr>
+                <tr><td>2024</td><td>הרשעת עמיחי בן דרור</td><td>15 חודשי מאסר + 100K &#8362; קנס</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>ד"ר ניר מיכאלי</strong></td><td>הוגה הפדגוגיה, מרצה — ילין + סמינר הקיבוצים</td><td>"אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש"</td></tr>
+                <tr><td><strong>פסח האוספטר</strong></td><td>רכז דרור ישראל</td><td>מוביל האסטרטגיה ארוכת הטווח</td></tr>
+                <tr><td><strong>תמיר צייגר</strong></td><td>רכז המעורר</td><td>שטח — הדרכה ישירה מול מפקדים</td></tr>
+                <tr class="highlight"><td><strong>עמיחי בן דרור</strong></td><td>מנכ"ל דרור ישראל לשעבר</td><td>הורשע: 15 חודשי מאסר בפועל</td></tr>
+                <tr><td><strong>קטקו-איילי</strong></td><td>שותפת למאמר האקדמי (2020)</td><td>שפה שונה באנגלית מול עברית</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקורות: קשתי, א. (2024). הארץ; Katko-Aili &amp; Michaeli (2020). Journal of Curriculum Studies; מבקר המדינה, דוח 67א' (2016).</p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: FINANCE ═══════ -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מימון — אימפריית דרור ישראל</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">מקורות מימון (הערכה)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>מקורות מזוהים</h3>
+                    <table>
+                        <tr><th>מקור</th><th>סכום</th><th>שנה</th></tr>
+                        <tr class="highlight"><td>מחזור יסודות לצמיחה דרור</td><td>~103M &#8362;</td><td>2022</td></tr>
+                        <tr><td>מחזור שנה קודמת</td><td>~99M &#8362;</td><td>2021</td></tr>
+                        <tr class="highlight"><td>תנועת המושבים (מצטבר)</td><td>110M &#8362;</td><td>2008-2012</td></tr>
+                        <tr><td>פטורים ממכרז (סכומים קטנים)</td><td>עד 50K &#8362; ליחידה</td><td>שוטף</td></tr>
+                        <tr><td>קרן אריסון</td><td>לא ידוע</td><td>פילנתרופיה</td></tr>
+                        <tr><td>ציונות 2000 + קרן לידידות</td><td>לא ידוע</td><td>פילנתרופיה</td></tr>
+                        <tr><td>גופים בקנדה</td><td>לא ידוע</td><td>"הכשרת אקטיביסטים"</td></tr>
+                    </table>
+                    <p style="font-size:0.82em;color:#888"><strong>מחיר יחידת הדרכה בגפ"ן:</strong> 250 &#8362; לשעה. מקור: קטלוג גפ"ן, תוכנית 1545.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>פרשת בני המושבים — 110 מיליון &#8362; ללא פיקוח</h2>
+            <div class="grid-3">
+                <div class="metric critical">
+                    <div class="label">סכום שהועבר</div>
+                    <div class="value">110M &#8362;</div>
+                    <div class="note">2008-2012, תנועת המושבים</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">פער כספי</div>
+                    <div class="value">~30M &#8362;</div>
+                    <div class="note">יועד לנוער — שימש לקיבוצים</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">עונש מנכ"ל</div>
+                    <div class="value">15 חודשים</div>
+                    <div class="note">מאסר בפועל + 100K &#8362; קנס</div>
+                </div>
+            </div>
+            <div class="warning-box">
+                <strong>מבקר המדינה (דוח 67א', 2016):</strong> "היקף התמיכות שהועברו לתנועת דרור ישראל באמצעות תנועת המושבים בשנים 2008-2012 עמד על כ-110 מיליון &#8362;." המבקר מצא ליקויים חמורים בבקרה ובדיווחים. כ-30 מיליון &#8362; יועדו לפעילויות נוער אך שימשו, לכאורה, להקמת קיבוצים עירוניים ומימון חברי התנועה. עמיחי בן דרור (מנכ"ל) הורשע בקבלת דבר במרמה, הלבנת הון ועבירות מס. מאיר צור (מזכ"ל תנועת המושבים) הורשע גם הוא.
+                <p style="font-size:0.82em;color:#555;margin-top:8px">מקורות: מבקר המדינה, דוח 67א' (2016); קשתי, א. (2024), הארץ; ירקצי, ד. (2021), גלובס.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מנגנון "פטור ממכרז" — חדירה מתחת לרדאר</h2>
+            <p>בחינת מאגרי המידע הממשלתיים מעלה כי עמותת "יסודות לצמיחה דרור" זוכה ל<strong>התקשרויות רבות תחת פטור ממכרז</strong>. השיטה: התקשרויות בסכומים של עד 50,000 &#8362; שאינם דורשים מכרז פומבי — מה שמאפשר חדירה למוסדות רבים במקביל תחת הרדאר של הביקורת הציבורית.</p>
+            <div class="warning-box">
+                <strong>הרצליה — תקציב מזוהה:</strong> יסודות לצמיחה דרור מקבלת 196,000 &#8362; / 3 שנים תחת קטגוריית "זהות יהודית דמוקרטית" בוועדת התמיכות. מקבלת מימון כפול: גם "זהות דמוקרטית" וגם "חינוך במערכת הפורמלית". הגיעה לתקרת 67,500 &#8362; ב-2 מתוך 3 שנים.
+                <p style="font-size:0.82em;color:#555;margin-top:8px">מקור: פרוטוקול ועדת תמיכות הרצליה (ניתוח פרויקט דירוג ערים)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONTENT ANALYSIS ═══════ -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>"ציונות" כמעטפת לפדגוגיה ביקורתית</h2>
+            <p>ניתוח ערכי של תכני "המעורר" חושף שימוש אינטנסיבי בטרמינולוגיה ציונית — אך כזו שעברה <strong>"טיהור"</strong> מהמרכיבים הדתיים והלאומיים המסורתיים. הארגון מדגיש "העמקת הזהות הציונית", אך בפועל הציונות שלו מוגדרת דרך "הדמוקרטיה הישראלית" ו"החשיבה הביקורתית".</p>
+
+            <h3>מסר גלוי מול מסר סמוי — ניתוח ערכי</h3>
+            <table>
+                <tr><th>תוכנית</th><th>מסר גלוי</th><th>מסר סמוי (ניתוח ערכי)</th></tr>
+                <tr><td>מסע לפולין</td><td>חיבור לשורשים ולעבר היהודי</td><td>הפיכת השואה למעבדה לחינוך הומניסטי אוניברסלי</td></tr>
+                <tr><td>סיורים בקו העימות</td><td>חשיפה לאתגרי ביטחון וחלוציות</td><td>דגש על יחס למיעוטים ו"חוסן חברתי" ליברלי</td></tr>
+                <tr class="highlight"><td>דמוקרטיה ישראלית</td><td>חיזוק המשטר והממלכתיות</td><td>עידוד חשיבה ביקורתית כלפי מוסדות המסורת והשלטון</td></tr>
+                <tr class="highlight"><td>לגעת בזה (תוכנית 1546)</td><td>מניעת אלימות, מיניות בריאה</td><td>פירוק מיתוסים מגדריים, קידום זהויות להט"ב בבתי ספר</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: ניתוח תכנים, אתר דרור ישראל; קטלוג גפ"ן תוכניות 1545 ו-1546.</p>
+        </div>
+
+        <div class="section">
+            <h2>Katko-Ayali 2020 (אנגלית) מול 2024 (עברית) — שפה כפולה</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>מה כותבים באנגלית (2020)</h3>
+                    <div class="depth-quote">"Activist pedagogy aims to empower students to become <strong>agents of social change</strong>, not merely to understand the world but to <strong>transform it</strong>."<br>— Katko-Aili &amp; Michaeli (2020), p. 454</div>
+                    <div class="depth-quote">"The program explicitly seeks to foster a <strong>critical consciousness</strong> regarding <strong>social injustices and inequalities</strong>, and to equip them with the tools to <strong>challenge existing power structures</strong>."<br>— Katko-Aili &amp; Michaeli (2020), p. 458</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://doi.org/10.1080/00220272.2020.1755993" target="_blank">Journal of Curriculum Studies, 52(4), 453-469</a></p>
+                </div>
+                <div>
+                    <h3>מה כותבים בעברית (2024)</h3>
+                    <div class="depth-quote" style="border-right-color:#667eea">"פיתוח <strong>אחריות ומעורבות חברתית</strong>."</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"פיתוח <strong>חשיבה ביקורתית</strong>, העמקה בהבנת סוגיות חברתיות."</div>
+                    <div class="depth-quote" style="border-right-color:#667eea">"חיזוק תחושת השייכות והאחריות."</div>
+                    <p style="font-size:0.85em;color:#888">מקור: קטלוג גפ"ן, תוכנית 1545; אתר דרור ישראל.</p>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top:12px">
+                <strong>"agents of social change" &#8800; "אחריות ומעורבות".</strong> באנגלית: "סוכני שינוי חברתי", "אתגור מבני כוח קיימים", "תודעה ביקורתית לגבי עוולות ואי-שוויונות". בעברית: "אחריות", "שייכות", "חשיבה ביקורתית". המונחים הרכים מאפשרים קבלה רחבה במערכת החינוך — בעוד המטרה האמיתית מפורשת רק בפרסומים אקדמיים בשפה הזרה.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>"לגעת בזה" — אותה רשת, חינוך מגדרי</h2>
+            <p>"לגעת בזה" (גפ"ן #1546) היא תוכנית חינוך מגדרי המופעלת על ידי <strong>אותו מפעיל</strong> — יסודות לצמיחה דרור. מטרתה המוצהרת: "לשבור מיתוסים הרווחים בחברה ביחס למיניות ומגדר". פועלת בבתי ספר יסודיים, תיכונים, מכינות קדם-צבאיות ובמספר שפות (עברית, אנגלית, רוסית).</p>
+            <table>
+                <tr><th>קהל יעד</th><th>נושאי ליבה</th></tr>
+                <tr><td>בתי ספר יסודיים</td><td>דימוי גוף, התפתחות, "אווירה פתוחה למגוון ושוני"</td></tr>
+                <tr class="highlight"><td>תיכונים ומכינות</td><td>זהות מגדרית, נטייה מינית, מניעת אלימות, פורנוגרפיה</td></tr>
+                <tr><td>צוותי חינוך</td><td>הכשרה פדגוגית להוראת מגדר, ליווי רשויות מקומיות</td></tr>
+                <tr><td>הורים</td><td>הרצאות והסברה על "הגישה המגדרית"</td></tr>
+            </table>
+            <div class="warning-box">
+                <strong>שתי תוכניות, אותה רשת:</strong> "המעורר" (תוכנית 1545) ו"לגעת בזה" (תוכנית 1546) — שתיהן של דרור ישראל, שתיהן מועברות על ידי אותם מדריכים מקיבוצים עירוניים. "המעורר" מכשיר את הקרקע ב"חשיבה ביקורתית"; "לגעת בזה" מכניס את התוכן המגדרי. זה כמו דלת ראשית ודלת צדדית לאותו בניין.
+                <p style="font-size:0.82em;color:#555;margin-top:8px">מקור: קטלוג גפ"ן, תוכניות 1545 ו-1546; אתר דרור ישראל.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ד"ר ניר מיכאלי — הציטוט שחושף הכל</h2>
+            <div class="depth-quote" style="font-size:1.05em;padding:16px 20px">"אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול <strong>לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש</strong>"<br>— ד"ר ניר מיכאלי, הארץ, 15 במרץ 2024</div>
+            <p>ד"ר מיכאלי הוא מרצה בכיר במכללת דוד ילין ובסמינר הקיבוצים, חוקר פדגוגיה ביקורתית וחינוך פוליטי, שימש מנהל בית ספר תיכון של הקיבוץ הארצי. הוא אחד מהוגי ומובילי התפיסה הפדגוגית של "המעורר" ושל דרור ישראל בכלל.</p>
+            <div class="depth-quote">"הפדגוגיה הביקורתית היא לא פדגוגיה של שמאל. היא פדגוגיה של שחרור. היא פדגוגיה של חשיבה עצמאית. היא פדגוגיה של חופש."<br>— ד"ר ניר מיכאלי, הארץ, 15 במרץ 2024</div>
+            <p style="font-size:0.82em;color:#888">מקור: קשתי, א. (2024, 15 במרץ). "התוכנית החינוכית של דרור ישראל: 'הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש'". הארץ.</p>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: EVIDENCE CHAIN ═══════ -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת ראיות: מהתלמיד עד פאולו פריירה</h2>
+            <p>כל שכבה חושפת שכבת עומק נוספת. ממה שהתלמיד רואה — דרך ה"ציונות" כמעטפת — דרך חדירה לצה"ל — ועד השורשים האקדמיים.</p>
+
+            <!-- Level 1: What students see -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127891;</span>
+                    <div>
+                        <div class="d-title">שכבה 1: מה התלמיד רואה</div>
+                        <div class="d-sub">"חינוך ערכי", "ציונות", "אחריות ומעורבות"</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>התלמיד פוגש מדריך צעיר, כריזמטי, שמדבר על "ציונות", "חלוציות", "אחריות חברתית". הסדנאות משלבות חוויה, דיאלוג קבוצתי ופרויקטים קהילתיים. הכל נראה חיובי ומעשיר.</p>
+                    <div class="depth-quote">"התוכנית מציעה למורים ולתלמידים כלים להתמודדות עם סוגיות חברתיות ופוליטיות מורכבות, תוך דגש על פיתוח חשיבה ביקורתית, דיאלוג, ופעולה אקטיבית לשינוי המציאות."<br>— קטלוג גפ"ן, תוכנית 1545</div>
+                    <p><strong>מה התלמיד לא יודע:</strong> המדריך הוא חבר קיבוץ עירוני של דרור ישראל — קומונה אידיאולוגית של צעירים החיים חיי שיתוף מלאים. הוא לא "מורה מחוץ" אלא שליח תנועה.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: קטלוג גפ"ן; אתר דרור ישראל, עמוד "הקיבוצים העירוניים".</p>
+                    <div class="depth-next">אבל מדובר ב"ציונות" — מה הבעיה? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 2: "Zionism" as wrapper -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#127470;&#127473;</span>
+                    <div>
+                        <div class="d-title">שכבה 2: ה"ציונות" כמעטפת</div>
+                        <div class="d-sub">אותו שם — תוכן שונה לחלוטין</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>הציונות של "המעורר" אינה הציונות שהורים מסורתיים מדמיינים. היא עברה <strong>ניכוס מחדש (re-appropriation)</strong>: המסגרת נשארת, התוכן הוחלף.</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>"ציונות חלוצית"</strong> = ציונות סוציאליסטית המדגישה שוויון וצדק חברתי (בפרשנות השמאלית)</li>
+                        <li><strong>"העמקת הזהות"</strong> = "הדמוקרטיה הישראלית" + "חשיבה ביקורתית" — ללא מרכיב דתי או לאומי מסורתי</li>
+                        <li><strong>"אקו-סיסטם דמוקרטי"</strong> = מערכת ערכים שבה הדמוקרטיה (בפרשנות הפרוגרסיבית) עולה על כל ערך אחר</li>
+                    </ul>
+                    <p>זיכרון השואה: הרצאה על "אנטישמיות, גזענות ונרדפות: חינוך הומניסטי וזכרון השואה". הלקח מהשואה הופך מ"מדינת ישראל כערובה לקיום היהודי" ל"המאבק בגזענות באשר היא".</p>
+                    <div class="depth-quote">"Activist pedagogy aims to empower students to become agents of social change, not merely to understand the world but to transform it."<br>— Katko-Aili &amp; Michaeli (2020), p. 454</div>
+                    <p style="font-size:0.85em;color:#888">מקור: Katko-Aili &amp; Michaeli (2020), Journal of Curriculum Studies; ניתוח תכני אתר דרור ישראל.</p>
+                    <div class="depth-next">אבל זה רק בבתי ספר — מה האימפקט האמיתי? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 3: IDF penetration -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#9878;</span>
+                    <div>
+                        <div class="d-title">שכבה 3: חדירה לצה"ל, משטרה ומג"ב</div>
+                        <div class="d-sub">עיצוב תודעת המפקד — מהראש למטה</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>זו הזירה הקריטית: "המעורר" לא מתמקד בחיילים רגילים אלא ב<strong>סגלי הפיקוד והחינוך</strong>. האסטרטגיה: אם המפקד יאמץ את השפה הערכית של הארגון, הוא ינחיל אותה לחייליו באופן אורגני — בלי צורך בגישה ישירה לכל חייל.</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>מסעות לקצונה:</strong> "חזון הציונות" + "חוסן חברתי" — ביחד, בהדרכת אנשי תנועה</li>
+                        <li><strong>העצמת אנשי קבע:</strong> מיקוד בדרגות רגישות, ניצול דילמות מוסריות (שירות באיו"ש)</li>
+                        <li><strong>מג"ב:</strong> "ביטוי לאחריות וציונות" אבל עם "דיאלוג מורכב" שעלול לרפות ידיים</li>
+                        <li><strong>משטרה:</strong> "חשיבה ביקורתית" ו"אקו-סיסטם דמוקרטי" בתוך זרוע האכיפה</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>הפרטה של החינוך הערכי בצה"ל:</strong> במקום שחיל החינוך יהיה אמון על הערכים הממלכתיים, גוף אזרחי בעל אג'נדה פוליטית ברורה מעצב את עולמם של קציני הקבע. זו הפרטה של הערכים — לא של הלוגיסטיקה.
+                    </div>
+                    <p style="font-size:0.85em;color:#888">מקור: ניתוח תוכניות באתר דרור ישראל; מיפוי זירות ההשפעה.</p>
+                    <div class="depth-next">מאיפה הפדגוגיה הזו באה? מי ההוגים? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 4: Academic roots -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#128214;</span>
+                    <div>
+                        <div class="d-title">שכבה 4: השורשים — פאולו פריירה והפדגוגיה הביקורתית</div>
+                        <div class="d-sub">מ"פדגוגיה של המדוכאים" (1968) לכיתות בישראל (2024)</div>
+                    </div>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>המושג "פדגוגיה של תקווה" שואב את השראתו מ<strong>פאולו פריירה</strong> — הפדגוג הברזילאי שפיתח את "הפדגוגיה הביקורתית" בספרו "פדגוגיה של המדוכאים" (1968). פריירה ביקש לפרק את מבני הכוח בחברה דרך החינוך.</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>הבנקאות:</strong> פריירה קרא למודל החינוך המסורתי "בנקאות" — מורה מפקיד ידע בתלמיד פסיבי. במקומו: "חקירה ביקורתית, דיאלוג ופעולה קולקטיבית"</li>
+                        <li><strong>תודעה ביקורתית (conscientizacao):</strong> הכלי המרכזי — לגרום ללומד לראות את "העוולות והאי-שוויונות" ולפעול לשנות אותם</li>
+                        <li><strong>"מפת חשיבה":</strong> כלי מתודולוגי של המעורר — מבטיח שכל תוכן לימודי יוכפף למסגרת הערכית של הארגון</li>
+                        <li><strong>"מרחב חינוכי אוטונומי":</strong> החלשת סמכות המנהל/המערכת לטובת מדריכים חיצוניים — "מרחבים משוחררים" מעין פקוחה</li>
+                    </ul>
+                    <div class="depth-quote">"It challenges the traditional banking model of education, where knowledge is deposited into passive learners, and instead promotes critical inquiry, dialogue, and collective action."<br>— Katko-Aili &amp; Michaeli (2020), p. 455</div>
+                    <div class="depth-quote">"אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש"<br>— ד"ר ניר מיכאלי, הארץ, 15.3.2024</div>
+                    <p><strong>המסלול המלא:</strong> פריירה (ברזיל, 1968) &#8594; פדגוגיה ביקורתית (אקדמיה) &#8594; Katko-Ayali &amp; Michaeli (2020, מאמר אנגלי) &#8594; "המעורר" (שפה עברית מרוככת) &#8594; כיתות בבתי ספר + סגלי פיקוד בצה"ל.</p>
+                    <p style="font-size:0.85em;color:#888">מקורות: Freire, P. (1968). Pedagogy of the Oppressed; Katko-Aili &amp; Michaeli (2020); קשתי, א. (2024), הארץ.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <a class="link-card" href="deep_HaMeorer.html">
+                <div class="lc-icon">&#128196;</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא — 8 פרקים</div>
+                    <div class="lc-desc">זהות ארגונית, ניתוח פדגוגי, חדירה לביטחון, "לגעת בזה", ניתוח כלכלי, פערים ערכיים, מפת סיכונים.</div>
+                </div>
+            </a>
+            <a class="link-card" href="Dror_Israel_network.html">
+                <div class="lc-icon">&#128279;</div>
+                <div>
+                    <div class="lc-title">רשת דרור ישראל — מיפוי ארגוני</div>
+                    <div class="lc-desc">מבנה העמותות, הקיבוצים העירוניים, רשת הקשרים.</div>
+                </div>
+            </a>
+            <a class="link-card" href="munzenberg_municipal.html">
+                <div class="lc-icon">&#127963;</div>
+                <div>
+                    <div class="lc-title">מינצנברג עירוני — ממצאים פרוטוקוליים</div>
+                    <div class="lc-desc">יסודות לצמיחה דרור בהרצליה: 196K &#8362; / 3 שנים, מימון כפול.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+                <div class="lc-icon">&#128273;</div>
+                <div>
+                    <div class="lc-title">אבן רוזטה — מילון ההסוואה</div>
+                    <div class="lc-desc">"פדגוגיה של תקווה", "אקו-סיסטם דמוקרטי", "חוסן חברתי" — מה המילים באמת אומרות.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════ TAB: CONCLUSIONS ═══════ -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #8b0000">
+            <h2>סיכום</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>"המעורר" הוא הארגון המסוכן ביותר מבין כל התוכניות שנבדקו — לא בגלל שהוא קיצוני גלוי, אלא בדיוק בגלל שהוא <strong>נראה כל כך לגיטימי</strong>. "ציונות", "חלוציות", "אחריות" — המילים מוכרות. התוכן — שונה לחלוטין.</p>
+                    <p>הארגון מפעיל <strong>200 אנשי תנועה</strong> (לא מורים רגילים) המתגוררים בקומונות אידיאולוגיות, מכשיר סגלי פיקוד בצה"ל ובמשטרה, ומשתמש ב<strong>שפה כפולה</strong>: אנגלית אקדמית שחושפת את המטרות האמיתיות ("agents of social change", "challenge existing power structures"), ועברית מרוככת לקהל הישראלי ("אחריות ומעורבות").</p>
+                    <p>ומעל לכל: <strong>פרשת בני המושבים</strong> (110M &#8362; ללא פיקוח, הרשעה פלילית של מנכ"ל) מוכיחה שזו לא רק בעיית תוכן — זו גם בעיית שלטון תאגידי.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שקיפות מימונית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>ניטרליות חינוכית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>בחירת הורים</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>התאמה לערכים מסורתיים</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>חדירה מוסדית</td><td style="color:#8b0000;font-weight:700">5/5 (מקסימום)</td></tr>
+                        <tr><td>שלמות כלכלית</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>מה ההורים לא יודעים</h3>
+                    <ul class="q-list">
+                        <li><strong>המדריך הוא איש תנועה:</strong> חבר קיבוץ עירוני של דרור ישראל, לא מורה חיצוני — מגויס למשימה אידיאולוגית ארוכת טווח.</li>
+                        <li><strong>ה"ציונות" שונה:</strong> "ציונות חלוצית" = ציונות סוציאליסטית-ביקורתית, לא ציונות לאומית-מסורתית. המילה זהה, התוכן הפוך.</li>
+                        <li><strong>הפרשה הפלילית:</strong> מנכ"ל הורשע, 110M &#8362; הועברו ללא פיקוח, 30M &#8362; שימשו למימון הקומונות — לא לפעילויות נוער.</li>
+                    </ul>
+
+                    <h3>שאלות להורים</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שהמדריך של ילדכם גר בקומונה אידיאולוגית ומגויס ל"משימה חינוכית"?</li>
+                        <li>האם ידוע לכם שהארגון מכשיר גם קציני צה"ל ומג"ב — באותה מתודולוגיה?</li>
+                        <li>האם קראתם את המאמר האקדמי שמתאר את התוכנית כ"empowering students to challenge existing power structures"?</li>
+                        <li>האם ידוע לכם שמנכ"ל הארגון לשעבר הורשע ונכלא?</li>
+                        <li>האם "לגעת בזה" (חינוך מגדרי) פועלת בבית הספר של ילדכם — מאותו ארגון?</li>
+                        <li>כשההוגה של התוכנית אומר "אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש" — האם זה מרגיע אתכם?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">קישורים למחקר</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_HaMeorer.html">
+                            <div class="lc-icon">&#128196;</div>
+                            <div><div class="lc-title">דוח מלא</div><div class="lc-desc">8 פרקים</div></div>
+                        </a>
+                        <a class="link-card" href="https://www.guidestar.org.il/organization/580295533" target="_blank">
+                            <div class="lc-icon">&#128279;</div>
+                            <div><div class="lc-title">GuideStar</div><div class="lc-desc">יסודות לצמיחה דרור</div></div>
+                        </a>
+                        <a class="link-card" href="https://doi.org/10.1080/00220272.2020.1755993" target="_blank">
+                            <div class="lc-icon">&#128218;</div>
+                            <div><div class="lc-title">Activist Pedagogy</div><div class="lc-desc">Katko-Aili &amp; Michaeli (2020)</div></div>
+                        </a>
+                        <a class="link-card" href="munzenberg_municipal.html">
+                            <div class="lc-icon">&#127963;</div>
+                            <div><div class="lc-title">ממצאים עירוניים</div><div class="lc-desc">הרצליה — 196K &#8362;</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר — פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_HaMeorer.html">דוח מלא</a> | פברואר 2026</p>
+    <p style="margin-top:4px">כל הנתונים מבוססים על מקורות גלויים: מבקר המדינה (דוח 67א'), GuideStar, גפ"ן, Journal of Curriculum Studies, הארץ, גלובס, פרוטוקולים עירוניים.</p>
+</footer>
+
+<script>
+// ── Navigation ──
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── Radar Chart ──
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['חדירה מוסדית', 'תוכן אידיאולוגי', 'שקיפות מימונית', 'בחירת הורים', 'חדירה לביטחון'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [95, 90, 85, 20, 95],
+            backgroundColor: 'rgba(139, 0, 0, 0.2)',
+            borderColor: 'rgba(139, 0, 0, 1)',
+            pointBackgroundColor: 'rgba(139, 0, 0, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [85, 15, 20, 60, 40],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// ── Finance Doughnut ──
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['תקציבי מדינה (פטור ממכרז)', 'תנועת המושבים (היסטורי)', 'פילנתרופיה (אריסון, ציונות 2000)', 'תרומות מחו"ל (קנדה)', 'גפ"ן (250 ₪/שעה)'],
+        datasets: [{
+            data: [35, 25, 20, 10, 10],
+            backgroundColor: ['#667eea', '#e74c3c', '#0d9488', '#f39c12', '#3b82f6'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.label + ': ~' + ctx.raw + '%'
+                }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מגע בתיאום — דשבורד מחקר</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e67e22; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+/* -- Chart container -- */
+.chart-wrap {
+    position: relative; width: 100%; max-width: 500px;
+    height: 320px; margin: 0 auto;
+}
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Evidence chain -- */
+.depth-level {
+    border-right: 3px solid #667eea; margin: 12px 0;
+    background: #fafbff; border-radius: 0 8px 8px 0;
+    overflow: hidden;
+}
+.depth-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer;
+    transition: background 0.2s;
+}
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.depth-level.open .depth-body { max-height: 800px; padding: 0 16px 16px; }
+.depth-quote {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0;
+    font-size: 0.9em; color: #333; font-style: italic;
+}
+.depth-next {
+    display: inline-block; margin-top: 10px; padding: 6px 14px;
+    background: #f0f4fa; border-radius: 4px; font-size: 0.82em;
+    color: #2a5a8a; cursor: default;
+}
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Links -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Questions -- */
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9em; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>מגע בתיאום</span>
+            <span class="risk-pill">סיכון בינוני-גבוה</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+            <a href="deep_Maga_BeTiaum.html">דוח מלא</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">ניתוח תוכן</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>מגע בתיאום — Touch in Coordination</h1>
+    <div class="subtitle">חברה פרטית בע"מ | ח.פ. 516711488 | נוסדה: נובמבר 2022</div>
+    <div class="meta">7 ערים | 27 בתי ספר | תוכניות גפ"ן #2930, #3027 | 453,441 ₪ מכספי ציבור | מגן עד י"ב</div>
+</div>
+
+<div class="container">
+
+    <!-- ======= TAB: OVERVIEW ======= -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>תעודת זהות ארגונית</h2>
+            <p>"מגע בתיאום" היא <strong>חברה פרטית בע"מ</strong> שמוכרת תוכניות "חינוך למיניות בריאה" לבתי ספר ציבוריים מכספי ציבור. הוקמה ב-<strong>24 בנובמבר 2022</strong> — חודש אחד בדיוק לפני השבעת ממשלת נתניהו — ותוך זמן קצר כבר פרוסה ב-27 בתי ספר ב-7 ערים. המפעילות: גליה (כהן) אופר (עו"ס, מומחית מיניות ילדים) ושירי בסין סביון (יועצת חינוכית, <strong>לשעבר מדריכה ביחידה למיניות של משרד החינוך</strong>).</p>
+
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">שקיפות כספית</div>
+                    <div class="value">אפס</div>
+                    <div class="note">בע"מ — לא חייבת בדיווח ציבורי</div>
+                </div>
+                <div class="metric">
+                    <div class="label">בתי ספר</div>
+                    <div class="value">27</div>
+                    <div class="note">ב-7 ערים, מגן עד י"ב</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">תקציב מכספי ציבור</div>
+                    <div class="value">453K ₪</div>
+                    <div class="note">דרך תקציבי גפ"ן של בתי ספר</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>פרופיל סיכון: תדמית מול מציאות</h3>
+                    <p style="font-size:0.85em;color:#666">השטח הכתום מראה את הסיכון בפועל. השטח הכחול — מה שהחברה מציגה. הפער ביניהם הוא הממצא.</p>
+                    <div class="chart-wrap">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ממצאים קריטיים</h3>
+                    <div class="finding">
+                        <div class="icon">🚨</div>
+                        <div>
+                            <h4>תזמון הקמה חשוד</h4>
+                            <p>נרשמה 24.11.2022 — חודש לפני ממשלת נתניהו-בן גביר. כבר 27 בתי ספר. האם פעלה לפני ההתאגדות?</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🔄</div>
+                        <div>
+                            <h4>דלת מסתובבת</h4>
+                            <p>שירי בסין סביון עברה מהיחידה למיניות במשרד החינוך — הגוף שמאשר תוכניות — לחברה שמוכרת תוכניות.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🏢</div>
+                        <div>
+                            <h4>חברה פרטית, כסף ציבורי</h4>
+                            <p>בע"מ ולא עמותה = אפס שקיפות: לא דוחות, לא GuideStar, לא רשם עמותות. אבל מלמדת ילדים מכספי ציבור.</p>
+                        </div>
+                    </div>
+                    <div class="finding">
+                        <div class="icon">🕸️</div>
+                        <div>
+                            <h4>רשת SEI</h4>
+                            <p>חברה ב-SEI (האגודה לחינוך מיני) — אותה רשת כמו "מידע אמין על מין" וחוש"ן. ברנדים שונים, אידיאולוגיה אחת.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th><th>רקע</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td><strong>גליה (כהן) אופר</strong></td><td>יוזמת ומנהלת</td><td>עו"ס, מומחית מיניות ילדים, הוכשרה במרכז רימונים</td><td>ממטפלת בילדים שנפגעו מינית → מוכרת תוכניות מניעה לכולם</td></tr>
+                <tr class="highlight"><td><strong>שירי בסין סביון</strong></td><td>מנהלת מקצועית</td><td>יועצת חינוכית, לשעבר מדריכה ביחידה למיניות במשרד החינוך</td><td>דלת מסתובבת: ממאשרת תוכניות → מוכרת תוכניות</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">מקור: <a href="https://sei.org.il/" target="_blank">SEI</a>, <a href="https://2school.co.il/" target="_blank">2school.co.il</a>, <a href="https://www.obudget.org/i/company/516711488" target="_blank">obudget.org</a></p>
+        </div>
+
+        <div class="section">
+            <h2>קו זמן</h2>
+            <table>
+                <tr><th>תאריך</th><th>אירוע</th><th>משמעות</th></tr>
+                <tr><td>~2007+</td><td>גליה אופר — 15+ שנות עבודה קלינית</td><td>ניסיון מקצועי לגיטימי בטיפול בנפגעי פגיעה מינית</td></tr>
+                <tr><td>לא ידוע</td><td>שירי בסין סביון — מדריכה ביחידה למיניות, משרד החינוך</td><td>בונה קשרים + ידע פנימי על תהליכי אישור</td></tr>
+                <tr class="highlight"><td>24.11.2022</td><td>רישום "מגע בתיאום בע"מ" (516711488)</td><td>חודש לפני ממשלת נתניהו — תזמון קריטי</td></tr>
+                <tr class="highlight"><td>29.12.2022</td><td>השבעת ממשלת נתניהו-בן גביר-מעוז</td><td>מעוז מקבל סמכות על תוכניות חיצוניות</td></tr>
+                <tr><td>03.2023</td><td>הקמת SEI — האגודה לחינוך מיני</td><td>מגע בתיאום נרשמת כחברה. ארגון גג חדש לכל הרשת</td></tr>
+                <tr class="highlight"><td>2023-2025</td><td>התרחבות ל-27 בתי ספר, 7 ערים</td><td>חדירה מהירה לתוך שנה-שנתיים</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ======= TAB: FINANCE ======= -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>ניתוח מקורות מימון</h2>
+            <p>"מגע בתיאום" פועלת כחברה פרטית (בע"מ) — ולכן <strong>אינה חייבת בדיווח כספי פומבי</strong>. אין דוחות רשם עמותות, אין GuideStar, אין obudget.org. הנתונים שלהלן משוחזרים ממקורות גלויים בלבד.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3 style="text-align:center">מקורות הכנסה (הערכה)</h3>
+                    <div class="chart-wrap" style="height:280px">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3>ערוצי הכנסה מזוהים</h3>
+                    <table>
+                        <tr><th>ערוץ</th><th>סכום</th><th>מקור</th></tr>
+                        <tr class="highlight"><td>תוכניות גפ"ן (#2930, #3027)</td><td>453,441 ₪</td><td>נתוני גפ"ן</td></tr>
+                        <tr><td>סדנאות להורים</td><td>לא ידוע</td><td>sei.org.il</td></tr>
+                        <tr><td>הרצאות מקצועיות</td><td>לא ידוע</td><td>bizmakebiz.co.il</td></tr>
+                        <tr><td>הכשרת צוותים חינוכיים</td><td>לא ידוע</td><td>sei.org.il</td></tr>
+                        <tr style="font-weight:700;background:#f0f4fa"><td>הערכת סה"כ</td><td>500K-700K ₪</td><td>שמרני</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>כלכלת הפריסה</h2>
+            <div class="grid-3">
+                <div class="metric">
+                    <div class="label">ממוצע לבית ספר</div>
+                    <div class="value">16,800 ₪</div>
+                    <div class="note">453K / 27 בתי ספר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">טווח לבית ספר</div>
+                    <div class="value">12K-50K</div>
+                    <div class="note">מילקין (12K) עד ברנדיס (50K)</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">רווח?</div>
+                    <div class="value">?</div>
+                    <div class="note">חברה פרטית — אין חובת גילוי</div>
+                </div>
+            </div>
+
+            <h3>פריסה עירונית (7 ערים)</h3>
+            <table>
+                <tr><th>עיר</th><th>בתי ספר לדוגמה</th><th>תקציב מזוהה</th></tr>
+                <tr><td>רעננה</td><td>ממ"ד בילו, זיו בן ציון</td><td>39,326 ₪</td></tr>
+                <tr class="highlight"><td>הרצליה</td><td>ברנדיס</td><td>50,380 ₪</td></tr>
+                <tr><td>אריאל</td><td>ממל' מילקין</td><td>11,960 ₪</td></tr>
+                <tr><td>ראש העין</td><td>ממלכתי נופים</td><td>25,350 ₪</td></tr>
+                <tr><td>הוד השרון</td><td>-</td><td>לא ידוע</td></tr>
+                <tr><td>רמת השרון</td><td>-</td><td>לא ידוע</td></tr>
+                <tr><td>תל אביב-יפו</td><td>-</td><td>לא ידוע</td></tr>
+            </table>
+            <p style="font-size:0.82em;color:#888">סה"כ מזוהה: ~127K ₪ מתוך 453K ₪ מדווח. יתרת 326K ₪ — לא מפורטת ברמת בית ספר.</p>
+        </div>
+
+        <div class="section">
+            <h2>מסלול הכסף: ציבורי אבל סמוי</h2>
+            <p>הכסף לא מגיע ישירות ממשרד החינוך למגע בתיאום. המסלול: <strong>משרד החינוך &rarr; רשות מקומית/בית ספר &rarr; רכישת תוכנית בגפ"ן &rarr; מגע בתיאום בע"מ</strong>. לכן הפעילות לא מופיעה ב-obudget.org — הכסף "נכבס" דרך תקציב בית הספר.</p>
+
+            <div class="warning-box">
+                <strong>הבור השחור:</strong> חברה פרטית מקבלת 453K+ ₪ מכספי ציבור, מלמדת מיניות לילדים מגן עד י"ב, ואין שום חובת גילוי: לא דוחות כספיים, לא פיקוח רשם עמותות, לא GuideStar. ההורים לא יודעים כמה כסף מעורב, מי הבעלים, ומה שיעור הרווח.
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB: CONTENT ANALYSIS ======= -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>תוכנית הלימודים: מגן עד י"ב</h2>
+            <p>התוכנית מציגה עצמה כ"חינוך למיניות בריאה ומוגנות מינית". בפועל, היא מחילה מסגרת הסכמה מינית (consent) על כל אינטראקציה גופנית של ילדים — כולל משחק ספונטני וחיבוק.</p>
+
+            <table>
+                <tr><th>קבוצת גיל</th><th>כיתות</th><th>נושאים</th><th>הערת חוקר</th></tr>
+                <tr class="highlight"><td>גן (3-6)</td><td>גן חובה</td><td>איברים פרטיים, "מגע בתיאום", סוד טוב/רע</td><td>מסגרת consent למשחק ילדים — פתולוגיזציה של ספונטניות</td></tr>
+                <tr><td>צעירים (6-8)</td><td>א'-ב'</td><td>מותר ואסור במשחק, תוכן מסכים</td><td></td></tr>
+                <tr><td>ילדים (8-10)</td><td>ג'-ד'</td><td>כללי חברה, חשיפה לתכנים לא מתאימים</td><td></td></tr>
+                <tr class="highlight"><td>מתבגרים צעירים (10-12)</td><td>ה'-ו'</td><td>שינויי התבגרות, פגיעות מיניות, סיכונים ברשת</td><td>שינויים "גופניים, מיניים, רגשיים וחברתיים"</td></tr>
+                <tr><td>חטיבה ותיכון (12-18)</td><td>ז'-י"ב</td><td>מגע ומין, הסכמה, מרחב בטוח</td><td>"התנהלות נכונה בכל הקשור למגע ומין"</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>ניתוח סמנטי: "מגע בתיאום" כמסגרת תפיסתית</h2>
+            <div class="depth-quote">
+                "הילדים לומדים את המושג 'מגע בתיאום', וזאת על מנת להשריש <strong>תרבות</strong> לפיה כל מגע בינאישי בין ילדים ובין ילדים ומבוגרים, ייעשה בתיאום תוך בקשה או שאלה"
+            </div>
+            <p>המילה "<strong>תרבות</strong>" חושפת את המטרה: לא רק ללמד כלי — אלא <strong>לשנות תרבות</strong>. ליצור מציאות שבה כל מגע גופני בין ילדים — חיבוק, משחק, תפיסת יד — דורש בקשה מפורשת. זוהי החלת מסגרת consent מינית של מבוגרים על ילדי גן.</p>
+
+            <div class="warning-box">
+                <strong>הסיכון:</strong> יצירת חרדה סביב מגע גופני נורמלי, שיבוש משחק ספונטני, פתולוגיזציה של חיבה טבעית בין ילדים, והכנסת מושגים מעולם המיניות לגילאים לא מתאימים. שם התוכנית עצמו — "מגע בתיאום" — הוא עצמו מסגרת אידיאולוגית, לא כלי ניטרלי.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>נושאי הרצאות — ציטוטים ישירים</h2>
+            <p>מפורסם באתרי השיווק של גליה אופר:</p>
+            <div class="depth-quote">
+                "מה עושים כשהילדים משחקים ברופא וחולה תוך נגיעה באברים הפרטיים? אוננות ילדים — במה היא שונה מאוננות של מבוגרים? עד איזה גיל נורמטיבי להתקלח הורים וילדים יחד? עד איזה גיל לאפשר מקלחות בין אחים?"
+                <br><span style="font-style:normal;font-size:0.82em;color:#888">— מתוך הרצאת "מורה נבוכים — חינוך מיני בגיל הרך" (bizmakebiz.co.il)</span>
+            </div>
+            <p>אלו שאלות שחוצות גבולות עמוקים עבור משפחות מסורתיות — יהודיות, מוסלמיות, נוצריות — ומועברות בבתי ספר ממלכתיים <strong>וממלכתיים-דתיים</strong> (ממ"ד בילו, רעננה) ללא הסכמת הורים מפורשת.</p>
+        </div>
+
+        <div class="section">
+            <h2>סתירת האישור</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>מה SEI אומרים</h3>
+                    <div class="depth-quote" style="border-right-color:#667eea">"התוכנית מאושרת מטעם משרד החינוך"</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://sei.org.il/" target="_blank">sei.org.il</a></p>
+                </div>
+                <div>
+                    <h3>מה גפ"ן אומר</h3>
+                    <div class="depth-quote">"מסגרת שיוך: לא משויך" (לא חלק ממסגרת משרד החינוך)</div>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://2school.co.il/" target="_blank">2school.co.il</a></p>
+                </div>
+            </div>
+            <div class="warning-box" style="margin-top:12px">
+                <strong>הסתירה:</strong> החברה טוענת "מאושרת מטעם משרד החינוך" — אבל הקטלוג עצמו אומר "לא משויך". להיות רשום בגפ"ן אינו אומר שמשרד החינוך מאשר את התוכן. זו הטעיית הורים ומנהלים.
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= TAB: EVIDENCE CHAIN ======= -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת הראיות: מחברה פרטית לכיתה</h2>
+            <p>כל שכבה עונה על הספק מהשכבה הקודמת. אם אתה חושב "זו חברה לגיטימית שמגינה על ילדים" — השכבה הבאה מסבירה למה הסיפור מורכב יותר.</p>
+
+            <!-- Level 1: Company Identity -->
+            <div class="depth-level open" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🏢</span>
+                    <div>
+                        <div class="d-title">שכבה 1: זהות החברה</div>
+                        <div class="d-sub">חברה פרטית בע"מ עם אפס שקיפות שמלמדת ילדים מכספי ציבור</div>
+                    </div>
+                    <span class="d-arrow">&#x25BC;</span>
+                </div>
+                <div class="depth-body">
+                    <p>"מגע בתיאום בע"מ" (ח.פ. 516711488) היא <strong>חברה פרטית</strong>, לא עמותה. המטרה הרשומה: "לעסוק בכל עיסוק חוקי" — כלומר, אין הצהרת מטרה חינוכית או חברתית. זוהי ישות עסקית שמוכרת שירותים לבתי ספר.</p>
+                    <div class="depth-quote">"לעסוק בכל עיסוק חוקי" — מטרת החברה כפי שרשומה אצל רשם החברות</div>
+                    <p>הבעלים לא ידועים — נדרש נסח חברה בתשלום. אין דוחות כספיים פומביים, אין פיקוח רשם עמותות, אין GuideStar. למרות זאת, מקבלת 453K ₪ מכספי ציבור ומלמדת ילדים נושאים רגישים ביותר.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://www.obudget.org/i/company/516711488" target="_blank">obudget.org</a>, רשם החברות</p>
+                    <div class="depth-next">אבל יש להם ניסיון מקצועי — אז מה הבעיה? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 2: Timeline Anomaly -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">&#x23F0;</span>
+                    <div>
+                        <div class="d-title">שכבה 2: חריגת תזמון — נובמבר 2022</div>
+                        <div class="d-sub">חודש לפני הממשלה, כבר 27 בתי ספר — איך?</div>
+                    </div>
+                    <span class="d-arrow">&#x25BC;</span>
+                </div>
+                <div class="depth-body">
+                    <p>החברה נרשמה ב-<strong>24 בנובמבר 2022</strong>. חודש אחרי כן, ב-29 בדצמבר 2022, הושבעה ממשלת נתניהו עם אבי מעוז שקיבל סמכות על תוכניות חיצוניות בבתי ספר. בתוך שנה-שנתיים, החברה כבר פרוסה ב-27 בתי ספר.</p>
+                    <p>שאלות קריטיות:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li>האם התוכנית פעלה <strong>לפני</strong> ההתאגדות הרשמית? אם כן — תחת איזו ישות?</li>
+                        <li>האם ההתאגדות נועדה לנצל חלון הזדמנות לפני שמעוז יחסום תוכניות?</li>
+                        <li>איך מגיעים ל-27 בתי ספר תוך שנה — ללא קשרים קודמים?</li>
+                        <li>שירי בסין סביון עזבה את משרד החינוך — <strong>מתי בדיוק?</strong> לפני או אחרי ההתאגדות?</li>
+                    </ul>
+                    <div class="depth-quote">"מגע בתאום" (שימו לב: איות שונה) מופיע ב-bizmakebiz.co.il כעסק של גליה אופר — ייתכן שפעלה כפרילנסרית לפני ההתאגדות הרשמית.</div>
+                    <p style="font-size:0.85em;color:#888">מקור: רשם החברות, bizmakebiz.co.il, מחקר הפרויקט</p>
+                    <div class="depth-next">אבל הן לא לבד — יש רשת שלמה &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 3: SEI Network -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">🕸️</span>
+                    <div>
+                        <div class="d-title">שכבה 3: רשת SEI — ארגון הגג</div>
+                        <div class="d-sub">28 ארגונים, הסמכה עצמית, אותה אידיאולוגיה</div>
+                    </div>
+                    <span class="d-arrow">&#x25BC;</span>
+                </div>
+                <div class="depth-body">
+                    <p>"מגע בתיאום" היא חלק מ-<strong>SEI — האגודה לחינוך מיני</strong> (ע"ר 580763738, הוקמה מרץ 2023). SEI מאגדת 28 ארגונים שמספקים חינוך מיני בבתי ספר ישראליים — כולם חותמים על אותו קוד אתי ואותה חזון.</p>
+                    <table>
+                        <tr><th>ארגון</th><th>קשר ל-SEI</th><th>פעיל בגפ"ן?</th></tr>
+                        <tr class="highlight"><td>מגע בתיאום</td><td>חברה רשומה</td><td>כן (#2930, #3027)</td></tr>
+                        <tr><td>מידע אמין על מין (הברון)</td><td>חברה + ועדה מנהלת</td><td>כן (#2437)</td></tr>
+                        <tr><td>לדעת לבחור נכון</td><td>חברה רשומה</td><td>כן</td></tr>
+                        <tr><td>חוש"ן</td><td>אותו אקו-סיסטם</td><td>כן (6 תוכניות)</td></tr>
+                        <tr><td>סייף סקול</td><td>חברה רשומה</td><td>כן</td></tr>
+                    </table>
+                    <p><strong>הבעיה המבנית:</strong> SEI פועלת כגוף שמסמיך את עצמו. אותם אנשים שמפעילים תוכניות — גם יושבים בוועדה שמאשרת ומסמיכה אותן. שלומית הברון ("מידע אמין על מין") יושבת בוועדת ההיגוי של SEI ובמקביל מפעילה את אחת התוכניות.</p>
+                    <p style="font-size:0.85em;color:#888">מקור: <a href="https://sei.org.il/" target="_blank">sei.org.il</a></p>
+                    <div class="depth-next">אבל בסוף — מה ההורים לא יודעים? &#8595;</div>
+                </div>
+            </div>
+
+            <!-- Level 4: What parents don't see -->
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">👨‍👩‍👧</span>
+                    <div>
+                        <div class="d-title">שכבה 4: מה ההורים לא יודעים</div>
+                        <div class="d-sub">תוכן, מבנה, כסף, רשת — הכל מוסתר</div>
+                    </div>
+                    <span class="d-arrow">&#x25BC;</span>
+                </div>
+                <div class="depth-body">
+                    <p>מהמחקר עולה שהורים מגלים בדיעבד:</p>
+                    <div class="depth-quote">"ילדיהם בגן למדו על 'מגע בתיאום' מבלי שידעו"</div>
+                    <p>מה ההורים לא יודעים:</p>
+                    <ul style="padding-right:18px;margin:10px 0">
+                        <li><strong>שזו חברה פרטית</strong> — לא עמותה, לא גוף חינוכי ממלכתי</li>
+                        <li><strong>שהמנהלת המקצועית עברה מהמשרד</strong> — דלת מסתובבת ממש</li>
+                        <li><strong>את התוכן המדויק</strong> — מערכי השיעור לא פומביים</li>
+                        <li><strong>שאין opt-in</strong> — בית הספר מחליט, ההורים "מוסברים" בדיעבד</li>
+                        <li><strong>שהחברה חלק מרשת</strong> — SEI, "מידע אמין על מין", חוש"ן — אותה אידיאולוגיה</li>
+                        <li><strong>את היקף הכלכלי</strong> — 453K ₪ מכספי ציבור ללא דיווח</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>ממצא הורי:</strong> המודל הוא: בית הספר רוכש, המנחה מגיעה, ההורים שומעים על זה (אולי) אחר כך. בבתי ספר ממ"ד (ממלכתי-דתי) כמו בילו ברעננה — תכנים על אוננות ילדים ומקלחות בין אחים חוצים גבולות ערכיים בסיסיים.
+                    </div>
+                    <p style="font-size:0.85em;color:#888">מקור: מחקר הפרויקט, sei.org.il, bizmakebiz.co.il</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Links -->
+        <div class="section">
+            <h2>קישורים למחקר נוסף</h2>
+            <a class="link-card" href="deep_Maga_BeTiaum.html">
+                <div class="lc-icon">📄</div>
+                <div>
+                    <div class="lc-title">דוח מחקר מלא — 11 פרקים</div>
+                    <div class="lc-desc">זהות, כספים, הנהגה, תוכניות, משרד החינוך, רשת, הורים, מחלוקות, ערכים, שאלות.</div>
+                </div>
+            </a>
+            <a class="link-card" href="meyda_amin_dashboard.html">
+                <div class="lc-icon">🏢</div>
+                <div>
+                    <div class="lc-title">מידע אמין על מין — ארגון אח ברשת SEI</div>
+                    <div class="lc-desc">עוסק מורשה, 15 ערים, 1.19M ₪. אותה רשת, שם אחר.</div>
+                </div>
+            </a>
+            <a class="link-card" href="choshen_dashboard.html">
+                <div class="lc-icon">🏢</div>
+                <div>
+                    <div class="lc-title">חוש"ן — חינוך ושינוי</div>
+                    <div class="lc-desc">ארגון הסברה, 6 תוכניות גפ"ן. אותו אקו-סיסטם.</div>
+                </div>
+            </a>
+            <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+                <div class="lc-icon">🗝️</div>
+                <div>
+                    <div class="lc-title">אבן רוזטה — מילון ההסוואה</div>
+                    <div class="lc-desc">"מיניות בריאה", "מגע בתיאום", "מרחב בטוח" — מה המילים באמת אומרות.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ======= TAB: CONCLUSIONS ======= -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section" style="border-top:4px solid #e67e22">
+            <h2>סיכום והמלצות</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>המסקנה</h3>
+                    <p>"מגע בתיאום" היא חברה פרטית שמוכרת חינוך מיני לילדים מגן עד י"ב מכספי ציבור — ללא שקיפות כספית, עם דלת מסתובבת מהגוף המאשר, כחלק מרשת ארגונים שמסמיכה את עצמה.</p>
+                    <p>התזמון — נובמבר 2022 — אינו מקרי. ההתפשטות המהירה ל-27 בתי ספר מעידה על קשרים מוקדמים ותשתית שהייתה קיימת לפני ההתאגדות. הדלת המסתובבת של שירי בסין סביון מהיחידה למיניות של משרד החינוך ישירות לחברה הפרטית — היא הממצא הקריטי ביותר.</p>
+                    <p>המטרה המוצהרת אינה "ללמד" אלא "להשריש <strong>תרבות</strong>" — שינוי תפיסתי ותרבותי של ילדי גן ויסודי לגבי מגע גופני. זו לא הגנה על ילדים — זה שינוי חברתי מלמטה.</p>
+
+                    <h3>ציוני ערכים</h3>
+                    <table>
+                        <tr><th>ציר</th><th>ציון</th></tr>
+                        <tr><td>שקיפות כספית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>הסכמת הורים</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>ניטרליות חינוכית</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>התאמה לגיל</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                        <tr><td>יושרה מוסדית</td><td style="color:#8b0000;font-weight:700">1/5</td></tr>
+                        <tr><td>אחריותיות דמוקרטית</td><td style="color:#e74c3c;font-weight:700">2/5</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>שאלות להורים</h3>
+                    <ul class="q-list">
+                        <li>האם ידעתם שמי שמלמדת את ילדכם מיניות היא חברה פרטית בע"מ שמטרתה "לעסוק בכל עיסוק חוקי"?</li>
+                        <li>האם ידוע לכם שהמנהלת המקצועית עברה ממשרד החינוך — מהגוף שאמור לפקח — ישירות לחברה?</li>
+                        <li>האם נתנו הסכמה מפורשת (opt-in) לתכני הסדנאות?</li>
+                        <li>האם ראיתם את מערכי השיעור המלאים לפני שהילדים נחשפו אליהם?</li>
+                        <li>האם ידעתם שהחברה חלק מרשת SEI — אותה רשת כמו "מידע אמין על מין" וחוש"ן?</li>
+                        <li>איך החברה הגיעה ל-27 בתי ספר תוך שנה — מי הכניס אותה?</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px">קישורים למחקר</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <a class="link-card" href="deep_Maga_BeTiaum.html">
+                            <div class="lc-icon">📄</div>
+                            <div>
+                                <div class="lc-title">דוח מלא</div>
+                                <div class="lc-desc">11 פרקים</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://www.obudget.org/i/company/516711488" target="_blank">
+                            <div class="lc-icon">🔗</div>
+                            <div>
+                                <div class="lc-title">obudget.org</div>
+                                <div class="lc-desc">ח.פ. 516711488</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="https://sei.org.il/" target="_blank">
+                            <div class="lc-icon">🔗</div>
+                            <div>
+                                <div class="lc-title">SEI — האגודה לחינוך מיני</div>
+                                <div class="lc-desc">ארגון הגג</div>
+                            </div>
+                        </a>
+                        <a class="link-card" href="meyda_amin_dashboard.html">
+                            <div class="lc-icon">🏢</div>
+                            <div>
+                                <div class="lc-title">מידע אמין על מין</div>
+                                <div class="lc-desc">ארגון אח ברשת</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>דשבורד מחקר — פרויקט זהות ציונית | <a href="../index_v2.html">דירוג ערים</a> | <a href="deep_Maga_BeTiaum.html">דוח מלא</a> | פברואר 2026</p>
+    <p style="margin-top:4px">כל הנתונים מבוססים על מקורות גלויים: רשם החברות, obudget.org, SEI, גפ"ן (2school.co.il), bizmakebiz.co.il.</p>
+</footer>
+
+<script>
+// -- Navigation --
+function navigate(tabId) {
+    document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('view-' + tabId).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// -- Radar Chart --
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+    type: 'radar',
+    data: {
+        labels: ['שקיפות כספית', 'דלת מסתובבת', 'הסכמת הורים', 'תוכן אידיאולוגי', 'רשת קשרים'],
+        datasets: [{
+            label: 'סיכון בפועל',
+            data: [90, 85, 25, 70, 75],
+            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            borderWidth: 2
+        }, {
+            label: 'תדמית רשמית',
+            data: [15, 10, 65, 20, 25],
+            backgroundColor: 'rgba(102, 126, 234, 0.15)',
+            borderColor: 'rgba(102, 126, 234, 0.8)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                suggestedMin: 0, suggestedMax: 100,
+                ticks: { display: false },
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } }
+    }
+});
+
+// -- Finance Doughnut --
+const finCtx = document.getElementById('financeChart').getContext('2d');
+new Chart(finCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['גפ"ן (בתי ספר)', 'סדנאות הורים', 'הכשרת צוותים', 'הרצאות + אחר'],
+        datasets: [{
+            data: [75, 10, 10, 5],
+            backgroundColor: ['#667eea', '#0d9488', '#f39c12', '#e74c3c'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: { size: 11 } } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ctx.label + ': ~' + ctx.raw + '%'
+                }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>

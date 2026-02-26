@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>דירוג חתרנות מוסדית</title>
+    <title>דירוג חתרנות מוסדית אנטי ציונית</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f8; color: #222; direction: rtl; line-height: 1.6; }
@@ -33,13 +33,30 @@
         .level-legend h3 .arrow { font-size: 0.8em; color: #888; transition: transform 0.2s; }
         .level-legend.collapsed .legend-body { display: none; }
         .level-legend.collapsed .arrow { transform: rotate(180deg); }
-        .legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-        .legend-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; font-size: 0.88em; }
-        .legend-stars { font-size: 1.1em; letter-spacing: 1px; white-space: nowrap; min-width: 100px; text-align: center; }
-        .legend-name { font-weight: 700; color: #1a1a2e; min-width: 70px; }
+        .legend-grid { display: flex; flex-direction: column; gap: 6px; }
+        .legend-item { display: grid; grid-template-columns: 150px 80px 1fr; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; font-size: 0.88em; }
+        .legend-stars { white-space: nowrap; line-height: 1; }
+        .legend-name { font-weight: 700; color: #1a1a2e; white-space: nowrap; }
         .legend-desc { color: #666; font-size: 0.88em; }
+        @media (max-width: 600px) {
+            .legend-item { grid-template-columns: 1fr; gap: 4px; }
+        }
         .star-red { color: #cc0000; }
         .star-david { color: #1a5fb4; }
+
+        /* Idea Cards */
+        .idea-card { max-width:900px; margin:0 auto 8px; background:#fff; border:1px solid #e0e0e0; border-radius:6px; border-right:4px solid #cc0000; }
+        .idea-card summary { padding:14px 18px; cursor:pointer; display:flex; align-items:center; gap:12px; list-style:none; font-size:0.95em; }
+        .idea-card summary::-webkit-details-marker { display:none; }
+        .idea-card summary::before { content:''; width:8px; height:8px; border-left:2px solid #cc0000; border-bottom:2px solid #cc0000; transform:rotate(-45deg); transition:transform 0.2s; flex-shrink:0; }
+        .idea-card[open] summary::before { transform:rotate(-225deg); }
+        .idea-card summary:hover { background:#fafafa; }
+        .idea-num { background:#cc0000; color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8em; font-weight:700; flex-shrink:0; }
+        .idea-tag { margin-right:auto; background:#f0f0f0; padding:2px 8px; border-radius:10px; font-size:0.75em; color:#888; }
+        .idea-detail { padding:0 18px 16px; border-top:1px solid #eee; }
+        .idea-detail .iq { background:#fafafa; border-right:3px solid #cc0000; padding:12px 16px; margin:12px 0 8px; border-radius:0 4px 4px 0; font-style:italic; font-size:0.9em; color:#333; line-height:1.7; }
+        .idea-detail .isrc { font-size:0.8em; color:#888; margin-bottom:10px; }
+        .idea-detail .iecho { background:#fff8f0; border:1px dashed #e08800; padding:8px 12px; border-radius:4px; font-size:0.82em; margin-top:8px; }
 
         /* City Grid */
         .city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; max-width: 960px; margin: 0 auto 30px; }
@@ -188,7 +205,7 @@
 
 <nav class="top-nav">
     <div class="nav-inner">
-        <div class="nav-title" onclick="navigate('#/')">דירוג חתרנות מוסדית</div>
+        <div class="nav-title" onclick="navigate('#/')">דירוג חתרנות מוסדית אנטי ציונית</div>
         <div class="nav-tabs" id="nav-tabs">
             <div class="nav-tab active" onclick="navigate('#/')">מדד לכידה</div>
             <div class="nav-tab" onclick="navigate('#/articles')">מאמרים</div>
@@ -199,7 +216,7 @@
 <div id="app"></div>
 
 <footer>
-    דירוג חתרנות מוסדית | עדכון אחרון: פברואר 2026<br>
+    דירוג חתרנות מוסדית אנטי ציונית | עדכון אחרון: פברואר 2026<br>
     <a href="index.html">גרסה מספרית (0-100)</a> |
     <a href="research/" target="_blank">דוחות מחקר מלאים</a>
 </footer>
@@ -240,7 +257,7 @@ const CITY_LEVELS = [
       key_actors: ["רונן קפלן (3 ממצאים)"],
       munzenberg_url: "research/munzenberg_municipal.html" },
     { name: "רעננה", key: "RAANANA", level: 5, findings: 5, dec22: true,
-      justification: "5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022. מימון עירוני ישיר לארגון חושן — עוקף קיצוץ 85% של משרד החינוך. מרצ בראש יוזמות: מירב מאיר (3 ממצאים). קשר NIF→חושן→עירייה.",
+      justification: "5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022. מימון עירוני ישיר לארגון חושן — עוקף קיצוץ 85% של משרד החינוך. מרצ בראש יוזמות: מירב מאיר (3 ממצאים). קשר הקרן החדשה→חושן→עירייה.",
       key_actors: ["מירב מאיר (מרצ, 3 ממצאים)"],
       munzenberg_url: "research/munzenberg_municipal.html" },
     { name: "כרמיאל", key: "KARMIEL", level: 4, findings: 0, dec22: false,
@@ -278,7 +295,7 @@ const CITY_LEVELS = [
       justification: "חשיפה חינוכית גבוהה (41.6) אך רק 4 פריסות מסומנות מתוך 87 — עיר קטנה, מדגם מוגבל.",
       key_actors: [], munzenberg_url: null, partial: true },
     { name: "ירושלים", key: "JERUSALEM", level: 4, findings: 0, dec22: false,
-      justification: "שתי הצגות פנים לועדת מעמד האישה. בבית הספר ליד\"ה: תוכנית 'עתודה הומניסטית' העבירה שיעורי ספרות שמטרתם המוצהרת 'ערעור זהות' — מורה הודה שתחושות מצוקה הן 'עדות להצלחת התהליך'. תלמיד ששאל שאלות ביקורתיות הותקף בפני הכיתה. המנהלת הבינה את הבעייתיות אך לא טיפלה. 89% מהפרוטוקולים סרוקים ללא OCR.",
+      justification: "העיר היחידה עם שני בתי ספר שפדגוגיה ביקורתית מובנית בתוכם. ליד\"ה: תוכנית 'עתודה הומניסטית' — מטרה מוצהרת 'ערעור זהות', מורה הודה שמצוקה היא 'עדות להצלחה', תלמיד מבקר הותקף. קדמה (הקטמונים): נוסד 1994 על עקרונות פריירה — 'מודל ייחודי ליישום פדגוגיה ביקורתית'. ניר מיכאלי (יו\"ר המזכירות הפדגוגית לשעבר) הרצה בקדמה: 'אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש'. חלק מרשת ASPnet של אונסק\"ו. 89% מהפרוטוקולים סרוקים ללא OCR.",
       key_actors: [], munzenberg_url: null, partial: true,
       source_url: "https://ntdtv.co.il/israel/10522" },
     { name: "קרית גת", key: "KIRYAT_GAT", level: 2, findings: 0, dec22: false,
@@ -318,12 +335,18 @@ const BUILTIN_ARTICLES = {
 // HELPERS
 // ═══════════════════════════════════════════════════════════════
 
+function svgStarDavid() {
+    return '<svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:middle"><polygon points="12,2 3.5,17 20.5,17" fill="none" stroke="#1a5fb4" stroke-width="1.5" stroke-linejoin="round"/><polygon points="12,22 3.5,7 20.5,7" fill="none" stroke="#1a5fb4" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+}
+function svgStarRed() {
+    return '<svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:middle"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#cc0000"/></svg>';
+}
 function renderStars(level) {
     let html = '';
-    const redCount = level === 7 ? 7 : level - 1;
+    const redCount = level === 1 ? 0 : level;
     for (let i = 0; i < 7; i++) {
-        if (i < redCount) html += '<span class="star-red">&#9733;</span>';
-        else html += '<span class="star-david">&#10017;</span>';
+        if (i < redCount) html += svgStarRed();
+        else html += svgStarDavid();
     }
     return html;
 }
@@ -393,6 +416,35 @@ function ratingColor(r) {
 
 function navigate(hash) { location.hash = hash; }
 
+// Mapping: program name or org name → dedicated mini-site URL
+const PROGRAM_DASHBOARD = {
+    'סייף סקול אנליטיקס': 'research/safeschool_evidence.html',
+    'סייף סקול אנליטיקס בע"מ': 'research/safeschool_evidence.html',
+    'חוש"ן': 'research/choshen_dashboard.html',
+    'חושן - חינוך לשינוי': 'research/choshen_dashboard.html',
+    'מגע בתיאום': 'research/maga_betiaum_dashboard.html',
+    'מגע בתיאום עם': 'research/maga_betiaum_dashboard.html',
+    'מצמיחים': 'research/matzmichim_dashboard.html',
+    'המעורר': 'research/hameorer_dashboard.html',
+    'המכון לחינוך דמוקרטי': 'research/democratic_institute_dashboard.html',
+    'מכון הרטמן': 'research/hartman_dashboard.html',
+    'מכון שלום הרטמן': 'research/hartman_dashboard.html',
+    'דרור ישראל': 'research/dror_israel_dashboard.html',
+    'יסודות לצמיחה דרור': 'research/dror_israel_dashboard.html',
+    'תהילה': 'research/tehila_dashboard.html',
+    'מידע אמין על מין': 'research/meyda_amin_dashboard.html',
+    'אבני ראשה': 'research/avney_rosha_dashboard.html',
+    'דלת פתוחה': 'research/sei_network_dashboard.html',
+    'דלת פתוחה - לקידום מיניות בריאה': 'research/sei_network_dashboard.html',
+    'בינה': 'research/hartman_dashboard.html',
+    'CASEL': 'research/casel_dashboard.html',
+    'אונסק"ו': 'research/unesco_dashboard.html',
+};
+
+function getProgramDashboard(program) {
+    return PROGRAM_DASHBOARD[program.name] || PROGRAM_DASHBOARD[program.org] || null;
+}
+
 function escHtml(s) {
     const d = document.createElement('div');
     d.textContent = s;
@@ -459,6 +511,150 @@ function renderMainGrid() {
 
     const app = document.getElementById('app');
     app.innerHTML = `
+    <!-- Ideas Hero -->
+    <div class="ministry-hero" style="border-right:5px solid #cc0000;">
+        <h2 style="border-bottom:none; margin-bottom:8px;">לא ימין מול שמאל — מרכז מול שוליים</h2>
+        <p>ימין ושמאל חלוקים — פחות שינוי מול יותר שינוי — אבל <strong>שניהם ציונים.</strong> זהו ויכוח בריא. האתר הזה לא עוסק בו.</p>
+        <p>האתר עוסק בדמויות שלא רוצות לשכנע — אלא <strong style="color:#cc0000;">לחטוף את השיח</strong>. למסגר את השאלה כך שרק תשובה אחת אפשרית. <strong style="color:#cc0000;">לפרק את הקונצנזוס הציוני דרך מגוון דרכים, כולל דרך מערכת החינוך.</strong></p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+            <div style="padding:12px; background:#f0f8f0; border-radius:6px;">
+                <h4 style="color:#2e7d32; margin-bottom:6px; font-size:0.9em;">שיח בריא (מרכז)</h4>
+                <ul style="font-size:0.82em; color:#444; padding-right:14px; margin:0;">
+                    <li>משכנעים דרך טיעון</li>
+                    <li><strong>ציונים</strong> — מסכימים על המסגרת</li>
+                    <li>שקיפות מלאה</li>
+                    <li>המטרה: שיח פורה</li>
+                </ul>
+            </div>
+            <div style="padding:12px; background:#fff5f5; border-radius:6px;">
+                <h4 style="color:#cc0000; margin-bottom:6px; font-size:0.9em;">חטיפת שיח (שוליים)</h4>
+                <ul style="font-size:0.82em; color:#444; padding-right:14px; margin:0;">
+                    <li>"לנסח שרק תשובה אחת אפשרית"</li>
+                    <li><strong>אנטי-ציונות:</strong> "להתפתח" מהציונות</li>
+                    <li>"אני אתן טיעונים בשפתם"</li>
+                    <li>המטרה: "שינוי המבנה החברתי כולו"</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="margin:18px 0 10px; font-size:1em; color:#1a1a2e; text-align:center;">7 רעיונות חתרניים — בציטוטים שלהם עצמם <span style="font-size:0.8em; color:#888;">(לחצו לפרטים)</span></h3>
+
+        <details class="idea-card">
+            <summary>
+                <span class="idea-num">1</span>
+                <strong>"לנסח את הבעיה כך שרק תשובה אחת אפשרית"</strong>
+                <span class="idea-tag">שפה</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"קודם כל להבין איך הבן אדם האחר חושב על הסוגיה, ואז מתוך ההסתכלות שלו, <strong>לנסח לו את הבעיה באופן שהתשובה האפשרית היחידה</strong> לשאלה שאני שואל אותו, היא לעשות את הדבר שאני רוצה שהוא יעשה."</div>
+                <div class="isrc">חגי אלקיים שלם — סדנת "הנדסת תודעה", ארגון מחזקים | ממומן ע"י הקרן החדשה לישראל ($315,256)
+                    <a href="https://www.gnostocracy.com/?quote=534" style="color:#cc0000;" target="_blank">מקור + וידאו</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">מהדהד:</strong> Saul Alinsky, <em>Rules for Radicals</em> (1971) — "once you organize people around something as commonly agreed upon as pollution, then an organized people is on the move."
+                    <a href="research/radical_katko_ayali.html" style="color:#cc0000;">→ קטקו-איילי: שני פנים</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card">
+            <summary>
+                <span class="idea-num">2</span>
+                <strong>"שינוי של המבנה החברתי כולו"</strong>
+                <span class="idea-tag">מוסדות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"שאלת שינוי דפוסי הלמידה בכיתה מחייבת <strong>שינוי מערכתי, דהיינו שינוי של המבנה החברתי כולו</strong>"</div>
+                <div class="isrc">חגית גור-זיו — כנס פדגוגיה ביקורתית, אוניברסיטת חיפה, 2014 | ראש המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים
+                    <a href="research/radical_gurziv.html" style="color:#cc0000;">→ פרופיל</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">מהדהד:</strong> Paulo Freire, <em>Pedagogy of the Oppressed</em> — חינוך כמנוף לשינוי מערכתי, לא כלימוד.
+                    <a href="research/pipeline_institutional.html" style="color:#cc0000;">→ מאונסק"ו לכיתה</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#1565c0;">
+            <summary>
+                <span class="idea-num" style="background:#1565c0;">3</span>
+                <strong>אנטי-ציונות — "מערכת בעלת אופי אידיאולוגי-ציוני" = שלב שצריך "להתפתח ממנו"</strong>
+                <span class="idea-tag">מוסדות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"ממערכת בעלת אופי <strong>אידיאולוגי-ציוני</strong> מובהק (Ichilov, 2013), דרך תקופה ארוכה של גישה ממלכתית-פורמלית... ועד הכרה עכשווית בחשיבות טיפוח <strong>החשיבה הביקורתית</strong> והמעורבות האזרחית הפעילה."</div>
+                <div class="isrc">מיכאלי, קטקו-איילי וכהן — דוח מחקר במימון <strong>אודט סלע, המדענית הראשית</strong> של משרד החינוך (2024)
+                    <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank" style="color:#cc0000;">→ PDF</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">פענוח:</strong> שלושה שלבים: 1) חינוך ציוני → 2) ניטרלי → 3) "חשיבה ביקורתית" (= אקטיביזם פוליטי). הציונות ממוקמת כ"אידיאולוגיה" שצריך "להתפתח" ממנה.</div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#7b1fa2;">
+            <summary>
+                <span class="idea-num" style="background:#7b1fa2;">4</span>
+                <strong>פוליטיקת זהויות — ייבוא CRT אמריקאי</strong>
+                <span class="idea-tag">שבטיות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq" style="direction:ltr; text-align:left;">"Critical race theory questions the very foundations of the liberal order, including equality theory, legal reasoning, Enlightenment rationalism, and neutral principles of constitutional law."</div>
+                <div class="isrc">Delgado & Stefancic — <em>Critical Race Theory: An Introduction</em> | מסגרת המחקר של אדר כהן (האוניברסיטה העברית)
+                    <a href="research/radical_adar_cohen.html" style="color:#cc0000;">→ פרופיל</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">בפועל:</strong> קורסים ל"חינוך נגד גזענות" (פסג"ה), סדנאות מיניות בכיתה ה', הכשרות "מדע קווירי" למורים.</div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#e65100;">
+            <summary>
+                <span class="idea-num" style="background:#e65100;">5</span>
+                <strong>"אני אתן טיעונים בשפתם"</strong>
+                <span class="idea-tag">זהות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"אני אתן טיעונים בשפתם" — הסבירה כיצד לשכנע הורים דתיים לקבל חינוך מגדרי באמצעות ניסוח בשפה שלהם</div>
+                <div class="isrc">ירדן מרום — הרצאת "מדע קווירי" למורים, 5.8.2024 | תמלול זום
+                    <a href="research/research_chat.html" style="color:#cc0000;">→ לוח מחקר</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">בבתי הספר:</strong> סדנאות מיניות בכיתות א'-ה', "אני גז" בכיתה א', קורסי "חינוך גאה" כהשתלמות.
+                    <a href="research/sei_network_dashboard.html" style="color:#cc0000;">→ רשת SEI</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#2e7d32;">
+            <summary>
+                <span class="idea-num" style="background:#2e7d32;">6</span>
+                <strong>מימון זר מכוון תוכניות חינוך</strong>
+                <span class="idea-tag">כסף</span>
+            </summary>
+            <div class="idea-detail">
+                <p style="font-size:0.9em; color:#444; margin:12px 0;">הקרן החדשה לישראל → מחזקים $315K (הנדסת תודעה) | הקרן החדשה לישראל → ACRI $1M/שנה (מימון מחקר CRT) | יד הנדיב → אבני ראשה → CASEL</p>
+                <div class="iecho"><strong style="color:#e08800;">התבנית:</strong> קרן זרה → ארגון ישראלי → תוכנית בבית ספר → הכשרת מורים → הכיתה.
+                    <a href="research/nif_education_dashboard.html" style="color:#cc0000;">→ רשת מימון הקרן החדשה לישראל</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#555;">
+            <summary>
+                <span class="idea-num" style="background:#555;">7</span>
+                <strong>"גם המורים סוכני שינוי"</strong>
+                <span class="idea-tag">הסמכה</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"למורים תפקיד חשוב בתוכניות SEL, שכן הם <strong>סוכני השינוי</strong> המתווכים בין התוכנית לתלמידים"</div>
+                <div class="isrc">מכון מח"ר (portal.macam.ac.il) — אתר רשמי של משרד החינוך</div>
+                <div class="iecho"><strong style="color:#e08800;">התבנית:</strong> השתלמות מוכרת לגמולי שכר ← מורה חייב לעבור תהליך ← התהליך מלמד CRT ← המורה מעביר לכיתה.
+                    <a href="research/avney_rosha_dashboard.html" style="color:#cc0000;">→ אבני ראשה + CASEL</a> |
+                    <a href="research/kibbutzim_pedagogy_dashboard.html" style="color:#cc0000;">→ מכללת הקיבוצים</a>
+                </div>
+            </div>
+        </details>
+        <p style="font-size:0.85em; color:#888; margin-top:10px; text-align:center;">
+            ${svgStarDavid()} = קונצנזוס ציוני &nbsp;&nbsp; ${svgStarRed()} = חדירה חתרנית
+        </p>
+    </div>
+
     <!-- Hero -->
     <div class="ministry-hero">
         <h2>רקע ברמת המדינה. ממצאים ברמת הרשות.</h2>
@@ -505,6 +701,35 @@ function renderMainGrid() {
             <a href="research/unesco_dashboard.html" target="_blank" style="color:#cc0000">מיפוי מלא →</a>
         </p>
 
+        <h3 style="margin:20px 0 8px;font-size:1.05em">קדמה ירושלים — פדגוגיה ביקורתית כנורמה</h3>
+        <p>
+            בית הספר היחיד בישראל שפדגוגיה ביקורתית היא אתוס המייסוד שלו (1994). מבוסס על פאולו פריירה.
+            ד"ר ניר מיכאלי (לשעבר יו"ר המזכירות הפדגוגית) הרצה בקדמה: "אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש".
+            <a href="research/kedma_dashboard.html" target="_blank" style="color:#cc0000">מיפוי מלא →</a>
+        </p>
+
+        <h3 style="margin:20px 0 8px;font-size:1.05em">"כן בבית ספרנו" — ההגדרה המפורשת</h3>
+        <p>
+            ספר אקדמי (2014) בעריכת ניר מיכאלי שמגדיר באופן מפורש את הפדגוגיה הביקורתית כ<strong>"פרשנות מרקסיסטית"</strong>.
+            במערכת: <strong>פרופ' יולי תמיר — שרת חינוך לשעבר</strong>, פרופ' נמרוד אלוני (כיסא אונסק"ו), רקטורית סמינר הקיבוצים.
+            יצא בשיתוף הסתדרות המורים ומכון מופ"ת. הספר מגדיר את המורה כ"סוכן פוליטי" שמציג עמדותיו בגלוי.
+            <a href="research/ken_bebeit_safrenu.html" target="_blank" style="color:#cc0000">ניתוח מלא →</a>
+        </p>
+
+        <h3 style="margin:20px 0 8px;font-size:1.05em">האקדמיה למדעים — כסות מדעית ל-SEL</h3>
+        <p>
+            האקדמיה הלאומית הישראלית למדעים הפיקה מסמך המלצות שהפך לבסיס ליישום SEL ארצי — תוך הודאה שאין בסיס אמפירי (136 מסגרות מושגיות, 1,300+ "מיומנויות", אפס ראיות ישירות).
+            המסמך מציע "דמות בוגר" ברוח <strong>"דמוקרטיה ביקורתית"</strong> וממליץ על SEL כ"דרך חיים מערכתית".
+            <a href="research/academy_sciences_dashboard.html" target="_blank" style="color:#cc0000">ניתוח מלא →</a>
+        </p>
+
+        <h3 style="margin:20px 0 8px;font-size:1.05em">מפת הרדיקלים — מי מכיר את מרקוזה?</h3>
+        <p>
+            11 דמויות מפתח בפדגוגיה ביקורתית בישראל. לא כל מי ששייך לשמאל הוא רדיקל — אבל מי שקרא את מרקוזה, פריירה, גרמשי ומשתמש בשיטותיהם מתוך מודעות מלאה — הוא חלק מרשת מוסדית.
+            כל הציטוטים ממה שהאנשים עצמם אמרו, כתבו או פרסמו בפלטפורמות מקצועיות.
+            <a href="research/radicals_dashboard.html" target="_blank" style="color:#cc0000">מיפוי מלא →</a>
+        </p>
+
         <h3 style="margin:20px 0 8px;font-size:1.05em">SafeSchool — דוגמה בקנה מידה ארצי</h3>
         <p>
             תוכנית <a href="research/safeschool_dashboard.html" target="_blank" style="color:#cc0000">"בטיחות ברשת" (SafeSchool)</a> פועלת ב-1,200+ בתי ספר.
@@ -530,6 +755,10 @@ function renderMainGrid() {
             <a href="research/avney_rosha_dashboard.html" target="_blank" style="color:#cc0000">אבני ראשה (3,000+ מנהלים)</a> →
             חוזרי מנכ"ל (<a href="https://cms.education.gov.il/EducationCMS/Applications/Mankal/" target="_blank" style="color:#cc0000">2015, 2018, 2021</a>) → כיתות.
             <a href="https://aosshalem-dev.github.io/sel-research/" target="_blank" style="color:#cc0000">7 מדינות בארה"ב הגבילו תוכניות SEL</a>. בישראל אין דיון ציבורי.
+        </p>
+        <p style="font-size:0.85em;margin-top:16px;padding-top:12px;border-top:1px solid #ddd">
+            <a href="research/backoffice.html" target="_blank" style="color:#666">לוח בקרה מחקרי →</a> |
+            <a href="research/index.html" target="_blank" style="color:#666">כל הדוחות (65+) →</a>
         </p>
     </div>
 
@@ -583,10 +812,10 @@ function renderMainGrid() {
                 {name: "CASEL", desc: "הכנסות $12M. Transformative SEL (2020): equity + צדק חברתי. 7 מדינות הגבילו.", url: "research/casel_dashboard.html", color: "#1565c0"},
                 {name: "אבני ראשה", desc: "3,000+ מנהלים. Schusterman $1M. 10 מדדי SEL למנהלים.", url: "research/avney_rosha_dashboard.html", color: "#e65100"},
                 {name: "מכללת הקיבוצים", desc: "קורס חובה: פדגוגיה ביקורתית. M.Ed ייעודי. כנס שנתי. פריירה + ז'ירו.", url: "research/kibbutzim_pedagogy_dashboard.html", color: "#4a148c"},
-                {name: "חוש\"ן", desc: "6 תוכניות גפ\"ן. 250 מתנדבים. קיצוץ 85% (2024). מימון NIF.", url: "research/choshen_dashboard.html", color: "#e91e63"},
+                {name: "חוש\"ן", desc: "6 תוכניות גפ\"ן. 250 מתנדבים. קיצוץ 85% (2024). מימון הקרן החדשה לישראל.", url: "research/choshen_dashboard.html", color: "#e91e63"},
                 {name: "דרור ישראל", desc: "6 ישויות משפטיות. 230M ₪/שנה ממשלתי. פדגוגיה ביקורתית. 14 קיבוצים עירוניים.", url: "research/dror_israel_dashboard.html", color: "#1b5e20"},
-                {name: "NIF", desc: "ACRI $1M/שנה. חוש\"ן $15K. שתיל: 3 סניפים. קואליציית OHCHR.", url: "research/nif_education_dashboard.html", color: "#263238"},
-                {name: "ACRI", desc: "תקציב 10.9M ₪. NIF $1M/שנה. תוכניות חינוך לזכויות אדם בבתי ספר.", url: "research/acri_dashboard.html", color: "#37474f"},
+                {name: "הקרן החדשה לישראל", desc: "ACRI $1M/שנה. חוש\"ן $15K. שתיל: 3 סניפים. קואליציית OHCHR.", url: "research/nif_education_dashboard.html", color: "#263238"},
+                {name: "ACRI", desc: "תקציב 10.9M ₪. הקרן החדשה $1M/שנה. תוכניות חינוך לזכויות אדם בבתי ספר.", url: "research/acri_dashboard.html", color: "#37474f"},
                 {name: "המעורר", desc: "ד\"ר ניר מיכאלי. SPEL: למידה פוליטית-רגשית-חברתית. מכללת דוד ילין.", url: "research/hameorer_dashboard.html", color: "#5d4037"},
                 {name: "הרטמן", desc: "מימון אמריקאי. פלורליזם דתי. 'בשבילנו' + 'בארי'.", url: "research/hartman_dashboard.html", color: "#0d47a1"},
                 {name: "מצמיחים", desc: "קפיצת תקציב 400% (2020-2023). מיתוג מחדש 2024: 'אקדמיית מצמיחים'.", url: "research/matzmichim_dashboard.html", color: "#bf360c"},
@@ -726,10 +955,11 @@ function renderProgramCard(program, index) {
     const orgRes = getOrgResearch(program.org_key);
     const allConcepts = getAllConcepts();
     const hasExpanded = concepts.length > 0 || depth || orgRes;
+    const dashUrl = getProgramDashboard(program);
 
     return `
     <div class="program-card" id="prog-${index}">
-        <div class="pg-clickable" onclick="toggleProgram(${index})">
+        <div class="pg-clickable" onclick="${dashUrl ? `window.open('${dashUrl}', '_blank')` : `toggleProgram(${index})`}">
             <div class="pg-header">
                 <div>
                     <div class="pg-name">${escHtml(program.name)}</div>
@@ -750,6 +980,7 @@ function renderProgramCard(program, index) {
                 }).join('')}
             </div>` : ''}
         </div>
+        ${dashUrl ? `<div style="font-size:0.82em; color:#1565c0; margin-top:6px; font-weight:600;">&#8599; לחצו לפתוח מחקר מלא</div>` : ''}
         <div class="pg-source">מקור: ${escHtml(program.source || 'גפ"ן — קטלוג ההעשרה, משרד החינוך')}</div>
 
         ${hasExpanded ? `

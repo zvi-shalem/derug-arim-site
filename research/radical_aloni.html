@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרופ' נמרוד אלוני — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.card {
+    background: #fff; border-radius: 6px; padding: 24px 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07); margin-bottom: 20px;
+    border: 1px solid #e8e8ec;
+}
+.card h2 {
+    font-size: 1.05em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f4;
+}
+.card h3 {
+    font-size: 0.95em; font-weight: 600; color: #333;
+    margin: 16px 0 8px;
+}
+
+/* ── Framing Notice ── */
+.framing-notice {
+    background: #fff8f8; border: 1px solid #f0c0c0; border-right: 4px solid #cc0000;
+    border-radius: 4px; padding: 14px 18px; margin-bottom: 24px;
+    font-size: 0.9em; color: #444; line-height: 1.6;
+}
+
+/* ── Bio Table ── */
+.bio-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.bio-table tr { border-bottom: 1px solid #f0f0f4; }
+.bio-table td { padding: 9px 6px; vertical-align: top; }
+.bio-table td:first-child { font-weight: 600; color: #555; width: 40%; white-space: nowrap; }
+.bio-table td:last-child { color: #222; }
+
+/* ── Key Stat Box ── */
+.stat-box {
+    background: #fff8f8; border: 1px solid #f0c0c0; border-radius: 6px;
+    padding: 18px 22px; margin-top: 18px; text-align: center;
+}
+.stat-box .stat-label { font-size: 0.82em; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.stat-box .stat-value { font-size: 1.0em; font-weight: 700; color: #cc0000; line-height: 1.5; }
+
+/* ── Paradox / Quote Block ── */
+.quote-block {
+    background: #fffbf0; border: 1px solid #e8d88a; border-right: 4px solid #c8a800;
+    border-radius: 4px; padding: 16px 20px; margin: 16px 0;
+    font-size: 0.95em; line-height: 1.7;
+}
+.quote-block .quote-he {
+    font-size: 1.05em; font-weight: 600; color: #1a1a2e;
+    margin-bottom: 8px;
+}
+.quote-block .quote-en {
+    font-size: 0.88em; color: #666; font-style: italic;
+    margin-bottom: 8px;
+}
+.quote-block .quote-src {
+    font-size: 0.8em; color: #999; margin-top: 6px;
+}
+
+/* ── Contradiction Box ── */
+.contradiction-box {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
+}
+.contr-side {
+    border-radius: 5px; padding: 16px 18px; font-size: 0.88em; line-height: 1.6;
+}
+.contr-side.red {
+    background: #fff5f5; border: 1px solid #f5c0c0;
+}
+.contr-side.green {
+    background: #f5fff5; border: 1px solid #b0e0b0;
+}
+.contr-side .side-label {
+    font-weight: 700; font-size: 0.82em; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.contr-side.red .side-label { color: #cc0000; }
+.contr-side.green .side-label { color: #228822; }
+
+/* ── Institution Structure ── */
+.org-chart {
+    background: #f9f9fc; border: 1px solid #e0e0ea; border-radius: 6px;
+    padding: 20px; margin: 16px 0;
+}
+.org-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;
+}
+.org-item:last-child { border-bottom: none; }
+.org-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #cc0000; flex-shrink: 0; margin-top: 6px;
+}
+.org-dot.blue { background: #0044cc; }
+.org-dot.grey { background: #888; }
+.org-dot.green { background: #228822; }
+.org-item-text strong { display: block; color: #1a1a2e; font-size: 0.95em; }
+.org-item-text span { color: #666; font-size: 0.87em; }
+
+/* ── Network Nodes ── */
+.network-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px; margin: 16px 0;
+}
+.network-node {
+    background: #fff; border: 1px solid #e0e0ea; border-radius: 6px;
+    padding: 14px 16px; font-size: 0.88em;
+}
+.network-node .node-category {
+    font-size: 0.75em; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: #cc0000; margin-bottom: 5px;
+}
+.network-node .node-name { font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+.network-node .node-desc { color: #666; font-size: 0.9em; }
+
+/* ── Sources ── */
+.source-list { list-style: none; }
+.source-list li {
+    padding: 10px 0; border-bottom: 1px solid #f0f0f4;
+    font-size: 0.88em; display: flex; gap: 12px; align-items: flex-start;
+}
+.source-list li:last-child { border-bottom: none; }
+.source-num {
+    background: #cc0000; color: #fff; font-size: 0.75em; font-weight: 700;
+    border-radius: 3px; padding: 2px 7px; flex-shrink: 0; margin-top: 2px;
+}
+.source-list a { color: #0044cc; text-decoration: none; word-break: break-all; }
+.source-list a:hover { text-decoration: underline; }
+.source-desc { color: #333; }
+.source-url { color: #888; font-size: 0.85em; display: block; margin-top: 2px; }
+
+/* ── Tags & Pills ── */
+.tag {
+    display: inline-block; background: #f0f0f4; color: #555;
+    border-radius: 3px; padding: 2px 9px; font-size: 0.78em;
+    margin: 2px 2px 2px 0;
+}
+.tag.red { background: #fff0f0; color: #cc0000; border: 1px solid #f0c0c0; }
+.tag.blue { background: #f0f4ff; color: #0044cc; border: 1px solid #c0d0f0; }
+
+/* ── Back Link ── */
+.back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: #888; text-decoration: none; font-size: 0.85em;
+    padding: 6px 0; margin-bottom: 20px;
+    transition: color 0.2s;
+}
+.back-link:hover { color: #cc0000; }
+
+/* ── Inline note ── */
+.inline-note {
+    font-size: 0.82em; color: #888; font-style: italic;
+    margin-top: 4px;
+}
+
+/* ── Cross-link ── */
+.cross-link-box {
+    background: #f0f4ff; border: 1px solid #c0d0f0; border-radius: 5px;
+    padding: 12px 16px; font-size: 0.88em; margin-top: 16px;
+}
+.cross-link-box a { color: #0044cc; text-decoration: none; font-weight: 600; }
+.cross-link-box a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+    .contradiction-box { grid-template-columns: 1fr; }
+    .network-grid { grid-template-columns: 1fr 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .nav-tab { font-size: 0.75em; padding: 12px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      פרופ' נמרוד אלוני
+      <a href="radicals_dashboard.html">&#8594; חזרה לדשבורד</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showView('overview', this)">סקירה</button>
+      <button class="nav-tab" onclick="showView('paradox', this)">הסתירה</button>
+      <button class="nav-tab" onclick="showView('institution', this)">מוסד</button>
+      <button class="nav-tab" onclick="showView('network', this)">רשת</button>
+      <button class="nav-tab" onclick="showView('sources', this)">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="subtitle">פרופיל מחקרי — עובדות בלבד</div>
+  <h1>פרופ' נמרוד אלוני</h1>
+  <div class="subtitle">קתדרת אונסק"ו לחינוך הומניסטי &nbsp;|&nbsp; מכללת סמינר הקיבוצים</div>
+  <div class="meta">כל הציטוטים נלקחים ממה שפרופ' אלוני עצמו אמר, כתב או פרסם</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MAIN CONTAINER
+══════════════════════════════════════════════ -->
+<div class="container">
+
+  <!-- FRAMING NOTICE — shown in all views -->
+  <div class="framing-notice">
+    <strong>עיקרון תיעודי:</strong> כל הציטוטים במסמך זה נלקחים ממה שפרופ' אלוני עצמו אמר, כתב או פרסם. אין בו פרשנות, השערה או הסקה. מידע שאינו מתועד ישירות — מסומן בבירור כך.
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       TAB 1 — סקירה (Overview)
+  ═════════════════════════════════════════════ -->
+  <div class="view active" id="view-overview">
+
+    <div class="card">
+      <h2>פרטים ביוגרפיים</h2>
+      <table class="bio-table">
+        <tr>
+          <td>שם מלא</td>
+          <td>פרופ' נמרוד אלוני</td>
+        </tr>
+        <tr>
+          <td>תואר דוקטור</td>
+          <td>אוניברסיטת קולומביה (פילוסופיה וחינוך)</td>
+        </tr>
+        <tr>
+          <td>תפקיד נוכחי</td>
+          <td>בעל קתדרת אונסק"ו לחינוך הומניסטי, מכללת סמינר הקיבוצים</td>
+        </tr>
+        <tr>
+          <td>תפקיד נוסף</td>
+          <td>יו"ר מכון לחינוך מתקדם (Institute for Advanced Education), מכללת סמינר הקיבוצים</td>
+        </tr>
+        <tr>
+          <td>מוסד</td>
+          <td>מכללת סמינר הקיבוצים — המכללה לחינוך, טכנולוגיה ואמנויות, תל אביב</td>
+        </tr>
+        <tr>
+          <td>תחומי מחקר</td>
+          <td>
+            <span class="tag">חינוך הומניסטי</span>
+            <span class="tag">פילוסופיה של החינוך</span>
+            <span class="tag">דיאלוג פדגוגי</span>
+            <span class="tag">זכויות הילד</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>פרסומים מרכזיים</h2>
+      <div class="org-item">
+        <div class="org-dot"></div>
+        <div class="org-item-text">
+          <strong><em>Enhancing Humanity: The Philosophical Foundations of Humanistic Education</em></strong>
+          <span>Springer, 2007 — ספר אקדמי בינלאומי בפילוסופיה של החינוך ההומניסטי</span>
+        </div>
+      </div>
+      <div class="org-item">
+        <div class="org-dot"></div>
+        <div class="org-item-text">
+          <strong><em>Empowering Dialogues in Humanistic Education</em></strong>
+          <span>2013 — עוסק בדיאלוג פדגוגי כמנוף חינוכי</span>
+        </div>
+      </div>
+      <div class="org-item">
+        <div class="org-dot blue"></div>
+        <div class="org-item-text">
+          <strong>"כן בבית ספרנו" (2014) — חבר מועצת העורכים</strong>
+          <span>הספר מגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית". אלוני חתום על גב הכריכה כחבר מועצת עורכים.</span>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-label">עובדת מפתח מוסדית</div>
+        <div class="stat-value">מחזיק קתדרת אונסק"ו במכללה שבה פועל המרכז לפדגוגיה ביקורתית</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>עמדה ביחס לפדגוגיה ביקורתית — בדוקומנטציה שלו</h2>
+      <p style="font-size:0.92em; color:#444; margin-bottom:10px;">
+        בשנת 1992, בתפוצת חוקרי חינוך, כתב אלוני על הנרי ג'ירו — ממייסדי הפדגוגיה הביקורתית — את הדברים הבאים:
+      </p>
+      <div class="quote-block">
+        <div class="quote-he">"הנרי ג'ירו הוא אכן מניפולטור פרוגרסיבי ופוסטמודרני שאין לו גרם של רספקט לביסוס רציונלי של אמת וצדק"</div>
+        <div class="quote-src">מקור: תפוצת חוקרי חינוך, 1992 | דברים שנמרוד אלוני עצמו כתב</div>
+      </div>
+      <p class="inline-note">ציטוט זה מוצג לצד הנסיבות המוסדיות — ראו טאב "הסתירה" לניתוח.</p>
+    </div>
+
+  </div><!-- /view-overview -->
+
+
+  <!-- ════════════════════════════════════════════
+       TAB 2 — הסתירה (Paradox)
+  ═════════════════════════════════════════════ -->
+  <div class="view" id="view-paradox">
+
+    <div class="card">
+      <h2>הציטוט הבסיסי — בכתב ידו של אלוני</h2>
+      <p style="font-size:0.9em; color:#666; margin-bottom:14px;">
+        מקור: <strong>תפוצת חוקרי חינוך, 1992.</strong> אלה דברים שנמרוד אלוני עצמו כתב ופרסם.
+      </p>
+      <div class="quote-block">
+        <div class="quote-he">
+          "הנרי ג'ירו הוא אכן מניפולטור פרוגרסיבי ופוסטמודרני שאין לו גרם של רספקט לביסוס רציונלי של אמת וצדק"
+        </div>
+        <div class="quote-en">
+          "Henry Giroux is indeed a progressive and postmodern manipulator without a gram of respect for the rational grounding of truth and justice."
+        </div>
+        <div class="quote-src">תפוצת חוקרי חינוך, 1992 | נמרוד אלוני</div>
+      </div>
+      <p style="font-size:0.88em; color:#555; margin-top:10px;">
+        הנרי ג'ירו הוא ממייסדי הפדגוגיה הביקורתית האקדמית בעולם ואחד ממקורות הסמכות המרכזיים הנזכרים במפורש בתכנית ה-M.Ed לצדק חברתי של מכללת סמינר הקיבוצים.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>הסתירה הכפולה</h2>
+
+      <div class="contradiction-box">
+        <div class="contr-side red">
+          <div class="side-label">מה אלוני אמר (1992)</div>
+          ג'ירו הוא "מניפולטור" ללא "גרם של רספקט לביסוס רציונלי של אמת וצדק". הביקורת — מפורשת, חריפה, מנומקת.
+        </div>
+        <div class="contr-side green">
+          <div class="side-label">מה קיים מוסדית (מאוחר יותר)</div>
+          קתדרת אונסק"ו שבה אלוני מכהן ממוקמת באותה מכללה (סמינר הקיבוצים) שבה פועל המרכז לפדגוגיה ביקורתית המיישם שיטות ג'ירו ברחבי ישראל.
+        </div>
+      </div>
+
+      <div class="contradiction-box">
+        <div class="contr-side red">
+          <div class="side-label">מה אלוני אמר (1992)</div>
+          הביקורת על חוסר ביסוס רציונלי ועל מניפולציה פרוגרסיבית — כביקורת עקרונית שיטתית.
+        </div>
+        <div class="contr-side green">
+          <div class="side-label">מה אלוני עשה (2014)</div>
+          חתם כחבר מועצת עורכים על הספר "כן בבית ספרנו" — ספר שמגדיר את הפדגוגיה הביקורתית בפירוש כ"פרשנות מרקסיסטית" ומקדם אותה.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>ניסוח הסתירה — עובדתי בלבד</h2>
+      <p style="font-size:0.92em; color:#333; line-height:1.8;">
+        שאלה עובדתית שאינה דורשת פרשנות: כיצד מתיישבים דברי אלוני משנת 1992 על ג'ירו כ"מניפולטור" — עם כהונתו במוסד שמפעיל מרכז פדגוגיה ביקורתית מבוסס ג'ירו, ועם חתימתו על ספר המקדם את הגישה?
+      </p>
+      <p style="font-size:0.9em; color:#666; margin-top:12px; line-height:1.7;">
+        <strong>שלוש אפשרויות עובדתיות:</strong><br>
+        א. אלוני שינה את דעתו — ולא תיעד זאת בכתב.<br>
+        ב. קיימת הבחנה שלו בין "הומניזם ביקורתי" לבין "פדגוגיה ביקורתית" — הבחנה שלא הובאה לידיעת הציבור.<br>
+        ג. ההשתלבות המוסדית אינה מבטאת הסכמה אינטלקטואלית — ולא הובהרה.
+      </p>
+      <div class="framing-notice" style="margin-top:14px; margin-bottom:0;">
+        <strong>הערת מתודה:</strong> מסמך זה אינו טוען שאלוני מסכים לפדגוגיה ביקורתית. הוא מתעד את הנסיבות המוסדיות לצד מה שאלוני עצמו כתב — ומציג את הפער כשאלה מחקרית.
+      </div>
+    </div>
+
+  </div><!-- /view-paradox -->
+
+
+  <!-- ════════════════════════════════════════════
+       TAB 3 — מוסד (Institution)
+  ═════════════════════════════════════════════ -->
+  <div class="view" id="view-institution">
+
+    <div class="card">
+      <h2>מבנה מכללת סמינר הקיבוצים — גופים רלוונטיים</h2>
+      <p style="font-size:0.88em; color:#666; margin-bottom:16px;">
+        כל הגופים הבאים פועלים תחת קורת גג מוסדית אחת. הנתונים מבוססים על אתר המכללה.
+      </p>
+      <div class="org-chart">
+        <div class="org-item">
+          <div class="org-dot"></div>
+          <div class="org-item-text">
+            <strong>קתדרת אונסק"ו לחינוך הומניסטי</strong>
+            <span>בעל הקתדרה: פרופ' נמרוד אלוני | חלק מרשת UNITWIN הבינלאומית של אונסק"ו</span>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-dot blue"></div>
+          <div class="org-item-text">
+            <strong>מרכז לפדגוגיה ביקורתית</strong>
+            <span>מנהלת: ד"ר גלית זלמנסון-לוי | מיישם שיטות פריירה, ג'ירו, הוקס ברחבי ישראל</span>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-dot green"></div>
+          <div class="org-item-text">
+            <strong>מכון לחינוך מתקדם (Institute for Advanced Education)</strong>
+            <span>יו"ר: פרופ' נמרוד אלוני | מוקד פעילות אקדמית ומחקרית במכללה</span>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-dot grey"></div>
+          <div class="org-item-text">
+            <strong>תכנית M.Ed — מסלול צדק חברתי</strong>
+            <span>מקורות תיאורטיים המוזכרים בפירוש: פאולו פריירה, הנרי ג'ירו, בל הוקס</span>
+          </div>
+        </div>
+        <div class="org-item">
+          <div class="org-dot grey"></div>
+          <div class="org-item-text">
+            <strong>שותפות עם מכון מופ"ת</strong>
+            <span>גוף מרכזי בהכשרת מורים בישראל — שיתוף פעולה עם תכניות מחקריות ופדגוגיות</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cross-link-box">
+        לניתוח מלא של המרכז לפדגוגיה ביקורתית ופעילותו ראו:
+        <a href="kibbutzim_pedagogy_dashboard.html">דשבורד — פדגוגיה ביקורתית | מכללת סמינר הקיבוצים</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>מקורות תיאורטיים בתכנית הצדק החברתי</h2>
+      <p style="font-size:0.9em; color:#444; margin-bottom:12px;">
+        אלה המקורות המפורשים המצוינים בחומרי התכנית הרשמיים של מכללת סמינר הקיבוצים:
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
+        <span class="tag red">פאולו פריירה — "פדגוגיה של המדוכאים"</span>
+        <span class="tag red">הנרי ג'ירו — פדגוגיה ביקורתית</span>
+        <span class="tag red">בל הוקס — פדגוגיה מעורבת</span>
+        <span class="tag blue">פרשנות מרקסיסטית (הגדרה בספר "כן בבית ספרנו")</span>
+      </div>
+      <p style="font-size:0.85em; color:#666;">
+        הנרי ג'ירו — המכונה על ידי אלוני עצמו "מניפולטור" בשנת 1992 — הוא אחד המקורות הרשמיים של תכנית הלימודים במוסד שבו כהן אלוני.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>קתדרת אונסק"ו — הקשר בינלאומי</h2>
+      <table class="bio-table">
+        <tr>
+          <td>שם הקתדרה</td>
+          <td>UNESCO Chair in Humanistic Education</td>
+        </tr>
+        <tr>
+          <td>מסגרת</td>
+          <td>רשת UNITWIN (University Twinning and Networking) של אונסק"ו</td>
+        </tr>
+        <tr>
+          <td>מוסד מארח</td>
+          <td>מכללת סמינר הקיבוצים, תל אביב</td>
+        </tr>
+        <tr>
+          <td>בתי ספר קשורים</td>
+          <td>ASPnet (Associated Schools Project Network) — רשת בתי ספר של אונסק"ו</td>
+        </tr>
+        <tr>
+          <td>מקור</td>
+          <td><a href="https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/" target="_blank" style="color:#0044cc; text-decoration:none;">אתר מכללת סמינר הקיבוצים (האנגלי)</a></td>
+        </tr>
+      </table>
+    </div>
+
+  </div><!-- /view-institution -->
+
+
+  <!-- ════════════════════════════════════════════
+       TAB 4 — רשת (Network)
+  ═════════════════════════════════════════════ -->
+  <div class="view" id="view-network">
+
+    <div class="card">
+      <h2>קולגות מוסדיים — מכללת סמינר הקיבוצים</h2>
+      <div class="network-grid">
+        <div class="network-node">
+          <div class="node-category">פדגוגיה ביקורתית</div>
+          <div class="node-name">ד"ר גלית זלמנסון-לוי</div>
+          <div class="node-desc">מנהלת המרכז לפדגוגיה ביקורתית במכללת סמינר הקיבוצים; קולגה מוסדית של אלוני</div>
+        </div>
+        <div class="network-node">
+          <div class="node-category">לשעבר — מכללת סמינר הקיבוצים</div>
+          <div class="node-name">פרופ' נורית מיכאלי</div>
+          <div class="node-desc">קולגה לשעבר של אלוני במכללה; עוסקת בפילוסופיה של החינוך</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>מועצת עורכים — "כן בבית ספרנו" (2014)</h2>
+      <p style="font-size:0.88em; color:#666; margin-bottom:12px;">
+        ספר זה, שאלוני חתום עליו כחבר מועצת עורכים, מגדיר בפירוש פדגוגיה ביקורתית כ"פרשנות מרקסיסטית". הספר ראה אור 2014.
+      </p>
+      <div class="network-grid">
+        <div class="network-node">
+          <div class="node-category">מועצת עורכים — "כן בבית ספרנו"</div>
+          <div class="node-name">פרופ' נמרוד אלוני</div>
+          <div class="node-desc">קתדרת אונסק"ו, סמינר הקיבוצים</div>
+        </div>
+        <div class="network-node">
+          <div class="node-category">מועצת עורכים — "כן בבית ספרנו"</div>
+          <div class="node-name">פרופ' יולי תמיר</div>
+          <div class="node-desc">לשעבר שרת החינוך; חוקרת פיוסופיה פוליטית ואזרחות</div>
+        </div>
+        <div class="network-node">
+          <div class="node-category">מועצת עורכים — "כן בבית ספרנו"</div>
+          <div class="node-name">ד"ר דליה עמיהוד</div>
+          <div class="node-desc">רקטור מכללת סמינר הקיבוצים (בעת הפרסום)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>קשרים בינלאומיים ובין-מוסדיים</h2>
+      <div class="network-grid">
+        <div class="network-node">
+          <div class="node-category">אונסק"ו — בינלאומי</div>
+          <div class="node-name">רשת UNITWIN</div>
+          <div class="node-desc">רשת קתדרות אונסק"ו בינלאומית לחינוך הומניסטי; אלוני שותף פעיל</div>
+        </div>
+        <div class="network-node">
+          <div class="node-category">אונסק"ו — בינלאומי</div>
+          <div class="node-name">Global Humanistic Education Network</div>
+          <div class="node-desc">רשת בינלאומית המקשרת בין חוקרי חינוך הומניסטי</div>
+        </div>
+        <div class="network-node">
+          <div class="node-category">מכון אדם — ישראל</div>
+          <div class="node-name">כנס עתיד החינוך</div>
+          <div class="node-desc">השתתפות של אלוני בכנס מכון אדם (mixedcity.adaminstitute.org.il/future-education/)</div>
+        </div>
+        <div class="network-node">
+          <div class="node-category">ASPnet</div>
+          <div class="node-name">בתי ספר קשורים לאונסק"ו</div>
+          <div class="node-desc">רשת בתי ספר של אונסק"ו הקשורים לפעילות קתדרת אלוני</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /view-network -->
+
+
+  <!-- ════════════════════════════════════════════
+       TAB 5 — מקורות (Sources)
+  ═════════════════════════════════════════════ -->
+  <div class="view" id="view-sources">
+
+    <div class="card">
+      <h2>מקורות ראשוניים ומשניים</h2>
+      <ul class="source-list">
+
+        <li>
+          <span class="source-num">1</span>
+          <div>
+            <div class="source-desc"><strong>מכון לחינוך מתקדם — מכללת סמינר הקיבוצים (אתר רשמי)</strong><br>
+            פרטי קתדרת אונסק"ו, תפקיד אלוני כיו"ר מכון, מידע על פעילות מחקרית.</div>
+            <a class="source-url" href="https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/" target="_blank">https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/</a>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">2</span>
+          <div>
+            <div class="source-desc"><strong>תפוצת חוקרי חינוך, 1992</strong><br>
+            הציטוט של אלוני על הנרי ג'ירו: "מניפולטור פרוגרסיבי ופוסטמודרני שאין לו גרם של רספקט לביסוס רציונלי של אמת וצדק." מקור ראשוני — דברים שנמרוד אלוני עצמו כתב ופרסם.</div>
+            <span class="source-url">תפוצת חוקרי חינוך, 1992 [מסמך מודפס]</span>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">3</span>
+          <div>
+            <div class="source-desc"><strong>UNESCO Chair in Humanistic Education — תיעוד רשמי</strong><br>
+            מסמכי אונסק"ו על קתדרת UNITWIN של מכללת סמינר הקיבוצים.</div>
+            <a class="source-url" href="https://www.unesco.org/en/unitwin" target="_blank">https://www.unesco.org/en/unitwin</a>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">4</span>
+          <div>
+            <div class="source-desc"><strong>Google Scholar — פרופ' נמרוד אלוני</strong><br>
+            פרסומים אקדמיים, ציטוטים, כולל <em>Enhancing Humanity</em> (2007) ו-<em>Empowering Dialogues</em> (2013).</div>
+            <a class="source-url" href="https://scholar.google.com" target="_blank">Google Scholar — חיפוש "Nimrod Aloni"</a>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">5</span>
+          <div>
+            <div class="source-desc"><strong>מרכז לפדגוגיה ביקורתית — criticalpedagogy.org.il</strong><br>
+            אתר המרכז לפדגוגיה ביקורתית של מכללת סמינר הקיבוצים. מציין את ג'ירו, פריירה והוקס כמקורות.</div>
+            <a class="source-url" href="http://criticalpedagogy.org.il" target="_blank">http://criticalpedagogy.org.il</a>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">6</span>
+          <div>
+            <div class="source-desc"><strong>מכון אדם — כנס עתיד החינוך</strong><br>
+            השתתפות של פרופ' אלוני בכנס מכון אדם לעירוניות מעורבת.</div>
+            <a class="source-url" href="http://mixedcity.adaminstitute.org.il/future-education/" target="_blank">http://mixedcity.adaminstitute.org.il/future-education/</a>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">7</span>
+          <div>
+            <div class="source-desc"><strong>"כן בבית ספרנו" (2014) — מועצת עורכים</strong><br>
+            ספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית". אלוני, יולי תמיר ודליה עמיהוד חתומים כחברי מועצת עורכים.</div>
+            <span class="source-url">ספר מודפס — 2014 [זמין בספריות אקדמיות]</span>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">8</span>
+          <div>
+            <div class="source-desc"><strong>Aloni, N. (2007). <em>Enhancing Humanity: The Philosophical Foundations of Humanistic Education</em>. Springer.</strong><br>
+            ספר מחקרי בינלאומי — פרסום ראשוני של אלוני.</div>
+            <span class="source-url">Springer, 2007 | ISBN זמין ב-Google Books</span>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>הערות מתודולוגיות</h2>
+      <p style="font-size:0.9em; color:#444; line-height:1.8;">
+        1. כל ציטוט ישיר במסמך זה מיוחס למקורו המדויק ולשנת פרסומו.<br>
+        2. כאשר מצוין "אלוני כתב" — הכוונה לדברים שנמרוד אלוני עצמו חתום עליהם.<br>
+        3. מידע מוסדי (תפקידים, תכניות) מבוסס על אתרי המוסדות הרשמיים.<br>
+        4. שאלות שאין להן תשובה מתועדת — מסומנות בבירור כשאלות פתוחות ולא כטענות.
+      </p>
+    </div>
+
+  </div><!-- /view-sources -->
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+function showView(viewId, tabEl) {
+    document.querySelectorAll('.view').forEach(function(v) {
+        v.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-tab').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    document.getElementById('view-' + viewId).classList.add('active');
+    tabEl.classList.add('active');
+}
+</script>
+
+</body>
+</html>

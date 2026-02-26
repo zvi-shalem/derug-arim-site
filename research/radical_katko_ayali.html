@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר קרן קטקו-איילי — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.card {
+    background: #fff; border-radius: 6px; padding: 24px 28px;
+    border: 1px solid #e0e0e0; margin-bottom: 20px;
+}
+.card h2 {
+    font-size: 1.1em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 2px solid #cc0000; display: inline-block;
+}
+.card h3 {
+    font-size: 0.97em; font-weight: 700; color: #1a1a2e; margin: 14px 0 6px;
+}
+.card p { color: #333; font-size: 0.93em; margin-bottom: 10px; }
+.card ul { padding-right: 20px; margin-bottom: 10px; }
+.card ul li { color: #333; font-size: 0.93em; margin-bottom: 5px; }
+
+/* ── Factual notice banner ── */
+.factual-notice {
+    background: #fff8f0; border: 1px solid #f0c070; border-right: 4px solid #e08800;
+    border-radius: 4px; padding: 14px 18px; margin-bottom: 24px;
+    font-size: 0.9em; color: #5a3e00;
+}
+.factual-notice strong { color: #8b5500; }
+
+/* ── Highlight boxes ── */
+.highlight-box {
+    background: #fff5f5; border: 1px solid #f5c0c0; border-right: 4px solid #cc0000;
+    border-radius: 4px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; color: #3a1010;
+}
+.highlight-box strong { color: #cc0000; }
+
+.info-box {
+    background: #f0f4ff; border: 1px solid #c0ccf5; border-right: 4px solid #3355cc;
+    border-radius: 4px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; color: #1a1a3a;
+}
+.info-box strong { color: #3355cc; }
+
+.note-box {
+    background: #f5f5f8; border: 1px solid #d0d0d8; border-right: 4px solid #888;
+    border-radius: 4px; padding: 12px 16px; margin: 12px 0;
+    font-size: 0.88em; color: #444;
+}
+
+/* ── Two-faces comparison ── */
+.two-faces {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
+}
+@media (max-width: 768px) { .two-faces { grid-template-columns: 1fr; } }
+.face {
+    border-radius: 6px; padding: 18px; border: 1px solid #ddd;
+}
+.face.academic { background: #fff5f5; border-right: 4px solid #cc0000; }
+.face.government { background: #f0f4ff; border-right: 4px solid #3355cc; }
+.face h4 { font-size: 0.95em; margin-bottom: 8px; }
+.face p { font-size: 0.88em; color: #444; }
+
+/* ── Pub entry ── */
+.pub-entry {
+    border-bottom: 1px solid #eee; padding: 16px 0;
+}
+.pub-entry:last-child { border-bottom: none; }
+.pub-entry .pub-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; margin-bottom: 4px; }
+.pub-entry .pub-meta { color: #666; font-size: 0.85em; margin-bottom: 6px; }
+.pub-entry .pub-note { color: #444; font-size: 0.88em; }
+
+/* ── Person tag ── */
+.person-tag {
+    display: inline-block; background: #f5f5f8; border: 1px solid #ddd;
+    border-radius: 3px; padding: 3px 10px; font-size: 0.83em; color: #333;
+    margin: 3px 2px;
+}
+.person-tag a { color: #cc0000; text-decoration: none; }
+.person-tag a:hover { text-decoration: underline; }
+
+/* ── Network grid ── */
+.network-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+/* ── Source list ── */
+.source-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;
+}
+.source-item:last-child { border-bottom: none; }
+.source-num {
+    background: #cc0000; color: #fff; border-radius: 50%;
+    min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.78em; font-weight: 700; margin-top: 2px;
+}
+.source-text { color: #333; }
+.source-text strong { color: #1a1a2e; display: block; margin-bottom: 2px; }
+
+/* ── Tags strip ── */
+.tags-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag {
+    background: #f0f0f5; border: 1px solid #ddd; border-radius: 12px;
+    padding: 3px 11px; font-size: 0.8em; color: #444;
+}
+.tag.red { background: #fff0f0; border-color: #f5c0c0; color: #cc0000; }
+
+/* ── Quote block ── */
+.quote-block {
+    background: #fafafa; border-right: 4px solid #cc0000; padding: 16px 20px;
+    margin-bottom: 14px; border-radius: 0 6px 6px 0;
+}
+.quote-block .q-text { font-size: 0.92em; color: #333; font-style: italic; line-height: 1.8; }
+.quote-block .q-source { font-size: 0.8em; color: #888; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      ד"ר קרן קטקו-איילי
+      <a href="radicals_dashboard.html">מפת הרדיקלים</a>
+      <a href="index.html">אינדקס</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="show('overview',this)">סקירה</button>
+      <button class="nav-tab" onclick="show('twofaces',this)">שני פנים</button>
+      <button class="nav-tab" onclick="show('publications',this)">פרסומים</button>
+      <button class="nav-tab" onclick="show('network',this)">רשת</button>
+      <button class="nav-tab" onclick="show('sources',this)">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <h1>ד"ר קרן קטקו-איילי — פרופיל מחקרי</h1>
+  <div class="subtitle">מרצה בכירה, מכללת אורנים | לשעבר ראש אגף חברה ונוער, משרד החינוך</div>
+  <div class="meta">פדגוגיה אקטיביסטית · פריירה · REACT · "דמוקרטיה מתחילה בחינוך"</div>
+</div>
+
+<!-- ── Main container ── -->
+<div class="container">
+
+  <!-- ════════════════════════════════════════
+       TAB 1: סקירה
+       ════════════════════════════════════════ -->
+  <div id="overview" class="view active">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר קטקו-איילי עצמה כתבה או פרסמה. מידע ביוגרפי ומוסדי מבוסס על פרופילים אקדמיים ציבוריים ועל פרסומים מתועדים.
+    </div>
+
+    <div class="card">
+      <h2>נתוני בסיס</h2>
+      <h3>תואר שלישי</h3>
+      <p>דוקטורט — <strong>מכללת אורנים</strong> (Oranim Academic College of Education).</p>
+
+      <h3>תפקידים</h3>
+      <ul>
+        <li><strong>מרצה בכירה</strong> — מכללת אורנים (נוכחי)</li>
+        <li><strong>ראש אגף חברה ונוער</strong> — משרד החינוך (לשעבר)</li>
+        <li><strong>מייסדת פלטפורמת "חיים משותפים"</strong></li>
+        <li><strong>פודקאסט "דמוקרטיה מתחילה בחינוך"</strong></li>
+      </ul>
+
+      <h3>מיקוד מחקרי</h3>
+      <div class="tags-strip">
+        <span class="tag red">פדגוגיה אקטיביסטית</span>
+        <span class="tag red">פריירה</span>
+        <span class="tag red">ג'ירו</span>
+        <span class="tag">חינוך אזרחי</span>
+        <span class="tag">אקטיביזם בחינוך</span>
+        <span class="tag">REACT</span>
+      </div>
+
+      <div class="highlight-box">
+        <strong>סמן רדיקלי מרכזי:</strong> מאמר 2020 מגדיר במפורש "פדגוגיה אקטיביסטית" כ"פעילויות המאתגרות וחותרות תחת הסדר הקיים" — עם קישור ישיר לפריירה. זהו לא ניתוח חיצוני — זו הגדרה שהכותבת עצמה נתנה למסגרת שבה היא עובדת.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>הציטוט המכריע</h2>
+
+      <div class="quote-block">
+        <div class="q-text">"מקצה הציר של האזרחות הפעילה-אקטיבית (AAC) נפתח ציר נוסף — ספקטרום האקטיביזם, המתייחס לפעילויות המאתגרות וחותרות תחת הסדר הקיים. האקטיביזם קשור לשינוי המציאות — כלומר, לפעולות המתרחשות בהקשר חברתי, ציבורי ופוליטי מול כוחות דיכוי."</div>
+        <div class="q-source">קטקו-איילי, 2020 — "Practical Five-Level Model for Activist Pedagogy" | ScienceDirect</div>
+      </div>
+
+      <div class="quote-block">
+        <div class="q-text">"הפדגוגיה האקטיביסטית לא נולדה בחלל ריק. היו מי שראו את צמיחתה כהמשך ישיר של הפדגוגיה הביקורתית שהבססה בשנות ה-60 וה-70 (Freire, 1970/2018)."</div>
+        <div class="q-source">קטקו-איילי, 2020 — מאמר אקדמי</div>
+      </div>
+
+      <div class="info-box">
+        <strong>למה זה משמעותי:</strong> קטקו-איילי מקשרת במפורש את ה"פדגוגיה האקטיביסטית" שלה לפריירה — הוגה קומוניסטי שתיאוריית החינוך שלו רואה בכל הוראה מעשה פוליטי ובכל מורה סוכן שחרור. זה לא ניתוח חיצוני; היא עצמה מזהה את השורש.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>הצינור: מאקדמיה למדיניות</h2>
+      <p>קטקו-איילי מדגימה את אחד הדפוסים החשובים ביותר שנחשפו במחקר — <strong>תנועה דו-כיוונית בין אקדמיה למדיניות</strong>:</p>
+      <ul>
+        <li><strong>ראש אגף חברה ונוער</strong> במשרד החינוך — מינוי ממשלתי שנותן גישה ישירה למערכת</li>
+        <li><strong>מרצה בכירה במכללת אורנים</strong> — הכשרת הדור הבא של מחנכים</li>
+        <li><strong>מודל REACT</strong> — שתוקצב על ידי המדען הראשי (2024) אחרי ריבראנדינג מ"פדגוגיה אקטיביסטית" ל"חשיבה ביקורתית"</li>
+      </ul>
+      <p>התבנית: <strong>אקדמיה → מדיניות → תקצוב → כיתה</strong>, כשבכל תחנה השפה מותאמת לקהל.</p>
+    </div>
+
+  </div><!-- /overview -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 2: שני פנים
+       ════════════════════════════════════════ -->
+  <div id="twofaces" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> הטאב הזה מציג את אותו מודל כפי שהוא מוצג בשני הקשרים שונים — אקדמי וממשלתי. כל המידע מבוסס על פרסומים של קטקו-איילי עצמה.
+    </div>
+
+    <div class="card">
+      <h2>שני פנים — אותו מודל, שתי שפות</h2>
+      <p>קטקו-איילי מפעילה את אותה מסגרת חינוכית בשני הקשרים שונים, עם שפה מותאמת לכל קהל:</p>
+
+      <div class="two-faces">
+        <div class="face academic">
+          <h4 style="color: #cc0000;">הפנים האקדמי</h4>
+          <p><strong>"פדגוגיה אקטיביסטית"</strong></p>
+          <p>מאמר 2020 — ScienceDirect</p>
+          <p>שפה: "חותרות תחת הסדר הקיים", "כוחות דיכוי", "פריירה"</p>
+          <p>מסקנה גלויה: החינוך הוא כלי לשינוי מבני-פוליטי</p>
+        </div>
+        <div class="face government">
+          <h4 style="color: #3355cc;">הפנים הממשלתי</h4>
+          <p><strong>"חשיבה ביקורתית" / REACT</strong></p>
+          <p>מימון: המדען הראשי, 2024</p>
+          <p>שפה: "חשיבה ביקורתית", "כישורי חיים", "אזרחות פעילה"</p>
+          <p>מסקנה גלויה: פיתוח כישורים אוניברסליים</p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>אותו מודל בדיוק.</strong> ההבדל היחיד הוא בשפה. כשהקהל הוא אקדמי — קטקו-איילי מדברת על "חתירה תחת הסדר הקיים" ועל פריירה. כשהקהל הוא ועדות תקצוב ממשלתיות — אותו מודל מוצג כ"חשיבה ביקורתית" נייטרלית. תבנית "שני הפנים" הזו מתועדת בכל הדשבורדים במחקר כטכניקה מרכזית של הזרם.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>REACT — ריבראנדינג ב-2024</h2>
+      <p>ב-2024 קיבלה קטקו-איילי מימון מהמדען הראשי של משרד החינוך עבור מודל בשם <strong>REACT</strong>.</p>
+      <p>REACT הוא למעשה אותו מודל חמש-שכבות שפורסם כ"פדגוגיה אקטיביסטית" ב-2020, אך עם שפה מותאמת שמשמיטה את הפניות לפריירה ול"חתירה תחת הסדר הקיים".</p>
+
+      <div class="info-box">
+        <strong>שותפים ב-REACT:</strong> קטקו-איילי פיתחה את REACT יחד עם ניר מיכאלי ואדר כהן — שלושה חוקרים שלכל אחד מהם פרופיל נפרד במחקר זה. שלושתם שותפים לגישה הפדגוגית הביקורתית, ושלושתם נעים בין אקדמיה למדיניות.
+      </div>
+
+      <div style="margin-top:10px;">
+        <span class="person-tag"><a href="radical_michaeli.html">→ ניר מיכאלי</a></span>
+        <span class="person-tag"><a href="radical_adar_cohen.html">→ אדר כהן</a></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>SPEL — פרסום משותף 2025</h2>
+      <p>ב-2025 פרסמו קטקו-איילי, מיכאלי, ואדר כהן מאמר משותף בכתב-העת "דברים" תחת הכותרת <strong>SPEL</strong>:</p>
+      <p><em>"Education in Crisis — New Conception and Implementation Model"</em></p>
+      <p>המאמר מציג את המשבר ב-7 באוקטובר כהזדמנות ליישם מודל חינוכי חדש — שבבסיסו עומדים אותם עקרונות של "אזרחות פעילה" שנגזרים מהפדגוגיה האקטיביסטית של 2020.</p>
+    </div>
+
+  </div><!-- /twofaces -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 3: פרסומים
+       ════════════════════════════════════════ -->
+  <div id="publications" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים נלקחים ממה שד"ר קטקו-איילי עצמה כתבה או פרסמה.
+    </div>
+
+    <div class="card">
+      <h2>פרסומים מתועדים</h2>
+
+      <div class="pub-entry">
+        <div class="pub-title">Practical Five-Level Model for Activist Pedagogy</div>
+        <div class="pub-meta">2020 · ScienceDirect · מאמר מחקרי</div>
+        <div class="pub-note">הפרסום המרכזי. מגדיר "פדגוגיה אקטיביסטית" כמסגרת חמש-שכבתית שנעה מ"אזרחות פעילה" ועד "חתירה תחת הסדר הקיים". מקשר במפורש לפריירה (1970).</div>
+        <div class="highlight-box" style="margin-top:8px;">
+          <strong>ציטוט מפתח:</strong> "ספקטרום האקטיביזם, המתייחס לפעילויות המאתגרות וחותרות תחת הסדר הקיים... לפעולות המתרחשות בהקשר חברתי, ציבורי ופוליטי מול כוחות דיכוי."
+        </div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">REACT — Education in Crisis (דוח מחקר)</div>
+        <div class="pub-meta">2024 · מימון: המדען הראשי, משרד החינוך · שותפים: מיכאלי, אדר כהן</div>
+        <div class="pub-note">ריבראנדינג של מודל הפדגוגיה האקטיביסטית לשפה ממשלתית. אותה מסגרת חמש-שכבתית, ללא הפניות מפורשות לפריירה או ל"חתירה".</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">SPEL — "חינוך במשבר: תפיסה ומודל יישום חדשים"</div>
+        <div class="pub-meta">2025 · כתב-עת "דברים" · שותפים: מיכאלי, אדר כהן</div>
+        <div class="pub-note">מאמר משותף שמציג את ה-7 באוקטובר כנקודת מפנה חינוכית ואת מודל REACT/SPEL כתשובה.</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">פודקאסט: "דמוקרטיה מתחילה בחינוך"</div>
+        <div class="pub-meta">פלטפורמת "חיים משותפים"</div>
+        <div class="pub-note">פודקאסט שמקדם את הגישה הפדגוגית האקטיביסטית בשפה נגישה — "דמוקרטיה" כמסגור ל"פעולה פוליטית בחינוך".</div>
+      </div>
+    </div>
+
+  </div><!-- /publications -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 4: רשת
+       ════════════════════════════════════════ -->
+  <div id="network" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> הקשרים המתוארים מבוססים על שיתופי פעולה מפורסמים וכתיבה משותפת — כולם ציבוריים.
+    </div>
+
+    <div class="network-grid">
+
+      <div class="card">
+        <h2>שלישיית REACT</h2>
+        <p>שלושה חוקרים פיתחו יחד את מודל REACT ואת מאמר SPEL. כל אחד מהם מכסה "תחנה" שונה בצינור:</p>
+        <ul>
+          <li><strong>קטקו-איילי</strong> — מכללת אורנים + לשעבר אגף חברה ונוער (משרד החינוך)</li>
+          <li><strong>ניר מיכאלי</strong> — מנכ"ל מרכז כנרת, "כן בבית ספרנו", קדמה</li>
+          <li><strong>אדר כהן</strong> — ראש הכשרת מורים באוניברסיטה העברית, לשעבר מפמ"ר אזרחות</li>
+        </ul>
+        <p>יחד הם מכסים: <strong>מחקר → מדיניות → הכשרת מורים → כיתה</strong></p>
+        <div style="margin-top:10px;">
+          <span class="person-tag"><a href="radical_michaeli.html">→ ניר מיכאלי</a></span>
+          <span class="person-tag"><a href="radical_adar_cohen.html">→ אדר כהן</a></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>מכללת אורנים</h2>
+        <p>מכללת אורנים היא מכללה אקדמית לחינוך בגליל. קטקו-איילי היא מרצה בכירה שם, שבה היא מכשירה מורים.</p>
+        <p>המשמעות: <strong>ההכשרה שמורים מקבלים באורנים מעוצבת בין היתר על ידי "מסגרת חמש-שכבתית" שהשכבה העליונה שלה היא "חתירה תחת הסדר הקיים"</strong>.</p>
+      </div>
+
+      <div class="card">
+        <h2>משרד החינוך — אגף חברה ונוער</h2>
+        <p>קטקו-איילי שימשה כראש אגף חברה ונוער במשרד החינוך — תפקיד שנותן גישה ישירה להגדרת תכני חינוך ערכי וחברתי בבתי הספר.</p>
+        <div class="note-box">
+          תפקיד זה ממקם אותה בצומת שבין אידיאולוגיה אקדמית לבין יישום מדיניות ברמה הלאומית.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>קישורים לדשבורדים נוספים</h2>
+        <ul>
+          <li><a href="radical_michaeli.html" style="color:#cc0000;">radical_michaeli.html</a> — שותף ב-REACT וב-SPEL</li>
+          <li><a href="radical_adar_cohen.html" style="color:#cc0000;">radical_adar_cohen.html</a> — שותף ב-REACT וב-SPEL</li>
+          <li><a href="kedma_dashboard.html" style="color:#cc0000;">kedma_dashboard.html</a> — מיכאלי לימד בקדמה, מודל חינוכי מקביל</li>
+          <li><a href="kibbutzim_pedagogy_dashboard.html" style="color:#cc0000;">kibbutzim_pedagogy_dashboard.html</a> — מכללת הקיבוצים, מרכז פדגוגיה ביקורתית</li>
+          <li><a href="radicals_dashboard.html" style="color:#cc0000;">radicals_dashboard.html</a> — מפת 11 דמויות מפתח</li>
+        </ul>
+      </div>
+
+    </div><!-- /network-grid -->
+
+    <div class="card">
+      <h2>מפת קשרים — סכמה</h2>
+      <div style="font-family: monospace; font-size: 0.88em; line-height: 2; color: #333; padding: 10px 0; direction: ltr; text-align: left;">
+        Freire (1970) → "Activist Pedagogy" (2020 paper)
+                |
+        Katko-Ayali (Oranim + MoE)
+          /         |         \
+    Michaeli    Adar Cohen    REACT (2024)
+    (Kineret)   (HUJI)        (Chief Scientist $$)
+          \         |         /
+            SPEL (2025, "Dvarim")
+                |
+        → Classroom implementation
+      </div>
+    </div>
+
+  </div><!-- /network -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 5: מקורות
+       ════════════════════════════════════════ -->
+  <div id="sources" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים נלקחים ממה שד"ר קטקו-איילי עצמה כתבה או פרסמה.
+    </div>
+
+    <div class="card">
+      <h2>מקורות ראשוניים</h2>
+
+      <div class="source-item">
+        <div class="source-num">1</div>
+        <div class="source-text">
+          <strong>Katko-Ayali, K. (2020). "Practical Five-Level Model for Activist Pedagogy." ScienceDirect.</strong>
+          המקור הראשוני המרכזי — מגדיר את ה"פדגוגיה האקטיביסטית" ומקשר לפריירה. כל הציטוטים העיקריים בדף זה מגיעים ממאמר זה.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">2</div>
+        <div class="source-text">
+          <strong>REACT Report (2024) — מימון המדען הראשי, משרד החינוך</strong>
+          דוח המחקר שקיבל מימון ממשלתי. מציג את מודל חמש-השכבות ללא הפניות מפורשות לפריירה.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">3</div>
+        <div class="source-text">
+          <strong>SPEL Article (2025) — כתב-עת "דברים"</strong>
+          מאמר משותף קטקו-איילי, מיכאלי, ואדר כהן: "חינוך במשבר: תפיסה ומודל יישום חדשים".
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">4</div>
+        <div class="source-text">
+          <strong>political-pedagogy.com</strong>
+          אתר שמתעד את הרשת של מיכאלי, קטקו-איילי ואדר כהן ואת שיתופי הפעולה ביניהם.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">5</div>
+        <div class="source-text">
+          <strong>מכללת אורנים — פרופיל סגל</strong>
+          פרופיל ציבורי במכללת אורנים המפרט תפקידים, תחומי מחקר ופרסומים.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">6</div>
+        <div class="source-text">
+          <strong>פודקאסט "דמוקרטיה מתחילה בחינוך"</strong>
+          פלטפורמת "חיים משותפים" — פרסום פומבי של קטקו-איילי.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>הערת מתודולוגיה</h2>
+      <p>מסמך זה נבנה על פי עקרון "extremely factual and legal". הבחנה עקבית נשמרת בין:</p>
+      <ul>
+        <li><strong>עובדות ביוגרפיות</strong> (תואר, מוסד, תפקידים) — מבוססות על מקורות ציבוריים.</li>
+        <li><strong>ציטוטים ישירים</strong> — מפרסומים אקדמיים של קטקו-איילי עצמה.</li>
+        <li><strong>"שני הפנים"</strong> — השוואה בין שני פרסומים ציבוריים של אותה חוקרת. לא מדובר בפרשנות חיצונית אלא בהצבת הטקסטים זה לצד זה.</li>
+      </ul>
+    </div>
+
+  </div><!-- /sources -->
+
+</div><!-- /container -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

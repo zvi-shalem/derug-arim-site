@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר אדר כהן — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.card {
+    background: #fff; border-radius: 6px; padding: 24px 28px;
+    border: 1px solid #e0e0e0; margin-bottom: 20px;
+}
+.card h2 {
+    font-size: 1.1em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 2px solid #cc0000; display: inline-block;
+}
+.card h3 {
+    font-size: 0.97em; font-weight: 700; color: #1a1a2e; margin: 14px 0 6px;
+}
+.card p { color: #333; font-size: 0.93em; margin-bottom: 10px; }
+.card ul { padding-right: 20px; margin-bottom: 10px; }
+.card ul li { color: #333; font-size: 0.93em; margin-bottom: 5px; }
+
+/* ── Factual notice banner ── */
+.factual-notice {
+    background: #fff8f0; border: 1px solid #f0c070; border-right: 4px solid #e08800;
+    border-radius: 4px; padding: 14px 18px; margin-bottom: 24px;
+    font-size: 0.9em; color: #5a3e00;
+}
+.factual-notice strong { color: #8b5500; }
+
+/* ── Highlight boxes ── */
+.highlight-box {
+    background: #fff5f5; border: 1px solid #f5c0c0; border-right: 4px solid #cc0000;
+    border-radius: 4px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; color: #3a1010;
+}
+.highlight-box strong { color: #cc0000; }
+
+.info-box {
+    background: #f0f4ff; border: 1px solid #c0ccf5; border-right: 4px solid #3355cc;
+    border-radius: 4px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; color: #1a1a3a;
+}
+.info-box strong { color: #3355cc; }
+
+.note-box {
+    background: #f5f5f8; border: 1px solid #d0d0d8; border-right: 4px solid #888;
+    border-radius: 4px; padding: 12px 16px; margin: 12px 0;
+    font-size: 0.88em; color: #444;
+}
+
+/* ── Pipeline visualization ── */
+.pipeline {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: 8px; margin: 20px 0; direction: ltr;
+}
+.pipeline-step {
+    background: #fff; border: 2px solid #cc0000; border-radius: 8px;
+    padding: 12px 16px; text-align: center; min-width: 140px;
+    font-size: 0.85em;
+}
+.pipeline-step .step-title { font-weight: 700; color: #cc0000; margin-bottom: 4px; }
+.pipeline-step .step-desc { color: #555; font-size: 0.88em; }
+.pipeline-arrow { font-size: 1.5em; color: #cc0000; font-weight: 700; }
+
+/* ── Pub entry ── */
+.pub-entry {
+    border-bottom: 1px solid #eee; padding: 16px 0;
+}
+.pub-entry:last-child { border-bottom: none; }
+.pub-entry .pub-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; margin-bottom: 4px; }
+.pub-entry .pub-meta { color: #666; font-size: 0.85em; margin-bottom: 6px; }
+.pub-entry .pub-note { color: #444; font-size: 0.88em; }
+
+/* ── Person tag ── */
+.person-tag {
+    display: inline-block; background: #f5f5f8; border: 1px solid #ddd;
+    border-radius: 3px; padding: 3px 10px; font-size: 0.83em; color: #333;
+    margin: 3px 2px;
+}
+.person-tag a { color: #cc0000; text-decoration: none; }
+.person-tag a:hover { text-decoration: underline; }
+
+/* ── Network grid ── */
+.network-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+/* ── Source list ── */
+.source-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;
+}
+.source-item:last-child { border-bottom: none; }
+.source-num {
+    background: #cc0000; color: #fff; border-radius: 50%;
+    min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.78em; font-weight: 700; margin-top: 2px;
+}
+.source-text { color: #333; }
+.source-text strong { color: #1a1a2e; display: block; margin-bottom: 2px; }
+
+/* ── Tags strip ── */
+.tags-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag {
+    background: #f0f0f5; border: 1px solid #ddd; border-radius: 12px;
+    padding: 3px 11px; font-size: 0.8em; color: #444;
+}
+.tag.red { background: #fff0f0; border-color: #f5c0c0; color: #cc0000; }
+
+/* ── Quote block ── */
+.quote-block {
+    background: #fafafa; border-right: 4px solid #cc0000; padding: 16px 20px;
+    margin-bottom: 14px; border-radius: 0 6px 6px 0;
+}
+.quote-block .q-text { font-size: 0.92em; color: #333; font-style: italic; line-height: 1.8; }
+.quote-block .q-source { font-size: 0.8em; color: #888; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      ד"ר אדר כהן
+      <a href="radicals_dashboard.html">מפת הרדיקלים</a>
+      <a href="index.html">אינדקס</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="show('overview',this)">סקירה</button>
+      <button class="nav-tab" onclick="show('pipeline',this)">הצינור</button>
+      <button class="nav-tab" onclick="show('publications',this)">פרסומים</button>
+      <button class="nav-tab" onclick="show('network',this)">רשת</button>
+      <button class="nav-tab" onclick="show('sources',this)">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <h1>ד"ר אדר כהן — פרופיל מחקרי</h1>
+  <div class="subtitle">ראש חוג הכשרת מורים, האוניברסיטה העברית | לשעבר מפמ"ר אזרחות + מנהל חינוך אזרחי, משרד החינוך</div>
+  <div class="meta">CRT · Delgado & Stefancic · דיסוננס · ACRI · REACT</div>
+</div>
+
+<!-- ── Main container ── -->
+<div class="container">
+
+  <!-- ════════════════════════════════════════
+       TAB 1: סקירה
+       ════════════════════════════════════════ -->
+  <div id="overview" class="view active">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר אדר כהן עצמו כתב או פרסם. מידע ביוגרפי מבוסס על פרופילים אקדמיים ציבוריים.
+    </div>
+
+    <div class="card">
+      <h2>נתוני בסיס</h2>
+      <h3>תואר שלישי</h3>
+      <p>PhD — <strong>האוניברסיטה העברית בירושלים</strong>.</p>
+
+      <h3>תפקידים</h3>
+      <ul>
+        <li><strong>ראש חוג הכשרת מורים</strong> — האוניברסיטה העברית (נוכחי)</li>
+        <li><strong>מפמ"ר (מפקח ממונה ארצי) לחינוך אזרחי</strong> — משרד החינוך (לשעבר)</li>
+        <li><strong>מנהל המרכז לחינוך אזרחי ולחיים משותפים</strong> — משרד החינוך (לשעבר)</li>
+      </ul>
+
+      <h3>מיקוד מחקרי</h3>
+      <div class="tags-strip">
+        <span class="tag red">CRT — תורת הגזע הביקורתית</span>
+        <span class="tag red">Delgado & Stefancic</span>
+        <span class="tag">דיסוננס ככלי חינוכי</span>
+        <span class="tag">חינוך אזרחי</span>
+        <span class="tag">REACT</span>
+      </div>
+
+      <div class="highlight-box">
+        <strong>סמן רדיקלי מרכזי:</strong> מחקר CRT (תורת הגזע הביקורתית) במימון <strong>האגודה לזכויות האזרח בישראל (ACRI)</strong>. המסגרת מבוססת על Delgado & Stefancic — שמגדירים CRT כגישה ש"מתשאלת את יסודות הסדר הליברלי". השיטה: <strong>"דיסוננס"</strong> לערעור הנחות היסוד של תלמידים.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>הציטוט המכריע</h2>
+
+      <div class="quote-block">
+        <div class="q-text">"האם כל מוסלמי יפוצץ אותך?... אם 90% מהם טובים, ממה אתה מפחד?"</div>
+        <div class="q-source">כהן, 2022 — "דיסוננס ככלי חינוכי" | מימון: ACRI</div>
+      </div>
+
+      <div class="info-box">
+        <strong>מסגרת תיאורטית:</strong> הציטוט הזה ממחיש את שיטת ה"דיסוננס" של כהן — יצירת חוסר נוחות מכוון אצל תלמידים כדי לערער הנחות שהם מביאים מהבית. המסגרת התיאורטית מבוססת על CRT של Delgado & Stefancic, שמגדירה עצמה כגישה ש<strong>"מתשאלת את יסודות הסדר הליברלי, כולל תורת השוויון, הסיבתנות המשפטית, הנייטרליות של החוק ועקרונות החוקתנות"</strong>.
+      </div>
+
+      <div class="note-box">
+        <strong>הבהרה:</strong> אין כאן טענה שחינוך נגד גזענות הוא בעייתי כשלעצמו. הבעיה המתועדת היא שה-framework שכהן משתמש בו (CRT) מגדיר עצמו במפורש כגישה שמערערת על יסודות הסדר הליברלי — וזה מה שמוכנס למערכת החינוך תחת הכותרת "חשיבה ביקורתית".
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>שלוש תחנות, כיוון אחד</h2>
+      <p>אדר כהן מדגים את תבנית ה"צינור" בצורה מושלמת — <strong>כל תחנה בקריירה שלו הייתה הזדמנות להכניס CRT לשכבה נוספת של המערכת</strong>:</p>
+      <ol>
+        <li><strong>מפמ"ר אזרחות</strong> — קביעת תכני חינוך אזרחי ברמה הארצית</li>
+        <li><strong>מנהל המרכז לחינוך אזרחי</strong> — פיתוח תוכניות ושיטות הוראה</li>
+        <li><strong>ראש הכשרת מורים באוניברסיטה העברית</strong> — הכשרת הדור הבא של מורים לאזרחות</li>
+      </ol>
+      <p>בכל תחנה — הכנסת CRT למערכת.</p>
+    </div>
+
+  </div><!-- /overview -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 2: הצינור
+       ════════════════════════════════════════ -->
+  <div id="pipeline" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> הצינור המתואר מבוסס על תפקידים ציבוריים מתועדים. כל תחנה מבוססת על מינויים רשמיים של משרד החינוך או של האוניברסיטה העברית.
+    </div>
+
+    <div class="card">
+      <h2>הצינור — מפיקוח ארצי לאקדמיה</h2>
+
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="step-title">מפמ"ר אזרחות</div>
+          <div class="step-desc">פיקוח ארצי על תכני אזרחות בכל בתי הספר</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-title">מנהל חינוך אזרחי</div>
+          <div class="step-desc">פיתוח תוכניות ושיטות חינוך אזרחי</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-title">ראש הכשרת מורים</div>
+          <div class="step-desc">האוניברסיטה העברית — הכשרת דור המורים הבא</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>הנקודה המכרעת:</strong> זה לא "קשר אישם" ולא תאוריית קונספירציה. זו פשוט רשימת התפקידים שאדר כהן עצמו מפרט בפרופיל האקדמי שלו. השאלה שהמחקר שואל היא: כשאדם שהמסגרת התיאורטית שלו היא CRT (שמגדירה עצמה כ"מתשאלת את יסודות הסדר הליברלי") — מחזיק בתפקידים אלה ברצף — מה הסיכוי שהתפקידים לא שימשו להנחלת אותה מסגרת?
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>תחנה 1: מפמ"ר אזרחות</h2>
+      <p>מפמ"ר (מפקח ממונה ארצי) הוא התפקיד הבכיר ביותר בפיקוח על מקצוע ספציפי במשרד החינוך. מפמ"ר אזרחות קובע:</p>
+      <ul>
+        <li>תכני הלימוד ברמה הארצית</li>
+        <li>ספרי לימוד ומקורות מאושרים</li>
+        <li>קווים מנחים להוראה</li>
+        <li>השתלמויות מורים</li>
+      </ul>
+      <div class="info-box">
+        <strong>נקודת גישה מערכתית:</strong> מפמ"ר אזרחות הוא אחד התפקידים המשפיעים ביותר על מה שתלמידים לומדים על דמוקרטיה, זכויות, ויחסי יהודים-ערבים. גישה לתפקיד זה = גישה לעיצוב תודעת הדור הבא.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>תחנה 2: מנהל המרכז לחינוך אזרחי ולחיים משותפים</h2>
+      <p>לאחר תפקיד המפמ"ר, כהן מונה למנהל המרכז לחינוך אזרחי ולחיים משותפים — גוף שמפתח את התוכניות הקונקרטיות שמגיעות לבתי הספר.</p>
+      <p>כאן פותחו שיטות כמו <strong>"דיסוננס ככלי חינוכי"</strong> — השיטה שתועדה במאמר 2022 במימון ACRI.</p>
+    </div>
+
+    <div class="card">
+      <h2>תחנה 3: האוניברסיטה העברית — הכשרת מורים</h2>
+      <p>כיום כהן ראש חוג הכשרת מורים באוניברסיטה העברית. משמעות:</p>
+      <ul>
+        <li>כל סטודנט/ית להוראה בחוג חשוף/ה למסגרת של כהן</li>
+        <li>מורים חדשים שמסיימים את החוג יוצאים עם כלי CRT</li>
+        <li>זו התחנה שסוגרת את המעגל: <strong>מדיניות → פרקטיקה → הכשרה → עוד פרקטיקה</strong></li>
+      </ul>
+    </div>
+
+  </div><!-- /pipeline -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 3: פרסומים
+       ════════════════════════════════════════ -->
+  <div id="publications" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים נלקחים ממה שד"ר כהן עצמו כתב או פרסם.
+    </div>
+
+    <div class="card">
+      <h2>פרסומים מתועדים</h2>
+
+      <div class="pub-entry">
+        <div class="pub-title">דיסוננס ככלי חינוכי (Dissonance as an Educational Tool)</div>
+        <div class="pub-meta">2022 · מימון: ACRI (האגודה לזכויות האזרח בישראל)</div>
+        <div class="pub-note">מאמר מחקרי שמציג את שיטת ה"דיסוננס" — יצירת חוסר נוחות מכוון אצל תלמידים כדי לערער הנחות לגבי "האחר". מבוסס על CRT של Delgado & Stefancic.</div>
+        <div class="highlight-box" style="margin-top:8px;">
+          <strong>ציטוט:</strong> "האם כל מוסלמי יפוצץ אותך?... אם 90% מהם טובים, ממה אתה מפחד?"
+        </div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">REACT Report — Education in Crisis</div>
+        <div class="pub-meta">2024 · שותפים: קטקו-איילי, מיכאלי · מימון: המדען הראשי</div>
+        <div class="pub-note">דוח מחקר משותף שמציג מודל חינוכי חדש בעקבות ה-7 באוקטובר. כהן אחראי לנדבך החינוך האזרחי במודל.</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">SPEL — "חינוך במשבר: תפיסה ומודל יישום חדשים"</div>
+        <div class="pub-meta">2025 · כתב-עת "דברים" · שותפים: קטקו-איילי, מיכאלי</div>
+        <div class="pub-note">מאמר משותף שמרחיב את מודל REACT לפורמט אקדמי מפורסם.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>מסגרת CRT — מה מגדיר את הגישה</h2>
+      <p>כהן מבסס את עבודתו על Critical Race Theory כפי שמוגדרת על ידי Delgado & Stefancic. ההגדרה שלהם עצמם:</p>
+
+      <div class="quote-block">
+        <div class="q-text">"The critical race theory (CRT) movement is a collection of activists and scholars engaged in studying and transforming the relationship among race, racism, and power... Unlike traditional civil rights discourse, which stresses incrementalism and step-by-step progress, critical race theory questions the very foundations of the liberal order, including equality theory, legal reasoning, Enlightenment rationalism, and neutral principles of constitutional law."</div>
+        <div class="q-source">Delgado, R. & Stefancic, J. — "Critical Race Theory: An Introduction" (3rd ed.)</div>
+      </div>
+
+      <div class="info-box">
+        <strong>למה זה משנה:</strong> CRT מגדירה עצמה כגישה שמערערת על "יסודות הסדר הליברלי". כשזו המסגרת שמונחלת למורים דרך הכשרת מורים באוניברסיטה העברית — התלמידים בסופו של דבר מקבלים כלים ש"מתשאלים" דמוקרטיה, שוויון משפטי, ורציונליזם של הנאורות — לא כלים שבונים אותם.
+      </div>
+    </div>
+
+  </div><!-- /publications -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 4: רשת
+       ════════════════════════════════════════ -->
+  <div id="network" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> הקשרים מבוססים על שיתופי פעולה מפורסמים ועל שיוך מוסדי — כולם ציבוריים.
+    </div>
+
+    <div class="network-grid">
+
+      <div class="card">
+        <h2>שלישיית REACT</h2>
+        <p>כהן הוא חלק מצוות שלישייה שפיתח את מודל REACT:</p>
+        <ul>
+          <li><strong>אדר כהן</strong> — CRT, חינוך אזרחי, האוניברסיטה העברית</li>
+          <li><strong>קרן קטקו-איילי</strong> — פדגוגיה אקטיביסטית, מכללת אורנים</li>
+          <li><strong>ניר מיכאלי</strong> — "כן בבית ספרנו", מרכז כנרת</li>
+        </ul>
+        <div style="margin-top:10px;">
+          <span class="person-tag"><a href="radical_katko_ayali.html">→ קטקו-איילי</a></span>
+          <span class="person-tag"><a href="radical_michaeli.html">→ ניר מיכאלי</a></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>ACRI — האגודה לזכויות האזרח</h2>
+        <p>מחקר ה-CRT של כהן מומן על ידי <strong>ACRI</strong> — ארגון שמתועד בנפרד במחקר כגוף שמקדם אג'נדה פוליטית תחת כסות זכויות אדם.</p>
+        <p>ACRI הוא הגורם שתקצב את המחקר שממנו צמחה שיטת ה"דיסוננס".</p>
+        <div style="margin-top:10px;">
+          <a href="acri_dashboard.html" style="color:#cc0000; text-decoration:none; border-bottom:1px dotted #cc0000;">→ דשבורד ACRI המלא</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>האוניברסיטה העברית</h2>
+        <p>האוניברסיטה העברית בירושלים היא מהמוסדות האקדמיים היוקרתיים בישראל. כהן ראש חוג הכשרת מורים שם — תפקיד שנותן לו השפעה ישירה על הכשרת מאות מורים מדי שנה.</p>
+      </div>
+
+      <div class="card">
+        <h2>UNESCO — חוליה נוספת</h2>
+        <p>בתיקיית ה-UNESCO של מחקר צבי שלם נמצא קובץ בשם <strong>"אדר כהן.cgi"</strong> — המעיד על קשר אפשרי בין כהן לבין רשת אונסק"ו בישראל.</p>
+        <div class="note-box">
+          קשר זה דורש חקירה נוספת. הקובץ מתיקיית המחקר ולא נקרא בפירוט.
+        </div>
+        <div style="margin-top:10px;">
+          <a href="unesco_dashboard.html" style="color:#cc0000; text-decoration:none; border-bottom:1px dotted #cc0000;">→ דשבורד UNESCO</a>
+        </div>
+      </div>
+
+    </div><!-- /network-grid -->
+
+    <div class="card">
+      <h2>קישורים לדשבורדים נוספים</h2>
+      <ul>
+        <li><a href="radical_katko_ayali.html" style="color:#cc0000;">radical_katko_ayali.html</a> — שותפה ב-REACT וב-SPEL</li>
+        <li><a href="radical_michaeli.html" style="color:#cc0000;">radical_michaeli.html</a> — שותף ב-REACT וב-SPEL</li>
+        <li><a href="acri_dashboard.html" style="color:#cc0000;">acri_dashboard.html</a> — מימון מחקר CRT</li>
+        <li><a href="unesco_dashboard.html" style="color:#cc0000;">unesco_dashboard.html</a> — חוליה מוסדית</li>
+        <li><a href="radicals_dashboard.html" style="color:#cc0000;">radicals_dashboard.html</a> — מפת 11 דמויות מפתח</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>מפת קשרים — סכמה</h2>
+      <div style="font-family: monospace; font-size: 0.88em; line-height: 2; color: #333; padding: 10px 0; direction: ltr; text-align: left;">
+        CRT (Delgado & Stefancic)
+                |
+        Adar Cohen (PhD HUJI)
+         /        |        \
+   MoE/Mapar   MoE/Center   HUJI (Teacher Ed.)
+   (policy)    (programs)    (training)
+         \        |        /
+        ACRI $$  REACT(2024)  SPEL(2025)
+                  |     |
+           Katko-Ayali  Michaeli
+      </div>
+    </div>
+
+  </div><!-- /network -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 5: מקורות
+       ════════════════════════════════════════ -->
+  <div id="sources" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים נלקחים ממה שד"ר כהן עצמו כתב או פרסם.
+    </div>
+
+    <div class="card">
+      <h2>מקורות ראשוניים</h2>
+
+      <div class="source-item">
+        <div class="source-num">1</div>
+        <div class="source-text">
+          <strong>Cohen, A. (2022). "Dissonance as an Educational Tool." מימון: ACRI.</strong>
+          המקור הראשוני המרכזי — מגדיר את שיטת הדיסוננס ומקשר ל-CRT של Delgado & Stefancic.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">2</div>
+        <div class="source-text">
+          <strong>Delgado, R. & Stefancic, J. — "Critical Race Theory: An Introduction" (3rd ed.)</strong>
+          המסגרת התיאורטית שכהן מבסס עליה את עבודתו. ההגדרה של CRT מגיעה מכאן.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">3</div>
+        <div class="source-text">
+          <strong>REACT Report (2024) — המדען הראשי, משרד החינוך</strong>
+          דוח מחקר משותף כהן-קטקו-איילי-מיכאלי. מימון ממשלתי.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">4</div>
+        <div class="source-text">
+          <strong>SPEL Article (2025) — כתב-עת "דברים"</strong>
+          מאמר משותף: "חינוך במשבר: תפיסה ומודל יישום חדשים".
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">5</div>
+        <div class="source-text">
+          <strong>האוניברסיטה העברית — פרופיל סגל</strong>
+          פרופיל ציבורי המפרט תפקידים, תחומי מחקר ופרסומים.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">6</div>
+        <div class="source-text">
+          <strong>political-pedagogy.com</strong>
+          מתעד את הרשת כהן-קטקו-איילי-מיכאלי ושיתופי הפעולה ביניהם.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">7</div>
+        <div class="source-text">
+          <strong>תיקיית מחקר: UNESCO/אדר כהן.cgi</strong>
+          קובץ בתיקיית המחקר של צבי שלם. לא נקרא בפירוט — דורש חקירה נוספת.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>הערת מתודולוגיה</h2>
+      <p>מסמך זה נבנה על פי עקרון "extremely factual and legal". הבחנה עקבית:</p>
+      <ul>
+        <li><strong>עובדות ביוגרפיות</strong> (תואר, מוסד, תפקידים) — מקורות ציבוריים.</li>
+        <li><strong>ציטוטים ישירים</strong> — מפרסומי כהן ומ-CRT של Delgado & Stefancic.</li>
+        <li><strong>"הצינור"</strong> — רשימת תפקידים מתועדים, לא פרשנות. השאלה שנשאלת היא לגיטימית: מה קורה כשאדם עם framework שמערער על "יסודות הסדר הליברלי" מחזיק בתפקידי עיצוב מערכת?</li>
+      </ul>
+    </div>
+
+  </div><!-- /sources -->
+
+</div><!-- /container -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

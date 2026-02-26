@@ -562,14 +562,14 @@
 
         /* ── Research Background tab ── */
         .bg-hero {
-            background: linear-gradient(135deg, #2c1810 0%, #4a2520 40%, #1a1a2e 100%);
-            color: #fff; border-radius: 12px; padding: 32px 30px;
+            background: #fff; color: #222; border-radius: 10px; padding: 28px 30px;
             margin: 0 auto 28px; max-width: 900px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            border: 1px solid #ddd; border-right: 5px solid #cc0000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
-        .bg-hero h2 { font-size: 1.5em; margin-bottom: 10px; color: #fff; }
-        .bg-hero p { color: #d0c8c0; font-size: 1em; line-height: 1.7; }
-        .bg-hero strong { color: #ff8800; }
+        .bg-hero h2 { font-size: 1.4em; margin-bottom: 10px; color: #1a1a2e; }
+        .bg-hero p { color: #444; font-size: 0.95em; line-height: 1.7; }
+        .bg-hero strong { color: #cc0000; }
 
         .bg-section {
             background: #fff; border: 1px solid #ddd; border-radius: 8px;
@@ -874,8 +874,9 @@
         <div class="nav-inner">
             <span class="nav-title">דירוג ערים</span>
             <div class="nav-tabs">
+                <div class="nav-tab" onclick="switchTab('ranking',this)">דירוג ראיות</div>
+                <div class="nav-tab active" onclick="switchTab('softpower',this)">כלי החדירה</div>
                 <div class="nav-tab" onclick="switchTab('background',this)">רקע מחקרי</div>
-                <div class="nav-tab active" onclick="switchTab('ranking',this)">דירוג ראיות</div>
                 <div class="nav-tab" onclick="switchTab('education',this)">תוכניות חינוך</div>
                 <div class="nav-tab" onclick="switchTab('protocols',this)">פרוטוקולים</div>
                 <div class="nav-tab" onclick="switchTab('redflags',this)">דגלים אדומים</div>
@@ -885,6 +886,326 @@
     </nav>
 
     <div class="main-content">
+
+    <!-- ═══ TAB: SOFT POWER MECHANISMS ═══ -->
+    <div id="tab-softpower" class="tab-content active">
+
+        <div class="bg-hero">
+            <h2>לא ימין מול שמאל — מרכז מול שוליים</h2>
+            <p>
+                ימין ושמאל חלוקים על קצב השינוי — אבל <strong>שניהם ציונים.</strong>
+                זהו ויכוח בריא. האתר הזה לא עוסק בו.
+            </p>
+            <p>
+                האתר עוסק בדמויות שלא רוצות לשכנע — אלא <strong>לחטוף את השיח</strong>.
+                למסגר את השאלה כך שרק תשובה אחת אפשרית. להשתמש במוסדות הדמוקרטיה כדי לשנות אותה מבפנים.
+                <strong>לפרק את הקונצנזוס הציוני דרך מגוון דרכים, כולל דרך מערכת החינוך.</strong>
+            </p>
+        </div>
+
+        <!-- Center vs Radicals distinction -->
+        <div class="bg-section" style="background:#fff; border:1px solid #ddd; border-radius:8px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                <div style="padding:16px; background:#f0f8f0; border-radius:6px;">
+                    <h3 style="color:#2e7d32; margin-bottom:10px; font-size:1em;">שיח בריא (מרכז-ימין ↔ מרכז-שמאל)</h3>
+                    <ul style="font-size:0.88em; color:#444; padding-right:16px;">
+                        <li>משכנעים דרך טיעון</li>
+                        <li>אומרים מה שמתכוונים</li>
+                        <li>מכבדים את המחלוקת</li>
+                        <li><strong>ציונים</strong> — מסכימים על המסגרת הבסיסית</li>
+                        <li>שקיפות מלאה</li>
+                        <li>המטרה: לקיים שיח פורה</li>
+                    </ul>
+                </div>
+                <div style="padding:16px; background:#fff5f5; border-radius:6px;">
+                    <h3 style="color:#cc0000; margin-bottom:10px; font-size:1em;">חטיפת שיח (השוליים הרדיקליים)</h3>
+                    <ul style="font-size:0.88em; color:#444; padding-right:16px;">
+                        <li>"לנסח את הבעיה כך שרק תשובה אחת אפשרית" — אלקיים</li>
+                        <li>"פדגוגיה אקטיביסטית" ← ריבראנדינג ל"חשיבה ביקורתית"</li>
+                        <li>"הנושא אף פעם לא הנושא" — אלינסקי</li>
+                        <li><strong>אנטי-ציונות:</strong> "מערכת בעלת אופי אידיאולוגי-ציוני" = שלב שצריך "להתפתח ממנו"</li>
+                        <li>"אני אתן טיעונים בשפתם"</li>
+                        <li>המטרה: "שינוי של המבנה החברתי כולו" — גור-זיו</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="font-size:0.9em; color:#555; margin-top:16px; text-align:center;">
+                <strong>הבעיה:</strong> הרדיקלים האלה אינם בשוליים. הם בתפקידי מפתח — מפמ"רים, ראשי הכשרת מורים, ראשי מרכזים אקדמיים, חברי ועדות קונצנזוס.
+                <br>להלן שש הטכניקות שזיהינו, כולן מתועדות <strong>בציטוטים שלהם עצמם</strong>.
+            </p>
+        </div>
+
+        <h2 style="color:#cc0000; margin:24px 0 16px; font-size:1.1em; text-align:center;">הרעיונות החתרניים — בציטוטים שלהם עצמם</h2>
+        <p style="text-align:center; font-size:0.88em; color:#666; margin-bottom:16px;">לחצו לפירוט</p>
+
+        <style>
+            .idea-card { max-width:900px; margin:0 auto 8px; background:#fff; border:1px solid #e0e0e0; border-radius:6px; border-right:4px solid #cc0000; }
+            .idea-card summary { padding:14px 18px; cursor:pointer; display:flex; align-items:center; gap:12px; list-style:none; font-size:0.95em; }
+            .idea-card summary::-webkit-details-marker { display:none; }
+            .idea-card summary::before { content:''; width:8px; height:8px; border-left:2px solid #cc0000; border-bottom:2px solid #cc0000; transform:rotate(-45deg); transition:transform 0.2s; flex-shrink:0; }
+            .idea-card[open] summary::before { transform:rotate(-225deg); }
+            .idea-card summary:hover { background:#fafafa; }
+            .idea-num { background:#cc0000; color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8em; font-weight:700; flex-shrink:0; }
+            .idea-tag { margin-right:auto; background:#f0f0f0; padding:2px 8px; border-radius:10px; font-size:0.75em; color:#888; }
+            .idea-detail { padding:0 18px 16px; border-top:1px solid #eee; }
+            .idea-detail .iq { background:#fafafa; border-right:3px solid #cc0000; padding:12px 16px; margin:12px 0 8px; border-radius:0 4px 4px 0; font-style:italic; font-size:0.9em; color:#333; line-height:1.7; }
+            .idea-detail .isrc { font-size:0.8em; color:#888; margin-bottom:10px; }
+            .idea-detail .iecho { background:#fff8f0; border:1px dashed #e08800; padding:8px 12px; border-radius:4px; font-size:0.82em; margin-top:8px; }
+        </style>
+
+        <details class="idea-card">
+            <summary>
+                <span class="idea-num">1</span>
+                <strong>"לנסח את הבעיה כך שרק תשובה אחת אפשרית"</strong>
+                <span class="idea-tag">שפה</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"קודם כל להבין איך הבן אדם האחר חושב על הסוגיה, ואז מתוך ההסתכלות שלו, <strong>לנסח לו את הבעיה באופן שהתשובה האפשרית היחידה</strong> לשאלה שאני שואל אותו, היא לעשות את הדבר שאני רוצה שהוא יעשה."</div>
+                <div class="isrc">חגי אלקיים שלם — סדנת "הנדסת תודעה", ארגון מחזקים | ממומן ע"י הקרן החדשה לישראל ($315,256)
+                    <a href="https://www.gnostocracy.com/?quote=534" style="color:#cc0000;" target="_blank">מקור + וידאו</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">מהדהד:</strong> Saul Alinsky, <em>Rules for Radicals</em> (1971) — "once you organize people around something as commonly agreed upon as pollution, then an organized people is on the move."
+                    <a href="research/radical_katko_ayali.html" style="color:#cc0000;">→ קטקו-איילי: שני פנים</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card">
+            <summary>
+                <span class="idea-num">2</span>
+                <strong>"שינוי של המבנה החברתי כולו"</strong>
+                <span class="idea-tag">מוסדות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"שאלת שינוי דפוסי הלמידה בכיתה מחייבת <strong>שינוי מערכתי, דהיינו שינוי של המבנה החברתי כולו</strong>"</div>
+                <div class="isrc">חגית גור-זיו — כנס פדגוגיה ביקורתית, אוניברסיטת חיפה, 2014 | ראש המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים
+                    <a href="research/radical_gurziv.html" style="color:#cc0000;">→ פרופיל</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">מהדהד:</strong> Paulo Freire, <em>Pedagogy of the Oppressed</em> — חינוך כמנוף לשינוי מערכתי, לא כלימוד.
+                    <a href="research/pipeline_institutional.html" style="color:#cc0000;">→ מאונסק"ו לכיתה</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#1565c0;">
+            <summary>
+                <span class="idea-num" style="background:#1565c0;">3</span>
+                <strong>אנטי-ציונות — "מערכת בעלת אופי אידיאולוגי-ציוני" = שלב שצריך "להתפתח ממנו"</strong>
+                <span class="idea-tag">מוסדות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"ממערכת בעלת אופי <strong>אידיאולוגי-ציוני</strong> מובהק (Ichilov, 2013), דרך תקופה ארוכה של גישה ממלכתית-פורמלית... ועד הכרה עכשווית בחשיבות טיפוח <strong>החשיבה הביקורתית</strong> והמעורבות האזרחית הפעילה."</div>
+                <div class="isrc">מיכאלי, קטקו-איילי וכהן — דוח מחקר במימון <strong>אודט סלע, המדענית הראשית</strong> של משרד החינוך (2024)
+                    <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank" style="color:#cc0000;">→ PDF</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">פענוח:</strong> שלושה שלבים: 1) חינוך ציוני → 2) ניטרלי → 3) "חשיבה ביקורתית" (= אקטיביזם פוליטי). הציונות ממוקמת כ"אידיאולוגיה" שצריך "להתפתח" ממנה.</div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#7b1fa2;">
+            <summary>
+                <span class="idea-num" style="background:#7b1fa2;">4</span>
+                <strong>פוליטיקת זהויות — ייבוא CRT אמריקאי</strong>
+                <span class="idea-tag">שבטיות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq" style="direction:ltr; text-align:left;">"Critical race theory questions the very foundations of the liberal order, including equality theory, legal reasoning, Enlightenment rationalism, and neutral principles of constitutional law."</div>
+                <div class="isrc">Delgado & Stefancic — <em>Critical Race Theory: An Introduction</em> | מסגרת המחקר של אדר כהן (האוניברסיטה העברית)
+                    <a href="research/radical_adar_cohen.html" style="color:#cc0000;">→ פרופיל</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">בפועל:</strong> קורסים ל"חינוך נגד גזענות" (פסג"ה), סדנאות מיניות בכיתה ה', הכשרות "מדע קווירי" למורים.</div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#e65100;">
+            <summary>
+                <span class="idea-num" style="background:#e65100;">5</span>
+                <strong>"אני אתן טיעונים בשפתם"</strong>
+                <span class="idea-tag">זהות</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"אני אתן טיעונים בשפתם" — הסבירה כיצד לשכנע הורים דתיים לקבל חינוך מגדרי באמצעות ניסוח בשפה שלהם</div>
+                <div class="isrc">ירדן מרום — הרצאת "מדע קווירי" למורים, 5.8.2024 | תמלול זום
+                    <a href="research/research_chat.html" style="color:#cc0000;">→ לוח מחקר</a>
+                </div>
+                <div class="iecho"><strong style="color:#e08800;">בבתי הספר:</strong> סדנאות מיניות בכיתות א'-ה', "אני גז" בכיתה א', קורסי "חינוך גאה" כהשתלמות.
+                    <a href="research/sei_network_dashboard.html" style="color:#cc0000;">→ רשת SEI</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#2e7d32;">
+            <summary>
+                <span class="idea-num" style="background:#2e7d32;">6</span>
+                <strong>מימון זר מכוון תוכניות חינוך</strong>
+                <span class="idea-tag">כסף</span>
+            </summary>
+            <div class="idea-detail">
+                <p style="font-size:0.9em; color:#444; margin:12px 0;">NIF → מחזקים $315K (הנדסת תודעה) | NIF → ACRI $1M/שנה (מימון מחקר CRT) | יד הנדיב → אבני ראשה → CASEL</p>
+                <div class="iecho"><strong style="color:#e08800;">התבנית:</strong> קרן זרה → ארגון ישראלי → תוכנית בבית ספר → הכשרת מורים → הכיתה.
+                    <a href="research/nif_education_dashboard.html" style="color:#cc0000;">→ רשת מימון NIF</a>
+                </div>
+            </div>
+        </details>
+
+        <details class="idea-card" style="border-right-color:#555;">
+            <summary>
+                <span class="idea-num" style="background:#555;">7</span>
+                <strong>"גם המורים סוכני שינוי"</strong>
+                <span class="idea-tag">הסמכה</span>
+            </summary>
+            <div class="idea-detail">
+                <div class="iq">"למורים תפקיד חשוב בתוכניות SEL, שכן הם <strong>סוכני השינוי</strong> המתווכים בין התוכנית לתלמידים"</div>
+                <div class="isrc">מכון מח"ר (portal.macam.ac.il) — אתר רשמי של משרד החינוך</div>
+                <div class="iecho"><strong style="color:#e08800;">התבנית:</strong> השתלמות מוכרת לגמולי שכר ← מורה חייב לעבור תהליך ← התהליך מלמד CRT ← המורה מעביר לכיתה.
+                    <a href="research/avney_rosha_dashboard.html" style="color:#cc0000;">→ אבני ראשה + CASEL</a> |
+                    <a href="research/kibbutzim_pedagogy_dashboard.html" style="color:#cc0000;">→ מכללת הקיבוצים</a>
+                </div>
+            </div>
+        </details>
+
+        <!-- ═══ LEVEL SCALE ═══ -->
+        <h2 style="color:#1a1a2e; margin:32px 0 16px; font-size:1.1em; text-align:center;">סולם לכידה מוסדית — 7 רמות</h2>
+
+        <style>
+            .level-scale { max-width:900px; margin:0 auto 24px; background:#fff; border:1px solid #ddd; border-radius:10px; padding:20px 24px; }
+            .ls-grid { display:grid; grid-template-columns:80px 1fr auto; gap:8px 16px; align-items:center; }
+            .ls-row { display:contents; }
+            .ls-name { font-weight:700; font-size:0.95em; }
+            .ls-stars { display:flex; gap:3px; direction:ltr; align-items:center; }
+            .sp-city-stars { display:flex; gap:3px; direction:ltr; justify-content:flex-end; margin:6px 0; }
+            .ls-desc { font-size:0.82em; color:#666; }
+            .ls-divider { grid-column:1/-1; border-top:1px solid #eee; margin:4px 0; }
+            .star-fill { }
+            .star-empty { opacity:0.25; }
+            .sp-city-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; max-width:900px; margin:0 auto 30px; }
+            .sp-city-card { background:#fff; border:1px solid #ddd; border-radius:10px; padding:18px; cursor:pointer; transition:all 0.2s; text-decoration:none; color:inherit; display:block; }
+            .sp-city-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.1); transform:translateY(-2px); border-color:#cc0000; text-decoration:none; }
+            .sp-city-name { font-size:1.15em; font-weight:700; color:#1a1a2e; margin-bottom:4px; }
+            .sp-city-stars { font-size:1.3em; letter-spacing:2px; margin:6px 0; direction:ltr; text-align:right; }
+            .sp-level-badge { font-size:0.82em; font-weight:600; padding:3px 10px; border-radius:12px; display:inline-block; color:#fff; }
+            .sp-city-just { font-size:0.82em; color:#666; margin-top:8px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+            .sp-city-meta { display:flex; gap:12px; margin-top:8px; font-size:0.78em; color:#888; flex-wrap:wrap; }
+        </style>
+
+        <script>
+            // Star SVG generators
+            function starDavid(){ return '<svg viewBox="0 0 24 24" width="20" height="20"><polygon points="12,2 3.5,17 20.5,17" fill="none" stroke="#1a5fb4" stroke-width="1.5" stroke-linejoin="round"/><polygon points="12,22 3.5,7 20.5,7" fill="none" stroke="#1a5fb4" stroke-width="1.5" stroke-linejoin="round"/></svg>'; }
+            function starRed(){ return '<svg viewBox="0 0 24 24" width="20" height="20"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#cc0000" stroke="#cc0000" stroke-width="0.5"/></svg>'; }
+            function makeStars(red, blue){ let s=''; for(let i=0;i<red;i++) s+=starRed(); for(let i=0;i<blue;i++) s+=starDavid(); return s; }
+        </script>
+
+        <div class="level-scale">
+            <p style="font-size:0.82em; color:#888; margin-bottom:14px; text-align:center;">
+                <span id="legend-david" style="display:inline-block;vertical-align:middle;"></span> = קונצנזוס ציוני שמור &nbsp;&nbsp;
+                <span id="legend-red" style="display:inline-block;vertical-align:middle;"></span> = חדירה חתרנית
+            </p>
+            <div class="ls-grid">
+                <div class="ls-name" style="color:#44aa44;">נקי</div>
+                <div class="ls-desc">אין ממצאים משמעותיים של נוכחות אידיאולוגית</div>
+                <div class="ls-stars" id="ls-1"></div>
+                <div class="ls-divider"></div>
+
+                <div class="ls-name" style="color:#88aa44;">שפה</div>
+                <div class="ls-desc">שפה פרוגרסיבית מזוהה בפרוטוקולים או תוכניות</div>
+                <div class="ls-stars" id="ls-2"></div>
+                <div class="ls-divider"></div>
+
+                <div class="ls-name" style="color:#ccaa00;">סמלי</div>
+                <div class="ls-desc">הצהרות סמליות, מינוי יועצים, תוכניות מפוזרות</div>
+                <div class="ls-stars" id="ls-3"></div>
+                <div class="ls-divider"></div>
+
+                <div class="ls-name" style="color:#ff8800;">תוכניות</div>
+                <div class="ls-desc">תוכניות אידיאולוגיות פעילות בבתי ספר</div>
+                <div class="ls-stars" id="ls-4"></div>
+                <div class="ls-divider"></div>
+
+                <div class="ls-name" style="color:#dd4400;">מבני</div>
+                <div class="ls-desc">שינויים מבניים: ועדות ייעודיות, הסכמים, קריטריונים מחייבים</div>
+                <div class="ls-stars" id="ls-5"></div>
+                <div class="ls-divider"></div>
+
+                <div class="ls-name" style="color:#cc0000;">תקציבי</div>
+                <div class="ls-desc">שורות תקציב ייעודיות לארגונים אידיאולוגיים</div>
+                <div class="ls-stars" id="ls-6"></div>
+                <div class="ls-divider"></div>
+
+                <div class="ls-name" style="color:#8b0000;">מוסדי שלם</div>
+                <div class="ls-desc">לכידה מוסדית מלאה: ועדות + תקציב + מדיניות + אכיפה</div>
+                <div class="ls-stars" id="ls-7"></div>
+            </div>
+        </div>
+        <script>
+            // Render legend stars
+            document.getElementById('legend-david').innerHTML = starDavid();
+            document.getElementById('legend-red').innerHTML = starRed();
+            for(let i=1;i<=7;i++){
+                const el = document.getElementById('ls-'+i);
+                if(el) el.innerHTML = makeStars(i===1?0:i, i===1?7:7-i);
+            }
+        </script>
+
+        <!-- ═══ CITY CARDS ═══ -->
+        <div class="sp-city-grid">
+            <a class="sp-city-card" href="index_v2.html">
+                <div class="sp-city-name">חיפה</div>
+                <div class="sp-city-stars" data-red="7" data-blue="0"></div>
+                <span class="sp-level-badge" style="background:#8b0000;">רמה 7 — מוסדי שלם</span>
+                <div class="sp-city-just">ועדה סטטוטורית ל"שוויון מגדרי" עם סמכות מדיניות, קריטריוני מימון הדורשים קידום "שוויון מגדרי", יועצת ראש עיר ל"שוויון מגדרי".</div>
+                <div class="sp-city-meta"><span>5 החלטות מועצה</span><span>11 תוכניות</span><span>93 פריסות בבתי ספר</span></div>
+            </a>
+            <a class="sp-city-card" href="index_v2.html">
+                <div class="sp-city-name">הרצליה</div>
+                <div class="sp-city-stars" data-red="6" data-blue="1"></div>
+                <span class="sp-level-badge" style="background:#cc0000;">רמה 6 — תקציבי</span>
+                <div class="sp-city-just">קטגוריית תקציב סטטוטורית "זהות יהודית דמוקרטית" מאז 2022. רק 2 ארגונים מקבלים מימון: יסודות לצמיחה דרור (196K ₪) והמחנות.</div>
+                <div class="sp-city-meta"><span>7 החלטות מועצה</span><span>8 תוכניות</span><span>ביצור דצמבר 2022</span></div>
+            </a>
+            <a class="sp-city-card" href="index_v2.html">
+                <div class="sp-city-name">גבעתיים</div>
+                <div class="sp-city-stars" data-red="5" data-blue="2"></div>
+                <span class="sp-level-badge" style="background:#dd4400;">רמה 5 — מבני</span>
+                <div class="sp-city-just">5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022 — ביצור מוסדי מונע-הגנה. ועדת קהילה להט"בית, שינויים מבניים מחייבים.</div>
+                <div class="sp-city-meta"><span>5 החלטות מועצה</span><span>4 תוכניות</span><span>ביצור דצמבר 2022</span></div>
+            </a>
+            <a class="sp-city-card" href="index_v2.html">
+                <div class="sp-city-name">רעננה</div>
+                <div class="sp-city-stars" data-red="5" data-blue="2"></div>
+                <span class="sp-level-badge" style="background:#dd4400;">רמה 5 — מבני</span>
+                <div class="sp-city-just">מימון עירוני ישיר לארגון חושן — עוקף קיצוץ 85% של משרד החינוך. קשר NIF→חושן→עירייה.</div>
+                <div class="sp-city-meta"><span>5 החלטות מועצה</span><span>ביצור דצמבר 2022</span></div>
+            </a>
+            <a class="sp-city-card" href="index_v2.html">
+                <div class="sp-city-name">ירושלים</div>
+                <div class="sp-city-stars" data-red="4" data-blue="3"></div>
+                <span class="sp-level-badge" style="background:#ff8800;">רמה 4 — תוכניות</span>
+                <div class="sp-city-just">שני בתי ספר עם פדגוגיה ביקורתית מובנית: ליד"ה ("עתודה הומניסטית" — ערעור זהות) וקדמה (פריירה). מיכאלי: "אני יכול לארגן הפיכה קומוניסטית בכיתה".</div>
+                <div class="sp-city-meta"><span>2 בתי ספר קריטיים</span></div>
+            </a>
+            <a class="sp-city-card" href="index_v2.html">
+                <div class="sp-city-name">תל אביב-יפו</div>
+                <div class="sp-city-stars" data-red="4" data-blue="3"></div>
+                <span class="sp-level-badge" style="background:#ff8800;">רמה 4 — תוכניות</span>
+                <div class="sp-city-just">ועדת פלורליזם עירונית + ארגון בינה כנותן שירותים. 171 פריסות מסומנות מ-1,411 כוללות.</div>
+                <div class="sp-city-meta"><span>171 פריסות מסומנות</span></div>
+            </a>
+        </div>
+
+        <script>
+            // Render city card stars
+            document.querySelectorAll('.sp-city-stars[data-red]').forEach(el => {
+                el.innerHTML = makeStars(+el.dataset.red, +el.dataset.blue);
+            });
+        </script>
+
+        <div style="text-align:center; margin-bottom:20px;">
+            <a href="index_v2.html" style="display:inline-block; background:#cc0000; color:#fff; padding:12px 28px; border-radius:6px; font-weight:700; font-size:0.95em; text-decoration:none;">
+                כל הערים + פירוט מלא ←
+            </a>
+        </div>
+
+    </div><!-- /tab-softpower -->
 
     <!-- ═══ TAB: RESEARCH BACKGROUND ═══ -->
     <div id="tab-background" class="tab-content">
@@ -1250,7 +1571,7 @@
     </div>
 
     <!-- ═══ TAB: RANKING (default) ═══ -->
-    <div id="tab-ranking" class="tab-content active">
+    <div id="tab-ranking" class="tab-content">
         <h1>דירוג ערים — ציון ראיות</h1>
         <p class="subtitle">כל נקודה בציון עוקבת לראיה ספציפית | לחצו על עיר לפרטים</p>
 

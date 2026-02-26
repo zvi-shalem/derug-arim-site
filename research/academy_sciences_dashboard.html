@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>האקדמיה הלאומית הישראלית למדעים — תפקיד ב-SEL ובעיצוב חינוך</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+}
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #333; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+
+/* ── Blockquote ── */
+blockquote {
+    border-right: 3px solid #cc0000; padding: 12px 18px; margin: 14px 0;
+    background: #fff8f8; font-style: italic; color: #333; font-size: 0.92em; line-height: 1.8;
+}
+blockquote.secondary { border-right-color: #ddd; background: #f9f9f9; color: #444; }
+blockquote .source { font-style: normal; color: #888; font-size: 0.82em; margin-top: 6px; }
+
+/* ── Pipeline ── */
+.ring-layer {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+    border-right: 4px solid #ccc;
+}
+.ring-layer.core { border-right-color: #cc0000; }
+.ring-layer.ring1 { border-right-color: #e65100; }
+.ring-layer.ring2 { border-right-color: #f9a825; }
+.ring-layer.ring3 { border-right-color: #558b2f; }
+.ring-label { font-weight: 700; font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+.ring-items { font-size: 0.88em; color: #555; }
+.ring-items ul { padding-right: 20px; margin: 4px 0; }
+.ring-items li { margin-bottom: 4px; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #f0f0f5; color: #333; padding: 8px 12px; text-align: right; border-bottom: 2px solid #ddd; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover td { background: #fafafa; }
+
+/* ── Highlight box ── */
+.highlight-box {
+    background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px;
+    padding: 20px; margin-bottom: 20px;
+}
+.highlight-box h3 { color: #cc0000; margin-bottom: 10px; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Footer ── */
+footer {
+    background: #fff; color: #888; padding: 20px;
+    text-align: center; font-size: 0.82em; border-top: 1px solid #eee;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>האקדמיה למדעים — SEL וחינוך</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('sel')">מסמך ה-SEL</button>
+            <button class="nav-tab" onclick="navigate('yozma')">היוזמה + יד הנדיב</button>
+            <button class="nav-tab" onclick="navigate('network')">רשת קשרים</button>
+            <button class="nav-tab" onclick="navigate('sources')">מקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>האקדמיה הלאומית הישראלית למדעים</h1>
+    <div class="subtitle">הגוף שהמליץ למשרד החינוך לאמץ SEL כ"דרך חיים מערכתית" — תוך הודאה שאין בסיס אמפירי</div>
+    <div class="meta">נשיא: פרופ' דוד הראל (מכון ויצמן) | הוקמה: 1961 | תקציב: ~13-15 מיליון ש"ח</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: OVERVIEW                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view active" id="view-overview">
+
+<div class="grid-3">
+    <div class="metric">
+        <div class="label">שנת הקמה</div>
+        <div class="value">1961</div>
+        <div class="note">חוק האקדמיה הלאומית למדעים</div>
+    </div>
+    <div class="metric">
+        <div class="label">חברים</div>
+        <div class="value">~120</div>
+        <div class="note">מהאקדמיה הישראלית</div>
+    </div>
+    <div class="metric">
+        <div class="label">נשיא נוכחי</div>
+        <div class="value">הראל</div>
+        <div class="note">פרופ' דוד הראל, מכון ויצמן (מ-2021)</div>
+    </div>
+</div>
+
+<div class="highlight-box">
+    <h3>למה האקדמיה חשובה בהקשר הזה</h3>
+    <p style="font-size:0.92em;color:#333;line-height:1.8">
+        האקדמיה הלאומית הישראלית למדעים היא הגוף המדעי הבכיר ביותר בישראל.
+        כאשר משרד החינוך מבקש "חוות דעת מדעית", האקדמיה היא הכתובת.
+        ב-2017 האקדמיה פרסמה מסמך המלצות בנושא <strong>למידה רגשית חברתית (SEL)</strong> שהפך למסמך ההצדקה המרכזי של משרד החינוך ליישום SEL בבתי הספר.
+    </p>
+    <p style="font-size:0.92em;color:#333;line-height:1.8">
+        המסמך עצמו מודה שאין בסיס אמפירי מוצק, ש-136 מסגרות מושגיות שונות קיימות בתחום, ושהעמימות עשויה לשמש אינטרסים שונים.
+        למרות זאת — המסקנה היא לאמץ SEL כ"דרך חיים מערכתית" בכל רובדי משרד החינוך.
+        המסמך גם מציע "דמות בוגר" ברוח "דמוקרטיה ביקורתית" — מונח מתוך זרם התיאוריה הביקורתית.
+    </p>
+</div>
+
+<div class="section">
+    <h2>מה האקדמיה</h2>
+    <p>
+        האקדמיה הלאומית הישראלית למדעים הוקמה בחוק ב-1961. היא הגוף המייעץ העליון למדינת ישראל בנושאי מדע.
+        האקדמיה מפעילה ועדות קונסנזוס בנושאים שונים — מסמכים שנחשבים "הזרוע המדעית" של הממשלה.
+    </p>
+    <p>
+        בתחום החינוך, האקדמיה הפכה לכתובת המרכזית דרך שני מנגנונים:
+    </p>
+    <ul>
+        <li><strong>ועדות קונסנזוס</strong> — לרבות ועדת SEL (2017) שהמלצותיה הפכו למדיניות</li>
+        <li><strong>היוזמה — מרכז ידע לחינוך</strong> (2003) — שותפות עם משרד החינוך ויד הנדיב</li>
+    </ul>
+    <p>
+        המזכירות הפדגוגית של משרד החינוך — הגוף שניר מיכאלי עמד בראשו — היא ה"לקוח" המרכזי של פלט האקדמיה בתחום החינוך.
+    </p>
+</div>
+
+<div class="section">
+    <h2>הסתירה המרכזית</h2>
+    <p>
+        מסמך האקדמיה עצמו מתעד את הבעיות. אך המסקנה הסופית מתעלמת מהן:
+    </p>
+    <div class="grid-2">
+        <div>
+            <h3>מה המסמך מודה</h3>
+            <ul>
+                <li>"אין תמימות דעים באשר להגדרתו של המושג למידה רגשית-חברתית"</li>
+                <li>זוהו <strong>136 מסגרות מושגיות שונות</strong> מ-20 תחומים</li>
+                <li>יותר מ-<strong>1,300 מיומנויות שונות</strong></li>
+                <li>"אין מידע אמפירי ישיר הקושר בין התנהגויות ספציפיות [...] לבין התוצאות"</li>
+                <li>העמימות עשויה "לשמש לקידום מגוון אינטרסים ואג'נדות"</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מה המסמך ממליץ</h3>
+            <ul>
+                <li>לאמץ SEL כ<strong>"דרך חיים מערכתית"</strong></li>
+                <li>לשלב בכל הגורמים: שפ"י, מזכירות פדגוגית, אגף אסטרטגיה, אגפי גיל, אגף חברה ונוער, מדען ראשי</li>
+                <li>"דמות בוגר" ברוח <strong>"דמוקרטיה ביקורתית"</strong></li>
+                <li>להסביר להורים ש-SEL "מסייע לילד להתמודד עם אתגרים לימודיים"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: SEL                              -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-sel">
+
+<div class="section">
+    <h2>מסמך ההמלצות של האקדמיה בנושא SEL</h2>
+    <p>
+        ב-2017 פרסמה האקדמיה מסמך המלצות בנושא "למידה רגשית-חברתית" (SEL) שהוזמן על ידי משרד החינוך.
+        המסמך הפך לבסיס ההצדקה המרכזי ליישום SEL בבתי הספר בישראל.
+    </p>
+    <p class="src"><a href="https://education.academy.ac.il/SystemFiles/23594.pdf" target="_blank">מסמך מלא (PDF) — אתר האקדמיה</a></p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 1: "דמוקרטיה ביקורתית" כדמות בוגר</h2>
+    <blockquote>
+        "מכאן נובע שכל מערכת חינוך הבוחרת בדגשים של למידה רגשית-חברתית ובאמצעים לקידומם, חייבת לבסס את בחירתה על דיון ועל בחינה מעמיקה של הערכים ושל המטרות העומדים בבסיסה.
+        בין היתר עליה לשאול <strong>אם דמות הבוגר הרצויה היא ברוח הדמוקרטיה הנאו-ליברלית</strong>, שבה מצופה מכל אדם לקבל את המסגרת הקיימת ולחפש את הדרכים הטובות ביותר להצלחה ולמימוש עצמי בתוכה,
+        <strong>או ברוח הדמוקרטיה הביקורתית</strong>, שבה מצופה מכל אדם לבחון באופן ביקורתי את הסדר הקיים ולפעול לשנותו."
+        <div class="source">— מסמך ועדת הקונסנזוס, האקדמיה למדעים</div>
+    </blockquote>
+    <p>
+        "דמוקרטיה ביקורתית" אינו מושג ניטרלי. הוא שייך לזרם התיאוריה הביקורתית — אותו זרם ש"כן בבית ספרנו" מגדיר כ"פרשנות מרקסיסטית".
+        המסמך מציג את זה כבחירה לגיטימית עבור "דמות הבוגר" של מערכת החינוך הישראלית.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 2: אין בסיס אמפירי</h2>
+    <blockquote class="secondary">
+        "מסקירת ההתפתחויות ברחבי העולם עולה שאין תמימות דעים באשר להגדרתו של המושג למידה רגשית-חברתית והדרכים לקידומה."
+        <div class="source">— מסמך ועדת הקונסנזוס</div>
+    </blockquote>
+    <blockquote class="secondary">
+        "הם זיהו <strong>136 מסגרות מושגיות שונות</strong> מ-20 תחומים קרובים. נציין שבנספח [...] מופיעות <strong>יותר מ-1,300 מיומנויות שונות</strong>!"
+        <div class="source">— מסמך ועדת הקונסנזוס</div>
+    </blockquote>
+    <blockquote class="secondary">
+        "<strong>אין מידע אמפירי ישיר</strong> הקושר בין התנהגויות ספציפיות אלו, שהן חלק מההתערבויות שהוכחה יעילותן, לבין התוצאות."
+        <div class="source">— מסמך ועדת הקונסנזוס</div>
+    </blockquote>
+    <p>
+        המסמך עצמו מודה: אין הגדרה אחת, אין בסיס אמפירי, ואין אפשרות לדעת מה "מיומנות" ספציפית אומרת.
+        למרות זאת, ההמלצה היא ליישם ברמת מדינה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 3: ההמלצה — "דרך חיים מערכתית"</h2>
+    <blockquote>
+        "לגישת הוועדה, נושא הטיפוח וההקניה של הלמידה הרגשית-חברתית אינו אפוא נחלתו של גוף אחד בתוך משרד החינוך, אלא <strong>דרך חיים מערכתית</strong> שצריכה לשלב את כל הגורמים באופן אופקי (שפ"י, המזכירות הפדגוגית, אגף אסטרטגיה, אגפי הגיל, אגף חברה ונוער, המדען הראשי וכדומה) ובאופן אנכי (יחידות המטה...)"
+        <div class="source">— מסמך ועדת הקונסנזוס</div>
+    </blockquote>
+    <p>
+        כל מחלקה במשרד החינוך נדרשת לאמץ SEL. זה לא המלצה לתוכנית מצומצמת — אלא שינוי תפיסתי בכל רובדי המערכת.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 4: איך למכור להורים</h2>
+    <blockquote class="secondary">
+        "על בית הספר לתקשר להורים באופן ברור ופשוט את הידע הקיים בנושא חשיבות הלמידה הרגשית-חברתית להסתגלותם ולהצלחתם של ילדיהם, בהווה ובעתיד. <strong>הבנה מצד ההורים תוביל להפחתת התנגדויות</strong> ולקידום של שותפות."
+        <div class="source">— מסמך ועדת הקונסנזוס</div>
+    </blockquote>
+    <blockquote class="secondary">
+        "חשוב שהורים יבינו כי כישורים חברתיים ורגשיים מסייעים לילד להתמודד עם אתגרים לימודיים, ולכן אין זה מצב שבו דבר אחד בא על חשבון האחר, אלא של <strong>רווח לכול (win-win)</strong>."
+        <div class="source">— מסמך ועדת הקונסנזוס</div>
+    </blockquote>
+    <p>
+        המסמך מנחה את בתי הספר כיצד למכור SEL להורים: להדגיש "הצלחה לימודית" ו"win-win".
+        בו-זמנית, אותו מסמך מגדיר "דמות בוגר" ברוח "דמוקרטיה ביקורתית" — שזה לא מה שרוב ההורים מדמיינים כשהם שומעים "כישורים חברתיים ורגשיים".
+    </p>
+</div>
+
+<div class="section">
+    <h2>העמימות כנכס אסטרטגי</h2>
+    <blockquote class="secondary">
+        "Perhaps it is this very messiness and incoherence that enables a productive malleability ... to meet a variety of agendas."
+        <div class="source">— מחקר מאוניברסיטת אדינבורו, מצוטט בניתוח מנגנון SEL</div>
+    </blockquote>
+    <p>
+        מחקר אקדמי מזהיר שהעמימות המושגית של SEL אינה חולשה — אלא כלי שמאפשר לקדם אג'נדות שונות תחת כסות "מיומנויות רגשיות". המסמך של האקדמיה עצמו מתעד את העמימות (136 מסגרות!) אך מתעלם מהאזהרה.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: YOZMA                            -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-yozma">
+
+<div class="section">
+    <h2>היוזמה — מרכז ידע לחינוך</h2>
+    <p>
+        ב-2003 הוקמה <strong>"היוזמה — מרכז ידע לחינוך"</strong> כשותפות בין שלושה גופים:
+    </p>
+    <ul>
+        <li><strong>האקדמיה הלאומית הישראלית למדעים</strong> — מספקת את הכסות המדעית</li>
+        <li><strong>משרד החינוך</strong> — ה"לקוח" שממן ומיישם</li>
+        <li><strong>קרן יד הנדיב</strong> (רוטשילד) — מימון פילנתרופי</li>
+    </ul>
+    <p>
+        היוזמה מפיקה סקירות מחקר, מסמכי מדיניות ומסמכי קונסנזוס — כולל מסמך ה-SEL.
+        המבנה מאפשר למשרד החינוך לאמץ המלצות כ"מבוססות מחקר" — מכיוון שיצאו מהאקדמיה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>יד הנדיב — קרן רוטשילד</h2>
+    <p>
+        קרן יד הנדיב (The Rothschild Foundation, Yad Hanadiv) היא קרן פילנתרופית שנוסדה על ידי בארון אדמונד דה רוטשילד.
+        מאז 2003 היא שותפה אסטרטגית של האקדמיה בתחום החינוך.
+    </p>
+    <p>
+        יד הנדיב רואה באקדמיה <strong>"מתווך אובייקטיבי"</strong> — גוף שיכול להעביר המלצות מדיניות מבלי שייראו כפוליטיים.
+        המבנה הזה מאפשר להעביר מסרים שעלולים לעורר התנגדות (כמו "דמוקרטיה ביקורתית") בעטיפה אקדמית.
+    </p>
+    <h3>מנגנון התיווך</h3>
+    <table>
+        <tr><th>שלב</th><th>גורם</th><th>פעולה</th></tr>
+        <tr><td>1</td><td>CASEL / אונסק"ו</td><td>מפתחים תפיסות SEL עם תכני "דמוקרטיה ביקורתית"</td></tr>
+        <tr><td>2</td><td>ועדת קונסנזוס (אקדמיה)</td><td>מסכמת את הספרות בפורמט "ממצאי מחקר"</td></tr>
+        <tr><td>3</td><td>היוזמה (אקדמיה + יד הנדיב + משה"ח)</td><td>מפיקה מסמך המלצות "מבוסס מדע"</td></tr>
+        <tr><td>4</td><td>המזכירות הפדגוגית (משה"ח)</td><td>מתרגמת להנחיות מערכתיות (חוזרי מנכ"ל)</td></tr>
+        <tr><td>5</td><td>אבני ראשה + שפ"י + מופ"ת</td><td>מכשירים מנהלים ומורים</td></tr>
+        <tr><td>6</td><td>בתי הספר</td><td>מיישמים "SEL" — עם "דמות בוגר" שההורים לא הגדירו</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מכון יוזמה — המלצות ישירות</h2>
+    <p>
+        בנוסף למסמך הקונסנזוס, מכון יוזמה הפיק מסמך המלצות ישיר למשרד החינוך בנושא SEL.
+        המסמך זמין ב: <span class="src">"מכון יוזמה ממליצים למשרד החינוך SEL.pdf"</span>
+    </p>
+    <p>
+        שני מסמכים נוספים מאותו מילייה:
+    </p>
+    <ul>
+        <li><strong>"התאמת החינוך למאה ה-21"</strong> — מסמך מדיניות</li>
+        <li><strong>"חינוך לערכים — קווים מנחים למדידה והערכה"</strong> — קריטריונים</li>
+    </ul>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: NETWORK                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-network">
+
+<div class="section">
+    <h2>צינור ההפצה</h2>
+
+    <div class="ring-layer core">
+        <div class="ring-label">ליבה: האקדמיה למדעים + יד הנדיב</div>
+        <div class="ring-items">
+            <ul>
+                <li>נשיא: פרופ' דוד הראל (מכון ויצמן, מ-2021) — עמדות ליברליות מוצהרות</li>
+                <li>"היוזמה — מרכז ידע לחינוך" — שותפות אקדמיה + משה"ח + יד הנדיב</li>
+                <li>ועדת קונסנזוס SEL — הפיקה מסמך שהפך למדיניות ארצית</li>
+                <li>תקציב: ~13-15 מיליון ש"ח ממשלתי + פילנתרופי</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring1">
+        <div class="ring-label">טבעת 1: ועדת הקונסנזוס ל-SEL</div>
+        <div class="ring-items">
+            <ul>
+                <li><strong>ד"ר דפנה קופלמן-רובין</strong> — חברת ועדת הקונסנזוס; גם ראשת מרכז SEL באבני ראשה</li>
+                <li>חברי ועדה נוספים — מפגש עם CASEL ואונסק"ו כחלק מגיבוש ההמלצות</li>
+                <li>המסמך מציע "דמות בוגר" ברוח "דמוקרטיה ביקורתית"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring2">
+        <div class="ring-label">טבעת 2: משרד החינוך — מזכירות פדגוגית</div>
+        <div class="ring-items">
+            <ul>
+                <li>המזכירות הפדגוגית = ה"לקוח" המרכזי של היוזמה</li>
+                <li><strong>ניר מיכאלי</strong> — יו"ר המזכירות הפדגוגית (לשעבר); עורך <a href="ken_bebeit_safrenu.html" style="color:#cc0000">"כן בבית ספרנו"</a></li>
+                <li>חוזרי מנכ"ל 2015, 2018, 2021 — מיישמים את המלצות ה-SEL</li>
+                <li>המועצה לחינוך ממלכתי (43% מתלמידי ישראל) — מיכאלי מנהל פדגוגי</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring3">
+        <div class="ring-label">טבעת 3: גופי יישום</div>
+        <div class="ring-items">
+            <ul>
+                <li><strong>אבני ראשה</strong> — מכשירה 3,000+ מנהלי בתי ספר; <a href="avney_rosha_dashboard.html" style="color:#cc0000">קופלמן-רובין מובילה SEL שם</a></li>
+                <li><strong>מכון מופ"ת</strong> — זרוע מחקר של הסתדרות המורים; מכיל "סממנים רבים ועמוקים" של ביקורתיות</li>
+                <li><strong>שפ"י</strong> — שירות פסיכולוגי ייעוצי של משה"ח</li>
+                <li>OECD — סנכרון עם Education 2030 Framework</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>החפיפה: ועדת SEL &rarr; אבני ראשה &rarr; בתי ספר</h2>
+    <p>
+        ד"ר דפנה קופלמן-רובין יושבת בשני צדדים של השולחן:
+    </p>
+    <ul>
+        <li>חברת <strong>ועדת הקונסנזוס</strong> של האקדמיה — מגדירה מהו SEL</li>
+        <li>ראשת <strong>מרכז SEL באבני ראשה</strong> — מיישמת את ההגדרה בהכשרת מנהלים</li>
+    </ul>
+    <p>
+        המשמעות: אותו אדם שכתב את ההמלצות גם מכשיר את המנהלים ליישם אותן.
+        אבני ראשה מכשירה 3,000+ מנהלי בתי ספר בישראל.
+    </p>
+</div>
+
+<div class="section">
+    <h2>קישורים למיניסייטים אחרים</h2>
+    <ul>
+        <li><a href="avney_rosha_dashboard.html" style="color:#cc0000">אבני ראשה</a> — מכון להכשרת מנהלי בי"ס. קופלמן-רובין מובילה SEL שם.</li>
+        <li><a href="ken_bebeit_safrenu.html" style="color:#cc0000">"כן בבית ספרנו"</a> — הספר שמגדיר "פדגוגיה ביקורתית" כ"פרשנות מרקסיסטית". עורכו עמד בראש המזכירות הפדגוגית.</li>
+        <li><a href="casel_dashboard.html" style="color:#cc0000">CASEL</a> — הארגון הבינלאומי שהאקדמיה התייעצה עימו.</li>
+        <li><a href="unesco_dashboard.html" style="color:#cc0000">אונסק"ו</a> — "SEL for SDG" — SEL ככלי לקידום אג'נדת SDG.</li>
+        <li><a href="kedma_dashboard.html" style="color:#cc0000">קדמה ירושלים</a> — יישום שטח של "דמוקרטיה ביקורתית" בפועל.</li>
+    </ul>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: SOURCES                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-sources">
+
+<div class="section">
+    <h2>מסמכים עיקריים</h2>
+    <table>
+        <tr><th>מסמך</th><th>מקור</th><th>שנה</th></tr>
+        <tr>
+            <td>מסמך ועדת קונסנזוס — למידה רגשית חברתית</td>
+            <td><a href="https://education.academy.ac.il/SystemFiles/23594.pdf" target="_blank" class="src">PDF — אתר האקדמיה</a></td>
+            <td>2017</td>
+        </tr>
+        <tr>
+            <td>מכון יוזמה — המלצות למשרד החינוך בנושא SEL</td>
+            <td>PDF בארכיון מחקר</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td>התאמת החינוך למאה ה-21</td>
+            <td>PDF בארכיון מחקר</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td>חינוך לערכים — קווים מנחים למדידה והערכה</td>
+            <td>PDF בארכיון מחקר</td>
+            <td>—</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>ניתוח מנגנון SEL</h2>
+    <p>
+        מסמך ניתוח מפורט של מנגנון ה-SEL (מקור פנימי) מתעד:
+    </p>
+    <ul>
+        <li>שינוי התוכן של SEL בשנות ה-90 מ"פיתוח מיומנויות" ל"עיצוב דמות בוגר"</li>
+        <li>חשיפת CASEL: "disrupting and resisting" כיעדים מוצהרים (צילום מסך מסוף 2022)</li>
+        <li>אונסק"ו: "SEL for SDG" — התלמיד כ-"development agent" של אג'נדה</li>
+        <li>האקדמיה הישראלית: ועדה שנפגשה עם CASEL ואונסק"ו לפני גיבוש ההמלצות</li>
+        <li>מנגנון "Bait and Switch": מוכרים "הורדת חרדה ממתמטיקה", מספקים "דמוקרטיה ביקורתית"</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>הערות מתודולוגיות</h2>
+    <ul>
+        <li>ציטוטי מסמך הקונסנזוס הם מתוך המסמך הרשמי המפורסם באתר האקדמיה.</li>
+        <li>מסמך ניתוח מנגנון SEL הוא מקור פנימי שמרכז ציטוטים ממקורות ראשוניים.</li>
+        <li>פרטי ועדת הקונסנזוס (חברי ועדה, נפגשים) — ממסמך הקונסנזוס עצמו.</li>
+        <li>קשר קופלמן-רובין לאבני ראשה — ממיניסייט אבני ראשה.</li>
+    </ul>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<footer>
+    <a href="../index_v2.html">דירוג חתרנות מוסדית</a> &middot;
+    ניתוח מוסדי &middot;
+    עדכון אחרון: פברואר 2026
+</footer>
+
+<script>
+function navigate(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const view = document.getElementById('view-' + viewId);
+    if (view) view.classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = { overview: 0, sel: 1, yozma: 2, network: 3, sources: 4 };
+    if (map[viewId] !== undefined && tabs[map[viewId]]) tabs[map[viewId]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+if (location.hash) {
+    const h = location.hash.slice(1);
+    if (document.getElementById('view-' + h)) navigate(h);
+}
+</script>
+</body>
+</html>

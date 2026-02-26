@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרופ' יולי תמיר — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.card {
+    background: #fff; border-radius: 8px; padding: 24px;
+    margin-bottom: 20px; border: 1px solid #e8e8ee;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.card h2 {
+    font-size: 1.05em; font-weight: 700; margin-bottom: 14px;
+    color: #cc0000; padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f4;
+}
+.card h3 {
+    font-size: 0.95em; font-weight: 700; margin: 12px 0 6px;
+    color: #1a1a2e;
+}
+
+/* ── Factual disclaimer banner ── */
+.factual-banner {
+    background: #fff8f0; border: 1px solid #f0c080; border-radius: 8px;
+    padding: 14px 18px; margin-bottom: 22px;
+    font-size: 0.88em; color: #7a4a00; line-height: 1.6;
+}
+.factual-banner strong { color: #5a3000; }
+
+/* ── Nuance banner ── */
+.nuance-banner {
+    background: #f0f7ff; border: 1px solid #b0cfee; border-radius: 8px;
+    padding: 14px 18px; margin-bottom: 22px;
+    font-size: 0.9em; color: #1a3a5a; line-height: 1.6;
+}
+.nuance-banner strong { color: #0d2540; }
+
+/* ── Info grid ── */
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 6px;
+}
+@media (max-width: 640px) { .info-grid { grid-template-columns: 1fr; } }
+
+.info-block {
+    background: #f9f9fc; border-radius: 6px; padding: 14px 16px;
+    border: 1px solid #e8e8ee;
+}
+.info-block .label {
+    font-size: 0.76em; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.04em; color: #888; margin-bottom: 4px;
+}
+.info-block .value {
+    font-size: 0.93em; color: #1a1a2e; font-weight: 500;
+}
+
+/* ── Key fact highlight ── */
+.key-fact {
+    background: #fff3f3; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    font-size: 0.93em; color: #2a0000; line-height: 1.7;
+    margin: 16px 0;
+}
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 28px; }
+.timeline::before {
+    content: ''; position: absolute; right: 10px; top: 6px; bottom: 6px;
+    width: 2px; background: #e0e0e8;
+}
+.timeline-item { position: relative; margin-bottom: 20px; }
+.timeline-dot {
+    position: absolute; right: -22px; top: 5px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #cc0000; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #cc0000;
+}
+.timeline-dot.blue { background: #1a6ab1; box-shadow: 0 0 0 2px #1a6ab1; }
+.timeline-dot.grey { background: #888; box-shadow: 0 0 0 2px #888; }
+.timeline-year {
+    font-size: 0.78em; font-weight: 700; color: #cc0000;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px;
+}
+.timeline-year.blue { color: #1a6ab1; }
+.timeline-year.grey { color: #666; }
+.timeline-title { font-size: 0.97em; font-weight: 700; color: #1a1a2e; }
+.timeline-body { font-size: 0.88em; color: #555; margin-top: 3px; }
+
+/* ── Tag / badge ── */
+.tag {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 0.78em; font-weight: 600; margin: 2px 2px 2px 0;
+}
+.tag-red { background: #ffeaea; color: #cc0000; border: 1px solid #f0c0c0; }
+.tag-blue { background: #e8f0fb; color: #1a4a8a; border: 1px solid #b0c8f0; }
+.tag-grey { background: #f0f0f4; color: #555; border: 1px solid #d8d8e4; }
+.tag-green { background: #eaf5ea; color: #2a6a2a; border: 1px solid #b0d8b0; }
+
+/* ── Network nodes ── */
+.network-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px; margin-top: 8px;
+}
+.network-node {
+    background: #f9f9fc; border: 1px solid #e4e4ee; border-radius: 8px;
+    padding: 14px 16px;
+}
+.network-node .node-name {
+    font-weight: 700; font-size: 0.95em; color: #1a1a2e; margin-bottom: 4px;
+}
+.network-node .node-role {
+    font-size: 0.82em; color: #666; margin-bottom: 8px;
+}
+.network-node a {
+    font-size: 0.80em; color: #cc0000; text-decoration: none;
+    font-weight: 600;
+}
+.network-node a:hover { text-decoration: underline; }
+
+/* ── Source list ── */
+.source-list { list-style: none; }
+.source-list li {
+    padding: 9px 0; border-bottom: 1px solid #f0f0f4;
+    font-size: 0.90em; color: #444;
+}
+.source-list li:last-child { border-bottom: none; }
+.source-list .src-label {
+    display: inline-block; font-size: 0.76em; font-weight: 700;
+    color: #888; text-transform: uppercase; letter-spacing: 0.04em;
+    min-width: 110px;
+}
+.source-list a { color: #1a6ab1; text-decoration: none; }
+.source-list a:hover { text-decoration: underline; }
+
+/* ── Books grid ── */
+.books-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px; margin-top: 8px;
+}
+.book-card {
+    background: #f9f9fc; border: 1px solid #e4e4ee; border-radius: 8px;
+    padding: 14px 16px;
+}
+.book-card .book-title {
+    font-weight: 700; font-size: 0.93em; color: #1a1a2e; margin-bottom: 4px;
+}
+.book-card .book-meta { font-size: 0.82em; color: #666; }
+
+/* ── Two-col layout ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ── Revolving door highlight ── */
+.revolving-door {
+    background: #fff8e8; border: 1px solid #e8d080; border-radius: 8px;
+    padding: 16px 18px; margin: 16px 0;
+    font-size: 0.92em; color: #3a2800;
+}
+.revolving-door .rd-title {
+    font-weight: 700; font-size: 0.88em; text-transform: uppercase;
+    letter-spacing: 0.05em; color: #7a4a00; margin-bottom: 8px;
+}
+.revolving-door .rd-flow {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    margin-top: 8px;
+}
+.rd-step {
+    background: #fff; border: 1px solid #d0b060; border-radius: 6px;
+    padding: 6px 12px; font-size: 0.88em; font-weight: 600; color: #3a2800;
+}
+.rd-arrow { color: #cc8800; font-weight: 700; font-size: 1.1em; }
+
+/* ── UNESCO highlight ── */
+.unesco-highlight {
+    background: #f2f8ff; border: 1px solid #9ac0e8; border-radius: 8px;
+    padding: 14px 18px; margin: 14px 0; font-size: 0.90em; color: #0d2a44;
+}
+
+/* ── Utility ── */
+ul.plain { list-style: none; }
+ul.plain li { padding: 3px 0; font-size: 0.93em; color: #444; }
+ul.plain li::before { content: "— "; color: #cc0000; font-weight: 700; }
+p.note { font-size: 0.86em; color: #666; margin-top: 8px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      פרופ' יולי תמיר
+      <a href="../index.html">→ ראשי</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('overview')">סקירה</button>
+      <button class="nav-tab" onclick="showTab('roles')">תפקידים</button>
+      <button class="nav-tab" onclick="showTab('beitberl')">בית ברל</button>
+      <button class="nav-tab" onclick="showTab('network')">רשת</button>
+      <button class="nav-tab" onclick="showTab('sources')">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <h1>פרופ' יולי תמיר — פרופיל מחקרי</h1>
+  <div class="subtitle">נשיאת בית ברל | שרת חינוך לשעבר | PhD אוקספורד (ישעיהו ברלין)</div>
+  <div class="meta">מחקר ציבורי — כל הנתונים לקוחים ממקורות פומביים</div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════
+     TAB 1 — סקירה
+══════════════════════════════════════════════ -->
+<div id="tab-overview" class="view active">
+
+  <div class="factual-banner">
+    <strong>הצהרת מהימנות:</strong> כל הנתונים במסמך זה נלקחים ממקורות ציבוריים ומפרסומיה של פרופ' תמיר עצמה — אתריה האישיים, דפי הפרופיל המוסדיים, ויקיפדיה, ואתרי ההוצאות לאור.
+  </div>
+
+  <div class="nuance-banner">
+    <strong>הערת פרשנות:</strong> פרופ' תמיר אינה "רדיקלית" במובן הרגיל של המילה. היא פילוסופית ליברלית מהזרם המרכזי — תלמידתו הישירה של ישעיהו ברלין, ממייסדי תורת הליברליזם הפלורליסטי. משמעות נוכחותה בתמונה היא שונה: היא מייצגת את ה"מאפשר" — הדמות המיינסטרים שמקנה לגיטימציה אקדמית, ושישבה בצומת בין מדיניות לאקדמיה.
+  </div>
+
+  <div class="card">
+    <h2>פרטים ביוגרפיים בסיסיים</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="label">שם מלא</div>
+        <div class="value">פרופ' יעל (יולי) תמיר</div>
+      </div>
+      <div class="info-block">
+        <div class="label">תחום אקדמי</div>
+        <div class="value">פילוסופיה פוליטית; לאומיות ליברלית; צדק חברתי</div>
+      </div>
+      <div class="info-block">
+        <div class="label">תואר שלישי</div>
+        <div class="value">PhD — אוניברסיטת אוקספורד; פילוסופיה פוליטית; מנחה: פרופ' ישעיהו ברלין (Sir Isaiah Berlin)</div>
+      </div>
+      <div class="info-block">
+        <div class="label">תפקיד נוכחי (מאוקטובר 2020)</div>
+        <div class="value">נשיאה — מכללת בית ברל</div>
+      </div>
+      <div class="info-block">
+        <div class="label">תפקיד קודם</div>
+        <div class="value">נשיאת מכללת שנקר להנדסה, עיצוב ואמנות</div>
+      </div>
+      <div class="info-block">
+        <div class="label">אוניברסיטה</div>
+        <div class="value">פרופסור — אוניברסיטת תל אביב (מדעי המדינה)</div>
+      </div>
+      <div class="info-block">
+        <div class="label">תפקידים פוליטיים</div>
+        <div class="value">שרת החינוך (2006–2009); שרת הקליטה (1999–2001); סגנית יו"ר הכנסת</div>
+      </div>
+      <div class="info-block">
+        <div class="label">מפלגות</div>
+        <div class="value">מרצ (מייסדת) ← מפלגת העבודה</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>פרופסורה אורחת</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;">
+      <span class="tag tag-blue">אוניברסיטת פרינסטון</span>
+      <span class="tag tag-blue">אוניברסיטת הרווארד</span>
+      <span class="tag tag-blue">UPenn (פנסילבניה)</span>
+      <span class="tag tag-blue">CEU בודפשט</span>
+      <span class="tag tag-blue">NYU ניו יורק</span>
+      <span class="tag tag-blue">Blavatnik School of Government, Oxford</span>
+    </div>
+    <p class="note">מקור: אתרים אישיים ופרופילים מוסדיים</p>
+  </div>
+
+  <div class="card">
+    <h2>ספרים מרכזיים</h2>
+    <div class="books-grid">
+      <div class="book-card">
+        <div class="book-title">Liberal Nationalism</div>
+        <div class="book-meta">Princeton University Press, 1993<br>הספר שביסס את מושג "הלאומיות הליברלית"</div>
+      </div>
+      <div class="book-card">
+        <div class="book-title">Why Nationalism</div>
+        <div class="book-meta">Princeton University Press, 2019<br>ניתוח עכשווי של לאומיות ושוויון חברתי</div>
+      </div>
+      <div class="book-card">
+        <div class="book-title">מי מפחד משוויון</div>
+        <div class="book-meta">עברית — ביקורת על אי-שוויון כלכלי ועל מדיניות החינוך</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>אתרים אישיים</h2>
+    <ul class="plain">
+      <li><a href="https://yuli-tamir.co.il" target="_blank" style="color:#1a6ab1;">yuli-tamir.co.il</a></li>
+      <li><a href="https://yaelyulitamir.com" target="_blank" style="color:#1a6ab1;">yaelyulitamir.com</a></li>
+    </ul>
+  </div>
+
+  <div class="key-fact">
+    <strong>עובדה מרכזית:</strong> נשיאת מכללה להכשרת מורים (בית ברל) שמפעילה קתדרת אונסק"ו לרב-תרבותיות — ושרת חינוך לשעבר שהייתה בעמדה לעצב מדיניות. הצירוף: מי שעיצבה את מדיניות החינוך ברמה הלאומית, עומדת כיום בראש המוסד שמכשיר את המורים שיישמו אותה.
+  </div>
+
+</div><!-- /tab-overview -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 2 — תפקידים
+══════════════════════════════════════════════ -->
+<div id="tab-roles" class="view">
+
+  <div class="factual-banner">
+    <strong>הצהרת מהימנות:</strong> כל הנתונים במסמך זה נלקחים ממקורות ציבוריים ומפרסומיה של פרופ' תמיר עצמה.
+  </div>
+
+  <div class="card">
+    <h2>ציר הזמן — הצטלבות אקדמיה ומדיניות</h2>
+
+    <div class="revolving-door">
+      <div class="rd-title">דלת מסתובבת: אקדמיה ↔ מדיניות ↔ הכשרת מורים</div>
+      <div class="rd-flow">
+        <div class="rd-step">חוקרת ב-TAU</div>
+        <span class="rd-arrow">→</span>
+        <div class="rd-step">שרת קליטה</div>
+        <span class="rd-arrow">→</span>
+        <div class="rd-step">שרת חינוך</div>
+        <span class="rd-arrow">→</span>
+        <div class="rd-step">נשיאת שנקר</div>
+        <span class="rd-arrow">→</span>
+        <div class="rd-step">נשיאת בית ברל</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot grey"></div>
+        <div class="timeline-year grey">שנות ה-80 — 1993</div>
+        <div class="timeline-title">חוקרת — אוניברסיטת תל אביב</div>
+        <div class="timeline-body">מחלקת מדעי המדינה. 1993: פרסום <em>Liberal Nationalism</em> (Princeton UP) — הספר שביסס את המושג ואת שמה האקדמי הבינלאומי. עבודת הדוקטורט נכתבה תחת הנחייתו של ישעיהו ברלין, ממגדולי הפילוסופים הפוליטיים של המאה ה-20.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot grey"></div>
+        <div class="timeline-year grey">שנות ה-90</div>
+        <div class="timeline-title">מייסדת מרצ ← מעבר לעבודה</div>
+        <div class="timeline-body">מייסדת מפלגת מרצ. לאחר מכן עוברת לרשימת העבודה תחת ברק.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot blue"></div>
+        <div class="timeline-year blue">1999–2001</div>
+        <div class="timeline-title">שרת הקליטה — ממשלת ברק</div>
+        <div class="timeline-body">עיצוב מדיניות קליטת עלייה. תפקיד ראשון בממשלה.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot grey"></div>
+        <div class="timeline-year grey">2001–2006</div>
+        <div class="timeline-title">סגנית יו"ר הכנסת + פעילות אקדמית</div>
+        <div class="timeline-body">חזרה לכנסת בתפקיד סגנית יו"ר. המשך פרסום אקדמי; הרצאות אורח בפרינסטון, הרווארד ומוסדות נוספים.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2006–2009</div>
+        <div class="timeline-title">שרת החינוך — ממשלת אולמרט</div>
+        <div class="timeline-body">
+          <strong>התפקיד הבולט ביותר:</strong> אחראית על מדיניות החינוך הלאומית לכלל ישראל.<br>
+          במסגרת תפקידה יזמה ואישרה את רפורמת <strong>"אופק חדש"</strong> — רפורמת ההעסקה הגדולה ביותר של מורים בישראל, ששינתה תנאי שכר, שעות עבודה ומעמד המורה. הרפורמה עדיין בתוקף כיום.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot grey"></div>
+        <div class="timeline-year grey">2009–2014 (בערך)</div>
+        <div class="timeline-title">חזרה לאקדמיה + ועדות ציבוריות</div>
+        <div class="timeline-body">
+          פרופסור ב-TAU. ב-2014: חברת מועצת העריכה של הספר <strong>"כן בבית ספרנו"</strong> — ספר שמגדיר פדגוגיה ביקורתית מפורשות כ"פרשנות מרקסיסטית" ומצדד בה. לצד ניר מיכאלי (עורך), נמרוד אלוני, ד"ר דליה עמיחוד ואחרים.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot grey"></div>
+        <div class="timeline-year grey">2015–2019 (בערך)</div>
+        <div class="timeline-title">נשיאת מכללת שנקר</div>
+        <div class="timeline-body">ראשה של מכללת שנקר להנדסה, עיצוב ואמנות — מוסד אקדמי טכנולוגי-יצירתי.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">אוקטובר 2020 — היום</div>
+        <div class="timeline-title">נשיאת מכללת בית ברל</div>
+        <div class="timeline-body">ראשה של מכללת בית ברל — המוסד המוביל להכשרת מורים בישראל. תחת הנהגתה: קידום "מהפכה חינוכית", תוכנית "המהפכה" (hamahapecha.com), וקתדרת אונסק"ו לרב-תרבותיות.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>רפורמת "אופק חדש" — המורשת המדיניותית</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="label">מה זה</div>
+        <div class="value">רפורמת שכר והעסקה מקיפה למורים, שינוי מבני שנגע לכל מורה בישראל</div>
+      </div>
+      <div class="info-block">
+        <div class="label">מתי</div>
+        <div class="value">2008–2009 — תחת שרת החינוך תמיר</div>
+      </div>
+      <div class="info-block">
+        <div class="label">מה כלל</div>
+        <div class="value">העלאת שכר, הארכת יום לימודים, שינוי תנאי העסקה, "ניהול אישי"</div>
+      </div>
+      <div class="info-block">
+        <div class="label">מצב כיום</div>
+        <div class="value">הרפורמה עדיין מהווה את המסגרת הבסיסית לתעסוקת מורים בישראל</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>"כן בבית ספרנו" (2014) — חברות מועצת עריכה</h2>
+    <div class="nuance-banner">
+      <strong>הקשר חשוב:</strong> פרופ' תמיר ישבה במועצת העריכה של ספר זה לצד ניר מיכאלי (עורך), נמרוד אלוני ואחרים. הספר מגדיר במפורש פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" ומצדד בה כמתודולוגיה חינוכית. זהו קישור דוקומנטרי בין שרת חינוך לשעבר לבין תנועת הפדגוגיה הביקורתית.
+    </div>
+    <ul class="plain">
+      <li>מעמדה כשרת חינוך לשעבר מעניק לספר לגיטימציה ממסדית</li>
+      <li>היא אינה עורכת או כותבת — חברת מועצת עריכה (advisory board)</li>
+      <li>הנוכחות מעידה על הסכמה עקרונית לכיוון הפדגוגי</li>
+    </ul>
+  </div>
+
+</div><!-- /tab-roles -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 3 — בית ברל
+══════════════════════════════════════════════ -->
+<div id="tab-beitberl" class="view">
+
+  <div class="factual-banner">
+    <strong>הצהרת מהימנות:</strong> כל הנתונים במסמך זה נלקחים ממקורות ציבוריים ומפרסומיה של פרופ' תמיר עצמה.
+  </div>
+
+  <div class="card">
+    <h2>מכללת בית ברל — פרופיל</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="label">סוג</div>
+        <div class="value">מכללה אקדמית להכשרת מורים וחינוך</div>
+      </div>
+      <div class="info-block">
+        <div class="label">מיקום</div>
+        <div class="value">בית ברל (ליד כפר סבא)</div>
+      </div>
+      <div class="info-block">
+        <div class="label">נשיאה (מ-2020)</div>
+        <div class="value">פרופ' יולי תמיר</div>
+      </div>
+      <div class="info-block">
+        <div class="label">תפקיד עיקרי</div>
+        <div class="value">הכשרת מורים למערכת החינוך הציבורית הישראלית</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>קתדרת אונסק"ו לחינוך מורים רב-תרבותי</h2>
+    <div class="unesco-highlight">
+      <strong>עובדה:</strong> בית ברל מחזיקה באחת מ-8 קתדרות האונסק"ו בישראל — קתדרה לחינוך מורים רב-תרבותי (UNESCO Chair in Multicultural Teacher Training). זהו מנגנון המעניק מסגרת אידיאולוגית לתהליך הכשרת המורים, תחת מעטה של אינטגרציה בינלאומית ורב-תרבותיות.
+    </div>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="label">שם הקתדרה</div>
+        <div class="value">UNESCO Chair in Multicultural Teacher Training</div>
+      </div>
+      <div class="info-block">
+        <div class="label">הקשר</div>
+        <div class="value">אחת מ-8 קתדרות אונסק"ו פעילות בישראל</div>
+      </div>
+      <div class="info-block">
+        <div class="label">מיקוד</div>
+        <div class="value">רב-תרבותיות; זהות; גיוון — כמסגרת לפדגוגיה</div>
+      </div>
+      <div class="info-block">
+        <div class="label">השוואה</div>
+        <div class="value">מכללת קיבוצים — גם היא מחזיקה קתדרת אונסק"ו + נטייה לפדגוגיה ביקורתית</div>
+      </div>
+    </div>
+    <p class="note">ראו: <a href="kibbutzim_pedagogy_dashboard.html" style="color:#cc0000;">kibbutzim_pedagogy_dashboard.html</a> — לפרופיל מקביל</p>
+  </div>
+
+  <div class="card">
+    <h2>תוכנית "המהפכה" (hamahapecha.com)</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="label">שם</div>
+        <div class="value">המהפכה — תוכנית בית ברל</div>
+      </div>
+      <div class="info-block">
+        <div class="label">אתר</div>
+        <div class="value"><a href="http://hamahapecha.com" target="_blank" style="color:#1a6ab1;">hamahapecha.com</a></div>
+      </div>
+      <div class="info-block">
+        <div class="label">תיאור</div>
+        <div class="value">"מהפכה חינוכית" — תוכנית הדרכה שמחייבת סטודנטים "לחשוב ביקורתי"</div>
+      </div>
+      <div class="info-block">
+        <div class="label">הנהגה</div>
+        <div class="value">פרופ' תמיר מציגה את עצמה כמובילת "מהפכה חינוכית" במכללה</div>
+      </div>
+    </div>
+    <div class="key-fact">
+      <strong>הכשרה × מדיניות:</strong> כאשר מנהיגת מכללה להכשרת מורים היא שרת חינוך לשעבר שעיצבה את המדיניות שאותה המורים יישמו — מדובר בצומת ייחודי של השפעה. המורים שבית ברל מכשירה הופכים למורים בכיתות בבתי ספר ציבוריים ברחבי ישראל.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>השוואה: בית ברל ← ← מכללת קיבוצים</h2>
+    <div class="two-col">
+      <div class="info-block">
+        <div class="label">בית ברל</div>
+        <div class="value">
+          <ul class="plain" style="margin-top:4px;">
+            <li>קתדרת אונסק"ו לרב-תרבותיות</li>
+            <li>הכשרת מורים — מגזר יהודי ומגזרי</li>
+            <li>נשיאה: פרופ' תמיר (שרת חינוך לשעבר)</li>
+            <li>תוכנית "המהפכה"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="label">מכללת קיבוצים</div>
+        <div class="value">
+          <ul class="plain" style="margin-top:4px;">
+            <li>קתדרת אונסק"ו (תחום שונה)</li>
+            <li>הכשרת מורים — עם נטייה ביקורתית</li>
+            <li>ניר מיכאלי — מרצה בכיר</li>
+            <li>קשר ל"כן בבית ספרנו"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="note">לפרטים נוספים: <a href="kibbutzim_pedagogy_dashboard.html" style="color:#cc0000;">kibbutzim_pedagogy_dashboard.html</a></p>
+  </div>
+
+</div><!-- /tab-beitberl -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 4 — רשת
+══════════════════════════════════════════════ -->
+<div id="tab-network" class="view">
+
+  <div class="factual-banner">
+    <strong>הצהרת מהימנות:</strong> כל הנתונים במסמך זה נלקחים ממקורות ציבוריים ומפרסומיה של פרופ' תמיר עצמה.
+  </div>
+
+  <div class="nuance-banner">
+    <strong>הערה מתודולוגית:</strong> הרשת המתוארת כאן מבוססת על עובדות מתועדות — חברות משותפת במועצות עריכה, פרסומים משותפים, ותפקידים מוסדיים. אין כאן ייחוס כוונות. המיפוי מטרתו להבין קשרים מוסדיים ואינטלקטואליים בין דמויות פועלות.
+  </div>
+
+  <div class="card">
+    <h2>"כן בבית ספרנו" (2014) — מועצת עריכה</h2>
+    <div class="network-grid">
+      <div class="network-node">
+        <div class="node-name">פרופ' יולי תמיר</div>
+        <div class="node-role">חברת מועצת עריכה; שרת חינוך לשעבר</div>
+        <span class="tag tag-red">הנושא הנוכחי</span>
+      </div>
+      <div class="network-node">
+        <div class="node-name">ניר מיכאלי</div>
+        <div class="node-role">עורך הספר; מרצה, מכללת קיבוצים</div>
+        <a href="radical_michaeli.html">→ פרופיל מלא</a>
+      </div>
+      <div class="network-node">
+        <div class="node-name">פרופ' נמרוד אלוני</div>
+        <div class="node-role">חבר מועצת עריכה; פילוסוף חינוך</div>
+        <a href="radical_aloni.html">→ פרופיל מלא</a>
+      </div>
+      <div class="network-node">
+        <div class="node-name">ד"ר דליה עמיחוד</div>
+        <div class="node-role">חברת מועצת עריכה; חינוך ביקורתי</div>
+        <span class="tag tag-grey">תיעוד</span>
+      </div>
+    </div>
+
+    <div class="key-fact" style="margin-top:16px;">
+      <strong>המשמעות:</strong> שרת חינוך לשעבר ישבה במועצת העריכה של ספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" ומצדד בה. זו אינה פעולה "רדיקלית" — זו לגיטימציה. הנוכחות של דמות ממסדית כמו תמיר מעניקה לספר ולגישה אמינות שדמויות אחרות לא יכלו להעניק.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>הקשר האוקספורדי — ישעיהו ברלין</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="label">מנחה לדוקטורט</div>
+        <div class="value">Sir Isaiah Berlin — מגדולי הפילוסופים הפוליטיים של המאה ה-20; תורת הפלורליזם הערכי; "חירות שלילית vs. חירות חיובית"</div>
+      </div>
+      <div class="info-block">
+        <div class="label">ההשפעה</div>
+        <div class="value">ה"לאומיות הליברלית" של תמיר נובעת ישירות מן הפלורליזם הברליני — הכרה בערך הזהויות הפרטיקולריות בתוך מסגרת ליברלית</div>
+      </div>
+      <div class="info-block">
+        <div class="label">המשמעות</div>
+        <div class="value">זרם ברלין הוא אנטי-מרקסיסטי בעיקרו. תמיר אינה "שמאל רדיקלי" — היא ליברלית קלאסית.</div>
+      </div>
+      <div class="info-block">
+        <div class="label">הפרדוקס</div>
+        <div class="value">ישבה לצד עמדות פדגוגיה ביקורתית (מרקסיסטיות יותר) בספר "כן בבית ספרנו" — על אף המרחק הפילוסופי</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>הקשרים המוסדיים</h2>
+    <div class="network-grid">
+      <div class="network-node">
+        <div class="node-name">אוניברסיטת תל אביב</div>
+        <div class="node-role">פרופסור — מחלקת מדעי המדינה. בסיס אקדמי עיקרי.</div>
+      </div>
+      <div class="network-node">
+        <div class="node-name">Blavatnik School, Oxford</div>
+        <div class="node-role">חברה מסונפת — School of Government. מגשר בין תמיר לאליטה הגלובלית של מדיניות ציבורית.</div>
+      </div>
+      <div class="network-node">
+        <div class="node-name">Princeton University Press</div>
+        <div class="node-role">ספריה "Liberal Nationalism" ו-"Why Nationalism" — ביסוס אקדמי בינלאומי.</div>
+      </div>
+      <div class="network-node">
+        <div class="node-name">מכללת בית ברל</div>
+        <div class="node-role">נשיאה — הכשרת מורים + קתדרת אונסק"ו.</div>
+        <a href="#" onclick="showTab('beitberl'); return false;">→ לשונית בית ברל</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>הדלת המסתובבת — מיפוי ההשפעה</h2>
+    <div class="revolving-door">
+      <div class="rd-title">ציר ההשפעה המתועד</div>
+      <div style="margin-top: 10px; font-size: 0.9em; line-height: 1.8;">
+        <strong>1993:</strong> מפרסמת <em>Liberal Nationalism</em> — מבססת עמדה אקדמית בינלאומית<br>
+        <strong>2006–2009:</strong> שרת חינוך — <em>עיצוב מדיניות</em> לכלל מערכת החינוך<br>
+        <strong>2008:</strong> "אופק חדש" — רפורמת העסקת מורים שעדיין בתוקף<br>
+        <strong>2014:</strong> מועצת עריכה, "כן בבית ספרנו" — <em>לגיטימציה</em> לפדגוגיה ביקורתית<br>
+        <strong>2020–היום:</strong> נשיאת בית ברל — <em>הכשרת המורים</em> שיישמו את המדיניות
+      </div>
+    </div>
+    <p class="note">הדגש: תמיר אינה "רדיקלית" — היא "מאפשרת". דמות ממסדית שנוכחותה מעניקה לגיטימציה לרפורמות שאנשים פחות ממסדיים לא היו יכולים לקדם.</p>
+  </div>
+
+  <div class="card">
+    <h2>קישורים לפרופילים קשורים</h2>
+    <div class="network-grid">
+      <div class="network-node">
+        <div class="node-name">ניר מיכאלי</div>
+        <div class="node-role">עורך "כן בבית ספרנו"; פדגוגיה ביקורתית; מכללת קיבוצים</div>
+        <a href="radical_michaeli.html">→ radical_michaeli.html</a>
+      </div>
+      <div class="network-node">
+        <div class="node-name">נמרוד אלוני</div>
+        <div class="node-role">פרופ' לפילוסופיה של החינוך; פדגוגיה הומניסטית-ביקורתית</div>
+        <a href="radical_aloni.html">→ radical_aloni.html</a>
+      </div>
+      <div class="network-node">
+        <div class="node-name">"כן בבית ספרנו"</div>
+        <div class="node-role">הספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית"</div>
+        <a href="ken_bebeit_safrenu.html">→ ken_bebeit_safrenu.html</a>
+      </div>
+      <div class="network-node">
+        <div class="node-name">מכללת קיבוצים</div>
+        <div class="node-role">קתדרת אונסק"ו + פדגוגיה ביקורתית — פרופיל מקביל</div>
+        <a href="kibbutzim_pedagogy_dashboard.html">→ kibbutzim_pedagogy_dashboard.html</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-network -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 5 — מקורות
+══════════════════════════════════════════════ -->
+<div id="tab-sources" class="view">
+
+  <div class="factual-banner">
+    <strong>הצהרת מהימנות:</strong> כל הנתונים במסמך זה נלקחים ממקורות ציבוריים ומפרסומיה של פרופ' תמיר עצמה.
+  </div>
+
+  <div class="card">
+    <h2>מקורות ראשוניים</h2>
+    <ul class="source-list">
+      <li>
+        <span class="src-label">אתר אישי</span>
+        <a href="https://yuli-tamir.co.il" target="_blank">yuli-tamir.co.il</a> — אתר רשמי של פרופ' תמיר
+      </li>
+      <li>
+        <span class="src-label">אתר אישי</span>
+        <a href="https://yaelyulitamir.com" target="_blank">yaelyulitamir.com</a> — אתר אישי נוסף
+      </li>
+      <li>
+        <span class="src-label">ויקיפדיה עב'</span>
+        <a href="https://he.wikipedia.org/wiki/יולי_תמיר" target="_blank">he.wikipedia.org/wiki/יולי_תמיר</a>
+      </li>
+      <li>
+        <span class="src-label">Princeton UP</span>
+        <a href="https://press.princeton.edu/books/paperback/9780691001364/liberal-nationalism" target="_blank">Liberal Nationalism — Princeton University Press</a>
+      </li>
+      <li>
+        <span class="src-label">Princeton UP</span>
+        <a href="https://press.princeton.edu/books/paperback/9780691190716/why-nationalism" target="_blank">Why Nationalism — Princeton University Press</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>מקורות מוסדיים</h2>
+    <ul class="source-list">
+      <li>
+        <span class="src-label">בית ברל</span>
+        <a href="https://www.beitberl.ac.il" target="_blank">beitberl.ac.il</a> — אתר רשמי מכללת בית ברל
+      </li>
+      <li>
+        <span class="src-label">UNESCO Chair</span>
+        אתר בית ברל — קתדרת אונסק"ו לחינוך מורים רב-תרבותי
+      </li>
+      <li>
+        <span class="src-label">המהפכה</span>
+        <a href="http://hamahapecha.com" target="_blank">hamahapecha.com</a> — תוכנית "המהפכה" של בית ברל
+      </li>
+      <li>
+        <span class="src-label">Oxford</span>
+        <a href="https://www.bsg.ox.ac.uk" target="_blank">bsg.ox.ac.uk</a> — Blavatnik School of Government, Oxford (פרופיל סגל)
+      </li>
+      <li>
+        <span class="src-label">מכללת שנקר</span>
+        <a href="https://www.shenkar.ac.il" target="_blank">shenkar.ac.il</a> — פרופיל נשיאה לשעבר
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>מקורות עיתונאיים וציבוריים</h2>
+    <ul class="source-list">
+      <li>
+        <span class="src-label">TheMarker</span>
+        כתבה על מינוי תמיר לנשיאת בית ברל (אוקטובר 2020)
+      </li>
+      <li>
+        <span class="src-label">מכון מופ"ת</span>
+        ראיון עם פרופ' תמיר על חינוך וחשיבה ביקורתית (אתר מופ"ת — mofet.macam.ac.il)
+      </li>
+      <li>
+        <span class="src-label">הכנסת</span>
+        <a href="https://www.knesset.gov.il" target="_blank">knesset.gov.il</a> — ביוגרפיה רשמית של חברת כנסת / שרה
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>"כן בבית ספרנו" (2014)</h2>
+    <ul class="source-list">
+      <li>
+        <span class="src-label">ספר</span>
+        "כן בבית ספרנו" — עורך: ניר מיכאלי. מועצת עריכה כוללת: פרופ' יולי תמיר, פרופ' נמרוד אלוני, ד"ר דליה עמיחוד ואחרים.
+      </li>
+      <li>
+        <span class="src-label">הגדרה בספר</span>
+        הספר מגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" ומצדד בה כמתודולוגיה חינוכית רצויה.
+      </li>
+      <li>
+        <span class="src-label">קישור</span>
+        <a href="ken_bebeit_safrenu.html">ken_bebeit_safrenu.html</a> — ניתוח מלא של הספר
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>הערת שיטת המחקר</h2>
+    <div class="nuance-banner">
+      <strong>גבולות המסמך:</strong> מסמך זה מסכם מידע ציבורי בלבד. הוא אינו מייחס כוונות, אינו מאשים, ואינו מבקש ליצור רושם שלילי לא מוצדק. המטרה היא מיפוי עובדתי של קשרים מוסדיים ואינטלקטואליים בין דמויות הפועלות בתחום החינוך בישראל. כל קביעה שנויה במחלוקת מסומנת ככזו.
+    </div>
+  </div>
+
+</div><!-- /tab-sources -->
+
+</div><!-- /container -->
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  const tabs = ['overview','roles','beitberl','network','sources'];
+  const labels = ['סקירה','תפקידים','בית ברל','רשת','מקורות'];
+  const idx = tabs.indexOf(name);
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+}
+</script>
+
+</body>
+</html>

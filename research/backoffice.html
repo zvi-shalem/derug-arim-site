@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לוח בקרה — מחקר חתרנות מוסדית</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#f5f5f8;color:#1a1a2e;direction:rtl;line-height:1.7;font-size:16px}
+nav{position:sticky;top:0;z-index:100;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.1);border-bottom:1px solid #e0e0e0}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.nav-brand{font-weight:700;font-size:1.05em;padding:12px 0;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.nav-brand a{color:#888;text-decoration:none;font-size:.82em;font-weight:400}
+.nav-brand a:hover{color:#cc0000}
+.nav-tabs{display:flex;gap:0;flex-wrap:wrap}
+.nav-tab{padding:14px 14px;cursor:pointer;font-size:.82em;border-bottom:3px solid transparent;transition:all .2s;color:#888;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.nav-tab:hover{color:#222;background:#f5f5f5}
+.nav-tab.active{color:#222;border-bottom-color:#cc0000;font-weight:600}
+.badge{display:inline-block;background:#cc0000;color:#fff;font-size:.7em;padding:1px 7px;border-radius:10px;margin-right:4px;vertical-align:middle;font-weight:600}
+.hero{background:#fff;color:#222;padding:36px 20px 28px;text-align:center;border-bottom:1px solid #e0e0e0}
+.hero h1{font-size:1.5em;font-weight:700;margin-bottom:6px}
+.hero .subtitle{color:#555;font-size:.95em;margin-bottom:4px}
+.hero .meta{color:#cc0000;font-size:.88em;margin-top:8px}
+.container{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+.view{display:none}
+.view.active{display:block}
+.section-title{font-size:1.15em;font-weight:700;margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid #cc0000;color:#1a1a2e}
+.sub-title{font-size:1em;font-weight:600;margin:20px 0 10px;color:#cc0000}
+.card{background:#fff;border-radius:8px;padding:16px 18px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #eee;transition:box-shadow .2s}
+.card:hover{box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.card-title{font-weight:600;font-size:.95em;margin-bottom:4px}
+.card-title a{color:#1a1a2e;text-decoration:none}
+.card-title a:hover{color:#cc0000}
+.card-desc{font-size:.85em;color:#555;margin-bottom:4px}
+.card-meta{font-size:.78em;color:#999}
+.tag{display:inline-block;background:#f0f0f5;color:#555;font-size:.72em;padding:2px 8px;border-radius:4px;margin-left:4px}
+.tag.red{background:#ffeaea;color:#cc0000}
+.tag.green{background:#eafff0;color:#2a7a3a}
+.tag.blue{background:#eaf0ff;color:#2a3a7a}
+.search-box{width:100%;padding:10px 16px;border:1px solid #ddd;border-radius:6px;font-size:.92em;font-family:inherit;margin-bottom:16px;direction:rtl}
+.search-box:focus{outline:none;border-color:#cc0000;box-shadow:0 0 0 2px rgba(204,0,0,.1)}
+table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:.88em}
+th{background:#f5f5f8;padding:10px 12px;text-align:right;font-weight:600;border-bottom:2px solid #ddd;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top}
+tr:hover td{background:#fafafa}
+a{color:#cc0000}
+a:hover{text-decoration:underline}
+.quote-block{background:#fff;border-right:4px solid #cc0000;padding:16px 20px;margin-bottom:14px;border-radius:0 8px 8px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.quote-text{font-size:.92em;line-height:1.8;color:#222;margin-bottom:8px}
+.quote-source{font-size:.8em;color:#888}
+.quote-sig{font-size:.8em;color:#cc0000;margin-top:4px}
+.framework-box{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:18px 20px;margin-bottom:14px}
+.framework-box h4{color:#cc0000;margin-bottom:8px}
+.chain-step{display:inline-block;background:#f5f5f8;padding:4px 12px;border-radius:4px;margin:3px;font-size:.85em;border:1px solid #ddd}
+.chain-arrow{color:#cc0000;font-weight:700;margin:0 2px}
+.pending-item{background:#fff;border-right:4px solid #ff9800;padding:12px 18px;margin-bottom:10px;border-radius:0 8px 8px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.pending-item .title{font-weight:600;font-size:.92em}
+.pending-item .desc{font-size:.82em;color:#666;margin-top:4px}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.stat-card{flex:1;min-width:140px;background:#fff;border-radius:8px;padding:16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #eee}
+.stat-card .num{font-size:1.6em;font-weight:700;color:#cc0000}
+.stat-card .label{font-size:.78em;color:#888;margin-top:2px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.src-group{margin-bottom:18px}
+.src-group h4{font-size:.95em;font-weight:600;color:#cc0000;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #eee}
+.src-link{display:block;padding:4px 0;font-size:.85em;color:#1a1a2e;text-decoration:none;border-bottom:1px dotted #eee}
+.src-link:hover{color:#cc0000}
+.src-link span{color:#888;font-size:.9em}
+@media(max-width:768px){
+.nav-inner{flex-direction:column;padding:8px 12px}
+.nav-tabs{overflow-x:auto;width:100%}
+.grid-2{grid-template-columns:1fr}
+.stat-row{gap:8px}
+.stat-card{min-width:100px;padding:10px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+<div class="nav-brand">
+  <span>לוח בקרה</span>
+  <a href="index.html">חזרה לאינדקס</a>
+</div>
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showView('sitemap')">מפת אתר <span class="badge" id="badge-sitemap">97</span></button>
+  <button class="nav-tab" onclick="showView('quotes')">ציטוטים <span class="badge" id="badge-quotes">20</span></button>
+  <button class="nav-tab" onclick="showView('funding')">מימון <span class="badge" id="badge-funding">8</span></button>
+  <button class="nav-tab" onclick="showView('frameworks')">מסגרות <span class="badge" id="badge-frameworks">5</span></button>
+  <button class="nav-tab" onclick="showView('sources')">מקורות ראשוניים <span class="badge" id="badge-sources">141</span></button>
+  <button class="nav-tab" onclick="showView('queue')">תורים <span class="badge" id="badge-queue">10</span></button>
+</div>
+</div>
+</nav>
+
+<div class="hero">
+<h1>לוח בקרה &mdash; מחקר חתרנות מוסדית</h1>
+<div class="subtitle">מרכז שליטה ראשי &mdash; כלל הדוחות, הציטוטים, המימון והמסגרות</div>
+<div class="meta">141+ URLs | 65+ דוחות | 16+ דשבורדים | 9+ ציטוטים מאומתים</div>
+</div>
+
+<div class="container">
+
+<!-- ======================== TAB 1: SITE MAP ======================== -->
+<div class="view active" id="view-sitemap">
+
+<div class="stat-row">
+<div class="stat-card"><div class="num">8</div><div class="label">דשבורדים ראשיים</div></div>
+<div class="stat-card"><div class="num">12</div><div class="label">דשבורדי ארגון</div></div>
+<div class="stat-card"><div class="num">2</div><div class="label">ניתוח מבני</div></div>
+<div class="stat-card"><div class="num">58</div><div class="label">מחקרי עומק</div></div>
+<div class="stat-card"><div class="num">7</div><div class="label">דוחות אשכול</div></div>
+<div class="stat-card"><div class="num">10</div><div class="label">פרופילי מציעים</div></div>
+</div>
+
+<input type="text" class="search-box" id="sitemapSearch" placeholder="חיפוש לפי שם, קובץ או תיאור..." oninput="filterSitemap()">
+
+<h3 class="section-title">דשבורדים ראשיים (Hero Dashboards)</h3>
+<div id="hero-dashboards">
+
+<div class="card sitemap-item" data-search="academy sciences אקדמיה למדעים ערכים">
+<div class="card-title"><a href="academy_sciences_dashboard.html">האקדמיה למדעים</a> <span class="tag red">חדש</span></div>
+<div class="card-desc">דשבורד מחקר: האקדמיה הלאומית הישראלית למדעים &mdash; דוח ערכים בחינוך, המלצות למשרד החינוך</div>
+<div class="card-meta">academy_sciences_dashboard.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="ken bebeit safrenu כן בבית ספרנו חינוך ערכי">
+<div class="card-title"><a href="ken_bebeit_safrenu.html">כן בבית ספרנו</a> <span class="tag red">חדש</span></div>
+<div class="card-desc">דשבורד: תנועת &laquo;כן בבית ספרנו&raquo; &mdash; מיפוי תוכניות חינוך ערכי בבתי ספר</div>
+<div class="card-meta">ken_bebeit_safrenu.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="kedma קדמה ירושלים פדגוגיה ביקורתית ASPnet מיכאלי">
+<div class="card-title"><a href="kedma_dashboard.html">קדמה ירושלים</a></div>
+<div class="card-desc">דשבורד מקיף: בית הספר קדמה &mdash; פדגוגיה ביקורתית כנורמה, קשרי ASPnet, מימון, ציטוטי מיכאלי</div>
+<div class="card-meta">kedma_dashboard.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="unesco אונסקו קתדרות ISDG ASPnet SDG פרישה">
+<div class="card-title"><a href="unesco_dashboard.html">אונסק&quot;ו</a></div>
+<div class="card-desc">דשבורד: 7 קתדרות אונסק&quot;ו בישראל, ISDG, ASPnet, פרדוקס הפרישה, SDG 4.7</div>
+<div class="card-meta">unesco_dashboard.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="kibbutzim קיבוצים סמינר אלוני פדגוגיה ביקורתית קתדרה">
+<div class="card-title"><a href="kibbutzim_pedagogy_dashboard.html">מכללת הקיבוצים</a></div>
+<div class="card-desc">דשבורד: סמינר הקיבוצים &mdash; קתדרת אונסק&quot;ו, מרכז לפדגוגיה ביקורתית, פרופ' אלוני</div>
+<div class="card-meta">kibbutzim_pedagogy_dashboard.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="CASEL SEL social emotional learning gates novo">
+<div class="card-title"><a href="casel_dashboard.html">CASEL</a></div>
+<div class="card-desc">דשבורד: CASEL framework &mdash; $12M/year, SEL בינלאומי, מממנים: Gates, NoVo, CZI</div>
+<div class="card-meta">casel_dashboard.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="avney rosha אבני ראשה מנהלים יד הנדיב מנהיגות">
+<div class="card-title"><a href="avney_rosha_dashboard.html">אבני ראשה</a></div>
+<div class="card-desc">דשבורד: אבני ראשה &mdash; 3,000+ מנהלי בתי ספר, מימון יד הנדיב, הכשרת מנהיגות</div>
+<div class="card-meta">avney_rosha_dashboard.html | פברואר 2026</div>
+</div>
+
+<div class="card sitemap-item" data-search="safeschool safe school בטוח זהויות מגדריות חברת רווח">
+<div class="card-title"><a href="safeschool_dashboard.html">SafeSchool</a></div>
+<div class="card-desc">דשבורד: SafeSchool &mdash; חברת רווח, 1,200+ בתי ספר, 4 בכירי משרד החינוך לשעבר, 5 זהויות מגדריות</div>
+<div class="card-meta">safeschool_dashboard.html | פברואר 2026</div>
+</div>
+
+</div>
+
+<h3 class="section-title">דשבורדי ארגון (Organization Dashboards)</h3>
+<div id="org-dashboards">
+
+<div class="card sitemap-item" data-search="ACRI זכויות אזרח REACT cohen מימון">
+<div class="card-title"><a href="acri_dashboard.html">ACRI &mdash; עמותת זכויות האזרח</a></div>
+<div class="card-desc">מימון מחקר REACT/Cohen, תביעות בג&quot;ץ, קשרי NIF</div>
+<div class="card-meta">acri_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="hartman הרטמן מכון מנהיגות אקדמיה">
+<div class="card-title"><a href="hartman_dashboard.html">מכון הרטמן</a></div>
+<div class="card-desc">רשת הרטמן &mdash; הכשרת מנהיגות, מימון בינלאומי, קשרי אקדמיה</div>
+<div class="card-meta">hartman_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="democratic דמוקרטי מכון חינוך דמוקרטי">
+<div class="card-title"><a href="democratic_institute_dashboard.html">המכון הדמוקרטי</a></div>
+<div class="card-desc">המכון הישראלי לדמוקרטיה &mdash; חינוך דמוקרטי, מימון, השפעה</div>
+<div class="card-meta">democratic_institute_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="dror israel דרור ישראל 230M נוער">
+<div class="card-title"><a href="dror_israel_dashboard.html">דרור ישראל</a></div>
+<div class="card-desc">6 ישויות, 230M ש&quot;ח/שנה, רשת חינוך ונוער</div>
+<div class="card-meta">dror_israel_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="SEI חינוך מיני רשת ארגונים">
+<div class="card-title"><a href="sei_network_dashboard.html">רשת SEI</a></div>
+<div class="card-desc">SEI &mdash; חינוך מיני, רשת ארגונים, קשרי מימון</div>
+<div class="card-meta">sei_network_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="NIF קרן חדשה ישראל שתיל מימון">
+<div class="card-title"><a href="nif_education_dashboard.html">NIF &mdash; הקרן החדשה לישראל</a></div>
+<div class="card-desc">תזרימי מימון לחינוך, שתי&quot;ל, ארגוני שטח</div>
+<div class="card-meta">nif_education_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="tehila תהילה חברתי רגשי">
+<div class="card-title"><a href="tehila_dashboard.html">תהילה</a></div>
+<div class="card-desc">תוכנית תהילה &mdash; חינוך חברתי-רגשי בבתי ספר</div>
+<div class="card-meta">tehila_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="hameorer המעורר הנחיה קבוצות ערכי">
+<div class="card-title"><a href="hameorer_dashboard.html">המעורר</a></div>
+<div class="card-desc">ארגון המעורר &mdash; הנחיית קבוצות, חינוך ערכי</div>
+<div class="card-meta">hameorer_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="meyda amin מידע אמין פלטפורמה">
+<div class="card-title"><a href="meyda_amin_dashboard.html">מידע אמין</a></div>
+<div class="card-desc">מידע אמין &mdash; פלטפורמת מידע, קשרי ארגונים</div>
+<div class="card-meta">meyda_amin_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="choshen חושן מיני מגדרי עירוני">
+<div class="card-title"><a href="choshen_dashboard.html">חוש&quot;ן</a></div>
+<div class="card-desc">חוש&quot;ן &mdash; חינוך מיני/מגדרי בבתי ספר, מימון עירוני</div>
+<div class="card-meta">choshen_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="maga betiaum מגע בתיאום בין ארגוני">
+<div class="card-title"><a href="maga_betiaum_dashboard.html">מג&quot;ע בתיאום</a></div>
+<div class="card-desc">מגע בתיאום &mdash; תיאום בין-ארגוני, חינוך</div>
+<div class="card-meta">maga_betiaum_dashboard.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="matzmichim מצמיחים חברתי רגשי מורים">
+<div class="card-title"><a href="matzmichim_dashboard.html">מצמיחים</a></div>
+<div class="card-desc">מצמיחים &mdash; חינוך חברתי-רגשי, הכשרת מורים</div>
+<div class="card-meta">matzmichim_dashboard.html</div>
+</div>
+
+</div>
+
+<h3 class="section-title">ניתוח מבני (Structural Analysis)</h3>
+<div id="struct-analysis">
+
+<div class="card sitemap-item" data-search="pipeline צנרת מוסדית 4 טבעות agenda 2030">
+<div class="card-title"><a href="pipeline_institutional.html">צנרת מוסדית</a></div>
+<div class="card-desc">ניתוח צנרת ההשפעה: 4 טבעות, מ-Agenda 2030 עד הכיתה</div>
+<div class="card-meta">pipeline_institutional.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="munzenberg מינצנברג עירוני הרצליה רעננה גבעתיים חיפה">
+<div class="card-title"><a href="munzenberg_municipal.html">מודל מינצנברג העירוני</a></div>
+<div class="card-desc">מערכת שמש מינצנברג &mdash; מיפוי חדירה עירונית: הרצליה, רעננה, גבעתיים, חיפה</div>
+<div class="card-meta">munzenberg_municipal.html</div>
+</div>
+
+</div>
+
+<h3 class="section-title">מחקרי עומק (Deep Research) <span class="badge">58</span></h3>
+<div id="deep-research" class="grid-2">
+
+<div class="card sitemap-item" data-search="ACRI זכויות אזרח"><div class="card-title"><a href="deep_ACRI.html">ACRI</a></div><div class="card-meta">deep_ACRI.html</div></div>
+<div class="card sitemap-item" data-search="adi lebanko עדי לבנקו"><div class="card-title"><a href="deep_Adi_Lebanko.html">עדי לבנקו</a></div><div class="card-meta">deep_Adi_Lebanko.html</div></div>
+<div class="card sitemap-item" data-search="AIDS task force איידס"><div class="card-title"><a href="deep_AIDS_Task_Force.html">AIDS Task Force</a></div><div class="card-meta">deep_AIDS_Task_Force.html</div></div>
+<div class="card sitemap-item" data-search="alliance israel אלייאנס"><div class="card-title"><a href="deep_Alliance_Israel.html">Alliance Israel</a></div><div class="card-meta">deep_Alliance_Israel.html</div></div>
+<div class="card sitemap-item" data-search="avatar אווטאר"><div class="card-title"><a href="deep_Avatar.html">Avatar</a></div><div class="card-meta">deep_Avatar.html</div></div>
+<div class="card sitemap-item" data-search="chalom chadash שלום חדש"><div class="card-title"><a href="deep_Chalom_Chadash.html">שלום חדש</a></div><div class="card-meta">deep_Chalom_Chadash.html</div></div>
+<div class="card sitemap-item" data-search="chevruta חברותא"><div class="card-title"><a href="deep_Chevruta.html">חברותא</a></div><div class="card-meta">deep_Chevruta.html</div></div>
+<div class="card sitemap-item" data-search="choshen חושן מיני מגדרי"><div class="card-title"><a href="deep_CHOSHEN.html">חוש&quot;ן</a></div><div class="card-meta">deep_CHOSHEN.html</div></div>
+<div class="card sitemap-item" data-search="democratic institute דמוקרטי"><div class="card-title"><a href="deep_Democratic_Institute.html">המכון הדמוקרטי</a></div><div class="card-meta">deep_Democratic_Institute.html</div></div>
+<div class="card sitemap-item" data-search="efshar acheret אפשר אחרת"><div class="card-title"><a href="deep_Efshar_Acheret.html">אפשר אחרת</a></div><div class="card-meta">deep_Efshar_Acheret.html</div></div>
+<div class="card sitemap-item" data-search="ELI אלי"><div class="card-title"><a href="deep_ELI.html">ELI</a></div><div class="card-meta">deep_ELI.html</div></div>
+<div class="card sitemap-item" data-search="gali braverman גלי ברברמן"><div class="card-title"><a href="deep_Gali_Braverman.html">גלי ברברמן</a></div><div class="card-meta">deep_Gali_Braverman.html</div></div>
+<div class="card sitemap-item" data-search="gesher גשר"><div class="card-title"><a href="deep_Gesher.html">גשר</a></div><div class="card-meta">deep_Gesher.html</div></div>
+<div class="card sitemap-item" data-search="haacademia hafsaka אקדמיה הפסקה"><div class="card-title"><a href="deep_HaAcademia_Hafsaka.html">האקדמיה להפסקה</a></div><div class="card-meta">deep_HaAcademia_Hafsaka.html</div></div>
+<div class="card sitemap-item" data-search="hartman הרטמן מכון"><div class="card-title"><a href="deep_Hartman.html">מכון הרטמן</a></div><div class="card-meta">deep_Hartman.html</div></div>
+<div class="card sitemap-item" data-search="havatzelet חבצלת"><div class="card-title"><a href="deep_Havatzelet.html">חבצלת</a></div><div class="card-meta">deep_Havatzelet.html</div></div>
+<div class="card sitemap-item" data-search="hoshen schools חושן בתי ספר"><div class="card-title"><a href="deep_Hoshen_Schools.html">חוש&quot;ן בבתי ספר</a></div><div class="card-meta">deep_Hoshen_Schools.html</div></div>
+<div class="card sitemap-item" data-search="kadma kedma קדמה"><div class="card-title"><a href="deep_Kadma.html">קדמה</a></div><div class="card-meta">deep_Kadma.html</div></div>
+<div class="card sitemap-item" data-search="kehalim shluvim קהילים שלובים"><div class="card-title"><a href="deep_Kehalim_Shluvim.html">קהילים שלובים</a></div><div class="card-meta">deep_Kehalim_Shluvim.html</div></div>
+<div class="card sitemap-item" data-search="krivus or קרבוס אור"><div class="card-title"><a href="deep_Krivus_Or.html">קרבוס אור</a></div><div class="card-meta">deep_Krivus_Or.html</div></div>
+<div class="card sitemap-item" data-search="ladaat לדעת מיני"><div class="card-title"><a href="deep_Ladaat.html">לדעת</a></div><div class="card-meta">deep_Ladaat.html</div></div>
+<div class="card sitemap-item" data-search="latet pe לתת פה"><div class="card-title"><a href="deep_Latet_Pe.html">לתת פה</a></div><div class="card-meta">deep_Latet_Pe.html</div></div>
+<div class="card sitemap-item" data-search="leyada לידה ירושלים עתודה הומניסטית"><div class="card-title"><a href="deep_Leyada.html">ליד&quot;ה ירושלים</a></div><div class="card-meta">deep_Leyada.html</div></div>
+<div class="card sitemap-item" data-search="maga betiaum מגע בתיאום"><div class="card-title"><a href="deep_Maga_BeTiaum.html">מגע בתיאום</a></div><div class="card-meta">deep_Maga_BeTiaum.html</div></div>
+<div class="card sitemap-item" data-search="markam מרכם"><div class="card-title"><a href="deep_Markam.html">מרכם</a></div><div class="card-meta">deep_Markam.html</div></div>
+<div class="card sitemap-item" data-search="markam network רשת מרכם"><div class="card-title"><a href="deep_Markam_Network.html">רשת מרכם</a></div><div class="card-meta">deep_Markam_Network.html</div></div>
+<div class="card sitemap-item" data-search="mayim vesela מים וסלע"><div class="card-title"><a href="deep_Mayim_VeSela.html">מים וסלע</a></div><div class="card-meta">deep_Mayim_VeSela.html</div></div>
+<div class="card sitemap-item" data-search="meyda amin מידע אמין"><div class="card-title"><a href="deep_Meyda_Amin.html">מידע אמין</a></div><div class="card-meta">deep_Meyda_Amin.html</div></div>
+<div class="card sitemap-item" data-search="mind lab מיינד לאב"><div class="card-title"><a href="deep_Mind_Lab.html">Mind Lab</a></div><div class="card-meta">deep_Mind_Lab.html</div></div>
+<div class="card sitemap-item" data-search="naama monk נעמה מונק"><div class="card-title"><a href="deep_Naama_Monk.html">נעמה מונק</a></div><div class="card-meta">deep_Naama_Monk.html</div></div>
+<div class="card sitemap-item" data-search="NIR ניר"><div class="card-title"><a href="deep_NIR.html">NIR</a></div><div class="card-meta">deep_NIR.html</div></div>
+<div class="card sitemap-item" data-search="or gelbard אור גלברד"><div class="card-title"><a href="deep_Or_Gelbard.html">אור גלברד</a></div><div class="card-meta">deep_Or_Gelbard.html</div></div>
+<div class="card sitemap-item" data-search="rossing center רוסינג"><div class="card-title"><a href="deep_Rossing_Center.html">Rossing Center</a></div><div class="card-meta">deep_Rossing_Center.html</div></div>
+<div class="card sitemap-item" data-search="sexual assault centers תקיפה מינית"><div class="card-title"><a href="deep_Sexual_Assault_Centers.html">מרכזי תקיפה מינית</a></div><div class="card-meta">deep_Sexual_Assault_Centers.html</div></div>
+<div class="card sitemap-item" data-search="shaar shivion שער שוויון"><div class="card-title"><a href="deep_Shaar_Shivion.html">שער שוויון</a></div><div class="card-meta">deep_Shaar_Shivion.html</div></div>
+<div class="card sitemap-item" data-search="shavit os שביט"><div class="card-title"><a href="deep_Shavit_OS.html">שביט OS</a></div><div class="card-meta">deep_Shavit_OS.html</div></div>
+<div class="card sitemap-item" data-search="tehuda תהודה"><div class="card-title"><a href="deep_Tehuda.html">תהודה</a></div><div class="card-meta">deep_Tehuda.html</div></div>
+<div class="card sitemap-item" data-search="teva haadam טבע האדם"><div class="card-title"><a href="deep_Teva_HaAdam.html">טבע האדם</a></div><div class="card-meta">deep_Teva_HaAdam.html</div></div>
+<div class="card sitemap-item" data-search="tikkun תיקון"><div class="card-title"><a href="deep_Tikkun.html">תיקון</a></div><div class="card-meta">deep_Tikkun.html</div></div>
+<div class="card sitemap-item" data-search="todaa תודעה"><div class="card-title"><a href="deep_Todaa.html">תודעה</a></div><div class="card-meta">deep_Todaa.html</div></div>
+<div class="card sitemap-item" data-search="yad byad יד ביד"><div class="card-title"><a href="deep_Yad_BYad.html">יד ביד</a></div><div class="card-meta">deep_Yad_BYad.html</div></div>
+<div class="card sitemap-item" data-search="yedidut toronto ידידות טורונטו"><div class="card-title"><a href="deep_Yedidut_Toronto.html">ידידות טורונטו</a></div><div class="card-meta">deep_Yedidut_Toronto.html</div></div>
+<div class="card sitemap-item" data-search="yesod יסוד"><div class="card-title"><a href="deep_Yesod.html">יסוד</a></div><div class="card-meta">deep_Yesod.html</div></div>
+<div class="card sitemap-item" data-search="yesodot dror יסודות דרור"><div class="card-title"><a href="deep_Yesodot_Dror.html">יסודות דרור</a></div><div class="card-meta">deep_Yesodot_Dror.html</div></div>
+<div class="card sitemap-item" data-search="safeschool safe school בטוח"><div class="card-title"><a href="deep_SafeSchool.html">SafeSchool</a></div><div class="card-meta">deep_SafeSchool.html</div></div>
+<div class="card sitemap-item" data-search="matzmichim מצמיחים"><div class="card-title"><a href="deep_Matzmichim.html">מצמיחים</a></div><div class="card-meta">deep_Matzmichim.html</div></div>
+<div class="card sitemap-item" data-search="hameorer המעורר"><div class="card-title"><a href="deep_HaMeorer.html">המעורר</a></div><div class="card-meta">deep_HaMeorer.html</div></div>
+<div class="card sitemap-item" data-search="chinuch miniut חינוך מיניות"><div class="card-title"><a href="deep_Chinuch_Miniut.html">חינוך מיניות</a></div><div class="card-meta">deep_Chinuch_Miniut.html</div></div>
+<div class="card sitemap-item" data-search="baari בארי"><div class="card-title"><a href="deep_Baari.html">בארי</a></div><div class="card-meta">deep_Baari.html</div></div>
+<div class="card sitemap-item" data-search="hanhaga yeruka הנהגה ירוקה"><div class="card-title"><a href="deep_Hanhaga_Yeruka.html">הנהגה ירוקה</a></div><div class="card-meta">deep_Hanhaga_Yeruka.html</div></div>
+<div class="card sitemap-item" data-search="sport bakehila ספורט בקהילה"><div class="card-title"><a href="deep_Sport_Bakehila.html">ספורט בקהילה</a></div><div class="card-meta">deep_Sport_Bakehila.html</div></div>
+<div class="card sitemap-item" data-search="halutz chinuchi חלוץ חינוכי"><div class="card-title"><a href="deep_Halutz_Chinuchi.html">חלוץ חינוכי</a></div><div class="card-meta">deep_Halutz_Chinuchi.html</div></div>
+<div class="card sitemap-item" data-search="merkaz siua haifa מרכז סיוע חיפה"><div class="card-title"><a href="deep_Merkaz_Siua_Haifa.html">מרכז סיוע חיפה</a></div><div class="card-meta">deep_Merkaz_Siua_Haifa.html</div></div>
+<div class="card sitemap-item" data-search="adva berkowitz אדווה ברקוביץ"><div class="card-title"><a href="deep_Adva_Berkowitz.html">אדווה ברקוביץ</a></div><div class="card-meta">deep_Adva_Berkowitz.html</div></div>
+<div class="card sitemap-item" data-search="merkaz chinuch kashuv מרכז חינוך קשוב"><div class="card-title"><a href="deep_Merkaz_Chinuch_Kashuv.html">מרכז חינוך קשוב</a></div><div class="card-meta">deep_Merkaz_Chinuch_Kashuv.html</div></div>
+<div class="card sitemap-item" data-search="mahapach todaati מהפך תודעתי"><div class="card-title"><a href="deep_Mahapach_Todaati.html">מהפך תודעתי</a></div><div class="card-meta">deep_Mahapach_Todaati.html</div></div>
+<div class="card sitemap-item" data-search="maagal echad מעגל אחד"><div class="card-title"><a href="deep_Maagal_Echad.html">מעגל אחד</a></div><div class="card-meta">deep_Maagal_Echad.html</div></div>
+<div class="card sitemap-item" data-search="arei chinuch ערי חינוך"><div class="card-title"><a href="deep_Arei_Chinuch.html">ערי חינוך</a></div><div class="card-meta">deep_Arei_Chinuch.html</div></div>
+<div class="card sitemap-item" data-search="sadot merhavim שדות מרחבים"><div class="card-title"><a href="deep_Sadot_Merhavim.html">שדות מרחבים</a></div><div class="card-meta">deep_Sadot_Merhavim.html</div></div>
+
+</div>
+
+<h3 class="section-title">דוחות אשכול (Cluster Reports) <span class="badge">7</span></h3>
+<div id="cluster-reports">
+
+<div class="card sitemap-item" data-search="feminist gender פמיניסטי מגדרי">
+<div class="card-title"><a href="Feminist_gender-agenda_orgs.html">אשכול: ארגוני אג&apos;נדה מגדרית-פמיניסטית</a></div>
+<div class="card-desc">מיפוי ארגונים בעלי אג&apos;נדה מגדרית-פמיניסטית הפועלים במערכת החינוך</div>
+<div class="card-meta">Feminist_gender-agenda_orgs.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="political activist פוליטי אקטיביסט">
+<div class="card-title"><a href="Political-activist_orgs_in_education.html">אשכול: ארגונים פוליטיים-אקטיביסטיים בחינוך</a></div>
+<div class="card-desc">ארגונים בעלי אוריינטציה פוליטית-אקטיביסטית הפועלים במערכת החינוך</div>
+<div class="card-meta">Political-activist_orgs_in_education.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="hartman הרטמן רשת">
+<div class="card-title"><a href="Hartman_Institute_network.html">אשכול: רשת מכון הרטמן</a></div>
+<div class="card-desc">מיפוי רשת ההשפעה של מכון הרטמן בחינוך</div>
+<div class="card-meta">Hartman_Institute_network.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="gender sexuality חינוך מיני מגדרי">
+<div class="card-title"><a href="Gender_sexuality_education_providers.html">אשכול: ספקי חינוך מיני-מגדרי</a></div>
+<div class="card-desc">ספקי תוכן חינוך מיני ומגדרי בבתי ספר</div>
+<div class="card-meta">Gender_sexuality_education_providers.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="foreign funded coexistence פלורליזם דו-קיום מימון זר">
+<div class="card-title"><a href="Foreign-funded_coexistence_pluralism.html">אשכול: דו-קיום/פלורליזם במימון זר</a></div>
+<div class="card-desc">ארגוני דו-קיום ופלורליזם במימון בינלאומי</div>
+<div class="card-meta">Foreign-funded_coexistence_pluralism.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="dror israel דרור ישראל רשת">
+<div class="card-title"><a href="Dror_Israel_network.html">אשכול: רשת דרור ישראל</a></div>
+<div class="card-desc">6 ישויות, רשת חינוך ונוער, מיפוי קשרים</div>
+<div class="card-meta">Dror_Israel_network.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="child protection הגנה ילד אידיאולוגי">
+<div class="card-title"><a href="Child_protection_with_ideological_overlay.html">אשכול: הגנת ילד עם שכבה אידיאולוגית</a></div>
+<div class="card-desc">ארגוני הגנת ילדים עם מרכיבים אידיאולוגיים</div>
+<div class="card-meta">Child_protection_with_ideological_overlay.html</div>
+</div>
+
+</div>
+
+<h3 class="section-title">פרופילי מציעים (Proposer Profiles) <span class="badge">10</span></h3>
+<div id="proposer-profiles" class="grid-2">
+
+<div class="card sitemap-item" data-search="lazimi לזימי"><div class="card-title"><a href="proposer_lazimi.html">לזימי</a></div><div class="card-meta">proposer_lazimi.html</div></div>
+<div class="card sitemap-item" data-search="padlon פדלון"><div class="card-title"><a href="proposer_padlon.html">פדלון</a></div><div class="card-meta">proposer_padlon.html</div></div>
+<div class="card sitemap-item" data-search="oren yanai אורן ינאי"><div class="card-title"><a href="proposer_oren_yanai.html">אורן ינאי</a></div><div class="card-meta">proposer_oren_yanai.html</div></div>
+<div class="card sitemap-item" data-search="fabian פביאן"><div class="card-title"><a href="proposer_fabian.html">פביאן</a></div><div class="card-meta">proposer_fabian.html</div></div>
+<div class="card sitemap-item" data-search="kaplan קפלן"><div class="card-title"><a href="proposer_kaplan.html">קפלן</a></div><div class="card-meta">proposer_kaplan.html</div></div>
+<div class="card sitemap-item" data-search="wolfson וולפסון"><div class="card-title"><a href="proposer_wolfson.html">וולפסון</a></div><div class="card-meta">proposer_wolfson.html</div></div>
+<div class="card sitemap-item" data-search="koren כורן"><div class="card-title"><a href="proposer_koren.html">כורן</a></div><div class="card-meta">proposer_koren.html</div></div>
+<div class="card sitemap-item" data-search="meir מאיר"><div class="card-title"><a href="proposer_meir.html">מאיר</a></div><div class="card-meta">proposer_meir.html</div></div>
+<div class="card sitemap-item" data-search="weintraub ויינטראוב"><div class="card-title"><a href="proposer_weintraub.html">ויינטראוב</a></div><div class="card-meta">proposer_weintraub.html</div></div>
+<div class="card sitemap-item" data-search="ayash עייאש"><div class="card-title"><a href="proposer_ayash.html">עייאש</a></div><div class="card-meta">proposer_ayash.html</div></div>
+
+</div>
+
+<h3 class="section-title">עמודים נוספים</h3>
+<div id="other-pages">
+
+<div class="card sitemap-item" data-search="safeschool evidence ראיות">
+<div class="card-title"><a href="safeschool_evidence.html">SafeSchool &mdash; ראיות</a></div>
+<div class="card-meta">safeschool_evidence.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="framework insights תובנות מסגרות">
+<div class="card-title"><a href="framework_insights.html">תובנות מסגרות</a></div>
+<div class="card-meta">framework_insights.html</div>
+</div>
+
+<div class="card sitemap-item" data-search="index אינדקס ראשי">
+<div class="card-title"><a href="index.html">עמוד ראשי &mdash; אינדקס</a></div>
+<div class="card-meta">index.html</div>
+</div>
+
+</div>
+
+</div><!-- end view-sitemap -->
+
+<!-- ======================== TAB 2: QUOTES ======================== -->
+<div class="view" id="view-quotes">
+
+<div class="stat-row">
+<div class="stat-card"><div class="num">20</div><div class="label">ציטוטים מאומתים</div></div>
+<div class="stat-card"><div class="num">9</div><div class="label">דוברים</div></div>
+<div class="stat-card"><div class="num">5</div><div class="label">מקורות וידאו</div></div>
+</div>
+
+<!-- Nir Michaeli -->
+<h3 class="section-title">ניר מיכאלי (Nir Michaeli) <span class="badge">8</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;דווקא פה אני כן רוצה לנצל את העובדה שפוליטיקה נחשבת נכבה. אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן <strong>הפיכה קומוניסטית בכיתה</strong> ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה.&raquo;</div>
+<div class="quote-source">מקור: הרצאה בבית הספר קדמה | <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&amp;t=3300" target="_blank">YouTube &mdash; דקה 55:00</a></div>
+<div class="quote-sig">משמעות: מרחב פעולה מושתת על חוסר מודעות של הורים</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;כל פעם שדברים על ביג דאטה, קופצת לי ה<strong>טראומה של פרסום נתוני המיצ&quot;ב</strong>, נתוני המיצ&quot;ב ומה שהוא מעולל ומחולל למערכת, וכל מאגר מידע שנמצא איפשהו סופו, בסופו ובסוף להתגלגל לידי הציבור, ואנחנו צריכים להיות מאוד מאוד זהירים באיזה מידע אנחנו אוספים ואיזה מידע אנחנו לא אוספים.&raquo;</div>
+<div class="quote-source">מקור: ערוץ משרד החינוך | <a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&amp;t=145" target="_blank">YouTube &mdash; דקה 02:25</a></div>
+<div class="quote-sig">משמעות: חשיפת נתונים להורים נתפסת כ&quot;טראומה&quot; &mdash; הסתרת מידע אינה תקלה אלא חלק מהשיטה</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;שתיהן, מסלילות את כלל האוכלוסייה למה שהפילוסוף <strong>הרברט מרקוזה</strong> קרא לו, חד-ממדיות מחשבתית.&raquo;</div>
+<div class="quote-source">מקור: הרצאה בקדמה</div>
+<div class="quote-sig">משמעות: מיכאלי תופס מציאות דרך מרקוזה &mdash; ניאו-מרקסיסט דומיננטי</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;עכשיו פתאום באים אלינו ואומרים לנו, רגע, אתם גם צריכים, ממש <strong>מהפכה</strong>, לפתח חשיבה ביקורתית... רגע, יש פה <strong>מהפכה תודעתית</strong>!&raquo;</div>
+<div class="quote-source">מקור: ערוץ משרד החינוך</div>
+<div class="quote-sig">משמעות: מיכאלי עצמו מתאר את השינוי כ&quot;מהפכה&quot;</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;מערכת החינוך מצד אחד יש לה תפקיד משמר, זאת אומרת, איזשהו תפקיד אפילו אפשר להגיד <strong>משכפל</strong>, ומצד שני, יש לה איזושהי אספירציה, שמערכת החינוך, יהיה לה גם תפקיד <strong>מתקן</strong>.&raquo;</div>
+<div class="quote-source">מקור: הרצאה</div>
+<div class="quote-sig">משמעות: &quot;שכפול&quot; = העברת ערכי החברה לדור הבא. &quot;תיקון&quot; = מורים כאינטלקטואלים רדיקליים</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;עד היום המורים התרגלו לקבל תוכניות סגורות ולהעביר אותן בצורה כמה שיותר הדוקה לכוונת המשורר ולכוונת כותב הבחינות... <strong>אז עכשיו פתאום</strong>...&raquo;</div>
+<div class="quote-source">מקור: כיו&quot;ר המזכירות הפדגוגית</div>
+<div class="quote-sig">משמעות: מתאר מהלך למעקף תוכניות סגורות. להורה קשה עוד יותר לדעת מה קורה בכיתה</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;האם אנחנו צריכים להכין את תלמידינו להשתלבות במאה ה-21, או האם אנחנו צריכים להכין את תלמידינו <strong>לעצב את המאה ה-21</strong>, ואני חושב שתפקידנו הוא יותר בזירה השנייה&raquo;</div>
+<div class="quote-source">מקור: הרצאה</div>
+<div class="quote-sig">משמעות: מי מיכאלי רוצה לשאול כיצד לעצב את המאה? לא את ההורים</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;את העניין של הצורך להכשיר או לטפח חיילים, אנחנו צריכים אנשים שיכנסו לתוך <strong>המערכות הביטחוניות</strong>, שיהיו מוכנים להקריב את חייהם&raquo;</div>
+<div class="quote-source">מקור: הרצאה</div>
+<div class="quote-sig">משמעות: מיכאלי מתאר הגנה על המדינה כתופעה הדורשת הסבר, לא כערך טבעי</div>
+</div>
+
+<!-- Keren Katko-Ayali -->
+<h3 class="section-title">קרן קטקו-איילי (Keren Katko-Ayali) <span class="badge">2</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;מקצה הציר של האזרחות הפעילה-אקטיבית (AAC) נפתח ציר נוסף &mdash; <strong>ספקטרום האקטיביזם</strong>, המתייחס לפעילויות המאתגרות וחותרות תחת הסדר הקיים. האקטיביזם קשור לשינוי המציאות &mdash; כלומר, לפעולות המתרחשות בהקשר חברתי, ציבורי ופוליטי מול כוחות דיכוי.&raquo;</div>
+<div class="quote-source">מקור: 2020, Practical Five-Level Model for Activist Pedagogy | <a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">ScienceDirect</a></div>
+<div class="quote-sig">משמעות: &quot;אזרחות פעילה&quot; = הכנה ל&quot;אקטיביזם&quot; כנגד &quot;כוחות דיכוי&quot;. לא השתתפות אזרחית רגילה &mdash; מודל לשינוי מבני</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;הפדגוגיה האקטיביסטית לא נולדה בחלל ריק. היו מי שראו את צמיחתה כהמשך ישיר של <strong>הפדגוגיה הביקורתית</strong> שהתבססה בשנות ה-60 וה-70 (Freire, 1970/2018).&raquo;</div>
+<div class="quote-source">מקור: 2020, מאמר אקדמי</div>
+<div class="quote-sig">משמעות: קטקו-איילי מקשרת במפורש לפריירה (מאו)</div>
+</div>
+
+<!-- Henry Giroux -->
+<h3 class="section-title">הנרי ג&apos;ירו (Henry Giroux) <span class="badge">4</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;אני חושב שזה באמת התחיל בשיחות עם פאולו, כי דחינו את העיקרון של &apos;פדגוגיה רדיקלית&apos;. הנקודה שלו הייתה שככל שהמונח הזה חשוב, היה בו משהו בלעדי מדי, שלא אפשר לרוב המורים להזדהות איתו. חשבנו ש<strong>&apos;ביקורתי&apos; יהיה מונח שייתן את הגמישות הפוליטית</strong>.&raquo;</div>
+<div class="quote-source">מקור: ראיון</div>
+<div class="quote-sig">משמעות: שינוי שם שיווקי מודע. השיטה לא השתנתה &mdash; השם השתנה</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;על מנת שכוח באמת ירגיש מאוים, עליו לחוש באופן כלשהו בנוכחותו של כוח אחר &mdash; או, ליתר דיוק, אנרגיה &mdash; שאותו הוא <strong>אינו מצליח להגדיר</strong> ולכן אינו יודע כיצד לשלוט בו.&raquo;</div>
+<div class="quote-source">מקור: מאמר אנטי-ישראלי לאחר 7 באוקטובר</div>
+<div class="quote-sig">משמעות: עמימות אסטרטגית &mdash; על מנת שהמסורת והליברליזם ירגישו מאוימים, עליהם לחוש בנוכחות כוח שאינם מצליחים להגדיר</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;תראו, יש לי קצת מזה במחלקה שלי. אנשים שם נוטים להאמין שמוסר פוליטי נחשב כמידה טובה. בעצם זהו רק הנעה מתוך בושה. ואני תוהה איך מרחיבים את השיח הזה? איך <strong>מזמינים אנשים, מפתים אתכם, משתמשים בכוח שלכם ומקריבים אתכם לצד הדרך</strong>?&raquo;</div>
+<div class="quote-source">מקור: הרצאה</div>
+<div class="quote-sig">משמעות: &quot;הזמין, פתה, נצל וזרוק&quot; &mdash; דפוס ניצול מודע</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;שיטות הוראה המבוססות אמפירית הן דברים ש<strong>&apos;מקהים את הדחף הביקורתי&apos;</strong> ומהוות <strong>&apos;אזורים מתים של הדמיון&apos;</strong>.&raquo;</div>
+<div class="quote-source">מקור: ג&apos;ירו, כתבים</div>
+<div class="quote-sig">משמעות: ג&apos;ירו מתנגד לשיטות מבוססות ראיות</div>
+</div>
+
+<!-- Herbert Marcuse -->
+<h3 class="section-title">הרברט מרקוזה (Herbert Marcuse) <span class="badge">2</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;<strong>סובלנות משחררת</strong> משמעה אי-סובלנות כלפי תנועות מן הימין וסובלנות כלפי תנועות מן השמאל&raquo;</div>
+<div class="quote-source">מקור: &quot;סובלנות מדכאת&quot; (Repressive Tolerance), 1965</div>
+<div class="quote-sig">משמעות: חד-כיווניות כעיקרון</div>
+</div>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;שחרור מחייב שינויים <strong>בממד הביולוגי</strong> הזה, דחפים אינסטינקטיביים שונים, תגובות שונות להנאה ולכאב&raquo;</div>
+<div class="quote-source">מקור: מרקוזה, כתבים</div>
+<div class="quote-sig">משמעות: הפרויקט מכוון לטבע האדם עצמו. מסביר את המיקוד בילדים</div>
+</div>
+
+<!-- Nimrod Aloni -->
+<h3 class="section-title">נמרוד אלוני (UNESCO Chair, Seminar HaKibbutzim) <span class="badge">1</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;הנרי ג&apos;ירו הוא אכן <strong>מניפולטור פרוגרסיבי ופוסטמודרני</strong> שאין לו גרם של רספקט לביסוס רציונלי של אמת וצדק.&raquo;</div>
+<div class="quote-source">מקור: תפוצת חוקרי חינוך, 1992</div>
+<div class="quote-sig">סתירה: אלוני מתבסס רבות על ג&apos;ירו בעבודותיו. יו&quot;ר קתדרת אונסק&quot;ו בסמינר הקיבוצים, צמוד ל&quot;מרכז לפדגוגיה ביקורתית&quot;</div>
+</div>
+
+<!-- Alison Bailey -->
+<h3 class="section-title">אליסון ביילי (Alison Bailey, 2017) <span class="badge">1</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;הפדגוגיה הביקורתית מתחילה ממערך שונה של הנחות המבוססות על ספרות <strong>ניאו-מרקסיסטית</strong> העוסקת בתיאוריה ביקורתית המזוהה עם אסכולת פרנקפורט&raquo;<br><br>&laquo;tools of the master&apos;s house (validity, soundness, conceptual clarity) <strong>cannot dismantle the master&apos;s house</strong>&raquo;</div>
+<div class="quote-source">מקור: &quot;Tracking Privilege-Preserving Epistemic Pushback&quot; &mdash; Hypatia journal</div>
+<div class="quote-sig">משמעות: תקפות, היגיון, בהירות מושגית = &quot;כלי בית האדון&quot;. אמת = אלימות</div>
+</div>
+
+<!-- UNESCO -->
+<h3 class="section-title">אונסק&quot;ו (UNESCO) <span class="badge">1</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;הוא קרא לחשיבה שתראה לנו <strong>אלטרנטיבות שמעבר</strong>...&raquo; &mdash; על מרקוזה</div>
+<div class="quote-source">מקור: &quot;Knowledge-driven actions: Transforming higher education&quot;</div>
+<div class="quote-sig">משמעות: אונסק&quot;ו מצטטת במפורש את חזון מרקוזה כרלוונטי לעתיד ההשכלה</div>
+</div>
+
+<!-- Adar Cohen -->
+<h3 class="section-title">אדר כהן (Adar Cohen) <span class="badge">1</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;<strong>האם כל מוסלמי יפוצץ אותך?</strong>... אם 90% מהם טובים, ממה אתה מפחד?&raquo;</div>
+<div class="quote-source">מקור: Cohen 2022, &quot;Dissonance as an Educational Tool&quot; | ממומן ע&quot;י: ACRI</div>
+<div class="quote-sig">משמעות: מבוסס על CRT (Delgado &amp; Stefancic) &mdash; &quot;מטילה ספק ביסודות הסדר הליברלי&quot;</div>
+</div>
+
+<!-- REACT -->
+<h3 class="section-title">מחקר REACT &mdash; הציטוט המרכזי <span class="badge">1</span></h3>
+
+<div class="quote-block">
+<div class="quote-text">&laquo;ממערכת בעלת אופי <strong>אידיאולוגי-ציוני מובהק</strong> (Ichilov, 2013), דרך תקופה ארוכה של גישה ממלכתית-פורמלית שנמנעה מעיסוק במחלוקות פוליטיות (מיכאלי, 2014), ועד <strong>הכרה עכשווית בחשיבות טיפוח החשיבה הביקורתית והמעורבות האזרחית הפעילה</strong>.&raquo;</div>
+<div class="quote-source">מקור: דוח REACT, מימון לשכת המדען הראשי | <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">PDF</a></div>
+<div class="quote-sig">פענוח שלושת השלבים: 1) ציוני &rarr; 2) ניטרלי &rarr; 3) מאואיסטי (ממותג כ&quot;חשיבה ביקורתית&quot;). שתי טענות מובלעות: א) ציונות = דבר שאמור להיות נתון למחלוקת. ב) &quot;חשיבה ביקורתית&quot; = עיסוק פעיל במחלוקות פוליטיות</div>
+</div>
+
+</div><!-- end view-quotes -->
+
+<!-- ======================== TAB 3: FUNDING ======================== -->
+<div class="view" id="view-funding">
+
+<div class="stat-row">
+<div class="stat-card"><div class="num">$12M</div><div class="label">CASEL הכנסה שנתית</div></div>
+<div class="stat-card"><div class="num">230M</div><div class="label">דרור ישראל ש&quot;ח/שנה</div></div>
+<div class="stat-card"><div class="num">8+</div><div class="label">קרנות מפתח</div></div>
+</div>
+
+<h3 class="section-title">US Foundations &rarr; Israel Pipeline</h3>
+<table>
+<thead><tr><th>ישות</th><th>סכום</th><th>חיבור</th><th>מקור</th></tr></thead>
+<tbody>
+<tr><td>Schusterman Foundation</td><td>$1M</td><td>מממן CASEL</td><td><a href="https://projects.propublica.org/nonprofits/organizations/205884201" target="_blank">ProPublica 990</a></td></tr>
+<tr><td>Bill &amp; Melinda Gates Foundation</td><td>$25M+</td><td>מממן ראשי של CASEL</td><td><a href="https://casel.org" target="_blank">CASEL</a></td></tr>
+<tr><td>NoVo Foundation</td><td>$10M+</td><td>מממן CASEL, SEL</td><td><a href="https://casel.org" target="_blank">CASEL</a></td></tr>
+<tr><td>Chan Zuckerberg Initiative (CZI)</td><td>&mdash;</td><td>מממן CASEL</td><td><a href="https://casel.org" target="_blank">CASEL</a></td></tr>
+<tr><td>Robert Wood Johnson Foundation (RWJF)</td><td>&mdash;</td><td>מממן CASEL</td><td><a href="https://casel.org" target="_blank">CASEL</a></td></tr>
+<tr><td>Azrieli Foundation</td><td>&mdash;</td><td>מימון חינוך ישראלי</td><td>&mdash;</td></tr>
+<tr><td>Wexner Foundation</td><td>&mdash;</td><td>הכשרת מנהיגות ישראלית</td><td>&mdash;</td></tr>
+</tbody>
+</table>
+
+<h3 class="section-title">קשר רוטשילד: יד הנדיב</h3>
+<div class="card" style="border-right:4px solid #cc0000">
+<div class="card-title">יד הנדיב ממנת הן את אבני ראשה והן את SEL.IL</div>
+<div class="card-desc">
+<strong>אבני ראשה:</strong> הכשרת 3,000+ מנהלי בתי ספר. מימון יד הנדיב (רוטשילד).<br>
+<strong>SEL.IL:</strong> תוכנית למידה חברתית-רגשית. מימון יד הנדיב.<br>
+<strong>משמעות:</strong> אותה קרן ממנת הן את הכשרת המנהלים והן את התוכנית &mdash; שליטה בשני הצדדים של הצנרת.
+</div>
+<div class="card-meta"><a href="https://www.yadhanadiv.org.il" target="_blank">יד הנדיב</a> | <a href="https://www.avneyrosha.org.il" target="_blank">אבני ראשה</a></div>
+</div>
+
+<h3 class="section-title">CASEL Revenue by Year</h3>
+<table>
+<thead><tr><th>שנה</th><th>הכנסות</th><th>הערות</th></tr></thead>
+<tbody>
+<tr><td>2018</td><td>$8.5M</td><td>&mdash;</td></tr>
+<tr><td>2019</td><td>$10.2M</td><td>צמיחה מואצת</td></tr>
+<tr><td>2020</td><td>$11.8M</td><td>COVID boost</td></tr>
+<tr><td>2021</td><td>$12.4M</td><td>שיא</td></tr>
+<tr><td>2022</td><td>$12.1M</td><td>ירידה קלה</td></tr>
+<tr><td>2023</td><td>$11.9M</td><td>התייצבות</td></tr>
+</tbody>
+</table>
+
+<h3 class="section-title">Israeli Funding Flows</h3>
+<div class="grid-2">
+<div class="card">
+<div class="card-title">Open Budget Israel</div>
+<div class="card-desc">מעקב העברות ממשלתיות לארגונים</div>
+<div class="card-meta"><a href="https://next.obudget.org" target="_blank">next.obudget.org</a></div>
+</div>
+<div class="card">
+<div class="card-title">GuideStar Israel</div>
+<div class="card-desc">מאגר עמותות ישראליות &mdash; דוחות כספיים</div>
+<div class="card-meta"><a href="https://www.guidestar.org.il" target="_blank">guidestar.org.il</a></div>
+</div>
+<div class="card">
+<div class="card-title">קדמה &mdash; Open Budget</div>
+<div class="card-desc">עמותה 580320083</div>
+<div class="card-meta"><a href="https://next.obudget.org/i/org/association/580320083" target="_blank">Open Budget</a> | <a href="https://www.guidestar.org.il/organization/580320083" target="_blank">GuideStar</a></div>
+</div>
+<div class="card">
+<div class="card-title">ProPublica Nonprofit Explorer</div>
+<div class="card-desc">990 filings &mdash; US foundations</div>
+<div class="card-meta"><a href="https://projects.propublica.org/nonprofits/" target="_blank">ProPublica</a></div>
+</div>
+</div>
+
+<h3 class="section-title">Key Funders Summary</h3>
+<table>
+<thead><tr><th>קרן</th><th>מוקד</th><th>חיבורים ישראליים</th></tr></thead>
+<tbody>
+<tr><td>Gates Foundation</td><td>CASEL, SEL בינלאומי</td><td>דרך CASEL framework</td></tr>
+<tr><td>NoVo Foundation</td><td>CASEL, SEL, מגדר</td><td>SEL.IL, תוכניות מגדריות</td></tr>
+<tr><td>CZI</td><td>CASEL, EdTech</td><td>פלטפורמות</td></tr>
+<tr><td>RWJF</td><td>CASEL, בריאות</td><td>דרך CASEL</td></tr>
+<tr><td>Azrieli</td><td>חינוך ישראלי</td><td>ישיר</td></tr>
+<tr><td>Yad Hanadiv</td><td>אבני ראשה, SEL.IL</td><td>שליטה דו-צדדית בצנרת</td></tr>
+<tr><td>Schusterman</td><td>CASEL, חינוך יהודי</td><td>$1M ל-CASEL, תוכניות ישראליות</td></tr>
+<tr><td>Wexner</td><td>מנהיגות</td><td>Wexner Fellows בישראל</td></tr>
+</tbody>
+</table>
+
+</div><!-- end view-funding -->
+
+<!-- ======================== TAB 4: FRAMEWORKS ======================== -->
+<div class="view" id="view-frameworks">
+
+<h3 class="section-title">שרשרת שמות (&quot;שכבות הבצל&quot;)</h3>
+<div class="framework-box">
+<h4>Naming Chain: מאואיסטית &rarr; ביקורתית &rarr; &quot;חשיבה ביקורתית&quot;</h4>
+<div style="text-align:center;margin:16px 0;font-size:.95em">
+<span class="chain-step" style="background:#ffeaea;border-color:#cc0000"><strong>1.</strong> פדגוגיה מאואיסטית</span>
+<span class="chain-arrow">&larr;</span>
+<span class="chain-step"><strong>2.</strong> פדגוגיה רדיקלית</span>
+<span class="chain-arrow">&larr;</span>
+<span class="chain-step"><strong>3.</strong> פדגוגיה ביקורתית</span>
+<span class="chain-arrow">&larr;</span>
+<span class="chain-step"><strong>4.</strong> פדגוגיה אקטיביסטית</span>
+<span class="chain-arrow">&larr;</span>
+<span class="chain-step" style="background:#eafff0;border-color:#2a7a3a"><strong>5.</strong> &quot;חשיבה ביקורתית&quot;</span>
+</div>
+<table>
+<thead><tr><th>#</th><th>שם</th><th>מקור</th><th>הסבר</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>פדגוגיה מאואיסטית</td><td>מאו דזה-דונג</td><td>קמפיין &quot;ארבעת הדברים הישנים&quot;</td></tr>
+<tr><td>2</td><td>פדגוגיה רדיקלית</td><td>פריירה</td><td>התבסס במפורש על מאו</td></tr>
+<tr><td>3</td><td>פדגוגיה ביקורתית</td><td>ג&apos;ירו</td><td>שינוי שם מודע (&quot;רדיקלית לא תפסה&quot;)</td></tr>
+<tr><td>4</td><td>פדגוגיה אקטיביסטית</td><td>קטקו-איילי (2020)</td><td>&quot;להעלות בשר על העצמות&quot;</td></tr>
+<tr><td>5</td><td>&quot;חשיבה ביקורתית&quot;</td><td>גרסה מדוללת</td><td>אינה חשיבה עצמאית אלא אנטגוניזם כללי</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="section-title">צינור ההשפעה (4 טבעות)</h3>
+<div class="framework-box">
+<h4>Influence Pipeline: מ-Agenda 2030 עד הכיתה</h4>
+<div style="text-align:center;margin:16px 0">
+<div style="display:inline-block;border:3px solid #cc0000;border-radius:50%;padding:20px 30px;margin:4px;font-size:.85em;background:#ffeaea"><strong>ליבה</strong><br>Agenda 2030<br>SDG4/4.7<br>GCED/ESD</div>
+<div style="display:inline-block;border:2px solid #cc0000;border-radius:50%;padding:20px 24px;margin:4px;font-size:.85em"><strong>טבעת I</strong><br>קתדרות אונסק&quot;ו<br>ASPnet<br>רשתות</div>
+<div style="display:inline-block;border:2px solid #888;border-radius:50%;padding:20px 24px;margin:4px;font-size:.85em"><strong>טבעת II</strong><br>משרד החינוך<br>שפ&quot;י, מזכירות<br>וועד לאונסק&quot;ו</div>
+<div style="display:inline-block;border:2px solid #aaa;border-radius:50%;padding:20px 24px;margin:4px;font-size:.85em"><strong>טבעת III</strong><br>מכללות הכשרה<br>בתי ספר<br>קולות-קוראים</div>
+</div>
+</div>
+
+<h3 class="section-title">שני קהלים, אותו מודל</h3>
+<div class="framework-box">
+<h4>Two Audiences: אקדמי vs ממשלתי</h4>
+<table>
+<thead><tr><th></th><th>2020 (אקדמי)</th><th>2024 (ממשלתי)</th></tr></thead>
+<tbody>
+<tr><td><strong>שם</strong></td><td>&quot;פדגוגיה אקטיביסטית&quot;</td><td>&quot;REACT / SPEL&quot;</td></tr>
+<tr><td><strong>שפה</strong></td><td>המורה כסוכן פוליטי</td><td>חשיבה ביקורתית, מנחה ניטרלי</td></tr>
+<tr><td><strong>מימון</strong></td><td>ACRI</td><td>לשכת המדען הראשי</td></tr>
+<tr><td><strong>המטרה</strong></td><td>שינוי חברתי</td><td>&quot;כישורי חשיבה&quot;</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="section-title">דצמבר 2022 &mdash; פעולה בין-עירונית מתואמת</h3>
+<div class="framework-box">
+<h4>Coordinated Municipal Action</h4>
+<p style="font-size:.9em;margin-bottom:12px">שבועות לפני הקמת ממשלת נתניהו-בן גביר, שלוש ערים העבירו בו-זמנית:</p>
+<table>
+<thead><tr><th>עיר</th><th>פעולה</th></tr></thead>
+<tbody>
+<tr><td><strong>הרצליה</strong></td><td>קטגוריית תקציב &quot;זהות יהודית דמוקרטית&quot;</td></tr>
+<tr><td><strong>רעננה</strong></td><td>מימון עירוני ישיר לארגון חוש&quot;ן</td></tr>
+<tr><td><strong>גבעתיים</strong></td><td>ועדת קהילה להט&quot;בית, שינויים מבניים</td></tr>
+</tbody>
+</table>
+<p style="font-size:.85em;color:#cc0000;margin-top:8px">זה לא מקרי &mdash; זה ביצור מונע-הגנה מתואם</p>
+</div>
+
+<h3 class="section-title">מודל &quot;מערכת השמש&quot; של מינצנברג</h3>
+<div class="framework-box">
+<h4>Munzenberg Solar System</h4>
+<p style="font-size:.9em">גרעין מרכזי (אידיאולוגיה) מוקף בטבעות של ארגונים &quot;עצמאיים&quot; שנראים נפרדים אך מסתובבים סביב אותו מרכז כבידה. כל ארגון שומר על אשליית עצמאות בעוד הוא חלק ממערכת מתואמת.</p>
+<p style="font-size:.85em;color:#888;margin-top:8px">מקור: Amnon Lord / מסמך אונסק&quot;ו | ראו: <a href="munzenberg_municipal.html">munzenberg_municipal.html</a></p>
+</div>
+
+</div><!-- end view-frameworks -->
+
+<!-- ======================== TAB 5: PRIMARY SOURCES ======================== -->
+<div class="view" id="view-sources">
+
+<h3 class="section-title">מסמכים ממשלתיים (Government Documents)</h3>
+<div class="src-group">
+<a class="src-link" href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">דוח REACT &mdash; חינוך פוליטי בעת משבר לאומי <span>(PDF, מדען ראשי)</span></a>
+<a class="src-link" href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">אונסק&quot;ו בישראל &mdash; משרד החינוך <span>(PDF)</span></a>
+<a class="src-link" href="https://cms.education.gov.il/EducationCMS/Applications/Mankal/" target="_blank">חוזרי מנכ&quot;ל משרד החינוך <span>(2015, 2018, 2021 &mdash; SEL)</span></a>
+<a class="src-link" href="https://apps.education.gov.il/gefen" target="_blank">קטלוג גפ&quot;ן <span>(6,064 תוכניות חינוך)</span></a>
+<a class="src-link" href="https://education.academy.ac.il/SystemFiles/23425.pdf" target="_blank">מסמך אקדמיה <span>(משאב חינוכי)</span></a>
+<a class="src-link" href="https://education.academy.ac.il/SystemFiles/Values%20-%20Full%20report%202211021.pdf" target="_blank">דוח ערכים מלא <span>(ערכים בחינוך)</span></a>
+<a class="src-link" href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">תוכנית ISDG &mdash; עמוד רשמי <span>(משרד החינוך)</span></a>
+</div>
+
+<h3 class="section-title">מאמרים אקדמיים (Academic Papers)</h3>
+<div class="src-group">
+<a class="src-link" href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">SPEL / Five-Level Model for Activist Pedagogy <span>(קטקו-איילי, 2020)</span></a>
+<a class="src-link" href="https://jordaninstituteforfamilies.org/wp-content/uploads/2020/04/Delgado_and_Stefancic_on_Critical_Race_Theory.pdf" target="_blank">Discerning Critical Moments <span>(Delgado &amp; Stefancic, CRT)</span></a>
+<a class="src-link" href="https://www.researchgate.net/publication/293310212" target="_blank">Bar Shalom &amp; Krumer Navo (2007) <span>(מחקר אקדמי על קדמה)</span></a>
+<a class="src-link" href="https://link.springer.com/book/10.1057/978-1-137-58733-6" target="_blank">Prof. Gross Book <span>(Springer)</span></a>
+</div>
+
+<h3 class="section-title">מקורות וידאו (Video Sources)</h3>
+<div class="src-group">
+<a class="src-link" href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&amp;t=3300" target="_blank">מיכאלי בקדמה &mdash; &quot;הפיכה קומוניסטית בכיתה&quot; <span>(דקה 55:00)</span></a>
+<a class="src-link" href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&amp;t=145" target="_blank">מיכאלי בערוץ משה&quot;ח &mdash; &quot;טראומת המיצ&quot;ב&quot; <span>(דקה 02:25)</span></a>
+<a class="src-link" href="https://youtu.be/226U6rJnPLc" target="_blank">SafeSchool &mdash; תוכן מאחורי חומת תשלום <span>(חמש זהויות מגדריות)</span></a>
+</div>
+
+<h3 class="section-title">מאגרי מימון (Financial Databases)</h3>
+<div class="src-group">
+<a class="src-link" href="https://projects.propublica.org/nonprofits/organizations/205884201" target="_blank">Schusterman Foundation <span>(ProPublica 990)</span></a>
+<a class="src-link" href="https://projects.propublica.org/nonprofits/organizations/237088123" target="_blank">ProPublica 990 &mdash; Org #237088123</a>
+<a class="src-link" href="https://projects.propublica.org/nonprofits/organizations/931269590" target="_blank">ProPublica 990 &mdash; Org #931269590</a>
+<a class="src-link" href="https://www.charitynavigator.org" target="_blank">Charity Navigator <span>(US nonprofits rating)</span></a>
+<a class="src-link" href="https://next.obudget.org" target="_blank">Open Budget Israel <span>(העברות ממשלתיות)</span></a>
+<a class="src-link" href="https://www.guidestar.org.il" target="_blank">GuideStar Israel <span>(עמותות ישראליות)</span></a>
+<a class="src-link" href="https://www.guidestar.org" target="_blank">GuideStar US <span>(US nonprofits)</span></a>
+</div>
+
+<h3 class="section-title">מסמכי אונסק&quot;ו (UNESCO Documents)</h3>
+<div class="src-group">
+<a class="src-link" href="https://unesdoc.unesco.org/ark:/48223/pf0000245694" target="_blank">UNESCO Executive Board Decision 200 EX/25 (2016) <span>(הר הבית)</span></a>
+<a class="src-link" href="https://unesdoc.unesco.org" target="_blank">UNESCO Digital Library</a>
+<a class="src-link" href="https://www.unesco.org/en/unitwin" target="_blank">UNITWIN/UNESCO Chairs Programme</a>
+<a class="src-link" href="https://www.unesco.org" target="_blank">UNESCO National Commissions</a>
+<a class="src-link" href="https://en.wikipedia.org/wiki/Israel_and_UNESCO" target="_blank">Wikipedia &mdash; Israel and UNESCO</a>
+<a class="src-link" href="https://www.unesco.org/en/countries/il" target="_blank">UNESCO Israel Country Page <span>(7 chairs confirmed)</span></a>
+<a class="src-link" href="https://meyda.education.gov.il/files/Unesco/new-24/20082009eng.pdf" target="_blank">Israel National Commission 2008-2009 Report</a>
+<a class="src-link" href="https://meyda.education.gov.il/files/Unesco/new-24/20002001eng.pdf" target="_blank">Israel National Commission 2000-2001 Report</a>
+<a class="src-link" href="https://meyda.education.gov.il/files/Unesco/new-24/Israel-Perspective.pdf" target="_blank">Israel Perspective on UNESCO</a>
+<a class="src-link" href="https://unesdoc.unesco.org/images/0024/002462/246215e.pdf" target="_blank">2016 Temple Mount Resolution Document</a>
+<a class="src-link" href="https://ich.unesco.org/en-state/israel-IL?info=contacts" target="_blank">UNESCO ICH Israel Contacts</a>
+</div>
+
+<h3 class="section-title">קתדרות אונסק&quot;ו מאומתות (Verified UNESCO Chairs)</h3>
+<table>
+<thead><tr><th>#</th><th>מוסד</th><th>תחום</th><th>מנהל</th><th>מקור</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>סמינר הקיבוצים</td><td>חינוך הומניסטי</td><td>פרופ' נמרוד אלוני</td><td><a href="https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/" target="_blank">Link</a></td></tr>
+<tr><td>2</td><td>בר-אילן</td><td>סובלנות ושלום (Josef Burg)</td><td>פרופ' זהבית גרוס</td><td><a href="https://cris.biu.ac.il/en/organisations/the-josef-burg-unesco-chair-in-education-for-human-values-toleran/" target="_blank">Link</a></td></tr>
+<tr><td>3</td><td>אוניברסיטת ת&quot;א</td><td>מורשת מודרנית</td><td>פרופ' משה מרגלית</td><td><a href="https://en-arts.tau.ac.il/Chairs" target="_blank">Link</a></td></tr>
+<tr><td>4</td><td>בצלאל</td><td>עיצוב עירוני ושימור (HUL)</td><td>פרופ' מיכאל טרנר</td><td><a href="https://heritopolis.org/michael-turner" target="_blank">Link</a></td></tr>
+<tr><td>5</td><td>בית-ברל</td><td>רב-תרבותיות בהכשרת מורים</td><td>&mdash;</td><td><a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">Link</a></td></tr>
+<tr><td>6</td><td>טכניון</td><td>הנדסה בת-קיימא</td><td>פרופ' מרק טלסניק</td><td><a href="https://globalengineering.technion.ac.il/about/" target="_blank">Link</a></td></tr>
+<tr><td>7</td><td>(לא מזוהה)</td><td>לימודי בין-דתיים / טכנולוגיה</td><td>&mdash;</td><td>UNESCO country page</td></tr>
+</tbody>
+</table>
+
+<h3 class="section-title">אתרי ארגונים (Organization Websites)</h3>
+<div class="grid-2">
+<div class="src-group">
+<h4>ארגונים מרכזיים</h4>
+<a class="src-link" href="https://www.acri.org.il" target="_blank">ACRI &mdash; עמותת זכויות האזרח</a>
+<a class="src-link" href="https://www.nif.org" target="_blank">New Israel Fund</a>
+<a class="src-link" href="https://www.drorisrael.org.il" target="_blank">דרור ישראל</a>
+<a class="src-link" href="https://hartman.org.il" target="_blank">מכון הרטמן</a>
+<a class="src-link" href="https://www.avneyrosha.org.il" target="_blank">אבני ראשה</a>
+<a class="src-link" href="https://www.hoshen.org/" target="_blank">חוש&quot;ן</a>
+<a class="src-link" href="https://sei.org.il/" target="_blank">SEI</a>
+<a class="src-link" href="https://casel.org" target="_blank">CASEL</a>
+</div>
+<div class="src-group">
+<h4>מוסדות חינוך</h4>
+<a class="src-link" href="https://www.leyada.net" target="_blank">בית הספר ליד&quot;ה, ירושלים</a>
+<a class="src-link" href="https://kedmaschool.co.il" target="_blank">בית הספר קדמה</a>
+<a class="src-link" href="https://kedma-edu.org.il/" target="_blank">עמותת קדמה</a>
+<a class="src-link" href="https://www.smkb.ac.il" target="_blank">סמינר הקיבוצים</a>
+<a class="src-link" href="https://www.mofet.macam.ac.il" target="_blank">מכון מופ&quot;ת</a>
+<a class="src-link" href="https://www.mandelfoundation.org.il" target="_blank">קרן מנדל</a>
+<a class="src-link" href="https://www.yadhanadiv.org.il" target="_blank">קרן יד הנדיב</a>
+</div>
+</div>
+
+<h3 class="section-title">תקנים בינלאומיים (International Standards)</h3>
+<div class="src-group">
+<a class="src-link" href="https://www.unfpa.org/publications/international-technical-guidance-sexuality-education" target="_blank">UNFPA International Technical Guidance <span>(חינוך מיני בינלאומי)</span></a>
+<a class="src-link" href="https://cass.independent-review.uk/" target="_blank">Cass Review (UK) <span>(סקירה עצמאית בריטית)</span></a>
+</div>
+
+<h3 class="section-title">פרוטוקולים עירוניים (Municipality Protocols)</h3>
+<div class="src-group">
+<a class="src-link" href="https://www.haifa.muni.il/city-and-muni/city-council/protocols/" target="_blank">חיפה &mdash; פרוטוקולים</a>
+<a class="src-link" href="https://www.herzliya.muni.il/protocols/" target="_blank">הרצליה &mdash; פרוטוקולים</a>
+<a class="src-link" href="https://www.givatayim.muni.il/protocols/" target="_blank">גבעתיים &mdash; פרוטוקולים</a>
+<a class="src-link" href="https://www.raanana.muni.il/protocols/" target="_blank">רעננה &mdash; פרוטוקולים</a>
+<a class="src-link" href="https://www.hod-hasharon.muni.il/protocols/" target="_blank">הוד השרון &mdash; פרוטוקולים</a>
+<a class="src-link" href="https://www.ramat-gan.muni.il/education-kinder-gardens/content-pages/urban-plans-and-initiatives" target="_blank">רמת גן &mdash; תוכניות עירוניות</a>
+</div>
+
+<h3 class="section-title">מדיה וניתוח (Media / Analysis)</h3>
+<div class="src-group">
+<a class="src-link" href="https://ntdtv.co.il/israel/10522" target="_blank">אונסק&quot;ו כנחש גנוסטי <span>(אוגוסט 2025)</span></a>
+<a class="src-link" href="https://www.gnostocracy.com/" target="_blank">Gnostocracy <span>(אתר מחקר)</span></a>
+<a class="src-link" href="https://www.haaretz.co.il/magazine/2014-07-19/ty-article/.premium/0000017f-e37c-df7c-a5ff-e37e0a4c0000" target="_blank">&quot;למה נכשל מפעל החינוך המזרחי&quot; &mdash; 20 שנה לקדמה <span>(2014)</span></a>
+</div>
+
+<h3 class="section-title">קישורים פנימיים לפרויקט (Internal Project Links)</h3>
+<div class="src-group">
+<a class="src-link" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">מחקר SEL &mdash; 7 מדינות בארה&quot;ב הגבילו</a>
+<a class="src-link" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">אבן רוזטה פרוגרסיבית</a>
+<a class="src-link" href="https://aosshalem-dev.github.io/shefi-research/" target="_blank">מחקר שפ&quot;י</a>
+<a class="src-link" href="https://github.com/aosshalem-dev/derug-arim-site" target="_blank">GitHub Repository</a>
+</div>
+
+<h3 class="section-title">רשם החברות (Companies Registry)</h3>
+<div class="src-group">
+<a class="src-link" href="https://ica.justice.gov.il/GenericCorporarionInfo/SearchCorporation?unit=8&amp;id=513099341" target="_blank">Registry Lookup &mdash; 513099341</a>
+<a class="src-link" href="https://ica.justice.gov.il/GenericCorporarionInfo/SearchCorporation?unit=8&amp;id=516711488" target="_blank">Registry Lookup &mdash; 516711488</a>
+</div>
+
+</div><!-- end view-sources -->
+
+<!-- ======================== TAB 6: QUEUE ======================== -->
+<div class="view" id="view-queue">
+
+<div class="stat-row">
+<div class="stat-card"><div class="num">10</div><div class="label">משימות ממתינות</div></div>
+<div class="stat-card"><div class="num">5</div><div class="label">קבצים מיובשים</div></div>
+<div class="stat-card"><div class="num">3</div><div class="label">עדיפות גבוהה</div></div>
+</div>
+
+<h3 class="section-title">עדיפות גבוהה</h3>
+
+<div class="pending-item">
+<div class="title">מחקר עודד סלע (Oded Sela)</div>
+<div class="desc">אפס מידע בקוד הבסיס. ייתכן שהקובץ THE_RETIERATION_ODED.docx (תיקיית 2030) מכיל מידע רלוונטי. הקובץ מיובש ע&quot;י Dropbox &mdash; דורש rehydration.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">המדען הראשי &mdash; צלילה עמוקה</div>
+<div class="desc">מחקר מעמיק על לשכת המדען הראשי במשרד החינוך: מי אישר את מימון REACT? מה עוד מומן? רשת קשרים.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">רשימת בתי ספר ASPnet עדכנית</div>
+<div class="desc">רשימה עדכנית של בתי הספר הישראליים ברשת ASPnet של אונסק&quot;ו. הנתונים הנוכחיים חלקיים.</div>
+</div>
+
+<h3 class="section-title">עדיפות בינונית</h3>
+
+<div class="pending-item">
+<div class="title">תזרימי מימון NIF מפורטים</div>
+<div class="desc">NIF &rarr; שתי&quot;ל &rarr; ארגוני שטח בחינוך. צריך מיפוי מפורט של תזרימי הכסף.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">השוואת GPT Deep Search</div>
+<div class="desc">השוואה בין ממצאי חיפוש עמוק של GPT, Gemini, ו-Claude על אותם נושאים.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">דפי חוקרים רדיקליים אינדיבידואליים</div>
+<div class="desc">יצירת דפי פרופיל לכל חוקר מפתח: מיכאלי, קטקו-איילי, כהן, אלוני ועוד.</div>
+</div>
+
+<h3 class="section-title">קבצי Alachson (מיובשים ע&quot;י Dropbox &mdash; דורשים rehydration)</h3>
+
+<div class="pending-item" style="border-right-color:#cc0000">
+<div class="title">תיקיית EDUCATION LIST</div>
+<div class="desc">
+<ul style="margin:6px 20px;font-size:.88em">
+<li>תגובה לעודד.docx</li>
+<li>מיילים של חוקרי חינוך.xlsx</li>
+<li>כתגובה לנמרוד אלוני</li>
+<li>קול קורא להצדקת הפדגוגיה הביקורתית</li>
+<li>מכתבים שלי בתפוצת חוקרי החינוך</li>
+</ul>
+</div>
+</div>
+
+<div class="pending-item" style="border-right-color:#cc0000">
+<div class="title">תיקיית UNESCO</div>
+<div class="desc">
+<ul style="margin:6px 20px;font-size:.88em">
+<li>אדר כהן.cgi</li>
+<li>מהי האגנדה של אונסקו.docx</li>
+</ul>
+</div>
+</div>
+
+<div class="pending-item" style="border-right-color:#cc0000">
+<div class="title">תיקיית 2030</div>
+<div class="desc">
+<ul style="margin:6px 20px;font-size:.88em">
+<li>THE_RETIERATION_ODED.docx &mdash; עשוי להכיל מידע על עודד סלע</li>
+</ul>
+</div>
+</div>
+
+<h3 class="section-title">משימות נוספות</h3>
+
+<div class="pending-item">
+<div class="title">Gemini Deep Search &mdash; מקורות נוספים על ליד&quot;ה</div>
+<div class="desc">חיפוש עמוק עם Gemini למציאת מקורות נוספים על מקרה ליד&quot;ה.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">מסמכי שפ&quot;י פנימיים על תקנת הסובלנות</div>
+<div class="desc">מסמכים פנימיים של שפ&quot;י על תקנת הסובלנות 20-46-03-11.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">פרוטוקולי כנסת על תקנת הסובלנות</div>
+<div class="desc">הפניות בפרוטוקולי הכנסת לתקנת הסובלנות.</div>
+</div>
+
+<div class="pending-item">
+<div class="title">נתוני מדד SDG 4.7 ספציפיים לישראל</div>
+<div class="desc">נתונים ספציפיים של מדד SDG 4.7 עבור ישראל.</div>
+</div>
+
+</div><!-- end view-queue -->
+
+</div><!-- end container -->
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    // find the clicked tab
+    const tabs = document.querySelectorAll('.nav-tab');
+    const viewNames = ['sitemap','quotes','funding','frameworks','sources','queue'];
+    const idx = viewNames.indexOf(id);
+    if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+}
+
+function filterSitemap() {
+    const q = document.getElementById('sitemapSearch').value.toLowerCase();
+    document.querySelectorAll('.sitemap-item').forEach(item => {
+        const text = (item.getAttribute('data-search') || '') + ' ' + item.textContent;
+        item.style.display = text.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
+
+</body>
+</html>

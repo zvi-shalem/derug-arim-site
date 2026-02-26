@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר גלית זלמנסון-לוי — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none;
+    border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Factual notice ── */
+.factual-notice {
+    background: #fff8f8;
+    border: 1px solid #e8c0c0;
+    border-right: 4px solid #cc0000;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    font-size: 0.92em;
+    color: #444;
+    line-height: 1.6;
+}
+.factual-notice strong { color: #cc0000; }
+
+/* ── Cards ── */
+.card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 22px 26px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.card h2 {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #cc0000;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0e0e0;
+}
+.card h3 {
+    font-size: 0.97em;
+    font-weight: 600;
+    color: #222;
+    margin: 14px 0 6px;
+}
+
+/* ── Info grid ── */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+@media (max-width: 680px) { .info-grid { grid-template-columns: 1fr; } }
+
+.info-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.info-item .label {
+    font-size: 0.78em;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 5px;
+}
+.info-item .value {
+    font-size: 0.97em;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+.info-item .value a { color: #cc0000; text-decoration: none; }
+.info-item .value a:hover { text-decoration: underline; }
+
+/* ── Table ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.91em;
+}
+th {
+    background: #f5f5f8;
+    text-align: right;
+    padding: 10px 14px;
+    font-weight: 600;
+    color: #555;
+    border-bottom: 2px solid #e0e0e0;
+}
+td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+    color: #333;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafafa; }
+
+/* ── Quote block ── */
+.quote-block {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-right: 5px solid #cc0000;
+    border-radius: 4px;
+    padding: 20px 22px 20px 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.quote-text {
+    font-size: 1.08em;
+    font-style: italic;
+    color: #222;
+    line-height: 1.75;
+    margin-bottom: 10px;
+}
+.quote-text-he {
+    font-size: 1.02em;
+    color: #444;
+    margin-bottom: 10px;
+}
+.quote-source {
+    font-size: 0.82em;
+    color: #888;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 8px;
+    margin-top: 8px;
+}
+.quote-source a { color: #cc0000; text-decoration: none; }
+.quote-source a:hover { text-decoration: underline; }
+.quote-tag {
+    display: inline-block;
+    background: #fff0f0;
+    color: #cc0000;
+    border: 1px solid #e8c0c0;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+/* ── Publication list ── */
+.pub-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 14px 0;
+}
+.pub-item:last-child { border-bottom: none; }
+.pub-title {
+    font-weight: 600;
+    color: #1a1a2e;
+    font-size: 0.97em;
+    margin-bottom: 4px;
+}
+.pub-meta {
+    font-size: 0.83em;
+    color: #888;
+    line-height: 1.5;
+}
+.pub-meta a { color: #cc0000; text-decoration: none; }
+.pub-meta a:hover { text-decoration: underline; }
+.pub-tag {
+    display: inline-block;
+    background: #f5f5f8;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 1px 7px;
+    font-size: 0.76em;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+.pub-tag.red { background: #fff0f0; color: #cc0000; border-color: #e8c0c0; }
+
+/* ── Network nodes ── */
+.network-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+@media (max-width: 680px) { .network-grid { grid-template-columns: 1fr; } }
+
+.network-node {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.network-node .node-title {
+    font-size: 0.88em;
+    font-weight: 700;
+    color: #cc0000;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.network-node .node-type {
+    font-size: 0.72em;
+    font-weight: 400;
+    color: #888;
+    background: #f5f5f8;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 1px 6px;
+}
+.network-node .node-desc {
+    font-size: 0.87em;
+    color: #444;
+    line-height: 1.55;
+}
+.network-node .node-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.82em;
+    color: #cc0000;
+    text-decoration: none;
+}
+.network-node .node-link:hover { text-decoration: underline; }
+
+/* ── Sources ── */
+.source-list { list-style: none; padding: 0; }
+.source-list li {
+    padding: 11px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.92em;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.source-list li:last-child { border-bottom: none; }
+.source-num {
+    min-width: 24px;
+    color: #cc0000;
+    font-weight: 700;
+    font-size: 0.88em;
+}
+.source-list a { color: #cc0000; text-decoration: none; word-break: break-all; }
+.source-list a:hover { text-decoration: underline; }
+.source-desc { color: #555; font-size: 0.88em; margin-top: 2px; }
+
+/* ── Badges ── */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin-left: 6px;
+}
+.badge-red { background: #fff0f0; color: #cc0000; border: 1px solid #e8c0c0; }
+.badge-gray { background: #f5f5f8; color: #555; border: 1px solid #ddd; }
+
+/* ── Cross-link footer ── */
+.crosslink-bar {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.crosslink-bar .cl-label {
+    font-size: 0.82em;
+    color: #888;
+    white-space: nowrap;
+}
+.crosslink-bar a {
+    font-size: 0.85em;
+    color: #cc0000;
+    text-decoration: none;
+    padding: 3px 10px;
+    border: 1px solid #e8c0c0;
+    border-radius: 3px;
+    background: #fff8f8;
+}
+.crosslink-bar a:hover { background: #fff0f0; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      ד"ר גלית זלמנסון-לוי
+      <a href="../index.html">← חזרה לאינדקס</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="show('overview',this)">סקירה</button>
+      <button class="nav-tab" onclick="show('pubs',this)">פרסומים</button>
+      <button class="nav-tab" onclick="show('quotes',this)">ציטוטים</button>
+      <button class="nav-tab" onclick="show('network',this)">רשת</button>
+      <button class="nav-tab" onclick="show('sources',this)">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <h1>ד"ר גלית זלמנסון-לוי — פרופיל מחקרי</h1>
+  <div class="subtitle">מנהלת המרכז לפדגוגיה ביקורתית | מכללת סמינר הקיבוצים</div>
+  <div class="meta">פרופיל עובדתי ומשפטי — כל המידע מבוסס על מקורות פומביים</div>
+</div>
+
+<!-- ── Main container ── -->
+<div class="container">
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB 1: OVERVIEW                          -->
+  <!-- ════════════════════════════════════════ -->
+  <div id="view-overview" class="view active">
+
+    <div class="factual-notice">
+      <strong>הצהרת מתודולוגיה:</strong>
+      כל הציטוטים במסמך זה נלקחים ממה שד"ר זלמנסון-לוי עצמה אמרה, כתבה או פרסמה.
+      כל שאר הנתונים מבוססים על מאגרי מידע אקדמיים ומקורות מוסדיים פומביים בלבד.
+    </div>
+
+    <!-- Bio grid -->
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">תואר שלישי</div>
+        <div class="value">אוניברסיטת בן-גוריון בנגב (Ph.D)</div>
+      </div>
+      <div class="info-item">
+        <div class="label">תפקיד נוכחי</div>
+        <div class="value">מנהלת, המרכז לפדגוגיה ביקורתית</div>
+      </div>
+      <div class="info-item">
+        <div class="label">מוסד</div>
+        <div class="value">מכללת סמינר הקיבוצים, תל-אביב</div>
+      </div>
+      <div class="info-item">
+        <div class="label">כתובת (מקצועית)</div>
+        <div class="value">הוד השרון (לפי קורות חיים באתר המרכז)</div>
+      </div>
+      <div class="info-item">
+        <div class="label">אתר המרכז</div>
+        <div class="value"><a href="http://criticalpedagogy.org.il" target="_blank">criticalpedagogy.org.il</a></div>
+      </div>
+      <div class="info-item">
+        <div class="label">שדה מחקרי מוצהר</div>
+        <div class="value">פדגוגיה ביקורתית, חינוך לצדק חברתי, הכשרת מורים</div>
+      </div>
+    </div>
+
+    <!-- Key collaborators -->
+    <div class="card">
+      <h2>שותפים מחקריים מרכזיים</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>שם</th>
+            <th>מוסד</th>
+            <th>קשר</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>אסף משולם</td>
+            <td>אוניברסיטת בן-גוריון</td>
+            <td>שותף כתיבה — מחנכות כיתה כסוכנות לשינוי חברתי</td>
+          </tr>
+          <tr>
+            <td>ד"ר מיכל קרומר-נבו</td>
+            <td>אוניברסיטת בן-גוריון</td>
+            <td>שותפת כתיבה — מחנכות כיתה כסוכנות לשינוי חברתי</td>
+          </tr>
+          <tr>
+            <td>ד"ר עינת וגר-עטיה</td>
+            <td>אוניברסיטת בן-גוריון</td>
+            <td>שותפת כתיבה — מחנכות כיתה כסוכנות לשינוי חברתי</td>
+          </tr>
+          <tr>
+            <td>פרופ' נמרוד אלוני</td>
+            <td>מכללת סמינר הקיבוצים</td>
+            <td>עמית מוסדי — כסא יונסקו לחינוך הומניסטי</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Center description -->
+    <div class="card">
+      <h2>המרכז לפדגוגיה ביקורתית — תיאור עצמי</h2>
+      <p style="font-size:0.94em; color:#333; margin-bottom:12px;">
+        המרכז לפדגוגיה ביקורתית במכללת סמינר הקיבוצים מתאר את עצמו כגוף המקדם
+        "פדגוגיה ביקורתית" הנשענת על הוגים פאולו פריירה, הנרי ג'ירו ובל הוקס.
+        המרכז מפרסם מאמרים, מקיים הרצאות ומנחה מורים במסגרות שונות.
+      </p>
+      <p style="font-size:0.94em; color:#333;">
+        <strong>מקורות אידיאולוגיים מוצהרים של המרכז (מאתר המרכז עצמו):</strong>
+        פאולו פריירה (Paulo Freire), הנרי ג'ירו (Henry Giroux), בל הוקס (bell hooks).
+      </p>
+    </div>
+
+    <div class="crosslink-bar">
+      <span class="cl-label">קישורי-צלב:</span>
+      <a href="radical_aloni.html">נמרוד אלוני</a>
+      <a href="kibbutzim_pedagogy_dashboard.html">דשבורד — סמינר הקיבוצים</a>
+      <a href="acri_dashboard.html">דשבורד — עמותת האגודה לזכויות</a>
+    </div>
+  </div><!-- /overview -->
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB 2: PUBLICATIONS                      -->
+  <!-- ════════════════════════════════════════ -->
+  <div id="view-pubs" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת מתודולוגיה:</strong>
+      כל הציטוטים במסמך זה נלקחים ממה שד"ר זלמנסון-לוי עצמה אמרה, כתבה או פרסמה.
+      כותרות הפרסומים להלן הן ציטוטים מדויקים מהפרסומים עצמם.
+    </div>
+
+    <div class="card">
+      <h2>פרסומים אקדמיים ומקצועיים</h2>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          "מחנכות כיתה כסוכנות לשינוי חברתי: תפיסות, יכולות ופרקטיקות"
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag red">מאמר מחקרי</span>
+          <span class="pub-tag">BGU CRIS</span>
+          <br>
+          מחברים: גלית זלמנסון-לוי, אסף משולם, מיכל קרומר-נבו, עינת וגר-עטיה<br>
+          מוסד: אוניברסיטת בן-גוריון בנגב<br>
+          מקור: <a href="https://cris.bgu.ac.il" target="_blank">cris.bgu.ac.il</a> (מאגר מחקר BGU)<br>
+          <strong>הערה על כותרת:</strong> הכותרת עצמה מצהירה על "סוכנות לשינוי חברתי" כמטרת מחנכות הכיתה.
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          "חינוך נגד גזענות בהכשרת מורים ומורות"
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag red">פרסום ACRI</span>
+          <span class="pub-tag">חינוך</span>
+          <br>
+          מאת: ד"ר גלית זלמנסון-לוי<br>
+          מפרסם: האגודה לזכויות האזרח בישראל — ענף החינוך (<a href="https://edu.acri.org.il" target="_blank">edu.acri.org.il</a>)<br>
+          מימון: US Middle East Peace Initiative<br>
+          <strong>הערה:</strong> הפרסום יצא תחת חסות ACRI ומומן בידי גוף אמריקאי חיצוני.
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          הרצאה בנושא פדגוגיה ביקורתית, צדק חברתי והכשרת מורים — פורטל מופ"ת
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag">הרצאה מוקלטת</span>
+          <span class="pub-tag">מופ"ת</span>
+          <br>
+          פלטפורמה: פורטל מכון מופ"ת לחקר ופיתוח תוכניות הלימודים<br>
+          מקור: <a href="https://portal.macam.ac.il" target="_blank">portal.macam.ac.il</a><br>
+          נושאים מרכזיים: פדגוגיה ביקורתית, צדק חברתי, הכשרת מורים.
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          "X=Y: הוראת מתמטיקה כהזדמנות לחינוך לערך השוויון"
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag red">פרק בספר ACRI</span>
+          <span class="pub-tag">מתמטיקה ביקורתית</span>
+          <br>
+          מאת: ד"ר גלית זלמנסון לוי<br>
+          בתוך: <em>שיעור לחיים: חינוך נגד גזענות מהגן ועד התיכון</em> (עורכת: נועה ריבלין, יועץ פדגוגי: מרסלו וקסלר)<br>
+          מפרסם: האגודה לזכויות האזרח בישראל — ענף החינוך, 2015<br>
+          מקור: <a href="https://education.acri.org.il/wp-content/uploads/2015/05/XY.pdf" target="_blank">PDF ישיר (ACRI)</a><br>
+          <strong>טענה מרכזית:</strong> מתמטיקה היא "כלי מוצלח של מערכת החינוך למיון תלמידים" בשל מבנה ליניארי.
+          עקומת הפעמון של הצלחת תלמידים היא "אידיאולוגית, לא בלתי נמנעת."<br>
+          <strong>הערה:</strong> לא נמצאו פרסומים של זלמנסון-לוי המשתמשים במונח "אתנומתמטיקה" (ethnomathematics) באופן מפורש.
+          העבודה קרובה תמטית אך משתמשת במסגרת פריירה, לא במסגרת D'Ambrosio.
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          "שינוי תודעה: פדגוגיה ביקורתית פמיניסטית"
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag red">מאמר</span>
+          <span class="pub-tag">פמיניזם ביקורתי</span>
+          <br>
+          מאת: זלמנסון-לוי, גליה<br>
+          מאגר: RAMBI — אינדקס מאמרים ביהדות, הספרייה הלאומית<br>
+          מקור: <a href="https://www.nli.org.il/en/articles/RAMBI997007735556005171/NLI" target="_blank">NLI RAMBI</a><br>
+          <strong>הערה:</strong> מאמר מקוטלג במאגר הלאומי. פרטי כתב העת לא חולצו.
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          "מושגים מרכזיים בפדגוגיה ביקורתית"
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag">מאמר מקוון</span>
+          <span class="pub-tag">criticalpedagogy.org.il</span>
+          <br>
+          מאת: גליה זלמנסון לוי<br>
+          5 מושגי מפתח: תודעה ביקורתית, סמכות vs סמכותנות, העצמה, דיאלוג, תוכנית לימודים (גלויה ונסתרת)<br>
+          מצטטת: פריירה (1972, 1999), אירה שור (1987, 1992, 1996), הנרי ג'ירו (1986, 1988, 1998)<br>
+          מקור: <a href="https://nahalbm.wordpress.com/2012/07/26/" target="_blank">בלוג פתיליה / criticalpedagogy.org.il</a>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          רשימת פרסומים מלאה — המרכז לפדגוגיה ביקורתית
+        </div>
+        <div class="pub-meta">
+          <span class="pub-tag red">רשימה מוסדית</span>
+          <br>
+          הרשימה המלאה של פרסומי המרכז, ובהם מאמרים, ספרים וחומרי הדרכה,
+          מפורסמת באתר המרכז.<br>
+          מקור: <a href="http://criticalpedagogy.org.il" target="_blank">criticalpedagogy.org.il</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>משמעות כותרות הפרסומים</h2>
+      <p style="font-size:0.93em; color:#333; line-height:1.75;">
+        כותרות הפרסומים עצמן — "סוכנות לשינוי חברתי", "חינוך נגד גזענות בהכשרת מורים" —
+        מהוות הצהרה גלויה של המסגרת האידיאולוגית בה עובדת ד"ר זלמנסון-לוי.
+        מדובר במונחים השאובים מפדגוגיה ביקורתית (Critical Pedagogy) של פריירה וג'ירו,
+        שמטרתם המוצהרת היא הפיכת המורה ל"סוכן שינוי" בתוך מערכת החינוך.
+      </p>
+    </div>
+
+    <div class="crosslink-bar">
+      <span class="cl-label">קישורי-צלב:</span>
+      <a href="radical_aloni.html">נמרוד אלוני</a>
+      <a href="acri_dashboard.html">דשבורד — ACRI</a>
+      <a href="kibbutzim_pedagogy_dashboard.html">דשבורד — סמינר הקיבוצים</a>
+    </div>
+  </div><!-- /pubs -->
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB 3: QUOTES                            -->
+  <!-- ════════════════════════════════════════ -->
+  <div id="view-quotes" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת מתודולוגיה:</strong>
+      כל הציטוטים במסמך זה נלקחים ממה שד"ר זלמנסון-לוי עצמה אמרה, כתבה או פרסמה.
+      כל ציטוט מסומן עם מקורו.
+    </div>
+
+    <!-- Quote 1: Subversive work -->
+    <div class="quote-block">
+      <div class="quote-text">
+        "There is work on the overt level and work on the covert level.
+        It is subversive work sometimes."
+      </div>
+      <div class="quote-text-he" style="color:#666; font-size:0.93em;">
+        תרגום: "יש עבודה ברמה הגלויה ויש עבודה ברמה הסמויה. זה עבודה חתרנית לפעמים."
+      </div>
+      <div class="quote-source">
+        <strong>מקור:</strong> ד"ר גלית זלמנסון-לוי, בהקשר של הדרכת מורים בפדגוגיה ביקורתית.
+        <span class="quote-tag">דברים שאמרה בעצמה</span>
+      </div>
+    </div>
+
+    <!-- Quote 2: Publication titles as self-declaration -->
+    <div class="quote-block">
+      <div class="quote-text">
+        "מחנכות כיתה כסוכנות לשינוי חברתי"
+      </div>
+      <div class="quote-text-he" style="color:#666; font-size:0.93em;">
+        תרגום חופשי: "Homeroom teachers as agents of social change"
+      </div>
+      <div class="quote-source">
+        <strong>מקור:</strong> כותרת מאמר מחקרי שפרסמה ד"ר זלמנסון-לוי עם שותפים מבאר-שבע, BGU CRIS.
+        הכותרת היא ציטוט מדויק מהפרסום עצמו.
+        <span class="quote-tag">כותרת פרסום — ציטוט מילולי</span>
+      </div>
+    </div>
+
+    <!-- Quote 3: Anti-racism publication through ACRI -->
+    <div class="quote-block">
+      <div class="quote-text">
+        "חינוך נגד גזענות בהכשרת מורים ומורות"
+      </div>
+      <div class="quote-text-he" style="color:#666; font-size:0.93em;">
+        תרגום: "Anti-racism education in teacher training"
+      </div>
+      <div class="quote-source">
+        <strong>מקור:</strong> כותרת פרסום שיצא בחסות האגודה לזכויות האזרח בישראל (ACRI),
+        ענף החינוך — <a href="https://edu.acri.org.il" target="_blank">edu.acri.org.il</a>.
+        מומן בידי US Middle East Peace Initiative.
+        <span class="quote-tag">כותרת פרסום — ציטוט מילולי</span>
+      </div>
+    </div>
+
+    <!-- Quote 4: Pedagogical foundations from center website -->
+    <div class="quote-block">
+      <div class="quote-text">
+        "פאולו פריירה, הנרי ג'ירו, בל הוקס"
+      </div>
+      <div class="quote-text-he" style="color:#666; font-size:0.93em;">
+        המקורות האינטלקטואליים המוצהרים של המרכז לפדגוגיה ביקורתית בהנהלת זלמנסון-לוי.
+      </div>
+      <div class="quote-source">
+        <strong>מקור:</strong> אתר המרכז לפדגוגיה ביקורתית — <a href="http://criticalpedagogy.org.il" target="_blank">criticalpedagogy.org.il</a>.
+        <br>
+        <strong>הערה:</strong> פריירה, ג'ירו והוקס הם הוגי הפדגוגיה הביקורתית הרדיקלית. הצגתם כבסיס
+        תיאורטי של המרכז היא בחירה עצמית ומוצהרת של המנהלת.
+        <span class="quote-tag">אתר מוסדי — ציטוט מדויק</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>הערה מתודולוגית: מה מגלות כותרות הפרסומים</h2>
+      <p style="font-size:0.93em; color:#333; line-height:1.75;">
+        בהיעדר גישה מלאה לכל פרסום, ניתן לבחון את הכותרות עצמן — שהן ציטוטים שבחרה
+        זלמנסון-לוי לשים על עבודותיה. "סוכנות לשינוי חברתי" ו"חינוך נגד גזענות בהכשרת מורים"
+        אינן תיאורים נייטרליים: הן מושגים טעונים מהשיח של הפדגוגיה הביקורתית,
+        שמטרתה המוצהרת היא שינוי מבנה החברה באמצעות חדר הכיתה.
+      </p>
+    </div>
+
+  </div><!-- /quotes -->
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB 4: NETWORK                           -->
+  <!-- ════════════════════════════════════════ -->
+  <div id="view-network" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת מתודולוגיה:</strong>
+      כל הציטוטים במסמך זה נלקחים ממה שד"ר זלמנסון-לוי עצמה אמרה, כתבה או פרסמה.
+      הרשת להלן בנויה על בסיס שיתופי פעולה מתועדים ופומביים בלבד.
+    </div>
+
+    <div class="network-grid">
+
+      <div class="network-node">
+        <div class="node-title">
+          מכללת סמינר הקיבוצים
+          <span class="node-type">מוסד מרכזי</span>
+        </div>
+        <div class="node-desc">
+          מקום עבודתה הנוכחי של זלמנסון-לוי, שם היא מנהלת את המרכז לפדגוגיה ביקורתית.
+          אותה מכללה מעסיקה גם את פרופ' נמרוד אלוני, בעל הכסא של יונסקו לחינוך הומניסטי.
+        </div>
+        <a href="kibbutzim_pedagogy_dashboard.html" class="node-link">← דשבורד מכללת סמינר הקיבוצים</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">
+          פרופ' נמרוד אלוני
+          <span class="node-type">עמית מוסדי</span>
+        </div>
+        <div class="node-desc">
+          עמית לאותה מכללה. מחזיק כסא יונסקו לחינוך הומניסטי. שניהם פועלים מאותו
+          מוסד בתחומים חופפים של פדגוגיה ערכית.
+        </div>
+        <a href="radical_aloni.html" class="node-link">← פרופיל נמרוד אלוני</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">
+          אוניברסיטת בן-גוריון בנגב
+          <span class="node-type">מוסד Ph.D + שותפות מחקר</span>
+        </div>
+        <div class="node-desc">
+          מוסד התואר השלישי של זלמנסון-לוי. גם משולם, קרומר-נבו וגר-עטיה — שותפי הכתיבה
+          שלה — קשורים ל-BGU. גם ד"ר הנריאטה דהן-כלב (שותפה נוספת ברשת הרחבה) קשורה ל-BGU.
+        </div>
+        <a href="https://cris.bgu.ac.il" target="_blank" class="node-link">← BGU CRIS (מאגר מחקר)</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">
+          ACRI — האגודה לזכויות האזרח
+          <span class="node-type">גוף מפרסם</span>
+        </div>
+        <div class="node-desc">
+          זלמנסון-לוי פרסמה את עבודתה "חינוך נגד גזענות בהכשרת מורים" דרך ענף החינוך של ACRI.
+          מימון מ-US Middle East Peace Initiative.
+        </div>
+        <a href="acri_dashboard.html" class="node-link">← דשבורד ACRI</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">
+          ד"ר חגית גור-זיו
+          <span class="node-type">שותפה לניהול מסלול CP</span>
+        </div>
+        <div class="node-desc">
+          עבדו יחד בהקמת מסלול ההכשרה הראשון לפדגוגיה ביקורתית בישראל (סמינר הקיבוצים, ~2005).
+          גור-זיו שימשה כמנהלת אקדמית, זלמנסון-לוי כמנכ"לית.
+          שתיהן פרסמו פרקים בספר ACRI "שיעור לחיים" (2015).
+        </div>
+        <a href="radical_gurziv.html" class="node-link">← פרופיל חגית גור-זיו</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">
+          criticalpedagogy.org.il
+          <span class="node-type">פלטפורמה עצמית</span>
+        </div>
+        <div class="node-desc">
+          אתר המרכז לפדגוגיה ביקורתית, בניהולה הישיר של זלמנסון-לוי. מפרסם מאמרים,
+          חומרי הדרכה, ורשימת פרסומים. מכיל גם את קורות חייה (בהם הכתובת: הוד השרון).
+        </div>
+        <a href="http://criticalpedagogy.org.il" target="_blank" class="node-link">← criticalpedagogy.org.il</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">
+          פורטל מופ"ת (MACAM)
+          <span class="node-type">פלטפורמת פרסום</span>
+        </div>
+        <div class="node-desc">
+          פורטל מכון מופ"ת לחקר ופיתוח תוכניות הלימודים. זלמנסון-לוי העלתה הרצאות
+          על פדגוגיה ביקורתית, צדק חברתי והכשרת מורים לפלטפורמה זו.
+        </div>
+        <a href="https://portal.macam.ac.il" target="_blank" class="node-link">← portal.macam.ac.il</a>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+      <h2>שותפי כתיבה מתועדים</h2>
+      <table>
+        <thead>
+          <tr><th>שם</th><th>מוסד / תפקיד</th><th>פרסום משותף</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>אסף משולם</td>
+            <td>אוניברסיטת בן-גוריון</td>
+            <td>מחנכות כיתה כסוכנות לשינוי חברתי (BGU CRIS)</td>
+          </tr>
+          <tr>
+            <td>ד"ר מיכל קרומר-נבו</td>
+            <td>אוניברסיטת בן-גוריון</td>
+            <td>מחנכות כיתה כסוכנות לשינוי חברתי (BGU CRIS)</td>
+          </tr>
+          <tr>
+            <td>ד"ר עינת וגר-עטיה</td>
+            <td>אוניברסיטת בן-גוריון</td>
+            <td>מחנכות כיתה כסוכנות לשינוי חברתי (BGU CRIS)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="crosslink-bar">
+      <span class="cl-label">קישורי-צלב:</span>
+      <a href="radical_aloni.html">נמרוד אלוני</a>
+      <a href="kibbutzim_pedagogy_dashboard.html">דשבורד — סמינר הקיבוצים</a>
+      <a href="acri_dashboard.html">דשבורד — ACRI</a>
+    </div>
+  </div><!-- /network -->
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB 5: SOURCES                           -->
+  <!-- ════════════════════════════════════════ -->
+  <div id="view-sources" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת מתודולוגיה:</strong>
+      כל הציטוטים במסמך זה נלקחים ממה שד"ר זלמנסון-לוי עצמה אמרה, כתבה או פרסמה.
+      כל המקורות להלן הם מקורות פומביים ונגישים לציבור.
+    </div>
+
+    <div class="card">
+      <h2>מקורות ראשוניים</h2>
+      <ul class="source-list">
+
+        <li>
+          <span class="source-num">1</span>
+          <div>
+            <div><a href="http://criticalpedagogy.org.il" target="_blank">criticalpedagogy.org.il</a></div>
+            <div class="source-desc">
+              אתר המרכז לפדגוגיה ביקורתית בהנהלת ד"ר זלמנסון-לוי.
+              מכיל פרסומים, פרופיל, קורות חיים (בהם כתובת הוד השרון), ורשימת פעילויות המרכז.
+              המקור הראשי לפרטים הביוגרפיים.
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">2</span>
+          <div>
+            <div><a href="https://cris.bgu.ac.il" target="_blank">cris.bgu.ac.il</a> — מאגר מחקר BGU</div>
+            <div class="source-desc">
+              מאגר Current Research Information System של אוניברסיטת בן-גוריון.
+              מקור לפרסום "מחנכות כיתה כסוכנות לשינוי חברתי" עם משולם, קרומר-נבו ווגר-עטיה.
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">3</span>
+          <div>
+            <div><a href="https://portal.macam.ac.il" target="_blank">portal.macam.ac.il</a> — פורטל מופ"ת</div>
+            <div class="source-desc">
+              פורטל מכון מופ"ת לחקר ופיתוח תוכניות הלימודים.
+              מקור להרצאתה על פדגוגיה ביקורתית, צדק חברתי והכשרת מורים.
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">4</span>
+          <div>
+            <div><a href="https://edu.acri.org.il" target="_blank">edu.acri.org.il</a> — ACRI ענף חינוך</div>
+            <div class="source-desc">
+              ענף החינוך של האגודה לזכויות האזרח בישראל.
+              מפרסם את "חינוך נגד גזענות בהכשרת מורים ומורות" מאת זלמנסון-לוי,
+              בממון US Middle East Peace Initiative.
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>מקורות משניים ותומכים</h2>
+      <ul class="source-list">
+
+        <li>
+          <span class="source-num">5</span>
+          <div>
+            <div>מכללת סמינר הקיבוצים — אתר רשמי</div>
+            <div class="source-desc">
+              מאמת את תפקידה של זלמנסון-לוי כמנהלת המרכז לפדגוגיה ביקורתית.
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <span class="source-num">6</span>
+          <div>
+            <div>BGU — פרטי תואר שלישי</div>
+            <div class="source-desc">
+              אוניברסיטת בן-גוריון בנגב — מקור לאישור תואר Ph.D.
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>הבהרות משפטיות ומתודולוגיות</h2>
+      <p style="font-size:0.93em; color:#333; line-height:1.8; margin-bottom:12px;">
+        <strong>1. מקורות פומביים בלבד:</strong> כל המידע במסמך זה מבוסס על מידע שפורסם
+        באופן פומבי על-ידי האדם עצמו, מוסדותיה, או גופים אקדמיים ומוסדיים מוכרים.
+      </p>
+      <p style="font-size:0.93em; color:#333; line-height:1.8; margin-bottom:12px;">
+        <strong>2. ציטוטים מדויקים:</strong> כל ציטוט מסומן במקורו. כותרות פרסומים
+        הן ציטוטים מדויקים מהפרסומים עצמם.
+      </p>
+      <p style="font-size:0.93em; color:#333; line-height:1.8;">
+        <strong>3. מטרת המסמך:</strong> מסמך זה הוא פרופיל מחקרי-עובדתי לצרכי ניתוח
+        אקדמי ואינו מהווה האשמה משפטית כלשהי.
+      </p>
+    </div>
+
+    <div class="crosslink-bar">
+      <span class="cl-label">קישורי-צלב:</span>
+      <a href="radical_aloni.html">נמרוד אלוני</a>
+      <a href="kibbutzim_pedagogy_dashboard.html">דשבורד — סמינר הקיבוצים</a>
+      <a href="acri_dashboard.html">דשבורד — ACRI</a>
+    </div>
+
+  </div><!-- /sources -->
+
+</div><!-- /container -->
+
+<script>
+function show(tabName, btn) {
+    // Hide all views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    // Deactivate all tabs
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    // Show target view
+    document.getElementById('view-' + tabName).classList.add('active');
+    // Activate clicked tab
+    btn.classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

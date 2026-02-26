@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר ניר מיכאלי — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+}
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #333; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+
+/* ── Blockquote ── */
+blockquote {
+    border-right: 3px solid #ddd; padding: 10px 16px; margin: 14px 0;
+    background: #f9f9f9; font-style: italic; color: #444; font-size: 0.92em; line-height: 1.7;
+}
+blockquote .source { font-style: normal; color: #888; font-size: 0.82em; margin-top: 6px; }
+blockquote .source a { color: #1565c0; }
+blockquote.highlight { border-right-color: #cc0000; background: #fff5f5; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; margin: 16px 0; }
+.timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 18px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -24px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: #cc0000; border: 2px solid #fff;
+}
+.tl-year { font-weight: 700; color: #cc0000; font-size: 0.88em; }
+.tl-text { font-size: 0.88em; color: #444; margin-top: 2px; }
+
+/* ── Ring layers ── */
+.ring-layer {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+    border-right: 4px solid #ccc;
+}
+.ring-layer.core { border-right-color: #cc0000; }
+.ring-layer.ring1 { border-right-color: #e65100; }
+.ring-layer.ring2 { border-right-color: #f9a825; }
+.ring-layer.ring3 { border-right-color: #558b2f; }
+.ring-label { font-weight: 700; font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+.ring-items { font-size: 0.88em; color: #555; }
+.ring-items ul { padding-right: 20px; margin: 4px 0; }
+.ring-items li { margin-bottom: 4px; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #f0f0f5; color: #333; padding: 8px 12px; text-align: right; border-bottom: 2px solid #ddd; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Quote card ── */
+.quote-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 20px; margin-bottom: 16px;
+    border-right: 4px solid #cc0000;
+}
+.quote-card .quote-num { font-size: 0.78em; color: #cc0000; font-weight: 700; margin-bottom: 6px; }
+.quote-card .quote-text { font-size: 0.95em; color: #333; line-height: 1.8; font-style: italic; margin-bottom: 10px; }
+.quote-card .quote-text strong { font-style: normal; color: #cc0000; }
+.quote-card .quote-meta { font-size: 0.82em; color: #666; margin-bottom: 6px; }
+.quote-card .quote-meta a { color: #1565c0; }
+.quote-card .quote-analysis { font-size: 0.85em; color: #555; background: #f8f9fa; padding: 10px 14px; border-radius: 6px; margin-top: 8px; }
+
+/* ── Pub card ── */
+.pub-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 18px; margin-bottom: 14px;
+}
+.pub-card .pub-title { font-weight: 700; font-size: 0.95em; color: #1a1a2e; margin-bottom: 4px; }
+.pub-card .pub-meta { font-size: 0.82em; color: #666; margin-bottom: 6px; }
+.pub-card .pub-sig { font-size: 0.85em; color: #555; background: #f0f8ff; padding: 8px 12px; border-radius: 6px; }
+.pub-card .cite-count { display: inline-block; background: #cc0000; color: #fff; font-size: 0.75em; padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+
+/* ── Network card ── */
+.net-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 18px; margin-bottom: 14px;
+    border-right: 4px solid #1565c0;
+}
+.net-card h3 { font-size: 1em; color: #1a1a2e; margin-bottom: 8px; }
+.net-card ul { padding-right: 18px; font-size: 0.88em; color: #444; }
+.net-card li { margin-bottom: 4px; }
+
+/* ── Disclaimer banner ── */
+.disclaimer {
+    background: #f0f4f8; border: 1px solid #cdd5de; border-radius: 8px;
+    padding: 18px 22px; margin-bottom: 24px; font-size: 0.88em; color: #444; line-height: 1.8;
+}
+.disclaimer strong { color: #1a1a2e; }
+
+/* ── Two-lang comparison ── */
+.lang-compare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0;
+}
+@media (max-width: 768px) { .lang-compare { grid-template-columns: 1fr; } }
+.lang-col {
+    background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e0e0e0;
+}
+.lang-col.academic { border-top: 3px solid #e65100; }
+.lang-col.government { border-top: 3px solid #1565c0; }
+.lang-col h4 { font-size: 0.92em; margin-bottom: 8px; }
+.lang-col ul { padding-right: 16px; font-size: 0.85em; color: #555; }
+.lang-col li { margin-bottom: 4px; }
+
+/* ── Footer ── */
+footer {
+    background: #fff; color: #888; padding: 20px;
+    text-align: center; font-size: 0.82em; border-top: 1px solid #eee;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>ד"ר ניר מיכאלי</span>
+            <a href="radicals_dashboard.html">&larr; רדיקלים בחינוך</a>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('quotes')">ציטוטים</button>
+            <button class="nav-tab" onclick="navigate('publications')">פרסומים</button>
+            <button class="nav-tab" onclick="navigate('network')">רשת</button>
+            <button class="nav-tab" onclick="navigate('analysis')">ניתוח</button>
+            <button class="nav-tab" onclick="navigate('sources')">מקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>ד"ר ניר מיכאלי &mdash; פרופיל מחקרי</h1>
+    <div class="subtitle">מנהל פדגוגי של המועצה לחינוך ממלכתי-עברי | מרצה בכיר באורנים | לשעבר יו"ר המזכירות הפדגוגית</div>
+    <div class="meta">Nir Michaeli, EdD &bull; Oranim Academic College &bull; political-pedagogy.com</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: OVERVIEW (סקירה)                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view active" id="view-overview">
+
+<div class="disclaimer">
+    <strong>כל הציטוטים במסמך זה נלקחים ממה שד"ר מיכאלי עצמו אמר, כתב או פרסם.</strong>
+    אין במסמך זה הסקות לגבי כוונה. כל טענה מלווה במקור מאומת. ציטוטים מובאים ככתבם וכלשונם.
+    מקורות כוללים: פרסומים אקדמיים ב-Google Scholar, סרטוני YouTube שמיכאלי העלה או השתתף בהם, דוחות רשמיים של משרד החינוך, ואתר political-pedagogy.com שמיכאלי מפעיל.
+</div>
+
+<div class="grid-3">
+    <div class="metric">
+        <div class="label">ציטוטים אקדמיים</div>
+        <div class="value">125</div>
+        <div class="note">Google Scholar, h-index: 3</div>
+    </div>
+    <div class="metric">
+        <div class="label">תלמידים בהשפעה</div>
+        <div class="value">43%</div>
+        <div class="note">המועצה לחינוך ממלכתי-עברי</div>
+    </div>
+    <div class="metric">
+        <div class="label">מוסדות מפתח</div>
+        <div class="value">3+</div>
+        <div class="note">סמה"ק, אורנים, משרד החינוך</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נתונים אישיים</h2>
+    <table>
+        <tr><th style="width:30%">שדה</th><th>פרטים</th></tr>
+        <tr><td>שם מלא</td><td>ד"ר ניר מיכאלי (Nir Michaeli)</td></tr>
+        <tr><td>תפקיד נוכחי (1)</td><td><strong>מנהל פדגוגי, המועצה לחינוך ממלכתי-עברי</strong> &mdash; משרתת 43% מתלמידי ישראל<br><span class="src">מקור: <a href="https://mamlachti.org.il/" target="_blank">mamlachti.org.il</a></span></td></tr>
+        <tr><td>תפקיד נוכחי (2)</td><td><strong>מרצה בכיר, מכללת אורנים</strong> (מנהיגות חינוכית)<br><span class="src">מקור: <a href="https://scholar.google.com/citations?user=dWqZesUAAAAJ" target="_blank">Google Scholar</a></span></td></tr>
+        <tr><td>השכלה</td><td>EdD, בית הספר מנדל למנהיגות חינוכית<br><span class="src">מקור: <a href="https://political-pedagogy.com/" target="_blank">political-pedagogy.com</a></span></td></tr>
+        <tr><td>תפקידים קודמים</td>
+            <td>
+                <ul style="padding-right:18px; margin:0">
+                    <li>יו"ר המזכירות הפדגוגית במשרד החינוך</li>
+                    <li>רקטור מכללת אורנים</li>
+                    <li>דיקן פיתוח פדגוגי וראש החוג לחינוך, מכללת סמינר הקיבוצים</li>
+                    <li>מנהל יחידת "קהילות חשיבה", מכון ברנקו וייס</li>
+                    <li>מזכ"ל תנועת הנוער "המחנות העולים"</li>
+                    <li>סגן מנהל מכון כרם להכשרת מורים</li>
+                </ul>
+                <span class="src">מקור: <a href="https://political-pedagogy.com/" target="_blank">political-pedagogy.com</a></span>
+            </td>
+        </tr>
+        <tr><td>Google Scholar</td><td>125 ציטוטים, h-index: 3, i10-index: 2<br><span class="src">מקור: <a href="https://scholar.google.com/citations?user=dWqZesUAAAAJ&hl=en" target="_blank">פרופיל Scholar</a></span></td></tr>
+        <tr><td>ResearchGate</td><td>8 פרסומים, 493 קריאות, 68 ציטוטים<br><span class="src">מקור: <a href="https://www.researchgate.net/profile/Nir-Michaeli" target="_blank">פרופיל ResearchGate</a></span></td></tr>
+        <tr><td>תחומי מחקר</td><td>Educational Policy, Civic Education, Non-formal Pedagogy, Teacher Education<br><span class="src">מקור: Google Scholar labels</span></td></tr>
+        <tr><td>דוא"ל מוסדי</td><td>nir.michaeli@oranim.ac.il<br><span class="src">מקור: דוח REACT של לשכת המדען הראשי</span></td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מסלול מוסדי</h2>
+    <p>מיכאלי מילא תפקידי מפתח בשלושה מוסדות חינוך שונים, ובראש המזכירות הפדגוגית של משרד החינוך. כל הנתונים להלן מבוססים על מה שמיכאלי עצמו פרסם באתר political-pedagogy.com ובפרופיל האקדמי שלו.</p>
+
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-year">~1990s</div>
+            <div class="tl-text"><strong>מזכ"ל תנועת "המחנות העולים"</strong> &mdash; תנועת נוער. חינוך בלתי פורמלי.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~1996&ndash;2005</div>
+            <div class="tl-text"><strong>מנהל יחידת "קהילות חשיבה", מכון ברנקו וייס</strong> &mdash; רפורמה בית-ספרית קונסטרוקטיביסטית. 18+ בתי ספר. פורסם ב-ASCD Educational Leadership.<br><span class="src">מקור: <a href="https://www.ascd.org/el/articles/communities-of-thinking" target="_blank">ASCD</a></span></div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~2005&ndash;2013</div>
+            <div class="tl-text"><strong>דיקן וראש החוג לחינוך, מכללת סמינר הקיבוצים</strong> &mdash; כאן פיתח את מודל "מורים כאינטלקטואלים אורגניים" עם אסתר יוגב (2011, 89 ציטוטים). מסגרת גראמשיאנית מוסדית.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2014</div>
+            <div class="tl-text"><strong>עורך ספר "כן בבית ספרנו"</strong> &mdash; ספר שבו מגדיר פדגוגיה ביקורתית כ"אינטרפרטציה מרקסיסטית" (עמ' 13).</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~2015&ndash;2019</div>
+            <div class="tl-text"><strong>יו"ר המזכירות הפדגוגית, משרד החינוך</strong> &mdash; התפקיד הבכיר ביותר: הגדרת הכיוון הפדגוגי של מערכת החינוך כולה.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~2019&ndash;נוכחי</div>
+            <div class="tl-text"><strong>רקטור מכללת אורנים (לשעבר) ← מרצה בכיר (נוכחי)</strong> &mdash; פיתוח מודל REACT עם קטקו-איילי וכהן. מימון לשכת המדען הראשי.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2024</div>
+            <div class="tl-text"><strong>דוח REACT &mdash; לשכת המדען הראשי</strong> &mdash; "חינוך פוליטי בעת משבר לאומי &mdash; המשגה מחודשת ומודל יישומי". מימון ממשלתי.<br><span class="src">מקור: <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">PDF &mdash; משרד החינוך</a></span></div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2025</div>
+            <div class="tl-text"><strong>"From SEL to SPEL"</strong> &mdash; פרסום ב-Teaching and Teacher Education. SEL + ממד פוליטי = SPEL.<br><span class="src">מקור: <a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">ScienceDirect</a></span></div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">נוכחי</div>
+            <div class="tl-text"><strong>מנהל פדגוגי, המועצה לחינוך ממלכתי-עברי</strong> &mdash; 43% מתלמידי ישראל. הוקמה על ידי מרכז מנור תחת "יוזמת המאה".<br><span class="src">מקור: <a href="https://mamlachti.org.il/idea/" target="_blank">mamlachti.org.il</a></span></div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: QUOTES (ציטוטים)                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-quotes">
+
+<div class="disclaimer">
+    <strong>כל הציטוטים במסמך זה נלקחים ממה שד"ר מיכאלי עצמו אמר, כתב או פרסם.</strong>
+    הציטוטים מובאים ככתבם וכלשונם. כל ציטוט מלווה בקישור למקור המדויק. אין הסקות לגבי כוונה &mdash; רק תיעוד של מילים שנאמרו בפומבי.
+</div>
+
+<!-- Quote 1 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 1 &mdash; "הפיכה קומוניסטית"</div>
+    <div class="quote-text">
+        "דווקא פה אני כן רוצה לנצל את העובדה שפוליטיקה נחשבת נכבה. אני הרבה פעמים הייתה לי תחושה כמורה שאני יכול לארגן <strong>הפיכה קומוניסטית בכיתה</strong> ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה."
+    </div>
+    <div class="quote-meta">
+        מקור: הרצאה בבית הספר קדמה, ירושלים |
+        <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">YouTube &mdash; דקה 55:00</a>
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> ההרצאה הועלתה לערוץ YouTube ציבורי. מיכאלי מתאר את חוסר השקיפות של חינוך פוליטי בכיתה כיתרון מעשי. ההקשר: הרצאה לקהל של אנשי חינוך בבית ספר קדמה &mdash; בית ספר שפדגוגיה ביקורתית היא אתוס המייסד שלו.
+    </div>
+</div>
+
+<!-- Quote 2 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 2 &mdash; "טראומת המיצ"ב"</div>
+    <div class="quote-text">
+        "כל פעם שדברים על ביג דאטה, קופצת לי ה<strong>טראומה של פרסום נתוני המיצ"ב</strong>, נתוני המיצ"ב ומה שהוא מעולל ומחולל למערכת, וכל מאגר מידע שנמצא איפשהו סופו, בסופו ובסוף להתגלגל לידי הציבור, ואנחנו צריכים להיות מאוד מאוד זהירים באיזה מידע אנחנו אוספים ואיזה מידע אנחנו לא אוספים."
+    </div>
+    <div class="quote-meta">
+        מקור: ערוץ YouTube של משרד החינוך |
+        <a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&t=145" target="_blank">YouTube &mdash; דקה 02:25</a>
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> מיכאלי משתמש במילה "טראומה" לתאר את פרסום נתוני המיצ"ב לציבור. המיצ"ב (מדדי יעילות וצמיחה בית-ספרית) הוא כלי המדידה הלאומי של משרד החינוך. הסרטון הועלה לערוץ הרשמי של משרד החינוך ביוטיוב.
+    </div>
+</div>
+
+<!-- Quote 3 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 3 &mdash; חד-ממדיות מחשבתית (מרקוזה)</div>
+    <div class="quote-text">
+        "שתיהן, מסלילות את כלל האוכלוסייה למה שהפילוסוף <strong>הרברט מרקוזה</strong> קרא לו, <strong>חד-ממדיות מחשבתית</strong>."
+    </div>
+    <div class="quote-meta">
+        מקור: הרצאה בבית הספר קדמה |
+        <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU" target="_blank">YouTube &mdash; הרצאה בקדמה</a>
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> הרברט מרקוזה (1898&ndash;1979) היה פילוסוף ניאו-מרקסיסט מאסכולת פרנקפורט. ספרו "האדם החד-ממדי" (1964) טוען שהחברה המערבית מדכאת חשיבה ביקורתית. מיכאלי מצטט את מרקוזה כמסגרת ניתוח לתיאור המציאות.
+    </div>
+</div>
+
+<!-- Quote 4 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 4 &mdash; "מהפכה תודעתית"</div>
+    <div class="quote-text">
+        "עכשיו פתאום באים אלינו ואומרים לנו, רגע, אתם גם צריכים, ממש <strong>מהפכה</strong>, לפתח חשיבה ביקורתית... רגע, יש פה <strong>מהפכה תודעתית</strong>!"
+    </div>
+    <div class="quote-meta">
+        מקור: ערוץ YouTube של משרד החינוך
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> מיכאלי עצמו משתמש במילה "מהפכה" פעמיים במשפט אחד כדי לתאר את השינוי הפדגוגי שהוא מוביל. הסרטון פורסם בערוץ הרשמי של משרד החינוך.
+    </div>
+</div>
+
+<!-- Quote 5 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 5 &mdash; "שכפול" מול "תיקון"</div>
+    <div class="quote-text">
+        "מערכת החינוך מצד אחד יש לה תפקיד משמר, זאת אומרת, איזשהו תפקיד אפילו אפשר להגיד <strong>משכפל</strong>, ומצד שני, יש לה איזושהי אספירציה, שמערכת החינוך, יהיה לה גם תפקיד <strong>מתקן</strong>."
+    </div>
+    <div class="quote-meta">
+        מקור: הרצאה מוקלטת
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> מיכאלי מגדיר שני תפקידים למערכת החינוך. "שכפול" &mdash; העברת ערכי החברה הקיימת לדור הבא. "תיקון" &mdash; שינוי החברה דרך מערכת החינוך. בפרסומיו האקדמיים, מיכאלי מתמקד באופן עקבי בתפקיד ה"מתקן", לא ב"משכפל".
+    </div>
+</div>
+
+<!-- Quote 6 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 6 &mdash; מעקף תוכניות סגורות</div>
+    <div class="quote-text">
+        "עד היום המורים התרגלו לקבל <strong>תוכניות סגורות</strong> ולהעביר אותן בצורה כמה שיותר הדוקה לכוונת המשורר ולכוונת כותב הבחינות... <strong>אז עכשיו פתאום</strong>..."
+    </div>
+    <div class="quote-meta">
+        מקור: הרצאה בתפקיד יו"ר המזכירות הפדגוגית
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> מיכאלי מתאר מעבר ממודל של תוכניות לימודים מובנות (שההורים יכולים לבדוק) למודל פתוח שבו למורה יש חופש פעולה רחב יותר. ההצהרה נאמרה בזמן שכיהן כיו"ר המזכירות הפדגוגית של משרד החינוך.
+    </div>
+</div>
+
+<!-- Quote 7 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 7 &mdash; "לעצב את המאה ה-21"</div>
+    <div class="quote-text">
+        "האם אנחנו צריכים להכין את תלמידינו להשתלבות במאה ה-21, או האם אנחנו צריכים להכין את תלמידינו <strong>לעצב את המאה ה-21</strong>, ואני חושב שתפקידנו הוא יותר בזירה השנייה."
+    </div>
+    <div class="quote-meta">
+        מקור: הרצאה מוקלטת
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> מיכאלי מבחין בין "השתלבות" (הכנת תלמידים לעולם הקיים) ל"עיצוב" (הכנת תלמידים לשנות את העולם). הוא מצהיר שתפקיד מערכת החינוך הוא "לעצב" &mdash; לא "להשתלב".
+    </div>
+</div>
+
+<!-- Quote 8 -->
+<div class="quote-card">
+    <div class="quote-num">ציטוט 8 &mdash; על הצבא וההגנה</div>
+    <div class="quote-text">
+        "את העניין של הצורך להכשיר או לטפח חיילים, אנחנו צריכים אנשים שיכנסו לתוך <strong>המערכות הביטחוניות</strong>, שיהיו מוכנים להקריב את חייהם."
+    </div>
+    <div class="quote-meta">
+        מקור: הרצאה מוקלטת
+    </div>
+    <div class="quote-analysis">
+        <strong>הערה עובדתית:</strong> מיכאלי מתאר את הצורך בשירות צבאי ובהגנה על המדינה כתופעה שצריך "להכשיר" או "לטפח" לקראתה &mdash; כלומר, כעניין הדורש הסבר והצדקה, ולא כערך מובן מאליו.
+    </div>
+</div>
+
+<!-- Academic Quotes -->
+<div class="section">
+    <h2>ציטוטים מפרסומים אקדמיים</h2>
+
+    <blockquote class="highlight">
+        "החיבור בין התיאוריה לבין המעשה צריך להיעשות דרך שכבת אינטלקטואלים מחנכים."
+        <div class="source">מקור: מאמר "מפדגוגיה ביקורתית לפדגוגיה חברתית" (2012) &mdash; פותח עם גראמשי | <a href="https://nahalbm.wordpress.com/2012/09/05/%D7%9E%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%91%D7%99%D7%A7%D7%95%D7%A8%D7%AA%D7%99%D7%AA-%D7%9C%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA/" target="_blank">מקור</a></div>
+    </blockquote>
+
+    <blockquote class="highlight">
+        "את כל המרכיבים הללו נציב על גבו של מצע אוטופיסטי."
+        <div class="source">מקור: אותו מאמר, 2012 &mdash; מתאר את הבסיס של "פדגוגיה חברתית"</div>
+    </blockquote>
+
+    <blockquote class="highlight">
+        "הצמחה של תודעת ביקורת, תודעה של שינוי ותיקון חברתי."
+        <div class="source">מקור: אותו מאמר, 2012 &mdash; הגדרת המטרה</div>
+    </blockquote>
+
+    <blockquote class="highlight">
+        "This article presents a new model for teacher training in which teachers are encouraged to become intellectuals involved in the community. Involved intellectual teachers are those whose professional identity leans on robust intellectual self-esteem, a culture of actively caring about other people, awareness of social activism, and commitment to public activity."
+        <div class="source">מקור: Yogev & Michaeli (2011), Journal of Teacher Education 62(3), 312-324 | <a href="https://journals.sagepub.com/doi/10.1177/0022487110397841" target="_blank">Sage Journals</a></div>
+    </blockquote>
+
+    <blockquote class="highlight">
+        "The SPEL model builds on the familiar SEL framework by adding a vital political dimension. Emotionally aware political teaching unfolds gradually, acknowledging power relations and the complexity of events. Its goal is not only to understand how reality is shaped, but also to foster the capacity to act and bring about change."
+        <div class="source">מקור: political-pedagogy.com (2025) | <a href="https://political-pedagogy.com/en/home-page/" target="_blank">עמוד SPEL</a></div>
+    </blockquote>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: PUBLICATIONS (פרסומים)            -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-publications">
+
+<div class="section">
+    <h2>פרסומים אקדמיים &mdash; Google Scholar</h2>
+    <p>מקור: <a href="https://scholar.google.com/citations?user=dWqZesUAAAAJ&hl=en" target="_blank" class="src">פרופיל Google Scholar</a> | סה"כ: 125 ציטוטים, h-index: 3, i10-index: 2</p>
+</div>
+
+<!-- Pub 1 -->
+<div class="pub-card">
+    <div class="pub-title">"Teachers as Society-Involved 'Organic Intellectuals': Training Teachers in a Political Context"</div>
+    <div class="pub-meta">
+        Yogev, E. & Michaeli, N. (2011) &bull; Journal of Teacher Education 62(3), 312-324 &bull; <span class="cite-count">89 ציטוטים</span>
+    </div>
+    <div class="pub-meta">
+        DOI: 10.1177/0022487110397841 &bull;
+        <a href="https://journals.sagepub.com/doi/10.1177/0022487110397841" target="_blank">Sage Journals</a>
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> המאמר המצוטט ביותר של מיכאלי. מציג מודל להכשרת מורים המבוסס על תורת "האינטלקטואלים האורגניים" של אנטוניו גראמשי (מחברות הכלא, 1971). גראמשי היה תיאורטיקן מרקסיסטי איטלקי שפיתח את מושג ה"היגמוניה התרבותית". המודל יושם כמדיניות מוסדית בסמינר הקיבוצים כשמיכאלי שימש ראש חוג חינוך.
+        <br><strong>מילות מפתח מהמאמר:</strong> multicultural education, social studies education, service learning, teacher education, teacher leadership, Antonio Gramsci.
+    </div>
+</div>
+
+<!-- Pub 2 -->
+<div class="pub-card">
+    <div class="pub-title">"From SEL to SPEL: Teachers Integrating Political Emotions in Lessons During Times of Crisis"</div>
+    <div class="pub-meta">
+        Ketko-Ayali, K., Michaeli, N. & Cohen, A. (2025) &bull; Teaching and Teacher Education &bull; <span class="cite-count">3 ציטוטים</span>
+    </div>
+    <div class="pub-meta">
+        <a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">ScienceDirect</a>
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> SPEL = Social-Political-Emotional Learning. המאמר מציע להוסיף ממד פוליטי ל-SEL (למידה חברתית-רגשית). מבוסס על 36 ראיונות עם מורים ישראלים בזמן מלחמה. הפרסום הממסד את השלב הבא: מ-SEL (רגשי) ל-SPEL (רגשי + פוליטי).
+    </div>
+</div>
+
+<!-- Pub 3 -->
+<div class="pub-card">
+    <div class="pub-title">"Occupy Wall Street in the Classroom: Cultivating Political Consciousness in Teachers"</div>
+    <div class="pub-meta">
+        Michaeli, N. & Yogev, E. (2017) &bull; פרסום אקדמי
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> שותפות נוספת עם אסתר יוגב. הכותרת מפנה ל-Occupy Wall Street &mdash; תנועת מחאה אנטי-קפיטליסטית (2011). המאמר עוסק ב"טיפוח תודעה פוליטית" אצל מורים.
+    </div>
+</div>
+
+<!-- Pub 4 -->
+<div class="pub-card">
+    <div class="pub-title">"The Missing Political Link in Progressive Education: George S. Counts and a Call for a Democratic-Political Pedagogy"</div>
+    <div class="pub-meta">
+        Michaeli, N. (2014) &bull; <span class="cite-count">3 ציטוטים</span>
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> ג'ורג' ס. קאונטס (1889&ndash;1974) היה פרוגרסיבי אמריקני ששאל "Dare the School Build a New Social Order?" (1932). מיכאלי טוען שלחינוך הפרוגרסיבי חסר "חוליה פוליטית" &mdash; וקורא להוסיף אותה.
+    </div>
+</div>
+
+<!-- Pub 5 -->
+<div class="pub-card">
+    <div class="pub-title">"כן בבית ספרנו" (ספר &mdash; עורך)</div>
+    <div class="pub-meta">
+        מיכאלי, נ. (עורך) (2014) &bull; ספר עריכה
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> מיכאלי שימש עורך הספר. בעמוד 13 מופיעה ההגדרה: פדגוגיה ביקורתית = "אינטרפרטציה מרקסיסטית". חברי המערכת כוללים את נמרוד אלוני (כיסא אונסק"ו, סמינר הקיבוצים), יולי תמיר (שרת חינוך לשעבר), ד"ר דליה אמיחוד (רקטור סמינר הקיבוצים).
+    </div>
+</div>
+
+<!-- Pub 6 -->
+<div class="pub-card">
+    <div class="pub-title">"חינוך פוליטי בעת משבר לאומי &mdash; המשגה מחודשת ומודל יישומי REACT"</div>
+    <div class="pub-meta">
+        קטקו-איילי, ק., מיכאלי, נ. וכהן, א. (2024) &bull; דוח מחקר, לשכת המדען הראשי, משרד החינוך
+    </div>
+    <div class="pub-meta">
+        <a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">PDF &mdash; אתר משרד החינוך</a>
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> מחקר ממומן על ידי לשכת המדען הראשי של משרד החינוך. 48 מורים רואיינו. פיתוח מודל REACT (Recognize, Enrich, Analyze, Conclude, Take action) לחינוך פוליטי. משמעות: המדינה מימנה מחקר על חינוך פוליטי שפותח על ידי חוקרים שמפרסמים על "פדגוגיה אקטיביסטית" ו"אינטלקטואלים אורגניים".
+    </div>
+</div>
+
+<!-- Pub 7 -->
+<div class="pub-card">
+    <div class="pub-title">"אקטיביזם שיתופי &mdash; צעירים בוני חברה בקהילות היעוד בישראל"</div>
+    <div class="pub-meta">
+        מיכאלי, נ. ושמר, ע. (עורכים) (2025) &bull; ספר עריכה
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> ספר על "אקטיביזם שיתופי" &mdash; צעירים כסוכני שינוי חברתי בקהילות. הכותרת מדברת בעד עצמה: שילוב "אקטיביזם" בחינוך.
+    </div>
+</div>
+
+<!-- Pub 8 -->
+<div class="pub-card">
+    <div class="pub-title">"Privatization in the Education System"</div>
+    <div class="pub-meta">
+        Michaeli, N. (2015) &bull; <span class="cite-count">19 ציטוטים</span>
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> המאמר השני בציטוטים. עוסק בהפרטה במערכת החינוך.
+    </div>
+</div>
+
+<!-- Pub 9 -->
+<div class="pub-card">
+    <div class="pub-title">"מפדגוגיה ביקורתית לפדגוגיה חברתית" (מאמר, 2012)</div>
+    <div class="pub-meta">
+        מיכאלי, נ. (2012) &bull; כתב העת "חברה &mdash; יסו"ד"
+    </div>
+    <div class="pub-meta">
+        <a href="https://nahalbm.wordpress.com/2012/09/05/%D7%9E%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%91%D7%99%D7%A7%D7%95%D7%A8%D7%AA%D7%99%D7%AA-%D7%9C%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA/" target="_blank">מקור</a>
+    </div>
+    <div class="pub-sig">
+        <strong>משמעות:</strong> המאמר פותח עם גראמשי ומציע ריברנדינג: שילוב פדגוגיה ביקורתית + חינוך בלתי-פורמלי + חינוך חברתי תחת שם חדש &mdash; "פדגוגיה חברתית". מיכאלי מודה שפדגוגיה ביקורתית "מזוהה יותר עם הזרם הדה-קונסטרוקטיבי" ולכן זקוקה לשם חדש. מקבילה ישירה לגירו שעשה ריברנד מ"פדגוגיה רדיקלית" ל"פדגוגיה ביקורתית".
+    </div>
+</div>
+
+<!-- Pub 10 -->
+<div class="pub-card">
+    <div class="pub-title">פרסומים נוספים</div>
+    <div class="pub-meta">2025</div>
+    <div class="pub-sig">
+        <ul style="padding-right:18px; margin:6px 0 0">
+            <li>"יישום חינוך פוליטי בזמן משבר לאומי: מודל REACT" (2025, כתב העת "דברים")</li>
+            <li>"מ-SEL ל-SPEL: הוראה מודעת רגש פוליטי בזמן משבר" (2025, כתב העת "דפים")</li>
+            <li>"למידה הקשורה לחיים השיתופיים &mdash; מרכז בובר כחיבור בין תנועות הבוגרים למכללה אקדמית" (2025, עם דורון טימור)</li>
+            <li>"Teachers as Involved Intellectuals in Society and the Community" (2009, עם יוגב, 7 ציטוטים)</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: NETWORK (רשת)                     -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-network">
+
+<div class="section">
+    <h2>רשת קשרים מחקריים ומוסדיים</h2>
+    <p>כל הקשרים המפורטים להלן מבוססים על שותפויות מחקר, פרסומים משותפים, או שייכות מוסדית כפי שמתועדת בפרופילים אקדמיים ובאתר political-pedagogy.com.</p>
+</div>
+
+<!-- Research partners -->
+<div class="net-card">
+    <h3>שותפי מחקר</h3>
+    <ul>
+        <li><strong>ד"ר קרן קטקו-איילי</strong> (מכללת אורנים) &mdash; שותפה ב-REACT ו-SPEL. מומחית ב"פדגוגיה אקטיביסטית". מנחת פודקאסט "דמוקרטיה מתחילה בחינוך". מייסדת פלטפורמת "חיים משותפים". לשעבר מנהלת חברה ונוער במשרד החינוך.
+            <br><span class="src">מקור: <a href="https://political-pedagogy.com/" target="_blank">political-pedagogy.com</a></span></li>
+        <li><strong>ד"ר אדר כהן</strong> (האוניברסיטה העברית) &mdash; שותף ב-REACT ו-SPEL. ראש המגמה ללימודי הוראה. לשעבר מפמ"ר אזרחות (מפקח ראשי ארצי לאזרחות), מנהל המטה לחינוך אזרחי ולחיים משותפים במשרד החינוך.
+            <br><span class="src">מקור: <a href="https://political-pedagogy.com/" target="_blank">political-pedagogy.com</a></span></li>
+        <li><strong>אסתר יוגב</strong> &mdash; שותפה במאמר הגראמשיאני המייסד (2011, 89 ציטוטים) ובמאמר "כיבוש וול סטריט בכיתה" (2017).
+            <br><span class="src">מקור: <a href="https://scholar.google.com/citations?user=dWqZesUAAAAJ" target="_blank">Google Scholar</a></span></li>
+        <li><strong>ד"ר עירית לוי-פלדמן</strong> (מכללת סמינר הקיבוצים) &mdash; שותפת מחקר לפי Google Scholar.
+            <br><span class="src">מקור: Google Scholar co-authors</span></li>
+    </ul>
+</div>
+
+<!-- Affiliated orgs -->
+<div class="net-card">
+    <h3>ארגונים מסונפים (לוגואים באתר political-pedagogy.com)</h3>
+    <ul>
+        <li><strong>אקורד (Achord)</strong> &mdash; מרכז פסיכולוגיה חברתית לשינוי חברתי, האוניברסיטה העברית. פרופ' ערן הלפרין.
+            <br><span class="src">מקור: <a href="https://en.achord.huji.ac.il/" target="_blank">achord.huji.ac.il</a></span></li>
+        <li><strong>יד ביד (Hand in Hand)</strong> &mdash; בתי ספר דו-לשוניים יהודיים-ערביים. 6 קמפוסים, 2,000+ תלמידים.
+            <br><span class="src">מקור: <a href="https://www.handinhandk12.org/" target="_blank">handinhandk12.org</a></span></li>
+        <li><strong>מצמיחים</strong> &mdash; הפחתת אלימות בבתי ספר. 68,763 מורים הוכשרו.
+            <br><span class="src">מקור: <a href="https://www.matzmichim.co.il/" target="_blank">matzmichim.co.il</a></span></li>
+        <li><strong>מרכז חגים</strong> &mdash; חינוך ערכי דרך חגי ישראל. זהות יהודית-ציונית-הומניסטית.
+            <br><span class="src">מקור: <a href="https://www.eng.chagim.org.il/" target="_blank">chagim.org.il</a></span></li>
+        <li><strong>mamlachti.org.il</strong> &mdash; המועצה לחינוך ממלכתי-עברי (מיכאלי = מנהל פדגוגי).
+            <br><span class="src">מקור: <a href="https://mamlachti.org.il/" target="_blank">mamlachti.org.il</a></span></li>
+        <li><strong>אפשר לחשוב</strong> (canthink.org.il)</li>
+        <li><strong>מכינות אופק</strong></li>
+        <li><strong>המגדלור</strong></li>
+        <li><strong>עיריית תל אביב &mdash; חינוך תיכוני</strong></li>
+    </ul>
+</div>
+
+<!-- Institutional chain -->
+<div class="net-card" style="border-right-color: #cc0000;">
+    <h3>שרשרת מוסדית</h3>
+    <p style="font-size:0.88em; color:#444; margin-bottom:10px;">המסלול המוסדי של מיכאלי, כפי שמתועד בפרופילים שלו:</p>
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-year">בוגר בית הספר מנדל למנהיגות חינוכית</div>
+            <div class="tl-text">EdD. תוכנית מנדל מכשירה מנהיגי חינוך.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">מכון ברנקו וייס &mdash; "קהילות חשיבה"</div>
+            <div class="tl-text">ניהל את יחידת הרפורמה הבית-ספרית.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">מכללת סמינר הקיבוצים &mdash; דיקן + ראש חוג חינוך</div>
+            <div class="tl-text">כאן פותח מודל "אינטלקטואלים אורגניים" עם יוגב.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">משרד החינוך &mdash; יו"ר המזכירות הפדגוגית</div>
+            <div class="tl-text">הגדרת הכיוון הפדגוגי של כל מערכת החינוך.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">מכללת אורנים &mdash; רקטור → מרצה בכיר</div>
+            <div class="tl-text">פיתוח REACT ו-SPEL עם קטקו-איילי וכהן.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">המועצה לחינוך ממלכתי-עברי &mdash; מנהל פדגוגי</div>
+            <div class="tl-text">43% מתלמידי ישראל. מיכאלי מגדיר את הכיוון הפדגוגי.</div>
+        </div>
+    </div>
+</div>
+
+<!-- Editorial board -->
+<div class="net-card">
+    <h3>חברי מערכת "כן בבית ספרנו" (2014)</h3>
+    <ul>
+        <li><strong>נמרוד אלוני</strong> &mdash; כיסא אונסק"ו לחינוך הומניסטי, מכללת סמינר הקיבוצים. מנהל המרכז לפדגוגיה ביקורתית.</li>
+        <li><strong>יולי תמיר</strong> &mdash; שרת חינוך לשעבר. מייסדת המרכז לפדגוגיה ביקורתית (1992, עם אלוני).</li>
+        <li><strong>ד"ר דליה אמיחוד</strong> &mdash; רקטור מכללת סמינר הקיבוצים.</li>
+    </ul>
+</div>
+
+<!-- Cited network -->
+<div class="net-card">
+    <h3>רשת ציטוטים (מ-ResearchGate)</h3>
+    <p style="font-size:0.88em; color:#444; margin-bottom:8px;">חוקרים שמצטטים את מיכאלי או שמיכאלי מצטט:</p>
+    <ul>
+        <li>Joseph Durlak (Loyola) &mdash; מטא-אנליזה של SEL</li>
+        <li>Michalinos Zembylas (Open University Cyprus) &mdash; פדגוגיה ביקורתית</li>
+        <li>Celene Domitrovich (Georgetown) &mdash; יישום SEL</li>
+        <li>Kenneth Zeichner (University of Washington) &mdash; רפורמה בהכשרת מורים</li>
+    </ul>
+    <p class="src">מקור: <a href="https://www.researchgate.net/profile/Nir-Michaeli" target="_blank">ResearchGate</a></p>
+</div>
+
+<!-- Cross-links -->
+<div class="section">
+    <h2>דפים קשורים בפרויקט</h2>
+    <ul>
+        <li><a href="radicals_dashboard.html">דשבורד רדיקלים בחינוך</a> &mdash; פרופיל מיכאלי עם 7 דמויות נוספות</li>
+        <li><a href="kedma_dashboard.html">בית ספר קדמה</a> &mdash; מקום ההרצאה שבה נאמר "הפיכה קומוניסטית"</li>
+        <li><a href="ken_bebeit_safrenu.html">ספר "כן בבית ספרנו"</a> &mdash; ספר בעריכת מיכאלי</li>
+        <li><a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a> &mdash; המוסד שבו פותח מודל "אינטלקטואלים אורגניים"</li>
+        <li><a href="unesco_dashboard.html">אונסק"ו ומערכת החינוך</a> &mdash; שרשרת ההשפעה</li>
+        <li><a href="casel_dashboard.html">CASEL/SEL</a> &mdash; המסגרת ש-SPEL מבוססת עליה</li>
+    </ul>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: ANALYSIS (ניתוח)                  -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-analysis">
+
+<div class="disclaimer">
+    <strong>כל הציטוטים במסמך זה נלקחים ממה שד"ר מיכאלי עצמו אמר, כתב או פרסם.</strong>
+    הניתוח שלהלן מבוסס אך ורק על השוואת טקסטים שמיכאלי עצמו פרסם בערוצים שונים. אין הסקות לגבי כוונה.
+</div>
+
+<div class="section">
+    <h2>תבנית "שתי השפות" &mdash; ניתוח השוואתי של פרסומים</h2>
+    <p>
+        מיכאלי מפרסם באופן עקבי בשני ערוצים: (1) מאמרים אקדמיים ב-peer-reviewed journals, (2) דוחות ממשלתיים ומסמכי מדיניות.
+        השוואת הלשון בין שני הערוצים מגלה תבנית עקבית: אותם רעיונות מופיעים בשמות שונים.
+        כל הדוגמאות להלן מבוססות על פרסומים של מיכאלי עצמו.
+    </p>
+</div>
+
+<!-- Pattern 1: 2012 -->
+<div class="section">
+    <h2>1. מאמר 2012 &mdash; הודאה מפורשת בריברנדינג</h2>
+    <p>
+        במאמר "מפדגוגיה ביקורתית לפדגוגיה חברתית" (כתב העת "חברה &mdash; יסו"ד", 2012), מיכאלי פותח עם גראמשי ומציע לשלב פדגוגיה ביקורתית + חינוך בלתי-פורמלי + חינוך חברתי תחת שם אחד חדש: <strong>"פדגוגיה חברתית"</strong>.
+    </p>
+    <p>
+        הסיבה, לפי המאמר עצמו: פדגוגיה ביקורתית <em>"מזוהה יותר עם הזרם הדה-קונסטרוקטיבי"</em> &mdash; כלומר, השם "ביקורתית" נשמע רדיקלי מדי.
+    </p>
+    <p>
+        הפתרון: <em>"את כל המרכיבים הללו נציב על גבו של מצע אוטופיסטי"</em>.
+    </p>
+    <p>
+        המטרה: <em>"הצמחה של תודעת ביקורת, תודעה של שינוי ותיקון חברתי"</em>.
+    </p>
+    <p>
+        <strong>מקבילה ישירה:</strong> הנרי גירו (Henry Giroux) שינה את השם מ"פדגוגיה רדיקלית" (radical pedagogy) ל"פדגוגיה ביקורתית" (critical pedagogy) באותה סיבה בדיוק &mdash; גמישות פוליטית. מיכאלי עושה את השלב הבא: מ"פדגוגיה ביקורתית" ל"פדגוגיה חברתית".
+    </p>
+    <p class="src">מקור: <a href="https://nahalbm.wordpress.com/2012/09/05/%D7%9E%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%91%D7%99%D7%A7%D7%95%D7%A8%D7%AA%D7%99%D7%AA-%D7%9C%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA/" target="_blank">מאמר 2012</a></p>
+</div>
+
+<!-- Pattern 2: 2020 vs 2024 -->
+<div class="section">
+    <h2>2. מאמר 2020 מול דוח 2024 &mdash; אותו מודל, שני שמות</h2>
+    <p>
+        קרן קטקו-איילי (שותפת המחקר של מיכאלי) פרסמה מאמר אקדמי (2020) שבו משתמשת במונחים:
+        "פדגוגיה אקטיביסטית", "פעילויות המאתגרות ומערערות את הסטטוס קוו", "ספקטרום האקטיביזם".
+    </p>
+    <p>
+        ב-2024, אותם חוקרים (קטקו-איילי, מיכאלי, כהן) פרסמו דוח ממומן על ידי לשכת המדען הראשי של משרד החינוך.
+        בדוח, אותו מודל מופיע תחת המונחים: "חשיבה ביקורתית", "מנחה נייטרלי", "REACT".
+    </p>
+
+    <div class="lang-compare">
+        <div class="lang-col academic">
+            <h4>שפה אקדמית (2020)</h4>
+            <ul>
+                <li>"פדגוגיה אקטיביסטית"</li>
+                <li>"ערעור הסטטוס קוו"</li>
+                <li>"ספקטרום האקטיביזם"</li>
+                <li>"תודעה ביקורתית"</li>
+                <li>"כוחות דיכוי"</li>
+            </ul>
+            <p class="src">מקור: מאמר קטקו-איילי, 2020</p>
+        </div>
+        <div class="lang-col government">
+            <h4>שפה ממשלתית (2024)</h4>
+            <ul>
+                <li>"חינוך פוליטי"</li>
+                <li>"חשיבה ביקורתית"</li>
+                <li>"מודל REACT"</li>
+                <li>"מנחה נייטרלי"</li>
+                <li>"אוריינות פוליטית"</li>
+            </ul>
+            <p class="src">מקור: דוח REACT, לשכת המדען הראשי, 2024</p>
+        </div>
+    </div>
+</div>
+
+<!-- Pattern 3: SPEL -->
+<div class="section">
+    <h2>3. הנוסחה: SEL + פוליטיקה = SPEL</h2>
+    <p>
+        ב-2025, מיכאלי, קטקו-איילי וכהן פרסמו ב-Teaching and Teacher Education את המאמר "From SEL to SPEL".
+    </p>
+    <p>
+        SPEL = <strong>Social-Political-Emotional Learning</strong>.
+    </p>
+    <blockquote class="highlight">
+        "The SPEL model builds on the familiar SEL framework by adding a vital political dimension. Emotionally aware political teaching unfolds gradually, acknowledging power relations and the complexity of events. Its goal is not only to understand how reality is shaped, but also to foster the capacity to act and bring about change."
+        <div class="source">מקור: <a href="https://political-pedagogy.com/en/home-page/" target="_blank">political-pedagogy.com</a></div>
+    </blockquote>
+    <p>
+        <strong>בפירוט:</strong>
+    </p>
+    <ul>
+        <li>SEL (למידה חברתית-רגשית) &mdash; מסגרת מוכרת ומקובלת. מיושמת בישראל דרך Avney Rosha, SEL.IL, ומפתח הל"ב.</li>
+        <li>SPEL מוסיפה ל-SEL "ממד פוליטי" (political dimension).</li>
+        <li>המונח "power relations" (יחסי כוח) הוא מונח מפתח בפדגוגיה ביקורתית.</li>
+        <li>המטרה המוצהרת: "to foster the capacity to act and bring about change" (לטפח יכולת לפעול ולהביא לשינוי).</li>
+    </ul>
+    <p class="src">מקור: <a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">ScienceDirect</a></p>
+</div>
+
+<!-- Pattern 4: Self-documentation -->
+<div class="section">
+    <h2>4. הערת תיעוד עצמי</h2>
+    <p>
+        כל מה שמתועד בדף זה מגיע מפרסומים שמיכאלי עצמו כתב, ערך, השתתף בהם או העלה לאינטרנט:
+    </p>
+    <ul>
+        <li>מאמר 2011 ב-Journal of Teacher Education &mdash; peer reviewed</li>
+        <li>מאמר 2012 בכתב עת ישראלי &mdash; הודאה בריברנדינג</li>
+        <li>ספר 2014 &mdash; "אינטרפרטציה מרקסיסטית" (עמ' 13)</li>
+        <li>הרצאה בקדמה &mdash; הועלתה ל-YouTube</li>
+        <li>סרטון בערוץ משרד החינוך &mdash; ערוץ רשמי</li>
+        <li>אתר political-pedagogy.com &mdash; שמיכאלי מפעיל</li>
+        <li>דוח REACT &mdash; פורסם באתר משרד החינוך</li>
+        <li>מאמר SPEL &mdash; פורסם ב-ScienceDirect</li>
+        <li>פרופילי Google Scholar ו-ResearchGate &mdash; שמיכאלי מנהל</li>
+    </ul>
+    <p>
+        <strong>אין כאן חשיפת מידע חסוי.</strong> כל המקורות הם ציבוריים ונגישים לכל.
+    </p>
+</div>
+
+<!-- Summary table -->
+<div class="section">
+    <h2>טבלת מיפוי: שם אקדמי ← שם מדיניות</h2>
+    <table>
+        <tr><th>מונח אקדמי (מאמרים)</th><th>מונח מדיניות (דוחות)</th><th>מקור</th></tr>
+        <tr><td>פדגוגיה ביקורתית (Critical Pedagogy)</td><td>"פדגוגיה חברתית"</td><td>מאמר 2012</td></tr>
+        <tr><td>אינטלקטואלים אורגניים (Gramsci)</td><td>"מורים כסוכני שינוי"</td><td>מאמר 2011</td></tr>
+        <tr><td>פדגוגיה אקטיביסטית</td><td>"חשיבה ביקורתית"</td><td>קטקו-איילי 2020 מול REACT 2024</td></tr>
+        <tr><td>SEL + Political = SPEL</td><td>"הוראה מודעת רגש פוליטי"</td><td>מאמר 2025</td></tr>
+        <tr><td>"אינטרפרטציה מרקסיסטית" (עמ' 13)</td><td>"פדגוגיה ביקורתית"</td><td>ספר 2014</td></tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: SOURCES (מקורות)                  -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-sources">
+
+<div class="section">
+    <h2>מקורות וידאו</h2>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th><th>ציטוט מרכזי</th></tr>
+        <tr>
+            <td><a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">YouTube &mdash; הרצאה בקדמה (55:00)</a></td>
+            <td>הרצאה בבית הספר קדמה, ירושלים</td>
+            <td>"הפיכה קומוניסטית בכיתה", "חד-ממדיות מחשבתית" (מרקוזה)</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&t=145" target="_blank">YouTube &mdash; ערוץ משרד החינוך (02:25)</a></td>
+            <td>ערוץ רשמי של משרד החינוך</td>
+            <td>"טראומה של פרסום נתוני המיצ"ב", "מהפכה תודעתית"</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות אקדמיים</h2>
+    <table>
+        <tr><th>מקור</th><th>סוג</th></tr>
+        <tr>
+            <td><a href="https://scholar.google.com/citations?user=dWqZesUAAAAJ&hl=en" target="_blank">Google Scholar &mdash; Nir Michaeli</a></td>
+            <td>פרופיל אקדמי (125 ציטוטים, h-index 3)</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.researchgate.net/profile/Nir-Michaeli" target="_blank">ResearchGate &mdash; Nir Michaeli</a></td>
+            <td>פרופיל אקדמי (8 פרסומים, 493 קריאות)</td>
+        </tr>
+        <tr>
+            <td><a href="https://journals.sagepub.com/doi/10.1177/0022487110397841" target="_blank">Sage Journals &mdash; "Organic Intellectuals" (2011)</a></td>
+            <td>Journal of Teacher Education 62(3) &mdash; 89 ציטוטים</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.sciencedirect.com/science/article/pii/S0742051X25000915" target="_blank">ScienceDirect &mdash; "From SEL to SPEL" (2025)</a></td>
+            <td>Teaching and Teacher Education &mdash; 3 ציטוטים</td>
+        </tr>
+        <tr>
+            <td><a href="https://nahalbm.wordpress.com/2012/09/05/%D7%9E%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%91%D7%99%D7%A7%D7%95%D7%A8%D7%AA%D7%99%D7%AA-%D7%9C%D7%A4%D7%93%D7%92%D7%95%D7%92%D7%99%D7%94-%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA/" target="_blank">מאמר 2012 &mdash; "מפדגוגיה ביקורתית לפדגוגיה חברתית"</a></td>
+            <td>כתב העת "חברה &mdash; יסו"ד"</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות מוסדיים</h2>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://political-pedagogy.com/" target="_blank">political-pedagogy.com</a></td>
+            <td>אתר המחקר של מיכאלי, קטקו-איילי וכהן. REACT/SPEL.</td>
+        </tr>
+        <tr>
+            <td><a href="https://political-pedagogy.com/en/home-page/" target="_blank">political-pedagogy.com (English)</a></td>
+            <td>גרסה אנגלית &mdash; הגדרת SPEL ו-REACT</td>
+        </tr>
+        <tr>
+            <td><a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">דוח REACT &mdash; לשכת המדען הראשי</a></td>
+            <td>PDF רשמי של משרד החינוך. מחקר ממומן ממשלתית.</td>
+        </tr>
+        <tr>
+            <td><a href="https://mamlachti.org.il/" target="_blank">mamlachti.org.il</a></td>
+            <td>המועצה לחינוך ממלכתי-עברי &mdash; מיכאלי = מנהל פדגוגי</td>
+        </tr>
+        <tr>
+            <td><a href="https://mamlachti.org.il/idea/" target="_blank">mamlachti.org.il/idea</a></td>
+            <td>מסמך הרקע של המועצה (אוגוסט 2024)</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.ascd.org/el/articles/communities-of-thinking" target="_blank">ASCD &mdash; Communities of Thinking</a></td>
+            <td>מכון ברנקו וייס &mdash; מודל "קהילות חשיבה" שמיכאלי ניהל</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות נוספים</h2>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://en.achord.huji.ac.il/" target="_blank">Achord Center</a></td>
+            <td>מרכז פסיכולוגיה חברתית, האוניברסיטה העברית</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.handinhandk12.org/" target="_blank">Hand in Hand</a></td>
+            <td>בתי ספר דו-לשוניים יהודיים-ערביים</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.matzmichim.co.il/" target="_blank">מצמיחים</a></td>
+            <td>ארגון להפחתת אלימות בבתי ספר</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.eng.chagim.org.il/" target="_blank">מרכז חגים</a></td>
+            <td>חינוך ערכי דרך חגי ישראל</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>קישורים פנימיים בפרויקט</h2>
+    <ul>
+        <li><a href="radicals_dashboard.html">דשבורד רדיקלים בחינוך</a></li>
+        <li><a href="kedma_dashboard.html">בית ספר קדמה</a></li>
+        <li><a href="ken_bebeit_safrenu.html">ספר "כן בבית ספרנו"</a></li>
+        <li><a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a></li>
+        <li><a href="unesco_dashboard.html">אונסק"ו ומערכת החינוך</a></li>
+        <li><a href="casel_dashboard.html">CASEL/SEL</a></li>
+        <li><a href="../index_v2.html">דירוג ערים</a></li>
+    </ul>
+</div>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    ד"ר ניר מיכאלי &mdash; פרופיל מחקרי |
+    <a href="radicals_dashboard.html">רדיקלים בחינוך</a> |
+    <a href="../index_v2.html">דירוג ערים</a> |
+    כל המקורות ציבוריים ומאומתים
+</footer>
+
+<script>
+function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const el = document.getElementById('view-' + view);
+    if (el) el.classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = { overview: 0, quotes: 1, publications: 2, network: 3, analysis: 4, sources: 5 };
+    if (map[view] !== undefined && tabs[map[view]]) tabs[map[view]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hash-based routing
+if (location.hash) {
+    const h = location.hash.slice(1);
+    if (document.getElementById('view-' + h)) navigate(h);
+}
+</script>
+
+</body>
+</html>

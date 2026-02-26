@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בית ספר קדמה ירושלים — פדגוגיה ביקורתית כנורמה</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+}
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #333; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+
+/* ── Blockquote ── */
+blockquote {
+    border-right: 3px solid #ddd; padding: 10px 16px; margin: 14px 0;
+    background: #f9f9f9; font-style: italic; color: #444; font-size: 0.92em; line-height: 1.7;
+}
+blockquote .source { font-style: normal; color: #888; font-size: 0.82em; margin-top: 6px; }
+blockquote .source a { color: #888; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; margin: 16px 0; }
+.timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 18px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -24px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: #cc0000; border: 2px solid #fff;
+}
+.tl-year { font-weight: 700; color: #cc0000; font-size: 0.88em; }
+.tl-text { font-size: 0.88em; color: #444; margin-top: 2px; }
+
+/* ── Pipeline ── */
+.ring-layer {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+    border-right: 4px solid #ccc;
+}
+.ring-layer.core { border-right-color: #cc0000; }
+.ring-layer.ring1 { border-right-color: #e65100; }
+.ring-layer.ring2 { border-right-color: #f9a825; }
+.ring-layer.ring3 { border-right-color: #558b2f; }
+.ring-label { font-weight: 700; font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+.ring-items { font-size: 0.88em; color: #555; }
+.ring-items ul { padding-right: 20px; margin: 4px 0; }
+.ring-items li { margin-bottom: 4px; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #f0f0f5; color: #333; padding: 8px 12px; text-align: right; border-bottom: 2px solid #ddd; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Footer ── */
+footer {
+    background: #fff; color: #888; padding: 20px;
+    text-align: center; font-size: 0.82em; border-top: 1px solid #eee;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>קדמה ירושלים — פדגוגיה ביקורתית</span>
+            <a href="../index_v2.html">← דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('pedagogy')">הפדגוגיה</button>
+            <button class="nav-tab" onclick="navigate('network')">רשת קשרים</button>
+            <button class="nav-tab" onclick="navigate('people')">דמויות מפתח</button>
+            <button class="nav-tab" onclick="navigate('history')">ציר זמן</button>
+            <button class="nav-tab" onclick="navigate('sources')">מקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>בית ספר קדמה ירושלים</h1>
+    <div class="subtitle">בית הספר היחיד בישראל שפדגוגיה ביקורתית היא אתוס המייסד שלו</div>
+    <div class="meta">נוסד 1994 | שכונת הקטמונים | קוד מוסד: 144592 | ~136 תלמידים</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: OVERVIEW                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view active" id="view-overview">
+
+<div class="grid-3">
+    <div class="metric">
+        <div class="label">תלמידים</div>
+        <div class="value">~136</div>
+        <div class="note">73 בנים, 63 בנות (2025)</div>
+    </div>
+    <div class="metric">
+        <div class="label">מורים</div>
+        <div class="value">25</div>
+        <div class="note">7 גברים, 18 נשים — רובם בעלי תואר שני</div>
+    </div>
+    <div class="metric">
+        <div class="label">שנת הקמה</div>
+        <div class="value">1994</div>
+        <div class="note">מ-15 בתי ספר שתוכננו, שרד אחד</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה זה קדמה</h2>
+    <p>
+        בית ספר תיכון קדמה בירושלים הוא פרויקט חינוכי שהוקם ב-1994 על ידי קבוצת אקטיביסטים ואנשי אקדמיה מזרחיים.
+        מבין 15 בתי ספר שתוכננו, רק אחד שרד — הסניף בקטמונים.
+        סניף תל אביב נסגר ב-1999 לאחר שנותרו בו 4 תלמידים. סניף קרית מלאכי נסגר תוך שנה.
+    </p>
+    <p>
+        בית הספר מתואר כ<strong>"מודל ייחודי ליישום הגישה החינוכית של פדגוגיה ביקורתית"</strong>.
+        זו לא הגדרה חיצונית — זו הגדרה עצמית. בית הספר נוסד על עקרונות פאולו פריירה ("פדגוגיה של מדוכאים", 1970)
+        ורואה בחינוך כלי לשחרור ממבנים חברתיים מדכאים.
+    </p>
+    <p>
+        הוא מסווג כ<strong>ממלכתי</strong> במערכת משרד החינוך (קוד 144592),
+        פירוש הדבר: ממומן מתקציב ציבורי, מפעיל פדגוגיה ביקורתית בתוך זרם ממלכתי.
+    </p>
+</div>
+
+<div class="section">
+    <h2>למה זה רלוונטי לדירוג</h2>
+    <p>
+        ירושלים היא העיר היחידה שבה פועלים <strong>שני בתי ספר</strong> עם חינוך פרוגרסיבי מובנה:
+        ליד"ה (עתודה הומניסטית — "ערעור זהות") וקדמה (פדגוגיה ביקורתית כאתוס).
+        ליד"ה מייצרת עתודה ליברלית מהאליטות; קדמה ניסתה לעשות את אותו הדבר עם אוכלוסיות מוחלשות.
+    </p>
+    <p>
+        ד"ר ניר מיכאלי — לשעבר יו"ר המזכירות הפדגוגית, כיום מנהל פדגוגי של המועצה לחינוך ממלכתי (43% מתלמידי ישראל) —
+        נתן הרצאה <strong>בבית הספר קדמה</strong> שבה הכריז:
+    </p>
+    <blockquote>
+        "אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא בכלל לא ירגיש, וזה לא יזיז לאף אחד,
+        והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה"
+        <div class="source">— ד"ר ניר מיכאלי, הרצאה בקדמה | <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">YouTube, דקה 55:00</a></div>
+    </blockquote>
+    <p>
+        הצהרה זו נאמרה לא בחדר סגור, אלא בהרצאה מוקלטת שהועלתה ל-YouTube. בבית ספר שפדגוגיה ביקורתית היא הנורמה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>נתונים מוסדיים</h2>
+    <table>
+        <tr><th>שדה</th><th>פרטים</th></tr>
+        <tr><td>שם מלא</td><td>בית ספר תיכון קדמה ירושלים</td></tr>
+        <tr><td>סוג</td><td>ממלכתי (ציבורי חילוני), כיתות ז'-י"ב</td></tr>
+        <tr><td>כתובת</td><td>רח' בר יוחאי, הקטמונים, ירושלים</td></tr>
+        <tr><td>מנהלת</td><td>מיכל חדד (מ-~2006)</td></tr>
+        <tr><td>עמותה מפעילה</td><td>קדמה — לשוויון בחינוך ובחברה בישראל (ע"ר 580320083)</td></tr>
+        <tr><td>מנהלת העמותה</td><td>אילנה יונה (M.A. מדיניות ציבורית, אוניברסיטת ת"א)</td></tr>
+        <tr><td>תקציב שנתי (עמותה)</td><td>2,736,947 ש"ח (~750K$)</td></tr>
+        <tr><td>מימון ממשלתי ישיר לעמותה</td><td>0% (obudget.org)</td></tr>
+        <tr><td>מימון חיצוני</td><td>קרן ירושלים (מ-1995), קרן מתנאל (60 מלגות/שנה)</td></tr>
+        <tr><td>אחוז זכאות בגרות</td><td>72-85% (בשכונה שבה שיעור הזכאות היה קרוב לאפס לפני ההקמה)</td></tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: PEDAGOGY                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-pedagogy">
+
+<div class="section">
+    <h2>פדגוגיה ביקורתית כאתוס מייסד</h2>
+    <p>
+        קדמה לא "אימץ" פדגוגיה ביקורתית בדיעבד. הוא <strong>נוסד עליה</strong>.
+        העמותה הוקמה ב-1993 על ידי קבוצת אקטיביסטים מזרחיים שראו בפאולו פריירה ("פדגוגיה של מדוכאים") את המסגרת התיאורטית
+        להעצמת אוכלוסיות מוחלשות דרך חינוך.
+    </p>
+    <p>
+        בית הספר מתואר בפרסומים אקדמיים כ<strong>"מודל ייחודי ליישום הגישה החינוכית של פדגוגיה ביקורתית"</strong>.
+        המסגרת הפדגוגית משלבת:
+    </p>
+    <ul>
+        <li><strong>דחיית "מודל ההפקדה"</strong> — אין מורה שמעביר ידע לתלמיד פסיבי. למידה דרך דיאלוג וחיבור למציאות.</li>
+        <li><strong>חינוך ככלי לשחרור</strong> — המטרה: לא רק בגרות, אלא "תודעה ביקורתית" שתאפשר לתלמיד להבין מבנים חברתיים מדכאים.</li>
+        <li><strong>"בגרות חברתית"</strong> — דגש על מעורבות פוליטית וחברתית מעבר לציונים.</li>
+        <li><strong>נגד הסלילה (anti-tracking)</strong> — אין קבוצות רמה. כל התלמידים לומדים ביחד.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>שרשרת הפדגוגיה</h2>
+    <p>בית הספר ממוקם בנקודה ספציפית בשרשרת הפדגוגית שמתועדת במיפוי אונסק"ו:</p>
+
+    <div class="ring-layer core">
+        <div class="ring-label">פאולו פריירה — "פדגוגיה של מדוכאים" (1970)</div>
+        <div class="ring-items">
+            המקור. חינוך ככלי לשחרור. "תודעה ביקורתית" (conscientização). דחיית מודל ההפקדה.
+            פריירה מהווה 35% מהביבליוגרפיה בקורסי פדגוגיה ביקורתית בישראל.
+        </div>
+    </div>
+
+    <div class="ring-layer ring1">
+        <div class="ring-label">הנרי ג'ירו — "פדגוגיה ביקורתית" כתחום</div>
+        <div class="ring-items">
+            תלמידו של פריירה. ביצע את "המיתוג מחדש" מ"פדגוגיה רדיקלית" ל"פדגוגיה ביקורתית" — מונח
+            שנועד ל"גמישות פוליטית". נמרוד אלוני (כיסא אונסק"ו, סמינר הקיבוצים) כתב עליו:
+            "מניפולטור פרוגרסיבי שאין לו גרם של רספקט לביסוס רציונלי" — ובכל זאת משתמש בו נרחבות.
+        </div>
+    </div>
+
+    <div class="ring-layer ring2">
+        <div class="ring-label">סמינר הקיבוצים — מרכז לפדגוגיה ביקורתית</div>
+        <div class="ring-items">
+            המרכז רואה בקדמה את <strong>המודל היישומי המרכזי</strong> שלו בשטח.
+            מרצים מהמרכז ליוו את צוות המורים בקדמה בהשתלמויות ופיתוח תוכניות לימודים.
+            קדמה משמש כאתר מחקר וכמקום להכשרת פרחי הוראה.
+        </div>
+    </div>
+
+    <div class="ring-layer ring3">
+        <div class="ring-label">קדמה ירושלים — היישום בשטח</div>
+        <div class="ring-items">
+            הנקודה שבה התיאוריה הופכת לפרקטיקה. 136 תלמידים בשכונת הקטמונים
+            לומדים במסגרת שאתוס הייסוד שלה הוא פדגוגיה ביקורתית.
+            מימון ציבורי (ממלכתי). פרס חינוך ארצי 2015.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציטוטים מתוך ההרצאה של מיכאלי בקדמה</h2>
+
+    <h3>"הפיכה קומוניסטית בכיתה"</h3>
+    <blockquote>
+        "דווקא פה אני כן רוצה לנצל את העובדה שפוליטיקה נחשבת נכבה. אני הרבה פעמים הייתה לי תחושה כמורה
+        שאני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא בכלל לא ירגיש וזה לא יזיז לאף אחד
+        והם אפילו לא ידעו בדיוק להגיד בבית על מה בדיוק דיברנו בכיתה"
+        <div class="source">— ד"ר ניר מיכאלי, הרצאה בקדמה | <a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">דקה 55:00</a></div>
+    </blockquote>
+
+    <h3>חד-ממדיות מחשבתית (מרקוזה)</h3>
+    <blockquote>
+        "שתיהן, מסלילות את כלל האוכלוסייה למה שהפילוסוף הרברט מרקוזה קרא לו, חד-ממדיות מחשבתית."
+        <div class="source">— ד"ר ניר מיכאלי, אותה הרצאה בקדמה</div>
+    </blockquote>
+
+    <p>
+        מיכאלי מתאר את מערכת החינוך דרך המסגרת הניאו-מרקסיסטית של הרברט מרקוזה.
+        הוא אינו מציג זאת כעמדה שנויה במחלוקת, אלא כניתוח מובן מאליו — בפני קהל בבית ספר שבו פדגוגיה ביקורתית היא הנורמה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>חלופה חילונית לש"ס</h2>
+    <p>
+        קדמה נוסד במפורש כ<strong>חלופה חילונית לרשת "אל המעיין" של ש"ס</strong>.
+        שם שני המסלולים הציעו זהות מזרחית — ש"ס דרך דת, קדמה דרך פדגוגיה ביקורתית חילונית.
+        הרשת של ש"ס צמחה משמעותית. קדמה נותרה עם 136 תלמידים בבית ספר אחד.
+    </p>
+    <p>
+        מודל "המלווים" (מלווים — accompaniers) הוא החידוש הפדגוגי של קדמה:
+        כל כיתה מלווה על ידי שני מחנכים שתומכים בתלמידים בכל הממדים — אקדמי, חברתי, רגשי.
+        שיעורים נמשכים 1.5 שעות (לא 45 דקות), ומאורגנים ב"אשכולות למידה" בין-תחומיים.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: NETWORK                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-network">
+
+<div class="section">
+    <h2>הרשת המוסדית</h2>
+    <p>
+        קדמה אינו גוף מבודד. הוא ממוקם בצומת שבו נפגשים אקטיביזם מזרחי, פדגוגיה ביקורתית, ומערכת החינוך הציבורית.
+    </p>
+
+    <h3>סמינר הקיבוצים — המרכז לפדגוגיה ביקורתית</h3>
+    <p>
+        המרכז לפדגוגיה ביקורתית בסמינר הקיבוצים רואה בקדמה את המודל היישומי שלו.
+        מרצים מהמרכז ליוו את צוות המורים. פרחי הוראה מהמכללה מתכשרים בבית הספר.
+        קדמה משמש אתר מחקר ומופת.
+    </p>
+    <p>
+        <strong>ניר מיכאלי</strong> — דקאן ומנהל מחלקת חינוך בסמינר הקיבוצים, מוקדם יותר — נתן את הרצאת "ההפיכה הקומוניסטית" בקדמה.
+        כיום מנהל פדגוגי של המועצה לחינוך ממלכתי (43% מתלמידי ישראל).
+    </p>
+
+    <h3>כיסא אונסק"ו — נמרוד אלוני</h3>
+    <p>
+        פרופ' נמרוד אלוני, מחזיק כיסא אונסק"ו לחינוך הומניסטי בסמינר הקיבוצים,
+        מזוהה כתומך בולט בקדמה ורואה בו יישום של ערכי כבוד האדם וצדק חברתי.
+        הכיסא צמוד למרכז לפדגוגיה ביקורתית באותה מכללה.
+    </p>
+
+    <h3>רשת ASPnet של אונסק"ו</h3>
+    <p>
+        קדמה מזוהה כחלק מרשת בתי הספר המסונפים לאונסק"ו (ASPnet).
+        חברות ברשת מחייבת עיסוק בארבעה צירים: למידה בין-תרבותית, זכויות אדם, פיתוח בר-קיימא, ושלום.
+        קדמה מדגיש את נושא הזהות התרבותית והצדק החלוקתי.
+    </p>
+
+    <h3>ארגוני חברה אזרחית</h3>
+    <ul>
+        <li><strong>שתי"ל</strong> — ליווי וייעוץ לעמותת קדמה בשנותיה הראשונות</li>
+        <li><strong>האגודה לזכויות האזרח</strong> — הרצאות בבית הספר</li>
+        <li><strong>שוברים שתיקה / פורום המשפחות השכולות</strong> — טענות על אירוח נציגים, מחלוקות מול משרד החינוך</li>
+        <li><strong>מרכז אדוה</strong> — שלמה סבירסקי, ממייסדי קדמה, הוא גם מייסד מרכז אדוה</li>
+    </ul>
+
+    <h3>מייסדת בדירקטוריון בצלם</h3>
+    <p>
+        פרופ' הנרייט דהאן-כלב, ממייסדי קדמה, כיהנה גם בדירקטוריון <strong>בצלם</strong>.
+        היא ייסדה את תוכנית לימודי המגדר באוניברסיטת בן-גוריון.
+    </p>
+</div>
+
+<div class="section">
+    <h2>הקשר למודל REACT</h2>
+    <p>
+        מודל REACT ("חינוך פוליטי בעת משבר לאומי") פותח על ידי ניר מיכאלי, קרן קטקו-איילי ואדר כהן,
+        במימון המדען הראשי של משרד החינוך.
+        מיכאלי — שנתן את הרצאתו בקדמה — הוא חוקר הליבה.
+    </p>
+    <p>
+        מודל REACT מגדיר שלושה שלבים בחינוך הישראלי: (1) חינוך ציוני, (2) תקופת מעבר ניטרלית,
+        (3) "חשיבה ביקורתית ומעורבות אזרחית פעילה" — שבמסמכי המקור מזוהה כפדגוגיה מאואיסטית שעברה מיתוג מחדש.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: PEOPLE                           -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-people">
+
+<div class="section">
+    <h2>דמויות מפתח</h2>
+    <table>
+        <tr><th>שם</th><th>תפקיד</th><th>תקופה</th><th>הערות</th></tr>
+        <tr>
+            <td><strong>קלרה יונה-משומר</strong></td>
+            <td>מייסדת ומנהלת ראשונה</td>
+            <td>1994-~2006</td>
+            <td>גדלה בקטמון, שני תארים מהאוניברסיטה העברית. ניהלה בהמשך את נוה חוף בראשון לציון.</td>
+        </tr>
+        <tr>
+            <td><strong>מיכל חדד</strong></td>
+            <td>מנהלת נוכחית</td>
+            <td>~2006-היום</td>
+            <td>קיבלה פרס חינוך ארצי 2015 בטקס בנוכחות שר החינוך בנט.</td>
+        </tr>
+        <tr>
+            <td><strong>שלמה סבירסקי</strong></td>
+            <td>ממייסדי העמותה</td>
+            <td>1993-היום</td>
+            <td>סוציולוג, מייסד מרכז אדוה. חתן פרס נפתלי 2005.</td>
+        </tr>
+        <tr>
+            <td><strong>סמי שלום שטרית</strong></td>
+            <td>ממייסדים, נתן לבית הספר את שמו</td>
+            <td>1993-1999</td>
+            <td>משורר ואקטיביסט. ניהל סניף ת"א. פעיל בקשת הדמוקרטית המזרחית.</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' מאיר בוזגלו</strong></td>
+            <td>ממייסדים</td>
+            <td>1993</td>
+            <td>פילוסוף, האוניברסיטה העברית.</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' הנרייט דהאן-כלב</strong></td>
+            <td>ממייסדות</td>
+            <td>1993</td>
+            <td>מדענית מדינה, אוניברסיטת בן-גוריון. דירקטוריון בצלם. ייסדה לימודי מגדר ב-BGU.</td>
+        </tr>
+        <tr>
+            <td><strong>אלי שעיה</strong></td>
+            <td>ממייסדים</td>
+            <td>1993</td>
+            <td>פעיל חברתי.</td>
+        </tr>
+        <tr>
+            <td><strong>יוסי שריד ז"ל</strong></td>
+            <td>חבר ועדת פרס "עובד צדק"</td>
+            <td>עד 2015</td>
+            <td>שר חינוך לשעבר (מרצ). נפטר 2015.</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>דמויות חיצוניות מקושרות</h2>
+    <table>
+        <tr><th>שם</th><th>קשר לקדמה</th><th>תפקיד עיקרי</th></tr>
+        <tr>
+            <td><strong>ד"ר ניר מיכאלי</strong></td>
+            <td>נתן הרצאה בבית הספר ("הפיכה קומוניסטית")</td>
+            <td>מנהל פדגוגי, המועצה לחינוך ממלכתי (43% מתלמידי ישראל). לשעבר יו"ר המזכירות הפדגוגית, רקטור אורנים, דקאן בסמינר הקיבוצים.</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' נמרוד אלוני</strong></td>
+            <td>תומך בולט, רואה בקדמה יישום ערכי אונסק"ו</td>
+            <td>כיסא אונסק"ו לחינוך הומניסטי, סמינר הקיבוצים.</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר גלית זלמנסון-לוי</strong></td>
+            <td>מנהלת המרכז שרואה בקדמה מודל יישומי</td>
+            <td>ראש המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים. "עבודה חתרנית לפעמים".</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר קרן קטקו-איילי</strong></td>
+            <td>רשת אקדמית משותפת עם מיכאלי</td>
+            <td>חלוצת "פדגוגיה אקטיביסטית" בישראל. שותפה למחקר REACT.</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: HISTORY                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-history">
+
+<div class="section">
+    <h2>ציר זמן</h2>
+
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-year">1970</div>
+            <div class="tl-text">פאולו פריירה מפרסם "פדגוגיה של מדוכאים" — הבסיס התיאורטי לכל הפרויקט.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1993</div>
+            <div class="tl-text">הקמת עמותת קדמה. המייסדים: סבירסקי, שטרית, יונה-משומר, בוזגלו, דהאן-כלב, שעיה.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">ספטמבר 1994</div>
+            <div class="tl-text">פתיחת בית הספר: 2 כיתות ז', 50 תלמידים. מיקום ראשון — בנק נטוש בגילה.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1994</div>
+            <div class="tl-text">עיריית ירושלים מוציאה צו סגירה נגד המיקום בגילה. בית הספר נודד: בית שמואל, מוסך בתלפיות, קרוואן נטוש בקטמון.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1994-1999</div>
+            <div class="tl-text">סניף תל אביב (התקווה) — תושבי השכונה מחרימים. ב-1997 נותרו 4 תלמידים. נסגר בינואר 1999.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1995-1996</div>
+            <div class="tl-text">סניף קרית מלאכי — נסגר תוך שנה.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1997</div>
+            <div class="tl-text">מעבר למבנה קבוע בקטמון.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1998</div>
+            <div class="tl-text">רישום רשמי של העמותה (580320083). שם מקורי: "ידידי בית ספר קדמה".</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2002</div>
+            <div class="tl-text">מעבר לכתובת הנוכחית — בר יוחאי 53, שיתוף מבנה עם אורט ספרד.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~2006</div>
+            <div class="tl-text">מיכל חדד מחליפה את קלרה יונה-משומר כמנהלת.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2007</div>
+            <div class="tl-text">תחילת הענקת פרס "עובד צדק" לחינוך עם מודעות חברתית. ועדת הפרס כוללת את יוסי שריד.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2014</div>
+            <div class="tl-text">פרס מנהל חינוך ירושלים (פרס אבי סלי). כתבת הארץ: "למה נכשל מפעל החינוך המזרחי — 20 שנה לקדמה".</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2015</div>
+            <div class="tl-text"><strong>פרס חינוך ארצי</strong> — משרד החינוך. טקס ביד בן-צבי בנוכחות שר החינוך נפתלי בנט.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">הרצאת מיכאלי</div>
+            <div class="tl-text">ד"ר ניר מיכאלי מרצה בקדמה. אומר: "אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש". ההרצאה מועלית ל-YouTube.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה קרה ל-14 בתי הספר האחרים</h2>
+    <p>
+        החזון המקורי היה 15 בתי ספר קדמה ברחבי ישראל.
+        בפועל נפתחו 3, ושרד 1.
+    </p>
+    <table>
+        <tr><th>סניף</th><th>שנים</th><th>סיבת סגירה</th></tr>
+        <tr><td>קדמה ירושלים</td><td>1994-היום</td><td>הסניף היחיד ששרד</td></tr>
+        <tr><td>קדמה תל אביב / התקווה</td><td>1994-1999</td><td>חרם תושבים, 4 תלמידים ב-1997</td></tr>
+        <tr><td>קדמה קרית מלאכי</td><td>1995-1996</td><td>נסגר תוך שנה</td></tr>
+    </table>
+    <p>
+        כתבת הארץ 2014 תיעדה "קרבות אגו, מחלוקות אידיאולוגיות, שערוריות תקשורתיות, מאבקים משפטיים ופוליטיקה בלתי נמנעת".
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: SOURCES                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-sources">
+
+<div class="section">
+    <h2>מקורות ראשוניים</h2>
+
+    <h3>סרטוני וידאו</h3>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://www.youtube.com/watch?v=lTtg0gbU-ZU&t=3300" target="_blank">YouTube — הרצאת מיכאלי בקדמה (55:00)</a></td>
+            <td>"הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש"</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.youtube.com/watch?v=WUhBXXgCVsQ&t=145" target="_blank">YouTube — מיכאלי בערוץ משרד החינוך (02:25)</a></td>
+            <td>"טראומה של פרסום נתוני המיצ"ב"</td>
+        </tr>
+    </table>
+
+    <h3>מסמכים רשמיים</h3>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://www.guidestar.org.il/organization/580320083" target="_blank">GuideStar Israel — עמותת קדמה #580320083</a></td>
+            <td>נתוני עמותה, תקציב, אנשי מפתח</td>
+        </tr>
+        <tr>
+            <td><a href="https://next.obudget.org/i/org/association/580320083" target="_blank">Open Budget — קדמה</a></td>
+            <td>שקיפות תקציבית, העברות ממשלתיות</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.madlan.co.il/education/school/144592" target="_blank">Madlan — בית ספר קדמה (144592)</a></td>
+            <td>נתוני בית ספר</td>
+        </tr>
+        <tr>
+            <td><a href="https://meyda.education.gov.il/files/LishcatMadaan/research/politicaleducation-finalreport.pdf" target="_blank">דוח REACT — חינוך פוליטי</a></td>
+            <td>מחקר מיכאלי-קטקו-כהן, מימון מדען ראשי</td>
+        </tr>
+    </table>
+
+    <h3>אתרי קדמה</h3>
+    <table>
+        <tr><th>אתר</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://kedma-edu.org.il/" target="_blank">kedma-edu.org.il</a></td>
+            <td>אתר עמותת קדמה</td>
+        </tr>
+        <tr>
+            <td><a href="https://kedmaschool.co.il/" target="_blank">kedmaschool.co.il</a></td>
+            <td>אתר בית הספר</td>
+        </tr>
+    </table>
+
+    <h3>פרסומים אקדמיים</h3>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://www.researchgate.net/publication/293310212" target="_blank">Bar Shalom & Krumer Navo (2007)</a></td>
+            <td>שיטות איכותניות כהעצמה — דוגמת קדמה</td>
+        </tr>
+        <tr>
+            <td>חנה עזר, "קדמה — סיפורו של בית ספר"</td>
+            <td>מחקר על התפתחות המוסד</td>
+        </tr>
+        <tr>
+            <td>ניר מיכאלי, "החינוך המשותף והפדגוגיה הביקורתית"</td>
+            <td>מאמרים הבוחנים את קדמה כמודל לשינוי חברתי</td>
+        </tr>
+    </table>
+
+    <h3>מימון חיצוני</h3>
+    <table>
+        <tr><th>גוף</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://jerusalemfoundation.org/old-project/kedma-school/" target="_blank">קרן ירושלים</a></td>
+            <td>תמיכה מ-1995: ספרים, שיעורי חיזוק, תוכניות העשרה, ספריית יוסיפוביץ</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.matanel.org/project/kedma-school/" target="_blank">קרן מתנאל</a></td>
+            <td>העשרה תרבותית, 60 מלגות/שנה, פעילות אחה"צ</td>
+        </tr>
+    </table>
+
+    <h3>כתבות</h3>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr>
+            <td><a href="https://www.haaretz.co.il/magazine/2014-07-19/ty-article/.premium/0000017f-e37c-df7c-a5ff-e37e0a4c0000" target="_blank">הארץ (2014)</a></td>
+            <td>"למה נכשל מפעל החינוך המזרחי — 20 שנה לקדמה" (בתשלום)</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.ynet.co.il/articles/0,7340,L-5271899,00.html" target="_blank">Ynet (2018)</a></td>
+            <td>פרופיל קלרה יונה-משומר</td>
+        </tr>
+        <tr>
+            <td><a href="https://portal.macam.ac.il/article/%D7%A2%D7%9D-%D7%94%D7%A4%D7%A0%D7%99%D7%9D-%D7%9C%D7%9E%D7%96%D7%A8%D7%97-%D7%A7%D7%9C%D7%A8%D7%94-%D7%99%D7%95%D7%A0%D7%94-%D7%9E%D7%99%D7%99%D7%A1%D7%93%D7%AA-%D7%AA%D7%99%D7%9B%D7%95%D7%9F/" target="_blank">MACAM Portal</a></td>
+            <td>ראיון עם קלרה יונה</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>דשבורדים קשורים</h2>
+    <ul>
+        <li><a href="unesco_dashboard.html">אונסק"ו ומערכת החינוך בישראל</a> — מיפוי צנרת ההשפעה</li>
+        <li><a href="deep_Kadma.html">דוח מחקר מעמיק — קדמה</a> — נתונים מוסדיים מלאים</li>
+        <li><a href="../index_v2.html">דירוג ערים</a> — ירושלים ברמה 4</li>
+    </ul>
+</div>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    פרויקט זהות ציונית — <a href="../index_v2.html">דירוג ערים</a> | <a href="unesco_dashboard.html">אונסק"ו</a> | <a href="deep_Kadma.html">דוח מלא — קדמה</a>
+</footer>
+
+<script>
+function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const el = document.getElementById('view-' + view);
+    if (el) el.classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = { overview: 0, pedagogy: 1, network: 2, people: 3, history: 4, sources: 5 };
+    if (map[view] !== undefined && tabs[map[view]]) tabs[map[view]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hash-based routing
+if (location.hash) {
+    const h = location.hash.slice(1);
+    if (document.getElementById('view-' + h)) navigate(h);
+}
+</script>
+
+</body>
+</html>

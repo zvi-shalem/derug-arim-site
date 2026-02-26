@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לוח מחקר — צ'אט "מיגור מרקסיזם אנטישמי"</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #fff; border-radius: 8px; padding: 20px; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.metric .num { font-size: 2em; font-weight: 700; color: #cc0000; }
+.metric .label { font-size: 0.82em; color: #888; margin-top: 4px; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #e0e0e0; border-radius: 2px;
+}
+.tl-item {
+    position: relative; margin-bottom: 24px; padding-right: 30px;
+}
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #cc0000; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #cc0000;
+}
+.tl-date { font-size: 0.82em; color: #cc0000; font-weight: 600; }
+.tl-content { font-size: 0.92em; color: #333; margin-top: 2px; }
+.tl-content strong { color: #1a1a2e; }
+
+/* ── Quote blocks ── */
+.quote-block {
+    background: #fafafa; border-right: 4px solid #cc0000; padding: 16px 20px;
+    margin-bottom: 14px; border-radius: 0 6px 6px 0;
+}
+.quote-block .q-text { font-size: 0.92em; color: #333; font-style: italic; line-height: 1.8; }
+.quote-block .q-source { font-size: 0.8em; color: #888; margin-top: 6px; }
+
+/* ── Participant cards ── */
+.participant {
+    background: #fff; border-radius: 8px; padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-top: 3px solid #cc0000;
+}
+.participant .name { font-size: 1.1em; font-weight: 700; margin-bottom: 4px; }
+.participant .role { font-size: 0.85em; color: #cc0000; margin-bottom: 8px; }
+.participant .desc { font-size: 0.88em; color: #555; }
+
+/* ── Org table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin-bottom: 10px; }
+th { background: #f0f0f0; color: #333; padding: 10px 12px; text-align: right; font-weight: 600; border-bottom: 2px solid #ddd; }
+td { padding: 10px 12px; border-bottom: 1px solid #eee; color: #444; vertical-align: top; }
+tr:hover td { background: #fafafa; }
+
+/* ── Badges ── */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.75em; font-weight: 600; margin-left: 4px;
+}
+.badge-red { background: #fee; color: #c00; }
+.badge-orange { background: #fff3e0; color: #e65100; }
+.badge-blue { background: #e3f2fd; color: #1565c0; }
+.badge-green { background: #e8f5e9; color: #2e7d32; }
+.badge-purple { background: #f3e5f5; color: #7b1fa2; }
+
+/* ── Links ── */
+a.page-link { color: #cc0000; text-decoration: none; border-bottom: 1px dotted #cc0000; }
+a.page-link:hover { color: #900; border-bottom-style: solid; }
+
+/* ── Chat bubble ── */
+.chat-msg {
+    background: #e8f5e9; border-radius: 8px; padding: 10px 14px;
+    margin-bottom: 8px; max-width: 85%; font-size: 0.88em;
+}
+.chat-msg.zvi { background: #e3f2fd; }
+.chat-msg.yuval { background: #f3e5f5; }
+.chat-msg.eden { background: #e8f5e9; }
+.chat-sender { font-weight: 600; font-size: 0.82em; margin-bottom: 3px; }
+.chat-sender.zvi { color: #1565c0; }
+.chat-sender.yuval { color: #7b1fa2; }
+.chat-sender.eden { color: #2e7d32; }
+.chat-time { font-size: 0.72em; color: #999; margin-top: 4px; }
+
+/* ── Footer ── */
+footer {
+    text-align: center; padding: 20px; color: #aaa; font-size: 0.8em;
+    border-top: 1px solid #e0e0e0; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        צ'אט מחקר
+        <a href="radicals_dashboard.html">מפת הרדיקלים</a>
+        <a href="index.html">אינדקס</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('participants')">משתתפים</button>
+        <button class="nav-tab" onclick="showView('figures')">דמויות נחקרות</button>
+        <button class="nav-tab" onclick="showView('orgs')">ארגונים</button>
+        <button class="nav-tab" onclick="showView('quotes')">ציטוטי הזדהות</button>
+        <button class="nav-tab" onclick="showView('timeline')">ציר זמן</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>לוח מחקר — צ'אט "מיגור מרקסיזם אנטישמי"</h1>
+    <div class="subtitle">ניתוח קבוצת WhatsApp לתיעוד חדירת פדגוגיה ביקורתית למערכת החינוך</div>
+    <div class="meta">5,362 הודעות · 3 משתתפים ראשיים · 26 חודשים (דצמ׳ 2023 – פבר׳ 2026)</div>
+    <div style="margin-top: 12px; display: inline-block; background: #fff3e0; color: #e65100; padding: 6px 16px; border-radius: 6px; font-size: 0.82em; font-weight: 600;">
+        &#9888; שקיפות מקור: חומר זה מבוסס על צ'אט WhatsApp פרטי שהועבר על ידי חבר בקבוצה. חלק מהתכנים אינם נגישים לחיפוש חופשי ואינם ניתנים לאימות עצמאי מלא.
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════ OVERVIEW ═══════ -->
+<div id="view-overview" class="view active">
+
+<div class="grid-3">
+    <div class="metric"><div class="num">5,362</div><div class="label">שורות בצ'אט</div></div>
+    <div class="metric"><div class="num">9+</div><div class="label">דמויות נחקרו</div></div>
+    <div class="metric"><div class="num">15+</div><div class="label">ארגונים זוהו</div></div>
+</div>
+<div class="grid-3">
+    <div class="metric"><div class="num">3</div><div class="label">תמלולי זום</div></div>
+    <div class="metric"><div class="num">80+</div><div class="label">קבצי מדיה</div></div>
+    <div class="metric"><div class="num">10+</div><div class="label">מסמכים שנשלחו</div></div>
+</div>
+
+<div class="section" style="background: #fffde7; border-right: 4px solid #e65100;">
+    <h2 style="border-bottom-color: #e65100;">הערת שקיפות מקורית</h2>
+    <p>חומר הגלם של דף זה — צ'אט WhatsApp בן 5,362 שורות, תמלולי זום, ומסמכים נלווים — <strong>אינו נגיש לחיפוש חופשי באינטרנט</strong>. הוא הועבר על ידי חבר שהשתתף בקבוצה. לפיכך:</p>
+    <ul>
+        <li><strong>אימות חלקי:</strong> ציטוטים ישירים מהצ'אט ניתנים לאימות רק על ידי מי שיש לו גישה לחומר המקורי</li>
+        <li><strong>מקורות ציבוריים:</strong> מאמרים אקדמיים, פרסומים ואתרים שאוזכרו בצ'אט — ניתנים לאימות עצמאי</li>
+        <li><strong>תמלולי זום:</strong> הקלטות שנעשו על ידי משתתף בקורסים — אינם זמינים לציבור</li>
+    </ul>
+    <p>בהתאם ל<a class="page-link" href="methodology.html">עקרון השקיפות המתודולוגי</a>, אנו מציינים במפורש מה ניתן ומה לא ניתן לאמת באופן עצמאי.</p>
+</div>
+
+<div class="section">
+    <h2>מהות הקבוצה</h2>
+    <p>קבוצת WhatsApp שהוקמה ב-27 בדצמבר 2023, ימים ספורים אחרי ה-7 באוקטובר. הקבוצה פועלת כ<strong>צוות מחקר אזרחי</strong> לתיעוד חדירת הפדגוגיה הביקורתית, SEL (למידה חברתית-רגשית), ואידיאולוגיות ניאו-מרקסיסטיות למערכת החינוך הישראלית.</p>
+    <p>שם הקבוצה השתנה מספר פעמים, משקף את התפתחות ההבנה של המשתתפים:</p>
+    <ul>
+        <li>"טיהור החינוך בישראל. תכנים. אנשים. ארגונים" → שפה אגרסיבית ראשונית</li>
+        <li>"החזרת החינוך בישראל למסלולו. בנק מטרות" → מיקוד בשיטתיות</li>
+        <li>"מיגור מרקסיזם אנטישמי" → הבנה אידיאולוגית מעמיקה</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>שלבי הפעולה שהוגדרו</h2>
+    <div class="grid-3">
+        <div style="background:#fff3e0;padding:16px;border-radius:8px;border-top:3px solid #e65100;">
+            <h3 style="color:#e65100;margin-top:0;">שלב 1: ניקוי שקט</h3>
+            <p>"ללא רחש תקשורתי. לאחר חיסול מספר מטרות קלות — בחירה של מטרה פחות ברורה מאליו."</p>
+        </div>
+        <div style="background:#e3f2fd;padding:16px;border-radius:8px;border-top:3px solid #1565c0;">
+            <h3 style="color:#1565c0;margin-top:0;">שלב 2: אסקלציה ציבורית</h3>
+            <p>"נהיה מוכנים עם סדרת מאמרים ומידע כדי ליצור אסקלציה ציבורית — תוך העלאת המודעות של הציבור למשמעות של פדגוגיה ביקורתית."</p>
+        </div>
+        <div style="background:#fce4ec;padding:16px;border-radius:8px;border-top:3px solid #c62828;">
+            <h3 style="color:#c62828;margin-top:0;">שלב 3: הרחבת בנק המטרות</h3>
+            <p>"פעולה כנגד בנק מטרות מורחב ואמתי דורש העמקת מודעות בקרב הציבור, נבחרי ציבור, אנשי תקשורת."</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קשר למשרד החינוך</h2>
+    <div class="quote-block">
+        <div class="q-text">"כמה שצפוי, עדיין מזעזע. זה חומר מצוין. תוכלו בבקשה להכין מסמך קצר (1-3 עמודים) בנושא?"</div>
+        <div class="q-source">אביטל בן שלמה, משנה למנכ"ל משרד החינוך — 7.1.2024, בתגובה לחומר על הנרי ג'ירו</div>
+    </div>
+    <p>הדוברת ביקשה מסמך הכולל: (1) תיאור השפעת ג'ירו על תפיסות חינוכיות בישראל, (2) פירוט הזמנות לכנסים, (3) ציטוטים מרכזיים מהמאמר שלו על ישראל וחמאס.</p>
+</div>
+
+<div class="section">
+    <h2>הודעות מפתח מהצ'אט</h2>
+    <div class="chat-msg zvi">
+        <div class="chat-sender zvi">Zvi Shalem</div>
+        צורך בניקוי: 1. תכנים 2. אישים 3. ארגונים. משמעות הניקוי העמוק: תיקון תהליכי קבלת החלטות במשרד כולל מינויים. סגירת מוסדות חינוכיים רקובים / חיתוך עמוק והקמה מחדש. כולל מכללות מורים.
+        <div class="chat-time">27.12.2023, 00:34</div>
+    </div>
+    <div class="chat-msg zvi">
+        <div class="chat-sender zvi">Zvi Shalem</div>
+        חשוב יותר ממידע גולמי הוא <strong>תיקון העדשה</strong> שבה המערכת הביקורתית והציבור רואים את הדברים. הכלי שדרכו הציבור, כולל הציבור הימני, רואה את הדברים פגום.
+        <div class="chat-time">2.1.2024, 05:00</div>
+    </div>
+    <div class="chat-msg zvi">
+        <div class="chat-sender zvi">Zvi Shalem</div>
+        אפשר לדעתי להגדיר את CASEL כמטרה ראשית. SEL בישראל מתבססים על זה המון. אם מקשרים חזק בין תמיכה בחמאס וזה — התקדמנו יפה מאוד.
+        <div class="chat-time">2.1.2024, 04:23</div>
+    </div>
+    <div class="chat-msg eden">
+        <div class="chat-sender eden">עדן ארז</div>
+        צריך למפות את כל הארגונים והאנשים למפה אחת... המערה מאוד עמוקה.
+        <div class="chat-time">28.12.2023, 06:42-09:03</div>
+    </div>
+    <div class="chat-msg yuval">
+        <div class="chat-sender yuval">יובל גת</div>
+        ישנם מספר "דגלים אדומים" המעידים על נטייה פרוגרסיבית/ליברלית במסווה [...] מושג ה"אמביוולנטיות" הוא מילת קוד לטשטוש עמדות הלכתיות ברורות.
+        <div class="chat-time">1.2.2026</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════ PARTICIPANTS ═══════ -->
+<div id="view-participants" class="view">
+
+<div class="grid-3">
+    <div class="participant">
+        <div class="name">צבי שלם (Zvi Shalem)</div>
+        <div class="role">מנהל / יוצר הקבוצה</div>
+        <div class="desc">מתמטיקאי, חוקר ראשי. כותב מאמרים ב"אלכסון", פעיל ברשת "בשער". הגדיר את מטרות הקבוצה, שלבי הפעולה, ומבנה מיפוי המידע. קושר בין ג'ירו לחומרי לימוד. שלח מאמר "שוברים ומערבבים" לתפוצת "בשער". התכתב עם אביטל בן שלמה (משנה למנכ"ל משרד החינוך).</div>
+    </div>
+    <div class="participant">
+        <div class="name">יובל גת</div>
+        <div class="role">אסטרטג / אנליסט</div>
+        <div class="desc">ניתוח מודיעיני ואסטרטגי. זיהה כנס פדגוגיה ביקורתית 2014 עם זלמנסון, גור-זיו, קיזל. מיפה רשימת גופים בועדת חינוך. מלווה את עדן ארז בשיחות אסטרטגיות. מביא מקורות אמריקאיים (Daily Wire, PDE, Morning Wire). ניסח מכתב התפטרות עבור עדן.</div>
+    </div>
+    <div class="participant">
+        <div class="name">עדן ארז</div>
+        <div class="role">חוקר שטח / מורה</div>
+        <div class="desc">חודר לקבוצות פרוגרסיביות כמורה: מכון מופ"ת, הרבעון הרביעי, מאבק החינוך, בונות אלטרנטיבה, פורום זכויות אדם. מקליט זומים. מגבה אתרים וסרטונים (קדמה: 252 סרטונים). ניתח מספרי טלפון של מורים לזיהוי חברות בקבוצות. פיתח מערכת גיבוי הודעות (shortsimple.com). לימד בתיכון אית"ן נען והתפטר. משתתף בהשתלמויות SEL וחינוך נגד גזענות.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>משתתפים נוספים שהוזכרו</h2>
+    <ul>
+        <li><strong>נווה מכון יכין</strong> — יצר כלי Gemini מאומן לניתוח ארגונים (VCF בצ'אט)</li>
+        <li><strong>יצחק גייגר</strong> — "עמוק בתוך הקרבות", יובל וצבי פגשו אותו (VCF בצ'אט)</li>
+        <li><strong>ג'רמי</strong> — משתתף מארה"ב, מספר +1 (732) (VCF בצ'אט)</li>
+    </ul>
+</div>
+
+</div>
+
+<!-- ═══════ FIGURES ═══════ -->
+<div id="view-figures" class="view">
+
+<div class="section">
+    <h2>דמויות שנחקרו</h2>
+    <p>אלו הדמויות המרכזיות שעלו בצ'אט כ"מטרות" לחקירה. עבור כל דמות: מהצ'אט עולה הסיבה לחקירה, והאם נמצא חיבור למערכת החינוך בפועל.</p>
+</div>
+
+<div class="section">
+    <h3>הנרי ג'ירו (Henry Giroux) <span class="badge badge-red">דמות מפתח</span></h3>
+    <p><strong>מוסד:</strong> McMaster University, קנדה</p>
+    <p><strong>סיבת מחקר:</strong> דמות מפתח בפדגוגיה ביקורתית עולמית. פרסם מאמר אנטי-ישראלי לאחר 7.10 ("Killing Children"). סיכם את ההתקפה כ-"29 ילדים נהרגו".</p>
+    <p><strong>ממצאים:</strong> ג'ירו מצוטט בחומרי לימוד ישראליים (ספר "כן בבית ספרנו"), מופיע בסילבוסים של מכללות להכשרת מורים. האוניברסיטה שלו (McMaster) קשורה לקטאר.</p>
+    <p><strong>תגובת משרד החינוך:</strong> אביטל בן שלמה ביקשה מסמך מפורט. צבי שאל: "האם משרד החינוך יכול להוציא גינוי להנרי ג'ירו?"</p>
+</div>
+
+<div class="section">
+    <h3>אריה קיזל <span class="badge badge-orange">חשוד</span></h3>
+    <p><strong>מוסד:</strong> אוניברסיטת חיפה, מגמה לחקר חינוך אלטרנטיבי</p>
+    <p><strong>סיבת מחקר:</strong> "שמו עולה הרבה". חינוך אלטרנטיבי, פילוסופיה עם ילדים, כנס 2014 עם זלמנסון וגור-זיו.</p>
+    <p><strong>ממצאים:</strong> ממומן ע"י קרן SSHRC קנדית. חבר באגודה הים-תיכונית לפילוסופיה עם ילדים. קשור למנדל. עדן שאל "הוא בצד שלנו?" — צבי: "אריה קיזל בצד שלנו?"</p>
+</div>
+
+<div class="section">
+    <h3>גליה זלמנסון-לוי <span class="badge badge-red">מתועדת</span> <a href="radical_zalmanson.html" class="page-link">פרופיל מלא</a></h3>
+    <p><strong>מוסד:</strong> סמינר הקיבוצים — מרכז לפדגוגיה ביקורתית</p>
+    <p><strong>מהצ'אט:</strong> הוזכרה בכנס 2014 ("ד"ר גליה זלמנסון לוי מהמרכז לפדגוגיה ביקורתית"). צבי כתב מאמר "שוברים ומערבבים" שמצטט את ספרה על אתנו-מתמטיקה.</p>
+    <p><strong>ציטוט מהמאמר:</strong> "חברת סגל במרכז מרקסיסטי זה משתמשת ברעיון של 'אתנו-מתמטיקה' כדי לטשטש את הגבול בין המתמטיקה העצמה וחקר תרבותי."</p>
+</div>
+
+<div class="section">
+    <h3>חגית גור-זיו <span class="badge badge-red">מתועדת</span> <a href="radical_gurziv.html" class="page-link">פרופיל מלא</a></h3>
+    <p><strong>מוסד:</strong> סמינר הקיבוצים — קתדרת אונסק"ו</p>
+    <p><strong>מהצ'אט:</strong> "גליה שותפה של קדמה הרבה שנים לקידום צדק חברתי, פדגוגיה ביקורתית..." (22.3.2024). "טענו אז כי שאלת שינוי דפוסי הלמידה בכיתה מחייבת שינוי מערכתי, דהיינו שינוי של המבנה החברתי כולו."</p>
+</div>
+
+<div class="section">
+    <h3>ניר מיכאלי <span class="badge badge-red">מתועד</span> <a href="radical_michaeli.html" class="page-link">פרופיל מלא</a></h3>
+    <p><strong>מהצ'אט:</strong> "ניר מיכאלי גם דמות בעייתית מאוד. ערך את 'כן בבית ספרנו' שמצטט ג'ירו" (6.1.2024)</p>
+</div>
+
+<div class="section">
+    <h3>אסף משולם <span class="badge badge-red">מתועד</span> <a href="radical_meshulam.html" class="page-link">פרופיל מלא</a></h3>
+    <p><strong>מוסד:</strong> אוניברסיטת בן-גוריון</p>
+    <p><strong>מהצ'אט:</strong> "אסף משולם ופדגוגיה ביקורתית" (5.1.2024). "איזה קישור מובהק יש לנו להראות את זה בפשטות יותר מאשר הקישור למאמר שקראנו של אסף משולם" (עדן, 15.2.2024)</p>
+</div>
+
+<div class="section">
+    <h3>ענת רימון-אור <span class="badge badge-orange">חשודה</span></h3>
+    <p><strong>מוסד:</strong> בית ברל (13 שנה), מכון אור</p>
+    <p><strong>מהצ'אט:</strong> "כתבה מייל די מדהים בתפוצת חוקרי חינוך" (צבי, 20.2.2024). נמצא שפרסמה פוסט "יש משהו שובה לב בעריפת הראשים של דאע"ש". סגרה חשבון פייסבוק.</p>
+</div>
+
+<div class="section">
+    <h3>מייקל אפל (Michael Apple) <span class="badge badge-blue">נבדק</span></h3>
+    <p><strong>מוסד:</strong> University of Wisconsin</p>
+    <p><strong>מהצ'אט:</strong> "מתאים לך לבדוק אם מייקל אפל גם תומך חמאס?" (צבי, 7.1.2024). עדן חיפש פוסטים בפייסבוק.</p>
+</div>
+
+</div>
+
+<!-- ═══════ ORGANIZATIONS ═══════ -->
+<div id="view-orgs" class="view">
+
+<div class="section">
+    <h2>ארגונים שזוהו בצ'אט</h2>
+    <table>
+        <thead>
+            <tr><th>ארגון</th><th>סוג</th><th>סיבת מחקר</th><th>תגיות</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>CASEL</strong></td>
+                <td>בינלאומי</td>
+                <td>"מטרה ראשית". SEL בישראל מתבסס עליהם. קישור לתמיכה בחמאס בקרב צעירים</td>
+                <td><span class="badge badge-red">SEL</span></td>
+            </tr>
+            <tr>
+                <td><strong>UNESCO / קתדרה בסמינר הקיבוצים</strong></td>
+                <td>בינלאומי/ישראלי</td>
+                <td>חינוך הומניסטי. הדף נמחק מאתר סמינר הקיבוצים. עדן מצא גרסה ב-Wayback Machine</td>
+                <td><span class="badge badge-red">פדגוגיה ביקורתית</span></td>
+            </tr>
+            <tr>
+                <td><strong>UNRWA</strong></td>
+                <td>בינלאומי</td>
+                <td>SEL בתוך עזה. חינוך מושחת</td>
+                <td><span class="badge badge-red">SEL</span></td>
+            </tr>
+            <tr>
+                <td><strong>קרן קרב (Karev)</strong></td>
+                <td>ישראלי</td>
+                <td>גישה הומניסטית-פרוגרסיבית, תכנית "לשקט"</td>
+                <td><span class="badge badge-orange">חינוך</span></td>
+            </tr>
+            <tr>
+                <td><strong>קדמה</strong></td>
+                <td>ישראלי</td>
+                <td>SEL בבתי ספר. "גליה שותפה של קדמה הרבה שנים". גובה ערוץ יוטיוב (252 סרטונים) ואתר</td>
+                <td><span class="badge badge-red">SEL</span> <span class="badge badge-red">פדגוגיה ביקורתית</span></td>
+            </tr>
+            <tr>
+                <td><strong>הרבעון הרביעי</strong></td>
+                <td>ישראלי</td>
+                <td>תנועה חברתית. מסמך חזון. יובל ועדן השתתפו בכנסים. "מניפסט Woke"</td>
+                <td><span class="badge badge-purple">תנועה</span></td>
+            </tr>
+            <tr>
+                <td><strong>ברנקו וייס</strong></td>
+                <td>ישראלי</td>
+                <td>הכשרת בתי ספר. "המערה מאוד עמוקה"</td>
+                <td><span class="badge badge-orange">חינוך</span></td>
+            </tr>
+            <tr>
+                <td><strong>מכון הרטמן</strong></td>
+                <td>ישראלי</td>
+                <td>רשימת 'בתי ספר בארי'</td>
+                <td><span class="badge badge-orange">חינוך</span></td>
+            </tr>
+            <tr>
+                <td><strong>מכון מופ"ת</strong></td>
+                <td>ישראלי</td>
+                <td>עדן הוצא מקבוצת ווטסאפ שלהם. סדנאות. שירותים פסיכולוגיים חינם למורים</td>
+                <td><span class="badge badge-orange">הכשרת מורים</span></td>
+            </tr>
+            <tr>
+                <td><strong>מאבק החינוך</strong></td>
+                <td>ישראלי</td>
+                <td>4+ קבוצות ווטסאפ. עצומות, שביתות, מערכי שיעור</td>
+                <td><span class="badge badge-purple">תנועה</span></td>
+            </tr>
+            <tr>
+                <td><strong>בונות אלטרנטיבה</strong></td>
+                <td>ישראלי</td>
+                <td>נשים, מחאה, זומים. "בריאות מודעת מין ומגדר"</td>
+                <td><span class="badge badge-purple">תנועה</span></td>
+            </tr>
+            <tr>
+                <td><strong>מנדל</strong></td>
+                <td>ישראלי</td>
+                <td>"תוכנית למנהיגות חינוכית לדמוקרטיה" — דמוקרטיה, שוויון, הכלה ופלורליזם</td>
+                <td><span class="badge badge-orange">מנהיגות</span></td>
+            </tr>
+            <tr>
+                <td><strong>עיר סגולה</strong></td>
+                <td>ישראלי</td>
+                <td>"קידום השיח הפוליטי במערכת החינוך בתל אביב"</td>
+                <td><span class="badge badge-purple">תנועה</span></td>
+            </tr>
+            <tr>
+                <td><strong>ברית הלביאות</strong></td>
+                <td>ישראלי</td>
+                <td>חינוך גאה, "קו הקשת", דוח תלמידים טרנסיים</td>
+                <td><span class="badge badge-purple">מגדר</span></td>
+            </tr>
+            <tr>
+                <td><strong>CLES / LESMCC</strong></td>
+                <td>ארה"ב</td>
+                <td>"Critical media literacy toolkit" אנטי-ישראלי. 18 מחוזות בתי ספר</td>
+                <td><span class="badge badge-red">BDS</span></td>
+            </tr>
+            <tr>
+                <td><strong>בשער</strong></td>
+                <td>ישראלי</td>
+                <td>רשת אקדמאים שמרנים. צבי פרסם שם מאמרים</td>
+                <td><span class="badge badge-green">בצד שלנו</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══════ QUOTES ═══════ -->
+<div id="view-quotes" class="view">
+
+<div class="section">
+    <h2>ציטוטי הזדהות עצמית — "חתרנים"</h2>
+    <p>מתוך מסמך <code>self_identification_quotes.docx</code> שנשלח בצ'אט (15.1.2026). ציטוטים שבהם דוברים מעידים על עצמם כ"חתרנים" — מתוך הקלטות זום של השתלמויות וכנסים.</p>
+</div>
+
+<div class="section">
+    <h3>1. "המעשה החתרני שלי"</h3>
+    <div class="quote-block">
+        <div class="q-text">"וכיום להיות מורה שמחנך לדמוקרטיה מדבר, בכלל אומר את המילה דמוקרטיה, ומנסה להכניס תכנים דמוקרטיים בבית ספר ממלכתי דתי, זה מעשה חתרני."</div>
+        <div class="q-source">מורה בחינוך ממ"ד — קובץ 1732</div>
+    </div>
+    <div class="quote-block">
+        <div class="q-text">"ואני רוצה לקחת מהדברים שלי האלה את המילה חתרני. אנחנו עושים משהו חתרני."</div>
+        <div class="q-source">אותה דוברת</div>
+    </div>
+    <div class="quote-block">
+        <div class="q-text">"המעשה החתרני שלי הוא עשיית דמוקרטיה בכיתה. שיח אמיתי פתוח... לייצר יחד אמיתי, לייצר מיומנויות של הקשבה, לייצר קבלה, לייצר תרבות שיח. זה המעשה החתרני שלי."</div>
+        <div class="q-source">אותה דוברת</div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>2. "שותפות כמעשה חתרני"</h3>
+    <div class="quote-block">
+        <div class="q-text">"כל מסגרת שמפגישה יהודים ופלסטינים ביחד חותרת למעשה תחת הניסיון להפריד בינינו... כל דבר שממש מכיח את השותפות זה מעשה חתרני מבורך."</div>
+        <div class="q-source">פעילה חברתית — קובץ 1445</div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>3. "חינוך ממלכתי כחתרנות"</h3>
+    <div class="quote-block">
+        <div class="q-text">"אנחנו רוצות להגיד שהרעיון הזה הוא מעט חתרני. זאת אומרת, הוא בעצם... צבא ההגנה לישראל היה בנוי בזמנו ממחטרות... וחוק החינוך תפקידו היה לקחת את כל הזרמים... ולהפוך את זה למערכת חינוך אחת."</div>
+        <div class="q-source">מרצות/פעילות חינוך — קובץ 1835</div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>4. "גם אם היינו חתרניים"</h3>
+    <div class="quote-block">
+        <div class="q-text">"אני הייתי שותפה בניסיון להטמיע כל מיני תוכניות חינוך נכשלו, כי מלמעלה טרפדו את זה גם אם היינו חתרניים בדרך כזו או אחרת. זה תורפד."</div>
+        <div class="q-source">פעילת חינוך — קובץ 751</div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>5. "לשאול שאלות חתרניות"</h3>
+    <div class="quote-block">
+        <div class="q-text">"גם לשאול שאלות חתרניות וגם לדרוש את מה שמגיע לנו לדרוש."</div>
+        <div class="q-source">קובץ 872</div>
+    </div>
+</div>
+
+<div class="section">
+    <h3>6. הכחשה — "אנחנו לא חתרנים"</h3>
+    <div class="quote-block">
+        <div class="q-text">"ושוב ההנחה שלי היא שאנחנו לא חתרנים פה. אנחנו לא נביא לעולם תוכן שמישהו היה..."</div>
+        <div class="q-source">קובץ 789</div>
+    </div>
+    <p style="font-size:0.88em;color:#666;">הערה: ציטוט זה עונה על שאלת "מה יפריך את התזה" — ישנם גם דוברים שמכחישים חתרנות. המאזן מוצג כאן באופן מלא.</p>
+</div>
+
+<div class="section">
+    <h2>ציטוטי תיוג "אנרכיסטים" — בעיקר תיוג חיצוני</h2>
+    <div class="quote-block">
+        <div class="q-text">"הם אף פעם לא יגידו וואו איך הרחובות מפחידים אותנו. הם יגידו שאנחנו קטנים, שאנחנו לא נחשבים טוב, שאנחנו אנרכיסטים."</div>
+        <div class="q-source">פעיל מחאה — קובץ 694</div>
+    </div>
+    <div class="quote-block">
+        <div class="q-text">"יש הפרדה מאוד ברורה. כלומר יש משפחות חטופים ויש אנרכיסטים... אנרכיסטים במרכאות."</div>
+        <div class="q-source">בת משפחת חטוף — קובץ 861</div>
+    </div>
+    <div class="quote-block">
+        <div class="q-text">"בתור מי שכל שבוע עושה את הפעולות האלה וגם מארגן אותם... הפעולות היותר אנרכיסטיות..."</div>
+        <div class="q-source">פעיל שמארגן פעולות ישירות — קובץ 892</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════ TIMELINE ═══════ -->
+<div id="view-timeline" class="view">
+
+<div class="section">
+    <h2>ציר זמן — אירועים מרכזיים</h2>
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-date">27.12.2023</div>
+            <div class="tl-content"><strong>הקמת הקבוצה.</strong> צבי שלם מגדיר: "צורך בניקוי: תכנים, אישים, ארגונים. משמעות הניקוי העמוק: תיקון תהליכי קבלת החלטות במשרד כולל מינויים."</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">2.1.2024</div>
+            <div class="tl-content"><strong>CASEL כמטרה ראשית.</strong> קישור בין SEL לתמיכה בחמאס. UNESCO כמטרה מרכזית נוספת.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">5-6.1.2024</div>
+            <div class="tl-content"><strong>חקירת דמויות ראשונות.</strong> אסף משולם (BGU), אריה קיזל (חיפה), הנרי ג'ירו. ניר מיכאלי מזוהה כ"דמות בעייתית".</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">7.1.2024</div>
+            <div class="tl-content"><strong>תגובת משרד החינוך.</strong> אביטל בן שלמה (משנה למנכ"ל) מבקשת מסמך על ג'ירו.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">15.2.2024</div>
+            <div class="tl-content"><strong>עדן מתקבל לתיכון אית"ן נען.</strong> מקבל "מילון מונחים" של בית הספר. מגלה ברנקו וייס שם.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">17.2.2024</div>
+            <div class="tl-content"><strong>ניתוח מודיעיני.</strong> עדן מפרסם ניתוח טלפוני — מזהה 14 מורים מאית"ן בקבוצות פרוגרס (מאבק החינוך, דגלים שחורים, הרבעון הרביעי).</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">19.2.2024</div>
+            <div class="tl-content"><strong>עדן מושתק.</strong> מנסה לעורר שיח ביקורתי בקבוצת מכון מופ"ת. מוצא, נמחק, נחסם. "קיבלנו מה שרצינו" — ההוצאה מוכיחה את הטענה.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">28.2.2024</div>
+            <div class="tl-content"><strong>כנס פדגוגיה ביקורתית 2014 נחשף.</strong> יובל מוצא: זלמנסון-לוי, גור-זיו, קיזל — כולם יחד. חגית גור-זיו: "שינוי דפוסי הלמידה מחייב שינוי של המבנה החברתי כולו."</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">28.3.2024</div>
+            <div class="tl-content"><strong>כנס הרבעון הרביעי.</strong> יובל משתתף. עדן משתף מסמך חזון. יובל: "מלא כישופים דיאלקטיים. ממש מניפסט Woke."</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">30.3.2024</div>
+            <div class="tl-content"><strong>סמינר הקיבוצים מחק עמוד אונסק"ו.</strong> עדן מוצא גרסה ב-Wayback Machine. צבי: "מעולה!"</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">מאי 2024</div>
+            <div class="tl-content"><strong>עדן מתפטר מתיכון אית"ן.</strong> יובל מנסח את מכתב ההתפטרות. צבי שולח מאמר "שוברים ומערבבים" ב"בשער".</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">נובמבר 2024</div>
+            <div class="tl-content"><strong>הכנות לוועדת חינוך בכנסת.</strong> גיבוי ערוץ יוטיוב של קדמה (252 סרטונים) + גיבוי אתר.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">1.2.2026</div>
+            <div class="tl-content"><strong>כלי Gemini מאומן.</strong> "נווה ממכון יכין" יצר כלי AI לניתוח ארגונים פרוגרסיביים. צבי משתף קישור.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">15.1.2026</div>
+            <div class="tl-content"><strong>מסמך ציטוטי הזדהות עצמית.</strong> עדן שולח <code>self_identification_quotes.docx</code> — ציטוטים מהקלטות זום.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date">25.2.2026</div>
+            <div class="tl-content"><strong>הודעות אחרונות.</strong> עדן משתתף בהשתלמות "חינוך נגד גזענות" ומשתף הקלטות.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<footer>
+    לוח מחקר — צ'אט "מיגור מרקסיזם אנטישמי" · מבוסס על ייצוא WhatsApp (531KB, 5,362 שורות) + תמלולי זום + מסמכים
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

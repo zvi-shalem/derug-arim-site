@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר חגית גור זיו — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.55em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.93em; margin-bottom: 4px; line-height: 1.6; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 10px; font-weight: 600; }
+
+/* ── Factual framing banner ── */
+.factual-banner {
+    background: #fff8f8;
+    border: 1px solid #e8bbbb;
+    border-right: 4px solid #cc0000;
+    padding: 12px 18px;
+    margin: 20px 0 0 0;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #4a1a1a;
+    line-height: 1.6;
+}
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 20px 24px; margin-bottom: 16px;
+}
+.card h2 { font-size: 1.1em; font-weight: 700; margin-bottom: 12px; color: #1a1a2e; border-bottom: 2px solid #cc0000; padding-bottom: 8px; display: inline-block; }
+.card h3 { font-size: 0.97em; font-weight: 700; margin: 14px 0 6px; color: #333; }
+.card p { color: #444; font-size: 0.92em; margin-bottom: 8px; }
+.card ul { color: #444; font-size: 0.92em; padding-right: 20px; }
+.card ul li { margin-bottom: 5px; }
+.card a { color: #cc0000; text-decoration: none; }
+.card a:hover { text-decoration: underline; }
+
+/* ── Key Fact Box ── */
+.key-fact {
+    background: #fff8f8;
+    border: 1px solid #e8bbbb;
+    border-right: 4px solid #cc0000;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.92em;
+    color: #4a1a1a;
+    line-height: 1.7;
+}
+.key-fact .label {
+    font-weight: 700;
+    color: #cc0000;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* ── Info Grid ── */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+.info-item {
+    background: #f9f9fb;
+    border: 1px solid #e8e8ee;
+    border-radius: 6px;
+    padding: 12px 16px;
+}
+.info-item .item-label {
+    font-size: 0.78em;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+}
+.info-item .item-value {
+    font-size: 0.93em;
+    color: #1a1a2e;
+    font-weight: 500;
+}
+.info-item .item-value a { color: #cc0000; text-decoration: none; }
+.info-item .item-value a:hover { text-decoration: underline; }
+
+/* ── Publication entries ── */
+.pub-entry {
+    background: #f9f9fb;
+    border: 1px solid #e8e8ee;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+}
+.pub-entry .pub-type {
+    display: inline-block;
+    font-size: 0.72em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: #cc0000;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+.pub-entry .pub-type.book { background: #1a5276; }
+.pub-entry .pub-type.intro { background: #145a32; }
+.pub-entry .pub-type.article { background: #7d3c98; }
+.pub-entry .pub-type.film { background: #b9770e; }
+.pub-entry .pub-type.edited { background: #1a5276; }
+.pub-entry h3 { font-size: 0.97em; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+.pub-entry p { font-size: 0.88em; color: #555; margin-bottom: 4px; }
+.pub-entry .pub-note { font-size: 0.83em; color: #888; margin-top: 6px; border-top: 1px solid #e0e0e0; padding-top: 6px; }
+
+/* ── Network nodes ── */
+.network-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+}
+.network-node {
+    background: #f9f9fb;
+    border: 1px solid #e8e8ee;
+    border-radius: 8px;
+    padding: 16px 18px;
+}
+.network-node .node-title {
+    font-weight: 700;
+    font-size: 0.97em;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+}
+.network-node .node-role {
+    font-size: 0.83em;
+    color: #cc0000;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.network-node p { font-size: 0.87em; color: #555; }
+.network-node a { color: #cc0000; text-decoration: none; font-size: 0.87em; }
+.network-node a:hover { text-decoration: underline; }
+
+/* ── Org chart-style institution box ── */
+.org-block {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+}
+.org-block .org-name {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #cc0000;
+    padding-bottom: 6px;
+    display: inline-block;
+}
+.org-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #444;
+}
+.org-row .badge {
+    display: inline-block;
+    background: #cc0000;
+    color: #fff;
+    font-size: 0.72em;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin-top: 2px;
+}
+.org-row .badge.blue { background: #1a5276; }
+.org-row .badge.green { background: #145a32; }
+
+/* ── Sources table ── */
+.sources-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin-top: 8px;
+}
+.sources-table th {
+    background: #f5f5f8;
+    border: 1px solid #e0e0e0;
+    padding: 9px 12px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 0.82em;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.sources-table td {
+    border: 1px solid #e8e8ee;
+    padding: 9px 12px;
+    color: #333;
+    vertical-align: top;
+}
+.sources-table tr:nth-child(even) td { background: #fafafa; }
+.sources-table a { color: #cc0000; text-decoration: none; }
+.sources-table a:hover { text-decoration: underline; }
+
+/* ── Cross-links bar ── */
+.crosslinks {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+.crosslinks a {
+    display: inline-block;
+    background: #f5f5f8;
+    border: 1px solid #cc0000;
+    color: #cc0000;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.82em;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.crosslinks a:hover { background: #cc0000; color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+    .nav-brand { font-size: 0.9em; }
+    .nav-tab { padding: 12px 10px; font-size: 0.78em; }
+    .hero h1 { font-size: 1.2em; }
+    .info-grid, .network-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      ד"ר חגית גור זיו
+      <a href="kibbutzim_pedagogy_dashboard.html">← לוח ראשי</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showView('overview', this)">סקירה</button>
+      <button class="nav-tab" onclick="showView('publications', this)">פרסומים</button>
+      <button class="nav-tab" onclick="showView('institution', this)">מוסד</button>
+      <button class="nav-tab" onclick="showView('network', this)">רשת</button>
+      <button class="nav-tab" onclick="showView('sources', this)">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <h1>ד"ר חגית גור זיו — פרופיל מחקרי</h1>
+  <div class="subtitle">
+    ראש המרכז לפדגוגיה ביקורתית | מכללת סמינר הקיבוצים | מקדימה לתרגום העברי של פריירה
+  </div>
+  <div class="meta">Dr. Haggith Gor Ziv &nbsp;·&nbsp; criticalpedagogy.org.il</div>
+</div>
+
+<!-- ── Main container ── -->
+<div class="container">
+
+  <!-- Factual framing banner — shown on all tabs -->
+  <div class="factual-banner">
+    <strong>הצהרת מסגרת:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר גור זיו עצמה אמרה, כתבה או פרסמה. המידע מבוסס על פרסומים אקדמיים, דפי מוסד, ומסדי נתונים ביבליוגרפיים ציבוריים. אין במסמך זה טענות עובדתיות שאינן מבוססות על מקורות ישירים.
+  </div>
+
+  <!-- ══════════════ TAB 1: סקירה ══════════════ -->
+  <div id="view-overview" class="view active">
+
+    <div class="card" style="margin-top:20px;">
+      <h2>פרטי זיהוי</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="item-label">שם מלא (עברית)</div>
+          <div class="item-value">ד"ר חגית גור זיו</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">שם מלא (אנגלית)</div>
+          <div class="item-value">Dr. Haggith Gor Ziv</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">תפקיד ראשי</div>
+          <div class="item-value">ראש המרכז לפדגוגיה ביקורתית, מכללת סמינר הקיבוצים</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">תפקיד נוסף — א'</div>
+          <div class="item-value">מנהלת אקדמית, תכנית לחינוך לצדק חברתי, צדק סביבתי וחינוך לשלום</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">תפקיד נוסף — ב'</div>
+          <div class="item-value">מרצה, החוג לחינוך לגיל הרך, מכללת סמינר הקיבוצים</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">דוא"ל (תחום)</div>
+          <div class="item-value">smkb.ac.il</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">אתר אישי</div>
+          <div class="item-value"><a href="https://criticalpedagogy.org.il" target="_blank">criticalpedagogy.org.il</a></div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">מחקר</div>
+          <div class="item-value">פדגוגיה ביקורתית-פמיניסטית, חינוך לשלום, מחקרי מוגבלות</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>תיאור תפקיד</h2>
+      <p>ד"ר חגית גור זיו מכהנת כראש המרכז לפדגוגיה ביקורתית במכללת סמינר הקיבוצים — המרכז המוסדי המרכזי בישראל לקידום גישות פדגוגיה ביקורתית בהכשרת מורים. בנוסף היא משמשת כמנהלת האקדמית של התכנית לחינוך לצדק חברתי, צדק סביבתי וחינוך לשלום, ומלמדת בחוג לחינוך לגיל הרך.</p>
+      <p>תחומי המחקר שלה משלבים פמיניזם, פדגוגיה ביקורתית, חינוך לשלום ומחקרי מוגבלות — תחומים שהיא מכנסת תחת גישה אינטגרטיבית הנשענת על מסורת פאולו פריירה, הנרי ג'ירו ו-bell hooks.</p>
+      <p>ד"ר גור זיו כתבה את ההקדמה לתרגום העברי של "פדגוגיה של המדוכאים" — הטקסט המכונן של הפדגוגיה הביקורתית הרדיקלית — מה שממצב אותה כשומרת סף (gatekeeper) לגישה זו בשפה העברית.</p>
+    </div>
+
+    <div class="key-fact">
+      <span class="label">עובדת מפתח — קשרים מוסדיים</span>
+      ד"ר גור זיו היא ראש המרכז לפדגוגיה ביקורתית — אותו מרכז שבו פועלת גם ד"ר זלמנסון-לוי, ותחת קורת הגג של קתדרת אונסק"ו של פרופ' אלוני. שלוש הדמויות פועלות בו-זמנית באותו מרכז מוסדי, במכללת סמינר הקיבוצים.
+    </div>
+
+    <div class="card">
+      <h2>תחומי מחקר</h2>
+      <ul>
+        <li><strong>פדגוגיה ביקורתית-פמיניסטית</strong> — שילוב תיאוריה פמיניסטית עם גישות פדגוגיה ביקורתית בהכשרת מורות לגיל הרך</li>
+        <li><strong>חינוך לשלום ולתרבות שלום</strong> — פיתוח קורסים, תכניות לימודים ומפגשים יהודים-ערבים</li>
+        <li><strong>מחקרי מוגבלות</strong> — תיעוד עולמם של חירשים, כולל סרט תיעודי</li>
+        <li><strong>חינוך לצדק חברתי וסביבתי</strong> — קורסים ותכניות מוסדיות</li>
+        <li><strong>מיליטריזם בחינוך</strong> — ספר ערוך בנושא</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>קישורים לפרופילים קשורים</h2>
+      <div class="crosslinks">
+        <a href="radical_aloni.html">פרופ' נמרוד אלוני</a>
+        <a href="radical_zalmanson.html">ד"ר זלמנסון-לוי</a>
+        <a href="kedma_dashboard.html">בית ספר קדמה</a>
+        <a href="kibbutzim_pedagogy_dashboard.html">לוח — סמינר הקיבוצים</a>
+      </div>
+    </div>
+
+  </div><!-- /view-overview -->
+
+
+  <!-- ══════════════ TAB 2: פרסומים ══════════════ -->
+  <div id="view-publications" class="view">
+
+    <div class="card" style="margin-top:20px;">
+      <h2>פרסומים ויצירות</h2>
+      <p style="font-size:0.88em; color:#666; margin-bottom:16px;">הרשימה מבוססת על מאגרי מידע ציבוריים: ERIC, JCEPS, פורטל מופ"ת, הספרייה הלאומית, ו-Simania.</p>
+
+      <!-- Book -->
+      <div class="pub-entry">
+        <span class="pub-type book">ספר מחקרי</span>
+        <h3>"פדגוגיה ביקורתית-פמיניסטית וחינוך לתרבות של שלום"</h3>
+        <p><strong>כותבת:</strong> ד"ר חגית גור זיו</p>
+        <p><strong>הוצאה לאור:</strong> מכון מופ"ת</p>
+        <p><strong>עורכת:</strong> יהודית שטיימן &nbsp;|&nbsp; <strong>עורכת אקדמית:</strong> אריאלה גדרון</p>
+        <p>הספר מחבר בין פדגוגיה ביקורתית-פמיניסטית לחינוך לתרבות שלום, ובוחן מפגשים יהודים-פלסטינים. הוא מהווה עבודת המחקר המרכזית של ד"ר גור זיו בנושא חינוך לשלום.</p>
+        <div class="pub-note">מאגר: <a href="https://store.macam.ac.il" target="_blank">store.macam.ac.il</a> &nbsp;|&nbsp; <a href="https://portal.macam.ac.il" target="_blank">portal.macam.ac.il</a></div>
+      </div>
+
+      <!-- Freire introduction -->
+      <div class="pub-entry">
+        <span class="pub-type intro">הקדמה לתרגום</span>
+        <h3>הקדמה לתרגום העברי של "פדגוגיה של המדוכאים" (פאולו פריירה)</h3>
+        <p><strong>תרגום:</strong> כרמית גיא &nbsp;|&nbsp; <strong>עורך:</strong> רמי לבני</p>
+        <p>"פדגוגיה של המדוכאים" הוא הטקסט המכונן של הפדגוגיה הביקורתית הרדיקלית בעולם. ד"ר גור זיו כתבה את ההקדמה לגרסתו העברית, ובכך מיצבה את עצמה כדמות מפתח בהנגשת גישות פריירה לקהל דוברי עברית.</p>
+        <div class="pub-note"><strong>משמעות:</strong> כתיבת הקדמה לטקסט כזה ממצבת את הכותבת כ"שומרת סף" (gatekeeper) — הדמות שמתווכת בין הרדיקליות הגלובלית להכשרת מורים בישראל.</div>
+      </div>
+
+      <!-- ERIC paper -->
+      <div class="pub-entry">
+        <span class="pub-type article">מאמר אקדמי — ERIC</span>
+        <h3>"Feminist Pedagogy in Early Childhood Teachers' Education"</h3>
+        <p><strong>מזהה ERIC:</strong> EJ1078280</p>
+        <p>המאמר עוסק ביישום פדגוגיה פמיניסטית בהכשרת מורות לגיל הרך. מפורסם במאגר ERIC — המאגר הגדול בעולם לספרות חינוכית, ממומן על ידי משרד החינוך האמריקני.</p>
+        <div class="pub-note">מאגר: <a href="https://eric.ed.gov/?id=EJ1078280" target="_blank">eric.ed.gov/?id=EJ1078280</a></div>
+      </div>
+
+      <!-- JCEPS paper -->
+      <div class="pub-entry">
+        <span class="pub-type article">מאמר אקדמי — JCEPS</span>
+        <h3>מאמר ב-Journal for Critical Education Policy Studies</h3>
+        <p><strong>כתב עת:</strong> Journal for Critical Education Policy Studies (JCEPS)</p>
+        <p><strong>גיליון:</strong> Volume 13, Issue 1</p>
+        <p>JCEPS הוא כתב העת הבינלאומי המרכזי לפדגוגיה ביקורתית — הפלטפורמה האקדמית של התנועה הגלובלית לחינוך ביקורתי.</p>
+        <div class="pub-note">מאגר: <a href="https://www.jceps.com" target="_blank">jceps.com</a></div>
+      </div>
+
+      <!-- Edited book: militarism -->
+      <div class="pub-entry">
+        <span class="pub-type edited">ספר ערוך</span>
+        <h3>"מיליטריזם בחינוך" (Militarism in Education)</h3>
+        <p><strong>עורכת:</strong> ד"ר חגית גור זיו</p>
+        <p>ספר ערוך העוסק בנוכחות ובהשפעה של מיליטריזם במערכות חינוך.</p>
+        <div class="pub-note">קטלוג: הספרייה הלאומית של ישראל &nbsp;|&nbsp; <a href="https://www.simania.co.il" target="_blank">simania.co.il</a></div>
+      </div>
+
+      <!-- ACRI book chapter -->
+      <div class="pub-entry">
+        <span class="pub-type article">פרק בספר — ACRI</span>
+        <h3>פרק בספר "שיעור לחיים: חינוך נגד גזענות מהגן ועד התיכון"</h3>
+        <p><strong>עורכת:</strong> נועה ריבלין &nbsp;|&nbsp; <strong>יועץ פדגוגי:</strong> מרסלו וקסלר</p>
+        <p><strong>הוצאה:</strong> האגודה לזכויות האזרח בישראל (ACRI) — ענף החינוך, 2015</p>
+        <p>ספר שכולל פרקים גם של זלמנסון-לוי ("X=Y" על מתמטיקה), מוזנה אוויד-בישארה, ואחרים. מחבר חינוך נגד גזענות עם פדגוגיה ביקורתית.</p>
+        <div class="pub-note">מאגר: <a href="https://education.acri.org.il" target="_blank">education.acri.org.il</a> &nbsp;|&nbsp; <strong>ממומן:</strong> US Middle East Peace Initiative</div>
+      </div>
+
+      <!-- Documentary film -->
+      <div class="pub-entry">
+        <span class="pub-type film">סרט תיעודי</span>
+        <h3>"Sign Discourse, Deaf people telling about their world"</h3>
+        <p>סרט תיעודי בנושא עולמם של חירשים — עבודה הקושרת בין מחקרי מוגבלות לפדגוגיה ביקורתית.</p>
+        <div class="pub-note">פרויקט הממחיש את הרחבת תחום מחקרה מעבר לכיתה הפורמלית.</div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>תכניות לימודים ועבודה שדה</h2>
+      <ul>
+        <li>כתיבת תכניות לימודים בנושאים: דמוקרטיה, זכויות אדם, שוויון מגדרי, חינוך לשלום</li>
+        <li>הכשרת מנחים למפגשים יהודים-ערבים</li>
+        <li>הרצאה בכנס קדמה בנושא: "חגים דרך עדשת הצדק החברתי"</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>נוכחות ביבליוגרפית ציבורית</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="item-label">ERIC</div>
+          <div class="item-value"><a href="https://eric.ed.gov/?id=EJ1078280" target="_blank">EJ1078280</a></div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">JCEPS</div>
+          <div class="item-value"><a href="https://www.jceps.com" target="_blank">jceps.com — Vol. 13 No. 1</a></div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">פורטל מופ"ת</div>
+          <div class="item-value"><a href="https://portal.macam.ac.il" target="_blank">portal.macam.ac.il</a></div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">חנות מופ"ת</div>
+          <div class="item-value"><a href="https://store.macam.ac.il" target="_blank">store.macam.ac.il</a></div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">הספרייה הלאומית</div>
+          <div class="item-value">קטלוג ספרים — מיליטריזם בחינוך, ופריירה</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">Simania</div>
+          <div class="item-value"><a href="https://www.simania.co.il" target="_blank">simania.co.il</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /view-publications -->
+
+
+  <!-- ══════════════ TAB 3: מוסד ══════════════ -->
+  <div id="view-institution" class="view">
+
+    <div class="card" style="margin-top:20px;">
+      <h2>מכללת סמינר הקיבוצים — מבנה מוסדי</h2>
+      <p>שלוש הדמויות המרכזיות — פרופ' אלוני, ד"ר זלמנסון-לוי, וד"ר גור זיו — פועלות כולן בו-זמנית במכללת סמינר הקיבוצים, ומחוברות דרך שני מבנים מוסדיים משולבים.</p>
+    </div>
+
+    <div class="org-block">
+      <span class="org-name">מכללת סמינר הקיבוצים (smkb.ac.il)</span>
+
+      <div class="org-row">
+        <span class="badge blue">קתדרת אונסק"ו</span>
+        <span>קתדרת אונסק"ו לחינוך הומניסטי — <strong>פרופ' נמרוד אלוני</strong>, מנהל</span>
+      </div>
+
+      <div class="org-row">
+        <span class="badge">מרכז CP</span>
+        <span>המרכז לפדגוגיה ביקורתית — <strong>ד"ר חגית גור זיו</strong> (ראש) + <strong>ד"ר זלמנסון-לוי</strong> (מנהלת/שותפה מובילה)</span>
+      </div>
+
+      <div class="org-row">
+        <span class="badge green">תכנית צדק</span>
+        <span>התכנית לחינוך לצדק חברתי, צדק סביבתי וחינוך לשלום — <strong>ד"ר גור זיו</strong>, מנהלת אקדמית</span>
+      </div>
+
+      <div class="org-row">
+        <span class="badge">חינוך גיל הרך</span>
+        <span>החוג לחינוך לגיל הרך — <strong>ד"ר גור זיו</strong>, מרצה</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>מקורות מוצהרים של המרכז לפדגוגיה ביקורתית</h2>
+      <p style="margin-bottom:10px;">המרכז עצמו מצהיר על שלושה הוגים כמקורות תיאורטיים:</p>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="item-label">פאולו פריירה</div>
+          <div class="item-value">תיאוריית המדוכאים, פדגוגיה שחרורית — בסיס לכל הפעילות</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">הנרי ג'ירו (Henry Giroux)</div>
+          <div class="item-value">פדגוגיה ביקורתית, תרבות ותקשורת, פוליטיקה בחינוך</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">bell hooks</div>
+          <div class="item-value">פמיניזם, גזע, כיתה כמרחב שחרורי — מחברת בין גזע, מגדר ומעמד</div>
+        </div>
+      </div>
+      <div class="key-fact" style="margin-top:14px;">
+        <span class="label">הקשר פריירה — ד"ר גור זיו</span>
+        ד"ר גור זיו לא רק מלמדת על פריירה — היא כתבה את ההקדמה לתרגום העברי של "פדגוגיה של המדוכאים". כל מי שקרא את הטקסט המכונן הזה בעברית, קרא תחילה את ההקדמה שלה.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>קישורים מוסדיים</h2>
+      <div class="crosslinks">
+        <a href="radical_aloni.html">פרופ' נמרוד אלוני — קתדרת אונסק"ו</a>
+        <a href="radical_zalmanson.html">ד"ר זלמנסון-לוי — המרכז לפדגוגיה ביקורתית</a>
+        <a href="kibbutzim_pedagogy_dashboard.html">לוח — סמינר הקיבוצים</a>
+      </div>
+    </div>
+
+  </div><!-- /view-institution -->
+
+
+  <!-- ══════════════ TAB 4: רשת ══════════════ -->
+  <div id="view-network" class="view">
+
+    <div class="card" style="margin-top:20px;">
+      <h2>מפת רשת הקשרים</h2>
+      <p style="font-size:0.88em; color:#666; margin-bottom:16px;">הצמתים הבאים מחוברים לד"ר גור זיו דרך מוסד, פרסום, אירוע, או שיוך אקדמי מתועד.</p>
+    </div>
+
+    <div class="network-grid">
+
+      <div class="network-node">
+        <div class="node-title">מכללת סמינר הקיבוצים</div>
+        <div class="node-role">מוסד מעסיק — שלושה תפקידים</div>
+        <p>ראש המרכז לפדגוגיה ביקורתית; מנהלת אקדמית של תכנית הצדק החברתי; מרצה בחוג לגיל הרך.</p>
+        <a href="kibbutzim_pedagogy_dashboard.html">→ לוח מכללת סמינר הקיבוצים</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">פרופ' נמרוד אלוני</div>
+        <div class="node-role">עמית מוסדי — קתדרת אונסק"ו</div>
+        <p>מחזיק קתדרת אונסק"ו לחינוך הומניסטי באותה מכללה. הקתדרה ומרכז הפדגוגיה הביקורתית פועלים תחת קורת גג מוסדית משותפת.</p>
+        <a href="radical_aloni.html">→ פרופיל פרופ' אלוני</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">ד"ר זלמנסון-לוי</div>
+        <div class="node-role">שותפה — המרכז לפדגוגיה ביקורתית</div>
+        <p>הקימו יחד את מסלול ההכשרה הראשון לפדגוגיה ביקורתית בישראל (~2005, הארץ). גור-זיו = מנהלת אקדמית, זלמנסון-לוי = מנכ"לית. שתיהן פרסמו פרקים בספר ACRI "שיעור לחיים" (2015).</p>
+        <a href="radical_zalmanson.html">→ פרופיל ד"ר זלמנסון-לוי</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">מכון מופ"ת</div>
+        <div class="node-role">מפרסם ומאחסן ביבליוגרפי</div>
+        <p>הוציא לאור את ספרה על פדגוגיה פמיניסטית וחינוך לשלום, ואת התרגום העברי של פריירה (שד"ר גור זיו כתבה לו הקדמה). הפורטל portal.macam.ac.il מאחסן את פרסומיה.</p>
+        <a href="https://portal.macam.ac.il" target="_blank">→ portal.macam.ac.il</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">בית ספר קדמה</div>
+        <div class="node-role">הרצאה בכנס</div>
+        <p>ד"ר גור זיו הרצתה בכנס קדמה בנושא "חגים דרך עדשת הצדק החברתי" — ממחיש הצטלבות בין רשת הפדגוגיה הביקורתית לבית הספר.</p>
+        <a href="kedma_dashboard.html">→ פרופיל בית ספר קדמה</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">JCEPS — כתב עת בינלאומי</div>
+        <div class="node-role">פרסום אקדמי</div>
+        <p>Journal for Critical Education Policy Studies — כתב העת הבינלאומי של תנועת הפדגוגיה הביקורתית. נוכחות שם מחברת אותה לרשת האקדמית הגלובלית.</p>
+        <a href="https://www.jceps.com" target="_blank">→ jceps.com</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">ERIC — מאגר חינוכי</div>
+        <div class="node-role">פרסום מתועד — EJ1078280</div>
+        <p>מאמרה "Feminist Pedagogy in Early Childhood Teachers' Education" מתועד במאגר ERIC — הספרייה הדיגיטלית הגדולה בעולם לחינוך, ממומנת על ידי משרד החינוך האמריקני.</p>
+        <a href="https://eric.ed.gov/?id=EJ1078280" target="_blank">→ eric.ed.gov</a>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">פאולו פריירה</div>
+        <div class="node-role">קשר תיאורטי וביבליוגרפי ישיר</div>
+        <p>ד"ר גור זיו כתבה את ההקדמה לתרגום העברי של "פדגוגיה של המדוכאים". הטקסט הוא הבסיס התיאורטי של כל הפדגוגיה הביקורתית הרדיקלית. קשר זה הוא ייחודי ומשמעותי.</p>
+      </div>
+
+      <div class="network-node">
+        <div class="node-title">הספרייה הלאומית של ישראל</div>
+        <div class="node-role">קטלוג ביבליוגרפי</div>
+        <p>פרסומיה — בפרט "מיליטריזם בחינוך" והספר על פדגוגיה פמיניסטית — מקוטלגים בספרייה הלאומית.</p>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h2>קישורים לפרופילים קשורים</h2>
+      <div class="crosslinks">
+        <a href="radical_aloni.html">פרופ' נמרוד אלוני</a>
+        <a href="radical_zalmanson.html">ד"ר זלמנסון-לוי</a>
+        <a href="kedma_dashboard.html">בית ספר קדמה</a>
+        <a href="kibbutzim_pedagogy_dashboard.html">לוח — סמינר הקיבוצים</a>
+      </div>
+    </div>
+
+  </div><!-- /view-network -->
+
+
+  <!-- ══════════════ TAB 5: מקורות ══════════════ -->
+  <div id="view-sources" class="view">
+
+    <div class="card" style="margin-top:20px;">
+      <h2>מקורות ראשוניים</h2>
+      <table class="sources-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>מקור</th>
+            <th>סוג</th>
+            <th>מה מופיע שם</th>
+            <th>כתובת</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>האתר האישי — criticalpedagogy.org.il</td>
+            <td>אתר אישי</td>
+            <td>תפקיד, מחקר, קורות חיים אקדמיים</td>
+            <td><a href="https://criticalpedagogy.org.il" target="_blank">criticalpedagogy.org.il</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>ERIC — מאגר חינוכי</td>
+            <td>מאגר נתונים</td>
+            <td>מאמר EJ1078280 — Feminist Pedagogy in Early Childhood</td>
+            <td><a href="https://eric.ed.gov/?id=EJ1078280" target="_blank">eric.ed.gov/?id=EJ1078280</a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>JCEPS — כתב עת</td>
+            <td>כתב עת אקדמי</td>
+            <td>מאמר ב-Vol. 13, Issue 1</td>
+            <td><a href="https://www.jceps.com" target="_blank">jceps.com</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>פורטל מופ"ת</td>
+            <td>ספריית מחקר</td>
+            <td>פרסומים, ספרים, מאמרים</td>
+            <td><a href="https://portal.macam.ac.il" target="_blank">portal.macam.ac.il</a></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>חנות מופ"ת</td>
+            <td>הוצאה לאור</td>
+            <td>ספר "פדגוגיה ביקורתית-פמיניסטית וחינוך לתרבות של שלום"</td>
+            <td><a href="https://store.macam.ac.il" target="_blank">store.macam.ac.il</a></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>הספרייה הלאומית של ישראל</td>
+            <td>קטלוג לאומי</td>
+            <td>ספריה — "מיליטריזם בחינוך", תרגום פריירה</td>
+            <td><a href="https://www.nli.org.il" target="_blank">nli.org.il</a></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>ZoomInfo</td>
+            <td>פרופיל מקצועי</td>
+            <td>פרטי קשר מקצועיים, תפקיד מוסדי</td>
+            <td><a href="https://www.zoominfo.com" target="_blank">zoominfo.com</a></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Simania</td>
+            <td>קטלוג ספרים</td>
+            <td>פרסומי ד"ר גור זיו</td>
+            <td><a href="https://www.simania.co.il" target="_blank">simania.co.il</a></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>כנס קדמה</td>
+            <td>אירוע מתועד</td>
+            <td">הרצאה: "חגים דרך עדשת הצדק החברתי"</td>
+            <td><a href="kedma_dashboard.html">kedma_dashboard.html</a></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>אתר מכללת סמינר הקיבוצים</td>
+            <td>אתר מוסד</td>
+            <td>תפקיד ותחומי הוראה רשמיים</td>
+            <td><a href="https://www.smkb.ac.il" target="_blank">smkb.ac.il</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>הערת מתודולוגיה</h2>
+      <p>מסמך זה נבנה על עקרון "עובדתי ומשפטי בלבד": כל טענה מבוססת על מקור ציבורי שניתן לאמת. אין במסמך פרשנות ללא בסיס עובדתי. ציטוטים ישירים מיוחסים לכותבתם. קשרים רשתיים מבוססים על שיוך מוסדי מתועד, פרסום משותף, או נוכחות מתועדת באותו אירוע.</p>
+      <div class="key-fact" style="margin-top:14px;">
+        <span class="label">כלל מנחה</span>
+        כל הציטוטים במסמך זה נלקחים ממה שד"ר גור זיו עצמה אמרה, כתבה או פרסמה.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>קישורים לפרופילים קשורים</h2>
+      <div class="crosslinks">
+        <a href="radical_aloni.html">פרופ' נמרוד אלוני</a>
+        <a href="radical_zalmanson.html">ד"ר זלמנסון-לוי</a>
+        <a href="kedma_dashboard.html">בית ספר קדמה</a>
+        <a href="kibbutzim_pedagogy_dashboard.html">לוח — סמינר הקיבוצים</a>
+      </div>
+    </div>
+
+  </div><!-- /view-sources -->
+
+</div><!-- /container -->
+
+<script>
+function showView(id, btn) {
+    // Hide all views
+    document.querySelectorAll('.view').forEach(function(v) {
+        v.classList.remove('active');
+    });
+    // Deactivate all tabs
+    document.querySelectorAll('.nav-tab').forEach(function(t) {
+        t.classList.remove('active');
+    });
+    // Show selected view
+    document.getElementById('view-' + id).classList.add('active');
+    // Activate clicked tab
+    btn.classList.add('active');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

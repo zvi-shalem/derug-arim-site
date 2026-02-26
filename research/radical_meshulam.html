@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר אסף משולם — פרופיל מחקרי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.card {
+    background: #fff; border-radius: 6px; padding: 24px 28px;
+    border: 1px solid #e0e0e0; margin-bottom: 20px;
+}
+.card h2 {
+    font-size: 1.1em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 2px solid #cc0000; display: inline-block;
+}
+.card h3 {
+    font-size: 0.97em; font-weight: 700; color: #1a1a2e; margin: 14px 0 6px;
+}
+.card p { color: #333; font-size: 0.93em; margin-bottom: 10px; }
+.card ul { padding-right: 20px; margin-bottom: 10px; }
+.card ul li { color: #333; font-size: 0.93em; margin-bottom: 5px; }
+
+/* ── Factual notice banner ── */
+.factual-notice {
+    background: #fff8f0; border: 1px solid #f0c070; border-right: 4px solid #e08800;
+    border-radius: 4px; padding: 14px 18px; margin-bottom: 24px;
+    font-size: 0.9em; color: #5a3e00;
+}
+.factual-notice strong { color: #8b5500; }
+
+/* ── Highlight boxes ── */
+.highlight-box {
+    background: #fff5f5; border: 1px solid #f5c0c0; border-right: 4px solid #cc0000;
+    border-radius: 4px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; color: #3a1010;
+}
+.highlight-box strong { color: #cc0000; }
+
+.info-box {
+    background: #f0f4ff; border: 1px solid #c0ccf5; border-right: 4px solid #3355cc;
+    border-radius: 4px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; color: #1a1a3a;
+}
+.info-box strong { color: #3355cc; }
+
+.note-box {
+    background: #f5f5f8; border: 1px solid #d0d0d8; border-right: 4px solid #888;
+    border-radius: 4px; padding: 12px 16px; margin: 12px 0;
+    font-size: 0.88em; color: #444;
+}
+
+/* ── Pub entry ── */
+.pub-entry {
+    border-bottom: 1px solid #eee; padding: 16px 0;
+}
+.pub-entry:last-child { border-bottom: none; }
+.pub-entry .pub-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; margin-bottom: 4px; }
+.pub-entry .pub-meta { color: #666; font-size: 0.85em; margin-bottom: 6px; }
+.pub-entry .pub-note { color: #444; font-size: 0.88em; }
+
+/* ── Person tag ── */
+.person-tag {
+    display: inline-block; background: #f5f5f8; border: 1px solid #ddd;
+    border-radius: 3px; padding: 3px 10px; font-size: 0.83em; color: #333;
+    margin: 3px 2px;
+}
+.person-tag a { color: #cc0000; text-decoration: none; }
+.person-tag a:hover { text-decoration: underline; }
+
+/* ── Network grid ── */
+.network-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+/* ── Source list ── */
+.source-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9em;
+}
+.source-item:last-child { border-bottom: none; }
+.source-num {
+    background: #cc0000; color: #fff; border-radius: 50%;
+    min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.78em; font-weight: 700; margin-top: 2px;
+}
+.source-text { color: #333; }
+.source-text strong { color: #1a1a2e; display: block; margin-bottom: 2px; }
+
+/* ── Tags strip ── */
+.tags-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag {
+    background: #f0f0f5; border: 1px solid #ddd; border-radius: 12px;
+    padding: 3px 11px; font-size: 0.8em; color: #444;
+}
+.tag.red { background: #fff0f0; border-color: #f5c0c0; color: #cc0000; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      ד"ר אסף משולם
+      <a href="index.html">→ לדשבורד הראשי</a>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="show('overview',this)">סקירה</button>
+      <button class="nav-tab" onclick="show('publications',this)">פרסומים</button>
+      <button class="nav-tab" onclick="show('institution',this)">מוסד</button>
+      <button class="nav-tab" onclick="show('network',this)">רשת</button>
+      <button class="nav-tab" onclick="show('sources',this)">מקורות</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <h1>ד"ר אסף משולם — פרופיל מחקרי</h1>
+  <div class="subtitle">מרצה בכיר, אוניברסיטת בן-גוריון בנגב | PhD אוניברסיטת ויסקונסין-מדיסון (המחלקה של מייקל אפל)</div>
+  <div class="meta">חינוך דו-לשוני · פדגוגיה ביקורתית רב-תרבותית · BGU · Hand in Hand</div>
+</div>
+
+<!-- ── Main container ── -->
+<div class="container">
+
+  <!-- ════════════════════════════════════════
+       TAB 1: סקירה
+       ════════════════════════════════════════ -->
+  <div id="overview" class="view active">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר משולם עצמו אמר, כתב או פרסם. מידע ביוגרפי ומוסדי מבוסס על פרופילים אקדמיים ציבוריים ועל פרסומים מתועדים.
+    </div>
+
+    <div class="card">
+      <h2>נתוני בסיס</h2>
+      <h3>תואר שלישי</h3>
+      <p>PhD בחינוך — <strong>University of Wisconsin-Madison</strong>, המחלקה לתכנית לימודים ולהוראה (Department of Curriculum and Instruction).</p>
+
+      <div class="highlight-box">
+        <strong>הערת הקשר מוסדי:</strong> Wisconsin-Madison היא המוסד שבו ייסד פרופ' מייקל אפל את אחד ממרכזי החשיבה הביקורתית המשפיעים ביותר בחינוך. אפל הוא תיאורטיקן תכנית-לימודים ניאו-מרקסיסטי שטבע את המושג "תכנית לימודים נסתרת" (hidden curriculum) — הרעיון שבתי-ספר משכפלים אי-שוויון קפיטליסטי דרך מבנים אידיאולוגיים סמויים. קבלת PhD בחינוך שם היא כמו קבלת תואר בתאולוגיה מהוותיקן: היא מעידה על שיקוע עמוק במסגרת האינטלקטואלית של אפל. בחירת מקום לדוקטורט היא החלטה אקדמית משמעותית.
+      </div>
+
+      <h3>תפקיד נוכחי</h3>
+      <p>מרצה בכיר, <strong>אוניברסיטת בן-גוריון בנגב (BGU)</strong>.</p>
+
+      <h3>מיקוד מחקרי</h3>
+      <div class="tags-strip">
+        <span class="tag red">חינוך דו-לשוני</span>
+        <span class="tag red">פדגוגיה ביקורתית רב-תרבותית</span>
+        <span class="tag">חינוך יהודי-ערבי משותף</span>
+        <span class="tag">Hand in Hand</span>
+        <span class="tag">שינוי חברתי בחינוך</span>
+      </div>
+
+      <h3>פרסום מפתח</h3>
+      <p><em>"Learning to Cross Divides: Examining Critical Multicultural and Bilingual Schools"</em> (2023) — ספר שבוחן בתי-ספר דו-לשוניים יהודיים-ערביים כמודל של פדגוגיה ביקורתית רב-תרבותית.</p>
+
+      <h3>זיקות מוסדיות</h3>
+      <ul>
+        <li>אוניברסיטת בן-גוריון בנגב — בית ראשי</li>
+        <li>אוניברסיטת חיפה — שיתופי פעולה מחקריים</li>
+        <li>בתי הספר "יד ביד" (Hand in Hand) — בתי-ספר דו-לשוניים יהודיים-ערביים</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>מסגרת מחקרית</h2>
+      <p>עבודתו של משולם מעוגנת בפדגוגיה ביקורתית רב-תרבותית — גישה הרואה בבתי-ספר זירות לא רק להעברת ידע אלא לשינוי מבני חברתי. בתי-ספר דו-לשוניים יהודיים-ערביים מוגדרים בעבודתו כמרחבים של "חציית גבולות" (crossing divides) — גבולות לאומיים, תרבותיים ופוליטיים.</p>
+      <div class="info-box">
+        <strong>הבחנה:</strong> אין כאן "קשר אישם" (guilt by association). מה שמתועד כאן הוא <em>שושלת אינטלקטואלית</em>: ממי קיבל משולם את הכלים המושגיים שבהם הוא עובד, ומהו ה-framework שמארגן את מחקרו. זה מידע אקדמי רלוונטי לכל הערכה ביקורתית של עבודתו.
+      </div>
+    </div>
+
+  </div><!-- /overview -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 2: פרסומים
+       ════════════════════════════════════════ -->
+  <div id="publications" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר משולם עצמו אמר, כתב או פרסם.
+    </div>
+
+    <div class="card">
+      <h2>פרסומים מתועדים</h2>
+
+      <div class="pub-entry">
+        <div class="pub-title">Learning to Cross Divides: Examining Critical Multicultural and Bilingual Schools</div>
+        <div class="pub-meta">2023 · ספר / מונוגרפיה</div>
+        <div class="pub-note">עבודה מרכזית הבוחנת בתי-ספר דו-לשוניים ורב-תרבותיים ביקורתיים — כולל רשת "יד ביד" — כמודל לפדגוגיה שמטרתה "חציית מחיצות" לאומיות, תרבותיות ומעמדיות.</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">מחנכות כיתה כסוכנות לשינוי חברתי</div>
+        <div class="pub-meta">שותפים לכתיבה: זלמנסון-לוי, קרומר-נבו, ואגר-עטיאס</div>
+        <div class="pub-note">המאמר ממסגר מחנכות כ"סוכנות לשינוי חברתי" — ניסוח ישיר של הגישה הפדגוגיה הביקורתית הרואה בהוראה פרקטיקה פוליטית במהותה.</div>
+        <div class="note-box">רשימת שותפי הכתיבה חושפת את הרשת: זלמנסון-לוי (מרכז לפדגוגיה ביקורתית, BGU), קרומר-נבו (BGU), ואגר-עטיאס — ראו טאב "רשת".</div>
+      </div>
+
+      <div class="pub-entry">
+        <div class="pub-title">פרסומים בינלאומיים ו-AESA</div>
+        <div class="pub-meta">American Educational Studies Association (AESA)</div>
+        <div class="pub-note">משולם פעיל בזירה האמריקנית של מחקר חינוך ביקורתי, עם קשרים לאגודה ל-Educational Studies — ארגון המאגד חוקרי חינוך בגישה ביקורתית-חברתית.</div>
+      </div>
+
+      <div class="note-box">
+        <strong>הערה:</strong> קיים תיעוד וידיאו של ד"ר משולם — יוסף כאשר יאותר.
+      </div>
+    </div>
+
+  </div><!-- /publications -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 3: מוסד
+       ════════════════════════════════════════ -->
+  <div id="institution" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר משולם עצמו אמר, כתב או פרסם. הרקע על אפל ו-Wisconsin מובא כהקשר מוסדי מתועד — לא כטענה אישית כנגד משולם.
+    </div>
+
+    <div class="card">
+      <h2>University of Wisconsin-Madison — המוסד המכשיר</h2>
+
+      <h3>המחלקה: Curriculum and Instruction</h3>
+      <p>משולם קיבל את ה-PhD שלו במחלקה לתכנית לימודים ולהוראה (Department of Curriculum and Instruction) ב-Wisconsin-Madison — המחלקה שבה עיצב פרופ' מייקל אפל עשרות שנים של מחקר חינוך ביקורתי עולמי.</p>
+
+      <div class="highlight-box">
+        <strong>מייקל אפל — ה-"אב המייסד" של המסגרת:</strong><br>
+        מייקל אפל (Michael W. Apple) הוא תיאורטיקן תכנית-לימודים ניאו-מרקסיסטי, פרופסור אמריטוס ב-Wisconsin-Madison. הוא מי שטבע ופיתח:
+        <ul style="margin-top:8px; padding-right:20px;">
+          <li><strong>"Hidden Curriculum" (תכנית לימודים נסתרת)</strong> — הרעיון שמבני בית-הספר משכפלים אי-שוויון קפיטליסטי דרך מנגנוני הסתרה אידיאולוגיים.</li>
+          <li><strong>"Official Knowledge"</strong> — הטענה שהידע המלומד בבתי-ספר הוא בחירה פוליטית שמשרתת קבוצות דומיננטיות.</li>
+          <li>הרעיון שבתי-ספר הם <strong>"מנגנונים אידיאולוגיים של המדינה"</strong> (Ideological State Apparatuses) — מושג שאפל אימץ מאלתוסר.</li>
+        </ul>
+      </div>
+
+      <h3>אפל ב"כן בבית ספרנו"</h3>
+      <p>מייקל אפל מצוטט ומוזכר ישירות בספר "כן בבית ספרנו" — הספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" של חינוך. הספר הוא מסמך מפתח בהבנת הזרם.</p>
+
+      <h3>ה-Wisconsin Pipeline</h3>
+      <p>אפל אימן דורות של סטודנטים לדוקטורט שכיום מחזיקים בתפקידים במוסדות ברחבי העולם. הדפוס הוא: קבלת PhD ב-Wisconsin עם חשיפה מוסדית ל-framework של אפל, ואחר-כך העברת המסגרת הזו למוסד החדש.</p>
+
+      <div class="info-box">
+        <strong>לא מדובר ב"קשר אישם".</strong> בחירת מקום לדוקטורט היא החלטה אקדמית מכוונת ומשמעותית. ה-framework המושגי שרוכש אדם ב-PhD הוא מה שמארגן את מחקרו לשנים. הצגת ה-intellectual lineage היא פרקטיקה אקדמית תקנית.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>BGU — המוסד המארח</h2>
+      <p>אוניברסיטת בן-גוריון בנגב מארחת מספר חוקרים שניתן לסווגם כ"אשכול" של פדגוגיה ביקורתית: זלמנסון-לוי, קרומר-נבו, דהאן-קלב — וכעת גם משולם.</p>
+      <p>המחלקה לחינוך ב-BGU מתאפיינת בריכוז בולט של גישות ביקורתיות-חברתיות. זו אינה ביקורת על BGU כמוסד, אלא תיאור של הפרופיל האקדמי של הכוח המחקרי בתחום.</p>
+    </div>
+
+  </div><!-- /institution -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 4: רשת
+       ════════════════════════════════════════ -->
+  <div id="network" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> הקשרים המתוארים כאן מבוססים על שיתופי פעולה מפורסמים, כתיבה משותפת, ושיוך מוסדי — כולם מתועדים ציבורית.
+    </div>
+
+    <div class="network-grid">
+
+      <div class="card">
+        <h2>אשכול BGU</h2>
+        <p>מספר חוקרים ב-BGU חולקים מסגרת פדגוגית ביקורתית ומתועדים כשותפי כתיבה או כעמיתים מוסדיים:</p>
+        <ul>
+          <li><strong>גלי זלמנסון-לוי</strong> — PhD מ-BGU, מרכז לפדגוגיה ביקורתית, שותפת כתיבה ישירה של משולם.</li>
+          <li><strong>מרציאנו קרומר-נבו</strong> — BGU, שותפת כתיבה ישירה.</li>
+          <li><strong>הנריאטה דהאן-קלב</strong> — מייסדת מחלקת מגדר ב-BGU, חוקרת פדגוגיה ביקורתית.</li>
+        </ul>
+        <div style="margin-top:10px;">
+          <span class="person-tag"><a href="radical_zalmanson.html">→ זלמנסון-לוי</a></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Hand in Hand — יד ביד</h2>
+        <p>משולם חוקר את בתי-הספר הדו-לשוניים של רשת "יד ביד" כמקרה-בוחן מרכזי ב-<em>Learning to Cross Divides</em> (2023).</p>
+        <p>רשת "יד ביד" מפעילה בתי-ספר יהודיים-ערביים משותפים ברחבי ישראל — מודל שמגלם את עקרונות הפדגוגיה הביקורתית הרב-תרבותית שמשולם חוקר.</p>
+        <div class="note-box">הרשת קשורה גם לזרמים נוספים שמופו בדשבורדים אחרים.</div>
+      </div>
+
+      <div class="card">
+        <h2>זלמנסון-לוי — שותפות ישירה</h2>
+        <p>גלי זלמנסון-לוי היא שותפת הכתיבה הבולטת ביותר של משולם. שניהם מחוברים למרכז לפדגוגיה ביקורתית ב-BGU ולמסגרת של חינוך כשינוי חברתי.</p>
+        <p>זלמנסון-לוי קשורה גם לרשת מיכאלי ולדיון הציבורי סביב תוכניות חינוך ממשלתיות.</p>
+        <span class="person-tag"><a href="radical_zalmanson.html">→ פרופיל מלא: זלמנסון-לוי</a></span>
+      </div>
+
+      <div class="card">
+        <h2>קישורים לדשבורדים נוספים</h2>
+        <p>אסף משולם מופה כחלק מרשת רחבה יותר:</p>
+        <ul>
+          <li><a href="radical_zalmanson.html" style="color:#cc0000;">radical_zalmanson.html</a> — שותפת כתיבה ישירה</li>
+          <li><a href="radical_aloni.html" style="color:#cc0000;">radical_aloni.html</a> — פדגוגיה ביקורתית בישראל</li>
+          <li><a href="kibbutzim_pedagogy_dashboard.html" style="color:#cc0000;">kibbutzim_pedagogy_dashboard.html</a> — מכללת קיבוצים והזרם הפדגוגי הביקורתי</li>
+        </ul>
+        <div class="note-box">הפרופיל של משולם הוא צומת בין ה-Wisconsin pipeline לבין האשכול הישראלי של חינוך ביקורתי.</div>
+      </div>
+
+    </div><!-- /network-grid -->
+
+    <div class="card">
+      <h2>מפת קשרים — סכמה</h2>
+      <div style="font-family: monospace; font-size: 0.88em; line-height: 2; color: #333; padding: 10px 0; direction: ltr; text-align: left;">
+        Wisconsin-Madison (Apple's Dept.)
+               |
+               | PhD
+               |
+        ד"ר אסף משולם (BGU)
+          /         \         \
+    זלמנסון-לוי   קרומר-נבו   Hand in Hand
+    (BGU / CP)     (BGU)       (bilingual schools)
+         |
+    ואגר-עטיאס
+      </div>
+    </div>
+
+  </div><!-- /network -->
+
+
+  <!-- ════════════════════════════════════════
+       TAB 5: מקורות
+       ════════════════════════════════════════ -->
+  <div id="sources" class="view">
+
+    <div class="factual-notice">
+      <strong>הצהרת שיטה:</strong> כל הציטוטים במסמך זה נלקחים ממה שד"ר משולם עצמו אמר, כתב או פרסם.
+    </div>
+
+    <div class="card">
+      <h2>מקורות ראשוניים</h2>
+
+      <div class="source-item">
+        <div class="source-num">1</div>
+        <div class="source-text">
+          <strong>BGU CRIS — פרופיל חוקר</strong>
+          פרופיל הסגל הרשמי של ד"ר אסף משולם ב-Current Research Information System של אוניברסיטת בן-גוריון בנגב. מכיל רשימת פרסומים, תחומי מחקר ושיוך מחלקתי.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">2</div>
+        <div class="source-text">
+          <strong>Google Scholar — Assaf Meshulam</strong>
+          פרופיל ציבורי ב-Google Scholar המפרט פרסומים, ציטוטים, ושותפי כתיבה.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">3</div>
+        <div class="source-text">
+          <strong>University of Wisconsin-Madison, Department of Curriculum and Instruction</strong>
+          האתר הרשמי של המחלקה, כולל מידע היסטורי על פרופ' מייקל אפל ותחומי המחקר של המחלקה.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">4</div>
+        <div class="source-text">
+          <strong>Meshulam, A. (2023). <em>Learning to Cross Divides: Examining Critical Multicultural and Bilingual Schools.</em></strong>
+          הפרסום המרכזי של משולם — בסיס עיקרי לתיאור מסגרתו המחקרית.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">5</div>
+        <div class="source-text">
+          <strong>Apple, Michael W. — פרסומים נבחרים (להקשר מוסדי)</strong>
+          <em>Ideology and Curriculum</em> (1979); <em>Official Knowledge</em> (1993); <em>The State and the Politics of Knowledge</em> (2003). מובאים כהקשר לאפיון הסביבה האינטלקטואלית של Wisconsin-Madison — לא כטענה ישירה על משולם.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">6</div>
+        <div class="source-text">
+          <strong>מחנכות כיתה כסוכנות לשינוי חברתי</strong>
+          פרסום משותף עם זלמנסון-לוי, קרומר-נבו, ואגר-עטיאס — מסמך שיתוף הפעולה הרשתי.
+        </div>
+      </div>
+
+      <div class="source-item">
+        <div class="source-num">7</div>
+        <div class="source-text">
+          <strong>תיעוד וידיאו</strong>
+          ידוע על קיום תיעוד וידיאו של ד"ר משולם — יצורף כאשר יאותר.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h2>הערת מתודולוגיה</h2>
+      <p>מסמך זה נבנה על פי עקרון "extremely factual and legal": כל טענה נסמכת על מקור מפורש. הבחנה עקבית נשמרת בין:</p>
+      <ul>
+        <li><strong>עובדות ביוגרפיות</strong> (תואר, מוסד, פרסומים) — מבוססות על מקורות ראשוניים ציבוריים.</li>
+        <li><strong>הקשר מוסדי</strong> (Wisconsin / Apple) — מתועד כשושלת אינטלקטואלית, לא כאשמה.</li>
+        <li><strong>ניתוח מסגרתי</strong> — הערות פרשניות מסומנות במפורש ומובחנות מן העובדות.</li>
+      </ul>
+    </div>
+
+  </div><!-- /sources -->
+
+</div><!-- /container -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

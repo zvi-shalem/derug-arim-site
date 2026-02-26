@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מפת הרדיקלים — מי מכיר את מרקוזה?</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+}
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #333; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+
+/* ── Blockquote ── */
+blockquote {
+    border-right: 3px solid #ddd; padding: 10px 16px; margin: 14px 0;
+    background: #f9f9f9; font-style: italic; color: #444; font-size: 0.92em; line-height: 1.7;
+}
+blockquote.red-border { border-right-color: #cc0000; }
+blockquote .source { font-style: normal; color: #888; font-size: 0.82em; margin-top: 6px; }
+blockquote .source a { color: #888; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; margin: 16px 0; }
+.timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 18px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -24px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: #cc0000; border: 2px solid #fff;
+}
+.tl-year { font-weight: 700; color: #cc0000; font-size: 0.88em; }
+.tl-text { font-size: 0.88em; color: #444; margin-top: 2px; }
+
+/* ── Pipeline ── */
+.ring-layer {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+    border-right: 4px solid #ccc;
+}
+.ring-layer.core { border-right-color: #cc0000; }
+.ring-layer.ring1 { border-right-color: #e65100; }
+.ring-layer.ring2 { border-right-color: #f9a825; }
+.ring-layer.ring3 { border-right-color: #558b2f; }
+.ring-label { font-weight: 700; font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+.ring-items { font-size: 0.88em; color: #555; }
+.ring-items ul { padding-right: 20px; margin: 4px 0; }
+.ring-items li { margin-bottom: 4px; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #f0f0f5; color: #333; padding: 8px 12px; text-align: right; border-bottom: 2px solid #ddd; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:hover { background: #fafafa; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Profile card ── */
+.profile-card {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #cc0000;
+}
+.profile-card h2 {
+    font-size: 1.15em; color: #1a1a2e; margin-bottom: 4px;
+}
+.profile-card .en-name { font-size: 0.88em; color: #888; font-weight: 400; margin-bottom: 12px; }
+.profile-card .meta-line { font-size: 0.85em; color: #666; margin-bottom: 4px; }
+.profile-card .meta-line strong { color: #333; }
+
+/* ── Marcuse badge ── */
+.marcuse-badge {
+    display: inline-block; background: #cc0000; color: #fff;
+    font-size: 0.72em; padding: 2px 8px; border-radius: 3px; font-weight: 600;
+    margin-right: 6px; vertical-align: middle;
+}
+.marcuse-badge.pass { background: #cc0000; }
+.marcuse-badge.gateway { background: #e65100; }
+
+/* ── Institution card ── */
+.inst-card {
+    background: #fff; border-radius: 8px; padding: 22px;
+    margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-right: 4px solid #e65100;
+}
+.inst-card h3 { font-size: 1.05em; color: #1a1a2e; margin-bottom: 8px; }
+.inst-card p { font-size: 0.88em; color: #444; margin-bottom: 6px; }
+.inst-card ul { padding-right: 18px; font-size: 0.88em; color: #555; }
+.inst-card li { margin-bottom: 4px; }
+
+/* ── Cross links ── */
+.cross-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.cross-links a {
+    display: inline-block; background: #f0f0f5; color: #333; padding: 6px 14px;
+    border-radius: 4px; font-size: 0.82em; text-decoration: none;
+    border: 1px solid #e0e0e0; transition: all 0.2s;
+}
+.cross-links a:hover { background: #cc0000; color: #fff; border-color: #cc0000; }
+
+/* ── Footer ── */
+footer {
+    background: #fff; color: #888; padding: 20px;
+    text-align: center; font-size: 0.82em; border-top: 1px solid #eee;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>מפת הרדיקלים בחינוך</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">סקירה</button>
+            <button class="nav-tab" onclick="navigate('profiles')">פרופילים</button>
+            <button class="nav-tab" onclick="navigate('institutions')">מוסדות</button>
+            <button class="nav-tab" onclick="navigate('pipeline')">צינור</button>
+            <button class="nav-tab" onclick="navigate('sources')">מקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>מפת הרדיקלים &mdash; מי מכיר את מרקוזה?</h1>
+    <div class="subtitle">בידול בין שמאל מיינסטרים לבין אידיאולוגים שמכירים את הספרון האדום</div>
+    <div class="meta">מארקס &bull; פריירה &bull; מרקוזה &bull; גירו &bull; גראמשי &mdash; מי באמת קרא אותם ומי סתם "פרוגרסיבי"</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: OVERVIEW (סקירה)                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view active" id="view-overview">
+
+<div class="section">
+    <h2>מפת הרדיקלים בחינוך הישראלי</h2>
+    <p>
+        הדף הזה מבדיל בין <strong>רדיקלים אידיאולוגיים אמיתיים</strong> &mdash; אנשים שקראו את מארקס, פריירה, מרקוזה, גירו וגראמשי, ומיישמים את התיאוריה שלהם בכוונה תחילה &mdash; לבין <strong>שמאל מיינסטרים</strong> שמעולם לא שמע על מרקוזה ופשוט חושב שהוא "פרוגרסיבי". הרדיקלים מכירים את המסגרת התיאורטית. הם יודעים שהם עושים "עבודה חתרנית". הם מצטטים את המקורות.
+    </p>
+    <p>
+        <strong>"מבחן מרקוזה":</strong> האם האדם מצטט ישירות תיאורטיקנים רדיקליים? האם הוא משתמש במונחים כמו "אינטלקטואל אורגני" (גראמשי), "פדגוגיה של המדוכאים" (פריירה), "היגמוניה", "פרקסיס", "תודעה ביקורתית"? האם הוא יודע שזו מניפולציה &mdash; ובוחר בה בכל זאת?
+    </p>
+</div>
+
+<div class="grid-3">
+    <div class="metric">
+        <div class="label">דמויות מפתח ממופות</div>
+        <div class="value">11</div>
+        <div class="note">כולם עוברים את "מבחן מרקוזה"</div>
+    </div>
+    <div class="metric">
+        <div class="label">מוסדות שנכבשו</div>
+        <div class="value">6</div>
+        <div class="note">מכללות + אוניברסיטאות</div>
+    </div>
+    <div class="metric">
+        <div class="label">תלמידים בהשפעה ישירה</div>
+        <div class="value">43%</div>
+        <div class="note">מיכאלי = מנהל פד' של החמ"ד = 43% מתלמידי ישראל</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טבלת רדיקלים &mdash; "מבחן מרקוזה"</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>שם</th>
+                <th>תפקיד נוכחי</th>
+                <th>דוקטורט</th>
+                <th>ציון רדיקלי מפתח</th>
+                <th>מבחן מרקוזה</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ניר מיכאלי</strong><br><span class="src">Nir Michaeli</span></td>
+                <td>מנהל פדגוגי, המועצה לחינוך ממלכתי-עברי (43% מתלמידי ישראל)</td>
+                <td>EdD, ביה"ס למנהיגות חינוכית מנדל</td>
+                <td>"יכולתי לארגן מהפכה קומוניסטית בכיתה ואף אחד לא ישים לב"</td>
+                <td><span class="marcuse-badge pass">גראמשי + פריירה + מארקס</span><br>מאמר 2011: "מורים כאינטלקטואלים אורגניים" (89 ציטוטים). ספר 2014: מגדיר פדגוגיה ביקורתית כ"אינטרפרטציה מרקסיסטית" (עמ' 13)</td>
+            </tr>
+            <tr>
+                <td><strong>קרן קטקו-איילי</strong><br><span class="src">Keren Katko-Ayali</span></td>
+                <td>מרצה בכירה, אורנים</td>
+                <td>אורנים</td>
+                <td>מאמר 2020: מגדירה "פדגוגיה אקטיביסטית" כ"פעילויות המאתגרות ומערערות את הסטטוס קוו"</td>
+                <td><span class="marcuse-badge pass">פריירה + גירו</span><br>שני פרצופים: "פדגוגיה אקטיביסטית" (אקדמיה) לעומת "חשיבה ביקורתית" (ממשלה). אותו מודל &rarr; REACT למימון משרד החינוך</td>
+            </tr>
+            <tr>
+                <td><strong>אדר כהן</strong><br><span class="src">Adar Cohen</span></td>
+                <td>ראש לימודי הוראה, האוניברסיטה העברית</td>
+                <td>PhD, האוניברסיטה העברית</td>
+                <td>מחקר CRT במימון האגודה לזכויות האזרח. שיטת "דיסוננס" לערעור הנחות יסוד</td>
+                <td><span class="marcuse-badge pass">CRT &mdash; Delgado &amp; Stefancic</span><br>מסגרת שמתשאלת "את יסודות הסדר הליברלי". מפקח ארצי לשעבר לחינוך אזרחי במשה"ח</td>
+            </tr>
+            <tr>
+                <td><strong>נמרוד אלוני</strong><br><span class="src">Nimrod Aloni</span></td>
+                <td>כיסא אונסק"ו לחינוך הומניסטי, מכללת סמינר הקיבוצים</td>
+                <td>PhD, אוניברסיטת קולומביה (פילוסופיה וחינוך)</td>
+                <td>כתב ב-1992 שגירו הוא "מניפולטור פרוגרסיבי ללא גרם של כיבוד ביסוס רציונלי" &mdash; אבל המרכז שלו מיישם בדיוק את השיטות של גירו</td>
+                <td><span class="marcuse-badge pass">גירו + פריירה (מכיר ומיישם)</span><br>יודע שזו מניפולציה. חבר מערכת של "כן בבית ספרנו" שמגדיר פד"ב כפרשנות מרקסיסטית</td>
+            </tr>
+            <tr>
+                <td><strong>גלית זלמנסון-לוי</strong><br><span class="src">Galit Zalmanson-Levi</span></td>
+                <td>מנהלת המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים</td>
+                <td>PhD, אוניברסיטת בן-גוריון</td>
+                <td>"יש עבודה ברמה הגלויה ויש עבודה ברמה הסמויה. זו עבודה חתרנית לפעמים."</td>
+                <td><span class="marcuse-badge pass">פריירה + גירו</span><br>מאמר אנטי-גזענות פורסם ע"י האגודה לזכויות האזרח. "מחנכות כסוכנות שינוי חברתי"</td>
+            </tr>
+            <tr>
+                <td><strong>אסף משולם</strong><br><span class="src">Assaf Meshulam</span></td>
+                <td>מרצה בכיר, אוניברסיטת בן-גוריון</td>
+                <td>PhD, אוניברסיטת ויסקונסין-מדיסון (המוסד של מייקל אפל!)</td>
+                <td>דוקטורט מהמוסד של אפל (אפל = תיאורטיקן ניאו-מרקסיסטי של "תוכנית הלימודים הנסתרת" ככלי של רבייה קפיטליסטית)</td>
+                <td><span class="marcuse-badge pass">אפל + מארקס</span><br>שותף למאמר "מורים כסוכני שינוי חברתי"</td>
+            </tr>
+            <tr>
+                <td><strong>הנרייט דהאן-כלב</strong><br><span class="src">Henriette Dahan-Kalev</span></td>
+                <td>אקדמיה (פרופ' אמריטוס)</td>
+                <td>PhD, מדע המדינה</td>
+                <td>ייסדה את ביה"ס קדמה &mdash; בית הספר היחיד שנוסד במפורש על פדגוגיה ביקורתית. חברת דירקטוריון בצלם. ייסדה לימודי מגדר באוניברסיטת בן-גוריון</td>
+                <td><span class="marcuse-badge pass">פריירה + פמיניזם ביקורתי</span><br>קדמה = יישום ישיר של תיאוריה ביקורתית כמוסד חינוכי</td>
+            </tr>
+            <tr>
+                <td><strong>אסתר יוגב</strong><br><span class="src">Esther Yogev</span></td>
+                <td>אקדמיה</td>
+                <td>&mdash;</td>
+                <td>שותפה למיכאלי במאמר הגראמשיאני היסודי (89 ציטוטים). "כיבוש וול סטריט בכיתה" (2017)</td>
+                <td><span class="marcuse-badge pass">גראמשי</span><br>שותפת כתיבה של מיכאלי על "אינטלקטואלים אורגניים"</td>
+            </tr>
+            <tr>
+                <td><strong>דפנה קופלמן-רובין</strong><br><span class="src">Dafna Kopelman-Rubin</span></td>
+                <td>ראש SEL.IL, אוניברסיטת רייכמן</td>
+                <td>&mdash;</td>
+                <td>צינור ישיר ל-CASEL דרך מארק גרינברג (מייסד שותף של CASEL) שמנחה את תלמיד הדוקטורט שלה. שער כניסה למסגרת CASEL לבתי הספר בישראל</td>
+                <td><span class="marcuse-badge gateway">שער כניסה</span><br>חברה בוועדת קונצנזוס של האקדמיה למדעים + מובילת SEL באבני ראשה. צינור כפול</td>
+            </tr>
+            <tr>
+                <td><strong>חגית גור-זיו</strong><br><span class="src">Hagit Gur-Ziv</span></td>
+                <td>ראש המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים</td>
+                <td>&mdash;</td>
+                <td>כתבה את ההקדמה לתרגום העברי של "פדגוגיה של מדוכאים" של פריירה. ספר מופ"ת על פד"ב. מאמר JCEPS כרך 13</td>
+                <td><span class="marcuse-badge pass">פריירה (מתרגמת ומפיצה)</span><br>לא רק מלמדת פריירה — כתבה את השער לפריירה בעברית. מנהלת מרכז שמכשיר מורים בשיטה</td>
+            </tr>
+            <tr>
+                <td><strong>יולי תמיר</strong><br><span class="src">Yuli Tamir</span></td>
+                <td>נשיאה לשעבר, מכללת בית ברל</td>
+                <td>PhD, אוקספורד (בהנחיית ישעיהו ברלין)</td>
+                <td>שרת חינוך 2006-2009. נשיאת בית ברל (עם כיסא אונסק"ו). חברת מערכת של "כן בבית ספרנו" שמגדיר פד"ב כ"אינטרפרטציה מרקסיסטית"</td>
+                <td><span class="marcuse-badge gateway">מאפשרת מוסדית</span><br>לא רדיקלית בעצמה — פילוסופית ליברלית. אבל מספקת לגיטימציה מוסדית לרשת הרדיקלית דרך בית ברל ומשרד החינוך</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>קישורים לדשבורדים קשורים</h2>
+    <div class="cross-links">
+        <a href="kedma_dashboard.html">קדמה ירושלים</a>
+        <a href="ken_bebeit_safrenu.html">כן בבית ספרנו</a>
+        <a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a>
+        <a href="academy_sciences_dashboard.html">האקדמיה למדעים</a>
+        <a href="unesco_dashboard.html">אונסק"ו</a>
+        <a href="casel_dashboard.html">CASEL</a>
+        <a href="avney_rosha_dashboard.html">אבני ראשה</a>
+        <a href="research_chat.html">צ'אט מחקר</a>
+        <a href="methodology.html">מתודולוגיה</a>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: PROFILES (פרופילים)              -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-profiles">
+
+<!-- ── ניר מיכאלי ── -->
+<div class="profile-card">
+    <h2>ניר מיכאלי <span class="marcuse-badge pass">גראמשי + פריירה + מארקס</span> <a href="radical_michaeli.html" style="font-size:0.7em;color:#cc0000;margin-right:12px">פרופיל מלא →</a></h2>
+    <div class="en-name">Nir Michaeli</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> EdD, בית הספר למנהיגות חינוכית מנדל</div>
+    <div class="meta-line"><strong>תפקידים:</strong> יו"ר המזכירות הפדגוגית במשרד החינוך &bull; רקטור אורנים &bull; דקאן סמינר הקיבוצים &bull; כיום: מנהל פדגוגי של המועצה לחינוך ממלכתי-עברי (43% מתלמידי ישראל!)</div>
+
+    <h3>ציון רדיקלי</h3>
+    <blockquote class="red-border">
+        "יכולתי לארגן מהפכה קומוניסטית בכיתה ואף אחד לא ישים לב"
+        <div class="source">YouTube, הרצאה בקדמה, דקה 55:00</div>
+    </blockquote>
+    <ul>
+        <li>מתאר את השקיפות בנתוני מיצ"ב כ<strong>"טראומה"</strong></li>
+        <li>פותח במפורש עם גראמשי (מאמר 2012)</li>
+        <li>מאמר 2011: <strong>"מורים כאינטלקטואלים אורגניים"</strong> &mdash; מסגרת גראמשיאנית, 89 ציטוטים</li>
+        <li>המציא את SPEL = SEL + ממד פוליטי</li>
+        <li>מודל REACT &mdash; מומן על ידי המדען הראשי של משרד החינוך</li>
+    </ul>
+
+    <h3>פרסומים מרכזיים</h3>
+    <ul>
+        <li><strong>"כיבוש וול סטריט בכיתה"</strong> (2017) &mdash; עם אסתר יוגב</li>
+        <li><strong>"From SEL to SPEL"</strong> (2025) &mdash; הוספת ממד פוליטי ל-SEL</li>
+        <li><strong>ספר "כן בבית ספרנו"</strong> (2014) &mdash; עמוד 13 מגדיר פדגוגיה ביקורתית כ<strong>"אינטרפרטציה מרקסיסטית"</strong></li>
+    </ul>
+
+    <h3>רשת קשרים</h3>
+    <p>קטקו-איילי &bull; אדר כהן &bull; אסתר יוגב &bull; מרכז אקורד &bull; יד ביד &bull; מצמיחים</p>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="kedma_dashboard.html">הרצאה בקדמה</a>
+        <a href="ken_bebeit_safrenu.html">"כן בבית ספרנו"</a>
+        <a href="casel_dashboard.html">CASEL / SEL &rarr; SPEL</a>
+    </div>
+</div>
+
+<!-- ── קרן קטקו-איילי ── -->
+<div class="profile-card">
+    <h2>קרן קטקו-איילי <span class="marcuse-badge pass">פריירה + גירו</span></h2>
+    <div class="en-name">Keren Katko-Ayali</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> אורנים</div>
+    <div class="meta-line"><strong>תפקידים:</strong> מרצה בכירה באורנים &bull; לשעבר ראש תחום חברה ונוער במשרד החינוך</div>
+
+    <h3>ציון רדיקלי</h3>
+    <p>
+        מאמר 2020 מגדיר במפורש <strong>"פדגוגיה אקטיביסטית"</strong> כ<strong>"פעילויות המאתגרות ומערערות את הסטטוס קוו"</strong> &mdash; מקושר ישירות לפריירה.
+    </p>
+
+    <h3>שני פרצופים</h3>
+    <table>
+        <tr>
+            <th>פנים אקדמי</th>
+            <th>פנים ממשלתי</th>
+        </tr>
+        <tr>
+            <td>"פדגוגיה אקטיביסטית" &mdash; מאמר 2020</td>
+            <td>"חשיבה ביקורתית" &mdash; מימון משרד החינוך</td>
+        </tr>
+        <tr>
+            <td>אותו מודל בדיוק</td>
+            <td>ריברנד ל-REACT למימון המדען הראשי (2024)</td>
+        </tr>
+    </table>
+
+    <h3>פודקאסט</h3>
+    <p><strong>"דמוקרטיה מתחילה בחינוך"</strong> &mdash; פודקאסט</p>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="radical_katko_ayali.html">פרופיל מלא</a>
+        <a href="kedma_dashboard.html">קדמה</a>
+        <a href="avney_rosha_dashboard.html">אבני ראשה</a>
+    </div>
+</div>
+
+<!-- ── אדר כהן ── -->
+<div class="profile-card">
+    <h2>אדר כהן <span class="marcuse-badge pass">CRT &mdash; Delgado &amp; Stefancic</span></h2>
+    <div class="en-name">Adar Cohen</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> PhD, האוניברסיטה העברית</div>
+    <div class="meta-line"><strong>תפקידים:</strong> ראש לימודי הוראה באוניברסיטה העברית &bull; לשעבר מפקח ארצי לחינוך אזרחי במשרד החינוך &bull; לשעבר מנהל המרכז לחינוך אזרחי</div>
+
+    <h3>ציון רדיקלי</h3>
+    <ul>
+        <li>מחקר CRT (תורת הגזע הביקורתית) במימון <strong>האגודה לזכויות האזרח בישראל (ACRI)</strong></li>
+        <li>שיטה: <strong>"דיסוננס"</strong> לערעור הנחות היסוד של תלמידים</li>
+        <li>מבוסס על מסגרת CRT של Delgado &amp; Stefancic שמתשאלת <strong>"את יסודות הסדר הליברלי"</strong></li>
+    </ul>
+
+    <h3>הצינור: מהאקדמיה למדיניות</h3>
+    <p>
+        מפקח ארצי לחינוך אזרחי &rarr; מנהל המרכז לחינוך אזרחי &rarr; ראש לימודי הוראה באוניברסיטה העברית. בכל תחנה &mdash; מכניס CRT למערכת.
+    </p>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="radical_adar_cohen.html">פרופיל מלא</a>
+        <a href="acri_dashboard.html">ACRI / האגודה לזכויות האזרח</a>
+    </div>
+</div>
+
+<!-- ── נמרוד אלוני ── -->
+<div class="profile-card">
+    <h2>נמרוד אלוני <span class="marcuse-badge pass">גירו + פריירה (מכיר ומיישם)</span> <a href="radical_aloni.html" style="font-size:0.7em;color:#cc0000;margin-right:12px">פרופיל מלא →</a></h2>
+    <div class="en-name">Nimrod Aloni</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> PhD, אוניברסיטת קולומביה (פילוסופיה וחינוך)</div>
+    <div class="meta-line"><strong>תפקידים:</strong> כיסא אונסק"ו לחינוך הומניסטי &bull; מכללת סמינר הקיבוצים</div>
+
+    <h3>ציון רדיקלי &mdash; המקרה המפתיע</h3>
+    <blockquote class="red-border">
+        גירו הוא "מניפולטור פרוגרסיבי ללא גרם של כיבוד ביסוס רציונלי של אמת וצדק"
+        <div class="source">אלוני, 1992</div>
+    </blockquote>
+    <p>
+        <strong>הפרדוקס:</strong> אלוני כתב ב-1992 שגירו הוא מניפולטור &mdash; אבל המרכז לפדגוגיה ביקורתית <strong>במוסד שלו עצמו</strong> (סמינר הקיבוצים) מיישם בדיוק את השיטות של גירו. הוא <strong>יודע</strong> שזו מניפולציה &mdash; ובוחר בה בכל זאת.
+    </p>
+    <ul>
+        <li>חבר מערכת של <strong>"כן בבית ספרנו"</strong> שמגדיר פדגוגיה ביקורתית כ"אינטרפרטציה מרקסיסטית"</li>
+        <li>כיסא אונסק"ו לחינוך הומניסטי &mdash; נותן לגיטימציה בינלאומית</li>
+    </ul>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a>
+        <a href="ken_bebeit_safrenu.html">"כן בבית ספרנו"</a>
+        <a href="unesco_dashboard.html">אונסק"ו</a>
+    </div>
+</div>
+
+<!-- ── גלית זלמנסון-לוי ── -->
+<div class="profile-card">
+    <h2>גלית זלמנסון-לוי <span class="marcuse-badge pass">פריירה + גירו</span> <a href="radical_zalmanson.html" style="font-size:0.7em;color:#cc0000;margin-right:12px">פרופיל מלא →</a></h2>
+    <div class="en-name">Galit Zalmanson-Levi</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> PhD, אוניברסיטת בן-גוריון</div>
+    <div class="meta-line"><strong>תפקידים:</strong> מנהלת המרכז לפדגוגיה ביקורתית, מכללת סמינר הקיבוצים</div>
+
+    <h3>ציון רדיקלי</h3>
+    <blockquote class="red-border">
+        "יש עבודה ברמה הגלויה ויש עבודה ברמה הסמויה. זו עבודה חתרנית לפעמים."
+        <div class="source">גלית זלמנסון-לוי</div>
+    </blockquote>
+    <ul>
+        <li>מאמר אנטי-גזענות פורסם על ידי <strong>האגודה לזכויות האזרח (ACRI)</strong></li>
+        <li>שותפת כתיבה: <strong>"מחנכות כסוכנות שינוי חברתי"</strong></li>
+        <li>מנהלת את המרכז לפדגוגיה ביקורתית &mdash; הזרוע המבצעת של האידיאולוגיה בסמינר הקיבוצים</li>
+    </ul>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a>
+        <a href="acri_dashboard.html">ACRI</a>
+    </div>
+</div>
+
+<!-- ── אסף משולם ── -->
+<div class="profile-card">
+    <h2>אסף משולם <span class="marcuse-badge pass">אפל + מארקס</span> <a href="radical_meshulam.html" style="font-size:0.7em;color:#cc0000;margin-right:12px">פרופיל מלא →</a></h2>
+    <div class="en-name">Assaf Meshulam</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> PhD, אוניברסיטת ויסקונסין-מדיסון (המוסד של מייקל אפל!)</div>
+    <div class="meta-line"><strong>תפקידים:</strong> מרצה בכיר, אוניברסיטת בן-גוריון</div>
+
+    <h3>ציון רדיקלי</h3>
+    <p>
+        <strong>מייקל אפל</strong> (Michael Apple) הוא תיאורטיקן ניאו-מרקסיסטי בחינוך שמגדיר את <strong>"תוכנית הלימודים הנסתרת"</strong> (hidden curriculum) ככלי של <strong>רבייה קפיטליסטית</strong>. משולם עשה את הדוקטורט שלו בדיוק שם &mdash; במוסד של אפל, תחת ההשפעה הישירה שלו.
+    </p>
+    <ul>
+        <li>שותף לכתיבה על <strong>"מורים כסוכני שינוי חברתי"</strong></li>
+        <li>המסגרת התיאורטית: הקוריקולום כמכשיר של שעתוק מעמדי, לא כאמצעי לימודי</li>
+    </ul>
+</div>
+
+<!-- ── הנרייט דהאן-כלב ── -->
+<div class="profile-card">
+    <h2>הנרייט דהאן-כלב <span class="marcuse-badge pass">פריירה + פמיניזם ביקורתי</span></h2>
+    <div class="en-name">Henriette Dahan-Kalev</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> PhD, מדע המדינה</div>
+    <div class="meta-line"><strong>תפקידים:</strong> מייסדת לימודי מגדר באוניברסיטת בן-גוריון &bull; שותפת מייסדת בית ספר קדמה &bull; חברת דירקטוריון בצלם</div>
+
+    <h3>ציון רדיקלי</h3>
+    <ul>
+        <li><strong>קדמה</strong> = בית הספר <strong>היחיד</strong> בישראל שנוסד במפורש על פדגוגיה ביקורתית</li>
+        <li><strong>חברת דירקטוריון בצלם</strong></li>
+        <li>ייסדה את <strong>תוכנית לימודי מגדר</strong> באוניברסיטת בן-גוריון</li>
+        <li>שלושה כיוונים רדיקליים במקביל: חינוך ביקורתי + פמיניזם + אקטיביזם פוליטי</li>
+    </ul>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="radical_dahan_kalev.html">פרופיל מלא</a>
+        <a href="kedma_dashboard.html">בית ספר קדמה</a>
+    </div>
+</div>
+
+<!-- ── אסתר יוגב ── -->
+<div class="profile-card">
+    <h2>אסתר יוגב <span class="marcuse-badge pass">גראמשי</span></h2>
+    <div class="en-name">Esther Yogev</div>
+
+    <h3>ציון רדיקלי</h3>
+    <ul>
+        <li>שותפת כתיבה של ניר מיכאלי במאמר הגראמשיאני היסודי &mdash; <strong>"מורים כאינטלקטואלים אורגניים"</strong> (89 ציטוטים)</li>
+        <li><strong>"כיבוש וול סטריט בכיתה"</strong> (2017)</li>
+        <li>שותפת מפתח במסגרת התיאורטית הגראמשיאנית ליישום בחינוך הישראלי</li>
+    </ul>
+</div>
+
+<!-- ── דפנה קופלמן-רובין ── -->
+<div class="profile-card" style="border-right-color: #e65100;">
+    <h2>דפנה קופלמן-רובין <span class="marcuse-badge gateway">שער כניסה</span></h2>
+    <div class="en-name">Dafna Kopelman-Rubin</div>
+    <div class="meta-line"><strong>תפקידים:</strong> ראש SEL.IL באוניברסיטת רייכמן</div>
+
+    <h3>ציון רדיקלי &mdash; שער כניסה</h3>
+    <p>
+        קופלמן-רובין היא לא רדיקלית "קלאסית" שמצטטת את מארקס &mdash; אבל היא <strong>שער הכניסה</strong> למסגרת CASEL לתוך מערכת החינוך הישראלית.
+    </p>
+    <ul>
+        <li><strong>תפקיד כפול:</strong> חברה בוועדת קונצנזוס של האקדמיה למדעים + מובילת SEL באבני ראשה</li>
+        <li><strong>צינור ישיר ל-CASEL:</strong> מארק גרינברג (מייסד שותף של CASEL) מנחה במשותף את תלמיד הדוקטורט שלה</li>
+        <li><strong>התוצאה:</strong> מסגרת CASEL נכנסת דרכה לבתי הספר בישראל כ"מבוססת ראיות" &mdash; עם הגושפנקא של האקדמיה למדעים</li>
+    </ul>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="casel_dashboard.html">CASEL</a>
+        <a href="academy_sciences_dashboard.html">האקדמיה למדעים</a>
+        <a href="avney_rosha_dashboard.html">אבני ראשה</a>
+    </div>
+</div>
+
+<!-- ── חגית גור-זיו ── -->
+<div class="profile-card">
+    <h2>חגית גור-זיו <span class="marcuse-badge pass">פריירה (מתרגמת ומפיצה)</span> <a href="radical_gurziv.html" style="font-size:0.7em;color:#cc0000;margin-right:12px">פרופיל מלא →</a></h2>
+    <div class="en-name">Hagit Gur-Ziv</div>
+    <div class="meta-line"><strong>תפקידים:</strong> ראש המרכז לפדגוגיה ביקורתית &bull; מכללת סמינר הקיבוצים</div>
+
+    <h3>ציון רדיקלי</h3>
+    <p>
+        גור-זיו לא רק מלמדת את פריירה &mdash; היא <strong>כתבה את ההקדמה לתרגום העברי</strong> של "פדגוגיה של מדוכאים".
+        היא שומרת השער של פריירה בעברית.
+    </p>
+    <ul>
+        <li><strong>ספר מופ"ת:</strong> פרסום מכון מופ"ת על פדגוגיה ביקורתית</li>
+        <li><strong>JCEPS Vol 13:</strong> מאמר ב-Journal for Critical Education Policy Studies</li>
+        <li><strong>ERIC:</strong> מאמר "Militarism in Education" &mdash; שימוש בפד"ב נגד מיליטריזם בחינוך</li>
+        <li><strong>מרכז לפד"ב:</strong> מנהלת מרכז שמכשיר מורים בשיטה הביקורתית בסמינר הקיבוצים</li>
+    </ul>
+
+    <h3>רשת קשרים</h3>
+    <p>זלמנסון-לוי (מרכז לפד"ב) &bull; נמרוד אלוני (אונסק"ו) &bull; מכון מופ"ת &bull; סמינר הקיבוצים</p>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a>
+        <a href="ken_bebeit_safrenu.html">כן בבית ספרנו</a>
+    </div>
+</div>
+
+<!-- ── יולי תמיר ── -->
+<div class="profile-card" style="border-right-color: #e65100;">
+    <h2>יולי תמיר <span class="marcuse-badge gateway">מאפשרת מוסדית</span> <a href="radical_tamir.html" style="font-size:0.7em;color:#cc0000;margin-right:12px">פרופיל מלא →</a></h2>
+    <div class="en-name">Yuli Tamir</div>
+    <div class="meta-line"><strong>דוקטורט:</strong> PhD, אוניברסיטת אוקספורד (בהנחיית ישעיהו ברלין)</div>
+    <div class="meta-line"><strong>תפקידים:</strong> שרת חינוך 2006-2009 &bull; נשיאת מכללת בית ברל &bull; ייסדה את שנ"י (שירות אזרחי-לאומי)</div>
+
+    <h3>ציון רדיקלי &mdash; מאפשרת מוסדית</h3>
+    <p>
+        תמיר היא לא רדיקלית "קלאסית" &mdash; היא <strong>פילוסופית ליברלית</strong> (תלמידת ישעיהו ברלין באוקספורד).
+        אבל היא <strong>מספקת לגיטימציה מוסדית</strong> לרשת הרדיקלית:
+    </p>
+    <ul>
+        <li><strong>בית ברל:</strong> כנשיאה, פיקחה על מכללה שמארחת כיסא אונסק"ו להכשרת מורים רב-תרבותית</li>
+        <li><strong>משרד החינוך:</strong> כשרת חינוך, קידמה רפורמות שהתיישרו עם אג'נדה פרוגרסיבית</li>
+        <li><strong>"כן בבית ספרנו":</strong> חברת מערכת של הספר שמגדיר פד"ב כ"אינטרפרטציה מרקסיסטית" (עמ' 13)</li>
+        <li><strong>ליברליזם לאומי:</strong> ספר "Liberal Nationalism" (Princeton 1993) &mdash; מסגרת תיאורטית שמגשרת בין שמאל לגיטימי ובין רשת רדיקלית</li>
+    </ul>
+
+    <h3>רשת קשרים</h3>
+    <p>ניר מיכאלי (מערכת הספר) &bull; נמרוד אלוני (מערכת הספר) &bull; בית ברל &bull; אונסק"ו &bull; משרד החינוך</p>
+
+    <div class="cross-links" style="margin-top:14px">
+        <a href="ken_bebeit_safrenu.html">כן בבית ספרנו</a>
+        <a href="unesco_dashboard.html">אונסק"ו</a>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: INSTITUTIONS (מוסדות)            -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-institutions">
+
+<div class="section">
+    <h2>מוסדות שנכבשו</h2>
+    <blockquote class="red-border">
+        "מכללות להכשרת מורים נכבשו מאוד. פריירה הוא הנורמה."
+        <div class="source">הערכת השטח</div>
+    </blockquote>
+</div>
+
+<div class="inst-card">
+    <h3>מכללת סמינר הקיבוצים, תל אביב</h3>
+    <p>ארבע שכבות של נוכחות רדיקלית באותו מוסד:</p>
+    <ul>
+        <li><strong>כיסא אונסק"ו לחינוך הומניסטי</strong> &mdash; נמרוד אלוני (נותן לגיטימציה בינלאומית)</li>
+        <li><strong>חגית גור-זיו</strong> &mdash; ראש המרכז לפד"ב + כתבה הקדמה לפריירה בעברית</li>
+        <li><strong>המרכז לפדגוגיה ביקורתית</strong> &mdash; גלית זלמנסון-לוי (הזרוע המבצעת)</li>
+        <li><strong>שותפות עם מכון מופ"ת</strong> &mdash; מכון המחקר של המכללות להכשרת מורים</li>
+    </ul>
+    <p>
+        <strong>משמעות:</strong> מכללת סמינר הקיבוצים היא ה"בית" של הפדגוגיה הביקורתית בישראל. כל שלוש השכבות &mdash; לגיטימציה בינלאומית (אונסק"ו), יישום מעשי (המרכז), והפצה מחקרית (מופ"ת) &mdash; פועלות ממוסד אחד.
+    </p>
+    <div class="cross-links">
+        <a href="kibbutzim_pedagogy_dashboard.html">דשבורד סמינר הקיבוצים</a>
+        <a href="unesco_dashboard.html">אונסק"ו</a>
+    </div>
+</div>
+
+<div class="inst-card">
+    <h3>מכללת אורנים</h3>
+    <ul>
+        <li><strong>ניר מיכאלי</strong> &mdash; רקטור (לשעבר)</li>
+        <li><strong>קרן קטקו-איילי</strong> &mdash; מרצה בכירה</li>
+        <li>מודל <strong>REACT</strong> פותח כאן &mdash; ומומן על ידי המדען הראשי של משרד החינוך</li>
+    </ul>
+    <p>
+        <strong>משמעות:</strong> אורנים היא הבסיס האקדמי שממנו יצא מודל REACT &mdash; "פדגוגיה אקטיביסטית" שעברה ריברנדינג ל"חשיבה ביקורתית" לצורך מימון ממשלתי.
+    </p>
+</div>
+
+<div class="inst-card">
+    <h3>מכללת בית ברל</h3>
+    <ul>
+        <li><strong>כיסא אונסק"ו להכשרת מורים רב-תרבותית</strong></li>
+        <li>נשיאה לשעבר = <strong>יולי תמיר</strong> (שרת חינוך לשעבר) — <a href="radical_tamir.html" style="color:#cc0000">פרופיל מלא →</a></li>
+    </ul>
+    <p>
+        <strong>משמעות:</strong> עוד כיסא אונסק"ו + קשר ישיר לממסד הפוליטי דרך יולי תמיר.
+    </p>
+</div>
+
+<div class="inst-card">
+    <h3>האוניברסיטה העברית, ירושלים</h3>
+    <ul>
+        <li><strong>אדר כהן</strong> &mdash; ראש לימודי הוראה</li>
+        <li><strong>מרכז אקורד</strong> (ערן הלפרין) &mdash; מחקר "הפחתת דעות קדומות" שמשמש בסיס לתוכניות חינוכיות</li>
+    </ul>
+    <p>
+        <strong>משמעות:</strong> האוניברסיטה העברית &mdash; המוסד היוקרתי ביותר &mdash; מכשירה את המורים של המחר דרך CRT (אדר כהן), ומספקת "בסיס מחקרי" דרך מרכז אקורד.
+    </p>
+</div>
+
+<div class="inst-card">
+    <h3>אוניברסיטת רייכמן (הרצליה)</h3>
+    <ul>
+        <li><strong>SEL.IL</strong> &mdash; דפנה קופלמן-רובין</li>
+        <li>צינור ישיר למייסד שותף של <strong>CASEL</strong> (מארק גרינברג)</li>
+    </ul>
+    <p>
+        <strong>משמעות:</strong> רייכמן נתפסת כ"ימנית" או "ליברלית" &mdash; אבל דווקא דרכה נכנסת מסגרת CASEL למערכת. האירוניה: דווקא המוסד שנתפס כלא-רדיקלי הוא שער הכניסה.
+    </p>
+    <div class="cross-links">
+        <a href="casel_dashboard.html">CASEL</a>
+        <a href="academy_sciences_dashboard.html">האקדמיה למדעים</a>
+    </div>
+</div>
+
+<div class="inst-card">
+    <h3>אוניברסיטת בן-גוריון</h3>
+    <ul>
+        <li><strong>אסף משולם</strong> &mdash; מרצה בכיר (תלמיד של אפל)</li>
+        <li><strong>הנרייט דהאן-כלב</strong> &mdash; ייסדה לימודי מגדר</li>
+        <li><strong>גלית זלמנסון-לוי</strong> &mdash; דוקטורט מכאן</li>
+    </ul>
+    <p>
+        <strong>משמעות:</strong> בן-גוריון היא ה"חממה" &mdash; שלושה מתוך תשעת הדמויות הממופות קשורים אליה.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: PIPELINE (צינור)                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-pipeline">
+
+<div class="section">
+    <h2>הצינור: מהאקדמיה למדיניות</h2>
+    <p>
+        כיצד רעיונות רדיקליים עוברים <strong>מהאקדמיה &rarr; דרך ריברנדינג &rarr; למימון ממשלתי &rarr; ליישום במערכת החינוך</strong>. המקרה של ניר מיכאלי הוא הדוגמה המובהקת ביותר.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציר הזמן של ניר מיכאלי &mdash; מקריירת חוקר למנהל 43% מתלמידי ישראל</h2>
+
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-year">~2005-2010</div>
+            <div class="tl-text"><strong>ברנקו וייס &rarr; מכללת סמינר הקיבוצים</strong> &mdash; מתחיל קריירה אקדמית, דקאן</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2011</div>
+            <div class="tl-text"><strong>מאמר "מורים כאינטלקטואלים אורגניים"</strong> (עם אסתר יוגב) &mdash; מסגרת גראמשיאנית גלויה. 89 ציטוטים. זהו מאמר היסוד.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2012</div>
+            <div class="tl-text"><strong>ריברנדינג ל"פדגוגיה חברתית"</strong> &mdash; מאמר שפותח עם גראמשי אבל מציג את המסגרת בשפה "ניטרלית" יותר</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2014</div>
+            <div class="tl-text"><strong>ספר "כן בבית ספרנו"</strong> &mdash; עמוד 13: פדגוגיה ביקורתית = "אינטרפרטציה מרקסיסטית". הגדרה גלויה בכתב.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2016</div>
+            <div class="tl-text"><strong>הרצאה בקדמה</strong> &mdash; דקה 55: "יכולתי לארגן מהפכה קומוניסטית בכיתה ואף אחד לא ישים לב"</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~2016-2019</div>
+            <div class="tl-text"><strong>יו"ר המזכירות הפדגוגית של משרד החינוך</strong> &mdash; מעבר מאקדמיה למדיניות. קובע את הכיוון הפדגוגי של המשרד.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">~2019-2022</div>
+            <div class="tl-text"><strong>רקטור אורנים</strong> &mdash; שליטה על מכללה שלמה להכשרת מורים</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2020</div>
+            <div class="tl-text"><strong>קטקו-איילי: מאמר "פדגוגיה אקטיביסטית"</strong> &mdash; מפרטת את המודל התיאורטי (פריירה). מוכן לריברנדינג.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2024</div>
+            <div class="tl-text"><strong>REACT &mdash; מימון המדען הראשי של משרד החינוך</strong> &mdash; אותו מודל של "פדגוגיה אקטיביסטית" &rarr; ריברנד ל-REACT &rarr; מימון ממשלתי</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2025</div>
+            <div class="tl-text"><strong>"From SEL to SPEL"</strong> &mdash; מיכאלי מפרסם: SEL + ממד פוליטי = SPEL. הצעד הבא: לפוליטז את הלמידה החברתית-רגשית.</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">נוכחי</div>
+            <div class="tl-text"><strong>מנהל פדגוגי של המועצה לחינוך ממלכתי-עברי</strong> &mdash; 43% מתלמידי ישראל. זהו הפסגה: שליטה ישירה על הכיוון הפדגוגי של מערכת החינוך הממלכתית-עברית.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מנגנון הריברנדינג</h2>
+
+    <div class="ring-layer core">
+        <div class="ring-label">שכבה 1: הגרעין התיאורטי</div>
+        <div class="ring-items">
+            <p>מארקס &rarr; גראמשי &rarr; פריירה &rarr; גירו &rarr; אפל</p>
+            <p><strong>השפה:</strong> "היגמוניה", "אינטלקטואלים אורגניים", "פרקסיס", "פדגוגיה של המדוכאים", "תודעה ביקורתית"</p>
+        </div>
+    </div>
+
+    <div class="ring-layer ring1">
+        <div class="ring-label">שכבה 2: השפה האקדמית</div>
+        <div class="ring-items">
+            <p>אותם רעיונות &rarr; ריברנד:</p>
+            <ul>
+                <li>"פדגוגיה אקטיביסטית" (קטקו-איילי, 2020)</li>
+                <li>"פדגוגיה חברתית" (מיכאלי, 2012)</li>
+                <li>"אינטלקטואלים אורגניים" &rarr; "מורים כסוכני שינוי"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring2">
+        <div class="ring-label">שכבה 3: השפה הממשלתית</div>
+        <div class="ring-items">
+            <p>ריברנד נוסף לשפה "ניטרלית":</p>
+            <ul>
+                <li>"פדגוגיה אקטיביסטית" &rarr; <strong>"REACT"</strong> (2024, מימון המדען הראשי)</li>
+                <li>"חינוך ביקורתי" &rarr; <strong>"חשיבה ביקורתית"</strong></li>
+                <li>"SEL" &rarr; <strong>"SPEL"</strong> (2025, הוספת ממד פוליטי)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring3">
+        <div class="ring-label">שכבה 4: היישום במערכת</div>
+        <div class="ring-items">
+            <ul>
+                <li>מימון המדען הראשי של משרד החינוך</li>
+                <li>הכשרת מורים במכללות (אורנים, סמינר הקיבוצים, בית ברל)</li>
+                <li>שליטה ישירה: מיכאלי = מנהל פדגוגי של 43% מתלמידי ישראל</li>
+                <li>מסגרת CASEL דרך קופלמן-רובין + האקדמיה למדעים</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מימון: המדען הראשי של משרד החינוך</h2>
+    <p>
+        זוהי המכונה: המדען הראשי של משרד החינוך מממן מחקר &rarr; המחקר מייצר "ראיות" &rarr; ה"ראיות" מצדיקות יישום &rarr; היישום הוא בדיוק האידיאולוגיה המקורית, רק בשפה אחרת.
+    </p>
+    <table>
+        <tr>
+            <th>שלב</th>
+            <th>תוכן</th>
+            <th>שפה</th>
+        </tr>
+        <tr>
+            <td>מחקר אקדמי (2020)</td>
+            <td>"פדגוגיה אקטיביסטית המאתגרת את הסטטוס קוו"</td>
+            <td>פריירה, גירו</td>
+        </tr>
+        <tr>
+            <td>בקשת מימון (2024)</td>
+            <td>"מודל REACT לפיתוח חשיבה ביקורתית"</td>
+            <td>ניטרלית</td>
+        </tr>
+        <tr>
+            <td>יישום בשטח</td>
+            <td>אותם תכנים בדיוק &mdash; רק עם תווית אחרת</td>
+            <td>"מיומנויות המאה ה-21"</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: SOURCES (מקורות)                 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-sources">
+
+<div class="section">
+    <h2>מקורות &mdash; פרסומים אקדמיים</h2>
+    <ul>
+        <li>מיכאלי, נ. ויוגב, א. (2011). <strong>"מורים כאינטלקטואלים אורגניים"</strong> &mdash; מסגרת גראמשיאנית. 89 ציטוטים ב-Google Scholar.</li>
+        <li>מיכאלי, נ. (2012). מאמר על פדגוגיה חברתית &mdash; פותח עם גראמשי.</li>
+        <li>מיכאלי, נ. (עורך) (2014). <strong>"כן בבית ספרנו"</strong> &mdash; עמוד 13: פדגוגיה ביקורתית = "אינטרפרטציה מרקסיסטית".</li>
+        <li>מיכאלי, נ. ויוגב, א. (2017). <strong>"כיבוש וול סטריט בכיתה"</strong> (Occupy Wall Street in the Classroom).</li>
+        <li>מיכאלי, נ. (2025). <strong>"From SEL to SPEL"</strong> &mdash; הוספת ממד פוליטי ל-SEL.</li>
+        <li>קטקו-איילי, ק. (2020). מאמר על <strong>"פדגוגיה אקטיביסטית"</strong> &mdash; "פעילויות המאתגרות ומערערות את הסטטוס קוו". מקושר לפריירה.</li>
+        <li>קטקו-איילי, ק. ומיכאלי, נ. (2024). <strong>מודל REACT</strong> &mdash; מימון המדען הראשי של משרד החינוך.</li>
+        <li>כהן, א. מחקר CRT במימון ACRI. מסגרת: Delgado &amp; Stefancic.</li>
+        <li>אלוני, נ. (1992). ביקורת על גירו: "מניפולטור פרוגרסיבי ללא גרם של כיבוד ביסוס רציונלי של אמת וצדק".</li>
+        <li>זלמנסון-לוי, ג. מאמר אנטי-גזענות &mdash; פורסם על ידי ACRI.</li>
+        <li>זלמנסון-לוי, ג. (2015). <strong>"X=Y: הוראת מתמטיקה כהזדמנות לחינוך לערך השוויון"</strong> &mdash; פרק בספר ACRI "שיעור לחיים". מתמטיקה = "כלי מיון" של המערכת.</li>
+        <li>זלמנסון-לוי, ג. <strong>"שינוי תודעה: פדגוגיה ביקורתית פמיניסטית"</strong> &mdash; מקוטלג ב-RAMBI, הספרייה הלאומית.</li>
+        <li>זלמנסון-לוי, ג. ומשולם, א. <strong>"מחנכות כסוכנות שינוי חברתי"</strong> (Homeroom teachers as agents of social change).</li>
+        <li>גור-זיו, ח. הקדמה לתרגום העברי של פריירה, <strong>"פדגוגיה של מדוכאים"</strong>. ספר מופ"ת, מאמר JCEPS כרך 13.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>מקורות &mdash; וידאו ואודיו</h2>
+    <ul>
+        <li>מיכאלי, נ. הרצאה בבית ספר קדמה &mdash; <strong>YouTube, דקה 55:00</strong>: "יכולתי לארגן מהפכה קומוניסטית בכיתה ואף אחד לא ישים לב".</li>
+        <li>קטקו-איילי, ק. פודקאסט: <strong>"דמוקרטיה מתחילה בחינוך"</strong>.</li>
+        <li>זלמנסון-לוי, ג. ציטוט: "יש עבודה ברמה הגלויה ויש עבודה ברמה הסמויה. זו עבודה חתרנית לפעמים."</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>מקורות &mdash; תיאורטיקנים רדיקליים (הרקע)</h2>
+    <ul>
+        <li><strong>קרל מארקס</strong> &mdash; ההשראה המקורית. "אינטרפרטציה מרקסיסטית" (מיכאלי, 2014, עמ' 13).</li>
+        <li><strong>אנטוניו גראמשי</strong> &mdash; "אינטלקטואלים אורגניים", "היגמוניה תרבותית". המסגרת המרכזית של מיכאלי ויוגב (2011).</li>
+        <li><strong>פאולו פריירה</strong> &mdash; "פדגוגיה של המדוכאים" (1968). הבסיס לקטקו-איילי, זלמנסון-לוי, דהאן-כלב.</li>
+        <li><strong>הנרי גירו</strong> (Henry Giroux) &mdash; "פדגוגיה ביקורתית". אלוני מודה שהוא "מניפולטור" אבל מיישם אותו.</li>
+        <li><strong>הרברט מרקוזה</strong> &mdash; אסכולת פרנקפורט. "האדם החד-ממדי". ה"מבחן": מי באמת קרא אותו?</li>
+        <li><strong>מייקל אפל</strong> (Michael Apple) &mdash; ניאו-מרקסיזם בחינוך. "תוכנית הלימודים הנסתרת". המנטור של משולם בוויסקונסין.</li>
+        <li><strong>Delgado &amp; Stefancic</strong> &mdash; תורת הגזע הביקורתית (CRT). המסגרת של אדר כהן.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>קישורים לדשבורדים קשורים</h2>
+    <div class="cross-links">
+        <a href="methodology.html">מתודולוגיה — מגן מפני ביקורת</a>
+        <a href="kedma_dashboard.html">בית ספר קדמה</a>
+        <a href="ken_bebeit_safrenu.html">"כן בבית ספרנו"</a>
+        <a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים — פדגוגיה ביקורתית</a>
+        <a href="academy_sciences_dashboard.html">האקדמיה למדעים — ועדת קונצנזוס</a>
+        <a href="unesco_dashboard.html">אונסק"ו ומערכת החינוך</a>
+        <a href="casel_dashboard.html">CASEL — מהאמריקני לישראלי</a>
+        <a href="avney_rosha_dashboard.html">אבני ראשה</a>
+        <a href="acri_dashboard.html">האגודה לזכויות האזרח (ACRI)</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    פרויקט זהות ציונית — <a href="../index_v2.html">דירוג ערים</a> | <a href="kedma_dashboard.html">קדמה</a> | <a href="ken_bebeit_safrenu.html">כן בבית ספרנו</a> | <a href="kibbutzim_pedagogy_dashboard.html">סמינר הקיבוצים</a>
+</footer>
+
+<script>
+function navigate(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const el = document.getElementById('view-' + view);
+    if (el) el.classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = { overview: 0, profiles: 1, institutions: 2, pipeline: 3, sources: 4 };
+    if (map[view] !== undefined && tabs[map[view]]) tabs[map[view]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hash-based routing
+if (location.hash) {
+    const h = location.hash.slice(1);
+    if (document.getElementById('view-' + h)) navigate(h);
+}
+</script>
+
+</body>
+</html>

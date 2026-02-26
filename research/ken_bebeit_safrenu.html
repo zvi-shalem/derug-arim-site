@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"כן בבית ספרנו" — מאמרים על חינוך פוליטי (מיכאלי, 2014)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #888; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #cc0000; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #888; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #222; background: #f5f5f5; }
+.nav-tab.active { color: #222; border-bottom-color: #cc0000; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: #fff; color: #222; padding: 40px 20px 30px; text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+.hero h1 { font-size: 1.5em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #555; font-size: 0.95em; margin-bottom: 4px; }
+.hero .meta { color: #cc0000; font-size: 0.88em; margin-top: 8px; }
+
+/* ── Layout ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.2em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #cc0000; }
+.section h3 { font-size: 1.05em; color: #333; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+}
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #333; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+
+/* ── Blockquote ── */
+blockquote {
+    border-right: 3px solid #cc0000; padding: 12px 18px; margin: 14px 0;
+    background: #fff8f8; font-style: italic; color: #333; font-size: 0.92em; line-height: 1.8;
+}
+blockquote.secondary { border-right-color: #ddd; background: #f9f9f9; color: #444; }
+blockquote .source { font-style: normal; color: #888; font-size: 0.82em; margin-top: 6px; }
+
+/* ── Pipeline ── */
+.ring-layer {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 12px;
+    border-right: 4px solid #ccc;
+}
+.ring-layer.core { border-right-color: #cc0000; }
+.ring-layer.ring1 { border-right-color: #e65100; }
+.ring-layer.ring2 { border-right-color: #f9a825; }
+.ring-layer.ring3 { border-right-color: #558b2f; }
+.ring-label { font-weight: 700; font-size: 0.92em; color: #1a1a2e; margin-bottom: 6px; }
+.ring-items { font-size: 0.88em; color: #555; }
+.ring-items ul { padding-right: 20px; margin: 4px 0; }
+.ring-items li { margin-bottom: 4px; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #f0f0f5; color: #333; padding: 8px 12px; text-align: right; border-bottom: 2px solid #ddd; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover td { background: #fafafa; }
+
+/* ── Highlight box ── */
+.highlight-box {
+    background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px;
+    padding: 20px; margin-bottom: 20px;
+}
+.highlight-box h3 { color: #cc0000; margin-bottom: 10px; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Footer ── */
+footer {
+    background: #fff; color: #888; padding: 20px;
+    text-align: center; font-size: 0.82em; border-top: 1px solid #eee;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>"כן בבית ספרנו" — חינוך פוליטי</span>
+            <a href="../index_v2.html">&larr; דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('quotes')">ציטוטי מפתח</button>
+            <button class="nav-tab" onclick="navigate('board')">מערכת והכותבים</button>
+            <button class="nav-tab" onclick="navigate('contents')">תוכן הספר</button>
+            <button class="nav-tab" onclick="navigate('network')">רשת מוסדית</button>
+            <button class="nav-tab" onclick="navigate('sources')">מקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>"כן בבית ספרנו: מאמרים על חינוך פוליטי"</h1>
+    <div class="subtitle">ספר שמגדיר את הפדגוגיה הביקורתית כ"פרשנות מרקסיסטית" — ועורכו מונה לתפקיד הבכיר ביותר בחינוך הממלכתי</div>
+    <div class="meta">עורך: ניר מיכאלי | הוצאת הקיבוץ המאוחד + מכון מופ"ת | 2014 | שיתוף: הסתדרות המורים + סמינר הקיבוצים</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: OVERVIEW                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view active" id="view-overview">
+
+<div class="grid-3">
+    <div class="metric">
+        <div class="label">שנת פרסום</div>
+        <div class="value">2014</div>
+        <div class="note">ספר ביכורים בסדרת "מחשבה חינוכית"</div>
+    </div>
+    <div class="metric">
+        <div class="label">חברי מערכת</div>
+        <div class="value">10</div>
+        <div class="note">כולל שרת חינוך לשעבר</div>
+    </div>
+    <div class="metric">
+        <div class="label">כותבים</div>
+        <div class="value">11</div>
+        <div class="note">רובם מסמינר הקיבוצים</div>
+    </div>
+</div>
+
+<div class="highlight-box">
+    <h3>למה הספר הזה חשוב</h3>
+    <p style="font-size:0.92em;color:#333;line-height:1.8">
+        זהו המסמך היחיד בעברית שבו <strong>הפדגוגיה הביקורתית מוגדרת באופן מפורש כ"פרשנות מרקסיסטית"</strong> — לא בפרשנות חיצונית, אלא בכתיבת העורך עצמו, ד"ר ניר מיכאלי.
+        מיכאלי מונה ב-2022 למנהל הפדגוגי של המועצה לחינוך ממלכתי — הגוף שאחראי על 43% מתלמידי ישראל.
+        לפני כן כיהן כיו"ר המזכירות הפדגוגית של משרד החינוך.
+    </p>
+    <p style="font-size:0.92em;color:#333;line-height:1.8">
+        במערכת הספר יושבת <strong>פרופ' יולי תמיר — שרת חינוך לשעבר</strong> (2006-2009, מפלגת העבודה).
+        תמיר מילאה תפקיד מרכזי בעיצוב מדיניות חינוך בישראל, כולל רפורמת "אופק חדש".
+        הימצאותה במערכת ספר המגדיר את מעשה החינוך כ"סוכנות פוליטית" בפרשנות מרקסיסטית מעידה על עומק השילוב בין התיאוריה למעשה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>מה הספר הזה</h2>
+    <p>
+        "כן בבית ספרנו: מאמרים על חינוך פוליטי" הוא ספר ביכורים בסדרה "מחשבה חינוכית",
+        תוצר של <strong>סמינריון מחלקתי</strong> שפעל בחוג לחינוך של מכללת סמינר הקיבוצים בשנים 2010-2011.
+    </p>
+    <p>
+        הספר הוא שיתוף פעולה בין ארבעה גופים:
+    </p>
+    <ul>
+        <li><strong>מכללת סמינר הקיבוצים</strong> — מכללה להכשרת מורים, בה פעלו כיסא אונסק"ו לחינוך הומניסטי והמרכז לפדגוגיה ביקורתית</li>
+        <li><strong>הוצאת הקיבוץ המאוחד — סדרת קו אדום</strong> — הוצאת ספרים הקשורה לתנועת העבודה</li>
+        <li><strong>מכון מופ"ת</strong> — מכון המחקר של הסתדרות המורים לפיתוח ומחקר בהכשרת מורים</li>
+        <li><strong>הסתדרות המורים</strong> — ארגון העובדים הגדול ביותר של מורים בישראל</li>
+    </ul>
+    <p>
+        כלומר: ספר המגדיר את מקצוע ההוראה כפעילות פוליטית-מרקסיסטית יצא לאור בחסות מוסדות ההכשרה, המחקר והייצוג של מורי ישראל.
+    </p>
+</div>
+
+<div class="section">
+    <h2>הציטוט המרכזי</h2>
+    <blockquote>
+        "עמדה זו עולה בקנה אחד עם עמדת הוגי 'הפדגוגיה הביקורתית' שהתפתחה במיוחד בשנות השישים של המאה ה-20, <strong>ושמציעה התבוננות חברתית-כלכלית בחברה האנושית בפרשנות מרקסיסטית</strong>.
+        גישה חינוכית זו מבקשת לשחרר את החברה מדפוסי מחשבה ומדפוסי חיים המסכנים את היחיד, מעכבים את התפתחותו המלאה ו'מטמטמים' את תודעתו."
+        <div class="source">— ד"ר ניר מיכאלי, מתוך המבוא, עמ' 13</div>
+    </blockquote>
+    <p>
+        זו לא פרשנות חיצונית. זה לא ניתוח ביקורתי. זוהי הגדרה שהעורך עצמו מציג — באופן חיובי — בספר אקדמי שיצא במסגרת מוסדית.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: QUOTES                           -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-quotes">
+
+<div class="section">
+    <h2>ציטוט 1: פדגוגיה ביקורתית = פרשנות מרקסיסטית</h2>
+    <blockquote>
+        "עמדה זו עולה בקנה אחד עם עמדת הוגי 'הפדגוגיה הביקורתית' שהתפתחה במיוחד בשנות השישים של המאה ה-20, <strong>ושמציעה התבוננות חברתית-כלכלית בחברה האנושית בפרשנות מרקסיסטית</strong>.
+        גישה חינוכית זו מבקשת לשחרר את החברה מדפוסי מחשבה ומדפוסי חיים המסכנים את היחיד, מעכבים את התפתחותו המלאה ו'מטמטמים' את תודעתו."
+        <div class="source">— מתוך המבוא (ניר מיכאלי), עמ' 13</div>
+    </blockquote>
+    <p>
+        הגדרה מפורשת של "פדגוגיה ביקורתית" — המונח שמשרד החינוך, אונסק"ו, וכיסא אונסק"ו בסמינר הקיבוצים משתמשים בו — כגישה המבוססת על "פרשנות מרקסיסטית".
+        כאשר מוסדות חינוך, חוזרי מנכ"ל, או תוכניות הכשרה מתייחסים ל"פדגוגיה ביקורתית", זה מה שהכותבים עצמם מתכוונים אליו.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 2: מורים כ"אינטלקטואלים רדיקלים" — שחרור בית הספר כשלב לשחרור כולל</h2>
+    <blockquote>
+        "הנרי ג'ירו [...] טוען שעל המורים להתחזק בתור <strong>אינטלקטואלים רדיקלים</strong> שמשנים את פני בית הספר והחברה.
+        <strong>המאבק לשחרור בית הספר הוא רק שלב בדרך לשחרור חברתי כולל</strong>, שעל המורים להתחייב אליו.
+        ג'ירו חושף את בית הספר כמרחב פוליטי מובהק שממלא תפקיד מרכזי בייצור אירועי שיח, משמעויות וסובייקטים, בשליטה עליהם ובשיווקם היעיל.
+        בית הספר משמש כסוכן דיכוי בשירות המערכת, המצליחה — גם באמצעותו — לשעתק ולשכלל את עצמה."
+        <div class="source">— מתוך המבוא (ניר מיכאלי), עמ' 13-14</div>
+    </blockquote>
+    <p>
+        מיכאלי מאמץ את עמדת ג'ירו: בית הספר הוא "סוכן דיכוי"; המורה צריך להפוך ל"אינטלקטואל רדיקלי"; שחרור בית הספר הוא "רק שלב" בדרך ל"שחרור חברתי כולל".
+        מיכאלי מונה ב-2022 לתפקיד המנהל הפדגוגי של המועצה לחינוך ממלכתי.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 3: המחנך כ"סוכן פוליטי"</h2>
+    <blockquote>
+        "לפי גישה זו, המחנך לא זו בלבד שאינו צריך לשמור על ניטרליות, אלא שהוא צריך לקבל על עצמו תפקיד של <strong>סוכן פוליטי</strong>, בשני מובנים:
+        סוכן פוליטי שרואה את תפקידו לחשוף את תלמידיו להוויה, לתודעה ולחשיבה פוליטית;
+        סוכן פוליטי שמציג בגלוי את עמדותיו ומעמיד בפניהם מודל של <strong>'חיה פוליטית' מעורבת, דעתנית ופעילה</strong>."
+        <div class="source">— מתוך המבוא (ניר מיכאלי), עמ' 14</div>
+    </blockquote>
+    <p>
+        הגדרה מפורשת של תפקיד המורה: לא עובד מדינה ניטרלי, אלא "סוכן פוליטי" המציג את עמדותיו בגלוי.
+        חוזר מנכ"ל משרד החינוך (2009) אוסר מפורשות על מורים להביע עמדות פוליטיות בפני תלמידים.
+        מיכאלי מתייחס לאיסור זה בהמשך הספר — ומבקש לערער אותו.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 4: תוכנית הלימודים הסמויה — "הכול אידאולוגיה"</h2>
+    <blockquote class="secondary">
+        "מייקל אפל מציג את רעיון תכנית הלימודים הסמויה. הוא טוען כי תכנית הלימודים כוללת תרבות וערכים לגיטימיים, ובמסגרתה שאיפת העבר של הבורגנים ליצור קונצנזוס למראית עין הפכה לפירוש היחיד האפשרי.
+        מה שהיה בעבר <strong>אידאולוגיה של אינטרס מעמדי</strong>, לפי אפל, <strong>הפך להגדרה של המציאות</strong> ברוב תכניות הלימוד הבית-ספריות."
+        <div class="source">— מתוך המבוא (ניר מיכאלי), עמ' 14</div>
+    </blockquote>
+    <p>
+        הטענה: כל חינוך קיים הוא "אידאולוגיה בורגנית מוסווית". לכן, חינוך "ביקורתי" שמערער אותה אינו פוליטיזציה — אלא "חשיפת האמת".
+        זהו ליבת ההצדקה לפעילות פוליטית בכיתות: אם הכול כבר פוליטי, אין סיבה לטעון לניטרליות.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 5: "פסאודו-ניטרליזם" — ההגנה מפני ביקורת</h2>
+    <blockquote class="secondary">
+        "כך למעשה מתקיים במוסדות החינוך <strong>ניטרליזם-לכאורה (פסבדו-ניטרליזם)</strong> [...] תחת אותו מעטה של מסך בערות <strong>מתקיים חינוך פוליטי עוצמתי, שנתפס כידע, כאמת, כטבע</strong>.
+        מסך בערות פוליטי זה מונע מהתלמידים להבחין בין ידיעה לבין עמדה, חוסם היכרות עם עמדות אחרות ומצמצם אפשרות לפיתוח עמדות עצמאיות."
+        <div class="source">— מתוך המבוא (ניר מיכאלי), עמ' 16-17</div>
+    </blockquote>
+    <p>
+        הנה האירוניה: מיכאלי מתאר בדיוק את מה שהספר שלו עצמו מבקש ליצור — חינוך פוליטי שמציג את עצמו כ"חשיבה ביקורתית", ובכך מונע מתלמידים והורים לזהות שמדובר בעמדה אידאולוגית.
+    </p>
+</div>
+
+<div class="section">
+    <h2>ציטוט 6: מיכאלי על החינוך הפוליטי בישראל — הפרייק הקומוניסטי</h2>
+    <blockquote>
+        "אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש. זה לא שקוף לאף אחד."
+        <div class="source">— ד"ר ניר מיכאלי, <a href="https://www.youtube.com/watch?v=pPbgRCRjR-g" target="_blank" style="color:#888">כנס קדמה השישי (YouTube)</a>, דקה 1:05:27</div>
+    </blockquote>
+    <p>
+        אמירה זו לא נמצאת בספר עצמו אלא בהרצאה שמיכאלי נתן בבית ספר קדמה בירושלים (כנס קדמה השישי, 2016).
+        היא משלימה את המקור הכתוב: הספר מגדיר את "מה"; ההרצאה מדגימה את "איך" — בגלוי, בפני קהל של מחנכים.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: BOARD                            -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-board">
+
+<div class="section">
+    <h2>חברי המערכת</h2>
+    <p>הספר יצא בסדרת "מחשבה חינוכית" שרוקמה על ידי נמרוד אלוני. חברי המערכת:</p>
+    <table>
+        <tr><th>שם</th><th>תפקיד</th><th>מוסד</th><th>הערות</th></tr>
+        <tr>
+            <td><strong>פרופ' יולי תמיר</strong></td>
+            <td>חברת מערכת</td>
+            <td>—</td>
+            <td style="color:#cc0000;font-weight:600">שרת חינוך לשעבר (2006-2009). מפלגת העבודה. הובילה רפורמת "אופק חדש".</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' נמרוד אלוני</strong></td>
+            <td>חבר מערכת, יוזם הסדרה</td>
+            <td>סמינר הקיבוצים</td>
+            <td>כיסא אונסק"ו לחינוך הומניסטי. מחבר "חינוך הומניסטי".</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' אסתר יוגב</strong></td>
+            <td>חברת מערכת, יזמת הקבוצה</td>
+            <td>סמינר הקיבוצים</td>
+            <td>רקטורית מכללת סמינר הקיבוצים. מרצה להיסטוריה אמריקנית.</td>
+        </tr>
+        <tr>
+            <td><strong>גיורא רוזן</strong></td>
+            <td>חבר מערכת, עורך</td>
+            <td>קו אדום / הקיבוץ המאוחד</td>
+            <td>עורך סדרת "קו אדום" בהוצאת הקיבוץ המאוחד.</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר יהודית שטיימן</strong></td>
+            <td>חברת מערכת, עורכת</td>
+            <td>מכון מופ"ת</td>
+            <td>מכון מופ"ת = זרוע מחקר של הסתדרות המורים.</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר אמנון יובל</strong></td>
+            <td>חבר מערכת, כותב</td>
+            <td>סמינר הקיבוצים</td>
+            <td>ראש החוג להיסטוריה. עורך כתב העת "גילוי דעת".</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר אריאלה גדרון</strong></td>
+            <td>חברת מערכת</td>
+            <td>סמינר הקיבוצים</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר שרה שמעוני</strong></td>
+            <td>חברת מערכת</td>
+            <td>סמינר הקיבוצים</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td><strong>נעם ברוך</strong></td>
+            <td>חבר מערכת</td>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td><strong>ציון שורק</strong></td>
+            <td>חבר מערכת</td>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>הכותבים</h2>
+    <table>
+        <tr><th>שם</th><th>תפקיד (2014)</th><th>מוסד</th><th>מאמר</th></tr>
+        <tr>
+            <td><strong>ד"ר ניר מיכאלי</strong></td>
+            <td>עורך הספר, דקאן</td>
+            <td>סמינר הקיבוצים</td>
+            <td>מבוא + "ג'ורג' קאונטס והחוליה הפוליטית החסרה"</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' אסתר יוגב</strong></td>
+            <td>רקטורית</td>
+            <td>סמינר הקיבוצים</td>
+            <td>"פדגוגיה של ערעור" בחינוך היסטורי</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר אמנון יובל</strong></td>
+            <td>ראש חוג היסטוריה</td>
+            <td>סמינר הקיבוצים</td>
+            <td>אידאולוגיה וחינוך ביקורתי</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר שי פרוגל</strong></td>
+            <td>מרצה פילוסופיה</td>
+            <td>סמינר הקיבוצים + ת"א</td>
+            <td>"מעורב בעל כורחו" (עמדה מאוזנת יותר — הקול היחיד)</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר אורית קמיר</strong></td>
+            <td>חוקרת משפט ומגדר</td>
+            <td>—</td>
+            <td>"האם בישראל האישי הנשי הוא פוליטי?"</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר חנוך בן פזי</strong></td>
+            <td>מרצה מחשבת ישראל</td>
+            <td>סמינר הקיבוצים + בר אילן</td>
+            <td>"עדות ואחריות בחינוך"</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' חנן חבר</strong></td>
+            <td>קתדרה בלאושטיין</td>
+            <td>אוניברסיטת ייל + ון ליר</td>
+            <td>"איך תיראה בגדד בלי יהודים?"</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' דני גוטוויין</strong></td>
+            <td>מרצה היסטוריה כלכלית</td>
+            <td>אוניברסיטת חיפה</td>
+            <td>"שלילת הגולה, כור היתוך ורב-תרבותיות" (ראש מכון הבונד)</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר מימי חסקין</strong></td>
+            <td>ראשת חוג ספרות</td>
+            <td>סמינר הקיבוצים</td>
+            <td>"הוראת ספרות כמעשה פוליטי"</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר תמר קטקו</strong></td>
+            <td>ראשת תכנית רג"ב למצטיינים</td>
+            <td>סמינר הקיבוצים</td>
+            <td>"בית הספר כמרחב טקסי מעצב" (קשר משפחתי לקרן קטקו-איילי)</td>
+        </tr>
+        <tr>
+            <td><strong>ד"ר ניסים אבישר</strong></td>
+            <td>פסיכולוג קליני, מרצה</td>
+            <td>סמינר הקיבוצים + בינתחומי</td>
+            <td>"הכשרה פסיכולוגית רגישה (פוליטית) ואחראית (חברתית)"</td>
+        </tr>
+        <tr>
+            <td><strong>פרופ' אייל נווה</strong></td>
+            <td>יו"ר המועצה האקדמית</td>
+            <td>אוניברסיטת ת"א + סמינר הקיבוצים</td>
+            <td>אפילוג: "על הצורך בשיקום החינוך לתודעה פוליטית"</td>
+        </tr>
+    </table>
+    <p>
+        <strong>דפוס:</strong> מתוך 12 כותבים (כולל העורך), 9 מסמינר הקיבוצים. שלושה חיצוניים: גוטוויין (חיפה, ראש מכון הבונד), חבר (ייל), קמיר.
+        אייל נווה — יו"ר המועצה האקדמית של סמינר הקיבוצים, מאוניברסיטת ת"א — כותב את האפילוג שקורא ל"שיקום" החינוך הפוליטי.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: CONTENTS                         -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-contents">
+
+<div class="section">
+    <h2>תוכן העניינים</h2>
+    <p>הספר מחולק לשלושה שערים, הבנויים כמדרג: בסיס מושגי &rarr; הגמוניה &rarr; יישום פדגוגי.</p>
+
+    <h3>מבוא</h3>
+    <table>
+        <tr><th>מאמר</th><th>מחבר</th><th>עמוד</th></tr>
+        <tr><td>"חינוך ופוליטיקה במערכת החינוך הישראלית"</td><td>ניר מיכאלי</td><td>9</td></tr>
+    </table>
+    <p>המבוא מכיל את ההגדרה המפורשת של פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" ואת הגדרת המורה כ"סוכן פוליטי".</p>
+
+    <h3>שער ראשון: אידאולוגיה וביקורתיות בחינוך הפוליטי</h3>
+    <table>
+        <tr><th>מאמר</th><th>מחבר</th><th>עמוד</th></tr>
+        <tr><td><strong>"פדגוגיה של ערעור"</strong> בחינוך ההיסטורי</td><td>אסתר יוגב (רקטורית)</td><td>33</td></tr>
+        <tr><td>אידאולוגיה וחינוך ביקורתי</td><td>אמנון יובל</td><td>59</td></tr>
+        <tr><td>"מעורב בעל כורחו"</td><td>שי פרוגל</td><td>75</td></tr>
+        <tr><td>"ג'ורג' קאונטס והחוליה הפוליטית החסרה בחינוך המתקדם"</td><td>ניר מיכאלי</td><td>94</td></tr>
+    </table>
+    <p>
+        <strong>יוגב</strong> (רקטורית — הבכירה ביותר במכללה) פותחת עם "פדגוגיה של ערעור" — מונח שנבנה על פריירה וג'ירו.
+        <strong>פרוגל</strong> הוא הקול הביקורתי היחיד: הוא מציב הבחנה בין אתיקה לפוליטיקה וטוען שחינוך צריך להימנע ממעורבות פוליטית.
+        <strong>מיכאלי</strong> חותם עם קריאה להשיב את "המוקד הפוליטי" לחינוך הפרוגרסיבי.
+    </p>
+
+    <h3>שער שני: פוליטיות במרחבי ההגמוניה</h3>
+    <table>
+        <tr><th>מאמר</th><th>מחבר</th><th>עמוד</th></tr>
+        <tr><td>"האם בישראל האישי הנשי הוא פוליטי?"</td><td>אורית קמיר</td><td>123</td></tr>
+        <tr><td>"עדות ואחריות בחינוך"</td><td>חנוך בן פזי</td><td>152</td></tr>
+        <tr><td>"איך תיראה בגדד בלי יהודים?"</td><td>חנן חבר</td><td>177</td></tr>
+        <tr><td>"שלילת הגולה, כור היתוך ורב-תרבותיות"</td><td>דני גוטוויין</td><td>210</td></tr>
+    </table>
+    <p>
+        שער שני מיישם את הפדגוגיה הביקורתית על מרחבים ספציפיים: מגדר (קמיר), שואה/עדות (בן פזי), יהדות ערבית (חבר), ו"פירוק ההגמוניה" הציונית (גוטוויין).
+        <strong>גוטוויין</strong> עומד בראש המכון לחקר תולדות הבונד.
+    </p>
+
+    <h3>שער שלישי: פדגוגיה פוליטית בחינוך ובטיפול</h3>
+    <table>
+        <tr><th>מאמר</th><th>מחבר</th><th>עמוד</th></tr>
+        <tr><td>"הוראת ספרות כמעשה פוליטי"</td><td>מימי חסקין</td><td>237</td></tr>
+        <tr><td>"בית הספר כמרחב טקסי מעצב של אתוס לאומי"</td><td>תמר קטקו</td><td>260</td></tr>
+        <tr><td>"הכשרה פסיכולוגית רגישה (פוליטית) ואחראית (חברתית)"</td><td>ניסים אבישר</td><td>284</td></tr>
+    </table>
+    <p>
+        שער שלישי מיישם על כלים ספציפיים: הוראת ספרות, טקסי בית ספר, הכשרה פסיכולוגית.
+        <strong>תמר קטקו</strong> — ד"ר קרן קטקו-איילי, חלוצת "פדגוגיה אקטיביסטית" בישראל ושותפתו של מיכאלי במחקר REACT, היא בת משפחה.
+    </p>
+
+    <h3>אפילוג</h3>
+    <table>
+        <tr><th>מאמר</th><th>מחבר</th><th>עמוד</th></tr>
+        <tr><td>"על הצורך בשיקום החינוך לתודעה פוליטית"</td><td>אייל נווה</td><td>311</td></tr>
+    </table>
+    <p>
+        <strong>נווה</strong> — יו"ר המועצה האקדמית של סמינר הקיבוצים, מרצה באוניברסיטת ת"א — חותם עם קריאה ל"שיקום" החינוך הפוליטי.
+        הכותרת עצמה היא תכנית עבודה.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: NETWORK                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-network">
+
+<div class="section">
+    <h2>צינור ההפצה</h2>
+    <p>הספר הוא צומת שבה מתחברים ארבעה מוסדות:</p>
+
+    <div class="ring-layer core">
+        <div class="ring-label">ליבה: סמינר הקיבוצים</div>
+        <div class="ring-items">
+            <ul>
+                <li>הספר הוא תוצר של סמינריון מחלקתי בחוג לחינוך (2010-2011)</li>
+                <li>9 מתוך 12 כותבים מסמינר הקיבוצים</li>
+                <li>הרקטורית (יוגב) יזמה את הקבוצה ופותחת עם "פדגוגיה של ערעור"</li>
+                <li>כיסא אונסק"ו לחינוך הומניסטי (אלוני) — חבר מערכת ויוזם הסדרה</li>
+                <li>המרכז לפדגוגיה ביקורתית (זלמנסון-לוי) — לא חתומה על הספר אך פועלת באותה מכללה</li>
+                <li>מיכאלי כיהן כדקאן פיתוח פדגוגי — התפקיד שממנו יצא לתפקידים ארציים</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring1">
+        <div class="ring-label">טבעת 1: הקיבוץ המאוחד — סדרת "קו אדום"</div>
+        <div class="ring-items">
+            <ul>
+                <li>הוצאת הספרים של תנועת העבודה</li>
+                <li>סדרת "קו אדום" — השם עצמו מעיד על הזיקה האידאולוגית</li>
+                <li>גיורא רוזן — עורך הסדרה וחבר מערכת הספר</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring2">
+        <div class="ring-label">טבעת 2: מכון מופ"ת — הסתדרות המורים</div>
+        <div class="ring-items">
+            <ul>
+                <li>מכון מופ"ת = זרוע מחקר ופרסום של הסתדרות המורים</li>
+                <li>ד"ר יהודית שטיימן — חברת מערכת מטעם מכון מופ"ת</li>
+                <li>המשמעות: הגוף המייצג את מורי ישראל מעניק חותמת רשמית לספר המגדיר הוראה כ"סוכנות פוליטית"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ring-layer ring3">
+        <div class="ring-label">טבעת 3: הממשק הפוליטי</div>
+        <div class="ring-items">
+            <ul>
+                <li><strong>פרופ' יולי תמיר</strong> — שרת חינוך לשעבר, חברת מערכת</li>
+                <li><strong>פרופ' אייל נווה</strong> — יו"ר המועצה האקדמית, כותב אפילוג "שיקום החינוך הפוליטי"</li>
+                <li><strong>פרופ' דני גוטוויין</strong> — ראש מכון הבונד, אוניברסיטת חיפה</li>
+                <li><strong>פרופ' חנן חבר</strong> — קתדרה בלאושטיין, אוניברסיטת ייל + ון ליר</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מסלול הקריירה של העורך</h2>
+    <p>ניר מיכאלי — המסלול שעורך הספר עבר לאחר הפרסום:</p>
+    <table>
+        <tr><th>שנה</th><th>תפקיד</th><th>הערה</th></tr>
+        <tr><td>2010-2011</td><td>הוביל סמינריון מחלקתי, סמינר הקיבוצים</td><td>התהליך שהוביל לספר זה</td></tr>
+        <tr><td>2014</td><td>פרסום "כן בבית ספרנו". דקאן פיתוח פדגוגי, סמינר הקיבוצים</td><td>הספר שמגדיר הוראה כ"סוכנות פוליטית מרקסיסטית"</td></tr>
+        <tr><td>2016</td><td>הרצאה בכנס קדמה: "הפיכה קומוניסטית בכיתה"</td><td>יישום מעשי של העמדה שבספר</td></tr>
+        <tr><td>~2018</td><td>רקטור מכללת אורנים</td><td>מכללה נוספת להכשרת מורים</td></tr>
+        <tr><td>~2019-2022</td><td>יו"ר המזכירות הפדגוגית, משרד החינוך</td><td>הגוף שמגדיר תוכניות לימוד ארציות</td></tr>
+        <tr><td>2022-היום</td><td>מנהל פדגוגי, המועצה לחינוך ממלכתי</td><td>43% מתלמידי ישראל</td></tr>
+    </table>
+    <p>
+        מסלול הקריירה ברור: מסמינריון אקדמי בסמינר הקיבוצים &rarr; ספר אקדמי &rarr; הרצאות בשטח &rarr; רקטור מכללת מורים &rarr; ראש המזכירות הפדגוגית &rarr; מנהל פדגוגי ברמת מדינה.
+        הספר הזה הוא לא הערת שוליים — הוא מסמך המדיניות שמגדיר את העמדה.
+    </p>
+</div>
+
+<div class="section">
+    <h2>קישורים למיניסייטים אחרים</h2>
+    <ul>
+        <li><a href="kedma_dashboard.html" style="color:#cc0000">קדמה ירושלים</a> — בית הספר שבו מיכאלי הרצה. הציטוט "הפיכה קומוניסטית" נאמר שם.</li>
+        <li><a href="unesco_dashboard.html" style="color:#cc0000">אונסק"ו — הממשקים</a> — נמרוד אלוני (חבר מערכת) מחזיק כיסא אונסק"ו באותה מכללה.</li>
+        <li><a href="deep_Kadma.html" style="color:#cc0000">מחקר עומק: קדמה</a> — ניתוח מוסדי מפורט של בית הספר שבו פועלת ההגדרה בפועל.</li>
+    </ul>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIEW: SOURCES                          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="view" id="view-sources">
+
+<div class="section">
+    <h2>פרטי הפרסום</h2>
+    <table>
+        <tr><th>שדה</th><th>ערך</th></tr>
+        <tr><td>שם הספר</td><td>כן בבית ספרנו: מאמרים על חינוך פוליטי</td></tr>
+        <tr><td>עורך</td><td>ד"ר ניר מיכאלי</td></tr>
+        <tr><td>הוצאה</td><td>הקיבוץ המאוחד (קו אדום) + מכון מופ"ת</td></tr>
+        <tr><td>מקום</td><td>רעננה</td></tr>
+        <tr><td>שנה</td><td>2014</td></tr>
+        <tr><td>סדרה</td><td>"מחשבה חינוכית" (ספר ביכורים)</td></tr>
+        <tr><td>שיתופי פעולה</td><td>מכללת סמינר הקיבוצים + הסתדרות המורים</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות עליהם מסתמך הספר</h2>
+    <p>המבוא של מיכאלי מצטט ומאמץ את הוגי הפדגוגיה הביקורתית:</p>
+    <table>
+        <tr><th>הוגה</th><th>מה מצוטט</th><th>שימוש בספר</th></tr>
+        <tr>
+            <td>פאולו פריירה</td>
+            <td>"פדגוגיה של מדוכאים" (1970)</td>
+            <td>בסיס: דיאלוג הומני לפיתוח תודעה ביקורתית ו"תיקון מציאות"</td>
+        </tr>
+        <tr>
+            <td>הנרי ג'ירו</td>
+            <td>גרסת פדגוגיה ביקורתית מבוססת אסכולת פרנקפורט</td>
+            <td>מורים כ"אינטלקטואלים רדיקלים", בית ספר כ"סוכן דיכוי"</td>
+        </tr>
+        <tr>
+            <td>מייקל אפל</td>
+            <td>"תכנית הלימודים הסמויה"</td>
+            <td>כל חינוך קיים = "אידאולוגיה בורגנית מוסווית"</td>
+        </tr>
+        <tr>
+            <td>ג'ורג' קאונטס</td>
+            <td>"?Dare the School Build a New Social Order" (1932)</td>
+            <td>החוליה הפוליטית "החסרה" בחינוך הפרוגרסיבי</td>
+        </tr>
+        <tr>
+            <td>אילן גור-זאב</td>
+            <td>"חינוך ביקורתי" (1996)</td>
+            <td>תיווך בין ההוגים לקוראים בעברית</td>
+        </tr>
+        <tr>
+            <td>נמרוד אלוני</td>
+            <td>"חינוך הומניסטי" (1998)</td>
+            <td>חבר מערכת, בסיס ערכי</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>הערות מתודולוגיות</h2>
+    <ul>
+        <li>הספר הוא מקור ראשוני: כל הציטוטים הם דברי הכותבים עצמם, לא פרשנות חיצונית.</li>
+        <li>מספרי העמודים מתייחסים למהדורה המודפסת (2014).</li>
+        <li>הטקסט חולץ מקובץ .docx של הספר שנמצא בארכיון המחקר.</li>
+        <li>ציטוט "ההפיכה הקומוניסטית" הוא ממקור חיצוני (YouTube, כנס קדמה 2016) — לא מהספר.</li>
+        <li>העובדה שפרוגל מציב עמדה חולקת בספר (מעורב בעל כורחו) מחזקת את האותנטיות: הספר אינו חד-ממדי, אך העמדה הדומיננטית ברורה.</li>
+    </ul>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<footer>
+    <a href="../index_v2.html">דירוג חתרנות מוסדית</a> &middot;
+    ניתוח מוסדי &middot;
+    עדכון אחרון: פברואר 2026
+</footer>
+
+<script>
+function navigate(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const view = document.getElementById('view-' + viewId);
+    if (view) view.classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = { overview: 0, quotes: 1, board: 2, contents: 3, network: 4, sources: 5 };
+    if (map[viewId] !== undefined && tabs[map[viewId]]) tabs[map[viewId]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Handle hash navigation
+if (location.hash) {
+    const h = location.hash.slice(1);
+    if (document.getElementById('view-' + h)) navigate(h);
+}
+</script>
+</body>
+</html>

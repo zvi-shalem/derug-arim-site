@@ -805,18 +805,34 @@ function renderMainGrid() {
         }).join('')}
     </div>
 
-    <!-- Research Reports -->
+    <!-- Foreign Influence -->
     <div class="about-section">
-        <h3>מחקרי עומק — 16 ארגונים ותוכניות</h3>
+        <h3 style="border-bottom:2px solid #1565c0; padding-bottom:8px;">השפעות זרות</h3>
         <div class="articles-grid" style="margin-top:12px">
             ${[
-                {name: "SafeSchool", desc: "1,200 בתי ספר. 4 בכירי משרד החינוך לשעבר. תוכן מגדרי מאחורי paywall.", url: "research/safeschool_dashboard.html", color: "#c62828"},
-                {name: "CASEL", desc: "הכנסות $12M. Transformative SEL (2020): equity + צדק חברתי. 7 מדינות הגבילו.", url: "research/casel_dashboard.html", color: "#1565c0"},
+                {name: "CASEL", desc: "ארה\"ב. הכנסות $12M. Transformative SEL (2020): equity + צדק חברתי. 7 מדינות הגבילו.", url: "research/casel_dashboard.html", color: "#1565c0"},
+                {name: "אונסק\"ו", desc: "או\"ם. 8+ קתדרות באקדמיה ישראלית. תוכנית ISDG. פדגוגיה ביקורתית כמדיניות.", url: "research/unesco_dashboard.html", color: "#0d47a1"},
+                {name: "הקרן החדשה לישראל", desc: "ארה\"ב. ACRI $1M/שנה. חוש\"ן $15K. שתיל: 3 סניפים. קואליציית OHCHR.", url: "research/nif_education_dashboard.html", color: "#263238"},
+            ].map(d => `
+                <div class="article-card" style="border-top-color:${d.color}" onclick="window.open('${d.url}', '_blank')">
+                    <h3>${d.name}</h3>
+                    <div class="surface">${d.desc}</div>
+                    <div class="ev-count">מחקר מלא →</div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <!-- Israeli Orgs Research -->
+    <div class="about-section">
+        <h3 style="border-bottom:2px solid #cc0000; padding-bottom:8px;">ארגונים ישראליים — מחקרי עומק</h3>
+        <div class="articles-grid" style="margin-top:12px">
+            ${[
+                {name: "SafeSchool", desc: "1,200 בתי ספר. 4 בכירי משרד החינוך לשעבר. תוכן מגדרי מאחורי paywall.", url: "research/safeschool_evidence.html", color: "#c62828"},
                 {name: "אבני ראשה", desc: "3,000+ מנהלים. Schusterman $1M. 10 מדדי SEL למנהלים.", url: "research/avney_rosha_dashboard.html", color: "#e65100"},
                 {name: "מכללת הקיבוצים", desc: "קורס חובה: פדגוגיה ביקורתית. M.Ed ייעודי. כנס שנתי. פריירה + ז'ירו.", url: "research/kibbutzim_pedagogy_dashboard.html", color: "#4a148c"},
                 {name: "חוש\"ן", desc: "6 תוכניות גפ\"ן. 250 מתנדבים. קיצוץ 85% (2024). מימון הקרן החדשה לישראל.", url: "research/choshen_dashboard.html", color: "#e91e63"},
                 {name: "דרור ישראל", desc: "6 ישויות משפטיות. 230M ₪/שנה ממשלתי. פדגוגיה ביקורתית. 14 קיבוצים עירוניים.", url: "research/dror_israel_dashboard.html", color: "#1b5e20"},
-                {name: "הקרן החדשה לישראל", desc: "ACRI $1M/שנה. חוש\"ן $15K. שתיל: 3 סניפים. קואליציית OHCHR.", url: "research/nif_education_dashboard.html", color: "#263238"},
                 {name: "ACRI", desc: "תקציב 10.9M ₪. הקרן החדשה $1M/שנה. תוכניות חינוך לזכויות אדם בבתי ספר.", url: "research/acri_dashboard.html", color: "#37474f"},
                 {name: "המעורר", desc: "ד\"ר ניר מיכאלי. SPEL: למידה פוליטית-רגשית-חברתית. מכללת דוד ילין.", url: "research/hameorer_dashboard.html", color: "#5d4037"},
                 {name: "הרטמן", desc: "מימון אמריקאי. פלורליזם דתי. 'בשבילנו' + 'בארי'.", url: "research/hartman_dashboard.html", color: "#0d47a1"},

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שושלת פריירה בישראל -- ממאו לכיתה</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Cards & Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-4 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+/* ── Quote box ── */
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+    font-size: 0.92em; color: #333; line-height: 1.8;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+/* ── Badge ── */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.green { background: #e8fde8; color: #27ae60; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.gray { background: #f0f0f0; color: #666; }
+
+/* ── Pipeline step ── */
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+/* ── Person card ── */
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+/* ── Link card ── */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Onion Layers ── */
+.onion-wrapper {
+    display: flex; flex-direction: column; align-items: center; gap: 0; margin: 30px 0;
+}
+.onion-layer {
+    text-align: center; padding: 14px 20px; font-weight: 700;
+    border-radius: 8px; transition: transform 0.2s;
+    width: 100%; max-width: 700px;
+    position: relative;
+}
+.onion-layer:hover { transform: scale(1.02); }
+.onion-layer .layer-num {
+    font-size: 0.72em; font-weight: 800; opacity: 0.6;
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+}
+.onion-layer .layer-label { font-size: 1em; }
+.onion-layer .layer-sub { font-size: 0.78em; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+.onion-layer-1 { background: #8b0000; color: #fff; }
+.onion-layer-2 { background: #cc3333; color: #fff; }
+.onion-layer-3 { background: #e67e22; color: #fff; }
+.onion-layer-4 { background: #f5a623; color: #1a1a2e; }
+.onion-layer-5 { background: #fdd835; color: #1a1a2e; }
+.onion-connector {
+    width: 3px; height: 16px; background: #999; margin: 0 auto;
+}
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:hover { background: #f8f9fa; }
+tr:nth-child(even) { background: #fafbfc; }
+tr:nth-child(even):hover { background: #f0f2f5; }
+
+/* ── Provenance marker ── */
+.provenance {
+    display: inline-block; background: #2a2a3e; color: #ff8800;
+    font-size: 0.7em; padding: 2px 8px; border-radius: 3px;
+    font-weight: 600; font-family: monospace; letter-spacing: 0.03em;
+}
+
+/* ── Smoking gun highlight ── */
+.smoking-gun {
+    background: linear-gradient(135deg, #fff5f0 0%, #fff0e6 100%);
+    border: 2px solid #ff8800; border-radius: 10px;
+    padding: 20px 24px; margin: 20px 0;
+}
+.smoking-gun h3 { color: #ff8800; margin-bottom: 10px; font-size: 1.1em; }
+
+/* ── Source tag ── */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* ── Footer ── */
+footer {
+    text-align: center; padding: 20px; font-size: 0.8em; color: #888;
+    border-top: 1px solid #ddd; margin-top: 40px;
+}
+footer a { color: #888; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        שושלת פריירה בישראל
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('lineage')">השושלת</button>
+        <button class="nav-tab" onclick="showTab('quotes')">ציטוטים</button>
+        <button class="nav-tab" onclick="showTab('israel')">יישום בישראל</button>
+        <button class="nav-tab" onclick="showTab('evidence')">ראיות</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>שושלת פריירה -- ממאו לכיתה הישראלית</h1>
+    <div class="subtitle">מיפוי השושלת הפדגוגית: כיצד שיטת אינדוקטרינציה מאואיסטית הגיעה למערכת החינוך בישראל תחת שמות ניטרליים</div>
+    <div class="meta">מקור: סריקת 431 מיילים | חשבון aos.shalem@gmail.com | 7 מיילים רלוונטיים | פברואר 2026</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">5</div><div class="lbl">שכבות שמות</div></div>
+        <div class="stat"><div class="num">30+</div><div class="lbl">שנות חדירה</div></div>
+        <div class="stat"><div class="num">234.6M</div><div class="lbl">שקלים/שנה (דרור)</div></div>
+        <div class="stat"><div class="num">7</div><div class="lbl">מוסדות ממופים</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 1: השושלת                          -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-lineage" class="view active">
+
+<div class="section">
+    <h2>שרשרת ההשפעה: ממארקס לכיתה</h2>
+    <p>השושלת הפדגוגית עוברת בצינור ברור מזוהה: מתיאוריה מרקסיסטית, דרך יישום מאואיסטי, דרך הקמת שיטה חינוכית על ידי פריירה, ייבוא לצפון אמריקה על ידי ג'ירו, העברה לאקדמיה הישראלית -- ומשם אל הכיתה.</p>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</p>
+</div>
+
+<div class="section">
+    <h2>הצינור: מתיאוריה לכיתה</h2>
+
+    <div class="pipeline-step" style="border-right-color: #8b0000;">
+        <div class="step-num" style="color: #8b0000;">1</div>
+        <div class="step-content">
+            <div class="step-title">קארל מארקס -- התיאוריה <span class="badge red">יסוד</span></div>
+            <div class="step-desc">המסגרת התיאורטית המרקסיסטית: מאבק מעמדות, ביקורת הבנייה העל-מבנית, התודעה הכוזבת</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #cc0000;">
+        <div class="step-num" style="color: #cc0000;">2</div>
+        <div class="step-content">
+            <div class="step-title">מאו דזה-דונג -- היישום <span class="badge red">אינדוקטרינציה</span></div>
+            <div class="step-desc">פיתח טכניקות אינדוקטרינציה המונית. קמפיין נגד "ארבעת הדברים הישנים": תרבות ישנה, רעיונות ישנים, הרגלים ישנים, מנהגים ישנים. "המשמר האדום" -- יצירת דור טעון באנטגוניזם כלפי הסטטוס קוו</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #e67e22;">
+        <div class="step-num" style="color: #e67e22;">3</div>
+        <div class="step-content">
+            <div class="step-title">פאולו פריירה -- ההתאמה לחינוך <span class="badge orange">ברזיל</span></div>
+            <div class="step-desc">ניאו-מרקסיסט ברזילאי אשר ינק מפורשות ממאו דזה-דונג. פיתח שיטה חינוכית המבוססת על הטכניקות של מאו. ספר מרכזי: <em>Pedagogy of the Oppressed</em> (1970)</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #667eea;">
+        <div class="step-num" style="color: #667eea;">4</div>
+        <div class="step-content">
+            <div class="step-title">הנרי ג'ירו -- הייבוא לצפון אמריקה <span class="badge blue">קנדה</span></div>
+            <div class="step-desc">ייבא את שיטת פריירה לצפון אמריקה. מיתג יחד עם פריירה את "הפדגוגיה הרדיקלית" בשם "פדגוגיה ביקורתית" -- שם שיווקי שמאפשר למורים להזדהות</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #27ae60;">
+        <div class="step-num" style="color: #27ae60;">5</div>
+        <div class="step-content">
+            <div class="step-title">אקדמיה ישראלית -- חדירה של 30+ שנה <span class="badge orange">סמינר הקיבוצים</span></div>
+            <div class="step-desc">תפיסות אלה חודרות לישראל בתהליך האורך כבר מעל שלושים שנה וכולל אקדמאים מישראל שטסים להרצאותיו של ג'ירו עצמו בקנדה. מרכז לפדגוגיה ביקורתית בסמינר הקיבוצים, קתדרת אונסק"ו</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #2ecc71;">
+        <div class="step-num" style="color: #2ecc71;">6</div>
+        <div class="step-content">
+            <div class="step-title">הכיתה הישראלית -- "מורים אקטיביסטיים" <span class="badge red">יעד סופי</span></div>
+            <div class="step-desc">מורים אקטיביסטיים פועלים כסוכני שינוי פוליטי בכיתה. מחקר REACT מקדם מודל חמש רמות לשילוב הוראה אקטיביסטית בכל מקצועות הלימוד</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>"שכבות הבצל" -- שרשרת השמות של אותה שיטה</h2>
+    <p>אותה פדגוגיה מופיעה תחת שמות שונים בהתאם לקהל היעד. ככל שהשם ניטרלי יותר -- הוא רחוק יותר מהמקור, אך המתודה זהה.</p>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</p>
+
+    <div class="onion-wrapper">
+        <div class="onion-layer onion-layer-1">
+            <span class="layer-num">1</span>
+            <div class="layer-label">פדגוגיה מאואיסטית</div>
+            <div class="layer-sub">השם המדויק ביותר -- מקור: מאו דזה-דונג</div>
+        </div>
+        <div class="onion-connector"></div>
+        <div class="onion-layer onion-layer-2">
+            <span class="layer-num">2</span>
+            <div class="layer-label">פדגוגיה רדיקלית</div>
+            <div class="layer-sub">המכונה על ידי פריירה וג'ירו</div>
+        </div>
+        <div class="onion-connector"></div>
+        <div class="onion-layer onion-layer-3">
+            <span class="layer-num">3</span>
+            <div class="layer-label">פדגוגיה ביקורתית</div>
+            <div class="layer-sub">משווקת לקהל המורים -- שם שיווקי</div>
+        </div>
+        <div class="onion-connector"></div>
+        <div class="onion-layer onion-layer-4">
+            <span class="layer-num">4</span>
+            <div class="layer-label">פדגוגיה אקטיביסטית</div>
+            <div class="layer-sub">מיתוג מחדש על ידי חוקרים ישראליים (כגון קטקו-איילי)</div>
+        </div>
+        <div class="onion-connector"></div>
+        <div class="onion-layer onion-layer-5">
+            <span class="layer-num">5</span>
+            <div class="layer-label">חשיבה ביקורתית</div>
+            <div class="layer-sub">הגרסה המעומעמת ביותר -- סוס טרויאני</div>
+        </div>
+    </div>
+</div>
+
+<div class="smoking-gun">
+    <h3>ניסוח כמשנה מפרקי אבות</h3>
+    <div class="quote-box" style="background: #fff5f0; border-right-color: #ff8800;">
+        "מאן קיבל תורתן ממרקס ומסרוה לפאולו פריירה ופריירה לג'ירו וג'רו העבירוה למכללות מורים. הם אמרו שלושה דברים: חזקו אנטגוניזם, הפיצו חתרנות והעמידו סוכני שינוי הרבה."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026 | נושא: Fwd: קרן קטקו איילי</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מושגים ניטרליים שמשמשים ככסות</h2>
+    <p>רשימה חלקית של מושגים ניטרליים או חיוביים המשמשים בפועל כשמות נרדפים לחתרנות פרוגרסיבית מבוססת פריירה:</p>
+
+    <div class="grid-3">
+        <div class="metric"><div class="value" style="font-size:0.9em;">activist teaching</div><div class="note">הוראה אקטיביסטית</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">active citizenship</div><div class="note">אזרחות פעילה</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">social change agents</div><div class="note">סוכני שינוי חברתי</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">contemporary pedagogy</div><div class="note">פדגוגיה עכשווית</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">human rights education</div><div class="note">חינוך לזכויות אדם</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">civic education</div><div class="note">חינוך אזרחי</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">global education</div><div class="note">חינוך גלובלי</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">experiential learning</div><div class="note">למידה חוויתית</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">democratic social justice</div><div class="note">צדק חברתי דמוקרטי</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">socio-political awareness</div><div class="note">מודעות חברתית-פוליטית</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">progressive liberal world view</div><div class="note">השקפה ליברלית פרוגרסיבית</div></div>
+        <div class="metric"><div class="value" style="font-size:0.9em;">education for multiculturalism</div><div class="note">חינוך לרב-תרבותיות</div></div>
+    </div>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026 | נושא: Fwd: קרן קטקו איילי</p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 2: ציטוטים                         -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-quotes" class="view">
+
+<div class="section">
+    <h2>ג'ירו על בחירת השם "פדגוגיה ביקורתית"</h2>
+    <p>ציטוט מפתח בו ג'ירו מודה שהשם "פדגוגיה ביקורתית" הוא מיתוג מחדש של "פדגוגיה רדיקלית" -- מתוך מניע שיווקי.</p>
+    <div class="quote-box">
+        "אני חושב שזה באמת התחיל בשיחות עם פאולו, כי דחינו את העיקרון של 'פדגוגיה רדיקלית'. הנקודה שלו הייתה שככל שהמונח הזה חשוב, היה בו משהו בלעדי מדי, שלא אפשר לרוב המורים להזדהות איתו. חשבנו ש'ביקורתי' יהיה מונח הרבה יותר מזמין."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ג'ירו על עמימות אסטרטגית ושימוש בכוח</h2>
+    <p>ג'ירו מתאר את הטקטיקה: משיכה, פיתוי, שימוש בכוח -- ואז הכוח "נעלם".</p>
+    <div class="quote-box">
+        "תראו, יש לי קצת מזה במחלקה שלי. אנשים שם נוטים להאמין שמוסר פוליטי נחשב כמידה טובה. בעצם זהו רק הנעה מתוך בושה. ואני תוהה איך מרחיבים את השיח הזה? איך מזמינים אנשים, מפתים אתכם, משתמשים בכוח שלכם ומקווים שבסוף הכוח הזה ייעלם. נכון? הוא נעלם. מאיינים אותו. יוצרים את התנאים לכך שהוא יעלם."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קטקו-איילי על מורים אקטיביסטיים כמודל של פריירה</h2>
+    <p>ד"ר קטקו-איילי מגדירה את "המורה האקטיביסטי" כהמשך ישיר של "המורה האינטלקטואלי" של פריירה.</p>
+    <div class="quote-box blue">
+        "Activist teachers are similar to intellectual teachers defined by Freire (2019). They choose to function as people with opinions, positions and presence in class, as human beings with a socio-political identity and dream in practice of world reform."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026 | נושא: Fwd: קרן קטקו איילי</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הפדגוגיה האקטיביסטית כהמשך ישיר של פריירה</h2>
+    <div class="quote-box blue">
+        "הפדגוגיה האקטיביסטית לא נולדה בחלל ריק. היו מי שראו את צמיחתה כהמשך ישיר של הפדגוגיה הביקורתית שהתבססה בשנות ה-60 וה-70 (Freire, 1970/2018)."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>אונסק"ו מקדמת פדגוגיה ביקורתית בישראל</h2>
+    <div class="quote-box">
+        "מאו נתן השראה לפאולו פריירה שיצר את מה שמכונה היום 'פדגוגיה ביקורתית' -- שיטה המקודמת בפועל על ידי אונסק"ו במערכת החינוך של ישראל."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניסוח כמשנה מפרקי אבות</h2>
+    <div class="quote-box" style="background: #fff5f0; border-right-color: #ff8800;">
+        "מאן קיבל תורתן ממרקס ומסרוה לפאולו פריירה ופריירה לג'ירו וג'רו העבירוה למכללות מורים. הם אמרו שלושה דברים: חזקו אנטגוניזם, הפיצו חתרנות והעמידו סוכני שינוי הרבה."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026 | נושא: Fwd: קרן קטקו איילי</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ביקורת נמרוד אלוני על ג'ירו -- "התנערות אסטרטגית"</h2>
+    <p>אלוני ביקר את ג'ירו בפומבי -- אך בפועל ממשיך להתבסס עליו. הביקורת מתוארת כ"התנערות אסטרטגית".</p>
+    <div class="quote-box">
+        "הנרי ג'ירו הוא אכן מניפולטור פרוגרסיבי ופוסטמודרני שאין לו גרם של רספקט לביסוס רציונלי של אמת וצדק. היו אלה ימי 1992, ואני בשבתון במונטריאול, וג'ירו נושא באוניברסיטה נאום נלהב עם אג'נדה של פדגוגיה ביקורתית. היה לי קשה עם חלק מהקביעות שלו, ונעמדתי ושאלתי, מדוע אדם רציונלי צריך להעדיף את עמדותיו על פני עמדות מנוקדות או אחרות, שהרי לא נתן להן סימוכין בהנמקות לוגיות ובראיות עובדתיות. והוא ענה לי ביוהרה זחוחה שאין לו מחויבות לרציונליות."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו | תפוצת מייל חוקרי חינוך</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ביקורת: "חשיבה ביקורתית" כסוס טרויאני</h2>
+    <div class="quote-box">
+        "זוהי פדגוגיה רדיקלית אנטי-רציונלית, אך ג'ירו ופאולו פריירה יודעים שאם הם היו קוראים לה כך -- רוב המורים לא היו מזדהים איתה. לכן המונח 'חשיבה ביקורתית' מרוקן ומשמש כסוס טרויאני."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ביקורת: חינוך מסורתי כ"מניפולציה"</h2>
+    <div class="quote-box blue">
+        "בתי הספר, כך נטען, מפיצים מסורות שמרניות תוך שימוש במניפולציות של לחץ ואיומים (כגון ציונים ומבחנים) כדי לכפות על תלמידים ללמוד תכנים חסרי רלוונטיות."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+    <p>הגישה מגדירה ציונים ומבחנים כ"מניפולציות ואיומים". "תרבות ביצוע" מוגדרת כמכשול לפדגוגיה אקטיביסטית.</p>
+</div>
+
+<div class="section">
+    <h2>ביקורת: מורים חתרנים פעלו בסתר</h2>
+    <div class="quote-box blue">
+        "Sometimes activist teachers were forced to resign or hide to realize their world views, which did not sit well with educational policy. Many spoke about courage and risk and the need to establish support organizations for activist teachers, which were indeed established locally."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026 | נושא: Fwd: קרן קטקו איילי</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 3: יישום בישראל                    -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-israel" class="view">
+
+<div class="section">
+    <h2>חדירה למערכת החינוך בישראל</h2>
+    <div class="quote-box blue">
+        "תפיסות אלה חודרות לישראל בתהליך האורך כבר מעל שלושים שנה וכולל אקדמאים מישראל שטסים להרצאותיו של ג'ירו עצמו בקנדה."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</div>
+    </div>
+</div>
+
+<div class="grid-3">
+    <div class="metric alert">
+        <div class="label">אקוסיסטם דרור ישראל</div>
+        <div class="value">234.6M</div>
+        <div class="note">שקלים/שנה -- הרשת הגדולה ביותר</div>
+    </div>
+    <div class="metric alert">
+        <div class="label">מימון ממשלתי מצטבר</div>
+        <div class="value">148M</div>
+        <div class="note">שקלים -- יסודות דרור בלבד</div>
+    </div>
+    <div class="metric">
+        <div class="label">קורסי REACT</div>
+        <div class="value">400</div>
+        <div class="note">ב-2019 (גידול מטאורי מ-1992)</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>דמויות מפתח</h2>
+
+    <div class="grid-2">
+        <div class="person-card">
+            <div class="name">פאולו פריירה (Paulo Freire) <span class="badge red">מרקסיסט</span></div>
+            <div class="role">מייסד הפדגוגיה הביקורתית | ברזיל</div>
+            <div class="bio">
+                מרקסיסט ברזילאי שהעריץ את שיטות האינדוקטרינציה של מאו דזה-דונג. פיתח שיטה חינוכית המבוססת על הטכניקות של מאו. מוגדר כ"ניאו-מרקסיסט ברזילאי אשר ינק מפורשות ממאו דזה-דונג". ספר מרכזי: <em>Pedagogy of the Oppressed</em> (1970).
+            </div>
+            <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</div>
+        </div>
+        <div class="person-card">
+            <div class="name">הנרי ג'ירו (Henry Giroux) <span class="badge orange">מפיץ</span></div>
+            <div class="role">ייבואן הפדגוגיה לצפון אמריקה | קנדה</div>
+            <div class="bio">
+                ייבא את שיטת פריירה לצפון אמריקה. מיתג יחד עם פריירה את "הפדגוגיה הרדיקלית" בשם "פדגוגיה ביקורתית". חי וממשיך לפעול (נכון ל-2026). אקדמאים ישראליים טסים להרצאותיו בקנדה.
+            </div>
+            <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="person-card">
+            <div class="name">פרופ' נמרוד אלוני <span class="badge blue">אקדמיה ישראלית</span></div>
+            <div class="role">יו"ר קתדרת אונסק"ו | סמינר הקיבוצים</div>
+            <div class="bio">
+                פועל בצמוד ל"מרכז לפדגוגיה ביקורתית" בסמינר הקיבוצים. מתבסס על ג'ירו למרות שביקר אותו בפומבי. ביקורת זו מתוארת כ"התנערות אסטרטגית" -- בפועל אלוני מתבסס על ג'ירו ומקדם את הפדגוגיה האקטיביסטית שלו.
+                <br><br>מאמר: "Ecohumanism, democratic culture and activist pedagogy: Attending to what the known demands of us"
+            </div>
+            <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</div>
+        </div>
+        <div class="person-card">
+            <div class="name">ד"ר קטקו-איילי (Katko-Eili) <span class="badge orange">חוקרת</span></div>
+            <div class="role">מחקר REACT | פדגוגיה אקטיביסטית</div>
+            <div class="bio">
+                המאמר שלה משמש כ"אבן רוזטה של החתרנות הפרוגרסיבית". מקדמת מחקר REACT על פדגוגיה אקטיביסטית. מגדירה מודל חמש רמות לשילוב הוראה אקטיביסטית בכל מקצוע. מבוססת במפורש על פריירה (Freire, 2019). מתבססת גם על גליה זלמנסון-לוי.
+            </div>
+            <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026</div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="person-card">
+            <div class="name">גליה זלמנסון-לוי (Zalmanson-Levi) <span class="badge gray">רקע</span></div>
+            <div class="role">הכשרה אקטיביסטית של מורים</div>
+            <div class="bio">
+                קטקו-איילי מתבססת עליה. קשורה להכשרה אקטיביסטית של מורים.
+            </div>
+            <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026</div>
+        </div>
+        <div class="person-card">
+            <div class="name">מייסדי בית ספר קדמה <span class="badge blue">ירושלים</span></div>
+            <div class="role">סבירסקי (מרכז אדוה) | שטרית (הקשת המזרחית) | דהאן-כלב (פמיניזם)</div>
+            <div class="bio">
+                יישמו את פדגוגיה ביקורתית של פריירה בבית ספר תיכון בקטמונים, ירושלים. בית הספר נוסד ב-1994. מתוך 15 סניפים שתוכננו, רק ירושלים שרד.
+            </div>
+            <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מוסדות מיישמים</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>מוסד</th>
+                <th>אופן יישום</th>
+                <th>מימון ממשלתי</th>
+                <th>דירוג סיכון</th>
+                <th>מקור</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>סמינר הקיבוצים -- קתדרת אונסק"ו</strong></td>
+                <td>מרכז לפדגוגיה ביקורתית בראשות נמרוד אלוני; ממומן ישירות על ידי אונסק"ו</td>
+                <td>לא צוין</td>
+                <td><span class="badge orange">בינוני-גבוה</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>דרור ישראל / יסודות דרור</strong></td>
+                <td>מסגרת פדגוגית מבוססת במפורש על הפדגוגיה הביקורתית של פריירה</td>
+                <td>148M שקלים מצטבר (47% ממשלתי)</td>
+                <td><span class="badge red">גבוה</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>בית ספר קדמה (ירושלים)</strong></td>
+                <td>פדגוגיה ביקורתית של פריירה -- "חינוך הוא מעשה פוליטי"</td>
+                <td>לא צוין</td>
+                <td><span class="badge orange">בינוני</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>מכללות להכשרת מורים</strong></td>
+                <td>חדירה של הפדגוגיה הביקורתית מאמצע שנות השמונים</td>
+                <td>מוסדי</td>
+                <td><span class="badge orange">בינוני</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>מערכת REACT</strong></td>
+                <td>מחקר מקדם "פדגוגיה אקטיביסטית" -- בשר על עצמות הפדגוגיה הביקורתית</td>
+                <td>לא צוין</td>
+                <td><span class="badge orange">בינוני</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>אונסק"ו</strong></td>
+                <td>תמיכה מפורשת במטרות ובשיטות של הפדגוגיה הביקורתית</td>
+                <td>בינלאומי</td>
+                <td><span class="badge blue">בינלאומי</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>OECD (דו"ח 2018)</strong></td>
+                <td>חינוך לאזרחות פעילה, הכשרת מורים אקטיביסטיים</td>
+                <td>בינלאומי</td>
+                <td><span class="badge blue">בינלאומי</span></td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>דרור ישראל / יסודות דרור -- פרופיל</h2>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">הכנסה שנתית (יסודות)</div>
+            <div class="value">34.8M</div>
+            <div class="note">שקלים/שנה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">אקוסיסטם כולל</div>
+            <div class="value">234.6M</div>
+            <div class="note">שקלים/שנה -- הרשת הגדולה ביותר</div>
+        </div>
+        <div class="metric">
+            <div class="label">ניטרליות</div>
+            <div class="value">1/5</div>
+            <div class="note">דירוג סיכון: גבוה</div>
+        </div>
+    </div>
+    <div class="quote-box">
+        "The pedagogical framework is explicitly rooted in Paulo Freire's critical pedagogy, which is not ideologically neutral regardless of how it is marketed."
+        <div class="q-source"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026 | נושא: דירוג ערים -- Batch 2 Organization Deep Dive Synthesis</div>
+    </div>
+    <p class="src">מימון ממשלתי: 47% | מימון מצטבר ליסודות בלבד: 148M שקלים</p>
+</div>
+
+<div class="section">
+    <h2>בית ספר קדמה -- ירושלים</h2>
+    <div class="grid-4">
+        <div class="metric">
+            <div class="label">שנת ייסוד</div>
+            <div class="value">1994</div>
+            <div class="note">עמותה 580320083</div>
+        </div>
+        <div class="metric">
+            <div class="label">הכנסה</div>
+            <div class="value">2.7M</div>
+            <div class="note">שקלים/שנה</div>
+        </div>
+        <div class="metric">
+            <div class="label">תלמידים</div>
+            <div class="value">~136</div>
+            <div class="note">25 מורים</div>
+        </div>
+        <div class="metric">
+            <div class="label">ניטרליות</div>
+            <div class="value">2.5/5</div>
+            <div class="note">דירוג סיכון: בינוני</div>
+        </div>
+    </div>
+    <ul>
+        <li>מייסדים: סבירסקי (מרכז אדוה), שטרית (הקשת המזרחית), דהאן-כלב (פמיניזם)</li>
+        <li><strong>פדגוגיה ביקורתית של פריירה -- "חינוך הוא מעשה פוליטי"</strong></li>
+        <li>שיעור בגרות: 72-85%</li>
+        <li>מתוך 15 סניפים שתוכננו, רק ירושלים שרד</li>
+        <li>פרס חינוך ארצי 2015</li>
+    </ul>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026 | נושא: דירוג ערים -- סיכום תובנות מקיף</p>
+</div>
+
+<div class="section">
+    <h2>מנגנון REACT -- מודל חמש רמות</h2>
+    <p>מחקר ה-REACT מקדם פדגוגיה בשם "פדגוגיה אקטיביסטית" שנועדה לדבריו "להעלות בשר על העצמות" של הפדגוגיה הביקורתית. המודל כולל חמש רמות לשילוב הוראה אקטיביסטית בכל מקצועות הלימוד.</p>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</p>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">גידול מ-1992</div>
+            <div class="value">400</div>
+            <div class="note">קורסים ב-2019</div>
+        </div>
+        <div class="metric">
+            <div class="label">תמיכה בינלאומית</div>
+            <div class="value">OECD</div>
+            <div class="note">דו"ח 2018</div>
+        </div>
+        <div class="metric">
+            <div class="label">בסיס תיאורטי</div>
+            <div class="value">פריירה</div>
+            <div class="note">Freire 1970/2018, 2019</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ביקורת: עמימות אסטרטגית</h2>
+    <ul>
+        <li>המונח "פדגוגיה ביקורתית" הוא שם שיווקי ל"פדגוגיה רדיקלית"</li>
+        <li>המונח "חשיבה ביקורתית" משמש כסוס טרויאני -- אינו חשיבה עצמאית אלא גישה אנטגוניסטית כלפי החברה</li>
+        <li>"עיקרון העמימות האסטרטגית מוטמע במתודה של הפדגוגיה הביקורתית"</li>
+        <li>מושגים כמו "מעורבות אזרחית פעילה" יכולים עקרונית לכלול חיזוק אתוס ציוני -- אך לא בעיני הפדגוג הביקורתי</li>
+    </ul>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | נושא: (ללא נושא) -- מסמך אונסק"ו</p>
+</div>
+
+<div class="section">
+    <h2>ביקורת: הקשר למאו</h2>
+    <ul>
+        <li>פאולו פריירה קיבל השראה במפורש ממאו דזה-דונג -- הן המטרה והן האמצעים</li>
+        <li>הקשר לקמפיין של מאו נגד "ארבעת הדברים הישנים": תרבות ישנה, רעיונות ישנים, הרגלים ישנים ומנהגים ישנים</li>
+        <li>"התוצאה זהה למה שמאו דזה דונג השיג בעת המהפכה התרבותית"</li>
+        <li>מהלך "המשמר האדום": יצירת דור טעון באנטגוניזם כלפי הסטטוס קוו</li>
+    </ul>
+    <p class="src"><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | מסמך אונסק"ו; 18.2.2026 | Fwd: קרן קטקו איילי</p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 4: ראיות                           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-evidence" class="view">
+
+<div class="section">
+    <h2>מסמכים וראיות מתועדים</h2>
+    <p>כל הראיות מבוססות על סריקת 431 מיילים מחשבון aos.shalem@gmail.com. זוהו 7 מיילים רלוונטיים.</p>
+    <p><strong>הערה:</strong> שני מיילים (12.2.2026 ו-27.2.2026) מכילים קישורי Google Drive לקובץ ZIP של צ'אט WhatsApp בשם "צ'אט WhatsApp עם פריירה" -- הקבצים דורשים הרשאת גישה ולא הורדו. התוכן להלן מבוסס על גוף המיילים עצמם.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>סוג ראיה</th>
+                <th>תיאור</th>
+                <th>מקור / קישור</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ציטוט ג'ירו בראיון</strong></td>
+                <td>על בחירת השם "פדגוגיה ביקורתית" במקום "רדיקלית"</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>ציטוט ג'ירו על עמימות אסטרטגית</strong></td>
+                <td>"מפתים אתכם, משתמשים בכוח שלכם ומקווים שבסוף הכוח הזה ייעלם"</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>ציטוט אלוני על ג'ירו</strong></td>
+                <td>"מניפולטור פרוגרסיבי ופוסטמודרני... אין לו מחויבות לרציונליות"</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026 | תפוצת מייל חוקרי חינוך</td>
+            </tr>
+            <tr>
+                <td><strong>ציטוט אלוני -- פדגוגיה כפרקסיס ביקורתי</strong></td>
+                <td>"זו עמדתנו שבראייה ביקורתית זו, כפי שג'ירו מנסח אותה, על מורים ברחבי העולם לעסוק בקריאה למאבק..."</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>מאמר קטקו-איילי</strong></td>
+                <td>"אבן רוזטה של החתרנות הפרוגרסיבית" -- מודל חמש רמות</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 18.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>מאמר אלוני</strong></td>
+                <td>"Ecohumanism, democratic culture and activist pedagogy: Attending to what the known demands of us"</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 17.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>Freire (1970/2018)</strong></td>
+                <td>Pedagogy of the Oppressed</td>
+                <td>מצוטט במאמר קטקו-איילי</td>
+            </tr>
+            <tr>
+                <td><strong>Freire (2019)</strong></td>
+                <td>הגדרת "מורים אינטלקטואלים"</td>
+                <td>מצוטט במאמר קטקו-איילי</td>
+            </tr>
+            <tr>
+                <td><strong>דו"ח OECD 2018</strong></td>
+                <td>חינוך לאזרחות פעילה ומיומנויות 2030</td>
+                <td>מצוטט במאמר קטקו-איילי</td>
+            </tr>
+            <tr>
+                <td><strong>נתוני גיידסטאר -- יסודות דרור</strong></td>
+                <td>רישום 580295533, הכנסה 34.8M, 47% ממשלתי</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>נתוני גיידסטאר -- קדמה</strong></td>
+                <td>רישום 580320083, הכנסה 2.7M</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 16.2.2026</td>
+            </tr>
+            <tr>
+                <td><strong>צ'אט WhatsApp</strong></td>
+                <td>"צ'אט WhatsApp עם פריירה" -- קובץ ZIP ב-Google Drive</td>
+                <td><span class="provenance">[EMAIL-AOS.SHALEM]</span> 12.2.2026, 27.2.2026</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>קישורים ל-Google Drive (דורשים הרשאה)</h2>
+    <div class="link-card" style="cursor:default;">
+        <div>
+            <div class="lc-title">צ'אט WhatsApp עם פריירה (12.2.2026)</div>
+            <div class="lc-desc">https://drive.google.com/file/d/18FiO4Y5_oEp0qx6bSSfsyJZ9Lc7p2N8x/view?usp=drivesdk</div>
+        </div>
+    </div>
+    <div class="link-card" style="cursor:default;">
+        <div>
+            <div class="lc-title">צ'אט WhatsApp עם פריירה (27.2.2026)</div>
+            <div class="lc-desc">https://drive.google.com/file/d/12u5sHhWataaG-xKnqmtf88i1ygS1q7NK/view?usp=drivesdk</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>רשימת מיילים שנסרקו</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>תאריך</th>
+                <th>שולח</th>
+                <th>נושא</th>
+                <th>אורך גוף</th>
+                <th>תוכן רלוונטי</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>27.2.2026</td>
+                <td>shalem1492@gmail.com</td>
+                <td>צ'אט WhatsApp עם פריירה</td>
+                <td>275</td>
+                <td>קישור Google Drive לצ'אט WhatsApp</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>18.2.2026</td>
+                <td>aos.shalem@gmail.com</td>
+                <td>Fwd: קרן קטקו איילי</td>
+                <td>14,322</td>
+                <td>ניתוח מאמר קטקו-איילי, מושגים ככסות, ציטוטי פריירה</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>17.2.2026</td>
+                <td>aos.shalem@gmail.com</td>
+                <td>Unesco</td>
+                <td>80,378</td>
+                <td>העברה של מסמך אונסק"ו</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>17.2.2026</td>
+                <td>shalem1492@gmail.com</td>
+                <td>(ללא נושא)</td>
+                <td>144,409</td>
+                <td>מסמך אונסק"ו מלא -- ניתוח פדגוגיה ביקורתית, ג'ירו, אלוני</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>16.2.2026</td>
+                <td>aos.shalem@gmail.com</td>
+                <td>דירוג ערים -- סיכום תובנות</td>
+                <td>4,897</td>
+                <td>ממצאים על קדמה (פריירה)</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>16.2.2026</td>
+                <td>aos.shalem@gmail.com</td>
+                <td>דירוג ערים -- Batch 2</td>
+                <td>6,261</td>
+                <td>ממצאים על יסודות דרור (פריירה)</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>12.2.2026</td>
+                <td>shalem1492@gmail.com</td>
+                <td>צ'אט WhatsApp עם פריירה</td>
+                <td>190</td>
+                <td>קישור Google Drive לצ'אט WhatsApp (גרסה קודמת)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>אתרים רלוונטיים</h2>
+    <a class="link-card" href="https://aosshalem-dev.github.io/derug-arim-site/" target="_blank">
+        <div>
+            <div class="lc-title">דירוג ערים</div>
+            <div class="lc-desc">https://aosshalem-dev.github.io/derug-arim-site/</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://aosshalem-dev.github.io/derug-arim-site/research/" target="_blank">
+        <div>
+            <div class="lc-title">מחקרים</div>
+            <div class="lc-desc">https://aosshalem-dev.github.io/derug-arim-site/research/</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://aosshalem-dev.github.io/educational-programs/" target="_blank">
+        <div>
+            <div class="lc-title">תוכניות חינוך</div>
+            <div class="lc-desc">https://aosshalem-dev.github.io/educational-programs/</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 5: קישורים                         -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים קשורים בפרויקט</h2>
+    <p>הדפים הבאים מספקים הקשר נוסף לממצאים בדף זה:</p>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית</div>
+            <div class="lc-desc">critical_pedagogy_center.html -- מיפוי המרכז לפדגוגיה ביקורתית בסמינר הקיבוצים</div>
+        </div>
+    </a>
+    <a class="link-card" href="philosophical_frameworks_map.html">
+        <div>
+            <div class="lc-title">מפת המסגרות הפילוסופיות</div>
+            <div class="lc-desc">philosophical_frameworks_map.html -- מיפוי התשתית התיאורטית: מארקס, גראמשי, מרקוזה, פריירה, ג'ירו</div>
+        </div>
+    </a>
+    <a class="link-card" href="semantic_shifting_glossary.html">
+        <div>
+            <div class="lc-title">מילון ההמרה הסמנטית</div>
+            <div class="lc-desc">semantic_shifting_glossary.html -- כיצד שפה רדיקלית הופכת למונחים חינוכיים ניטרליים</div>
+        </div>
+    </a>
+    <a class="link-card" href="teacher_training_capture.html">
+        <div>
+            <div class="lc-title">כיבוש הכשרת המורים</div>
+            <div class="lc-desc">teacher_training_capture.html -- כיצד הפדגוגיה הביקורתית חדרה למכללות להכשרת מורים</div>
+        </div>
+    </a>
+    <a class="link-card" href="ken_bebeit_safrenu.html">
+        <div>
+            <div class="lc-title">"כן בבית ספרנו" -- חינוך פוליטי</div>
+            <div class="lc-desc">ken_bebeit_safrenu.html -- מאמרים על חינוך פוליטי (מיכאלי, 2014)</div>
+        </div>
+    </a>
+    <a class="link-card" href="radicals_dashboard.html">
+        <div>
+            <div class="lc-title">מפת הרדיקלים בחינוך</div>
+            <div class="lc-desc">radicals_dashboard.html -- מי מכיר את מרקוזה? בידול בין שמאל מיינסטרים לאידיאולוגים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מחקרים נוספים על מוסדות ספציפיים</h2>
+
+    <a class="link-card" href="deep_Yesodot_Dror.html">
+        <div>
+            <div class="lc-title">יסודות דרור -- מחקר עומק</div>
+            <div class="lc-desc">deep_Yesodot_Dror.html -- פדגוגיה ביקורתית של פריירה, 234.6M שקלים/שנה</div>
+        </div>
+    </a>
+    <a class="link-card" href="deep_Kadma.html">
+        <div>
+            <div class="lc-title">בית ספר קדמה -- מחקר עומק</div>
+            <div class="lc-desc">deep_Kadma.html -- "חינוך הוא מעשה פוליטי", ירושלים</div>
+        </div>
+    </a>
+    <a class="link-card" href="dror_israel_dashboard.html">
+        <div>
+            <div class="lc-title">דשבורד דרור ישראל</div>
+            <div class="lc-desc">dror_israel_dashboard.html -- מיפוי רשת דרור ישראל</div>
+        </div>
+    </a>
+    <a class="link-card" href="kibbutzim_pedagogy_dashboard.html">
+        <div>
+            <div class="lc-title">דשבורד פדגוגיה -- סמינר הקיבוצים</div>
+            <div class="lc-desc">kibbutzim_pedagogy_dashboard.html -- מיפוי הפדגוגיה בסמינר הקיבוצים</div>
+        </div>
+    </a>
+    <a class="link-card" href="kedma_dashboard.html">
+        <div>
+            <div class="lc-title">דשבורד קדמה</div>
+            <div class="lc-desc">kedma_dashboard.html -- ניתוח בית ספר קדמה</div>
+        </div>
+    </a>
+    <a class="link-card" href="unesco_dashboard.html">
+        <div>
+            <div class="lc-title">דשבורד אונסק"ו</div>
+            <div class="lc-desc">unesco_dashboard.html -- מיפוי פעילות אונסק"ו בחינוך הישראלי</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<footer>
+    <span class="provenance">[EMAIL-AOS.SHALEM]</span> | מקור: סריקת 431 מיילים, 7 רלוונטיים | חשבון aos.shalem@gmail.com | פברואר 2026
+    <br>
+    <a href="../index.html">חזרה לדירוג ערים</a>
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

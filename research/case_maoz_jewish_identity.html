@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אבי מאוז ורשות הזהות היהודית -- דצמבר 2022 עד מאי 2023</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.metric.giant { padding: 28px 16px; }
+.metric.giant .value { font-size: 2.8em; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.red { background: #fff0f0; border-right-color: #c0392b; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.timeline-item {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #e74c3c; margin: 10px 0;
+    display: flex; align-items: flex-start; gap: 12px;
+}
+.timeline-item .t-date {
+    font-weight: 800; color: #e74c3c; min-width: 110px; font-size: 0.88em;
+}
+.timeline-item .t-content { flex: 1; }
+.timeline-item .t-title { font-weight: 700; color: #1a1a2e; }
+.timeline-item .t-desc { font-size: 0.85em; color: #555; }
+.timeline-item.blue { border-right-color: #667eea; }
+.timeline-item.blue .t-date { color: #667eea; }
+.timeline-item.orange { border-right-color: #ff8800; }
+.timeline-item.orange .t-date { color: #ff8800; }
+
+.provenance {
+    display: inline-block; font-size: 0.68em; background: #e8edf8;
+    color: #2a5a8a; padding: 1px 6px; border-radius: 3px; font-weight: 600;
+    margin-right: 4px; vertical-align: middle;
+}
+
+ul.info-list { list-style: none; padding: 0; margin: 10px 0; }
+ul.info-list li {
+    padding: 8px 14px; margin-bottom: 6px;
+    background: #f8f9fa; border-radius: 6px;
+    border-right: 3px solid #667eea;
+    font-size: 0.92em;
+}
+ul.info-list li strong { color: #1a1a2e; }
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        רשות הזהות היהודית
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('coalition')">הסכם הקואליציה</button>
+        <button class="nav-tab" onclick="showTab('actions')">פעולות הרשות</button>
+        <button class="nav-tab" onclick="showTab('bills')">הצעות חוק</button>
+        <button class="nav-tab" onclick="showTab('opposition')">התנגדות ופירוק</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים ומקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>אבי מאוז ורשות הזהות היהודית</h1>
+    <div class="subtitle">הרשות שהוקמה בהסכם הקואליציה של הממשלה ה-37 ופורקה תוך 5 חודשים</div>
+    <div class="meta">דצמבר 2022 -- מאי 2023 | מקרה בוחן: שליטה פוליטית במערכת החינוך</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">285M</div><div class="lbl">ש"ח -- תקציב שהוקצה</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">חודשי פעילות</div></div>
+        <div class="stat"><div class="num">1</div><div class="lbl">מנדט כנסת (נועם)</div></div>
+        <div class="stat"><div class="num">14+</div><div class="lbl">ארגונים שנפגעו</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 1: COALITION AGREEMENT              -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-coalition" class="view active">
+
+<div class="section">
+    <h2>הסכם הקואליציה -- נועם-ליכוד <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>במסגרת הסכמי הקואליציה של הממשלה ה-37 (דצמבר 2022), הוסכם על הקמת "רשות הזהות היהודית" (Jewish National Identity Authority) תחת אחריותו של ח"כ אבי מאוז, ראש מפלגת נועם, שישב בכנסת עם מנדט יחיד. ההסכם העניק למאוז סמכויות רחבות על תוכניות חינוך ערכי במערכת החינוך הממלכתית.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">תקציב שהוקצה</div>
+            <div class="value">285M ש"ח</div>
+            <div class="note">הקצאה רב-שנתית בהסכם הקואליציה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">משך פעילות הרשות</div>
+            <div class="value">~5 חודשים</div>
+            <div class="note">ינואר -- מאי 2023</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מנדטים בכנסת</div>
+            <div class="value">1</div>
+            <div class="note">מפלגת נועם -- אבי מאוז בלבד</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מבנה ההסכם -- מה הובטח למאוז <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-2">
+        <div>
+            <h3>סמכויות שהועברו</h3>
+            <ul class="info-list">
+                <li><strong>פיקוח על תוכניות חיצוניות:</strong> סמכות לאשר או לחסום ארגונים חיצוניים הפועלים בבתי ספר ממלכתיים</li>
+                <li><strong>תוכנית "גפן":</strong> העברת שליטה על תוכנית "גפן" (גורמים חיצוניים פועלים בנושאי ערכים) ממשרד החינוך לרשות החדשה</li>
+                <li><strong>חינוך ערכי:</strong> הגדרת תוכני חינוך ערכי וזהות יהודית עבור מערכת החינוך הממלכתית</li>
+                <li><strong>סגן שר:</strong> מאוז קיבל תואר סגן שר בלשכת ראש הממשלה, עם סמכויות ביצועיות</li>
+                <li><strong>תקצוב:</strong> הקצאה של 285 מיליון ש"ח לפעילות הרשות לאורך תקופת הכהונה</li>
+            </ul>
+        </div>
+        <div>
+            <h3>ההיגיון הפוליטי</h3>
+            <p>נתניהו נזקק לתמיכתו של כל שותף קואליציוני לשם הרכבת ממשלה של 64 מנדטים. מפלגת נועם עם מנדט יחיד קיבלה סמכויות שלא פרופורציונליות לגודלה, בשל היותה חיונית לקיום הרוב. <span class="provenance">[WEB-SEARCH]</span></p>
+
+            <div class="quote-box">
+                "ההסכם עם נועם הוא מחיר שנתניהו היה מוכן לשלם כדי להקים ממשלה. מנדט אחד קיבל שליטה על חינוך הערכים של מיליון ילדים."
+                <div class="q-source">פרשנות פוליטית, הארץ -- ינואר 2023</div>
+            </div>
+
+            <div class="quote-box blue">
+                "מטרת הרשות היא לחזק את הזהות היהודית ואת הערכים המסורתיים במערכת החינוך. זו לא פוליטיקה, זו שליחות."
+                <div class="q-source">אבי מאוז, ראש מפלגת נועם -- דצמבר 2022 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השחקנים המרכזיים <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-2">
+        <div class="person-card">
+            <div class="name">אבי מאוז</div>
+            <div class="role">ח"כ, ראש מפלגת נועם | סגן שר בלשכת רה"מ</div>
+            <div class="bio">יליד 1963. בעל רקע בפעילות חברתית-דתית שמרנית. ייסד את מפלגת נועם ב-2019 על בסיס התנגדות לתנועת הלהט"ב ולחינוך מגדרי. נכנס לכנסת ה-25 עם מנדט יחיד. זכה בסמכויות רחבות על חינוך ערכי בהסכם הקואליציה של דצמבר 2022. עמדותיו כוללות התנגדות למצעדי גאווה, לחינוך מגדרי בבתי ספר, ולנוכחות ארגוני להט"ב במערכת החינוך. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="person-card">
+            <div class="name">בנימין נתניהו</div>
+            <div class="role">ראש הממשלה, ראש הליכוד</div>
+            <div class="bio">חתם על הסכם הקואליציה עם נועם למרות ביקורת ציבורית חריפה. לאחר מכן, בתגובה ללחץ פוליטי ומשפטי גובר, הגביל את סמכויות מאוז בינואר 2023 והסכים לפירוק הרשות במאי 2023. התנהלותו שיקפה את המתח בין הצורך בקואליציה יציבה לבין הביקורת הציבורית. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="grid-2">
+        <div class="person-card">
+            <div class="name">יואב קיש</div>
+            <div class="role">שר החינוך (ליכוד)</div>
+            <div class="bio">שר החינוך בממשלה ה-37. נדרש להתמודד עם מתח מתמיד בינו לבין מאוז על סמכויות בתחום החינוך. קיש ביקש לשמור על סמכויות משרד החינוך ולצמצם את טווח פעילותו של מאוז. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="person-card">
+            <div class="name">גלי בהרב-מיארה</div>
+            <div class="role">היועצת המשפטית לממשלה</div>
+            <div class="bio">התערבה בסוגיות הנוגעות לסמכויות מאוז. הורתה על עצירת חלק מפעולות הרשות בטענה שהן חורגות מהסמכות שהועברה כדין. מעורבותה היתה גורם מרכזי בהגבלת פעילות הרשות. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן -- מההסכם ועד ההקמה</h2>
+    <div class="timeline-item blue">
+        <div class="t-date">1 בנובמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">בחירות לכנסת ה-25</div>
+            <div class="t-desc">מפלגת נועם בראשות אבי מאוז חוצה את אחוז החסימה וזוכה במנדט יחיד. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="timeline-item blue">
+        <div class="t-date">נובמבר-דצמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">משא ומתן קואליציוני</div>
+            <div class="t-desc">מאוז מנהל מו"מ להקמת רשות לזהות יהודית תחת אחריותו, כתנאי להצטרפותו לקואליציה. דורש שליטה על תוכנית "גפן" ועל כניסת ארגונים חיצוניים לבתי ספר. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">28 בדצמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">חתימת הסכם הקואליציה</div>
+            <div class="t-desc">הסכם ליכוד-נועם נחתם. 285 מיליון ש"ח מוקצים להקמת רשות הזהות היהודית. מאוז מתמנה לסגן שר בלשכת ראש הממשלה עם סמכויות על חינוך ערכי. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">29 בדצמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">השבעת הממשלה ה-37</div>
+            <div class="t-desc">ממשלת נתניהו ה-6 מושבעת. מאוז מתחיל לפעול כסגן שר. גל ביקורת ציבורית מתחיל מיד עם פרסום פרטי ההסכם. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="timeline-item orange">
+        <div class="t-date">ינואר 2023</div>
+        <div class="t-content">
+            <div class="t-title">הפעלת הרשות</div>
+            <div class="t-desc">רשות הזהות היהודית מתחילה לפעול. מאוז ממנה צוות ומתחיל לבחון את תוכניות החינוך החיצוניות הקיימות. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 2: ACTIONS OF THE AUTHORITY         -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-actions" class="view">
+
+<div class="section">
+    <h2>מה עשתה הרשות בחמישה חודשי קיומה <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>רשות הזהות היהודית פעלה בתקופה קצרה אך אינטנסיבית, בעיקר בשני מישורים: ניסיון לשנות את מנגנון אישור התוכניות החיצוניות בבתי ספר, והכנת תשתית לתוכני חינוך ערכי חלופיים.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">ארגונים שנבחנו לחסימה</div>
+            <div class="value">14+</div>
+            <div class="note">ארגונים חיצוניים בחינוך</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תוכנית גפן</div>
+            <div class="value">הוקפאה</div>
+            <div class="note">נחסמה זמנית על ידי הרשות</div>
+        </div>
+        <div class="metric">
+            <div class="label">ימי פעילות</div>
+            <div class="value">~150</div>
+            <div class="note">ינואר -- מאי 2023</div>
+        </div>
+        <div class="metric">
+            <div class="label">התערבות יועמ"ש</div>
+            <div class="value">3+</div>
+            <div class="note">הוראות עצירה משפטיות</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תוכנית "גפן" -- המטרה המרכזית <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>תוכנית "גפן" (גורמים חיצוניים פועלים בנושאי ערכים) היא מנגנון של משרד החינוך המאפשר לארגונים חיצוניים להיכנס לבתי ספר ולקיים פעילויות בתחומי ערכים, חברה ומגדר. התוכנית כללה עשרות ארגונים, ביניהם ארגוני להט"ב, ארגוני זכויות אדם, וארגוני דו-קיום.</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>מה ניסה מאוז לשנות</h3>
+            <div class="pipeline-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">העברת סמכות</div>
+                    <div class="step-desc">דרש להעביר את סמכות האישור של ארגונים חיצוניים ממשרד החינוך לרשות הזהות היהודית</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&#8681;</div>
+            <div class="pipeline-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">סינון ארגונים</div>
+                    <div class="step-desc">הכנת "רשימה שחורה" של ארגונים שתוכניהם לא עולים בקנה אחד עם ערכי הרשות -- כולל ארגוני להט"ב, מגדר ופלורליזם</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&#8681;</div>
+            <div class="pipeline-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">החלפת תכנים</div>
+                    <div class="step-desc">פיתוח תוכני חינוך ערכי חלופיים עם דגש על זהות יהודית-מסורתית, במקום תוכני סובלנות ופלורליזם</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&#8681;</div>
+            <div class="pipeline-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">נחסם על ידי היועמ"ש</div>
+                    <div class="step-desc">היועצת המשפטית לממשלה הורתה לעצור את התהליך בטענה שהסמכות לא הועברה כדין</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>ארגונים שנפגעו או היו בסיכון</h3>
+            <table>
+                <tr><th>ארגון</th><th>תחום</th><th>מצב</th></tr>
+                <tr>
+                    <td>חוש"ן (חינוך ושינוי)</td>
+                    <td>סדנאות סובלנות להט"ב</td>
+                    <td><span class="badge red">הוקפא</span></td>
+                </tr>
+                <tr>
+                    <td>איגי -- ארגון נוער להט"ב</td>
+                    <td>פעילויות נוער להט"ב בבתי ספר</td>
+                    <td><span class="badge red">הוקפא</span></td>
+                </tr>
+                <tr>
+                    <td>שער שוויון</td>
+                    <td>שוויון מגדרי</td>
+                    <td><span class="badge orange">בסיכון</span></td>
+                </tr>
+                <tr>
+                    <td>שיח מתמ"ש</td>
+                    <td>חינוך פלורליסטי</td>
+                    <td><span class="badge orange">בסיכון</span></td>
+                </tr>
+                <tr>
+                    <td>מכון הרטמן</td>
+                    <td>חינוך יהודי פלורליסטי</td>
+                    <td><span class="badge orange">בסיכון</span></td>
+                </tr>
+                <tr>
+                    <td>אדם טבע ודין</td>
+                    <td>חינוך סביבתי-חברתי</td>
+                    <td><span class="badge blue">נבדק</span></td>
+                </tr>
+                <tr>
+                    <td>גשר</td>
+                    <td>גישור בין-מגזרי</td>
+                    <td><span class="badge blue">נבדק</span></td>
+                </tr>
+                <tr>
+                    <td>מרכז רוסינג</td>
+                    <td>דו-קיום יהודי-ערבי</td>
+                    <td><span class="badge blue">נבדק</span></td>
+                </tr>
+            </table>
+            <p style="font-size: 0.82em; color: #999;"><span class="provenance">[WEB-SEARCH]</span> סטטוס משוער על בסיס דיווחים עיתונאיים. חלק מהארגונים נחסמו בפועל, אחרים היו ברשימת הבדיקה של הרשות.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שינויים בתוכנית גפן <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>תוכנית גפן, שהופעלה על ידי משרד החינוך מאז 2016, אפשרה לארגוני חברה אזרחית להיכנס לבתי ספר ולקיים תוכניות בנושאי ערכים. בתחילת 2023, מאוז דרש להעביר את הסמכות על התוכנית לרשות הזהות היהודית ולבצע "מיון מחדש" של הארגונים.</p>
+
+    <div class="quote-box">
+        "ארגונים שמטרתם לשנות את הזהות של ילדי ישראל לא צריכים להיכנס לבתי ספר. הם מלמדים ערכים שזרים למסורת ישראל."
+        <div class="q-source">אבי מאוז על ארגוני גפן -- פברואר 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="quote-box blue">
+        "ארגוני החינוך הפועלים בגפן עוברים תהליך אישור מקצועי של משרד החינוך. מתן סמכות וטו לגורם פוליטי חיצוני מהווה חריגה מנורמות ניהוליות בסיסיות."
+        <div class="q-source">עמדת היועצת המשפטית לממשלה -- מרץ 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>השפעה על שטח</h3>
+    <ul class="info-list">
+        <li><strong>הקפאת אישורים:</strong> בפועל, בתקופת חוסר הוודאות, בתי ספר רבים נמנעו מלהזמין ארגונים חיצוניים -- גם כאלה שלא נחסמו רשמית</li>
+        <li><strong>אפקט מצנן:</strong> הדיווחים על כוונת מאוז ליצור "רשימה שחורה" גרמו לאפקט מצנן -- ארגונים צמצמו פעילות מרצון מחשש לתגובת הרשות</li>
+        <li><strong>חוסר ודאות:</strong> מנהלי בתי ספר לא ידעו אילו תוכניות מותר להם להפעיל, מה שיצר שיתוק בשטח</li>
+        <li><strong>תוכניות שהושהו:</strong> תוכניות חינוך למגדר, סובלנות ודו-קיום הושהו באופן לא רשמי בעשרות בתי ספר</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>נסיון להחליף תכנים <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>מעבר לחסימת ארגונים, הרשות ניסתה להכין תכנים חלופיים. מאוז דיבר על "תוכנית חינוך לזהות יהודית" שתחליף את תוכניות הפלורליזם והסובלנות.</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>מה היה מתוכנן</h3>
+            <ul class="info-list">
+                <li><strong>תכני זהות יהודית:</strong> מערכי שיעור חדשים על מסורת, חגים וערכים יהודיים -- בגישה שמרנית</li>
+                <li><strong>תכני משפחה:</strong> תוכניות על "משפחה מסורתית" כמודל חינוכי, בניגוד לגישת המגוון המשפחתי</li>
+                <li><strong>הסרת תכנים:</strong> הסרת או צמצום תכנים העוסקים בזהות מגדרית, נטייה מינית ופלורליזם ערכי</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מה הספיק להתממש</h3>
+            <ul class="info-list">
+                <li><strong>מעט מאוד:</strong> רוב התוכניות נשארו בשלב תכנון עקב ההתנגדות המשפטית והפירוק המהיר</li>
+                <li><strong>הקפאה בלבד:</strong> ההישג העיקרי של הרשות היה הקפאת תוכניות קיימות, לא יצירת חלופות</li>
+                <li><strong>נזק עקיף:</strong> הנזק המרכזי נגרם מאי-הוודאות, לא מפעולות קונקרטיות של הרשות</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 3: LEGISLATIVE PROPOSALS            -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-bills" class="view">
+
+<div class="section">
+    <h2>הצעת חוק: איסור חינוך מגדרי מתחת לגיל 14 <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>במרץ 2023, ח"כ אבי מאוז הגיש הצעת חוק שביקשה לאסור על חשיפת תלמידים מתחת לגיל 14 לתכנים הנוגעים ל"זהות מגדרית" ול"נטייה מינית" במסגרת מערכת החינוך. ההצעה כונתה לעיתים "חוק ההגנה על ילדים" על ידי תומכיה.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">גיל הגבלה מוצע</div>
+            <div class="value">מתחת ל-14</div>
+            <div class="note">כיתות א'-ח'</div>
+        </div>
+        <div class="metric">
+            <div class="label">תחומים שנאסרו</div>
+            <div class="value">מגדר + נטייה</div>
+            <div class="note">זהות מגדרית ונטייה מינית</div>
+        </div>
+        <div class="metric">
+            <div class="label">סטטוס</div>
+            <div class="value">לא התקדם</div>
+            <div class="note">לא הגיע להצבעה בעקבות פירוק הרשות</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פרטי ההצעה <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-2">
+        <div>
+            <h3>עיקרי ההצעה</h3>
+            <ul class="info-list">
+                <li><strong>סעיף מרכזי:</strong> איסור על הצגת תכנים בנוגע לזהות מגדרית, שינוי מין, או נטייה מינית בפני תלמידים מתחת לגיל 14</li>
+                <li><strong>תחולה:</strong> כל מוסדות החינוך הממלכתיים -- יסודי וחטיבת ביניים</li>
+                <li><strong>סנקציות מוצעות:</strong> עיצומים על מוסדות חינוך שיפרו את ההנחיה</li>
+                <li><strong>חריגים:</strong> שיעורי ביולוגיה בסיסיים על מערכת הרבייה לא נכללו באיסור</li>
+                <li><strong>יוזם:</strong> ח"כ אבי מאוז (נועם)</li>
+                <li><strong>הוגשה:</strong> מרץ 2023</li>
+            </ul>
+
+            <div class="quote-box">
+                "ילדים צריכים ללמוד מתמטיקה ותנ"ך, לא תיאוריות מגדר. אנחנו מגינים על הילדים שלנו מפני אידיאולוגיה שזרה לתרבות ישראל."
+                <div class="q-source">אבי מאוז, הנמקת הצעת החוק -- מרץ 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div>
+            <h3>השוואה בינלאומית</h3>
+            <p>ההצעה הושוותה על ידי מבקרים לחקיקות דומות בעולם: <span class="provenance">[WEB-SEARCH]</span></p>
+            <table>
+                <tr><th>מדינה / אזור</th><th>חקיקה</th><th>סטטוס</th></tr>
+                <tr>
+                    <td>פלורידה, ארה"ב</td>
+                    <td>Don't Say Gay (HB 1557)</td>
+                    <td><span class="badge red">חוקק 2022</span></td>
+                </tr>
+                <tr>
+                    <td>הונגריה</td>
+                    <td>חוק נגד "תעמולה להט"ב" בבתי ספר</td>
+                    <td><span class="badge red">חוקק 2021</span></td>
+                </tr>
+                <tr>
+                    <td>רוסיה</td>
+                    <td>חוק "תעמולה הומוסקסואלית"</td>
+                    <td><span class="badge red">חוקק 2013, הורחב 2022</span></td>
+                </tr>
+                <tr>
+                    <td>ישראל (הצעת מאוז)</td>
+                    <td>איסור חינוך מגדרי מתחת ל-14</td>
+                    <td><span class="badge blue">לא התקדם</span></td>
+                </tr>
+            </table>
+
+            <div class="quote-box blue">
+                "מדובר בחוק שמנסה לייבא מודלים מהונגריה ומפלורידה לישראל. זו חקיקה שמטרתה למחוק קיום של מיעוטים ממערכת החינוך."
+                <div class="q-source">ארגון הגאווה בישראל -- מרץ 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הצעות חקיקה נוספות של מאוז/נועם <span class="provenance">[WEB-SEARCH]</span></h2>
+    <table>
+        <tr><th>הצעה</th><th>תוכן</th><th>מועד</th><th>סטטוס</th></tr>
+        <tr>
+            <td>איסור חינוך מגדרי מתחת ל-14</td>
+            <td>איסור על תכני זהות מגדרית ונטייה מינית בבתי ספר יסודיים</td>
+            <td>מרץ 2023</td>
+            <td><span class="badge red">לא התקדם</span></td>
+        </tr>
+        <tr>
+            <td>חיזוק זהות יהודית בחינוך</td>
+            <td>חובת שעות חינוך לזהות יהודית בבתי ספר ממלכתיים</td>
+            <td>פברואר 2023</td>
+            <td><span class="badge blue">הוקפא</span></td>
+        </tr>
+        <tr>
+            <td>פיקוח על ארגונים חיצוניים</td>
+            <td>הסדרת מנגנון אישור מחמיר לארגונים הנכנסים לבתי ספר</td>
+            <td>ינואר 2023</td>
+            <td><span class="badge orange">הועבר ליועמ"ש</span></td>
+        </tr>
+        <tr>
+            <td>איסור מצעדי גאווה ליד מוסדות חינוך</td>
+            <td>הרחקת מצעדי גאווה מטווח של 500 מטר ממוסדות חינוך</td>
+            <td>ינואר 2023</td>
+            <td><span class="badge red">לא התקדם</span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>תגובות להצעות החוק</h2>
+    <div class="grid-2">
+        <div>
+            <h3>תומכים <span class="provenance">[WEB-SEARCH]</span></h3>
+            <div class="quote-box">
+                "ההורים הם שצריכים להחליט מתי ואיך לחשוף את ילדיהם לנושאי מגדר ומיניות. בית הספר צריך לכבד את רצון ההורים."
+                <div class="q-source">נציגי "פורום ההורים" -- מרץ 2023</div>
+            </div>
+            <ul class="info-list">
+                <li><strong>ארגוני הורים שמרנים:</strong> תמכו בזכות ההורים להגביל חשיפת ילדיהם לתכנים</li>
+                <li><strong>רבנים ומנהיגים דתיים:</strong> הביעו תמיכה בהגנה על "ערכי המשפחה המסורתית"</li>
+                <li><strong>חברי קואליציה:</strong> חלק מחברי הקואליציה מהמפלגות הדתיות תמכו ברוח ההצעה</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מתנגדים <span class="provenance">[WEB-SEARCH]</span></h3>
+            <div class="quote-box red">
+                "הצעת חוק זו שמה בסכנה ילדים. ילדים להט"ב צריכים לדעת שהם לא לבד, ומערכת החינוך חייבת להיות מקום בטוח עבורם."
+                <div class="q-source">ארגון "בטרם" -- מרץ 2023</div>
+            </div>
+            <ul class="info-list">
+                <li><strong>ארגוני זכויות אדם:</strong> ACRI, האגודה לזכויות האזרח, התנגדו בטענה לפגיעה בזכויות ילדים</li>
+                <li><strong>אגודת הפסיכולוגים:</strong> הזהירו שחוסר מידע מגביר סיכון לנזק נפשי אצל נוער להט"ב</li>
+                <li><strong>האופוזיציה:</strong> יאיר לפיד ובני גנץ גינו את ההצעה כאפלייתית</li>
+                <li><strong>ארגונים בינלאומיים:</strong> ביקורת מ-Human Rights Watch ו-Amnesty International</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 4: OPPOSITION AND DISSOLUTION       -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-opposition" class="view">
+
+<div class="section">
+    <h2>ההתנגדות לרשות הזהות היהודית <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>מרגע פרסום הסכם הקואליציה, הרשות עוררה התנגדות חריפה ממגוון כיוונים -- משפטי, פוליטי, ציבורי ומקצועי. מדובר באחת ההתנגדויות הרחבות ביותר לסעיף קואליציוני בודד בתולדות המדינה.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">עצומות נגד</div>
+            <div class="value">150,000+</div>
+            <div class="note">חתימות בעצומות שונות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הפגנות</div>
+            <div class="value">מרובות</div>
+            <div class="note">מחאות רחוב ינואר-מאי 2023</div>
+        </div>
+        <div class="metric">
+            <div class="label">עתירות לבג"ץ</div>
+            <div class="value">2+</div>
+            <div class="note">נגד הרשות וסמכויותיה</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>חזית ההתנגדות המשפטית <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <h3>היועצת המשפטית לממשלה</h3>
+    <p>גלי בהרב-מיארה, היועצת המשפטית לממשלה, היתה הגורם המשפטי המרכזי שהגביל את פעולות הרשות:</p>
+    <ul class="info-list">
+        <li><strong>ינואר 2023:</strong> הורתה שסמכויות מאוז מוגבלות לתפקיד ייעוצי בלבד ואינו יכול לחסום תוכניות באופן עצמאי</li>
+        <li><strong>פברואר 2023:</strong> הבהירה שהרשות לא יכולה לקבל סמכויות ביצועיות על תוכנית גפן ללא חקיקה מתאימה</li>
+        <li><strong>מרץ 2023:</strong> הורתה על עצירת ניסיון מאוז לחסום ארגונים חיצוניים מבתי ספר, בקביעה שהסמכות נותרת בידי שר החינוך</li>
+    </ul>
+
+    <div class="quote-box blue">
+        "הסכם קואליציוני אינו יכול להעביר סמכויות שמוקנות בחוק לשר החינוך. הרשות יכולה לייעץ, אך לא להחליט בעניינים שנוגעים לתוכני חינוך."
+        <div class="q-source">מתוך חוות דעת היועצת המשפטית -- פברואר 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>עתירות לבג"ץ</h3>
+    <p>מספר עתירות הוגשו לבית המשפט העליון נגד הרשות ונגד סמכויות מאוז:</p>
+    <ul class="info-list">
+        <li><strong>עתירה של ארגוני זכויות אדם:</strong> האגודה לזכויות האזרח (ACRI) ו"תנועת החופש" הגישו עתירה נגד העברת סמכויות חינוך לגורם שאינו שר החינוך</li>
+        <li><strong>עתירה של ארגוני להט"ב:</strong> הגאווה בישראל ואגודת הלהט"ב עתרו נגד "האפליה המובנית" בפעילות הרשות</li>
+        <li><strong>דיון ראשוני:</strong> בג"ץ קיבל את העתירות לדיון, אך הרשות פורקה לפני שניתנה החלטה סופית</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>חזית ההתנגדות הפוליטית <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-2">
+        <div>
+            <h3>גורמים שהתנגדו</h3>
+            <div class="person-card">
+                <div class="name">יאיר לפיד</div>
+                <div class="role">ראש האופוזיציה, יש עתיד</div>
+                <div class="bio">גינה את ההסכם עם מאוז מהרגע הראשון. כינה את הרשות "משטרת מחשבות חינוכית" ודרש את פירוקה. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">בני גנץ</div>
+                <div class="role">ח"כ, המחנה הממלכתי</div>
+                <div class="bio">ביקר את העברת סמכויות החינוך לגורם "קיצוני" עם מנדט יחיד. הציג את הנושא כדוגמה לסחטנות קואליציונית. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">מרב מיכאלי</div>
+                <div class="role">ח"כ, העבודה</div>
+                <div class="bio">התנגדה בחריפות להצעת החוק נגד חינוך מגדרי. טענה שמאוז "מנסה להחזיר את ישראל למאה ה-19 בנושאי מגדר". <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div>
+            <h3>מתנגדים מתוך הקואליציה</h3>
+            <div class="person-card">
+                <div class="name">יואב קיש</div>
+                <div class="role">שר החינוך (ליכוד)</div>
+                <div class="bio">למרות שישב בקואליציה, קיש התנגד להעברת סמכויותיו לרשות של מאוז. הניגוד בין שניהם היה מרכיב מרכזי בפירוק הרשות. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">ח"כים ליברלים בליכוד</div>
+                <div class="role">חברי כנסת מהליכוד</div>
+                <div class="bio">כמה חברי כנסת מהליכוד הביעו אי-נוחות מהסמכויות שניתנו למאוז. חלקם סירבו לתמוך בהצעות החוק שלו בוועדות. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>המחאה הציבורית <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>ההתנגדות לרשות הזהות היהודית הפכה לחלק ממחאה ציבורית רחבה יותר נגד הממשלה ה-37 בראשית 2023, שכללה גם את המחאה נגד הרפורמה המשפטית.</p>
+
+    <ul class="info-list">
+        <li><strong>הפגנות קהילת הלהט"ב:</strong> הפגנות מחאה ספציפיות נגד מאוז ונגד הרשות התקיימו בתל אביב, ירושלים וחיפה</li>
+        <li><strong>אנשי חינוך:</strong> מורים ומנהלי בתי ספר חתמו על מכתבי מחאה נגד התערבות פוליטית בתוכני חינוך</li>
+        <li><strong>אקדמיה:</strong> חוקרי חינוך מאוניברסיטאות ישראליות פרסמו מכתב גלוי נגד "פוליטיזציה של מערכת החינוך"</li>
+        <li><strong>רשויות מקומיות:</strong> ראשי עיריות מרכזיות (תל אביב, חיפה) הצהירו שלא ישתפו פעולה עם הנחיות הרשות</li>
+        <li><strong>ארגונים בינלאומיים:</strong> ADL, AJC וארגוני יהדות אמריקאיים הביעו חשש מהסמכויות שניתנו למאוז</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>ציר זמן -- מהתנגדות לפירוק <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="timeline-item">
+        <div class="t-date">ינואר 2023</div>
+        <div class="t-content">
+            <div class="t-title">תחילת המחאה</div>
+            <div class="t-desc">עם פרסום פרטי ההסכם, גל ביקורת ציבורית ותקשורתית חריף. ארגוני זכויות אדם מפרסמים הצהרות גינוי.</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">ינואר 2023</div>
+        <div class="t-content">
+            <div class="t-title">נתניהו מגביל את מאוז</div>
+            <div class="t-desc">בתגובה ללחץ, נתניהו מודיע שסמכויות מאוז על תוכניות חינוך חיצוניות יהיו מוגבלות ולא יכללו סמכות וטו על תכנים. אך מאוז ממשיך לפעול בשטח.</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">פברואר 2023</div>
+        <div class="t-content">
+            <div class="t-title">היועמ"ש מתערבת</div>
+            <div class="t-desc">היועצת המשפטית לממשלה מפרסמת חוות דעת שמגבילה את סמכויות הרשות, קובעת שמאוז לא יכול לחסום ארגונים.</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">מרץ 2023</div>
+        <div class="t-content">
+            <div class="t-title">הצעת חוק המגדר</div>
+            <div class="t-desc">מאוז מגיש הצעת חוק לאיסור חינוך מגדרי מתחת לגיל 14. ההצעה מעוררת סערה ציבורית נוספת אך לא מתקדמת.</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">אפריל 2023</div>
+        <div class="t-content">
+            <div class="t-title">עתירות לבג"ץ</div>
+            <div class="t-desc">מספר עתירות נגד הרשות וסמכויותיה מוגשות לבית המשפט העליון. הדיון נקבע.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange">
+        <div class="t-date">מאי 2023</div>
+        <div class="t-content">
+            <div class="t-title">משבר קואליציוני</div>
+            <div class="t-desc">נתניהו מחליט לפרק את רשות הזהות היהודית כחלק מהסדר קואליציוני חדש. מאוז מאיים לפרוש מהקואליציה אך בסופו של דבר נשאר.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange">
+        <div class="t-date">סוף מאי 2023</div>
+        <div class="t-content">
+            <div class="t-title">פירוק הרשות</div>
+            <div class="t-desc">רשות הזהות היהודית מפורקת רשמית. סמכויות החינוך חוזרות באופן מלא לשר החינוך. מאוז נשאר כסגן שר אך ללא סמכויות משמעותיות.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>סיבות הפירוק <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-2">
+        <div>
+            <h3>גורמים מרכזיים</h3>
+            <div class="pipeline-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">לחץ משפטי</div>
+                    <div class="step-desc">חוות דעת היועמ"ש ועתירות לבג"ץ יצרו מצב שבו הרשות לא יכלה לפעול באופן חוקי</div>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">לחץ ציבורי</div>
+                    <div class="step-desc">מחאות רחוב, עצומות ושביתות מורים הפכו את הרשות לנטל פוליטי על הקואליציה</div>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">התנגדות פנים-קואליציונית</div>
+                    <div class="step-desc">שר החינוך קיש ושותפי קואליציה אחרים התנגדו לסמכויות מאוז שפגעו בסמכויותיהם</div>
+                </div>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">שיקול פוליטי של נתניהו</div>
+                    <div class="step-desc">נתניהו העדיף לוותר על הרשות מאשר להמשיך להתמודד עם המחיר הפוליטי. ידע שמאוז עם מנדט אחד לא יפיל ממשלה</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>מה קרה אחרי הפירוק</h3>
+            <ul class="info-list">
+                <li><strong>מאוז נשאר:</strong> מאוז לא פרש מהקואליציה. נשאר כסגן שר ללא תיק משמעותי</li>
+                <li><strong>סמכויות חזרו:</strong> כל סמכויות החינוך הערכי חזרו לשר החינוך</li>
+                <li><strong>תוכנית גפן:</strong> תוכנית גפן חודשה, אם כי חלק מהארגונים דיווחו על קשיים להיכנס מחדש לבתי ספר</li>
+                <li><strong>התקציב:</strong> 285 מיליון ש"ח שהוקצו -- רובם לא הוצאו. חלק מהתקציב הוחזר או הוסב למטרות אחרות</li>
+                <li><strong>הצעות חוק:</strong> הצעות החוק של מאוז לא התקדמו לאחר הפירוק</li>
+                <li><strong>נזק נמשך:</strong> למרות הפירוק, חלק מהארגונים דיווחו על קושי לחזור לפעילות סדירה -- "אפקט מצנן" שנמשך</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניתוח -- לקחים מהמקרה</h2>
+    <div class="quote-box blue">
+        מקרה רשות הזהות היהודית מדגים כמה תופעות מרכזיות: (1) כוח לא-פרופורציונלי של שותפי קואליציה קטנים; (2) המגבלות המשפטיות על העברת סמכויות בהסכמים קואליציוניים; (3) יכולת המחאה הציבורית לגרום לשינוי מדיניות; (4) "אפקט מצנן" -- גם פעולה שנמשכה 5 חודשים בלבד יצרה נזק ממושך לארגוני חברה אזרחית.
+        <div class="q-source">ניתוח מחקרי -- פרויקט דירוג ערים</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 5: LINKS AND SOURCES                -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>קישורים פנימיים -- פרויקט דירוג ערים</h2>
+    <a href="case_lgbtq_budget_cut_85.html" class="link-card">
+        <div>
+            <div class="lc-title">קיצוץ 85% בתקציב תוכניות סובלנות להט"ב -- 2024</div>
+            <div class="lc-desc">מקרה בוחן קשור: הקיצוץ הדרמטי בתקציבי סדנאות סובלנות להט"ב של חוש"ן ואיגי</div>
+        </div>
+    </a>
+    <a href="case_gender_spectrum_national.html" class="link-card">
+        <div>
+            <div class="lc-title">תכני "ספקטרום מגדרי" -- בתי ספר יסודיים</div>
+            <div class="lc-desc">מערכי שיעור ארציים בנושא מגדר -- הרקע שעליו פעלה הרשות</div>
+        </div>
+    </a>
+    <a href="key_individuals_municipal.html" class="link-card">
+        <div>
+            <div class="lc-title">שחקנים מרכזיים -- רמה מוניציפלית</div>
+            <div class="lc-desc">מפת דמויות מפתח ברשויות מקומיות וביחסי חינוך-פוליטיקה</div>
+        </div>
+    </a>
+    <a href="deep_Hoshen_Schools.html" class="link-card">
+        <div>
+            <div class="lc-title">חוש"ן -- חינוך ושינוי</div>
+            <div class="lc-desc">ניתוח מעמיק של ארגון חוש"ן שפעילותו הוקפאה על ידי הרשות</div>
+        </div>
+    </a>
+    <a href="deep_Shaar_Shivion.html" class="link-card">
+        <div>
+            <div class="lc-title">שער שוויון</div>
+            <div class="lc-desc">ארגון לשוויון מגדרי שנכלל ברשימת הארגונים שנבדקו על ידי הרשות</div>
+        </div>
+    </a>
+    <a href="deep_Hartman.html" class="link-card">
+        <div>
+            <div class="lc-title">מכון הרטמן</div>
+            <div class="lc-desc">מכון לחינוך יהודי פלורליסטי -- מהארגונים שהיו בסיכון מפעולות הרשות</div>
+        </div>
+    </a>
+    <a href="deep_Gesher.html" class="link-card">
+        <div>
+            <div class="lc-title">גשר</div>
+            <div class="lc-desc">ארגון גישור בין-מגזרי שנבדק על ידי הרשות</div>
+        </div>
+    </a>
+    <a href="deep_ACRI.html" class="link-card">
+        <div>
+            <div class="lc-title">האגודה לזכויות האזרח (ACRI)</div>
+            <div class="lc-desc">ארגון זכויות אדם שעתר נגד הרשות לבג"ץ</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מקורות וסימוני מהימנות</h2>
+    <table>
+        <tr><th>סימון</th><th>פירוש</th><th>דוגמה</th></tr>
+        <tr>
+            <td><span class="provenance">[WEB-SEARCH]</span></td>
+            <td>מידע שמקורו בחיפוש אינטרנטי ודיווחים עיתונאיים</td>
+            <td>הארץ, Times of Israel, Jerusalem Post, Ynet</td>
+        </tr>
+    </table>
+
+    <h3>מקורות עיקריים</h3>
+    <ul class="info-list">
+        <li><strong>הסכם הקואליציה ליכוד-נועם:</strong> מסמך רשמי שפורסם על ידי הכנסת, דצמבר 2022 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>חוות דעת היועצת המשפטית:</strong> חוות דעת גלי בהרב-מיארה בנוגע לסמכויות הרשות, פברואר-מרץ 2023 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>Times of Israel:</strong> דיווחים שוטפים על פעילות הרשות, ההתנגדות והפירוק, ינואר-מאי 2023 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>הארץ:</strong> חקירות על ארגונים שנפגעו וניתוחי סמכויות הרשות <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>Jerusalem Post:</strong> דיווחים על הצעות חוק ותגובות פוליטיות <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>Ynet:</strong> כיסוי ציבורי של המחאות וההפגנות <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>אתר הכנסת:</strong> הצעות חוק, פרוטוקולי ועדות, והצבעות <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>האגודה לזכויות האזרח:</strong> עתירות ומסמכים משפטיים <span class="provenance">[WEB-SEARCH]</span></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>הערת מתודולוגיה</h2>
+    <div class="quote-box blue">
+        מקרה בוחן זה מבוסס על איסוף מקורות פומביים -- דיווחים עיתונאיים, מסמכים רשמיים, ועתירות משפטיות. חלק מהנתונים המדויקים (כגון מספר הארגונים שנחסמו בפועל) קשים לאימות מלא עקב תקופת הפעילות הקצרה של הרשות ואופי פעולותיה שלעיתים לא תועדו רשמית. כל הנתונים מסומנים בהתאם למקורם.
+        <div class="q-source">פרויקט מחקר דירוג ערים -- פברואר 2026</div>
+    </div>
+</div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer>
+    רשות הזהות היהודית -- דצמבר 2022 עד מאי 2023 | מקורות: דיווחים עיתונאיים + מסמכים רשמיים | פרויקט דירוג ערים -- פברואר 2026
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

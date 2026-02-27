@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תקשורת וידאו (נאטור הפקות) — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זיהוי התוכנית</a> <a href="#section-2">נאטור הפקות</a> <a href="#section-3">תוכן פדגוגי</a> <a href="#section-4">דגל אדום: המפעיל</a> <a href="#section-5">מבחן הפער</a> <a href="#section-6">סיכום וסיווג</a></span>
+</nav>
+
+<div class="hero">
+  <h1>תקשורת וידאו</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 1929 | נאטור הפקות</div>
+  <div class="meta">1 פריסה | 11 בתי ספר בעיר אחת | דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זיהוי התוכנית והמפעיל</a></li>
+<li><a href="#section-2">נאטור הפקות — מי עומד מאחורי התוכנית</a></li>
+<li><a href="#section-3">תוכן פדגוגי — מה מלמדים</a></li>
+<li><a href="#section-4">דגל אדום: חשד לתוכן אידיאולוגי סמוי</a></li>
+<li><a href="#section-5">מבחן הפער: מוצהר מול מעשה</a></li>
+<li><a href="#section-6">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זיהוי התוכנית והמפעיל</h2>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>שם התוכנית</td><td>תקשורת וידאו (אומנות היצירה של הקולנוע וטלוויזיה)</td></tr>
+<tr><td>מספר גפ"ן</td><td>1929</td></tr>
+<tr><td>ארגון מפעיל</td><td>נאטור הפקות</td></tr>
+<tr><td>סוג ישות</td><td>כנראה עוסק מורשה/חברה פרטית קטנה (לא עמותה)</td></tr>
+<tr><td>תחום</td><td>לימודי</td></tr>
+<tr><td>בתי ספר</td><td>11</td></tr>
+<tr><td>ערים</td><td>1</td></tr>
+<tr><td>פריסות בגפ"ן</td><td>1</td></tr>
+<tr><td>ציון סוכנים ראשוני</td><td>1/5 (סיכון נמוך — אקדמי)</td></tr>
+</table>
+
+<p>תוכנית "תקשורת וידאו" מציעה לתלמידים חוויית למידה מעשית בתחומי הקולנוע והטלוויזיה. על פניו, מדובר בתוכנית טכנית-יצירתית — סדנאות צילום, עריכה, סאונד ובימוי.</p>
+</div>
+
+<div class="section" id="section-2">
+<h2>נאטור הפקות — מי עומד מאחורי התוכנית</h2>
+<p>"נאטור הפקות" היא ישות עסקית קטנה ביותר. ניסיון לאתר מידע עליה העלה תוצאות דלות מאוד:</p>
+
+<h3>מה נמצא</h3>
+<ul>
+<li><strong>אין אתר אינטרנט ייעודי</strong> — לא נמצא אתר פעיל של "נאטור הפקות"</li>
+<li><strong>אין פרופיל GuideStar</strong> — לא עמותה רשומה</li>
+<li><strong>אין פרופיל ברשם החברות</strong> — ייתכן שמדובר בעוסק מורשה</li>
+<li>חיפוש Google מציג בעיקר תוצאות של "נייצ'ר הפקות" (חברת אירועים) ו"חוות נטור" (צימר בגולן) — <strong>אלה לא אותו גורם</strong></li>
+<li><strong>מקור יחיד מזוהה:</strong> כתבה ב-Forbes Israel (קישור קיים בנתוני המחקר אך לא נגיש)</li>
+</ul>
+
+<h3>שם "נאטור" — הקשר אתני</h3>
+<p>"נאטור" (Natur/Natour) הוא שם משפחה ערבי נפוץ, בעיקר בקרב נוצרים ודרוזים. בהקשר של הנתונים שנמצאו, הגמיני ציין כי <strong>היוצר המפעיל הוא "אמן עכשווי נוצרי, מוסלמי לשעבר"</strong>. פרט זה מצביע על כך שמדובר באדם מהמגזר הערבי-נוצרי.</p>
+
+<div class="thesis"><strong>הערה מתודולוגית:</strong> האינפורמציה על "המפעיל הנוצרי, מוסלמי לשעבר" מגיעה מ"תיאור פנימי" שנמסר לניתוח Gemini, ולא ממקור מאומת. רמת הוודאות של פרט זה נמוכה (0.2).</div>
+</div>
+
+<div class="section" id="section-3">
+<h2>תוכן פדגוגי — מה מלמדים</h2>
+<p>על פי תיאור הגפ"ן המפורט:</p>
+<blockquote>טלוויזיה וקולנוע הינם כלים יצירתיים מרתקים ומרכבים, אשר מאפשרים דיאלוג והעברה של מסרים בנושאים שונים ומגוונים. התכנית מזמנת חווית למידה מעשירה ומשמעותית עבור התלמידים, המשלבים טכנולוגיה של מדיה דיגיטלית ברמות שונות עם המדיה הוויזואלית.</blockquote>
+
+<h3>מרכיבים עיקריים</h3>
+<ul>
+<li><strong>יסודות השפה הקולנועית</strong> — למידת בסיס תיאורטי</li>
+<li><strong>תרגילי צילום</strong> — התנסות מעשית עם ציוד</li>
+<li><strong>עריכה וסאונד</strong> — מיומנויות טכניות דיגיטליות</li>
+<li><strong>סדנאות משחק ובימוי</strong> — חוויה יצירתית</li>
+<li><strong>פרויקטים עלילתיים ודוקומנטריים</strong> — יצירה עצמאית</li>
+<li><strong>הפקת מגזין טלוויזיוני</strong> — פרויקט מסכם</li>
+<li><strong>ביטוי אישי</strong> — "מקבלים התלמידים הזדמנות לבטא את עצמם, את עולמם ואת סיפורם האישי"</li>
+</ul>
+
+<p>מרבית המרכיבים הם <strong>טכניים-יצירתיים לגיטימיים</strong>. לימודי קולנוע וטלוויזיה הם תחום מקצועי מבוקש.</p>
+</div>
+
+<div class="section" id="section-4">
+<h2>דגל אדום: חשד לתוכן אידיאולוגי סמוי</h2>
+<p>ניתוח ה-Gemini שנערך על התוכנית העלה אזהרה ספציפית מתוך תיאור פנימי:</p>
+<blockquote>"האמנות העכשווית עוסקת ברובה בהרס כל נורמה. היוצר המפעיל הוא אמן עכשווי נוצרי, מוסלמי לשעבר — חשד להכנסת תכנים פוליטיים מוטי אג'נדה."</blockquote>
+
+<h3>פירוק האזהרה</h3>
+<table>
+<tr><th>מרכיב</th><th>ניתוח</th></tr>
+<tr><td>"האמנות העכשווית עוסקת ברובה בהרס כל נורמה"</td><td>טענה כללית על האמנות העכשווית — לא ראיה ספציפית נגד התוכנית</td></tr>
+<tr><td>"היוצר המפעיל הוא אמן עכשווי"</td><td>עובדה ניטרלית — מורים לקולנוע הם בדרך כלל אמנים</td></tr>
+<tr><td>"נוצרי, מוסלמי לשעבר"</td><td>פרט ביוגרפי — כשלעצמו אינו מעיד על אג'נדה</td></tr>
+<tr><td>"חשד להכנסת תכנים פוליטיים מוטי אג'נדה"</td><td><strong>חשד בלבד</strong> — אין ראיות קונקרטיות</td></tr>
+</table>
+
+<h3>הסיכון האמיתי: "ביטוי עצמי" כצינור אידיאולוגי</h3>
+<p>התוכנית מדגישה "ביטוי עצמי" ו"סיפור אישי". באופן עקרוני, תוכניות קולנוע המדגישות "סיפור אישי" יכולות לשמש פלטפורמה להנחיית תלמידים לעסוק בנושאים פוליטיים או חברתיים שנוגעים לקונפליקט — במיוחד אם המפעיל הוא ממגזר שמושפע ישירות מהקונפליקט הישראלי-פלסטיני.</p>
+
+<div class="thesis"><strong>הבהרה:</strong> זהו סיכון <strong>תיאורטי</strong> בלבד. אין ראיות שהתוכנית בפועל מכילה תוכן פוליטי. הסיכון נובע מהשילוב של: (1) מפעיל ממגזר מיעוט, (2) תחום יצירתי עם גמישות תוכנית רחבה, (3) דגש על "ביטוי עצמי". כל אחד מאלה כשלעצמו לגיטימי — השאלה אם השילוב מנוצל.</div>
+</div>
+
+<div class="section" id="section-5">
+<h2>מבחן הפער: מוצהר מול מעשה</h2>
+
+<h3>מה התוכנית אומרת על עצמה?</h3>
+<p>לימודי קולנוע וטלוויזיה מעשיים — צילום, עריכה, סאונד, בימוי, הפקת פרויקטים.</p>
+
+<h3>מה התוכנית עושה בפועל?</h3>
+<p><strong>לא ידוע במידה מספקת.</strong> אין מספיק מידע חיצוני על התכנים שנלמדים בפועל.</p>
+
+<h3>האם יש פער?</h3>
+<p><strong>לא ניתן לקבוע.</strong> ישנם חשדות בלבד, ללא ראיות.</p>
+
+<table>
+<tr><th>ממד</th><th>הערכה</th></tr>
+<tr><td>תוכן טכני-מקצועי</td><td>גבוה — קולנוע, צילום, עריכה, סאונד</td></tr>
+<tr><td>תוכן אידיאולוגי מוכח</td><td>אפס — אין ראיות</td></tr>
+<tr><td>חשד אידיאולוגי</td><td>נמוך-בינוני — מבוסס על פרופיל המפעיל בלבד</td></tr>
+<tr><td>שקיפות הארגון</td><td>אפסית — אין אתר, אין מידע ציבורי</td></tr>
+<tr><td>היקף פעילות</td><td>קטן — 11 בתי ספר, עיר אחת, פריסה אחת</td></tr>
+<tr><td>רמת וודאות</td><td>נמוכה מאוד (0.2)</td></tr>
+</table>
+</div>
+
+<div class="section" id="section-6">
+<h2>סיכום וסיווג</h2>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+
+<p>תוכנית "תקשורת וידאו" של נאטור הפקות מסווגת כ<strong>"לא מוכרע"</strong>.</p>
+
+<p><strong>מדוע לא "חתרני" או "שמאל גלוי":</strong></p>
+<ul>
+<li><strong>אין ראיות</strong> לתוכן אידיאולוגי — רק חשדות ברמת ודאות 0.2</li>
+<li>התוכן המתואר הוא <strong>טכני-יצירתי</strong> — קולנוע, צילום, עריכה</li>
+<li>הסוכנים הראשוניים דירגו 1/5 — <strong>סיכון נמוך</strong></li>
+<li>אין קשרים מתועדים לרשתות פרוגרסיביות, ארגוני מימון זרים או אקטיביזם</li>
+</ul>
+
+<p><strong>מדוע לא "ניקיון מלא":</strong></p>
+<ul>
+<li><strong>אטימות מוחלטת</strong> — אין שום מידע ציבורי על נאטור הפקות</li>
+<li>אין אתר, אין גיידסטאר, אין רשם חברות — <strong>בלתי נראה</strong></li>
+<li>האזהרה הפנימית על "חשד להכנסת תכנים פוליטיים" — גם אם ברמת ודאות נמוכה, מחייבת בדיקה</li>
+<li>תוכניות קולנוע בעלות "ביטוי עצמי" הן <strong>צינור פוטנציאלי</strong> להנחיה אידיאולוגית (גם אם לא נמצאה ראיה לכך)</li>
+</ul>
+
+<p><strong>שאלות פתוחות (קריטיות):</strong></p>
+<ol>
+<li><strong>מי עומד מאחורי "נאטור הפקות"?</strong> שם מלא, מספר עוסק/חברה, רקע מקצועי. זה הפרט הכי חשוב שחסר.</li>
+<li><strong>מה התוכן בפועל?</strong> באיזה נושאים עוסקים הפרויקטים הדוקומנטריים? "סיפור אישי" של מי?</li>
+<li><strong>מה הכתבה ב-Forbes Israel מכילה?</strong> קישור קיים אך אינו נגיש — ייתכן שמכיל מידע מפתח.</li>
+<li><strong>באיזו עיר פועלת התוכנית?</strong> 11 בתי ספר בעיר אחת — אם זו עיר ערבית, ההקשר שונה.</li>
+</ol>
+
+<div class="thesis"><strong>המלצה:</strong> תוכנית זו דורשת <strong>בדיקת שטח</strong>. המידע הפומבי אינו מספיק לא לזכות ולא להרשיע. יש לאתר את המפעיל, לקבל את תכני הלימוד, ולבדוק דוגמאות מפרויקטים של תלמידים.</div>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

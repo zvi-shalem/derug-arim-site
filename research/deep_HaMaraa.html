@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המראה — המשחק ככלי חברתי רגשי — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זיהוי התוכנית</a> <a href="#section-2">אשכולות חשיבה</a> <a href="#section-3">SEL — הקשר העולמי</a> <a href="#section-4">תוכן בפועל</a> <a href="#section-5">מבחן הפער</a> <a href="#section-6">סיכום וסיווג</a></span>
+</nav>
+
+<div class="hero">
+  <h1>המראה — המשחק ככלי חברתי רגשי</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 8196 | אשכולות חשיבה ישראל (Mind Lab)</div>
+  <div class="meta">2 פריסות | דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זיהוי התוכנית והמפעיל</a></li>
+<li><a href="#section-2">אשכולות חשיבה / Mind Lab — דיוקן מוסדי</a></li>
+<li><a href="#section-3">SEL (למידה חברתית-רגשית) — הקשר העולמי</a></li>
+<li><a href="#section-4">תוכן "המראה" בפועל — מה ידוע</a></li>
+<li><a href="#section-5">מבחן הפער: מוצהר מול מעשה</a></li>
+<li><a href="#section-6">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זיהוי התוכנית והמפעיל</h2>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>שם התוכנית</td><td>המראה — המשחק ככלי חברתי רגשי</td></tr>
+<tr><td>מספר גפ"ן</td><td>8196</td></tr>
+<tr><td>ארגון מפעיל</td><td>אשכולות חשיבה ישראל בע"מ (ח.פ. 513099341)</td></tr>
+<tr><td>מותג בינלאומי</td><td>Mind Lab Group / Accelium</td></tr>
+<tr><td>סוג ישות</td><td>חברה פרטית (לא עמותה)</td></tr>
+<tr><td>תחום</td><td>חברתי-ערכי</td></tr>
+<tr><td>פריסות בגפ"ן</td><td>2</td></tr>
+<tr><td>אתר מפעיל</td><td>eshcolot.co.il</td></tr>
+</table>
+
+<p>"המראה" היא תוכנית למידה חברתית-רגשית (SEL) המשתמשת במשחקים ככלי פדגוגי. היא מופעלת על ידי אשכולות חשיבה ישראל — אותה חברה שמפעילה את תוכניות Mind Lab המוכרות לפיתוח חשיבה דרך משחקי לוח אסטרטגיים.</p>
+
+<div class="thesis"><strong>הערה על סוג הישות:</strong> אשכולות חשיבה היא <strong>חברה פרטית למטרות רווח</strong>, לא עמותה. זוהי אחת מהחברות הבודדות למטרות רווח שפועלות בהיקף משמעותי בתוך מערכת החינוך הציבורית דרך הגפ"ן. הסיכון כאן אינו אידיאולוגי אלא מסחרי.</div>
+</div>
+
+<div class="section" id="section-2">
+<h2>אשכולות חשיבה / Mind Lab — דיוקן מוסדי</h2>
+<p>ניתוח מלא של החברה קיים בדוח נפרד — <a href="deep_Mind_Lab.html">דוח מחקר אשכולות חשיבה / Mind Lab</a>.</p>
+
+<h3>נקודות מפתח</h3>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>מייסד</td><td>דן גנדלמן (מגיל 24, כ-1994)</td></tr>
+<tr><td>מנכ"ל</td><td>אהוד שחר</td></tr>
+<tr><td>רישום חברה</td><td>2001 (ח.פ. 513099341)</td></tr>
+<tr><td>מספר עובדים</td><td>51-100</td></tr>
+<tr><td>נוכחות בישראל</td><td>~250 מוסדות חינוך</td></tr>
+<tr><td>נוכחות עולמית</td><td>40+ מדינות (ברזיל: 10,000 בי"ס)</td></tr>
+<tr><td>סיווג קודם</td><td>לא מוכרע — אין מספיק מידע לסיווג</td></tr>
+<tr><td>סיכון אידיאולוגי</td><td>נמוך</td></tr>
+<tr><td>סיכון מסחרי</td><td>בינוני (חברה פרטית ללא שקיפות פיננסית)</td></tr>
+</table>
+
+<h3>שיטת אשכולות — התשתית התיאורטית</h3>
+<p>השיטה מבוססת על תאוריות חינוכיות מיינסטרים:</p>
+<ul>
+<li><strong>ג'ון דיואי</strong> — קונסטרוקטיביזם, למידה חוויתית</li>
+<li><strong>ראובן פוירשטיין</strong> — למידה מתווכת, העשרה אינסטרומנטלית</li>
+<li><strong>דייוויד פרקינס</strong> — העברת למידה</li>
+<li><strong>רוברט סטרנברג</strong> — אינטליגנציה מצליחה</li>
+<li><strong>הווארד גרדנר</strong> — אינטליגנציות מרובות</li>
+</ul>
+<p>אלה תאוריות אקדמיות מקובלות — <strong>אין בהן מטען אידיאולוגי</strong>.</p>
+</div>
+
+<div class="section" id="section-3">
+<h2>SEL (למידה חברתית-רגשית) — הקשר העולמי</h2>
+<p>SEL — Social-Emotional Learning — הוא תחום חינוכי גלובלי שצבר תאוצה בעשורים האחרונים. ארגון CASEL (Collaborative for Academic, Social, and Emotional Learning) הוא הגוף המוביל בתחום.</p>
+
+<h3>מה כולל SEL?</h3>
+<ul>
+<li><strong>מודעות עצמית</strong> — זיהוי רגשות, חוזקות וחולשות</li>
+<li><strong>ניהול עצמי</strong> — ויסות רגשי, שליטה בדחפים</li>
+<li><strong>מודעות חברתית</strong> — אמפתיה, הבנת האחר</li>
+<li><strong>מיומנויות יחסים</strong> — תקשורת, שיתוף פעולה</li>
+<li><strong>קבלת החלטות אחראית</strong> — שיקול דעת אתי ומעשי</li>
+</ul>
+
+<h3>ביקורת על SEL — שני כיוונים</h3>
+<div class="thesis"><strong>הביקורת השמרנית:</strong> SEL הוא "סוס טרויאני" — מתחיל עם "ויסות רגשי" ומגלגל לתוך אג'נדות מגדריות, גזעיות (CRT) ואנטי-מסורתיות. בארה"ב, ארגון CASEL הכליל DEI (Diversity, Equity, Inclusion) כמרכיב מרכזי ב-SEL, מה שגרר תגובות חריפות ממדינות שמרניות.</div>
+<div class="thesis"><strong>הביקורת האקדמית:</strong> חוקרים שואלים אם תוכניות SEL אכן משפרות תוצאות (מחקרי יעילות מעורבים), ואם "מדידת רגשות" אינה חדירה לפרטיות התלמיד.</div>
+
+<h3>SEL בישראל — ההקשר המקומי</h3>
+<p>בניגוד לארה"ב, <strong>ה-SEL הישראלי אינו ממוסד תחת ארגון CASEL</strong> ואין בו בהכרח את רכיבי ה-DEI שעוררו התנגדות. תוכניות SEL בישראל נוטות להתמקד ב"כישורי חיים" ו"אקלים בית ספרי" — מונחים ישראליים מקומיים. השאלה היא אם "המראה" של אשכולות חשיבה שומרת על גבולות אלה או שואפת מעבר להם.</p>
+</div>
+
+<div class="section" id="section-4">
+<h2>תוכן "המראה" בפועל — מה ידוע</h2>
+<p>המידע הספציפי על תוכנית "המראה" <strong>דל ביותר</strong>. התוכנית אינה מופיעה ברשימת התוכניות הראשית באתר אשכולות חשיבה (eshcolot.co.il), שמציג בעיקר:</p>
+<ul>
+<li>מח"ר (תוכנית חשיבה מרכזית)</li>
+<li>שחמטק (שחמט)</li>
+<li>"בחזרה לעתיד"</li>
+<li>הכלה והשתלבות</li>
+<li>אולימפיאדת החשיבה</li>
+</ul>
+
+<p>"המראה" נראית כתוכנית <strong>קטנה ומשנית</strong> בתוך סל המוצרים של אשכולות חשיבה — ייתכן שזו תוכנית מותאמת אישית שפותחה לצורך ספציפי או עבור לקוח מסוים.</p>
+
+<h3>מה ניתן להסיק מהשם והתיאור</h3>
+<ul>
+<li><strong>"המראה"</strong> — מטפורה נפוצה לתהליכי שיקוף רגשי (reflection)</li>
+<li><strong>"המשחק ככלי חברתי רגשי"</strong> — שימוש במשחקים לפיתוח מיומנויות SEL</li>
+<li>זה מתיישב עם שיטת אשכולות חשיבה: משחק = כלי למידה, אבל במקום חשיבה אסטרטגית — מיומנויות חברתיות-רגשיות</li>
+</ul>
+
+<h3>בדיקת תוכן אידיאולוגי</h3>
+<p>בדוח אשכולות חשיבה המקיף נקבע:</p>
+<blockquote>"No political or social ideology detected in the curriculum. The methodology is explicitly about cognitive/metacognitive skills: problem-solving, decision-making, planning, creative thinking, teamwork."</blockquote>
+<p>אבל הערכה זו מתייחסת לתוכניות החשיבה העיקריות — <strong>לא ספציפית ל"המראה"</strong> שהיא תוכנית SEL. השאלה האם הרחבה ל-SEL מכניסה תוכן ערכי שלא קיים בתוכניות החשיבה.</p>
+</div>
+
+<div class="section" id="section-5">
+<h2>מבחן הפער: מוצהר מול מעשה</h2>
+
+<h3>מה התוכנית אומרת על עצמה?</h3>
+<p>משחק ככלי לפיתוח מיומנויות חברתיות-רגשיות.</p>
+
+<h3>מה התוכנית עושה בפועל?</h3>
+<p><strong>לא ידוע במידה מספקת.</strong> אין מספיק מידע פומבי על תכני התוכנית.</p>
+
+<h3>האם יש פער?</h3>
+<p><strong>לא ניתן לקבוע.</strong></p>
+
+<table>
+<tr><th>ממד</th><th>הערכה</th></tr>
+<tr><td>תוכן אידיאולוגי</td><td>לא נמצא (אבל מידע דל)</td></tr>
+<tr><td>קשר ל-SEL אמריקאי</td><td>לא נמצא קשר ישיר ל-CASEL</td></tr>
+<tr><td>שקיפות</td><td>נמוכה — התוכנית כמעט לא מתועדת</td></tr>
+<tr><td>סיכון מסחרי</td><td>בינוני — חברה פרטית ללא שקיפות פיננסית</td></tr>
+<tr><td>לגיטימיות הגוף המפעיל</td><td>גבוהה — 30 שנה בשוק, 40+ מדינות</td></tr>
+<tr><td>סיכון אידיאולוגי של המפעיל</td><td>נמוך — אין מטען פוליטי מזוהה</td></tr>
+</table>
+
+<div class="thesis"><strong>הנקודה המכרעת:</strong> אשכולות חשיבה הוכחה כחברה <strong>ניטרלית אידיאולוגית</strong> בתוכניות החשיבה שלה. אין סיבה להניח שהמעבר ל-SEL שינה את ה-DNA הארגוני. אבל בהיעדר תוכן מפורט של "המראה" — אי אפשר לאשר את זה.</div>
+</div>
+
+<div class="section" id="section-6">
+<h2>סיכום וסיווג</h2>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+
+<p>תוכנית "המראה" מסווגת כ<strong>"לא מוכרע"</strong> מסיבות הבאות:</p>
+
+<p><strong>גורמים ממתנים (לטובת ניטרליות):</strong></p>
+<ul>
+<li>אשכולות חשיבה <strong>נבדקה ונמצאה ניטרלית</strong> אידיאולוגית</li>
+<li>שיטת אשכולות מבוססת על תאוריות אקדמיות מיינסטרים</li>
+<li>אין ראיה לאידיאולוגיה פוליטית בתוכניות החברה</li>
+<li>מדובר ב<strong>חברה עסקית</strong> — התמריץ הוא רווח, לא אידיאולוגיה</li>
+<li>פריסה קטנה (2 פריסות בלבד) — השפעה מינימלית</li>
+</ul>
+
+<p><strong>גורמים מדאיגים:</strong></p>
+<ul>
+<li>SEL הוא תחום <strong>רגיש מטבעו</strong> — בארה"ב הפך לזירת עימות תרבותי</li>
+<li>אין מידע מספיק על <strong>תוכן ספציפי</strong> של "המראה"</li>
+<li>החברה היא <strong>חברה פרטית</strong> — שקיפות פיננסית אפסית (דוח שנתי אחרון: 2017)</li>
+<li>התוכנית <strong>לא מופיעה באתר החברה</strong> — חוסר שקיפות</li>
+</ul>
+
+<p><strong>שאלות פתוחות:</strong></p>
+<ol>
+<li>מה התוכן המפורט של תוכנית "המראה"? צריך לקבל את חומרי ההדרכה בפועל.</li>
+<li>האם "המראה" כוללת מרכיבי DEI/CRT כמו ה-SEL האמריקאי, או שנשארת במסגרת "כישורי חיים" ישראליים?</li>
+<li>מדוע התוכנית אינה מפורסמת באתר החברה? האם היא מופסקת, נסיונית, או מותאמת אישית?</li>
+</ol>
+
+<p><em>הפניה: לניתוח מלא של אשכולות חשיבה / Mind Lab ראו <a href="deep_Mind_Lab.html">דוח מחקר Mind Lab</a>.</em></p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

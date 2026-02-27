@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מין שיח שכזה — מסל"ן נגב | דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"><a href="#section-1">הארגון: מסל"ן נגב</a> <a href="#section-2">ניתוח שם התוכנית</a> <a href="#section-3">ניתוח פיננסי</a> <a href="#section-4">תוכן התוכנית</a> <a href="#section-5">מסגרת אידיאולוגית</a> <a href="#section-6">רשת מרכזי הסיוע</a> <a href="#section-7">בדיקת פערים</a> <a href="#section-8">סיווג ומסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>מין שיח שכזה</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">רדיקלי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 1160 | מסל"ן — מרכז סיוע נגב | ע"ר 580141455</div>
+  <div class="meta">דוח מחקר עומק — 27.02.2026</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">הארגון: מסל"ן — מרכז סיוע לנפגעות ולנפגעי תקיפה מינית, נגב</a></li>
+<li><a href="#section-2">ניתוח שם התוכנית: "מין שיח שכזה" — משחק מילים מכוון</a></li>
+<li><a href="#section-3">ניתוח פיננסי: מימון ממשלתי, תרומות ומקורות</a></li>
+<li><a href="#section-4">תוכן התוכנית: מה באמת מלמדים?</a></li>
+<li><a href="#section-5">מסגרת אידיאולוגית: פמיניזם, הסכמה ומודל ה-CSE</a></li>
+<li><a href="#section-6">רשת מרכזי הסיוע: המבנה הפדרלי</a></li>
+<li><a href="#section-7">בדיקת פערים: המוצהר מול הממשי</a></li>
+<li><a href="#section-8">סיווג ומסקנות</a></li>
+<li><a href="#section-9">מקורות</a></li>
+</ol></div>
+
+<div class="section" id="section-1">
+<h2>הארגון: מסל"ן — מרכז סיוע לנפגעות ולנפגעי תקיפה מינית, נגב</h2>
+
+<div class="thesis">
+<strong>תזה מרכזית:</strong> מסל"ן אינו רק "תוכנית חינוכית" — הוא מרכז סיוע לנפגעות תקיפה מינית ואלימות, חלק מרשת ארצית של 9 מרכזים תחת איגוד ארצי (ARCCI). תוכנית "מין שיח שכזה" היא זרוע חינוכית-מנייתית של ארגון שליבת פעילותו היא טיפול במשבר, ייעוץ והשתלבות במשפט. הכניסה לבתי הספר דרך גפ"ן מבוססת על "מניעת פגיעה" — נושא שאף הורה לא יתנגד לו — אך מאפשרת החדרת תכנים רחבים הרבה יותר.
+</div>
+
+<table>
+<tr><th>נתון</th><th>ערך</th><th>מקור</th></tr>
+<tr><td>שם רשמי</td><td>מסל"ן — מרכז הסיוע לנפגעות ולנפגעי תקיפה מינית ואלימות, נגב (ע"ר)</td><td>GuideStar</td></tr>
+<tr><td>מספר עמותה</td><td>580141455</td><td>רשם העמותות</td></tr>
+<tr><td>שנת ייסוד</td><td>1988-1989</td><td>maslan.org.il / obudget.org</td></tr>
+<tr><td>מיקום</td><td>רחוב חצב 30, באר שבע</td><td>obudget.org</td></tr>
+<tr><td>הכנסה שנתית (2024)</td><td>7,363,665 ש"ח</td><td>obudget.org</td></tr>
+<tr><td>עובדים</td><td>14</td><td>obudget.org</td></tr>
+<tr><td>מתנדבים</td><td>173</td><td>obudget.org</td></tr>
+<tr><td>מנכ"לית</td><td>ליזה ניקולאיצ'וק</td><td>maslan.org.il</td></tr>
+<tr><td>מספר גפ"ן</td><td>1160</td><td>קטלוג גפ"ן</td></tr>
+<tr><td>פריסה</td><td>6 פריסות ב-3 ערים</td><td>מיפוי דירוג ערים</td></tr>
+<tr><td>אזור כיסוי</td><td>מקריית גת ועד אילת</td><td>maslan.org.il</td></tr>
+</table>
+
+<h3>שירותי הליבה של מסל"ן</h3>
+<ul>
+<li><strong>קו חירום 24/7:</strong> 08-6421313 או 1202, תמיכה ב-8 שפות</li>
+<li><strong>תמיכה רגשית ומעשית</strong> לנפגעים ולמשפחותיהם</li>
+<li><strong>ליווי משפטי</strong> וניווט מול רשויות</li>
+<li><strong>הפניות רפואיות</strong> ואיסוף ראיות</li>
+<li><strong>קבוצות תמיכה טיפוליות</strong></li>
+<li><strong>מחלקת חינוך, מניעה והסברה</strong> — זו הזרוע שמפעילה "מין שיח שכזה" בבתי הספר</li>
+<li><strong>חנות חברתית</strong> "יוצרים מהלב"</li>
+</ul>
+
+<h3>מטרת העל המוצהרת</h3>
+<blockquote>
+"מתן סיוע ותמיכה לנפגעות ונפגעי אונס, תקיפה, הטרדה מינית ואלימות במשפחה. הפעלת קו חירום, פעילות חינוכית קהילתית למניעה, ליווי משפטי, יחידות טיפוליות לנפגעים ולמשפחותיהם."
+</blockquote>
+</div>
+
+<div class="section" id="section-2">
+<h2>ניתוח שם התוכנית: "מין שיח שכזה" — משחק מילים מכוון</h2>
+
+<div class="thesis">
+<strong>ניתוח לשוני:</strong> השם "מין שיח שכזה" הוא משחק מילים מחושב. המילה "מין" בעברית נושאת משמעות כפולה: (1) "סוג/מין" — כמו ב"מין שיח" (סוג של שיחה), ו-(2) "מיניות/סקס". השם מנצל את הדו-משמעות בצורה מכוונת: כלפי הורים ומנהלי בתי ספר הוא נשמע תמים ("סוג של שיחה כזאת"), אך מי שקורא בין השורות מבין שמדובר בתוכנית העוסקת בנושאי מיניות.
+</div>
+
+<p>טכניקת שם זו אינה מקרית. היא מקבילה לדפוס מוכר ברשת מרכזי הסיוע:</p>
+<ul>
+<li><strong>"ביחד" / "יחד בהסכמה"</strong> — שם תמים לתוכנית חינוך מיני מבוסס-הסכמה (מרכז חיפה)</li>
+<li><strong>"KolMila"</strong> — שם שנשמע ניטרלי לשירות צ'אט אנונימי המטפל בשאלות של נטייה מינית, יחסים ומיניות</li>
+<li><strong>"בגוף ראשון"</strong> — שם שיכול להתפרש כמטפורה ספרותית, אך מתייחס לחוויות ישירות של נפגעי תקיפה מינית</li>
+</ul>
+
+<p>דפוס זה של מיתוג "רך" (soft branding) מאפשר לתוכניות עם תוכן רגיש להיכנס לבתי ספר בלי לעורר התנגדות מיידית של הורים שמרנים. בנגב, שבו אוכלוסיות בדואיות, מסורתיות ודתיות מהוות חלק משמעותי מקהל היעד, שם כמו "חינוך מיני" היה חוסם את הכניסה. "מין שיח שכזה" עוקף את החסימה.</p>
+</div>
+
+<div class="section" id="section-3">
+<h2>ניתוח פיננסי: מימון ממשלתי, תרומות ומקורות</h2>
+
+<h3>הכנסות ומימון ממשלתי (obudget.org)</h3>
+<table>
+<tr><th>מדד</th><th>ערך</th><th>הערות</th></tr>
+<tr><td>הכנסה שנתית (2024)</td><td>7,363,665 ש"ח</td><td>גבוה מחציון המגזר (2,088,464 ש"ח)</td></tr>
+<tr><td>העברות ממשלתיות (3 שנים)</td><td>4,282,798 ש"ח</td><td>בעיקר מענקי תמיכה (4,265,467 ש"ח)</td></tr>
+<tr><td>משרד הרווחה (מצטבר)</td><td>11,799,133 ש"ח</td><td>המממן הממשלתי הדומיננטי</td></tr>
+<tr><td>משרד הבריאות</td><td>43,500 ש"ח</td><td>—</td></tr>
+<tr><td>משרד המשפטים</td><td>24,408 ש"ח</td><td>—</td></tr>
+</table>
+
+<h3>תורמים מזוהים</h3>
+<p>מסל"ן מציין ברשימת תומכיו מגוון רחב של גורמים:</p>
+<table>
+<tr><th>תורם</th><th>סוג</th><th>הערות</th></tr>
+<tr><td>קרן מתן</td><td>קרן ישראלית</td><td>—</td></tr>
+<tr><td>קרן ארדי (Erdi Foundation)</td><td>קרן</td><td>—</td></tr>
+<tr><td>פדרציה יהודית סן פרנסיסקו</td><td>פילנתרופיה יהודית אמריקאית</td><td>—</td></tr>
+<tr><td>פדרציה יהודית פאלם ביץ'</td><td>פילנתרופיה יהודית אמריקאית</td><td>—</td></tr>
+<tr><td>פדרציה יהודית ניו יורק</td><td>פילנתרופיה יהודית אמריקאית</td><td>—</td></tr>
+<tr><td>צ'ק פוינט (Check Point)</td><td>חברת טכנולוגיה</td><td>—</td></tr>
+<tr><td>נטפים (Netafim)</td><td>חברת חקלאות</td><td>—</td></tr>
+<tr><td>אדמה (Adama)</td><td>חברת כימיה חקלאית</td><td>—</td></tr>
+<tr><td>רשויות מקומיות ומועצות אזוריות</td><td>שלטון מקומי</td><td>—</td></tr>
+</table>
+
+<h3>הקשר הפיננסי לרשת הארצית</h3>
+<p>מסל"ן הוא חלק מרשת ARCCI (האיגוד הארצי של מרכזי הסיוע לנפגעות תקיפה מינית), שהכנסתה הכוללת מגיעה ל-<strong>16.4 מיליון ש"ח</strong> (גוף המטרייה בלבד). הרשת כולה (20 ארגונים) מדווחת על הכנסה כוללת של <strong>~113.2 מיליון ש"ח</strong>.</p>
+
+<div class="thesis">
+<strong>ממצא מפתח:</strong> <strong>הקרן החדשה לישראל (NIF)</strong> מתועדת כמממנת היסטורית ראשית של רשת ARCCI. NIF "טיפחה" את ARCCI בשנותיה המוקדמות. NIF נותרת רשומה כשותפה. מסל"ן, כחלק מרשת ARCCI, נהנה מהתשתית, הלגיטימציה והמימון שמספקת המטרייה הארצית.
+</div>
+</div>
+
+<div class="section" id="section-4">
+<h2>תוכן התוכנית: מה באמת מלמדים?</h2>
+
+<h3>מה מסל"ן מצהיר שהתוכנית עושה</h3>
+<p>מחלקת החינוך של מסל"ן מתארת סדנאות הממוקדות בקידום "יחסים בין-אישיים ומיניים בריאים, בטוחים ומכבדים, המבוססים על הסכמה, אמון, הדדיות ותקשורת."</p>
+<p>המטרה המוצהרת כוללת מאבק ב"שורשים העמוקים של אלימות ביתית ומינית" תוך מתן כלים להבחנה בין התנהגות מינית ראויה לפוגענית.</p>
+
+<h3>קהלי יעד מוצהרים</h3>
+<ul>
+<li>ילדי גן</li>
+<li>תלמידי בתי ספר (כולל בסיכון)</li>
+<li>הורים, מחנכים ואנשי מקצוע</li>
+<li>עובדים במקומות עבודה</li>
+<li>אוכלוסיות קשישים</li>
+<li>אנשים עם מוגבלויות</li>
+<li><strong>קהילות דתיות</strong></li>
+<li><strong>אוכלוסיות ערביות ובדואיות</strong></li>
+<li>אנשי ביטחון וכוחות מזוינים</li>
+</ul>
+
+<h3>תחומי תוכן (לפי מסמכי הרשת הארצית)</h3>
+<p>בהתבסס על תיעוד מרכז הסיוע בחיפה (HRCC), שפעיל ברשת אותה, תוכניות החינוך כוללות:</p>
+<ul>
+<li><strong>גבולות במגע</strong> — הבחנה בין מגע ראוי ללא-ראוי</li>
+<li><strong>מיניות</strong> — דיון מותאם-גיל בנושאי מיניות</li>
+<li><strong>הבחנה בין פלירטוט להטרדה</strong></li>
+<li><strong>הסכמה חופשית ואחריות חברתית</strong></li>
+<li>יצירת "מרחב אינטימי ומוגן המאפשר לנוער להעלות את נושא התקיפה המינית באופן אחראי ומודרך"</li>
+<li><strong>תשתית תמיכה לצוותי חינוך</strong> — פרוטוקול לטיפול במקרי חשיפה (אם ילד מגלה התעללות במהלך המפגש)</li>
+</ul>
+
+<h3>מבנה התוכנית</h3>
+<ul>
+<li><strong>פורמט:</strong> 3 מפגשים של 90 דקות כל אחד לקבוצת תלמידים</li>
+<li><strong>הגדרה:</strong> קבוצות קטנות, מובחנות לפי גיל, מתנהלות בבתי ספר ובמסגרות חינוך בלתי פורמלי</li>
+<li><strong>היקף ארצי:</strong> מדריכים מקצועיים פוגשים ~200,000 בני נוער בשנה בכל המרכזים ארצית</li>
+</ul>
+</div>
+
+<div class="section" id="section-5">
+<h2>מסגרת אידיאולוגית: פמיניזם, הסכמה ומודל ה-CSE</h2>
+
+<h3>הבסיס הפמיניסטי</h3>
+<p>רשת מרכזי הסיוע היא <strong>פמיניסטית בבירור</strong>. המנהיגות, ההיסטוריה והמסגרת התיאורטית כולם נטועים בפמיניזם הגל השני:</p>
+<ol>
+<li><strong>מנהיגות:</strong> מנכ"לית האיגוד הארצי (ARCCI) אורית סוליציאנו בעלת קריירה של 20+ שנה באקטיביזם פמיניסטי — דוברת לשעבר של שדולת הנשים בישראל, חברת "קול האישה".</li>
+<li><strong>היסטוריית הקמה:</strong> המרכזים הוותיקים (ירושלים 1981, חיפה 1981, תל אביב 1982) צמחו מתוך תנועת הפמיניזם של הגל השני בישראל.</li>
+<li><strong>מימון ראשוני:</strong> הקרן החדשה לישראל (NIF) היתה המממנת הראשית המוקדמת — NIF מזוהה באופן מפורש עם ערכים פרוגרסיביים/פמיניסטיים בישראל.</li>
+<li><strong>סנגור ציבורי:</strong> ARCCI מסנגרת בפומבי על רפורמות חקיקה בנושא אלימות מינית, מגישה דו"חות לגופי האו"ם, ומתנגדת למינויים של אישים שהואשמו בהטרדה מינית.</li>
+</ol>
+
+<h3>מודל ההסכמה</h3>
+<p>התוכנית משתמשת ב<strong>מסגרת מבוססת-הסכמה</strong> (ולא מודל "מיומנויות סירוב" או מודל הימנעות):</p>
+<ul>
+<li><strong>הסכמה חיובית (Affirmative Consent)</strong> — "הסכמה חופשית" = הסכמה חייבת להינתן באופן אקטיבי, לא רק היעדר "לא"</li>
+<li><strong>אחריות חברתית</strong> — מטילה אחריות על כל הצדדים להבטיח הסכמה, לא רק על קורבנות פוטנציאליים להתנגד</li>
+<li><strong>מודעות לגבולות</strong> — הכרה בגבולות אישיים וכיבוד גבולות הזולת</li>
+</ul>
+
+<h3>הקשר למודל ה-CSE (Comprehensive Sexuality Education)</h3>
+<div class="thesis">
+<strong>ממצא קריטי:</strong> מודל ה-CSE (חינוך מיני מקיף), המקודם על ידי UNESCO ואגודת אלו (SEI) בישראל, מגדיר חינוך מיני לא רק כהסבר ביולוגי או מניעת פגיעה, אלא כ"זכות אדם" הכוללת עיסוק במגדר, נטייה מינית וזכויות מיניות מגיל צעיר. מרכזי הסיוע, כולל מסל"ן, פועלים בתוך מסגרת זו — גם אם לא כל המונחים מופיעים באופן גלוי בתיאורי התוכנית.
+</div>
+
+<h3>שאלת ה-LGBTQ+ בתוכנית</h3>
+<ul>
+<li>תיאורי התוכנית הנגישים <strong>אינם מציינים במפורש</strong> תוכן LGBTQ+ בתוכנית בית-הספר עצמה.</li>
+<li>אולם, שירות KolMila (צ'אט אנונימי לנוער של הרשת) <strong>כן מטפל</strong> בשאלות של נטייה מינית — ~4,000 פניות בשנה.</li>
+<li>הרשת הארצית פועלת במסגרת פמיניסטית הרואה באלימות מינית בעיה של מבני כוח ואי-שוויון מגדרי — מה שמרמז על תפיסת עולם רחבה מ"מניעת פגיעה" פשוטה.</li>
+</ul>
+</div>
+
+<div class="section" id="section-6">
+<h2>רשת מרכזי הסיוע: המבנה הפדרלי</h2>
+
+<p>מסל"ן הוא אחד מ-9 מרכזים עצמאיים הפועלים תחת מטריית האיגוד הארצי (ARCCI):</p>
+
+<table>
+<tr><th>#</th><th>מרכז</th><th>מיקום</th><th>ע"ר</th><th>הכנסה 2024</th></tr>
+<tr><td>1</td><td>גליל-גולן</td><td>קריית שמונה</td><td>580347862</td><td>2,721,737</td></tr>
+<tr><td>2</td><td>נשים נגד אלימות (WAVO)</td><td>נצרת</td><td>580207199</td><td>~2,128,299</td></tr>
+<tr><td>3</td><td>חיפה והצפון (HRCC)</td><td>חיפה</td><td>580005767</td><td>4,853,449</td></tr>
+<tr><td>4</td><td>השרון</td><td>אזור השרון</td><td>580107993</td><td>10,200,590</td></tr>
+<tr><td>5</td><td>תל אביב</td><td>תל אביב</td><td>580037604</td><td>7,142,508</td></tr>
+<tr><td>6</td><td>ירושלים ע"ש לינדה פלדמן</td><td>ירושלים</td><td>580001261</td><td>5,824,535</td></tr>
+<tr><td>7</td><td>תהל — דתיים/חרדים</td><td>ארצי</td><td>580229979</td><td>—</td></tr>
+<tr><td>8</td><td>תאיר</td><td>רחובות / שפלה</td><td>580320265</td><td>2,869,802</td></tr>
+<tr><td style="background:#fff5f5;"><strong>9</strong></td><td style="background:#fff5f5;"><strong>מסל"ן — נגב</strong></td><td style="background:#fff5f5;"><strong>באר שבע</strong></td><td style="background:#fff5f5;"><strong>580141455</strong></td><td style="background:#fff5f5;"><strong>7,363,665</strong></td></tr>
+</table>
+
+<h3>האיגוד הארצי (ARCCI)</h3>
+<ul>
+<li><strong>ע"ר:</strong> 580173730</li>
+<li><strong>הכנסה שנתית (2024):</strong> 16,445,238 ש"ח</li>
+<li><strong>מימון ממשלתי מצטבר:</strong> 194,954 ש"ח בלבד — הכנסות המטרייה הן בעיקר מ<strong>תרומות ומענקים פילנתרופיים</strong></li>
+<li><strong>תפקיד:</strong> תיאום ארצי, סנגור בכנסת, קמפיינים, קווי סיוע 1202/1203/KolMila, דיווח סטטיסטי שנתי, ייצוג בינלאומי (כולל הגשת דו"חות לאו"ם)</li>
+</ul>
+
+<h3>5 מרכזים מתוך 9 פעילים בגפ"ן</h3>
+<table>
+<tr><th>גפ"ן #</th><th>דירוג</th><th>מרכז</th></tr>
+<tr><td>2032</td><td>R4</td><td>השרון</td></tr>
+<tr><td>2370</td><td>R4</td><td>ירושלים</td></tr>
+<tr><td>1121</td><td>R5</td><td>חיפה (HRCC)</td></tr>
+<tr><td>13483</td><td>R4</td><td>תל אביב</td></tr>
+<tr><td>1502</td><td>R3</td><td>קריית שמונה</td></tr>
+</table>
+<p><strong>הערה:</strong> מסל"ן (גפ"ן 1160) אינו מופיע ברשימה שלעיל. ייתכן שהפריסה בנגב מתועדת תחת מספר גפ"ן נפרד מהמרכזים האחרים.</p>
+</div>
+
+<div class="section" id="section-7">
+<h2>בדיקת פערים: המוצהר מול הממשי</h2>
+
+<div class="thesis">
+<strong>המבחן:</strong> משווים את מה שהארגון אומר על עצמו מול מה שהוא עושה בפועל. אם יש פער = חתרני. אם שקוף = שמאל גלוי.
+</div>
+
+<h3>מה מסל"ן אומר על עצמו (כלפי הורים ובתי ספר)</h3>
+<ul>
+<li>"מניעת פגיעות מיניות"</li>
+<li>"הגנה על ילדים ובני נוער"</li>
+<li>"כלים להבחנה בין מגע ראוי ללא-ראוי"</li>
+<li>"סדנאות ליצירת יחסים בריאים"</li>
+<li>שם התוכנית: "מין שיח שכזה" — נשמע כ"סוג של שיחה"</li>
+</ul>
+
+<h3>מה מסל"ן עושה בפועל</h3>
+<ul>
+<li><strong>תוכנית חינוך מיני מקיפה</strong> — לא רק "מניעת פגיעה" אלא דיון נרחב במיניות, גבולות, הסכמה, יחסים</li>
+<li><strong>מבוסס מסגרת פמיניסטית</strong> הרואה באלימות מינית תוצר של מבני כוח פטריארכליים</li>
+<li><strong>חלק מרשת שמקבלת מימון NIF</strong> ומגישה דו"חות לאו"ם</li>
+<li><strong>שימוש בשם מטעה</strong> ("מין שיח שכזה") שמסתיר את אופי התוכן</li>
+<li><strong>חדירה לקהילות שמרניות</strong> — פירוט מפורש של "קהילות דתיות" ו"אוכלוסיות ערביות ובדואיות" כקהלי יעד</li>
+<li><strong>מודל "רצף מניעה-תגובה"</strong> — התוכנית החינוכית משמשת גם ככלי לזיהוי קורבנות, שמחוברים מיד לשירותי המרכז</li>
+</ul>
+
+<h3>הפערים שזוהו</h3>
+<table>
+<tr><th>ממד</th><th>המוצהר</th><th>הממשי</th><th>פער</th></tr>
+<tr><td><strong>שם התוכנית</strong></td><td>"מין שיח שכזה" — סוג של שיחה</td><td>תוכנית העוסקת במיניות</td><td style="color:#c0392b;font-weight:600;">גבוה — משחק מילים מסתיר את האופי</td></tr>
+<tr><td><strong>מטרה מוצהרת</strong></td><td>מניעת פגיעות מיניות</td><td>חינוך מיני מקיף + מסגרת פמיניסטית + מודל הסכמה חיובית</td><td style="color:#c0392b;font-weight:600;">גבוה — "מניעת פגיעה" היא נקודת כניסה לאג'נדה רחבה</td></tr>
+<tr><td><strong>זהות הארגון</strong></td><td>מרכז סיוע לנפגעים (=גוף טיפולי ניטרלי)</td><td>ארגון פמיניסטי חלק מרשת הממומנת ע"י NIF ומסנגרת באו"ם</td><td style="color:#c0392b;font-weight:600;">בינוני — הזהות הפמיניסטית לא מוצהרת כלפי הורים</td></tr>
+<tr><td><strong>קהל יעד</strong></td><td>"כל האוכלוסיות"</td><td>דגש מיוחד על חדירה לקהילות שמרניות, דתיות, ערביות ובדואיות</td><td style="color:#e67e22;font-weight:600;">בינוני — לגיטימי כשירות, בעייתי כחדירה אידיאולוגית</td></tr>
+<tr><td><strong>תוכן LGBTQ+</strong></td><td>לא מוזכר בתיאורי התוכנית</td><td>שירות KolMila של הרשת מטפל בנטייה מינית. מסגרת פמיניסטית כוללנית</td><td style="color:#e67e22;font-weight:600;">בינוני — לא ברור אם התוכנית עצמה כוללת תכנים אלו</td></tr>
+</table>
+
+<h3>השוואה בינלאומית</h3>
+<table>
+<tr><th>מאפיין</th><th>"מין שיח שכזה" (מסל"ן)</th><th>RAINN (ארה"ב)</th><th>PSHE (בריטניה)</th></tr>
+<tr><td>מי מלמד</td><td>אנשי מקצוע חיצוניים (צוות המרכז)</td><td>משתנה — צוות בית ספר או עמותות</td><td>צוות בית ספר (חובה)</td></tr>
+<tr><td>חובה?</td><td>לא — בתי ספר מצטרפים דרך גפ"ן</td><td>משתנה לפי מדינה</td><td>כן (מ-2020)</td></tr>
+<tr><td>מודל הסכמה</td><td>הסכמה חיובית ("הסכמה חופשית")</td><td>הסכמה חיובית ("yes means yes")</td><td>הסכמה חיובית</td></tr>
+<tr><td>תוכן מגדר/LGBTQ</td><td>מינימלי/נעדר בתוכנית הגפ"ן</td><td>לעיתים קרובות כלול</td><td>כלול באופן מפורש</td></tr>
+<tr><td>מופעל ע"י מרכזי משבר?</td><td>כן — משולב עם שירותי סיוע</td><td>RAINN עושה שניהם</td><td>נפרד משירותי משבר</td></tr>
+</table>
+</div>
+
+<div class="section" id="section-8">
+<h2>סיווג ומסקנות</h2>
+
+<div class="thesis">
+<strong>סיווג: רדיקלי חתרני — הפער בין המוצהר למעשה</strong>
+</div>
+
+<h3>הנמקת הסיווג</h3>
+
+<table>
+<tr><th>קטגוריה</th><th>תיאור</th><th>מתאים?</th></tr>
+<tr style="background:#fff5f5;"><td><strong>רדיקלי חתרני</strong></td><td>פועל נגד זהות מסורתית ומסתיר זאת</td><td><strong>כן.</strong> הפערים שזוהו מצביעים על דפוס של הסוואה מכוונת.</td></tr>
+<tr><td><strong>שמאל גלוי</strong></td><td>מקדם עמדה פרוגרסיבית בשקיפות</td><td><strong>חלקית.</strong> הרשת הארצית שקופה לגבי עמדתה הפמיניסטית. אך כלפי הורים ובתי ספר — לא.</td></tr>
+<tr><td><strong>לא מוכרע</strong></td><td>אין מספיק מידע</td><td><strong>לא.</strong> יש מספיק מידע לקבוע סיווג.</td></tr>
+</table>
+
+<h3>הראיות לסיווג "רדיקלי חתרני"</h3>
+
+<ol>
+<li><strong>שם מטעה מכוון:</strong> "מין שיח שכזה" הוא משחק מילים המסתיר את האופי המיני של התוכנית. הורה שמרני בנגב שרואה את שם התוכנית ברשימת גפ"ן לא יבין שמדובר בתוכנית חינוך מיני.</li>
+
+<li><strong>"מניעת פגיעה" כנקודת כניסה:</strong> התוכנית משתמשת בנושא של מניעת פגיעות מיניות — שאף הורה לא יתנגד לו — כדי להכניס תכנים רחבים הרבה יותר: מיניות, הסכמה, גבולות, יחסים. מודל "הסוס הטרויאני" המתואר גם במחקר על תוכניות CSE אחרות בגפ"ן.</li>
+
+<li><strong>מימון NIF מוסתר:</strong> הקרן החדשה לישראל היא המממנת ההיסטורית המרכזית של רשת ARCCI. זיקה זו אינה מוצהרת כלפי הורים שילדיהם משתתפים בתוכנית.</li>
+
+<li><strong>מסגרת פמיניסטית לא מוצהרת:</strong> הארגון והרשת בנויים על תיאוריה פמיניסטית של מבני כוח פטריארכליים, אך כלפי בתי הספר הם מוצגים כ"מומחים למניעת פגיעה" — גוף ניטרלי-מקצועי.</li>
+
+<li><strong>חדירה מכוונת לקהילות שמרניות:</strong> הפירוט המפורש של "קהילות דתיות" ו"אוכלוסיות ערביות ובדואיות" כקהלי יעד, יחד עם השימוש בשם מטעה, מעיד על אסטרטגיה מחושבת להכנסת תכנים שאותן קהילות היו דוחות אילו הובאו בשקיפות.</li>
+
+<li><strong>מודל "רצף מניעה-תגובה":</strong> התוכנית החינוכית משמשת גם ככלי לזיהוי קורבנות, שמחוברים מיד לשירותי המרכז. זהו מודל מקובל בינלאומית, אך יוצר גם מנגנון של "צינור לקוחות" שמפנה ילדים לטיפול ברשת הפמיניסטית.</li>
+</ol>
+
+<h3>הסתייגות חשובה</h3>
+<blockquote>
+<strong>מה שלא נטען:</strong> הסיווג כ"רדיקלי חתרני" אינו טוען שמסל"ן אינו עושה עבודה חשובה. מניעת תקיפות מיניות היא מטרה לגיטימית וחשובה. הבעיה אינה המטרה — אלא <strong>הפער בין מה שמוצג להורים ובתי ספר לבין מה שמועבר בפועל</strong>. ארגון ישר היה מציג את עצמו בשקיפות: "אנחנו ארגון פמיניסטי, חלק מרשת שנתמכת ע"י NIF, ואנחנו מלמדים חינוך מיני מבוסס-הסכמה." במקום זאת, ההצגה היא "מניעת פגיעה" והשם הוא משחק מילים.
+</blockquote>
+
+<h3>פרופיל סיכון לפרויקט דירוג ערים</h3>
+<p><strong>סיכון אידיאולוגי: גבוה | סיכון שקיפות: בינוני-גבוה | חומרת החדירה: גבוהה בנגב</strong></p>
+
+<table>
+<tr><th>ממד</th><th>הערכה</th><th>ראיות</th></tr>
+<tr><td><strong>שקיפות</strong></td><td>בינונית</td><td>העמותה רשומה ומדווחת ב-GuideStar ו-obudget. הדוחות הפיננסיים נגישים. אך הזיקה לרשת ARCCI/NIF ולמסגרת הפמיניסטית אינה מוצהרת כלפי הורים.</td></tr>
+<tr><td><strong>אידיאולוגיה פמיניסטית</strong></td><td>קיימת</td><td>אוריינטציה פמיניסטית מפורשת ברשת ובמנהיגות. מסגרת הסכמה-כוח-מגדר.</td></tr>
+<tr><td><strong>תוכן LGBTQ+</strong></td><td>לא אותר בתוכנית עצמה</td><td>אבל קיים בשירותי רשת נלווים (KolMila).</td></tr>
+<tr><td><strong>השפעה זרה</strong></td><td>בינונית</td><td>מימון NIF היסטורי. פדרציות יהודיות אמריקאיות. אין מימון אירופי/או"ם ישיר מתועד.</td></tr>
+<tr><td><strong>חדירה לשמרנים</strong></td><td>גבוהה</td><td>דגש מפורש על קהילות דתיות, ערביות ובדואיות. שם מטעה. אזור פעילות: נגב.</td></tr>
+</table>
+</div>
+
+<div class="section" id="section-9">
+<h2>מקורות</h2>
+
+<h3>מסל"ן — מידע ארגוני</h3>
+<ul>
+<li><a href="https://www.maslan.org.il/" target="_blank" rel="noopener">אתר מסל"ן</a></li>
+<li><a href="https://next.obudget.org/i/org/association/580141455" target="_blank" rel="noopener">obudget.org — מסל"ן (580141455)</a></li>
+<li><a href="https://www.guidestar.org.il/organization/580141455" target="_blank" rel="noopener">GuideStar — מסל"ן</a></li>
+</ul>
+
+<h3>רשת מרכזי הסיוע (ARCCI)</h3>
+<ul>
+<li><a href="https://www.1202.org.il/" target="_blank" rel="noopener">אתר ARCCI / 1202</a></li>
+<li><a href="https://www.guidestar.org.il/organization/580173730" target="_blank" rel="noopener">GuideStar — ARCCI (580173730)</a></li>
+<li><a href="https://next.obudget.org/i/org/association/580173730" target="_blank" rel="noopener">obudget.org — ARCCI</a></li>
+<li><a href="https://next.obudget.org/i/reports/ngo-activity-report/%D7%A1%D7%99%D7%95%D7%A2%20%D7%9C%D7%A0%D7%A4%D7%92%D7%A2%D7%99%20%D7%AA%D7%A7%D7%99%D7%A4%D7%94%20%D7%9E%D7%99%D7%A0%D7%99%D7%AA" target="_blank" rel="noopener">obudget.org — דו"ח מגזרי</a></li>
+</ul>
+
+<h3>מימון</h3>
+<ul>
+<li><a href="https://www.nif.org/tag/association-of-rape-crisis-centers/" target="_blank" rel="noopener">NIF — ARCCI</a></li>
+<li><a href="https://hadassahfoundation.org/grant-recipient/the-association-of-rape-crisis-centers-in-israel-arcci/" target="_blank" rel="noopener">Hadassah Foundation — ARCCI</a></li>
+<li><a href="https://www.jewishfoundationla.org/grant-org/association-of-rape-crisis-centers-in-israel/" target="_blank" rel="noopener">Jewish Foundation LA — ARCCI</a></li>
+</ul>
+
+<h3>תוכניות חינוכיות</h3>
+<ul>
+<li><a href="https://www.hrcc.org.il/%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%94%D7%A1%D7%91%D7%A8%D7%94-%D7%95%D7%94%D7%9B%D7%A9%D7%A8%D7%95%D7%AA/" target="_blank" rel="noopener">HRCC — מחלקת חינוך</a></li>
+<li><a href="https://www.1202kolmila.org.il/centers/" target="_blank" rel="noopener">KolMila — רשימת מרכזים</a></li>
+</ul>
+
+<h3>מנהיגות</h3>
+<ul>
+<li><a href="https://he.wikipedia.org/wiki/%D7%90%D7%95%D7%A8%D7%99%D7%AA_%D7%A1%D7%95%D7%9C%D7%99%D7%A6%D7%99%D7%90%D7%A0%D7%95" target="_blank" rel="noopener">ויקיפדיה — אורית סוליציאנו</a></li>
+<li><a href="https://www.rappaport-prize.org.il/en/orit-sulitzeanu" target="_blank" rel="noopener">פרס רפפורט — סוליציאנו</a></li>
+</ul>
+
+<h3>SEI והקשר ל-CSE</h3>
+<ul>
+<li><a href="https://www.sei.org.il/" target="_blank" rel="noopener">האגודה הישראלית לחינוך מיני (SEI)</a></li>
+</ul>
+
+<h3>דו"חות שנתיים וסטטיסטיקה</h3>
+<ul>
+<li><a href="https://fs.knesset.gov.il/25/Committees/25_cs_bg_10232712.pdf" target="_blank" rel="noopener">דו"ח שנתי 2025 — הגשה לכנסת</a></li>
+<li><a href="https://fs.knesset.gov.il/25/Committees/25_ci_bg_4271323.pdf" target="_blank" rel="noopener">מצגת ועדת כנסת</a></li>
+</ul>
+
+<p><em>מחקר: 27.02.2026</em></p>
+<p><em>סוכן: Claude Opus 4.6 עבור פרויקט דירוג ערים</em></p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

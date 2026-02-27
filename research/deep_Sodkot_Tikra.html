@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סודקות את תקרת הזכוכית — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זיהוי התוכנית</a> <a href="#section-2">כל ישראל חברים</a> <a href="#section-3">תוכן התוכנית</a> <a href="#section-4">ניתוח מגדרי</a> <a href="#section-5">מבחן הפער</a> <a href="#section-6">סיכום וסיווג</a></span>
+</nav>
+
+<div class="hero">
+  <h1>סודקות את תקרת הזכוכית</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fef3e2;color:#e67e22;font-weight:600;font-size:0.85em;margin:8px 0;">שמאל גלוי — עמדה שקופה</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 1013 | כל ישראל חברים (Alliance Israelite Universelle)</div>
+  <div class="meta">2 פריסות | 2 בתי ספר בעיר אחת | דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זיהוי התוכנית והמפעיל</a></li>
+<li><a href="#section-2">הארגון: כל ישראל חברים (Alliance)</a></li>
+<li><a href="#section-3">תוכן התוכנית בפועל</a></li>
+<li><a href="#section-4">ניתוח הממד המגדרי — הגלוי והנסתר</a></li>
+<li><a href="#section-5">מבחן הפער: מוצהר מול מעשה</a></li>
+<li><a href="#section-6">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זיהוי התוכנית והמפעיל</h2>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>שם התוכנית</td><td>סודקות את תקרת הזכוכית (קידום נערות למדעים)</td></tr>
+<tr><td>מספר גפ"ן</td><td>1013</td></tr>
+<tr><td>ארגון מפעיל</td><td>כל ישראל חברים (ע"ר 580010890)</td></tr>
+<tr><td>ארגון-אם</td><td>Alliance Israelite Universelle (פריז, צרפת)</td></tr>
+<tr><td>תחום</td><td>לימודי</td></tr>
+<tr><td>קהל יעד</td><td>נערות מהפריפריה החברתית והגיאוגרפית, כיתות ח'-י"ב</td></tr>
+<tr><td>בתי ספר בגפ"ן</td><td>2</td></tr>
+<tr><td>ערים בגפ"ן</td><td>1</td></tr>
+<tr><td>פריסות</td><td>2</td></tr>
+<tr><td>סך פריסה מוצהרת</td><td>40+ בתי ספר ארצית (מחוץ לגפ"ן)</td></tr>
+<tr><td>שנת השקה</td><td>2011</td></tr>
+<tr><td>משך תוכנית</td><td>מסלול 5 שנים</td></tr>
+<tr><td>מנהלת תוכנית</td><td>נירה הלל אמיר</td></tr>
+</table>
+<p>תכנית "סודקות את תקרת הזכוכית" נועדה לפרוץ דרך לנערות מהפריפריה החברתית והגיאוגרפית, לחזק את ביטחונן ביכולותיהן, להפגיש אותן עם נשים מצליחות היכולות להוות עבורן מודל לחיקוי, ולכוון אותן לבחירה שתוביל לתעודת בגרות איכותית הפותחת דלתות אקדמיות.</p>
+<p>הנתונים בגפ"ן (2 בתי ספר בעיר אחת) מציגים תמונה חלקית ביותר. התוכנית מצהירה על פריסה של 40+ בתי ספר ארצית — רוב הפעילות שלה מתבצעת מחוץ למסגרת הגפ"ן.</p>
+</div>
+
+<div class="section" id="section-2">
+<h2>הארגון: כל ישראל חברים (Alliance)</h2>
+<p>כל ישראל חברים (כי"ח) הוא הסניף הישראלי של Alliance Israelite Universelle, ארגון יהודי-צרפתי שנוסד ב-1860 בפריז. ניתוח מעמיק של הארגון קיים בדוח נפרד — <a href="deep_Alliance_Israel.html">דוח מחקר כל ישראל חברים</a>.</p>
+
+<h3>נקודות מפתח על הארגון</h3>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>רישום בישראל</td><td>ע"ר 580010890 (רשום 1982)</td></tr>
+<tr><td>מטה עולמי</td><td>פריז, צרפת</td></tr>
+<tr><td>נשיא עולמי</td><td>מרק אייזנברג (צרפתי, מאז 2011)</td></tr>
+<tr><td>יו"ר ישראל</td><td>סם פינטו</td></tr>
+<tr><td>מנכ"ל ישראל</td><td>אלי ברקת</td></tr>
+<tr><td>תקציב ממשלתי שנתי</td><td>300-550 אלף ש"ח (טיפוסי)</td></tr>
+<tr><td>סיווג קודם</td><td>שמאל גלוי — עמדה שקופה</td></tr>
+</table>
+
+<p>כי"ח סווג כ"שמאל גלוי" בדוח הארגון: הוא מקדם "יהדות חברתית" (Social Judaism), פלורליזם והומניזם, אך עושה זאת <strong>בשקיפות מלאה</strong>, ללא ניסיון להסתיר את האג'נדה הערכית שלו. הארגון אינו עוסק באקטיביזם פוליטי.</p>
+</div>
+
+<div class="section" id="section-3">
+<h2>תוכן התוכנית בפועל</h2>
+<h3>מרכיבי התוכנית</h3>
+<ul>
+<li><strong>חשיפה לאקדמיה:</strong> ביקורים באוניברסיטאות, מפגשים עם חוקרות</li>
+<li><strong>חשיפה להייטק:</strong> סיורים בחברות טכנולוגיה</li>
+<li><strong>מנטורינג:</strong> הפגשה עם נשים מצליחות כמודלים לחיקוי</li>
+<li><strong>סדנאות מגדר והעצמה:</strong> סדנאות על ביטחון עצמי, שבירת סטיגמות מגדריות</li>
+<li><strong>תמיכה אקדמית:</strong> דגש על מתמטיקה (שיפור ציונים בבגרות)</li>
+<li><strong>תחרויות בניית אתרים:</strong> מרכיב טכנולוגי מעשי</li>
+</ul>
+
+<h3>שותפים תאגידיים</h3>
+<p>התוכנית נהנית משותפויות עם חברות מובילות במשק:</p>
+<ul>
+<li>טבע תעשיות פרמצבטיות</li>
+<li>Amdocs</li>
+<li>SAP</li>
+<li>SentinelOne</li>
+<li>Salesforce</li>
+<li>Microsoft</li>
+<li>אלביט מערכות</li>
+<li>התעשייה האווירית לישראל</li>
+</ul>
+<p>מעורבות חברות כמו אלביט והתעשייה האווירית — שהן חברות ביטחוניות-ציוניות מובהקות — מעידה על כך שהתוכנית אינה מזוהה עם אג'נדה אנטי-ממסדית.</p>
+</div>
+
+<div class="section" id="section-4">
+<h2>ניתוח הממד המגדרי — הגלוי והנסתר</h2>
+
+<h3>הממד הגלוי: הישג אקדמי</h3>
+<p>70-80% מתוכן התוכנית הוא <strong>לגיטימי לחלוטין</strong>: חשיפה לאקדמיה, תמיכה במתמטיקה, מנטורינג מקצועי, רכישת מיומנויות טכנולוגיות. אלה מרכיבים שכל תוכנית העצמה אקדמית כוללת.</p>
+
+<h3>הממד הפמיניסטי: "סדנאות מגדר והעצמה"</h3>
+<p>המרכיב הבעייתי הוא "סדנאות מגדר והעצמה". השאלה אינה אם להעצים נערות — השאלה היא <strong>מה בדיוק נלמד בסדנאות אלה</strong>.</p>
+
+<div class="thesis"><strong>הבחנה חשובה:</strong> יש הבדל בין "העצמת נערות לבחור מדעים" (לגיטימי) לבין "חינוך מגדרי ביקורתי" (אידיאולוגי). התוכנית מצהירה על הראשון. השאלה אם הסדנאות מכילות את השני.</div>
+
+<h3>ראיות לכאן ולכאן</h3>
+<table>
+<tr><th>ראיה לטובת "תוכנית לגיטימית"</th><th>ראיה לטובת "מטען אידיאולוגי"</th></tr>
+<tr><td>השותפים התאגידיים (אלביט, IAI) לא היו משתתפים בתוכנית אקטיביסטית</td><td>השם "סודקות את תקרת הזכוכית" הוא מונח פמיניסטי מובהק</td></tr>
+<tr><td>הדגש על מתמטיקה ובגרות — תוצאות מדידות</td><td>"סדנאות מגדר" — מה בדיוק נלמד שם?</td></tr>
+<tr><td>המודל: מנטורינג עם נשים מצליחות — השראה מעשית</td><td>כי"ח מוגדר כבעל אג'נדה פמיניסטית (ציון 4/5 בממד מגדר)</td></tr>
+<tr><td>5 שנים — מסלול ארוך עם תוצאות מדידות</td><td>מסווג בגפ"ן תחת "תוכן מיני/מגדרי"</td></tr>
+</table>
+
+<h3>הקשר לאשכול הפמיניסטי</h3>
+<p>"סודקות את תקרת הזכוכית" מופיעה בקובץ research_lens.json תחת אשכול "Feminist/gender-agenda orgs", יחד עם ארגונים כמו "בועטות", "שער שוויון" ו"המרכז לשוויון מגדרי". זהו אשכול שכבר נחקר ותועד.</p>
+</div>
+
+<div class="section" id="section-5">
+<h2>מבחן הפער: מוצהר מול מעשה</h2>
+
+<h3>מה התוכנית אומרת על עצמה?</h3>
+<p>קידום נערות מהפריפריה ללימודי מדעים ולבגרות איכותית.</p>
+
+<h3>מה התוכנית עושה בפועל?</h3>
+<p>אכן מקדמת נערות למדעים ולהייטק — אבל גם כוללת "סדנאות מגדר והעצמה" שהתוכן שלהן אינו שקוף.</p>
+
+<h3>האם יש פער?</h3>
+<p><strong>פער קטן.</strong> התוכנית עושה את מה שהיא אומרת, אבל כוללת גם מרכיב פמיניסטי שאינו מפורט מספיק.</p>
+
+<div class="thesis"><strong>מבחן ההגינות:</strong> ארגון כל ישראל חברים <strong>לא מסתיר</strong> את עמדותיו. הוא מצהיר בגלוי על ערכי שוויון מגדרי. השם "סודקות את תקרת הזכוכית" הוא פמיניסטי בגלוי. אין כאן ניסיון להסתיר מאחורי מסך של "מדעים" — הפמיניזם הוא חלק מהמותג.</div>
+
+<table>
+<tr><th>ממד</th><th>הערכה</th></tr>
+<tr><td>תוכן אקדמי</td><td>גבוה — מתמטיקה, מדעים, טכנולוגיה</td></tr>
+<tr><td>תוכן מגדרי-פמיניסטי</td><td>קיים — "סדנאות מגדר והעצמה", שם התוכנית</td></tr>
+<tr><td>שקיפות</td><td>גבוהה — הפמיניזם גלוי, לא מוסתר</td></tr>
+<tr><td>פער מוצהר/מעשה</td><td>מינימלי</td></tr>
+<tr><td>רמת סיכון אידיאולוגי</td><td>בינונית — יש מטען ערכי, אבל הוא שקוף</td></tr>
+<tr><td>שותפים</td><td>חברות ביטחוניות וטכנולוגיה — ממתנים חשש</td></tr>
+</table>
+</div>
+
+<div class="section" id="section-6">
+<h2>סיכום וסיווג</h2>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fef3e2;color:#e67e22;font-weight:600;font-size:0.85em;margin:8px 0;">שמאל גלוי — עמדה שקופה</div>
+
+<p>תוכנית "סודקות את תקרת הזכוכית" מסווגת כ<strong>"שמאל גלוי"</strong> בהתאמה לסיווג ארגון האם (כל ישראל חברים).</p>
+
+<p><strong>מדוע "שמאל גלוי" ולא "חתרני":</strong></p>
+<ul>
+<li>הפמיניזם הוא <strong>חלק גלוי מהמותג</strong> — השם עצמו הוא מניפסט פמיניסטי</li>
+<li><strong>אין ניסיון הסתרה</strong> — התוכנית מצהירה בגלוי על סדנאות מגדר</li>
+<li>רוב התוכן הוא <strong>אקדמי-מקצועי</strong> לגיטימי (מתמטיקה, הייטק, מדע)</li>
+<li><strong>השותפים התאגידיים</strong> (אלביט, IAI, מיקרוסופט) ממתנים כל חשש לרדיקליזם</li>
+<li>ארגון כי"ח <strong>לא עוסק באקטיביזם פוליטי</strong> — הוא ארגון חינוכי</li>
+</ul>
+
+<p><strong>מדוע "שמאל גלוי" ולא "ניטרלי":</strong></p>
+<ul>
+<li>"סדנאות מגדר והעצמה" הן מרכיב ערכי, לא רק אקדמי</li>
+<li>השם "סודקות את תקרת הזכוכית" הוא מונח ממשפחת הפמיניזם המערבי</li>
+<li>ארגון כי"ח מקודד ליברלי-פלורליסטי בממד המגדרי (ציון 4/5)</li>
+</ul>
+
+<p><strong>שאלות פתוחות:</strong></p>
+<ol>
+<li>מה התוכן המדויק של "סדנאות מגדר והעצמה"? האם מדובר בהשראה ("תהיי מהנדסת!") או בתאוריה מגדרית ביקורתית?</li>
+<li>האם יש גרסה מקבילה לנערים? היעדר גרסה מקבילה מעיד על אג'נדה מגדרית ייחודית.</li>
+<li>מהם תוצאות הבגרות בפועל של משתתפות התוכנית?</li>
+</ol>
+
+<p><em>הפניה: לניתוח מלא של ארגון כל ישראל חברים ראו <a href="deep_Alliance_Israel.html">דוח מחקר כל ישראל חברים</a>.</em></p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

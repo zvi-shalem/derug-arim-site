@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>נקרא יחד בערבית — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זיהוי התוכנית</a> <a href="#section-2">המכון לחקר הטיפוח</a> <a href="#section-3">מימון: NCJW</a> <a href="#section-4">תוכן פדגוגי</a> <a href="#section-5">מבחן הפער</a> <a href="#section-6">סיכום וסיווג</a></span>
+</nav>
+
+<div class="hero">
+  <h1>נקרא יחד בערבית</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 707 | האוניברסיטה העברית (חל"צ)</div>
+  <div class="meta">6 פריסות | 42 בתי ספר בעיר אחת | דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זיהוי התוכנית והמפעיל</a></li>
+<li><a href="#section-2">המכון לחקר הטיפוח בחינוך — דיוקן מוסדי</a></li>
+<li><a href="#section-3">מימון: הקשר ל-NCJW האמריקאי</a></li>
+<li><a href="#section-4">תוכן פדגוגי — מה התוכנית עושה בפועל</a></li>
+<li><a href="#section-5">מבחן הפער: מוצהר מול מעשה</a></li>
+<li><a href="#section-6">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זיהוי התוכנית והמפעיל</h2>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>שם התוכנית</td><td>נקרא יחד בערבית</td></tr>
+<tr><td>מספר גפ"ן</td><td>707</td></tr>
+<tr><td>ארגון מפעיל</td><td>האוניברסיטה העברית (חל"צ)</td></tr>
+<tr><td>יחידה אקדמית</td><td>המכון לחקר הטיפוח בחינוך</td></tr>
+<tr><td>תחום</td><td>לימודי</td></tr>
+<tr><td>קהל יעד</td><td>תלמידי כיתות א'/ב' המתקשים ברכישת קריאה וכתיבה בערבית</td></tr>
+<tr><td>בתי ספר</td><td>42</td></tr>
+<tr><td>ערים</td><td>1 (מדובר ככל הנראה ביישוב ערבי אחד)</td></tr>
+<tr><td>פריסות בגפ"ן</td><td>6</td></tr>
+</table>
+<p>התוכנית "נקרא יחד בערבית" הינה תוכנית לקידום תהליך רכישת הקריאה והכתיבה <strong>בשפה הערבית</strong> בכיתות א'/ב'. התוכנית מיועדת לתלמידים המתקשים בתחום זה, והלמידה מתרחשת בקבוצות קטנות. היא משלבת בין טיפוח היכולת הסמנטית, ההקשרית, האורתוגראפית והפונולוגית לבין הוראת סימני הכתב.</p>
+<div class="thesis"><strong>הבהרה מהותית:</strong> בניגוד למה שהשם עשוי להציע, זו <strong>לא</strong> תוכנית ללימוד ערבית לתלמידים יהודים במסגרת "דו-קיום". זו תוכנית לתיקון קשיי קריאה וכתיבה בערבית בקרב תלמידים ערבים — ילדים שהערבית היא שפת אמם ושמתקשים ברכישתה כשפה כתובה. מדובר בתוכנית אורתוגרפית-פונולוגית קלאסית, אנלוגית לתוכניות "נקרא יחד" בעברית.</div>
+</div>
+
+<div class="section" id="section-2">
+<h2>המכון לחקר הטיפוח בחינוך — דיוקן מוסדי</h2>
+<p>התוכנית פועלת במסגרת <strong>המכון לחקר הטיפוח בחינוך</strong> (The NCJW Research Institute for Innovation in Education) באוניברסיטה העברית בירושלים. המכון הוקם בשנות ה-60 ונחשב לאחד הגופים המחקריים המובילים בישראל בתחום טיפוח ילדים בעלי קשיי למידה.</p>
+<h3>תחומי פעילות עיקריים</h3>
+<ul>
+<li>פיתוח כלים אבחוניים וטיפוליים לקשיי למידה</li>
+<li>מחקר יישומי בתחום רכישת שפה (עברית וערבית)</li>
+<li>הכשרת מורים לזיהוי וטיפול בקשיי קריאה וכתיבה</li>
+<li>תוכניות התערבות מותאמות לאוכלוסיות שונות</li>
+</ul>
+<p>המכון פועל כיחידה אקדמית לגיטימית בתוך האוניברסיטה העברית, עם פרסומים מדעיים מבוקרי עמיתים ושיתופי פעולה אקדמיים רחבים.</p>
+
+<h3>תוכניות "נקרא יחד" — סדרה שלמה</h3>
+<p>המכון מפעיל סדרת תוכניות "נקרא יחד" בשפות שונות:</p>
+<ul>
+<li><strong>נקרא יחד בעברית</strong> — לתלמידים דוברי עברית עם קשיי קריאה</li>
+<li><strong>נקרא יחד בערבית</strong> — לתלמידים דוברי ערבית עם קשיי קריאה (התוכנית הנדונה)</li>
+</ul>
+<p>הגרסה הערבית מותאמת למאפיינים הייחודיים של השפה הערבית הכתובה — דיגלוסיה (הפער בין הערבית המדוברת לכתובה), מורכבות אורתוגרפית (נקודות, צורות שונות של אותיות לפי מיקום במילה), ומבנה מורפולוגי מורכב.</p>
+</div>
+
+<div class="section" id="section-3">
+<h2>מימון: הקשר ל-NCJW האמריקאי</h2>
+<p>שמו המלא של המכון כולל את ראשי התיבות NCJW — <strong>National Council of Jewish Women</strong>. ארגון NCJW האמריקאי הוא התורם ההיסטורי המרכזי שתמך בהקמת המכון ובמימונו לאורך עשרות שנים.</p>
+
+<h3>מי הם NCJW?</h3>
+<table>
+<tr><th>פרמטר</th><th>פרט</th></tr>
+<tr><td>שם</td><td>National Council of Jewish Women</td></tr>
+<tr><td>הקמה</td><td>1893, ארה"ב</td></tr>
+<tr><td>סוג</td><td>ארגון יהודי-אמריקאי פמיניסטי-פרוגרסיבי</td></tr>
+<tr><td>עמדות ידועות</td><td>פרו-צ'ויס (זכות להפלה), זכויות LGBTQ, רפורמה בהגירה, הפרדת דת ומדינה</td></tr>
+<tr><td>הצהרה עצמית</td><td>"Inspired by Jewish values, NCJW strives for social justice"</td></tr>
+</table>
+
+<div class="thesis"><strong>האם מימון NCJW = אג'נדה אידיאולוגית בתוכנית?</strong> זהו ליבת הבדיקה. NCJW הוא ללא ספק ארגון עם אג'נדה ליברלית-פרוגרסיבית ברורה. אבל השאלה אינה "מי מממן" — השאלה היא "מה מוכנס לתוכנית".</div>
+
+<h3>ניתוח הקשר</h3>
+<ul>
+<li>NCJW תמכו בהקמת המכון <strong>בשנות ה-60</strong> — לפני יותר מ-60 שנה</li>
+<li>המכון הוא <strong>יחידה אקדמית</strong> באוניברסיטה העברית — לא עמותה עצמאית הכפופה לתורם</li>
+<li>תחומי המחקר של המכון (קשיי למידה, אבחון, רכישת שפה) הם <strong>טכניים-אקדמיים</strong> לחלוטין</li>
+<li>התוכנית עוסקת בפונולוגיה ואורתוגרפיה של ערבית — <strong>אין בה תוכן ערכי כלשהו</strong></li>
+<li>אין ראיה שה-NCJW מעורב בקביעת תכני התוכנית או בפיקוח עליהם</li>
+</ul>
+
+<p><strong>אנלוגיה:</strong> זה דומה למצב שבו קרן רוקפלר תרמה לבניית בניין פיזיקה באוניברסיטה — זה לא הופך את מחקר הפיזיקה לאידיאולוגי.</p>
+</div>
+
+<div class="section" id="section-4">
+<h2>תוכן פדגוגי — מה התוכנית עושה בפועל</h2>
+<p>על פי תיאור הגפ"ן ונתוני הפרויקט:</p>
+<h3>מרכיבים מרכזיים</h3>
+<ul>
+<li><strong>טיפוח יכולת סמנטית</strong> — הבנת משמעות מילים</li>
+<li><strong>טיפוח יכולת הקשרית</strong> — שימוש בהקשר להבנת טקסט</li>
+<li><strong>טיפוח יכולת אורתוגראפית</strong> — זיהוי וכתיבת אותיות ומילים</li>
+<li><strong>טיפוח יכולת פונולוגית</strong> — מודעות לצלילים ולצירופי צלילים</li>
+<li><strong>הוראת סימני הכתב</strong> — לימוד שיטתי של מערכת הכתיב הערבית</li>
+</ul>
+
+<h3>שיטת עבודה</h3>
+<ul>
+<li>למידה בקבוצות קטנות (לא כיתה שלמה)</li>
+<li>התוכנית מתוקשבת (כוללת מרכיב דיגיטלי)</li>
+<li>מיועדת לתלמידים מתקשים בלבד (התערבות ממוקדת, לא תוכנית כללית)</li>
+</ul>
+
+<p><strong>בדיקת תוכן אידיאולוגי:</strong> אין בתיאור התוכנית, במטרותיה או בשיטות העבודה שלה <strong>שום מרכיב ערכי, פוליטי או אידיאולוגי</strong>. מדובר בתוכנית טכנית-מקצועית לטיפול בקשיי קריאה וכתיבה.</p>
+</div>
+
+<div class="section" id="section-5">
+<h2>מבחן הפער: מוצהר מול מעשה</h2>
+<h3>מה התוכנית אומרת על עצמה?</h3>
+<p>תוכנית לקידום רכישת קריאה וכתיבה בערבית לתלמידים מתקשים בכיתות א'/ב'.</p>
+
+<h3>מה התוכנית עושה בפועל?</h3>
+<p>בדיוק את מה שהיא מתארת — הוראת קריאה וכתיבה בקבוצות קטנות, שילוב מרכיבים אורתוגרפיים ופונולוגיים.</p>
+
+<h3>האם יש פער?</h3>
+<p><strong>לא נמצא פער</strong> בין המוצהר למעשה.</p>
+
+<h3>בדיקת "דו-לאומיות"</h3>
+<p>ניתוח ה-Gemini העלה חשד כי "על פניו נראה שמדובר בחלק מאג'נדה גדולה יותר — להפיכת ישראל למדינה דו לאומית". בדיקה מעמיקה דוחה טענה זו:</p>
+<ul>
+<li>התוכנית <strong>מלמדת ערבים לקרוא ערבית</strong> — לא מלמדת יהודים ערבית</li>
+<li>אין בה שום מרכיב של "דו-קיום", "דיאלוג" או "שפה משותפת"</li>
+<li>היא פועלת ב-42 בתי ספר <strong>ביישוב ערבי אחד</strong></li>
+<li>מדובר בתוכנית לטיפול בקשיי למידה, לא בתוכנית פוליטית</li>
+</ul>
+
+<div class="thesis"><strong>מסקנה:</strong> הקשר NCJW — האוניברסיטה העברית הוא היסטורי-מוסדי, לא אידיאולוגי-תפעולי. תוכנית "נקרא יחד בערבית" היא כלי מקצועי-אקדמי שאין בו מטען ערכי. הסיווג הראשוני (ציון אג'נדה 3/5) מנופח ומבוסס על אשמה-בשיוך ("guilt by association").</div>
+
+<table>
+<tr><th>ממד</th><th>הערכה</th></tr>
+<tr><td>תוכן אידיאולוגי</td><td>אפס — פונולוגיה ואורתוגרפיה בלבד</td></tr>
+<tr><td>מימון בעייתי</td><td>NCJW הוא תורם היסטורי, לא שותף תכני</td></tr>
+<tr><td>פער מוצהר/מעשה</td><td>אין פער</td></tr>
+<tr><td>סיכון שפת "דו-קיום"</td><td>אפס — מלמדת ערבים לקרוא ערבית, לא חוצת מגזרים</td></tr>
+<tr><td>לגיטימיות אקדמית</td><td>גבוהה — מכון מחקר באוניברסיטה העברית</td></tr>
+</table>
+</div>
+
+<div class="section" id="section-6">
+<h2>סיכום וסיווג</h2>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+
+<p>תוכנית "נקרא יחד בערבית" מסווגת כ<strong>"לא מוכרע"</strong> מסיבות הבאות:</p>
+
+<p><strong>מדוע לא "רדיקלי חתרני":</strong></p>
+<ul>
+<li>אין <strong>שום</strong> תוכן אידיאולוגי בתוכנית עצמה</li>
+<li>אין פער בין המוצהר למעשה</li>
+<li>אין מרכיב פוליטי, מגדרי או ערכי</li>
+<li>מדובר בכלי טכני-אקדמי למטרה חינוכית לגיטימית</li>
+</ul>
+
+<p><strong>מדוע לא "ניקיון מלא":</strong></p>
+<ul>
+<li>הקשר ההיסטורי ל-NCJW מותיר שאלה פתוחה לגבי השפעה מוסדית רחבה יותר על המכון</li>
+<li>לא נבדקו תוכניות אחרות של המכון שאולי כן מכילות מטען ערכי</li>
+<li>רמת הוודאות נמוכה (0.6) — דרוש מחקר נוסף על המכון כמכלול</li>
+</ul>
+
+<p><strong>שאלות פתוחות:</strong></p>
+<ol>
+<li>האם ל-NCJW יש עדיין השפעה פעילה על תוכניות המכון, או שזה קשר היסטורי-שמי בלבד?</li>
+<li>האם למכון לחקר הטיפוח בחינוך יש תוכניות אחרות עם מטען אידיאולוגי?</li>
+<li>מהו התקציב המדויק של התוכנית ומה חלקו של NCJW בו?</li>
+</ol>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

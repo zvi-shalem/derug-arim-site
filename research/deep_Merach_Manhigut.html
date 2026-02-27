@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מרח מנהיגות והעשרה — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.warning-box {
+  background: #fff5f5; border-right: 4px solid #cc0000;
+  padding: 14px 18px; border-radius: 0 6px 6px 0;
+  margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+.info-box {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 14px 18px; border-radius: 0 6px 6px 0;
+  margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+.neutral-box {
+  background: #f8f8f8; border-right: 4px solid #999;
+  padding: 14px 18px; border-radius: 0 6px 6px 0;
+  margin: 14px 0;
+}
+.neutral-box strong { color: #555; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#section-1">תקציר מנהלים</a>
+    <a href="#section-2">זיהוי מוסדי</a>
+    <a href="#section-3">רישום ומימון</a>
+    <a href="#section-4">התוכנית בגפ"ן</a>
+    <a href="#section-5">חיפוש רשתות</a>
+    <a href="#section-6">המבחן</a>
+    <a href="#section-7">סיווג</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מרח מנהיגות והעשרה</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע &mdash; אין מספיק מידע לסיווג</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 8252 | מפעיל: מרח שילוב וקידום חברה ונוער בע"מ</div>
+  <div class="meta">דוח מחקר עומק | 12 פריסות</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+    <li><a href="#section-1">תקציר מנהלים והתזה המרכזית</a></li>
+    <li><a href="#section-2">זיהוי מוסדי: מרח שילוב וקידום חברה ונוער</a></li>
+    <li><a href="#section-3">רישום, מימון וממשל תאגידי</a></li>
+    <li><a href="#section-4">התוכנית בגפ"ן: מה ידוע</a></li>
+    <li><a href="#section-5">חיפוש רשתות וקשרים אידיאולוגיים</a></li>
+    <li><a href="#section-6">המבחן: מוצהר מול מעשה</a></li>
+    <li><a href="#section-7">סיווג סופי ושאלות פתוחות</a></li>
+  </ol></div>
+
+  <!-- Section 1 -->
+  <div class="section" id="section-1">
+    <h2>תקציר מנהלים והתזה המרכזית</h2>
+
+    <div class="neutral-box">
+      <strong>התזה:</strong> מרח מנהיגות והעשרה היא תוכנית "העצמה ומנהיגות" המופעלת על ידי חברה פרטית קטנה (בע"מ, לא עמותה) מכסיפה. לתוכנית נוכחות מינימלית באינטרנט, אין אתר רשמי נגיש, אין דוחות כספיים פומביים, ואין ראיות לקשר לרשתות פרוגרסיביות ידועות. מדובר ככל הנראה בגוף מקומי קטן שפועל בחברה הבדואית, אך היעדר המידע מונע סיווג ודאי &mdash; לטוב ולרע.
+    </div>
+
+    <table>
+      <tr><th>נתון</th><th>ערך</th></tr>
+      <tr><td>מספר גפ"ן</td><td>8252</td></tr>
+      <tr><td>שם רשמי בגפ"ן</td><td>מרח מנהיגות והעשרה (העצמה ומנהיגות)</td></tr>
+      <tr><td>מפעיל</td><td>מרח שילוב וקידום חברה ונוער בע"מ</td></tr>
+      <tr><td>מספר חברה</td><td>516058732</td></tr>
+      <tr><td>סוג ישות</td><td>חברה פרטית (בע"מ) &mdash; לא עמותה</td></tr>
+      <tr><td>תחום בגפ"ן</td><td>חברתי - ערכי (על פי הסיווג האוטומטי)</td></tr>
+      <tr><td>תיאור</td><td>מילת מפתח: "העצמה"; חברתי-ערכי כללי</td></tr>
+      <tr><td>ציון סיכון מחקר</td><td>סוכן א: 2/5 | סוכן ב: 2/5</td></tr>
+      <tr><td>פריסות</td><td>12</td></tr>
+    </table>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="section-2">
+    <h2>זיהוי מוסדי: מרח שילוב וקידום חברה ונוער</h2>
+
+    <h3>פרטי רישום</h3>
+    <table>
+      <tr><th>מאפיין</th><th>פרט</th><th>מקור</th></tr>
+      <tr><td>שם חברה</td><td>מרח שילוב וקידום חברה ונוער בע"מ</td><td>רשם החברות</td></tr>
+      <tr><td>מספר חברה</td><td>516058732</td><td>רשם החברות</td></tr>
+      <tr><td>סוג</td><td>חברה פרטית ישראלית</td><td>רשם החברות</td></tr>
+      <tr><td>סטטוס</td><td>פעילה</td><td>רשם החברות</td></tr>
+      <tr><td>תאריך ייסוד</td><td>21 ביולי 2019</td><td>רשם החברות / obudget</td></tr>
+      <tr><td>כתובת</td><td>שכונה 43, 385, כסיפה 8492300</td><td>obudget</td></tr>
+      <tr><td>מטרת חברה</td><td>"לעסוק בכל עיסוק חוקי"</td><td>רשם החברות</td></tr>
+      <tr><td>אתר אינטרנט</td><td>לא נמצא</td><td>חיפוש מקיף</td></tr>
+    </table>
+
+    <h3>על כסיפה</h3>
+    <p>כסיפה (Kseife) היא עיר בדואית בנגב עם אוכלוסייה של כ-22,000 תושבים. העיר מדורגת באשכולות החברתיים-כלכליים הנמוכים (1-2 מתוך 10). רוב האוכלוסייה הבדואית בנגב מתאפיינת במבנה חברתי שבטי-משפחתי מסורתי. <strong>הקשר של חברת מרח לכסיפה מצביע על כך שמדובר בגוף מקומי הפועל בחברה הבדואית.</strong></p>
+
+    <h3>ניתוח השם "מרח"</h3>
+    <p>השם "מרח" יכול להיות:</p>
+    <ul>
+      <li><strong>ראשי תיבות:</strong> "מרח" = מנהיגות, רווחה, חברה? (לא ברור, אין הסבר רשמי)</li>
+      <li><strong>ערבית:</strong> במבטא מקומי, יכול להיות קשור ל"מרחב" או למושג דומה</li>
+      <li><strong>שם מותג:</strong> ייתכן ששם זה נבחר כשם מסחרי לחברה</li>
+    </ul>
+    <p>היעדר אתר אינטרנט או חומר שיווקי נגיש מונע הבנה מלאה של משמעות השם.</p>
+
+    <h3>בעלות ומנהלים</h3>
+    <p>פרטי הבעלות והמנהלים אינם זמינים ממקורות ציבוריים חינמיים. קבלת מידע זה מחייבת תשלום לרשם החברות. לא ניתן לזהות אנשי מפתח, קשרים פוליטיים או זיקות ארגוניות ללא נתון זה.</p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="section-3">
+    <h2>רישום, מימון וממשל תאגידי</h2>
+
+    <h3>מימון ממשלתי</h3>
+    <p>על פי מסד הנתונים של מפתח התקציב (obudget), <strong>לא נמצאו העברות ממשלתיות ישירות</strong> לחברת מרח שילוב וקידום חברה ונוער בשלוש השנים האחרונות. אין תמיכות, אין חוזי שירותים, אין מכרזים ממשלתיים מתועדים.</p>
+
+    <div class="info-box">
+      <strong>משמעות:</strong> הכנסות החברה מגיעות ככל הנראה ישירות מבתי הספר דרך מערכת גפ"ן, ולא מתקציבים ממשלתיים ישירים. מדובר בגוף שפועל כ"ספק שירותים" ולא כארגון הנתמך על ידי המדינה.
+    </div>
+
+    <h3>סוג ישות: חברה פרטית בע"מ (לא עמותה)</h3>
+    <p>נקודה חשובה: מרח היא <strong>חברה פרטית</strong> (בע"מ), לא עמותה (ע"ר). המשמעות:</p>
+    <ul>
+      <li>אין חובת שקיפות כמו עמותה &mdash; לא חייבת לפרסם דוחות כספיים</li>
+      <li>יכולה לחלק רווחים לבעלי המניות</li>
+      <li>לא כפופה לרשם העמותות ולדרישות הגילוי שלו</li>
+      <li>מטרת החברה הרשומה ("לעסוק בכל עיסוק חוקי") היא הכי גנרית שאפשר &mdash; לא מגלה דבר על האידיאולוגיה</li>
+    </ul>
+
+    <h3>נוכחות דיגיטלית</h3>
+    <table>
+      <tr><th>ערוץ</th><th>סטטוס</th></tr>
+      <tr><td>אתר אינטרנט</td><td>לא נמצא</td></tr>
+      <tr><td>פייסבוק</td><td>לא נמצא</td></tr>
+      <tr><td>אינסטגרם</td><td>לא נמצא</td></tr>
+      <tr><td>לינקדאין</td><td>לא נמצא</td></tr>
+      <tr><td>GuideStar Israel</td><td>לא רלוונטי (חברה, לא עמותה)</td></tr>
+      <tr><td>obudget</td><td>רשומה, ללא העברות ממשלתיות</td></tr>
+      <tr><td>CheckID</td><td>רשומה, פרטים בסיסיים בלבד</td></tr>
+    </table>
+
+    <p><strong>יוצא דופן:</strong> גוף שמפעיל תוכנית חינוכית ב-12 בתי ספר ללא אתר אינטרנט, ללא נוכחות ברשתות חברתיות וללא חומרי שיווק נגישים. זה יכול לפעול לטובתו (אין אג'נדה מוסתרת &mdash; פשוט גוף מקומי קטן) או לרעתו (חוסר שקיפות מוחלט).</p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section" id="section-4">
+    <h2>התוכנית בגפ"ן: מה ידוע</h2>
+
+    <h3>תיאור רשמי</h3>
+    <p>כל מה שידוע על התוכנית מגיע ממסד הנתונים הפנימי של הפרויקט:</p>
+
+    <table>
+      <tr><th>שדה</th><th>ערך</th></tr>
+      <tr><td>שם</td><td>מרח מנהיגות והעשרה (העצמה ומנהיגות)</td></tr>
+      <tr><td>תיאור</td><td>מילת מפתח: "העצמה"; חברתי-ערכי כללי</td></tr>
+      <tr><td>סיווג</td><td>חברתי - ערכי</td></tr>
+      <tr><td>ציון סיכון</td><td>2/5 (שני סוכנים)</td></tr>
+    </table>
+
+    <h3>ניתוח המילות מפתח</h3>
+    <p>המילה <strong>"העצמה"</strong> (empowerment) היא מילה נפוצה בשדה החינוכי-חברתי. בהקשר הישראלי היא יכולה להופיע בשני הקשרים:</p>
+    <ul>
+      <li><strong>הקשר נייטרלי:</strong> העצמת נוער בסיכון, בניית ביטחון עצמי, מנהיגות צעירה &mdash; נפוץ מאוד בתוכניות לחברה הבדואית שבהן צעירים מתמודדים עם פערים חברתיים-כלכליים</li>
+      <li><strong>הקשר פרוגרסיבי:</strong> "העצמה" במובן הפמיניסטי-ביקורתי &mdash; שינוי מבני סביב יחסי כוח, מגדר, מיעוטים</li>
+    </ul>
+    <p>ללא גישה לתוכן הפועלי של התוכנית, <strong>אין אפשרות לקבוע באיזה הקשר משמשת המילה</strong>.</p>
+
+    <h3>"מנהיגות" &mdash; מה סוג?</h3>
+    <p>גם "מנהיגות" היא מילה רחבה. תוכניות מנהיגות בחברה הבדואית יכולות להיות:</p>
+    <ul>
+      <li>מנהיגות קהילתית מסורתית (חיזוק מבנה שבטי-משפחתי)</li>
+      <li>מנהיגות אזרחית (חיבור לחברה הישראלית הרחבה)</li>
+      <li>מנהיגות "ביקורתית" (שינוי מבני, ערעור על מוסדות קיימים)</li>
+    </ul>
+    <p>שוב &mdash; ללא חומרים, אי אפשר לדעת.</p>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section" id="section-5">
+    <h2>חיפוש רשתות וקשרים אידיאולוגיים</h2>
+
+    <h3>חיפוש שיטתי</h3>
+    <p>בוצע חיפוש מקיף בעברית ובאנגלית לזיקות של מרח לרשתות פרוגרסיביות ידועות:</p>
+
+    <table>
+      <tr><th>רשת / ארגון</th><th>נמצא קשר?</th><th>הערה</th></tr>
+      <tr><td>SEI (Social Enterprise Israel)</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>הקרן החדשה לישראל (NIF)</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>UNESCO / SDGs</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>CASEL / SEL</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>דרור ישראל</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>יד הנדיב</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>קרנות זרות</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>פדגוגיה ביקורתית</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>ארגוני דו-קיום</td><td>לא</td><td>אין ראיות</td></tr>
+      <tr><td>ארגוני מגדר</td><td>לא</td><td>אין ראיות</td></tr>
+    </table>
+
+    <div class="info-box">
+      <strong>ממצא:</strong> לא נמצאה שום ראיה לקשר של מרח שילוב וקידום חברה ונוער לרשתות פרוגרסיביות, ארגוני מימון זר, או ארגונים אידיאולוגיים ידועים. זהו היפך המצב בתוכניות כמו א.י.ל (SEL.IL/CASEL), מצמיחים, חלוץ חינוכי, ודומותיהן.
+    </div>
+
+    <h3>הקשר מקומי</h3>
+    <p>ההקשר הסביר ביותר: חברה פרטית מקומית שהוקמה על ידי יזם או יזמים מכסיפה, המציעים תוכנית מנהיגות והעשרה לנוער בדואי. מודל זה נפוץ בנגב &mdash; גופים מקומיים שפועלים ברשויות הבדואיות ומציעים שירותים חינוכיים. חלקם מעולים, חלקם בינוניים, חלקם בעייתיים &mdash; אך רובם אינם חלק מרשתות אידיאולוגיות.</p>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section" id="section-6">
+    <h2>המבחן: מוצהר מול מעשה</h2>
+
+    <div class="thesis">
+      <strong>המבחן:</strong> האם יש פער בין מה שהארגון אומר לבין מה שהוא עושה?
+    </div>
+
+    <h3>הבעיה: אין מספיק מידע להפעלת המבחן</h3>
+    <p>כדי להפעיל את המבחן "מוצהר מול מעשה", צריך לדעת מה הארגון <strong>מוצהר</strong> (אומר על עצמו) ומה הוא <strong>עושה</strong> (בפועל). במקרה של מרח:</p>
+
+    <table>
+      <tr><th>מה צריך</th><th>מה יש</th></tr>
+      <tr><td>אתר רשמי עם חזון ומטרות</td><td>אין אתר</td></tr>
+      <tr><td>תוכני תוכנית (מערכי שיעור, נושאים)</td><td>לא נגישים</td></tr>
+      <tr><td>דוחות כספיים</td><td>לא זמינים (חברה פרטית)</td></tr>
+      <tr><td>פרטי מנהלים ובעלי מניות</td><td>דורשים תשלום לרשם</td></tr>
+      <tr><td>ביקורות או עדויות ממשתתפים</td><td>לא נמצאו</td></tr>
+      <tr><td>כיסוי תקשורתי</td><td>לא נמצא</td></tr>
+      <tr><td>רשתות שותפים</td><td>לא נמצאו</td></tr>
+    </table>
+
+    <p>כשאין לא "מוצהר" ולא "מעשה" &mdash; אין מבחן. הגוף הזה הוא <strong>"חור שחור" מידעי</strong>.</p>
+
+    <h3>היפותזות</h3>
+
+    <p><strong>היפותזה א' (סבירה ביותר):</strong> גוף עסקי מקומי קטן מכסיפה, שהוקם על ידי יזם בדואי, המציע תוכנית "מנהיגות" לבתי ספר בחברה הבדואית. התוכנית כנראה עוסקת בחיזוק ביטחון עצמי, מנהיגות צעירה, וחיבור לקהילה. חוסר הנוכחות הדיגיטלית משקף את האופי המקומי-שבטי של העסק, לא הסתרה מכוונת.</p>
+
+    <p><strong>היפותזה ב' (פחות סבירה):</strong> גוף שבחר בכוונה במבנה של חברה פרטית כדי להימנע משקיפות, ופועל כצינור למימון או אג'נדה חיצונית. תרחיש זה אינו נתמך בראיות &mdash; הוא מוצג כאן רק למען שלמות הניתוח.</p>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="section" id="section-7">
+    <h2>סיווג סופי ושאלות פתוחות</h2>
+
+    <div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע &mdash; אין מספיק מידע לסיווג</div>
+
+    <h3>נימוקים:</h3>
+    <ol>
+      <li><strong>היעדר מוצהר:</strong> אין אתר, אין חזון כתוב, אין מסמכי מדיניות &mdash; אי אפשר לקבוע מה הארגון "אומר על עצמו"</li>
+      <li><strong>היעדר ראיות לאג'נדה:</strong> לא נמצא קשר לאף רשת פרוגרסיבית, ממען זר, או ארגון אידיאולוגי</li>
+      <li><strong>מבנה עסקי:</strong> חברה פרטית, לא עמותה &mdash; מצביע על מודל מסחרי ולא על שליחות אידיאולוגית</li>
+      <li><strong>הקשר גיאוגרפי:</strong> כסיפה, חברה בדואית &mdash; תואם גוף מקומי שמספק שירותים לרשות</li>
+      <li><strong>חוסר שקיפות מוחלט:</strong> מונע סיווג לכל כיוון</li>
+    </ol>
+
+    <h3>שאלות פתוחות לחקירה נוספת:</h3>
+    <ol>
+      <li><strong>מי הבעלים?</strong> יש לבצע בדיקה ברשם החברות (תשלום) לזיהוי בעלי המניות והמנהלים</li>
+      <li><strong>מה תוכן התוכנית?</strong> יש לקבל מבית ספר שרכש את התוכנית עותק של מערכי השיעור</li>
+      <li><strong>באילו בתי ספר?</strong> 12 הפריסות לא מפורטות ברמת עיר/מוסד במסד הנתונים</li>
+      <li><strong>האם קשור לרשות המקומית כסיפה?</strong> ייתכן שמדובר בגוף שפועל מטעם הרשות</li>
+      <li><strong>מה המחיר לבית ספר?</strong> לא ידוע</li>
+      <li><strong>האם יש לתוכנית רכיב בערבית?</strong> סביר, בהתחשב במיקום, אך לא מתועד</li>
+    </ol>
+
+    <div class="neutral-box">
+      <strong>שורה תחתונה:</strong> מרח מנהיגות והעשרה היא "אלמונית" &mdash; חברה פרטית קטנה ללא נוכחות דיגיטלית, ללא מימון ממשלתי מתועד, וללא קשרים לרשתות ידועות. אין ראיות לחתרנות, אך גם אין ראיות לשקיפות. ציון הסיכון של 2/5 שנתנו הסוכנים נראה הולם &mdash; "העצמה ומנהיגות" הן מילות מפתח שמצדיקות תשומת לב אך לא אזעקה. נדרשת בדיקה ידנית של תוכן התוכנית ופרטי הבעלות כדי להגיע לסיווג סופי.
+    </div>
+
+    <h3>השוואה לא.י.ל (לשם פרספקטיבה):</h3>
+    <table>
+      <tr><th>מאפיין</th><th>א.י.ל (גפ"ן 971)</th><th>מרח (גפ"ן 8252)</th></tr>
+      <tr><td>מפעיל</td><td>אוניברסיטת רייכמן / SEL.IL</td><td>חברה פרטית מכסיפה</td></tr>
+      <tr><td>מוסד אם</td><td>CASEL (ארה"ב)</td><td>לא ידוע</td></tr>
+      <tr><td>נוכחות דיגיטלית</td><td>אתר מלא, מחקרים, מוצרים</td><td>אפס</td></tr>
+      <tr><td>שקיפות</td><td>גבוהה (אך מטעה)</td><td>אפסית</td></tr>
+      <tr><td>קשרים בינלאומיים</td><td>CASEL, UNESCO, יד הנדיב</td><td>לא נמצאו</td></tr>
+      <tr><td>ראיות לאג'נדה</td><td>חזקות ומתועדות</td><td>אין</td></tr>
+      <tr><td>סיווג</td><td>רדיקלי חתרני</td><td>לא מוכרע</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק &mdash; מרח מנהיגות והעשרה | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a><br>
+  מקורות: רשם החברות (516058732), obudget.org, gefen_metadata.json, program_lookup.json (לא נמצא), manual_metadata.json, CheckID, חיפוש מקיף בעברית ואנגלית
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אשכולות חשיבה / Mind Lab — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"><a href="#section-1">מבנה ארגוני</a> <a href="#section-2">ניתוח פיננסי</a> <a href="#section-3">מפת מנהיגות</a> <a href="#section-4">מתודולוגיה ותוכניות</a> <a href="#section-5">בדיקת אידיאולוגיה</a> <a href="#section-6">קשרים ממשלתיים</a> <a href="#section-7">מחלוקות וביקורת</a> <a href="#section-8">סיווג ומסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>אשכולות חשיבה / Mind Lab</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 1459 | ח.פ 513099341</div>
+  <div class="meta">דוח מחקר עומק — עדכון 27.02.2026</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">מבנה ארגוני: חברה פרטית בתוך מערכת ציבורית</a></li>
+<li><a href="#section-2">ניתוח פיננסי: מודל הכנסות ופערי שקיפות</a></li>
+<li><a href="#section-3">מפת מנהיגות: מייסדים ומנהלים</a></li>
+<li><a href="#section-4">מתודולוגיה ותוכניות: שיטת אשכולות</a></li>
+<li><a href="#section-5">בדיקת אידיאולוגיה: המבחן המרכזי</a></li>
+<li><a href="#section-6">קשרים ממשלתיים ומוסדיים</a></li>
+<li><a href="#section-7">מחלוקות, ביקורת ושאלות פתוחות</a></li>
+<li><a href="#section-8">סיווג ומסקנות</a></li>
+<li><a href="#section-9">מקורות</a></li>
+</ol></div>
+
+<div class="section" id="section-1">
+<h2>מבנה ארגוני: חברה פרטית בתוך מערכת ציבורית</h2>
+
+<div class="thesis">
+<strong>ממצא מרכזי:</strong> אשכולות חשיבה ישראל בע"מ היא <strong>חברה פרטית למטרות רווח</strong>, ולא עמותה. זהו חריג בולט בקטלוג גפ"ן, שבו רוב הספקים הם עמותות או גופים ממשלתיים. המשמעות: אין חובת פרסום דוחות כספיים, אין שקיפות ציבורית, ואין ביקורת של רשם העמותות.
+</div>
+
+<table>
+<tr><th>ישות</th><th>סוג</th><th>רישום</th><th>סטטוס</th><th>הערות</th></tr>
+<tr><td><strong>אשכולות חשיבה ישראל בע"מ</strong></td><td>חברה פרטית</td><td>513099341</td><td>פעילה</td><td>נרשמה 3.4.2001. משרדים: התע"ש 20, כפר סבא. דו"ח שנתי אחרון: 2017.</td></tr>
+<tr><td>Mind Lab Group</td><td>מותג בינלאומי / חברת אחזקות</td><td>לא ידוע</td><td>פעיל</td><td>מטרייה גלובלית ל-40+ מדינות. פעילות מתל אביב.</td></tr>
+<tr><td>Mind Lab Brasil</td><td>ישות ברזילאית</td><td>סאו פאולו</td><td>פעילה</td><td>הוקמה 2007. 10,000 בתי ספר, 210,000+ מורים. מנכ"ל: ולמיר פריירה.</td></tr>
+<tr><td>Accelium</td><td>חברת EdTech</td><td>תל אביב</td><td>פעילה</td><td>הוקמה 2015 ע"י אהוד שחר וצביקה פלדפוגל. 13 עובדים. רכשה את EduK ב-2022.</td></tr>
+</table>
+
+<h3>תצפיות מפתח</h3>
+<ul>
+<li><strong>לא עמותה.</strong> זוהי חברה עסקית למטרות רווח. ברוב קטלוג גפ"ן הספקים הם עמותות. המעמד המסחרי מאפשר לחברה להפיק רווחים מתקציבי חינוך ציבוריים ללא חובת שקיפות.</li>
+<li>החברה נרשמה ב-2001, אך טוענת לפעילות מאז 1994. הפער מעיד על שלב מוקדם תחת ישות משפטית אחרת או עוסק מורשה.</li>
+<li><strong>הנוכחות הבינלאומית</strong> פועלת תחת שני מותגים: "Mind Lab" (מתודולוגיה פיזית בכיתה) ו-"Accelium" (פלטפורמה דיגיטלית).</li>
+<li><strong>מודל זכיינות</strong> להתרחבות בינלאומית: Accelium EDU רשומה כ-"Education Franchise" באתרי זכיינות בריטיים. השקעה מינימלית: 6,500-20,500 GBP.</li>
+<li>הנוכחות בברזיל היא הגדולה ביותר: 10,000 בתי ספר, 210,000 מורים, רכישת EduK (חברת EdTech שגייסה $10M).</li>
+</ul>
+
+<h3>פריסה בישראל (לפי נתוני גפ"ן)</h3>
+<ul>
+<li><strong>מספר גפ"ן:</strong> 1459</li>
+<li><strong>7 פריסות ב-5 ערים</strong> (לפי מיפוי דירוג ערים)</li>
+<li>תקציב גפ"ן ידוע: 595,116 ש"ח (6 ערים, 14 בתי ספר)</li>
+<li>טענת החברה: כ-250 מוסדות חינוך בישראל, כ-100 רשויות מקומיות</li>
+<li>קהל יעד: גני ילדים עד כיתה ח', צוותי חינוך</li>
+</ul>
+</div>
+
+<div class="section" id="section-2">
+<h2>ניתוח פיננסי: מודל הכנסות ופערי שקיפות</h2>
+
+<h3>העברות ממשלתיות ישירות (obudget.org)</h3>
+<table>
+<tr><th>מדד</th><th>ערך</th><th>מקור</th></tr>
+<tr><td>העברות ממשלתיות ישירות</td><td>138,749 ש"ח</td><td>obudget.org</td></tr>
+<tr><td>מקור</td><td>משרד הנגב, הגליל והחוסן הלאומי</td><td>obudget.org</td></tr>
+<tr><td>מטרה</td><td>"ערכות קורונה" — לא שירותי חינוך</td><td>obudget.org</td></tr>
+<tr><td>הקצאות גפ"ן (6 ערים)</td><td>595,116 ש"ח</td><td>מיפוי דירוג ערים</td></tr>
+<tr><td>הכנסות ישראל (אומדן)</td><td>10-12 מיליון ש"ח/שנה</td><td>חישוב: 250 מוסדות x ~42K</td></tr>
+<tr><td>בתי ספר בברזיל</td><td>10,000</td><td>Crunchbase/ZoomInfo</td></tr>
+<tr><td>רכישת EduK (2022)</td><td>~$10M</td><td>PitchBook</td></tr>
+<tr><td>לומדים גלובליים (טענה)</td><td>4,000,000+</td><td>אתר החברה</td></tr>
+</table>
+
+<h3>מודל ההכנסות</h3>
+<p>ההכנסה העיקרית של החברה מגיעה <strong>בעקיפין</strong> דרך מנגנון גפ"ן:</p>
+<ol>
+<li>משרד החינוך מקצה תקציבים לבתי הספר</li>
+<li>בתי הספר בוחרים תוכניות מקטלוג גפ"ן המאושר</li>
+<li>בתי הספר משלמים ישירות לספק</li>
+<li>המשמעות: הכסף זורם ממשלה &rarr; בית ספר &rarr; אשכולות חשיבה</li>
+</ol>
+<p>מבנה זה אומר שמימון ממשלתי לחברה <strong>אינו מופיע</strong> ברשומות obudget.org. סכום 595,116 ש"ח מייצג רק 6 ערים ו-14 בתי ספר — ההכנסה הארצית הכוללת גבוהה בהרבה.</p>
+
+<h3>אטימות פיננסית</h3>
+<div class="thesis">
+<strong>בעיה מרכזית:</strong> כחברה פרטית (לא עמותה), לאשכולות חשיבה אין חובה לפרסם דוחות כספיים. בשילוב עם דו"ח שנתי אחרון שהוגש ב-2017, קיימת <strong>שקיפות פיננסית אפסית</strong>. לא ניתן לקבוע כמה החברה מרוויחה מכספי חינוך ציבוריים. פער של 7+ שנים בהגשת דוחות לרשות החברות עשוי להצביע על אי-עמידה בדרישות הרגולטוריות.
+</div>
+</div>
+
+<div class="section" id="section-3">
+<h2>מפת מנהיגות: מייסדים ומנהלים</h2>
+
+<table>
+<tr><th>שם</th><th>תפקיד</th><th>רקע</th><th>הערות</th></tr>
+<tr><td><strong>דן גנדלמן</strong></td><td>מייסד, יוצר שיטת אשכולות</td><td>~38 שנה בלמידה מבוססת משחקים. ייסד את החברה בגיל 24 (יליד ~1970).</td><td>מנהיג אינטלקטואלי/מתודולוגי. הערה: לא אותו דניאל גנדלמן שייסד את Raya.</td></tr>
+<tr><td><strong>אהוד שחר</strong></td><td>מנכ"ל Mind Lab Group; שותף מייסד Accelium</td><td>מנכ"ל לשעבר של The Mind Lab Group.</td><td>מנהל תפעולי/עסקי. ייסד את Accelium ב-2015.</td></tr>
+<tr><td><strong>צביקה פלדפוגל</strong></td><td>שותף מייסד ו-CMO, Accelium; שותף מייסד Mind Lab</td><td>מעורב גם בהקמת Mind Lab Brasil.</td><td>אחראי שיווק והתרחבות בינלאומית.</td></tr>
+<tr><td><strong>ולמיר פריירה</strong></td><td>מנכ"ל ומייסד Mind Lab Brasil</td><td>בוגר אוניברסיטת מקנזי, סאו פאולו.</td><td>שותף מקומי בברזיל.</td></tr>
+</table>
+
+<h3>תצפיות על ממשל תאגידי</h3>
+<ul>
+<li><strong>שליטה מרוכזת:</strong> אותם 2-3 אנשים (גנדלמן, שחר, פלדפוגל) מופיעים בכל הישויות.</li>
+<li><strong>אין גיוון דירקטוריון גלוי.</strong> אין דירקטורים חיצוניים או מועצה מייעצת שנחשפו בפומבי.</li>
+<li>שם המשפחה פלדפוגל מופיע גם ב-Accelium (צביקה) וגם ב-examPAL (אנריקה) — ייתכן קשר משפחתי-עסקי.</li>
+<li><strong>אין כל קשר מוצהר</strong> לארגונים פוליטיים, תנועות חברתיות, קרנות פרוגרסיביות או מוסדות אידיאולוגיים.</li>
+</ul>
+</div>
+
+<div class="section" id="section-4">
+<h2>מתודולוגיה ותוכניות: שיטת אשכולות</h2>
+
+<h3>שיטת הליבה: "שיטת אשכולות"</h3>
+<p>השיטה משתמשת במשחקי אסטרטגיה ומשחקי חשיבה ככלי חינוכי מרכזי. המסגרת הפדגוגית טוענת לשילוב תיאוריות מ:</p>
+
+<table>
+<tr><th>תיאורטיקן</th><th>תרומה</th><th>יישום בשיטה</th></tr>
+<tr><td><strong>ג'ון דיואי</strong></td><td>קונסטרוקטיביזם, למידה חווייתית</td><td>למידה דרך חוויית המשחק</td></tr>
+<tr><td><strong>ראובן פוירשטיין</strong></td><td>למידה מתווכת, העשרה אינסטרומנטלית</td><td>הוראת תהליכי חשיבה מפורשים</td></tr>
+<tr><td><strong>דיוויד פרקינס</strong></td><td>העברת למידה (Transfer)</td><td>חיבור אסטרטגיות משחק לחיים</td></tr>
+<tr><td><strong>רוברט סטרנברג</strong></td><td>אינטליגנציה מוצלחת</td><td>חשיבה מעשית, יצירתית, אנליטית</td></tr>
+<tr><td><strong>הווארד גרדנר</strong></td><td>אינטליגנציות מרובות</td><td>התאמה לסגנונות למידה מגוונים</td></tr>
+</table>
+
+<h3>מבחר תוכניות בישראל (2026)</h3>
+<ol>
+<li><strong>מח"ר (Mahar)</strong> — למידה חברתית-רגשית דרך משחק, כיתות א'-ו'</li>
+<li><strong>שחמטיק</strong> — תוכנית שחמט לגני ילדים וכיתות א'-ב'</li>
+<li><strong>"חזרה לעתיד"</strong> — למידה מבוססת משחק עם מיומנויות AI, כיתות ה'-ח'</li>
+<li><strong>תוכנית השתלבות</strong> — פיתוח חברתי-רגשי, כיתות א'-ח'</li>
+<li><strong>סדרת משחקי מתמטיקה</strong> — "Mathmatics"</li>
+<li><strong>הכשרת מורים</strong> — פיתוח מקצועי לצוותי חינוך</li>
+<li><strong>אולימפיאדת חשיבה</strong> — תחרות ארצית שנתית לתלמידים</li>
+<li><strong>Accelium Campus</strong> — פלטפורמה דיגיטלית ללמידה מקוונת</li>
+</ol>
+
+<h3>ולידציה אקדמית</h3>
+<p><strong>טענות החברה:</strong></p>
+<ul>
+<li>"מחקרי שדה בשיתוף חוקרים מאוניברסיטת ייל, בהנהגת פרופ' דונלד גרין"</li>
+<li>מחקרי תואר שני</li>
+<li>טענה ש"השיטה משפרת באופן משמעותי מיומנויות חשיבה ומיומנויות חיים"</li>
+</ul>
+<p><strong>הערכת איכות הראיות:</strong></p>
+<ul>
+<li>פרופ' דונלד גרין (ייל/קולומביה) הוא מדען פוליטי בכיר, אך <strong>מומחיותו אינה בפסיכולוגיה חינוכית או התפתחות קוגניטיבית</strong>. תחום עיסוקו: ניסויי שדה בהתנהגות פוליטית, הצבעה והפחתת דעות קדומות.</li>
+<li>גרין גם יצר משחק אסטרטגי בשם "Octi" — מה שמסביר את המעורבות שלו עם Mind Lab.</li>
+<li>דף המחקר של Accelium (accelium.com/accelium-reaserch — שים לב לשגיאת הכתיב) לא עבד — החזיר רק קוד JavaScript.</li>
+<li>ערך הוויקיפדיה העברית על אשכולות חשיבה מכיל סימני "[דרוש מקור]" מרובים.</li>
+<li><strong>לא נמצאו פרסומים עצמאיים בכתבי עת אקדמיים מבוקרים</strong> המאשרים את שיטת אשכולות/Mind Lab באופן ספציפי.</li>
+</ul>
+</div>
+
+<div class="section" id="section-5">
+<h2>בדיקת אידיאולוגיה: המבחן המרכזי</h2>
+
+<div class="thesis">
+<strong>שאלת המבחן:</strong> האם יש פער בין מה שאשכולות חשיבה אומרת על עצמה לבין מה שהיא עושה בפועל? האם יש תוכן אידיאולוגי מוסתר מתחת לפני השטח?
+</div>
+
+<h3>מה הארגון אומר על עצמו</h3>
+<ul>
+<li>"פיתוח מיומנויות חשיבה ומיומנויות חיים דרך משחקים"</li>
+<li>"סקרנות, שיתוף פעולה, צמיחה אישית, חשיבה ביקורתית וקבלת השונה"</li>
+<li>"שיטה מוכחת גלובלית לשיפור מיומנויות חשיבה ומיומנויות חיים"</li>
+<li>דגש על פיתוח קוגניטיבי, מיומנויות חברתיות, למידה חווייתית</li>
+</ul>
+
+<h3>מה הארגון עושה בפועל</h3>
+<ul>
+<li>משחקי לוח ואסטרטגיה בכיתות — שחמט, משחקי חשיבה, משחקים דיגיטליים</li>
+<li>הכשרת מורים בפיתוח חשיבה מתודית</li>
+<li>תחרויות חשיבה (אולימפיאדת חשיבה ארצית)</li>
+<li>תוכניות שילוב והכלה לחינוך מיוחד</li>
+</ul>
+
+<h3>בדיקת פערים: מוצהר מול ממשי</h3>
+<table>
+<tr><th>ממד</th><th>ציון (1-5)</th><th>הערות</th></tr>
+<tr><td><strong>ניטרליות אידיאולוגית</strong></td><td>5</td><td>לא זוהתה אידיאולוגיה פוליטית, דתית או חברתית בתכנים. תוכן קוגניטיבי/מטא-קוגניטיבי טהור.</td></tr>
+<tr><td><strong>שקיפות</strong></td><td>2</td><td>חברה פרטית ללא דוחות כספיים פומביים. דו"ח אחרון לרשות החברות: 2017. טענות מחקר לא ניתנות לאימות עצמאי.</td></tr>
+<tr><td><strong>קפדנות אקדמית</strong></td><td>2</td><td>החוקר המצוטט (גרין) אינו פסיכולוג חינוכי. לא נמצאו פרסומים מבוקרים. ויקיפדיה מסמנת [דרוש מקור].</td></tr>
+<tr><td><strong>אידיאולוגיה מזוהה</strong></td><td><strong>לא</strong></td><td>נקי. אין מסרים פוליטיים או חברתיים מוטמעים בתכנים.</td></tr>
+<tr><td><strong>תלות ממשלתית</strong></td><td>3</td><td>פועל דרך גפ"ן/קר"ב, אך ללא מימון ממשלתי ישיר משמעותי. אימוץ מונע-שוק.</td></tr>
+<tr><td><strong>סיכון מסחרי</strong></td><td>3</td><td>ישות למטרות רווח המפיקה הכנסות מתקציבי חינוך ציבוריים. לא בעייתי כשלעצמו, אך יוצר תמריצים סותרים.</td></tr>
+<tr><td><strong>לגיטימיות בינלאומית</strong></td><td>4</td><td>נוכחות אמיתית ב-40+ מדינות. פעילות ברזילאית מהותית (10K בתי ספר). מודל זכיינות מאשש ביקוש.</td></tr>
+</table>
+
+<h3>השוואה עברית-אנגלית</h3>
+<ul>
+<li><strong>אתר עברי (eshcolot.co.il):</strong> מדגיש תוכנית "ההשתלבות", התאמה למשרד החינוך, שותפויות עם בתי ספר מקומיים.</li>
+<li><strong>אתר אנגלי (accelium.com):</strong> מדגיש טווח גלובלי, פלטפורמה דיגיטלית, אימון מבוסס AI, הזדמנויות זכיינות.</li>
+<li><strong>אין סטייה אידיאולוגית</strong> בין חומרי השפה העברית לאנגלית. ההבדל הוא קהל שיווקי, לא אידיאולוגיה.</li>
+</ul>
+
+<blockquote>
+<strong>מסקנת ביניים:</strong> אין פער מובהק בין המוצהר למעשה מבחינה אידיאולוגית. החברה מלמדת מה שהיא אומרת שהיא מלמדת: מיומנויות חשיבה דרך משחקים. הבעיה אינה אידיאולוגית אלא מסחרית ושקיפותית.
+</blockquote>
+</div>
+
+<div class="section" id="section-6">
+<h2>קשרים ממשלתיים ומוסדיים</h2>
+
+<h3>שילוב במשרד החינוך</h3>
+<ul>
+<li><strong>סטטוס בגפ"ן:</strong> מאושר. תוכנית מספר 1459.</li>
+<li><strong>קטגוריית גפ"ן:</strong> תוכנית חינוכית, חיצונית — מגזר מסחרי.</li>
+<li><strong>תחום:</strong> שילוב ושיתוף; חינוך מיוחד.</li>
+<li><strong>סוג ארגון בגפ"ן:</strong> "חברה עסקית" — מקוטלג בפירוש כמסחרי, לא כמלכ"ר.</li>
+</ul>
+
+<h3>שותפות קר"ב (קרב למעורבות בחינוך)</h3>
+<ul>
+<li>ערוץ השותפות העיקרי להחדרה למערכת החינוך הוא <strong>תוכנית קר"ב</strong>.</li>
+<li>קר"ב היא יוזמה של משרד החינוך המאפשרת תוכניות העשרה בבתי ספר לצמצום פערים.</li>
+<li>דרך קר"ב, אשכולות חשיבה מקבלת גישה לבתי ספר שלא היו בוחרים בתוכניותיה באופן עצמאי.</li>
+<li>זהו ערוץ הפצה אפקטיבי לשירותים מסחריים בתוך בתי הספר הציבוריים.</li>
+</ul>
+
+<h3>קשרים פוליטיים</h3>
+<ul>
+<li><strong>לא זוהו אלופי פוליטיקה.</strong> בניגוד לארגונים מונעי-אידיאולוגיה, לאשכולות חשיבה אין, ככל הנראה, תומכים בכנסת או פקידים ספציפיים הדוחפים לאימוצה.</li>
+<li>השילוב של החברה נראה <strong>מונע-שוק</strong> (בתי ספר בוחרים מקטלוג) ולא <strong>מונע-פוליטיקה</strong> (הנחיה מלמעלה).</li>
+<li><strong>אין קשר מזוהה</strong> לקרן החדשה לישראל (NIF), קרנות זרות, UNESCO, SDGs, או רשתות פרוגרסיביות.</li>
+</ul>
+</div>
+
+<div class="section" id="section-7">
+<h2>מחלוקות, ביקורת ושאלות פתוחות</h2>
+
+<h3>מחלוקות ישירות</h3>
+<p><strong>לא נמצאו שערוריות, תביעות או מחלוקות ציבוריות משמעותיות</strong> הנוגעות לאשכולות חשיבה / Mind Lab באופן ספציפי. עובדה זו בולטת — חברה בת 30 הפועלת ב-500+ בתי ספר ללא מחלוקות ציבוריות מעידה על ניהול אפקטיבי או קשרים טובים.</p>
+
+<h3>ביקורת אקדמית (עקיפה)</h3>
+<ul>
+<li>מחקר רחב היקף שפורסם ב-2016 מצא "מעט ראיות שמשחקי מוח משפרים יכולות קוגניטיביות רחבות בבסיס."</li>
+<li>ב-2014, קבוצה של 70+ מדעני עצבים חתמו על הצהרת קונצנזוס המזהירה מפני "הייפ של משחקי מוח."</li>
+<li>אולם, שיטת Mind Lab שונה ממשחקי מוח דיגיטליים (כמו Lumosity). היא כוללת משחקי לוח פיזיים עם דיון מתווך-מורה, ויש תמיכה מסוימת בספרות למשחקי לוח בחינוך.</li>
+</ul>
+
+<h3>חששות ספציפיים שזוהו</h3>
+<ol>
+<li><strong>חולשת ולידציה אקדמית:</strong> החוקר המרכזי (גרין, קולומביה/ייל) הוא מדען פוליטי וממציא משחקי לוח, לא פסיכולוג חינוכי. החברה משתמשת בזיקה זו לטעון "מחקר ייל/קולומביה" — מה שעלול להגזים את הקפדנות.</li>
+<li><strong>חברה למטרות רווח בחינוך ציבורי:</strong> אחת מחברות הרווח הבודדות הפועלות בהיקף במערכת החינוך הציבורית דרך גפ"ן. מניע הרווח יוצר מתח מובנה.</li>
+<li><strong>אטימות פיננסית:</strong> ללא דוחות כספיים ציבוריים + דו"ח אחרון ב-2017 = אפס שקיפות. לא ניתן לדעת כמה החברה מרוויחה מכספי ציבור.</li>
+<li><strong>טענות היקף מול מציאות:</strong> החברה טענה "100,000 תלמידים ב-500+ בתי ספר" אך כעת מפרטת ~250 מוסדות. זו ירידה משמעותית שלא הוסברה בפומבי.</li>
+</ol>
+
+<h3>שאלות פתוחות</h3>
+<ol>
+<li><strong>מי בעלי המניות?</strong> רשות החברות אמורה להחזיק מידע זה. האם גנדלמן, שחר ופלדפוגל כולם בעלי מניות?</li>
+<li><strong>מה הקשר בין החברה הישראלית ל-Mind Lab Group?</strong> האם זו ישות משפטית נפרדת שבבעלותה החברה הישראלית?</li>
+<li><strong>למה הדו"ח האחרון מ-2017?</strong> האם החברה מפרה דרישות רשות החברות?</li>
+<li><strong>מה מצאו מחקרי גרין בפועל?</strong> המחקרים אינם מפורסמים בכתב עת נגיש. מה היו ממצאי הבקרה?</li>
+<li><strong>למה ההתכווצות מ-500+ ל-~250 בתי ספר?</strong> תחרות, אובדן שותפות קר"ב, קיצוצי תקציב או בעיות איכות?</li>
+</ol>
+</div>
+
+<div class="section" id="section-8">
+<h2>סיווג ומסקנות</h2>
+
+<div class="thesis">
+<strong>סיווג: לא מוכרע — אין מספיק מידע לסיווג</strong>
+</div>
+
+<h3>הנמקת הסיווג</h3>
+
+<p>מבחן הסיווג התלת-קטגורי בודק את הפער בין מה שהארגון אומר על עצמו לבין מה שהוא עושה בפועל, במיוחד ביחס לזהות מסורתית-יהודית:</p>
+
+<table>
+<tr><th>קטגוריה</th><th>תיאור</th><th>מתאים?</th></tr>
+<tr><td><strong>רדיקלי חתרני</strong></td><td>פועל נגד זהות מסורתית ומסתיר זאת</td><td><strong>לא.</strong> אין אידיאולוגיה מזוהה בתכנים, אין פער מוצהר-ממשי בנושאי זהות וערכים.</td></tr>
+<tr><td><strong>שמאל גלוי</strong></td><td>מקדם עמדה פרוגרסיבית בשקיפות</td><td><strong>לא.</strong> אין עמדה פוליטית או חברתית מזוהה כלל. התוכנית היא קוגניטיבית-מסחרית.</td></tr>
+<tr><td><strong>לא מוכרע</strong></td><td>אין מספיק מידע לסיווג</td><td><strong>כן, אך מסיבות שונות.</strong></td></tr>
+</table>
+
+<p>הסיבה שהסיווג נותר "לא מוכרע" אינה חשד לאידיאולוגיה מוסתרת, אלא <strong>חוסר שקיפות מוסדי</strong>. כחברה פרטית:</p>
+<ul>
+<li>לא ניתן לבחון את המימון (אין דוחות כספיים)</li>
+<li>לא ניתן לזהות בעלי מניות (דרוש חיפוש ברשות החברות)</li>
+<li>לא ניתן לאמת טענות מחקר (מחקרים לא פורסמו)</li>
+<li>דו"ח אחרון ברשות החברות מ-2017 — 8+ שנים של חושך רגולטורי</li>
+</ul>
+
+<h3>פרופיל סיכון לפרויקט דירוג ערים</h3>
+<p><strong>סיכון אידיאולוגי: נמוך | סיכון שקיפות: בינוני-גבוה | סיכון מסחרי: בינוני</strong></p>
+
+<p>למטרות הפרויקט (מדידת חשיפה אידיאולוגית בחינוך), אשכולות חשיבה / Mind Lab מייצגת <strong>תוכנית ניטרלית</strong>. בניגוד לארגונים כמו אגודה לזכויות האזרח, מכון הרטמן או דרור ישראל — אין "מטען" אידיאולוגי מזוהה בתכנים. התוכנית מלמדת מיומנויות חשיבה גנריות דרך משחקים.</p>
+
+<p>החשש הוא מסחרי/ממשלי בלבד: חברה למטרות רווח עם פיננסים אטומים הפועלת בהיקף בבתי ספר ציבוריים. זוהי שאלת מדיניות (האם חברות רווח צריכות להיות בחינוך ציבורי?) ולא שאלה אידיאולוגית.</p>
+</div>
+
+<div class="section" id="section-9">
+<h2>מקורות</h2>
+<ul>
+<li><a href="https://next.obudget.org/i/org/company/513099341" target="_blank" rel="noopener">obudget.org — חברה 513099341</a></li>
+<li><a href="https://www.hamichlol.org.il/%D7%90%D7%A9%D7%9B%D7%95%D7%9C%D7%95%D7%AA_%D7%97%D7%A9%D7%99%D7%91%D7%94" target="_blank" rel="noopener">המכלול — אשכולות חשיבה</a></li>
+<li><a href="https://eshcolot.co.il/" target="_blank" rel="noopener">אתר אשכולות חשיבה (עברית)</a></li>
+<li><a href="https://eshcolot.co.il/en/" target="_blank" rel="noopener">אתר אשכולות חשיבה (אנגלית)</a></li>
+<li><a href="https://www.accelium.com/" target="_blank" rel="noopener">Accelium Group</a></li>
+<li><a href="https://israeli-companies.com/hevra/%D7%9E%D7%99%D7%93%D7%A2-%D7%A2%D7%9C-%D7%90%D7%A9%D7%9B%D7%95%D7%9C%D7%95%D7%AA-%D7%97%D7%A9%D7%99%D7%91%D7%94-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A2%D7%9E/" target="_blank" rel="noopener">מרשם החברות — אשכולות חשיבה</a></li>
+<li><a href="https://info.cap.co.il/israeli-companies/513099341/" target="_blank" rel="noopener">CAP — חיפוש חברה</a></li>
+<li><a href="https://www.crunchbase.com/organization/mind-lab" target="_blank" rel="noopener">Crunchbase — Mind Lab</a></li>
+<li><a href="https://www.crunchbase.com/organization/accelium" target="_blank" rel="noopener">Crunchbase — Accelium</a></li>
+<li><a href="https://tracxn.com/d/companies/accelium/__83i8-3cHGD14GRwiJj_WCvc89IPQZfE-GNxwtirtlb8" target="_blank" rel="noopener">Tracxn — Accelium</a></li>
+<li><a href="https://www.what-franchise.com/franchise-opportunities/children-franchises/accelium-edu" target="_blank" rel="noopener">What-Franchise — Accelium EDU</a></li>
+<li><a href="https://www.israel21c.org/israeli-kids-take-gold-in-mindlab-olympics/" target="_blank" rel="noopener">Israel21c — Mind Lab Olympics</a></li>
+<li><a href="https://polisci.columbia.edu/content/donald-p-green" target="_blank" rel="noopener">Donald Green — Columbia University</a></li>
+</ul>
+<p><em>מחקר: 27.02.2026 | עדכון מדו"ח 16.02.2026</em></p>
+<p><em>סוכן: Claude Opus 4.6 עבור פרויקט דירוג ערים</em></p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

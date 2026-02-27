@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תובנות פילוסופיות -- צ'אט קבוצתי שלם-קליינבאום-דלבן</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-4 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.orange { background: #fef8f0; border-right-color: #ff8800; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:hover { background: #f8f9fa; }
+tr:nth-child(even) { background: #fafbfc; }
+tr:nth-child(even):hover { background: #f0f2f5; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.green { background: #e8fde8; color: #27ae60; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.purple { background: #f0e8fd; color: #8e44ad; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-step.highlight { border-right-color: #ff8800; }
+.pipeline-step.highlight .step-num { color: #ff8800; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.concept-card {
+    background: #fff; border-radius: 10px; padding: 22px;
+    border: 1px solid #e8e8e8; margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.concept-card h3 { color: #1a1a2e; margin-bottom: 8px; font-size: 1.1em; }
+.concept-card .concept-meta { font-size: 0.78em; color: #888; margin-bottom: 10px; }
+.concept-card p { font-size: 0.92em; color: #444; }
+
+.concept-card.featured {
+    border: 2px solid #ff8800;
+    background: linear-gradient(135deg, #fffaf5 0%, #fff8f0 100%);
+}
+.concept-card.featured h3 { color: #ff8800; }
+
+.insight-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #667eea;
+}
+.insight-card .insight-num {
+    font-size: 0.78em; font-weight: 700; color: #667eea;
+    margin-bottom: 4px;
+}
+.insight-card h3 { color: #1a1a2e; font-size: 1.05em; margin-bottom: 8px; }
+.insight-card p { font-size: 0.92em; color: #444; margin-bottom: 8px; }
+
+.provenance {
+    font-size: 0.72em; color: #999; font-style: normal;
+    background: #f8f9fa; padding: 2px 8px; border-radius: 4px;
+    display: inline-block; margin-bottom: 6px;
+}
+
+.flag-box {
+    background: #fff8f0; border: 1px solid #ffe0b0;
+    border-right: 4px solid #ff8800; border-radius: 0 6px 6px 0;
+    padding: 12px 16px; margin: 12px 0; font-size: 0.88em;
+}
+.flag-box strong { color: #ff8800; }
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.8em; color: #888;
+    border-top: 1px solid #ddd; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        תובנות פילוסופיות
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('insights')">תובנות מרכזיות</button>
+        <button class="nav-tab" onclick="showTab('education')">קשרים לחינוך</button>
+        <button class="nav-tab" onclick="showTab('originals')">רעיונות מקוריים</button>
+        <button class="nav-tab" onclick="showTab('sources')">מקורות</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>תובנות פילוסופיות -- צ'אט קבוצתי</h1>
+    <div class="subtitle">שלם -- קליינבאום -- דלבן | שיחה פילוסופית מתועדת באורך כשנתיים</div>
+    <div class="meta">[EMAIL-AOS.SHALEM] | מקור: צ'אט WhatsApp "תובנות פילוספיות" | אפריל 2023 -- פברואר 2025</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">11</div><div class="lbl">תובנות מרכזיות</div></div>
+        <div class="stat"><div class="num">11</div><div class="lbl">רעיונות מקוריים</div></div>
+        <div class="stat"><div class="num">16</div><div class="lbl">מקורות שצוטטו</div></div>
+        <div class="stat"><div class="num">9</div><div class="lbl">קשרים לפרויקט</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- === PARTICIPANTS === -->
+<div class="section" style="margin-bottom:24px;">
+    <h2>משתתפי השיחה</h2>
+    <div class="grid-3">
+        <div class="person-card">
+            <div class="name">צבי שלם (Zvi Shalem)</div>
+            <div class="role">פילוסוף עצמאי | יוזם הקבוצה | הכותב המרכזי</div>
+            <div class="bio">מחבר המסגרת התיאורטית המרכזית של הדיון. יוצר המושגים "גנוסטוקרטיה", "מילות שליטה", "פילותוכי". פרסומים בגלובס, ריאיונות על מרקסיזם.</div>
+        </div>
+        <div class="person-card">
+            <div class="name">יאיר קליינבאום</div>
+            <div class="role">פילוסוף / כותב | מחבר מאמרים אקדמיים</div>
+            <div class="bio">תרומות בתחום הפסיכולוגיה של השמאלנות (4 ציריים), האנטישמיות כנגזרת מבנית של השמאל, התאבדות אליטות. פרסומים ב-hebrewnews.com.</div>
+        </div>
+        <div class="person-card">
+            <div class="name">יהושע צבי דלבן (Yehoshua Dalven)</div>
+            <div class="role">משתתף פעיל | תובנות על מסורת, גנוסטיקה ומשפט</div>
+            <div class="bio">ניתוח מעמיק של מערכת המשפט כתיאולוגיה חילונית והגנוסטיקה כחוט מקשר בין תנועות טוטליטריות. תובנות על הפרדוקס הישראלי.</div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================== -->
+<!-- TAB 1: INSIGHTS -->
+<!-- =========================================================== -->
+<div id="view-insights" class="view active">
+
+<div class="section">
+    <h2>11 תובנות פילוסופיות מרכזיות</h2>
+    <p>תובנות שגובשו לאורך כשנתיים של שיחה פילוסופית מתועדת. כל תובנה נלווית למקורות ותגובות מהשיחה.</p>
+</div>
+
+<!-- 1.1 -->
+<div class="insight-card">
+    <div class="insight-num">1.1 | הרציונליות כפן חלקי של המציאות</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 11.4.2023]</span>
+    <h3>כל מודל רציונלי הוא צר -- הרציונליות איננה הוליסטית</h3>
+    <div class="quote-box blue">
+        "העולם עשיר ורב רבדים, ואנחנו באים באינטראקציה איתו דרך <strong>מודלים רציונליים</strong> ודרך <strong>זהות</strong>. הרציונליות היא דרך חיצונית וההזדהות היא דרך פנימית."
+        <div class="q-source">צבי שלם, 11.4.2023</div>
+    </div>
+    <div class="quote-box blue">
+        "רציונליות איננה הוליסטית. כל מודל רציונלי בפני עצמו הוא <strong>צר</strong>."
+        <div class="q-source">צבי שלם, 16.6.2023</div>
+    </div>
+    <p>תובנה יסודית: כל תיאוריה מתארת רק <strong>פן</strong> של המציאות, לא את המציאות כולה. "נשיאת שם התיאוריה לשווא" = התייחסות לתיאוריה כאילו היא מתארת את המציאות בכללותה. <span class="badge blue">4.12.2023</span></p>
+</div>
+
+<!-- 1.2 -->
+<div class="insight-card">
+    <div class="insight-num">1.2 | פרדוקס הנגן -- חירות מול ניתוק</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 11.4.2023]</span>
+    <h3>חירות אמיתית היא אינטראקציה פורה, לא עצמאות-כ-ניתוק</h3>
+    <div class="quote-box blue">
+        "פרדוקס הנגן: נראה שהוא מבטא את עצמו מתוך חירות למרות שאחרים כתבו את התווים, תכננו את כלי הנגינה ופיתחו את הז'אנר."
+        <div class="q-source">צבי שלם, 11.4.2023</div>
+    </div>
+    <div class="quote-box blue">
+        "פתרון: הטרמינולוגיה של חירות בעייתית כי היא טומנת בחובה גרעין של <strong>עצמאות</strong> שיכול להיות מפורש כ<strong>ניתוק</strong>. מה שאנחנו באמת רוצים זו <strong>אינטראקציה פורה</strong> עם העולם."
+        <div class="q-source">צבי שלם, 11.4.2023</div>
+    </div>
+</div>
+
+<!-- 1.3 -->
+<div class="insight-card">
+    <div class="insight-num">1.3 | התנועה אל הלא-נודע</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 23.5.2023]</span>
+    <h3>ההתמודדות עם האתגרים הטבעיים היא התנועה שלנו אל הלא-נודע</h3>
+    <div class="quote-box blue">
+        "החזון הכי בסיסי: <strong>ההתמודדות עם האתגרים הטבעיים שאנו נתקלים בהם היא התנועה שלנו אל הלא נודע</strong>. הרעיון של <strong>התקדמות לתוך דבר שאנחנו לא יודעים מהו</strong> נותן לנו מידה של ענווה."
+        <div class="q-source">צבי שלם, 23.5.2023</div>
+    </div>
+    <div class="quote-box orange">
+        "מאוד ברגסוניאני!!! דברים יפים מאוד. אתה מגיע למסקנות נהדרות -- פרגמטיסטיות וחיוניות."
+        <div class="q-source">תגובת יאיר קליינבאום</div>
+    </div>
+</div>
+
+<!-- 1.4 -->
+<div class="insight-card">
+    <div class="insight-num">1.4 | הדיאלקטיקה כ"עבודה זרה" של החשיבה הביקורתית</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 5.7.2023]</span>
+    <h3>הדיאלקטיקה אינה פילוסופיה -- היא מערכת ייצור מגלומנים</h3>
+    <div class="quote-box">
+        "<strong>הדיאלקטיקה</strong> היא ה'עבודה זרה' של החשיבה הביקורתית."
+        <div class="q-source">צבי שלם, 5.7.2023</div>
+    </div>
+    <div class="quote-box">
+        "הדיאלקטיקה אינה פילוסופיה. מדויק יותר להגדיר אותה כ<strong>מערכת ייצור מגלומנים</strong>. אין לה גורם מגביל: לא מסורת, לא לוגיקה (סתירה אינה פגם אלא מקור דינאמיות)."
+        <div class="q-source">צבי שלם, 6.7.2023</div>
+    </div>
+</div>
+
+<!-- 1.5 -->
+<div class="insight-card">
+    <div class="insight-num">1.5 | הליברליזם כמסגרת ריקה</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 14.7.2023]</span>
+    <h3>הליברליזם הוא כלי ולא מהות, מרחב ולא מטרה</h3>
+    <div class="quote-box blue">
+        "הליברליזם מתפקד כמערכת ליישוב סכסוכים, אבל היא אינה נותנת תוכן של ערכים או זהות. [...] היא כלי ולא מהות. מרחב ולא מטרה."
+        <div class="q-source">צבי שלם, 14.7.2023</div>
+    </div>
+    <div class="quote-box blue">
+        "'החברה הפתוחה' היא רק מסגרת. בהגדרה. היא נותנת 'חופש דת וחופש מצפון'. משמע שהיא עצמה <strong>אינה נותנת מצפון</strong>."
+        <div class="q-source">צבי שלם, 29.7.2023</div>
+    </div>
+</div>
+
+<!-- 1.6 -->
+<div class="insight-card">
+    <div class="insight-num">1.6 | שלושת יסודות החברה הבריאה</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 13.11.2023]</span>
+    <h3>מסורת, אמת ומציאות</h3>
+    <div class="quote-box blue">
+        "אפשר לראות בשלושת העקרונות הבאים יסודות בסיסיים של חברה בריאה: <strong>מסורת, אמת ומציאות</strong>."
+        <div class="q-source">צבי שלם, 13.11.2023</div>
+    </div>
+    <div class="grid-3" style="margin-top:12px;">
+        <div class="metric">
+            <div class="value" style="font-size:1.2em;">מסורת</div>
+            <div class="note">הבנה שהחברה מורכבת כמו מערכת אקולוגית; לא ניתן להנדס מחדש</div>
+        </div>
+        <div class="metric">
+            <div class="value" style="font-size:1.2em;">אמת</div>
+            <div class="note">יושרה אינטלקטואלית; סתירה היא פגם; אמת קיימת וניתן להתקרב אליה</div>
+        </div>
+        <div class="metric">
+            <div class="value" style="font-size:1.2em;">מציאות</div>
+            <div class="note">חשיבות התייחסות למציאות עצמה בפתרון בעיות</div>
+        </div>
+    </div>
+</div>
+
+<!-- 1.7 -->
+<div class="insight-card">
+    <div class="insight-num">1.7 | חשיבה אורגנית מול אנליטית</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 10.8.2023]</span>
+    <h3>שילוב בריא של שני אופני החשיבה</h3>
+    <div class="quote-box blue">
+        "אנו זקוקים לשילוב בריא של חשיבה אורגנית ואנליטית. חשיבה אורגנית מקבלת את העושר הבלתי מושג של הקיים כנקודת מוצא [...] החשיבה האנליטית יוצרת מודלים של תבניות מסוימות של המציאות."
+        <div class="q-source">צבי שלם, 10.8.2023</div>
+    </div>
+    <p>החשיבה האורגנית מכירה בכך שהמציאות עשירה יותר מכל מודל. החשיבה האנליטית חיונית לזיהוי תבניות ומבנים -- אך אין לטעות ולחשוב שהמודל הוא המציאות עצמה.</p>
+</div>
+
+<!-- 1.8 -->
+<div class="insight-card">
+    <div class="insight-num">1.8 | מושגים אינם ממצים קונפיגורציה</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 1.12.2024]</span>
+    <h3>"המקבילה בפילוסופיה המערבית לפרפטרומוביל"</h3>
+    <div class="quote-box orange">
+        "<strong>מושגים אינם ממצים קונפיגורציה</strong>"
+        <div class="q-source">צבי שלם, 1.12.2024</div>
+    </div>
+    <p><strong>תגובת יאיר:</strong> "נפלא"</p>
+    <p><strong>צבי:</strong> "לדעתי המקבילה בפילוסופיה המערבית לפרפטרומוביל." -- כלומר, מדובר בעיקרון יסודי שממנו נגזרת בלתי-אפשרות של תיאוריה כוללנית.</p>
+</div>
+
+<!-- 1.9 -->
+<div class="insight-card">
+    <div class="insight-num">1.9 | הפרדת אמת מכוח</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 14.2.2025]</span>
+    <h3>Separation of Truth from Power is more important than 'separation of powers'</h3>
+    <div class="quote-box">
+        "<strong>Separation of Truth from Power is more important than 'separation of powers'</strong>"
+        <div class="q-source">צבי שלם, 14.2.2025</div>
+    </div>
+    <p>הפרדת הרשויות היא עיקרון ליברלי ידוע. אך העיקרון העמוק יותר הוא הפרדת האמת מהכוח -- מניעת מצב בו הגורם בעל הכוח הוא גם הקובע מהי "האמת".</p>
+</div>
+
+<!-- 1.10 -->
+<div class="insight-card">
+    <div class="insight-num">1.10 | פרדוקס הפלורליזם כזהות</div>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 10.1.2025]</span>
+    <h3>כשפלורליזם הופך מכלי לזהות -- התוצאה היא אחידות</h3>
+    <div class="quote-box blue">
+        "<strong>The paradox of pluralism as an identity:</strong> It's beautiful to see drops of food coloring swirl in water -- but if the end result is just grey water, it is not a good process."
+        <div class="q-source">צבי שלם, 10.1.2025</div>
+    </div>
+    <p>כשהפלורליזם הופך ממסגרת לזהות, הוא פרדוקסלית מייצר אחידות. כמו טיפות צבע מאכל במים -- הערבוב יפה, אבל אם התוצאה הסופית היא רק מים אפורים, התהליך כשל.</p>
+</div>
+
+</div><!-- /view-insights -->
+
+<!-- =========================================================== -->
+<!-- TAB 2: EDUCATION -->
+<!-- =========================================================== -->
+<div id="view-education" class="view">
+
+<div class="section">
+    <h2>קשרים לפדגוגיה ביקורתית</h2>
+    <p>ניתוח הקשר בין התובנות הפילוסופיות לבין מה שקורה בפועל במערכת החינוך. הצ'אט מזהה את הפדגוגיה הביקורתית לא כמתודה חינוכית אלא כמנגנון הנדסת תודעה.</p>
+</div>
+
+<!-- 2.1 -->
+<div class="section">
+    <h3>2.1 פריירה כמנגנון אינדוקטרינציה</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 14.7.2023]</span>
+    <div class="quote-box">
+        "לינדה דאלינג-המונד [...] מצהירה שהמטרה היא מימוש השיטה של פאולו פריירה. [...] עיקרון בסיסי של פריירה היא התאמת האינדוקטרינציה לקהל היעד. השלב הראשון המוצהר כולל אפיון של קהל היעד. סוג של אמבה מחליפת צורה."
+        <div class="q-source">צבי שלם, 14.7.2023</div>
+    </div>
+    <div class="flag-box">
+        <strong>FLAG -- קשר ישיר ל-Layer 1 של דירוג ערים:</strong> פריירה הוא דמות מפתח בפדגוגיה הביקורתית שמופיעה במחקרי בתי הספר של הפרויקט (קדמה, דרור ישראל). הניתוח כאן מציג את הפדגוגיה הביקורתית לא כמתודה חינוכית אלא כמנגנון הנדסת תודעה.
+    </div>
+</div>
+
+<!-- 2.2 -->
+<div class="section">
+    <h3>2.2 SEL (למידה רגשית-חברתית) כמנגנון שבירת רציונליות</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 20.9.2023]</span>
+    <div class="quote-box">
+        "SEL (למידה רגשית חברתית) אמורה 'לפתור' את המצוקה הנפשית [...] לילד לא קוראים ילד וגם לא תלמיד אלא 'סוכן שינוי'. [...] SDG הופך להיות לא פחות מתשתית מוסרית חדשה למין האנושי."
+        <div class="q-source">צבי שלם, 20.9.2023</div>
+    </div>
+    <div class="quote-box">
+        "ה-SEL לא מקדם 'רגישות' באופן כללי. הוא מכוון לייצר מסגור רגשי שיחתור תחת עקרונות ניתוח ערכיים ומציאותיים צלולים."
+        <div class="q-source">צבי שלם, 13.11.2023</div>
+    </div>
+    <div class="flag-box">
+        <strong>FLAG -- קשר ישיר ל-Layer 1:</strong> מחקר ה-SEL הקיים של הפרויקט (sel-research site) מתקשר ישירות לניתוח זה. הטענה כאן היא ש-SEL אינו ניטרלי אלא משרת אג'נדה ספציפית של מסגור מחדש של ערכים.
+    </div>
+</div>
+
+<!-- 2.3 -->
+<div class="section">
+    <h3>2.3 "הנדסת תודעה" -- ארגון "מחזקים"</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 25.10.2023, 18.9.2024]</span>
+    <div class="quote-box">
+        "גוף שמאלני בשם 'מחזקים' יצר קורס שהם אשקרה קוראים לו 'הנדסת תודעה'. שם מוסברות דרכי מניפולציה שונות ובפרט הכלי המרכזי: <strong>להתאים את מסגור השאלה לקהל היעד כך שהוא יעשה בדיוק את מה שאתה רוצה שהוא יעשה</strong>."
+        <div class="q-source">צבי שלם, 25.10.2023</div>
+    </div>
+</div>
+
+<!-- 2.4 -->
+<div class="section">
+    <h3>2.4 מערכת ההסמכה העצמית בחינוך מיני</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 26.6.2023]</span>
+    <div class="quote-box blue">
+        "כיוון שהמונח 'טיפולי המרה' כל כך רגיש ועוצמתי, <strong>היו מי שעשו בכך שימוש מניפולטיבי לשם קידום אג'נדה שאינה קשורה למשמעות המקורית של המושג</strong>."
+        <div class="q-source">צבי שלם, 26.6.2023</div>
+    </div>
+    <div class="quote-box blue">
+        "יש מעט מאוד דברים שחשובים יותר בחינוך יותר משימור חשיבה ביקורתית."
+        <div class="q-source">צבי שלם, 26.6.2023</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קשרים למערכת החינוך</h2>
+    <p>כיצד המסגרת הפילוסופית מסבירה את התהליכים המתועדים בפרויקט דירוג ערים.</p>
+</div>
+
+<!-- 3.1 -->
+<div class="section">
+    <h3>3.1 המרקסיזם כמערכת הפעלה חלופית</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 10.6.2023]</span>
+    <div class="quote-box">
+        "למרקסיזם יש אפיסטמולוגיה מתחרה לזו של חשיבה ביקורתית (ראיות, ניסוח בהיר ולוגיקה). המתודה המרקסיסטית להפקת ידע היא: <strong>אני מייצג מדוכאים ולכן אם אתה מתנגד, אתה מהמדכאים</strong>."
+        <div class="q-source">צבי שלם, 10.6.2023</div>
+    </div>
+    <div class="flag-box">
+        <strong>FLAG -- קשר ישיר לדירוג ערים:</strong> זהו תיאור מדויק של מנגנון הפעולה שהמחקר מזהה בארגונים חינוכיים כמו דרור ישראל, דלת פתוחה, ורשתות החינוך המיני. הטענה המעגלית לייצוג מדוכאים = בסיס ההצדקה של כניסה למערכת החינוך.
+    </div>
+</div>
+
+<!-- 3.2 -->
+<div class="section">
+    <h3>3.2 השתלטות הדרגתית על מוסדות חינוך -- 6 שלבים</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 1.8.2023]</span>
+    <p>סכמה של 6 שלבים להשתלטות מוסדית:</p>
+    <div class="pipeline-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">תשתית ערכית קיימת</div><div class="step-desc">מתחילים מערך מקובל בחברה</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">טענה לייצוג בלעדי</div><div class="step-desc">השתלטות על הערך; דמוניזציה של מתחרים</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">עידוד טמפרמנט דיכוטומי</div><div class="step-desc">או שאתה בעד או שאתה אויב האנושות</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">דמוניזציה של רעיון האמת</div><div class="step-desc">"יש אנשים שאמרו שהאמת אצלם..."</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">השתלטות על מוסדות</div><div class="step-desc">3% מספיקים; שינוי מערכת המוטיבציות</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">6</div><div class="step-content"><div class="step-title">סינרגיה של מוסדות</div><div class="step-desc">שימוש במוסד אחד לחדור לאחרים</div></div></div>
+    <div class="flag-box" style="margin-top:14px;">
+        <strong>FLAG -- קשר ישיר ל-Layer 1:</strong> זוהי הסכמה התיאורטית שמאחורי ממצאי הפרויקט לגבי "institutional capture" -- כיצד ארגונים אידיאולוגיים חודרים למערכת החינוך. הסכמה מתאימה במדויק לתהליך שתואר במחקרי דרור ישראל, חבצלת/השומר הצעיר, ומערכת ההסמכה העצמית בחינוך מיני.
+    </div>
+</div>
+
+<!-- 3.3 -->
+<div class="section">
+    <h3>3.3 שלבי ההשתלטות -- גרסה מפורטת (9 שלבים)</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 26.9.2023, 28.10.2023]</span>
+    <p>"The Leftist Manual" -- 9 שלבים באנגלית:</p>
+    <div class="pipeline-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Begin with a grain of moral truth</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Establish an oppressor-oppressed dichotomy</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Self-declare as representative of the oppressed</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Create a professional facade</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Gain bureaucratic control over institutions</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">6</div><div class="step-content"><div class="step-title">Utilize interconnections between institutions</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step highlight"><div class="step-num">7</div><div class="step-content"><div class="step-title">Use captured institutions to build bottom-up support</div><div class="step-desc"><span class="badge orange">We are about here</span></div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">8</div><div class="step-content"><div class="step-title">Transition from subversive tactics to open assertion of power</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">9</div><div class="step-content"><div class="step-title">Your free-floating intuition must be accepted as reality itself</div></div></div>
+</div>
+
+<!-- 3.4 -->
+<div class="section">
+    <h3>3.4 "מילות שליטה" במערכת החינוך</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 29.7.2023]</span>
+    <div class="quote-box">
+        "אחד הכלים לשליטה על העדר היא דרך מה שאני מכנה 'מילות שליטה'. זו מילה המהונדסת 'להישמע טוב' באוזני העדר [...] אך זו מילה שמנהלי העדר יכולים לשנות את משמעותה בהתאם לצורך שליטה."
+        <div class="q-source">צבי שלם, 29.7.2023</div>
+    </div>
+    <p>דוגמאות מתועדות:</p>
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">רוסו</div>
+            <div class="value" style="font-size:1em;">"הרצון הכללי"</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פשיזם</div>
+            <div class="value" style="font-size:1em;">"רצון המדינה"</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מרקסיזם</div>
+            <div class="value" style="font-size:1em;">"מודעות מעמדית"</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מודרני</div>
+            <div class="value" style="font-size:0.85em;">sustainability, DEI, הכלה, קבלת האחר</div>
+        </div>
+    </div>
+    <div class="flag-box">
+        <strong>FLAG -- קשר ישיר ל-Layer 1:</strong> מילות שליטה מופיעות בכל מחקרי הארגונים של הפרויקט. "הכלה", "קיימות", "צדק חברתי" הם בדיוק המילים שבהן משתמשים ארגונים חינוכיים כדי לחדור למערכת.
+    </div>
+</div>
+
+<!-- 3.5 -->
+<div class="section">
+    <h3>3.5 Standpoint Epistemology כנוגדת את המדע</h3>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 17.12.2024]</span>
+    <div class="quote-box blue">
+        "בשיטה הניאו-מרקסיסטית הסמכות המוסרית הפיקטיבית נובעת מטענה כוזבת לייצוג מדוכאים והסמכות המקצועית נובעת מטענה לסמכות <strong>מדעית</strong>."
+        <div class="q-source">צבי שלם, 17.12.2024</div>
+    </div>
+    <div class="quote-box blue">
+        "ניתן להגדיר זכות יסוד של אדם <strong>לדעת בשם איזו סמכות פונים אליו</strong>."
+        <div class="q-source">צבי שלם, 17.12.2024</div>
+    </div>
+</div>
+
+<!-- Research items -->
+<div class="section">
+    <h2>פריטים שדורשים מחקר נוסף</h2>
+    <p>9 נושאים שעלו בשיחה ודורשים חקירה מעמיקה:</p>
+    <table>
+        <thead>
+            <tr><th>#</th><th>נושא</th><th>תאריך</th><th>סטטוס</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>6.1</td>
+                <td><strong>ארגון "מחזקים" -- סדנת "הנדסת תודעה"</strong><br>מוזכר פעמיים עם פרטים על תוכן הקורס. דורש מחקר עומק -- האם הארגון פועל במערכת החינוך? מי מממן?</td>
+                <td>25.10.2023<br>18.9.2024</td>
+                <td><span class="badge red">דורש מחקר</span></td>
+            </tr>
+            <tr>
+                <td>6.2</td>
+                <td><strong>מסמך אונסק"ו על SDG/SEL בחינוך</strong><br>צבי שלם כתב עצומה נגדו עם פרופ' יחיאל בר-אילן. דורש איתור המסמך המדויק וניתוח הקשר לישראל.</td>
+                <td>20.9.2023</td>
+                <td><span class="badge red">דורש מחקר</span></td>
+            </tr>
+            <tr>
+                <td>6.3</td>
+                <td><strong>חוזר מנכ"ל משרד הבריאות</strong><br>מוזכר כ"חוזר מנכ"ל בעייתי" בהקשר חינוך מיני / דיספוריה מגדרית.</td>
+                <td>11.6.2023<br>26.6.2023</td>
+                <td><span class="badge orange">רלוונטי</span></td>
+            </tr>
+            <tr>
+                <td>6.4</td>
+                <td><strong>הקשר בין CASEL לפריירה</strong><br>"לינדה דאלינג-המונד מצהירה שהמטרה היא מימוש השיטה של פאולו פריירה." לבדוק: Darling-Hammond -> CASEL -> SEL in Israel.</td>
+                <td>14.7.2023</td>
+                <td><span class="badge red">דורש מחקר</span></td>
+            </tr>
+            <tr>
+                <td>6.5</td>
+                <td><strong>יוסי שניר -- מנכ"ל רכבת ישראל לשעבר</strong><br>ד"ר לפילוסופיה. ציין שצבי "ברמה פילוסופית גבוהה יותר ממה שהוא מכיר מהאקדמיה."</td>
+                <td>11.6.2023</td>
+                <td><span class="badge green">לא נדרש</span></td>
+            </tr>
+            <tr>
+                <td>6.6</td>
+                <td><strong>מאמר "הנוכל הצרפתי"</strong><br>תגלית בהיסטוריה של המדע שפורסמה כתזה בפילוסופיה. לחפש במדור באלכסון.</td>
+                <td>22.11.2023</td>
+                <td><span class="badge orange">לחפש</span></td>
+            </tr>
+            <tr>
+                <td>6.7</td>
+                <td><strong>קשר בין "מחזקים" לסול אלינסקי</strong><br>צבי שלם מזהה קשר בין שיטת "הנדסת תודעה" של מחזקים לשיטה של אלינסקי.</td>
+                <td>25.10.2023</td>
+                <td><span class="badge red">דורש אימות</span></td>
+            </tr>
+            <tr>
+                <td>6.8</td>
+                <td><strong>Inter-epistemological vs. Intra-epistemological Conflict</strong><br>מושגים שפותחו על ידי צבי. "עוזר להבהיר את המשמעות שיש לכך שהמרקסיזם זו גם אפיסטמולוגיה חלופית."</td>
+                <td>10.1.2025</td>
+                <td><span class="badge blue">לשלב</span></td>
+            </tr>
+            <tr>
+                <td>6.9</td>
+                <td><strong>מסמך BBC על חשבון נפש בנושא טיפול מגדרי באנגליה</strong><br>רלוונטי למחקר על חינוך מיני בפרויקט דירוג ערים.</td>
+                <td>27.9.2023</td>
+                <td><span class="badge orange">רלוונטי</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div><!-- /view-education -->
+
+<!-- =========================================================== -->
+<!-- TAB 3: ORIGINAL IDEAS -->
+<!-- =========================================================== -->
+<div id="view-originals" class="view">
+
+<div class="section">
+    <h2>11 רעיונות מקוריים מהשיחה</h2>
+    <p>מושגים וכלים תיאורטיים שפותחו במהלך השיחה הקבוצתית. חלקם זוהו כמקוריים גם על ידי GPT.</p>
+</div>
+
+<!-- 5.1 Gnostocracy -->
+<div class="concept-card featured">
+    <span class="badge orange" style="margin-bottom:8px;">תרומה מקורית מרכזית</span>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 21.10.2024, 26.12.2024]</span>
+    <h3>5.1 גנוסטוקרטיה (Gnostocracy) -- מושג מקורי של צבי שלם</h3>
+    <div class="concept-meta">מחבר: צבי שלם | gnostocracy.com</div>
+    <div class="quote-box orange">
+        "גנוסטיקה = ידע סודי. קרטיה = שלטון. כלומר, <strong>שלטון של בעלי 'הידע הסודי'</strong>. הם יהיו אמת המידה למציאות במקום מסורת או רציונליות."
+        <div class="q-source">צבי שלם, 21.10.2024</div>
+    </div>
+    <p>GPT זיהה את המושג כמקורי. יהושע דלבן: "נראה שהוא אכן למד ממך..."</p>
+    <div class="grid-3" style="margin-top:14px;">
+        <div class="metric alert">
+            <div class="label">גנוסטיקה</div>
+            <div class="value" style="font-size:1em;">ידע סודי</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">קרטיה</div>
+            <div class="value" style="font-size:1em;">שלטון</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">גנוסטוקרטיה</div>
+            <div class="value" style="font-size:0.85em;">שלטון בעלי "הידע הסודי"</div>
+        </div>
+    </div>
+    <p style="margin-top:12px;">המושג מתאר את סוג המשטר שאליו שואפים תהליכי ההשתלטות המוסדית: שלטון של מי שתופסים את עצמם כבעלי "ידע סודי" שמעבר לרציונליות ולמסורת. לפרויקט גנוסטוקרטיה יש כבר אתר ייעודי.</p>
+</div>
+
+<!-- 5.2 Philotouchi -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 8.8.2023]</span>
+    <h3>5.2 פילותוכי (Philosopher-Parrot) -- מושג מקורי של צבי שלם</h3>
+    <div class="concept-meta">מחבר: צבי שלם</div>
+    <p>שילוב של "פילוסוף" ו"תוכי". דמות שאינה נדרשת לחשיבה עצמאית אלא רק להפנמת טמפרמנט + מספר טכניקות מוגבל:</p>
+    <div class="grid-2" style="margin-top:12px;">
+        <div class="metric">
+            <div class="label">מצב התקפה</div>
+            <div class="value" style="font-size:1em;">פילותוכי-התקפה</div>
+            <div class="note">בחירה סלקטיבית של דוגמאות לנרטיב דיכוטומי</div>
+        </div>
+        <div class="metric">
+            <div class="label">מצב הגנה</div>
+            <div class="value" style="font-size:1em;">פילותוכי-הגנה</div>
+            <div class="note">העברת הסוגיה לתחום אמורפי; ערעור על מילים מהותיות</div>
+        </div>
+    </div>
+</div>
+
+<!-- 5.3 Three Scales -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 29.7.2023]</span>
+    <h3>5.3 "שלוש הסקאלות" שמחוצה להן הדיאלקטיקה פועלת</h3>
+    <div class="concept-meta">מחבר: צבי שלם</div>
+    <div class="grid-3" style="margin-top:12px;">
+        <div class="metric">
+            <div class="label">סקאלה 1</div>
+            <div class="value" style="font-size:1em;">מוסרית</div>
+            <div class="note">ציניות חורגת מהמוכר</div>
+        </div>
+        <div class="metric">
+            <div class="label">סקאלה 2</div>
+            <div class="value" style="font-size:1em;">רציונלית</div>
+            <div class="note">אנטי-רציונליות ולא סתם א-רציונליות</div>
+        </div>
+        <div class="metric">
+            <div class="label">סקאלה 3</div>
+            <div class="value" style="font-size:1em;">הגודל</div>
+            <div class="note">רמת שליטה במוסדות חורגת מהמצופה</div>
+        </div>
+    </div>
+</div>
+
+<!-- 5.4 Control Words -->
+<div class="concept-card featured">
+    <span class="badge orange" style="margin-bottom:8px;">תרומה מקורית מרכזית</span>
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 29.7.2023]</span>
+    <h3>5.4 "מילות שליטה" כמושג אנליטי -- מושג מקורי של צבי שלם</h3>
+    <div class="concept-meta">מחבר: צבי שלם</div>
+    <p>כלי תיאורטי להבנת השימוש בשפה ככלי שליטה:</p>
+    <ul style="margin: 10px 20px; font-size: 0.92em; color: #444;">
+        <li>מילה שנועדה "להישמע טוב" לקהל</li>
+        <li>מנהלי העדר יכולים לשנות משמעותה לפי צורך אסטרטגי</li>
+        <li>דוגמאות היסטוריות: "הרצון הכללי" (רוסו), "מודעות מעמדית" (מרקס), "sustainability" (מודרני)</li>
+    </ul>
+    <p style="margin-top:10px;">המושג מהווה כלי אנליטי מרכזי בפרויקט דירוג ערים: מילים כמו "הכלה", "DEI", "צדק חברתי", "קיימות" מזוהות כ"מילות שליטה" שמשמשות לחדירה למוסדות חינוך.</p>
+</div>
+
+<!-- 5.5 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 15.8.2023, 26.9.2023]</span>
+    <h3>5.5 שמאל רדוד, שמאל עמוק, ימין עמוק</h3>
+    <div class="concept-meta">מחבר: צבי שלם</div>
+    <div class="quote-box blue">
+        "<strong>שמאל רדוד:</strong> נאבק ברצינות למען מטרה מתוך מחשבה שהצלחה תשפר מציאות חברתית."
+        <div class="q-source">צבי שלם</div>
+    </div>
+    <div class="quote-box">
+        "<strong>שמאל עמוק:</strong> אינו חושב במונחי הצלחה במאבק אלא שימוש בדינאמיקה של המאבק למטרה חלופית."
+        <div class="q-source">צבי שלם</div>
+    </div>
+    <div class="quote-box blue">
+        "<strong>ימין רדוד:</strong> מתמודד 200 שנה עם השמאל הרדוד במקום עם השמאל העמוק."
+        <div class="q-source">צבי שלם</div>
+    </div>
+    <p>הצורך: "<strong>ימין עמוק</strong> שעוזב את תחום הנוחות של הניתוח הרציונלי ומכיר במהות השמאל העמוק."</p>
+</div>
+
+<!-- 5.6 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 2.12.2023]</span>
+    <h3>5.6 הסכמה ההיסטורית-פילוסופית</h3>
+    <div class="concept-meta">מחבר: צבי שלם</div>
+    <div class="pipeline-step"><div class="step-num">1</div><div class="step-content"><div class="step-title">פוליתאיזם</div><div class="step-desc">הבנת העולם באנלוגיה לעצמנו</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">2</div><div class="step-content"><div class="step-title">מונותאיזם</div><div class="step-desc">משהו אחדותי שמעבר לנו</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step"><div class="step-num">3</div><div class="step-content"><div class="step-title">רציונליזם (פיתגורס)</div><div class="step-desc">משהו אחדותי בהישג ידינו</div></div></div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="grid-2">
+        <div class="pipeline-step"><div class="step-num">3a</div><div class="step-content"><div class="step-title">היפר-רציונליזם (קונט)</div><div class="step-desc">תיאוריה של הכל, תיאוריה של החברה</div></div></div>
+        <div class="pipeline-step"><div class="step-num">3b</div><div class="step-content"><div class="step-title">אנטי-רציונליזם (הגל)</div><div class="step-desc">התנגדות ליוהרה הרציונלית</div></div></div>
+    </div>
+    <div class="pipeline-arrow">&#8595;</div>
+    <div class="pipeline-step highlight"><div class="step-num">3ab</div><div class="step-content"><div class="step-title">שילוב (מרקס)</div><div class="step-desc">תיאוריה שצריך לגרום למציאות להתיישר אליה</div></div></div>
+    <p style="margin-top:12px;"><strong>תיקון מוצע:</strong> רציונליזם אינו כלי אחדותי. זהו כלי אנליזה של תבניות מובחנות -- לא המציאות כולה.</p>
+</div>
+
+<!-- 5.7 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 18.8.2023]</span>
+    <h3>5.7 פסיכולוגיה של השמאלני -- 4 ציריים (יאיר קליינבאום)</h3>
+    <div class="concept-meta">מחבר: יאיר קליינבאום</div>
+    <div class="quote-box blue">
+        "אשמה, בושה, קנאה, ושליטה -- בכל ציר של התפתחות הטיעון השמאלני יכול להיאחז באחד מהם."
+        <div class="q-source">יאיר קליינבאום, 18.8.2023</div>
+    </div>
+    <div class="grid-4" style="margin-top:12px;">
+        <div class="metric"><div class="value" style="font-size:1.1em;">אשמה</div></div>
+        <div class="metric"><div class="value" style="font-size:1.1em;">בושה</div></div>
+        <div class="metric"><div class="value" style="font-size:1.1em;">קנאה</div></div>
+        <div class="metric"><div class="value" style="font-size:1.1em;">שליטה</div></div>
+    </div>
+</div>
+
+<!-- 5.8 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 9.12.2023]</span>
+    <h3>5.8 האנטישמיות כנגזרת מבנית של השמאל (יאיר קליינבאום)</h3>
+    <div class="concept-meta">מחבר: יאיר קליינבאום</div>
+    <div class="quote-box">
+        "השמאל בטבעו נוטה לאנטישמיות משום שהיהדות בטבעה נוטה לטרנצנדנטיות שמפרקת את ההיררכיות הסוציולוגיות של התיאוריה הביקורתית."
+        <div class="q-source">יאיר קליינבאום, 9.12.2023</div>
+    </div>
+    <p>טענה מבנית: האנטישמיות השמאלנית אינה מקרית אלא נגזרת מהמבנה עצמו -- יהדות מציגה טרנצנדנטיות שמפרקת את הבסיס של התיאוריה הביקורתית.</p>
+</div>
+
+<!-- 5.9 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 14.11.2024]</span>
+    <h3>5.9 מערכת המשפט כתיאולוגיה חילונית (יהושע דלבן)</h3>
+    <div class="concept-meta">מחבר: יהושע צבי דלבן</div>
+    <div class="quote-box blue">
+        "באין אלוהים [...] מערכת המשפט הופכת לגורם החיוני [...] ביכולתם לייצר הלימה בין מדינה ואדם חסרי טרנצנדנטיה."
+        <div class="q-source">יהושע דלבן, 14.11.2024</div>
+    </div>
+    <div class="quote-box blue">
+        "'הדמוקרטיה' הינה תהליך שבו האדם, המדינה, והפרשן [...] שהתכללותם ההוליסטית מסוגלת להתהוות רק אודות למערכת המשפט."
+        <div class="q-source">יהושע דלבן, 14.11.2024</div>
+    </div>
+    <p>ניתוח ארוך ומעמיק של הפרדוקס הישראלי: ללא טרנצנדנטיות, מערכת המשפט ממלאת חלל תיאולוגי.</p>
+</div>
+
+<!-- 5.10 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 14.2.2025]</span>
+    <h3>5.10 הגנוסטיקה כחוט מקשר (יהושע דלבן)</h3>
+    <div class="concept-meta">מחבר: יהושע צבי דלבן</div>
+    <div class="quote-box">
+        "המעמד הוא מפלטו של המפגר שטיפש מדי להיות בעל ערך כפרטיקולרי, ואכזר מדי לקבל את האוניברסליות של האדם כולו."
+        <div class="q-source">יהושע דלבן, 14.2.2025</div>
+    </div>
+    <p>ניתוח מקיף שמזהה את הגנוסטיקה כיסוד משותף לנאציזם, קומוניזם ואיסלאם. "המעמד" כמפלט של מי שאינו מסוגל לערך פרטיקולרי ואינו מוכן לקבל אוניברסליות.</p>
+</div>
+
+<!-- 5.11 -->
+<div class="concept-card">
+    <span class="provenance">[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA | 10.11.2024]</span>
+    <h3>5.11 התאבדות אליטות בעולם חסר אלוהים (יאיר קליינבאום)</h3>
+    <div class="concept-meta">מחבר: יאיר קליינבאום</div>
+    <div class="quote-box">
+        "בעולם חסר אלוהים, אליטות מאששות את הטרנצנדנטיות הנעדרת שלהן [...] על ידי זה שהן מתאבדות ומעניקות בכך לעצמן את המבט מבחוץ."
+        <div class="q-source">יאיר קליינבאום, 10.11.2024</div>
+    </div>
+    <div class="quote-box">
+        "אלוהים הוא הברקס על חילופי העלית שלא קיים ומאלץ את מוות האליטה האחת להפוך לתבליט של זו שאחריה. באין אלוהים הארס מתמשך עד אין קץ."
+        <div class="q-source">יאיר קליינבאום, 10.11.2024</div>
+    </div>
+</div>
+
+</div><!-- /view-originals -->
+
+<!-- =========================================================== -->
+<!-- TAB 4: SOURCES -->
+<!-- =========================================================== -->
+<div id="view-sources" class="view">
+
+<div class="section">
+    <h2>מקורות שצוטטו בשיחה</h2>
+    <p>16 מקורות עיקריים שעלו בדיון הפילוסופי.</p>
+    <table>
+        <thead>
+            <tr><th>מקור</th><th>הקשר</th><th>תאריך</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>קארל פופר</strong> -- "החברה הפתוחה ואויביה"</td>
+                <td>ניתוח אפלטון; אנטי-דיאלקטיקה</td>
+                <td>29.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>הגל</strong> -- "Phenomenology of Spirit" p.28</td>
+                <td>עוינות למדע</td>
+                <td>11.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>מרקס</strong> -- Capital, Part 3 (marxists.org)</td>
+                <td>מטריאליזם דיאלקטי</td>
+                <td>11.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>מישל פוקו</strong> -- "Archaeology of Knowledge"</td>
+                <td>"Can any philosophy continue that is no longer Hegelian?"</td>
+                <td>11.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>סול אלינסקי</strong> -- "כללים לרדיקלים"</td>
+                <td>השתלטות דרך ערכים מוסכמים</td>
+                <td>1.8.2023</td>
+            </tr>
+            <tr>
+                <td><strong>ג'ודית באטלר</strong></td>
+                <td>הומוסקסואלים כ"פרודיה לנורמלי"</td>
+                <td>12.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>C.S. Lewis</strong> -- "Abolition of Man"</td>
+                <td>ביקורת מודרניות</td>
+                <td>9.12.2023</td>
+            </tr>
+            <tr>
+                <td><strong>יעקוב טלמון</strong></td>
+                <td>ניתוח רוסו כמקדים טוטליטריזם</td>
+                <td>28.11.2023</td>
+            </tr>
+            <tr>
+                <td><strong>מוסוליני</strong> -- "Doctrine of Fascism"</td>
+                <td>גנבה ספרותית מהגל</td>
+                <td>11.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>מאו</strong> -- "הספר האדום הקטן" פרק 3</td>
+                <td>marxists.org</td>
+                <td>28.11.2023</td>
+            </tr>
+            <tr>
+                <td><strong>הרברט מרקוזה</strong> -- "Eros and Civilization"</td>
+                <td>"איזהו מדכא -- הכובש את יצרו"</td>
+                <td>8.12.2024</td>
+            </tr>
+            <tr>
+                <td><strong>James Lindsay</strong></td>
+                <td>פענוח Neo-Marxism</td>
+                <td>20.9.2023</td>
+            </tr>
+            <tr>
+                <td><strong>אונסק"ו</strong> -- מסמך SDG/SEL</td>
+                <td>קציני קיימות, ביטול חופש אקדמי</td>
+                <td>20.9.2023</td>
+            </tr>
+            <tr>
+                <td><strong>Glacier studies paper</strong> (Prog Hum Geogr 2016)</td>
+                <td>"subvert hegemony of natural sciences"</td>
+                <td>11.7.2023</td>
+            </tr>
+            <tr>
+                <td><strong>Critical Race Theory founders</strong></td>
+                <td>"questions the very foundations of the liberal order"</td>
+                <td>28.10.2023</td>
+            </tr>
+            <tr>
+                <td><strong>Frantz Fanon</strong> (preface to post-colonialism)</td>
+                <td>"to shoot down a European is to kill two birds"</td>
+                <td>28.10.2023</td>
+            </tr>
+            <tr>
+                <td><strong>Women's Studies virus paper</strong></td>
+                <td>"women's studies as infectious, insurrectional"</td>
+                <td>28.10.2023</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מאמרים ופרסומים של המשתתפים</h2>
+
+    <h3>צבי שלם</h3>
+    <a class="link-card" href="https://www.globes.co.il/news/article.aspx?did=1001387414" target="_blank">
+        <div>
+            <div class="lc-title">מאמר בגלובס -- השוואה כלפי מטה</div>
+            <div class="lc-desc">globes.co.il</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://docs.google.com/document/d/16epw2Zp5NgbCGJyWiIdnzxyrwUZu5LY3EikEHto0vSk/" target="_blank">
+        <div>
+            <div class="lc-title">מסמך Google Docs -- תיאוריית הקוויר עד חוזר מנכ"ל</div>
+            <div class="lc-desc">docs.google.com</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://youtu.be/TdBSIhNzijw" target="_blank">
+        <div>
+            <div class="lc-title">ראיון יוטיוב על מרקסיזם</div>
+            <div class="lc-desc">youtube.com</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.youtube.com/watch?v=oTyLs0EQUQs" target="_blank">
+        <div>
+            <div class="lc-title">ראיון נוסף ביוטיוב</div>
+            <div class="lc-desc">youtube.com</div>
+        </div>
+    </a>
+
+    <h3>יאיר קליינבאום</h3>
+    <a class="link-card" href="https://hebrewnews.com/article/56099" target="_blank">
+        <div>
+            <div class="lc-title">מאמר hebrewnews</div>
+            <div class="lc-desc">hebrewnews.com</div>
+        </div>
+    </a>
+    <p style="font-size:0.88em; color:#666; margin-top:8px;">מאמר "השמאל והיהודים: היסטוריה, מתודולוגיה, וקנאה" (קובץ PDF צורף בצ'אט)</p>
+
+    <h3>פודקאסטים</h3>
+    <a class="link-card" href="https://open.spotify.com/episode/19zayEeDatljbvfzDR2cuG" target="_blank">
+        <div>
+            <div class="lc-title">צבי שלם -- פרק בספוטיפיי</div>
+            <div class="lc-desc">open.spotify.com</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://spotify.link/pv3lT1OYeDb" target="_blank">
+        <div>
+            <div class="lc-title">James Lindsay podcast</div>
+            <div class="lc-desc">spotify.com</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>קישורים נוספים שצוטטו</h2>
+    <a class="link-card" href="https://ima-contentfiles.s3.amazonaws.com/GenderChangeHariStand2023.pdf" target="_blank">
+        <div>
+            <div class="lc-title">מכתב איגוד הפסיכיאטריה -- דיספוריה מגדרית</div>
+            <div class="lc-desc">ima-contentfiles.s3.amazonaws.com</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://youtu.be/kdBfHwzDYLg?si=g53ui8VsfaXjQRnL" target="_blank">
+        <div>
+            <div class="lc-title">מסמך BBC -- חשבון נפש באנגליה בנושא טיפול מגדרי</div>
+            <div class="lc-desc">youtube.com (BBC)</div>
+        </div>
+    </a>
+</div>
+
+</div><!-- /view-sources -->
+
+<!-- =========================================================== -->
+<!-- TAB 5: LINKS -->
+<!-- =========================================================== -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>קישורים ל-Layer 1 של פרויקט דירוג ערים</h2>
+    <p>הצ'אט הזה מכיל את המסגרת הפילוסופית העומדת מאחורי מחקר "institutional capture" במערכת החינוך. הקישורים המרכזיים:</p>
+
+    <div class="grid-2">
+        <div>
+            <div class="concept-card">
+                <h3>סכמת ההשתלטות המוסדית (סעיפים 3.2-3.3)</h3>
+                <p>מתארת בדיוק את התהליך שמתועד במחקרי הארגונים של הפרויקט. 6-9 שלבים מהתחלה עד שליטה.</p>
+            </div>
+            <div class="concept-card">
+                <h3>"מילות שליטה" (סעיף 3.4)</h3>
+                <p>מספק כלי תיאורטי להבנת השימוש ב"הכלה", "DEI", "צדק חברתי", "קיימות" כמנגנוני חדירה למערכת החינוך.</p>
+            </div>
+            <div class="concept-card">
+                <h3>פריירה ו-SEL (סעיפים 2.1-2.2)</h3>
+                <p>הפדגוגיה הביקורתית של פריירה מזוהה כמנגנון הנדסת תודעה, לא כמתודה חינוכית. SEL מזוהה ככלי לשבירת רציונליות.</p>
+            </div>
+        </div>
+        <div>
+            <div class="concept-card">
+                <h3>הדיאלקטיקה כאפיסטמולוגיה חלופית (סעיפים 1.4, 5.6)</h3>
+                <p>הטענה המרכזית: אין מדובר ב"דעה אחרת" אלא ב"מערכת הפעלה חלופית" שמחליפה ראיות ולוגיקה במסגור מדכא-מדוכא.</p>
+            </div>
+            <div class="concept-card featured">
+                <h3>גנוסטוקרטיה (סעיף 5.1)</h3>
+                <p>המושג שמתאר את המשטר שהתהליכים הללו שואפים אליו: שלטון של מי שתופסים עצמם כבעלי "ידע סודי".</p>
+            </div>
+            <div class="concept-card">
+                <h3>מימון ממשלתי כצינור מרכזי</h3>
+                <p>הצ'אט מזהה את אותו דפוס שהפרויקט מצא: המימון הממשלתי (לא הזר) הוא הצינור המרכזי שדרכו חודרים לחינוך.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מיני-סייטים קשורים</h2>
+
+    <a class="link-card" href="semantic_shifting_glossary.html">
+        <div>
+            <div class="lc-title">מילון ההמרה -- כיצד שפה רדיקלית הופכת למונחים חינוכיים ניטרליים</div>
+            <div class="lc-desc">קשר ישיר ל"מילות שליטה" (סעיף 5.4) -- תיעוד המרות שפה שיטתיות</div>
+        </div>
+    </a>
+    <a class="link-card" href="philosophical_frameworks_map.html">
+        <div>
+            <div class="lc-title">מפת מסגרות פילוסופיות</div>
+            <div class="lc-desc">המסגרת הפילוסופית הרחבה של הפרויקט</div>
+        </div>
+    </a>
+    <a class="link-card" href="pipeline_institutional.html">
+        <div>
+            <div class="lc-title">Pipeline -- השתלטות מוסדית</div>
+            <div class="lc-desc">קשר ישיר לסכמת 6-9 שלבי ההשתלטות (סעיפים 3.2-3.3)</div>
+        </div>
+    </a>
+    <a class="link-card" href="Dror_Israel_network.html">
+        <div>
+            <div class="lc-title">רשת דרור ישראל</div>
+            <div class="lc-desc">דוגמה מתועדת לתהליך ההשתלטות המוסדית שהסכמה מתארת</div>
+        </div>
+    </a>
+    <a class="link-card" href="Gender_sexuality_education_providers.html">
+        <div>
+            <div class="lc-title">ספקי חינוך מיני ומגדרי</div>
+            <div class="lc-desc">קשר לניתוח מערכת ההסמכה העצמית בחינוך מיני (סעיף 2.4)</div>
+        </div>
+    </a>
+    <a class="link-card" href="unesco_dashboard.html">
+        <div>
+            <div class="lc-title">אונסק"ו -- SDG/SEL</div>
+            <div class="lc-desc">קשר למסמך אונסק"ו על SDG/SEL שנידון בצ'אט (סעיף 6.2)</div>
+        </div>
+    </a>
+    <a class="link-card" href="teacher_training_capture.html">
+        <div>
+            <div class="lc-title">השתלטות על הכשרת מורים</div>
+            <div class="lc-desc">קשר לניתוח פריירה כמנגנון אינדוקטרינציה (סעיף 2.1)</div>
+        </div>
+    </a>
+    <a class="link-card" href="radicals_dashboard.html">
+        <div>
+            <div class="lc-title">דאשבורד רדיקלים</div>
+            <div class="lc-desc">דמויות שמיישמות את הסכמה התיאורטית בפועל</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מטא-נתונים</h2>
+    <table>
+        <tr><td><strong>מקור</strong></td><td>צ'אט WhatsApp קבוצתי "תובנות פילוספיות"</td></tr>
+        <tr><td><strong>תאריכים</strong></td><td>11.4.2023 -- 21.2.2025</td></tr>
+        <tr><td><strong>חולץ מ</strong></td><td>אימייל aos.shalem@gmail.com, נשלח 27.2.2026 מ-shalem1492@gmail.com</td></tr>
+        <tr><td><strong>קובץ מצורף</strong></td><td>ZIP עם קובץ טקסט (250K תווים, 2574 שורות) + 2 תמונות</td></tr>
+        <tr><td><strong>סימון מקור</strong></td><td>[EMAIL-AOS.SHALEM-YAIR-YEHOSHUA]</td></tr>
+    </table>
+</div>
+
+</div><!-- /view-links -->
+
+</div><!-- /container -->
+
+<footer>
+    [EMAIL-AOS.SHALEM] | מקור: צ'אט WhatsApp "תובנות פילוספיות" שלם-קליינבאום-דלבן | אפריל 2023 -- פברואר 2025
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

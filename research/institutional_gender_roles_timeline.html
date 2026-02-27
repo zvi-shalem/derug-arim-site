@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ציר זמן: תפקידים מוסדיים בתחום מגדר בישראל</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.25em; }
+    .hero .subtitle { font-size: 0.88em; }
+    .container { padding: 16px 12px 50px; }
+    .section { padding: 18px 14px; }
+    .section h2 { font-size: 1.1em; }
+    body { font-size: 15px; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.orange { background: #fef8f0; border-right-color: #ff8800; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f0e8f8; color: #7b2d8e; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px; flex-direction: column;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.provenance {
+    display: inline-block; font-size: 0.7em; color: #999;
+    border: 1px solid #ddd; border-radius: 3px;
+    padding: 1px 6px; margin-right: 4px; vertical-align: middle;
+}
+
+/* ===== CSS TIMELINE VISUALIZATION ===== */
+.vis-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+.vis-timeline::before {
+    content: '';
+    position: absolute;
+    right: 22px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #667eea 0%, #ff8800 50%, #e74c3c 100%);
+    border-radius: 2px;
+}
+.tl-node {
+    position: relative;
+    padding: 12px 60px 12px 0;
+    margin-bottom: 8px;
+}
+.tl-node::before {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 18px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 3px solid #667eea;
+    background: #fff;
+    z-index: 2;
+}
+.tl-node.idf::before { border-color: #2e7d32; background: #e8f5e9; }
+.tl-node.gov::before { border-color: #667eea; background: #e8edf8; }
+.tl-node.muni::before { border-color: #e67e22; background: #fef3e0; }
+.tl-node.acad::before { border-color: #7b2d8e; background: #f0e8f8; }
+.tl-node.highlight::before {
+    width: 28px; height: 28px; right: 10px; top: 16px;
+    border-width: 4px;
+    box-shadow: 0 0 0 4px rgba(255,136,0,0.2);
+}
+.tl-node .tl-year {
+    font-weight: 800; font-size: 1em; color: #1a1a2e;
+    margin-bottom: 2px;
+}
+.tl-node .tl-title {
+    font-weight: 700; font-size: 0.92em; color: #2a5a8a;
+}
+.tl-node .tl-detail {
+    font-size: 0.84em; color: #555; margin-top: 2px;
+}
+.tl-node .tl-badge {
+    display: inline-block; padding: 1px 8px; border-radius: 10px;
+    font-size: 0.7em; font-weight: 600; margin-right: 6px; vertical-align: middle;
+}
+.tl-badge.new-role { background: #e74c3c; color: #fff; }
+.tl-badge.rename { background: #ff8800; color: #fff; }
+.tl-badge.law { background: #667eea; color: #fff; }
+.tl-badge.event { background: #aab; color: #fff; }
+
+/* Terminology shift highlight */
+.shift-box {
+    background: linear-gradient(135deg, #fff8f0, #fef0e0);
+    border: 2px solid #ff8800;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin: 20px 0;
+    position: relative;
+}
+.shift-box::before {
+    content: '';
+    position: absolute;
+    top: -1px; right: 20px;
+    width: 60px; height: 4px;
+    background: #ff8800;
+    border-radius: 0 0 4px 4px;
+}
+.shift-box .shift-title {
+    font-weight: 700; color: #e67e22; font-size: 1.05em; margin-bottom: 8px;
+}
+.shift-box .shift-item {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px; font-size: 0.88em;
+}
+.shift-box .shift-old {
+    background: #fde8e8; padding: 2px 8px; border-radius: 4px;
+    text-decoration: line-through; color: #c0392b;
+}
+.shift-box .shift-arrow { color: #ff8800; font-weight: 800; font-size: 1.2em; }
+.shift-box .shift-new {
+    background: #e8f5e9; padding: 2px 8px; border-radius: 4px;
+    font-weight: 600; color: #2e7d32;
+}
+
+/* Officer card grid */
+.officer-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;
+}
+@media (max-width: 900px) { .officer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .officer-grid { grid-template-columns: 1fr; } }
+.officer-card {
+    background: #f8f9fa; border-radius: 8px; padding: 14px;
+    border: 1px solid #e0e0e0; border-right: 4px solid #2e7d32;
+    transition: transform 0.2s;
+}
+.officer-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.officer-card .oc-num { font-size: 0.72em; color: #999; margin-bottom: 2px; }
+.officer-card .oc-name { font-weight: 700; color: #1a1a2e; font-size: 1em; }
+.officer-card .oc-years { font-size: 0.82em; color: #667eea; font-weight: 600; }
+.officer-card .oc-note { font-size: 0.78em; color: #555; margin-top: 4px; }
+.officer-card.current { border-right-color: #ff8800; background: #fef8f0; }
+.officer-card.transition { border-right-color: #e67e22; }
+
+/* Sub-unit cards */
+.subunit-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0;
+}
+@media (max-width: 900px) { .subunit-grid { grid-template-columns: 1fr; } }
+.subunit-card {
+    background: #f0f4fa; border-radius: 8px; padding: 14px;
+    border-top: 3px solid #667eea;
+    text-align: center;
+}
+.subunit-card .su-name { font-weight: 700; color: #1a1a2e; font-size: 0.95em; margin-bottom: 4px; }
+.subunit-card .su-desc { font-size: 0.82em; color: #555; }
+
+/* Equality bodies table styling */
+.eq-body {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px 16px; background: #f8f9fa; border-radius: 8px;
+    margin-bottom: 8px; border-right: 4px solid #667eea;
+}
+.eq-body .eq-year {
+    font-weight: 800; font-size: 1.2em; color: #667eea;
+    min-width: 50px; text-align: center;
+}
+.eq-body .eq-info { flex: 1; }
+.eq-body .eq-name { font-weight: 700; color: #1a1a2e; }
+.eq-body .eq-type { font-size: 0.82em; color: #667eea; }
+
+/* Problem list */
+.problem-item {
+    background: #fff5f5; padding: 10px 14px; border-radius: 6px;
+    margin-bottom: 8px; border-right: 3px solid #e74c3c;
+    font-size: 0.9em;
+}
+.problem-item strong { color: #c0392b; }
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        תפקידים מוסדיים - מגדר
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('idf')">צה"ל</button>
+        <button class="nav-tab" onclick="showTab('gov')">ממשלה</button>
+        <button class="nav-tab" onclick="showTab('muni')">רשויות מקומיות</button>
+        <button class="nav-tab" onclick="showTab('acad')">אקדמיה</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>ציר זמן: תפקידים מוסדיים בתחום מגדר בישראל</h1>
+    <div class="subtitle">מחיל הנשים ליועצת מגדר: מיפוי יצירת תפקידים מוסדיים בצה"ל, ממשלה, רשויות מקומיות ואקדמיה</div>
+    <div class="meta">פברואר 2026 | מבוסס על מחקר רשת: ויקיפדיה עברית, אתרי ממשלה, ארגוני חברה אזרחית, מקורות אקדמיים</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">9</div><div class="lbl">ממלאות תפקיד יוהל"ם</div></div>
+        <div class="stat"><div class="num">~256</div><div class="lbl">רשויות מחויבות ליועצת</div></div>
+        <div class="stat"><div class="num">14,166</div><div class="lbl">פניות לנציבות שוויון</div></div>
+        <div class="stat"><div class="num">1991-2023</div><div class="lbl">גל יצירת מוסדות</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ============================================ -->
+<!-- TAB 1: IDF -->
+<!-- ============================================ -->
+<div id="view-idf" class="view active">
+
+<div class="section">
+    <h2>צה"ל: מחיל הנשים ליועצת הרמטכ"ל לענייני מגדר</h2>
+    <p><span class="provenance">WEB-SEARCH</span> עם הקמת צה"ל ב-1948 הוקם <strong>חיל הנשים (ח"ן)</strong> בפיקוד קצינות יוצאות הצבא הבריטי. תפקידו: ניהול שירות נשים בצה"ל. בראשו עמדה <strong>קצינת ח"ן ראשית</strong> בדרגת תת-אלוף. בשנת 2001, בעקבות פירוקו של חיל הנשים, הוקמה <strong>יחידת יועצת הרמטכ"ל לענייני נשים (יוהל"ן)</strong>, שהפכה ב-2016 ל<strong>יועצת הרמטכ"ל לענייני מגדר (יוהל"ם)</strong>.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">ממלאות תפקיד</div>
+            <div class="value">9</div>
+            <div class="note">מאז הקמת היוהל"ן ב-2001</div>
+        </div>
+        <div class="metric">
+            <div class="label">דרגת היועצת</div>
+            <div class="value">תת-אלוף</div>
+            <div class="note">שייכת לאגף כוח האדם</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שינוי שם</div>
+            <div class="value">2016</div>
+            <div class="note">מ"ענייני נשים" ל"ענייני מגדר"</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן צה"לי</h2>
+
+    <div class="vis-timeline">
+        <div class="tl-node idf">
+            <div class="tl-year">1948</div>
+            <div class="tl-title">הקמת חיל הנשים (ח"ן) <span class="tl-badge event">הקמה</span></div>
+            <div class="tl-detail">עם הקמת צה"ל. בראשו קצינת ח"ן ראשית בדרגת תת-אלוף. תפקיד: ניהול שירות נשים בצבא.</div>
+        </div>
+
+        <div class="tl-node idf">
+            <div class="tl-year">1995</div>
+            <div class="tl-title">בג"ץ אליס מילר <span class="tl-badge law">פסיקה</span></div>
+            <div class="tl-detail">חייב את צה"ל לאפשר לנשים להתנדב לקורס טיס. אילץ בחינה מחדש של כלל מדיניות שיבוץ נשים.</div>
+        </div>
+
+        <div class="tl-node idf">
+            <div class="tl-year">1997</div>
+            <div class="tl-title">פירוק מערך הח"ן</div>
+            <div class="tl-detail">סמכויות הועברו למפקדים ולמערך הת"ש.</div>
+        </div>
+
+        <div class="tl-node idf">
+            <div class="tl-year">2000</div>
+            <div class="tl-title">חוק שירות ביטחון מעודכן <span class="tl-badge law">חקיקה</span></div>
+            <div class="tl-detail">שילוב עקרונות בג"ץ אליס מילר בחקיקה -- עיגון זכות נשים למלא כל תפקיד בצה"ל.</div>
+        </div>
+
+        <div class="tl-node idf highlight">
+            <div class="tl-year">2001</div>
+            <div class="tl-title">הקמת יוהל"ן -- יועצת הרמטכ"ל לענייני נשים <span class="tl-badge new-role">תפקיד חדש</span></div>
+            <div class="tl-detail">הוקמה בעקבות פירוק חיל הנשים. קצינה בדרגת תת-אלוף. שייכת לאגף כוח האדם. תפקידה: מידע והמלצות למטכ"ל בנושאי מגדר, שירות נשים, ושילוב נשים בתפקידי לחימה.</div>
+        </div>
+
+        <div class="tl-node idf">
+            <div class="tl-year">2004</div>
+            <div class="tl-title">איגרת הרמטכ"ל</div>
+            <div class="tl-detail">עיגון מדיניות שוויון הזדמנויות בצבא.</div>
+        </div>
+
+        <div class="tl-node idf">
+            <div class="tl-year">2004-2006</div>
+            <div class="tl-title">ניסיון לבטל את היוהל"ן</div>
+            <div class="tl-detail">בימי הרמטכ"לים משה יעלון ודן חלוץ, יזם ראש אגף כוח האדם <strong>אלוף אלעזר שטרן</strong> ביטול התפקיד ואיחודו עם תפקיד קצין שלישות ראשי. <strong>היוזמה לא אושרה.</strong></div>
+        </div>
+
+        <div class="tl-node idf highlight">
+            <div class="tl-year">23.2.2016</div>
+            <div class="tl-title">שינוי שם: יוהל"ן הופכת ליוהל"ם <span class="tl-badge rename">שינוי שם</span></div>
+            <div class="tl-detail">מ"יועצת הרמטכ"ל לענייני <strong>נשים</strong>" ל"יועצת הרמטכ"ל לענייני <strong>מגדר</strong>". מסמך "מנשים למגדר -- הבסיס התפיסתי" נכתב ע"י ענף מוקד ידע מגדר ביוהל"ן. לאחר חשיפתו ע"י ארגון "תורת לחימה" -- הוסר מאתר צה"ל.</div>
+        </div>
+
+        <div class="tl-node idf">
+            <div class="tl-year">אוגוסט 2025</div>
+            <div class="tl-title">מינוי יוהל"ם נוכחית <span class="tl-badge event">מינוי</span></div>
+            <div class="tl-detail">תא"ל <strong>רוזיטל אביב</strong> נכנסה לתפקיד -- היועצת ה-9.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>9 ממלאות התפקיד: יועצות הרמטכ"ל לענייני נשים/מגדר</h2>
+    <p><span class="provenance">WEB-SEARCH</span> מאז הקמת היוהל"ן ב-2001 כיהנו 9 קצינות בתפקיד, כולן בדרגת תת-אלוף.</p>
+
+    <div class="officer-grid">
+        <div class="officer-card">
+            <div class="oc-num">1</div>
+            <div class="oc-name">סוזי יוגב</div>
+            <div class="oc-years">2001-2003</div>
+            <div class="oc-note">קצינת ח"ן ראשית האחרונה, והראשונה לאייש את תפקיד יוהל"ן. מקימת היחידה.</div>
+        </div>
+        <div class="officer-card">
+            <div class="oc-num">2</div>
+            <div class="oc-name">דבורה חסיד</div>
+            <div class="oc-years">2003-2006</div>
+            <div class="oc-note"></div>
+        </div>
+        <div class="officer-card">
+            <div class="oc-num">3</div>
+            <div class="oc-name">יהודית גריסרו</div>
+            <div class="oc-years">ספטמבר 2006 - יוני 2009</div>
+            <div class="oc-note"></div>
+        </div>
+        <div class="officer-card">
+            <div class="oc-num">4</div>
+            <div class="oc-name">גילה כליפי-אמיר</div>
+            <div class="oc-years">יוני 2009 - ינואר 2012</div>
+            <div class="oc-note"></div>
+        </div>
+        <div class="officer-card transition">
+            <div class="oc-num">5</div>
+            <div class="oc-name">רחל טבת-ויזל</div>
+            <div class="oc-years">ינואר 2012 - יולי 2016</div>
+            <div class="oc-note">האחרונה בתואר "ענייני נשים" והראשונה שהוגדרה כ"ענייני מגדר" (שינוי השם ב-2.2016).</div>
+        </div>
+        <div class="officer-card">
+            <div class="oc-num">6</div>
+            <div class="oc-name">שרון ניר</div>
+            <div class="oc-years">יולי 2016 - ספטמבר 2019</div>
+            <div class="oc-note"></div>
+        </div>
+        <div class="officer-card">
+            <div class="oc-num">7</div>
+            <div class="oc-name">יפעת תומר-ירושלמי</div>
+            <div class="oc-years">ספטמבר 2019 - נובמבר 2021</div>
+            <div class="oc-note">לימים הפרקליטה הצבאית הראשית בדרגת אלוף.</div>
+        </div>
+        <div class="officer-card">
+            <div class="oc-num">8</div>
+            <div class="oc-name">אלה שדו שכטמן</div>
+            <div class="oc-years">נובמבר 2021 - אוגוסט 2025</div>
+            <div class="oc-note"></div>
+        </div>
+        <div class="officer-card current">
+            <div class="oc-num">9 -- מכהנת</div>
+            <div class="oc-name">רוזיטל אביב</div>
+            <div class="oc-years">אוגוסט 2025 -- מכהנת</div>
+            <div class="oc-note">היוהל"ם הנוכחית.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תפקידי היוהל"ם -- תחומי עיסוק רשמיים</h2>
+    <p><span class="provenance">WEB-SEARCH</span> על פי הגדרת התפקיד הרשמית:</p>
+    <ol>
+        <li><strong>ייעוץ לרמטכ"ל ולפורום מטכ"ל</strong> -- בנושא קידום שוויון הזדמנויות מגדרי</li>
+        <li><strong>טיפול בנושאים ייחודיים</strong> הנובעים ממינם, <strong>נטייתם המינית</strong> ו<strong>זהותם המגדרית</strong> של המשרתים</li>
+        <li><strong>ייצוג צה"ל מול גופים ממלכתיים וציבוריים</strong> העוסקים בנושאים מגדריים</li>
+        <li><strong>גיבוש מדיניות בנושא פגיעה על רקע מיני</strong> והטמעתה</li>
+        <li><strong>תמיכה בנפגעי/ות פגיעה מינית, אלימות במשפחה ובזוגיות</strong> -- דרך יחידת מהו"ת</li>
+        <li><strong>טיפול בהיריון לא מתוכנן</strong> של חיילות -- דרך יחידת מהו"ת</li>
+        <li><strong>סיוע וליווי בחיבור בין הורות לשירות</strong> -- דרך מרכז "מצפים"</li>
+    </ol>
+
+    <h3>מבנה ארגוני -- יחידות משנה</h3>
+    <div class="subunit-grid">
+        <div class="subunit-card">
+            <div class="su-name">ענף מוקד ידע מגדר</div>
+            <div class="su-desc">ענף ייעודי. כתב את המסמך "מנשים למגדר -- הבסיס התפיסתי"</div>
+        </div>
+        <div class="subunit-card">
+            <div class="su-name">יחידת מהו"ת</div>
+            <div class="su-desc">מהלכות הופקדות על תמיכה -- כפופה ליועצת. טיפול בפגיעה מינית, אלימות, והיריון לא מתוכנן</div>
+        </div>
+        <div class="subunit-card">
+            <div class="su-name">מרכז "מצפים"</div>
+            <div class="su-desc">כפוף ליועצת. עוסק בחיבור בין הורות לשירות</div>
+        </div>
+    </div>
+
+    <h3>הערות נוספות</h3>
+    <ul>
+        <li>פקודת היוהל"ן כוללת הנחיות לגבי <strong>שירות טרנסג'נדרים</strong> בצה"ל</li>
+        <li>היוהל"ם משמשת כ<strong>שגרירה מגדרית של הצבא</strong> כלפי חוץ -- ייצוג מול גופים ממלכתיים וציבוריים</li>
+    </ul>
+</div>
+
+</div><!-- end view-idf -->
+
+
+<!-- ============================================ -->
+<!-- TAB 2: GOVERNMENT -->
+<!-- ============================================ -->
+<div id="view-gov" class="view">
+
+<div class="section">
+    <h2>ממשלה: רשויות, נציבויות ותפקידים ממלכתיים</h2>
+    <p><span class="provenance">WEB-SEARCH</span> ישראל בחרה בדגם <strong>ייחודי</strong> של גופי שוויון <strong>מגזריים (סקטוריאליים)</strong> -- ללא חוק שוויון כללי. הסמכויות מפוצלות בין נציבויות נפרדות.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">פניות לנציבות שוויון</div>
+            <div class="value">14,166</div>
+            <div class="note">מאז הקמתה ועד סוף 2024</div>
+        </div>
+        <div class="metric">
+            <div class="label">פניות שנתיות (ממוצע)</div>
+            <div class="value">~800</div>
+            <div class="note">2010-2019</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פניות בשנת 2022</div>
+            <div class="value">~1,300</div>
+            <div class="note">עלייה חדה</div>
+        </div>
+        <div class="metric">
+            <div class="label">חברי ועדה מייעצת</div>
+            <div class="value">26</div>
+            <div class="note">הורחב מ-21 ב-2014</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן ממשלתי</h2>
+
+    <div class="vis-timeline">
+        <div class="tl-node gov">
+            <div class="tl-year">1951</div>
+            <div class="tl-title">חוק שיווי זכויות האישה <span class="tl-badge law">חקיקה</span></div>
+            <div class="tl-detail">חקיקה ראשונה בנושא. לא יצר תפקידים מוסדיים.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">1975</div>
+            <div class="tl-title">שנת מעמד האישה של האו"ם</div>
+            <div class="tl-detail">רה"מ יצחק רבין הקים ועדה בראשות ח"כ אורה נמיר (92 חברים).</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">1978</div>
+            <div class="tl-title">דו"ח ועדת נמיר <span class="tl-badge event">218 המלצות</span></div>
+            <div class="tl-detail"><strong>המלצה מס' 1:</strong> "תוקם רשות ממלכתית לטיפול ומעקב בנושא מעמד האישה." <strong>המלצה מס' 218:</strong> "בכל משרד ממשלתי ובכל רשות מקומית תמונה אישה, שתפקידה לטפל בבעיותיהן המיוחדות של הנשים." <strong>רוב ההמלצות לא יושמו.</strong></div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">1978-1998</div>
+            <div class="tl-title">יועצות לראש הממשלה</div>
+            <div class="tl-detail">מונו יועצות לראש הממשלה בנושא מעמד האישה -- תפקיד אישי, לא מוסדי.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">1988</div>
+            <div class="tl-title">חוק שוויון הזדמנויות בעבודה <span class="tl-badge law">חקיקה</span></div>
+            <div class="tl-detail">אסר אפליה מטעמי מגדר, מין, נטייה מינית, מעמד משפחתי, הריון, גיל, גזע, דת, לאום ועוד. <strong>לא יצר תפקיד נציב</strong> -- נציבות תוקם רק ב-2008.</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">1991</div>
+            <div class="tl-title">הקמת הוועדה לקידום מעמד האישה בכנסת <span class="tl-badge new-role">מוסד חדש</span></div>
+            <div class="tl-detail">ועדת כנסת חדשה. בראשה תחילה ח"כ שרה דורון (ליכוד), אח"כ ח"כ יעל דיין. ב-1992 הפכה לוועדה קבועה (כנסת 13).</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">1995</div>
+            <div class="tl-title">הקמת האגף לקידום ושילוב נשים בנציבות שירות המדינה <span class="tl-badge new-role">תפקיד חדש</span></div>
+            <div class="tl-detail">הוקם בהתאם לתיקון מס' 7 לחוק שירות המדינה (מינויים).</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">1998</div>
+            <div class="tl-title">הקמת הרשות לקידום מעמד האישה <span class="tl-badge new-role">רשות ממשלתית</span></div>
+            <div class="tl-detail">רשות ממשלתית חדשה -- עוגנה בחוק. פועלת תחילה תחת משרד רה"מ, אח"כ במשרד לשוויון חברתי. בראשה <strong>מנהלת הרשות</strong> -- מינוי מקצועי. לצדה: מינהלת הרשות וועדה מייעצת.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">1998</div>
+            <div class="tl-title">חוק למניעת הטרדה מינית <span class="tl-badge law">חקיקה</span></div>
+            <div class="tl-detail">יצר תפקיד סטטוטורי: <strong>ממונה על הטרדה מינית</strong> בכל מקום עבודה.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">2000</div>
+            <div class="tl-title">תיקון 2 לחוק שיווי זכויות האישה <span class="tl-badge law">חקיקה</span></div>
+            <div class="tl-detail">הרחבה דרמטית. עיגון <strong>"העדפה מתקנת"</strong> לנשים. עיגון <strong>"ייצוג הולם"</strong> של נשים בוועדות מכרזים ומינויים. חובת חוות דעת מגדריות על הצעות חוק (תיקון 2007).</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">2000</div>
+            <div class="tl-title">הקמת נציבות שוויון זכויות לאנשים עם מוגבלות <span class="tl-badge new-role">מוסד חדש</span></div>
+            <div class="tl-detail">"הרשות הממשלתית הראשונה שהוקמה בישראל לאכיפת חקיקת שוויון" -- מודל שישוכפל.</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">2008</div>
+            <div class="tl-title">הקמת נציבות שוויון הזדמנויות בעבודה <span class="tl-badge new-role">נציבות חדשה</span></div>
+            <div class="tl-detail">נציבות חדשה במשרד הכלכלה והתעשייה. סמכויות: הגשת תביעות לבתי דין לעבודה, דרישת נתונים מהמעסיק בצו. נציבה ראשונה: עו"ד ציונה קניג-יאיר (2008-2016).</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">דצמבר 2013</div>
+            <div class="tl-title">שינוי שם הוועדה בכנסת <span class="tl-badge rename">שינוי שם</span></div>
+            <div class="tl-detail">מ"הוועדה לקידום מעמד <strong>האישה</strong>" ל"הוועדה לקידום מעמד <strong>האישה ולשוויון מגדרי</strong>". ביוזמת יו"ר הוועדה ד"ר עליזה לביא.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">2014</div>
+            <div class="tl-title">הרחבת הוועדה המייעצת</div>
+            <div class="tl-detail">מ-21 ל-<strong>26 חברים</strong>. הורחבה לכלול נציגי ערבים-מוסלמים, נוצרים, דרוזים, צ'רקסים, חרדים, עולים, יוצאי אתיופיה, משרתי מילואים, מבוגרים ונשים.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">2017</div>
+            <div class="tl-title">מיזם הגיוון של הנציבות</div>
+            <div class="tl-detail">תוכנית ארגונית לשילוב ערבים, חרדים, יוצאי אתיופיה ונשים בתפקידי ניהול. "מעטפת של ייעוץ ארגוני וליווי משפטי." מיושמת בחברות ממשלתיות, אקדמיה, רשויות מקומיות.</div>
+        </div>
+
+        <div class="tl-node gov highlight">
+            <div class="tl-year">אפריל 2023</div>
+            <div class="tl-title">הקמת המשרד לקידום מעמד האישה <span class="tl-badge new-role">משרד ממשלתי חדש</span></div>
+            <div class="tl-detail">שרה: <strong>מאי גולן</strong>. כוונה להעביר את הרשות לאחריות המשרד.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">יוני 2023</div>
+            <div class="tl-title">פיטורי יו"ר הרשות</div>
+            <div class="tl-detail">השרה מאי גולן פיטרה את <strong>עו"ד איילת רזין בית אור</strong> אחרי שנה וחצי (מונתה ע"י ועדת איתור ל-4 שנים). מחאת 44 ארגוני נשים.</div>
+        </div>
+
+        <div class="tl-node gov">
+            <div class="tl-year">יולי 2023</div>
+            <div class="tl-title">הצעת חוק לשינוי הרשות</div>
+            <div class="tl-detail">ח"כ לימור סון הר מלך -- הצעה להקמת "הרשות לקידום הנשים בישראל" תחת השרה. <strong>הוסרו הקריטריונים המקצועיים</strong> לתפקיד ראש הרשות. 44 ארגוני נשים ושדולת הנשים התנגדו.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נציבי/ות שוויון הזדמנויות בעבודה</h2>
+    <p><span class="provenance">WEB-SEARCH</span> רשימת ממלאי התפקיד מאז הקמת הנציבות ב-2008:</p>
+    <table>
+        <tr><th>שם</th><th>תקופה</th><th>הערות</th></tr>
+        <tr><td><strong>עו"ד ציונה קניג-יאיר</strong></td><td>2008-2016</td><td>נציבה ראשונה. לשעבר מנכ"לית שדולת הנשים</td></tr>
+        <tr><td><strong>עו"ד מרים כבהא</strong></td><td>2016-2023</td><td></td></tr>
+        <tr><td><strong>עו"ד אורית שרפי</strong></td><td>2023-2025</td><td>ממלאת מקום</td></tr>
+        <tr><td><strong>עו"ד פיראס פראג'</strong></td><td>מרץ 2025-</td><td>מכהן</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מבנה גופי שוויון ממשלתיים -- דגם מגזרי</h2>
+    <p><span class="provenance">WEB-SEARCH</span> ישראל בחרה בדגם <strong>ייחודי</strong> -- גופי שוויון מגזריים (סקטוריאליים), לא גוף שוויון כללי:</p>
+
+    <div class="eq-body">
+        <div class="eq-year">1998</div>
+        <div class="eq-info">
+            <div class="eq-name">הרשות לקידום מעמד האישה</div>
+            <div class="eq-type">מגזרי -- נשים</div>
+        </div>
+    </div>
+    <div class="eq-body">
+        <div class="eq-year">2000</div>
+        <div class="eq-info">
+            <div class="eq-name">נציבות שוויון זכויות לאנשים עם מוגבלות</div>
+            <div class="eq-type">מגזרי -- מוגבלות</div>
+        </div>
+    </div>
+    <div class="eq-body">
+        <div class="eq-year">2008</div>
+        <div class="eq-info">
+            <div class="eq-name">נציבות שוויון הזדמנויות בעבודה</div>
+            <div class="eq-type">נושאי -- תעסוקה</div>
+        </div>
+    </div>
+
+    <div class="quote-box orange">
+        <strong>הערה:</strong> אין בישראל חוק שוויון כללי. הסמכויות מפוצלות בין נציבויות נפרדות.
+        <div class="q-source">ויקיפדיה עברית, כל זכות</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>דפוס 3: פוליטיזציה (2023)</h2>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">1</div>
+        <div class="step-content">
+            <div class="step-title">הקמת משרד ממשלתי חדש</div>
+            <div class="step-desc">המשרד לקידום מעמד האישה -- שרה: מאי גולן</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow" style="color: #e74c3c;">&#8595;</div>
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">2</div>
+        <div class="step-content">
+            <div class="step-title">פיטורי ראש הרשות (מינוי מקצועי) ע"י שרה פוליטית</div>
+            <div class="step-desc">עו"ד איילת רזין בית אור פוטרה -- מונתה ע"י ועדת איתור ל-4 שנים</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow" style="color: #e74c3c;">&#8595;</div>
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">3</div>
+        <div class="step-content">
+            <div class="step-title">הצעת חוק להסרת קריטריונים מקצועיים</div>
+            <div class="step-desc">התנגדות 44 ארגוני נשים + שדולת הנשים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נתוני פניות לנציבות -- מגמות</h2>
+    <div class="grid-2">
+        <div>
+            <div class="metric">
+                <div class="label">פניות מנשים (בדר"כ)</div>
+                <div class="value">2/3</div>
+                <div class="note">עילות מרכזיות: הריון, מין</div>
+            </div>
+        </div>
+        <div>
+            <div class="metric alert">
+                <div class="label">2024 -- חריג</div>
+                <div class="value">רוב מגברים</div>
+                <div class="note">בעקבות גיוס מילואים -- חרבות ברזל</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div><!-- end view-gov -->
+
+
+<!-- ============================================ -->
+<!-- TAB 3: MUNICIPALITIES -->
+<!-- ============================================ -->
+<div id="view-muni" class="view">
+
+<div class="section">
+    <h2>רשויות מקומיות: יועצת לקידום מעמד האישה</h2>
+    <p><span class="provenance">WEB-SEARCH</span> חוק הרשויות המקומיות (יועצת ראש העיר לענייני נשים) מאוגוסט 2000 יצר <strong>תפקיד סטטוטורי חדש</strong> -- חובת מינוי יועצת לקידום מעמד האישה <strong>בכל רשות מקומית</strong>.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">רשויות מחויבות</div>
+            <div class="value">~256</div>
+            <div class="note">לא בכולן מונתה יועצת</div>
+        </div>
+        <div class="metric">
+            <div class="label">קורס הכשרה ראשון</div>
+            <div class="value">44</div>
+            <div class="note">יועצות בינואר 2001</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">היקף משרה</div>
+            <div class="value">50%</div>
+            <div class="note">גם בערים מעל 200,000 תושבים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן -- רשויות מקומיות</h2>
+
+    <div class="vis-timeline">
+        <div class="tl-node muni highlight">
+            <div class="tl-year">1978</div>
+            <div class="tl-title">המלצה 218 בדו"ח נמיר</div>
+            <div class="tl-detail">"בכל משרד ממשלתי ובכל רשות מקומית תמונה אישה, שתפקידה לטפל בבעיותיהן המיוחדות של הנשים באותו משרד או רשות."</div>
+        </div>
+
+        <div class="tl-node muni">
+            <div class="tl-year">1998</div>
+            <div class="tl-title">תחילת הליך חקיקה</div>
+            <div class="tl-detail">ח"כ יעל דיין החלה בחקיקת חוק ייחודי ליועצת.</div>
+        </div>
+
+        <div class="tl-node muni highlight">
+            <div class="tl-year">אוגוסט 2000</div>
+            <div class="tl-title">חוק הרשויות המקומיות (יועצת ראש העיר לענייני נשים) <span class="tl-badge new-role">תפקיד סטטוטורי</span></div>
+            <div class="tl-detail">חובת מינוי יועצת בכל רשות מקומית (~256 רשויות). סנקציות לאי-מינוי. התפקיד "יכול שיהיה נוסף על תפקיד אחר."</div>
+        </div>
+
+        <div class="tl-node muni">
+            <div class="tl-year">ינואר 2001</div>
+            <div class="tl-title">קורס הכשרה ראשון ליועצות</div>
+            <div class="tl-detail">עבודה משותפת של מרכז השלטון המקומי והרשות לקידום מעמד האישה. כ-44 יועצות בקורס הראשון.</div>
+        </div>
+
+        <div class="tl-node muni">
+            <div class="tl-year">2002</div>
+            <div class="tl-title">חוזר משרד הפנים</div>
+            <div class="tl-detail">חוזר מיוחד המזכיר את חובת המינוי -- בעקבות אי-מינוי בפועל ברשויות רבות.</div>
+        </div>
+
+        <div class="tl-node muni">
+            <div class="tl-year">2005</div>
+            <div class="tl-title">חוזר מנכ"ל משרד הפנים</div>
+            <div class="tl-detail">הסדרת נוהל המינוי. <strong>קביעה: היקף משרה 50% בלבד</strong> -- גם בערים גדולות מעל 200,000 תושבים.</div>
+        </div>
+
+        <div class="tl-node muni highlight">
+            <div class="tl-year">2018-2019</div>
+            <div class="tl-title">תוכנית "עיר לכולן" -- איתך-מעכי</div>
+            <div class="tl-detail">פיתוח מודלים לעבודת יועצות. פעלה ב-4 רשויות: <strong>ראשון לציון, טייבה, עכו, חיפה</strong>.</div>
+        </div>
+
+        <div class="tl-node muni">
+            <div class="tl-year">נוכחי</div>
+            <div class="tl-title">פערי ציות <span class="tl-badge event">בעיה מתמשכת</span></div>
+            <div class="tl-detail"><strong>לא בכל 256 הרשויות מונתה יועצת</strong> על אף החוק. אין סמכות אכיפה בידי הרשות לקידום מעמד האישה -- סמכות המינוי בידי משרד הפנים.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>בעיות שזוהו בחוק ובתפקיד</h2>
+
+    <div class="problem-item">
+        <strong>שם התפקיד "יועצת"</strong> -- יצר ציפייה לתפקיד ייעוצי בלבד (כמו יועץ משפטי), ללא סמכויות ביצועיות
+    </div>
+    <div class="problem-item">
+        <strong>"ענייני נשים"</strong> -- מושג שנתפס כ"הקטנה", חוסר חשיבות
+    </div>
+    <div class="problem-item">
+        <strong>"יועצת ראש העיר"</strong> -- יצר זיקה פוליטית, החלפת יועצת עם כל החלפת ראש רשות
+    </div>
+    <div class="problem-item">
+        <strong>היקף 50%</strong> -- גם בערים גדולות מעל 200,000 תושבים
+    </div>
+    <div class="problem-item">
+        <strong>אין הגדרת תפקיד באוגדן התפקידים</strong> של משרד הפנים
+    </div>
+    <div class="problem-item">
+        <strong>תפיסה פטריארכלית</strong> -- "הזירה המוניציפלית היא פוליטית, בירוקרטית, היררכית ובעלת תרבות ארגונית גברית מובהקת"
+    </div>
+</div>
+
+<div class="section">
+    <h2>תוכנית "עיר לכולן" -- מודל חלופי</h2>
+    <p><span class="provenance">WEB-SEARCH</span> <strong>ארגון: איתך-מעכי</strong> (משפטניות למען צדק חברתי, הוקם 2001)</p>
+
+    <table>
+        <tr><th>שנים</th><th>פרויקט</th><th>פירוט</th></tr>
+        <tr>
+            <td><strong>2018-2019</strong></td>
+            <td>תוכנית "עיר לכולן"</td>
+            <td>פיתוח מודלים לעבודת יועצות לקידום מעמד האישה ושוויון מגדרי ברשויות מקומיות. פעלה ב-4 רשויות: <strong>ראשון לציון, טייבה, עכו, חיפה</strong></td>
+        </tr>
+        <tr>
+            <td>נוכחי</td>
+            <td>יועצות מגדר ברשויות ערביות</td>
+            <td>איתך-מעכי מפעילה כפרויקט ייעודי</td>
+        </tr>
+    </table>
+</div>
+
+</div><!-- end view-muni -->
+
+
+<!-- ============================================ -->
+<!-- TAB 4: ACADEMIA -->
+<!-- ============================================ -->
+<div id="view-acad" class="view">
+
+<div class="section">
+    <h2>אקדמיה: לימודי מגדר ותפקידי שוויון</h2>
+    <p><span class="provenance">WEB-SEARCH</span> לימודי מגדר כתחום אקדמי צמחו בשנות ה-70 של המאה ה-20 ממקור <strong>"לימודי נשים"</strong>. בישראל קיימות תוכניות בכל האוניברסיטאות המחקריות, וכן <strong>האגודה הישראלית ללימודים פמיניסטיים ולחקר המגדר</strong> כגוף מרכז.</p>
+
+    <div class="quote-box orange">
+        <strong>מעבר מ"לימודי נשים" ל"לימודי מגדר":</strong> מחלוקת פנימית בתחום -- חלק רואים הכרח להישרדות אקדמית; אחרים -- "ניסיון לייצר תדמית נייטרלית" ו"ויתור על הפן הפוליטי של פרויקט לימודי נשים."
+        <div class="q-source">ויקיפדיה -- לימודי מגדר</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תוכניות לימודי מגדר באוניברסיטאות ישראליות</h2>
+
+    <div class="person-card" style="border-right: 4px solid #7b2d8e;">
+        <div class="name">אוניברסיטת תל אביב</div>
+        <div class="role">התוכנית ללימודי נשים ומגדר, בסיוע NCJW</div>
+        <div class="bio"><span class="provenance">WEB-SEARCH</span> שנת הקמה משוערת: ~2003-2006 (חגגה 20 שנה; מציעה תארים ב-2025/26). <strong>תארים:</strong> BA, MA (עיוני/מחקרי), דוקטורט. פקולטה למדעי הרוח.</div>
+    </div>
+    <div class="person-card" style="border-right: 4px solid #7b2d8e;">
+        <div class="name">אוניברסיטת בן-גוריון</div>
+        <div class="role">לימודי מגדר</div>
+        <div class="bio">ידוע שקיימת תוכנית. <span class="badge orange">דורש אימות</span></div>
+    </div>
+    <div class="person-card" style="border-right: 4px solid #7b2d8e;">
+        <div class="name">האוניברסיטה העברית</div>
+        <div class="role">לימודי מגדר</div>
+        <div class="bio">ידוע שקיימת תוכנית. <span class="badge orange">דורש אימות</span></div>
+    </div>
+    <div class="person-card" style="border-right: 4px solid #7b2d8e;">
+        <div class="name">אוניברסיטת חיפה</div>
+        <div class="role">לימודי מגדר</div>
+        <div class="bio">ידוע שקיימת תוכנית. <span class="badge orange">דורש אימות</span></div>
+    </div>
+    <div class="person-card" style="border-right: 4px solid #7b2d8e;">
+        <div class="name">אוניברסיטת בר-אילן</div>
+        <div class="role">לימודי מגדר</div>
+        <div class="bio">ידוע שקיימת תוכנית. <span class="badge orange">דורש אימות</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מגמות גלובליות</h2>
+    <div class="grid-2">
+        <div>
+            <h3>צמיחה</h3>
+            <ul>
+                <li>שנות ה-70: צמיחה מ"לימודי נשים" ללימודי מגדר</li>
+                <li>אחרי שנות ה-90: עליית חשיבות באוניברסיטאות מערביות, חפפה לעליית הדקונסטרוקציה</li>
+                <li>בישראל: האגודה הישראלית ללימודים פמיניסטיים ולחקר המגדר כגוף מרכז</li>
+            </ul>
+        </div>
+        <div>
+            <h3>צמצום</h3>
+            <ul>
+                <li><strong>פולין:</strong> סגירת תוכניות מגדריות</li>
+                <li><strong>הונגריה:</strong> סגירת תוכניות מגדריות</li>
+                <li><strong>ברזיל:</strong> סגירת תוכניות מגדריות</li>
+                <li>מגמה לקראת סוף העשור השני של המאה ה-21</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מערכת החינוך: חדירה דרך ארגוני חברה אזרחית</h2>
+    <p><span class="provenance">WEB-SEARCH</span> <strong>ממצא מרכזי:</strong> לא נמצאו מקורות מאומתים לתפקידים רשמיים מגדריים במערכת החינוך. חדירת תכנים מגדריים מתבצעת בעיקר דרך <strong>ארגוני חברה אזרחית חיצוניים</strong>:</p>
+
+    <table>
+        <tr><th>תפקיד מוצע</th><th>מצב</th><th>מקור</th></tr>
+        <tr><td>רפרנט/ית SEL</td><td><span class="badge red">לא אומת</span></td><td>דורש בדיקה במשרד החינוך</td></tr>
+        <tr><td>מנחה חוסן רגשי</td><td><span class="badge red">לא אומת</span></td><td>ייתכן שפועל כתוכנית, לא כתפקיד</td></tr>
+        <tr><td>יועצ/ת מגדרית בבית ספר</td><td><span class="badge red">לא קיים</span></td><td>ארגונים חיצוניים (שער שוויון, בועטות) ממלאים תפקיד דומה</td></tr>
+        <tr><td>תפקידים חדשים בשפ"ח</td><td><span class="badge red">לא נמצא</span></td><td>דורש חקירה</td></tr>
+    </table>
+
+    <div class="quote-box blue">
+        חדירת תכנים מגדריים למערכת החינוך מתבצעת בעיקר דרך ארגוני חברה אזרחית חיצוניים: <strong>שער שוויון, בועטות, הושן, איתך-מעכי, סודקות את תקרת הזכוכית/ג'וינט</strong> -- ולא דרך יצירת תפקידים רשמיים חדשים בתוך המערכת.
+        <div class="q-source">מחקרים קודמים בפרויקט -- ראו דוחות ארגוני אג'נדה מגדרית</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תפקידי שוויון מגדרי באקדמיה</h2>
+    <ul>
+        <li><strong>המועצה להשכלה גבוהה (מל"ג)</strong> -- ידוע שקיימת מדיניות לשוויון מגדרי, פרטים דורשים אימות</li>
+        <li><strong>אחראי/ת שוויון מגדרי באוניברסיטאות</strong> -- ידוע שתפקידים כאלה קיימים, דורש מיפוי ספציפי</li>
+    </ul>
+</div>
+
+</div><!-- end view-acad -->
+
+
+<!-- ============================================ -->
+<!-- TAB 5: LINKS -->
+<!-- ============================================ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>דפוס חוצה-מוסדות: מ"נשים" ל"מגדר"</h2>
+    <p>שינוי הטרמינולוגיה מ"נשים" ל"מגדר" הוא דפוס שחוזר על עצמו <strong>בכל המוסדות</strong> שנבחנו:</p>
+
+    <div class="shift-box">
+        <div class="shift-title">מעבר מ"נשים" ל"מגדר" -- דפוס חוצה מוסדות</div>
+
+        <div class="shift-item">
+            <span class="badge green">צה"ל</span>
+            <span class="shift-old">ענייני נשים (יוהל"ן)</span>
+            <span class="shift-arrow">&larr;</span>
+            <span class="shift-new">ענייני מגדר (יוהל"ם) -- 2016</span>
+        </div>
+        <div class="shift-item">
+            <span class="badge blue">כנסת</span>
+            <span class="shift-old">מעמד האישה</span>
+            <span class="shift-arrow">&larr;</span>
+            <span class="shift-new">מעמד האישה ולשוויון מגדרי -- 2013</span>
+        </div>
+        <div class="shift-item">
+            <span class="badge purple">אקדמיה</span>
+            <span class="shift-old">לימודי נשים</span>
+            <span class="shift-arrow">&larr;</span>
+            <span class="shift-new">לימודי מגדר -- שנות ה-90+</span>
+        </div>
+        <div class="shift-item">
+            <span class="badge orange">רשויות</span>
+            <span class="shift-old">ענייני נשים (חוק)</span>
+            <span class="shift-arrow">&larr;</span>
+            <span class="shift-new">יועצות מגדר (פרויקט איתך-מעכי)</span>
+        </div>
+    </div>
+
+    <div class="quote-box orange">
+        מסמך צה"לי בשם <strong>"מנשים למגדר -- הבסיס התפיסתי"</strong> נכתב ע"י ענף מוקד ידע מגדר ביוהל"ן. לאחר חשיפתו ע"י ארגון "תורת לחימה" -- הוסר מאתר צה"ל.
+        <div class="q-source">ויקיפדיה, הארץ, ערוץ 7</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>חקיקה מרכזית שיצרה תפקידים -- סיכום כרונולוגי</h2>
+
+    <table>
+        <tr><th>שנה</th><th>חוק/החלטה</th><th>תפקיד/גוף שנוצר</th></tr>
+        <tr><td>1951</td><td>חוק שיווי זכויות האישה</td><td>ללא תפקיד מוסדי</td></tr>
+        <tr><td>1978</td><td>דו"ח ועדת נמיר</td><td>המלצה ליועצות ברשויות (יושם רק ב-2000)</td></tr>
+        <tr><td>1988</td><td>חוק שוויון הזדמנויות בעבודה</td><td>ללא נציב (עד 2008)</td></tr>
+        <tr><td><strong>1991</strong></td><td>החלטת כנסת</td><td><strong>ועדה לקידום מעמד האישה</strong></td></tr>
+        <tr><td><strong>1995</strong></td><td>תיקון חוק שירות המדינה</td><td><strong>אגף לקידום ושילוב נשים</strong> בנציבות שירות המדינה</td></tr>
+        <tr><td><strong>1998</strong></td><td>חוק הרשות לקידום מעמד האישה</td><td><strong>הרשות + מנהלת הרשות</strong></td></tr>
+        <tr><td>1998</td><td>חוק למניעת הטרדה מינית</td><td><strong>ממונה על הטרדה מינית</strong> בכל מקום עבודה</td></tr>
+        <tr><td><strong>2000</strong></td><td>חוק הרשויות המקומיות (יועצת)</td><td><strong>יועצת</strong> בכל ~256 רשויות</td></tr>
+        <tr><td><strong>2000</strong></td><td>חוק נציבות שוויון -- מוגבלות</td><td><strong>נציבות + נציב</strong></td></tr>
+        <tr><td>2000</td><td>תיקון 2 לחוק שיווי זכויות</td><td>ייצוג הולם, העדפה מתקנת</td></tr>
+        <tr><td><strong>2001</strong></td><td>החלטה צבאית</td><td><strong>יוהל"ן -- יועצת הרמטכ"ל (תת-אלוף)</strong></td></tr>
+        <tr><td>2007</td><td>תיקון חוק שיווי זכויות</td><td>חובת חוות דעת מגדריות על הצ"ח</td></tr>
+        <tr><td><strong>2008</strong></td><td>תיקון חוק שוויון הזדמנויות</td><td><strong>נציבות שוויון הזדמנויות + נציב ארצי + נציבים אזוריים</strong></td></tr>
+        <tr><td>2013</td><td>החלטת יו"ר ועדה</td><td>שינוי שם: + "ולשוויון מגדרי"</td></tr>
+        <tr><td><strong>2016</strong></td><td>החלטה צבאית</td><td><strong>יוהל"ם -- יועצת הרמטכ"ל לענייני מגדר</strong></td></tr>
+        <tr><td><strong>2023</strong></td><td>החלטת ממשלה</td><td><strong>המשרד לקידום מעמד האישה</strong></td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>פערים במחקר -- נושאים שלא אומתו</h2>
+    <ol>
+        <li><strong>"קצינת שוויון" בצה"ל</strong> -- לא נמצא תפקיד נפרד בשם זה. ייתכן שהכוונה ליוהל"ם</li>
+        <li><strong>"מדור מגדר" בצה"ל</strong> -- לא נמצא כגוף נפרד; "ענף מוקד ידע מגדר" פועל בתוך היוהל"ם</li>
+        <li><strong>רפרנט/ית להט"ב ברשויות מקומיות</strong> -- לא אומת כתפקיד רשמי</li>
+        <li><strong>מנהל/ת אגף חברה ושוויון</strong> -- לא אומת שם ספציפי</li>
+        <li><strong>אגף קהילה ושוויון בתל אביב</strong> -- לא אומת</li>
+        <li><strong>תקציבים ספציפיים</strong> -- לא נמצאו נתוני תקציב מפורטים</li>
+        <li><strong>רפרנט/ית SEL בבתי ספר</strong> -- לא אומת כתפקיד רשמי</li>
+        <li><strong>מנחה חוסן רגשי</strong> -- לא אומת</li>
+        <li><strong>אחראי/ת שוויון מגדרי באוניברסיטאות</strong> -- דורש מיפוי ספציפי</li>
+        <li><strong>שנות הקמה מדויקות של תוכניות לימודי מגדר</strong> -- בכל אוניברסיטה</li>
+        <li><strong>ועדת המשנה לזכויות הומואים, לסביות, בי וטראנס</strong> -- פעלה בכנסת 1992-2003 (אומת)</li>
+    </ol>
+</div>
+
+<div class="section">
+    <h2>מקורות</h2>
+
+    <h3>ויקיפדיה עברית (API)</h3>
+    <a class="link-card" href="https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A2%D7%A6%D7%AA_%D7%94%D7%A8%D7%9E%D7%98%D7%9B%22%D7%9C_%D7%9C%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%99_%D7%9E%D7%92%D7%93%D7%A8" target="_blank">
+        <div class="lc-title">יועצת הרמטכ"ל לענייני מגדר</div>
+        <div class="lc-desc">ויקיפדיה עברית -- pageid: 205841</div>
+    </a>
+    <a class="link-card" href="https://he.wikipedia.org/wiki/%D7%94%D7%A8%D7%A9%D7%95%D7%AA_%D7%9C%D7%A7%D7%99%D7%93%D7%95%D7%9D_%D7%9E%D7%A2%D7%9E%D7%93_%D7%94%D7%90%D7%99%D7%A9%D7%94" target="_blank">
+        <div class="lc-title">הרשות לקידום מעמד האישה</div>
+        <div class="lc-desc">ויקיפדיה עברית -- pageid: 1455375</div>
+    </a>
+    <a class="link-card" href="https://he.wikipedia.org/wiki/%D7%A0%D7%A6%D7%99%D7%91%D7%95%D7%AA_%D7%A9%D7%95%D7%95%D7%99%D7%95%D7%9F_%D7%94%D7%96%D7%93%D7%9E%D7%A0%D7%95%D7%99%D7%95%D7%AA_%D7%91%D7%A2%D7%91%D7%95%D7%93%D7%94" target="_blank">
+        <div class="lc-title">נציבות שוויון הזדמנויות בעבודה</div>
+        <div class="lc-desc">ויקיפדיה עברית</div>
+    </a>
+    <a class="link-card" href="https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A2%D7%A6%D7%AA_%D7%9C%D7%A7%D7%99%D7%93%D7%95%D7%9D_%D7%9E%D7%A2%D7%9E%D7%93_%D7%94%D7%90%D7%99%D7%A9%D7%94_%D7%91%D7%A8%D7%A9%D7%95%D7%99%D7%95%D7%AA_%D7%94%D7%9E%D7%A7%D7%95%D7%9E%D7%99%D7%95%D7%AA" target="_blank">
+        <div class="lc-title">יועצת לקידום מעמד האישה ברשויות המקומיות</div>
+        <div class="lc-desc">ויקיפדיה עברית</div>
+    </a>
+    <a class="link-card" href="https://he.wikipedia.org/wiki/%D7%A9%D7%99%D7%A8%D7%95%D7%AA_%D7%A0%D7%A9%D7%99%D7%9D_%D7%91%D7%A6%D7%94%22%D7%9C" target="_blank">
+        <div class="lc-title">שירות נשים בצה"ל</div>
+        <div class="lc-desc">ויקיפדיה עברית</div>
+    </a>
+    <a class="link-card" href="https://he.wikipedia.org/wiki/%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99_%D7%9E%D7%92%D7%93%D7%A8" target="_blank">
+        <div class="lc-title">לימודי מגדר</div>
+        <div class="lc-desc">ויקיפדיה עברית</div>
+    </a>
+
+    <h3>אתרי ממשלה ומשפט</h3>
+    <a class="link-card" href="https://www.kolzchut.org.il/he/%D7%A0%D7%A6%D7%99%D7%91%D7%95%D7%AA_%D7%A9%D7%95%D7%95%D7%99%D7%95%D7%9F_%D7%94%D7%96%D7%93%D7%9E%D7%A0%D7%95%D7%99%D7%95%D7%AA_%D7%91%D7%A2%D7%91%D7%95%D7%93%D7%94" target="_blank">
+        <div class="lc-title">כל זכות -- נציבות שוויון הזדמנויות בעבודה</div>
+        <div class="lc-desc">kolzchut.org.il</div>
+    </a>
+    <a class="link-card" href="https://www.kolzchut.org.il/he/%D7%94%D7%A8%D7%A9%D7%95%D7%AA_%D7%9C%D7%A7%D7%99%D7%93%D7%95%D7%9D_%D7%9E%D7%A2%D7%9E%D7%93_%D7%94%D7%90%D7%99%D7%A9%D7%94" target="_blank">
+        <div class="lc-title">כל זכות -- הרשות לקידום מעמד האישה</div>
+        <div class="lc-desc">kolzchut.org.il</div>
+    </a>
+
+    <h3>ארגוני חברה אזרחית</h3>
+    <a class="link-card" href="https://www.itach.org.il" target="_blank">
+        <div class="lc-title">איתך-מעכי -- משפטניות למען צדק חברתי</div>
+        <div class="lc-desc">itach.org.il -- תוכנית "עיר לכולן", יועצות מגדר ברשויות ערביות</div>
+    </a>
+
+    <h3>אקדמיה</h3>
+    <a class="link-card" href="https://humanities.tau.ac.il" target="_blank">
+        <div class="lc-title">אוניברסיטת תל אביב -- תוכנית לימודי נשים ומגדר</div>
+        <div class="lc-desc">humanities.tau.ac.il -- בסיוע NCJW</div>
+    </a>
+
+    <h3>מקורות נוספים</h3>
+    <a class="link-card" href="https://adva.org" target="_blank">
+        <div class="lc-title">מרכז אדוה</div>
+        <div class="lc-desc">ישראל רביעית ב-OECD בפער שכר מגדרי (דצמבר 2025)</div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>דוחות קשורים בפרויקט</h2>
+    <a class="link-card" href="Feminist_gender-agenda_orgs.html">
+        <div class="lc-title">רשת ארגוני האג'נדה הפמיניסטית-מגדרית בחינוך הישראלי</div>
+        <div class="lc-desc">דוח מחקר -- ארגוני חברה אזרחית המחדירים תכנים מגדריים לחינוך</div>
+    </a>
+    <a class="link-card" href="Gender_sexuality_education_providers.html">
+        <div class="lc-title">ספקי חינוך מיניות ומגדר</div>
+        <div class="lc-desc">דוח מחקר -- ארגונים המספקים תכני חינוך מיני ומגדרי</div>
+    </a>
+</div>
+
+</div><!-- end view-links -->
+
+</div><!-- end container -->
+
+<footer>
+    מקור: מחקר רשת | פברואר 2026 | ויקיפדיה עברית, אתרי ממשלה, ארגוני חברה אזרחית, מקורות אקדמיים
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

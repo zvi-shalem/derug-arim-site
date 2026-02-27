@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מילון ההמרה — כיצד שפה רדיקלית הופכת למונחים חינוכיים ניטרליים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+tr:nth-child(even) { background: #fafbfc; }
+tr:nth-child(even):hover { background: #f0f2f5; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.green { background: #e8fde8; color: #27ae60; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* Glossary table enhancements */
+.glossary-table { font-size: 0.85em; }
+.glossary-table th { position: sticky; top: 56px; z-index: 10; }
+.glossary-table td { vertical-align: top; }
+.glossary-table td:first-child { text-align: center; font-weight: 700; color: #667eea; width: 40px; }
+.glossary-table .arrow-cell { text-align: center; font-weight: 700; color: #ff8800; font-size: 1.2em; }
+
+.conversion-arrow {
+    display: inline-block; color: #ff8800; font-weight: 800; margin: 0 4px;
+}
+
+/* Timeline */
+.timeline { position: relative; padding-right: 30px; }
+.timeline::before {
+    content: ''; position: absolute; right: 12px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.timeline-item {
+    position: relative; margin-bottom: 24px; padding: 14px 18px;
+    background: #fff; border-radius: 8px; border: 1px solid #e8e8e8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.timeline-item::before {
+    content: ''; position: absolute; right: -24px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.timeline-item.highlight::before { background: #ff8800; box-shadow: 0 0 0 2px #ff8800; }
+.timeline-year {
+    font-weight: 800; color: #667eea; font-size: 1.1em; margin-bottom: 4px;
+}
+.timeline-item.highlight .timeline-year { color: #ff8800; }
+.timeline-text { font-size: 0.9em; color: #444; }
+
+/* Smoking gun highlight */
+.smoking-gun {
+    background: linear-gradient(135deg, #fff5f0 0%, #fff0e6 100%);
+    border: 2px solid #ff8800; border-radius: 10px;
+    padding: 20px 24px; margin: 20px 0;
+}
+.smoking-gun h3 { color: #ff8800; margin-bottom: 10px; font-size: 1.1em; }
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.8em; color: #888;
+    border-top: 1px solid #ddd; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        מילון ההמרה
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('conversions')">המרות שפה</button>
+        <button class="nav-tab" onclick="showView('evidence')">ראיות</button>
+        <button class="nav-tab" onclick="showView('timeline')">ציר זמן</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>מילון ההמרה</h1>
+    <div class="subtitle">כיצד שפה רדיקלית הופכת למונחים חינוכיים ניטרליים</div>
+    <div class="meta">גלוסריון מתועד של המרות שפה שיטתיות בחינוך הישראלי 2014--2025</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">25+</div><div class="lbl">המרות מזוהות</div></div>
+        <div class="stat"><div class="num">2014--2025</div><div class="lbl">טווח</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">מקורות ראשוניים</div></div>
+        <div class="stat"><div class="num">מ"מרקסיזם"</div><div class="lbl">ל"חוסן רגשי"</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>התובנה המרכזית: שתי שפות למודל אחד</h2>
+    <p>אותו מודל פדגוגי מוצג בשני אוצרות מילים שונים בהתאם לקהל היעד. <strong>שפה אקדמית/פנימית</strong> משתמשת בטרמינולוגיה רדיקלית; <strong>שפה ציבורית/הורית</strong> משתמשת במונחים ניטרליים. זוהי לא טעות -- זו אסטרטגיה מתועדת שנקראת <strong>"חינוך חותר"</strong> (subversive education) בפי המתרגלים עצמם.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">האסטרטגיה</div>
+            <div class="value">שפה כפולה</div>
+            <div class="note">פנים רדיקלי, חוץ ניטרלי</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">השם הפנימי</div>
+            <div class="value">חינוך חותר</div>
+            <div class="note">Subversive Education</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הוכחה מרכזית</div>
+            <div class="value">קטקו-איילי</div>
+            <div class="note">אותו מודל, שני מצגות</div>
+        </div>
+    </div>
+</div>
+
+<div class="smoking-gun">
+    <h3>ה"אקדח המעשן": קרן קטקו-איילי -- אותו מודל, שתי שפות</h3>
+    <p>קרן קטקו-איילי הציגה את <strong>אותו המודל הפדגוגי בדיוק</strong> בשני הקשרים שונים:</p>
+    <div class="grid-2" style="margin-top: 14px;">
+        <div style="background:#fde8e8; padding:14px; border-radius:8px; border: 1px solid #e8c8c8;">
+            <p><strong>2020 -- הקשר אקדמי</strong></p>
+            <p><span class="badge red">פדגוגיה אקטיביסטית</span></p>
+            <p style="font-size:0.88em; color:#666;">המודל מוצג כ"activist pedagogy" -- חינוך אקטיביסטי -- בכנס אקדמי.</p>
+        </div>
+        <div style="background:#e8fde8; padding:14px; border-radius:8px; border: 1px solid #c8e8c8;">
+            <p><strong>2024 -- הקשר ממשלתי</strong></p>
+            <p><span class="badge green">חשיבה ביקורתית</span></p>
+            <p style="font-size:0.88em; color:#666;">אותו מודל בדיוק מוצג כ"critical thinking" -- חשיבה ביקורתית -- בפני גורמי ממשל.</p>
+        </div>
+    </div>
+    <p style="margin-top:12px; font-weight:600;">אותה חוקרת. אותו מודל. שתי שפות. זהו ה"אבן רוזטה" של המרת השפה בחינוך הישראלי.</p>
+</div>
+
+<div class="section">
+    <h2>למה זה חשוב?</h2>
+    <div class="grid-2">
+        <div>
+            <h3>מה הורים שומעים</h3>
+            <p>"חשיבה ביקורתית", "חוסן רגשי", "למידה חברתית-רגשית", "שוויון", "חינוך ערכי", "אזרחות פעילה", "גיוון", "כבוד להבדלים", "בטיחות".</p>
+        </div>
+        <div>
+            <h3>מה התוכן בפועל</h3>
+            <p>"פדגוגיה ביקורתית", "תיאוריית מגדר", "ניאו-מרקסיזם", "פירוק הבינאריזם", "פוסט-קולוניאליזם", "דה-קולוניזציה", "חינוך אקטיביסטי", "תלמיד כסוכן שינוי", "מורה כסוכן פוליטי".</p>
+        </div>
+    </div>
+    <p>הפער בין שתי השפות הוא לא עניין של "גוונים" -- הוא מבני ומכוון. אנשי הפנים יודעים שההורים ידחו את המודל אם יבינו את שפתו האמיתית.</p>
+</div>
+
+<div class="section">
+    <h2>הנרי ז'ירו -- מודה בבחירת השפה</h2>
+    <div class="quote-box blue">
+        "I used the word 'critical' because I knew that if I used 'radical', teachers would reject it."
+        <div class="q-source">Henry Giroux -- ממייסדי הפדגוגיה הביקורתית, מודה שהמילה "ביקורתי" נבחרה כדי למנוע דחייה</div>
+    </div>
+    <p>ז'ירו הוא מקור ההשראה המרכזי של המרכז לפדגוגיה ביקורתית בסמינר הקיבוצים. ההודאה שלו מאששת: הריכוך הטרמינולוגי הוא אסטרטגיה מכוונת מהיסוד.</p>
+</div>
+
+</div>
+
+<!-- ═══ CONVERSIONS TAB ═══ -->
+<div id="view-conversions" class="view">
+
+<div class="section">
+    <h2>טבלת המרות שפה -- 25 המרות מתועדות</h2>
+    <p>הטבלה הבאה מתעדת כיצד טרמינולוגיה אקדמית רדיקלית עוברת "כביסת שפה" והופכת למונחים ניטרליים בפני ההורים והציבור. כל שורה מבוססת על מקורות מתועדים.</p>
+
+    <table class="glossary-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>מונח אקדמי / פנימי</th>
+            <th></th>
+            <th>מונח ציבורי / שיווקי</th>
+            <th>מקור ההמרה</th>
+            <th>דוגמה מתועדת</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td><span class="badge red">פדגוגיה ביקורתית</span><br>Critical Pedagogy</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">חשיבה ביקורתית</span><br>Critical Thinking</td>
+            <td>קטקו-איילי 2020 vs 2024</td>
+            <td>אותו מודל, שתי שפות -- ה"אבן רוזטה"</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><span class="badge red">תיאוריית המגדר</span><br>Gender Theory</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">חינוך לשוויון</span><br>Equality Education</td>
+            <td>תוכניות חוש"ן</td>
+            <td>סדנאות בבתי ספר</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><span class="badge red">ספקטרום מגדרי</span><br>Gender Spectrum</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">גיוון</span><br>Diversity</td>
+            <td>SafeSchool -- מערכי שיעור</td>
+            <td>מאחורי paywall -- שפה שונה מהשיווק</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td><span class="badge red">נזילות מגדרית</span><br>Gender Fluidity</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">גמישות</span><br>Flexibility</td>
+            <td>מערכי שיעור גני ילדים</td>
+            <td>ת"א ורמת גן -- תוכניות לגיל הרך</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td><span class="badge red">פירוק הבינאריזם</span><br>Deconstructing Binarism</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">כיבוד ההבדלים</span><br>Respecting Differences</td>
+            <td>ארגוני מגדר</td>
+            <td>תוכניות עירוניות</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td><span class="badge red">חינוך אקטיביסטי</span><br>Activist Education</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">חינוך ערכי</span><br>Values Education</td>
+            <td>סמינר הקיבוצים</td>
+            <td>תוכניות הכשרת מורים</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td><span class="badge red">פוסט-קולוניאליזם</span><br>Post-Colonialism</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">רב-תרבותיות</span><br>Multiculturalism</td>
+            <td>אוניברסיטאות &rarr; משרד חינוך</td>
+            <td>תוכניות אזרחות</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td><span class="badge red">SEL כלי להחדרת ערכים</span><br>SEL as Value Injection</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">חוסן רגשי</span><br>Emotional Resilience</td>
+            <td>CASEL &rarr; אבני ראשה</td>
+            <td>3,000 מנהלים הוכשרו</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td><span class="badge red">מהפכה קומוניסטית בכיתה</span><br>Communist Revolution in Class</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">למידה חברתית</span><br>Social Learning</td>
+            <td>ניר מיכאלי, סרטון 2021</td>
+            <td>"מתחת לרדאר" -- ציטוט ישיר</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td><span class="badge red">תיאוריית גזע ביקורתית</span><br>Critical Race Theory (CRT)</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">צדק חברתי</span><br>Social Justice</td>
+            <td>אתר מידה -- תחקיר</td>
+            <td>תקציבי עיריות</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td><span class="badge red">פירוק המשפחה הגרעינית</span><br>Deconstructing Nuclear Family</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">מודלים משפחתיים מגוונים</span><br>Diverse Family Models</td>
+            <td>דלת פתוחה</td>
+            <td>באר שבע 2023</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td><span class="badge red">דה-קולוניזציה</span><br>Decolonization</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">שיח על זכויות</span><br>Rights Discourse</td>
+            <td>ארגונים אקדמיים</td>
+            <td>תוכניות היסטוריה</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td><span class="badge red">הגמוניה (גרמשי)</span><br>Hegemony (Gramsci)</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">מבנים חברתיים</span><br>Social Structures</td>
+            <td>מרכז לפדגוגיה ביקורתית</td>
+            <td>מאמרים אקדמיים</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td><span class="badge red">תלמיד כסוכן שינוי</span><br>Student as Change Agent</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">אזרחות פעילה</span><br>Active Citizenship</td>
+            <td>דרור ישראל</td>
+            <td>"המעורר"</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td><span class="badge red">מורה כסוכן פוליטי</span><br>Teacher as Political Agent</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">מחנך ערכי</span><br>Values Educator</td>
+            <td>ניר מיכאלי</td>
+            <td>"כן בבית ספרנו" 2014</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td><span class="badge red">פריירה (Pedagogy of the Oppressed)</span><br>Freire / Oppressed Pedagogy</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">חינוך מעצים</span><br>Empowering Education</td>
+            <td>מרכז ביקורתי</td>
+            <td>הכשרת מורים</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td><span class="badge red">מדכא / מדוכא</span><br>Oppressor / Oppressed</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">פער חברתי</span><br>Social Gap</td>
+            <td>המרת שפה בתוכניות</td>
+            <td>מאקדמיה לכיתה</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td><span class="badge red">ביזור חינוכי</span><br>Educational Decentralization</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">אוטונומיה מקומית</span><br>Local Autonomy</td>
+            <td>פורום ערים ליברליות</td>
+            <td>תל"מ -- תכניות למידה מקומיות</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td><span class="badge red">לכידה מוסדית</span><br>Institutional Capture</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">שילוב ארגונים חיצוניים</span><br>External Org Integration</td>
+            <td>ועדות חינוך עירוניות</td>
+            <td>פרוטוקולים</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td><span class="badge red">חינוך חותר</span><br>Subversive Education</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">חשיבה עצמאית</span><br>Independent Thinking</td>
+            <td>מיכאלי, אלוני</td>
+            <td>מאמרים -- "חינוך חתרני"</td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td><span class="badge red">ניאו-מרקסיזם</span><br>Neo-Marxism</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">ביקורתיות</span><br>Criticality</td>
+            <td>כתבי עת חינוך</td>
+            <td>שילוח, מרחבים</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td><span class="badge red">אנטי-ציונות</span><br>Anti-Zionism</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">פלורליזם</span><br>Pluralism</td>
+            <td>שלבי המרה: אנטי-ציונות &rarr; פוסט-ציונות &rarr; פלורליזם</td>
+            <td>אקדמיה &rarr; ציבור</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td><span class="badge red">"מניעת בריונות" כמסגרת</span><br>Anti-Bullying as Framework</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">מניעת בריונות</span><br>Anti-Bullying</td>
+            <td>SafeSchool, חוש"ן</td>
+            <td>תוכניות התנהגותיות שתוכנן אידיאולוגי</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td><span class="badge red">"בטיחות" כמרחב אידיאולוגי</span><br>Safety as Ideological Space</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">מרחב בטוח</span><br>Safe Space</td>
+            <td>SafeSchool</td>
+            <td>מרחב בטוח = מרחב אידיאולוגי</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td><span class="badge red">שוויון תוצאתי (Equity)</span><br>Equity -- Equal Outcomes</td>
+            <td class="arrow-cell">&larr;</td>
+            <td><span class="badge green">שוויון הזדמנויות (Equality)</span><br>Equality of Opportunity</td>
+            <td>תוכניות חינוך</td>
+            <td>מבלבלים במכוון בין שני המונחים</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>תבנית ההמרה: כיצד זה עובד</h2>
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">מונח רדיקלי באקדמיה</div>
+            <div class="step-desc">המושג נולד ומתועד בכתבי עת אקדמיים ובכנסים סגורים. דוגמה: "פדגוגיה ביקורתית", "חינוך אקטיביסטי".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">תרגום ל"שפת ביניים"</div>
+            <div class="step-desc">המונח עובר ריכוך ראשוני: "רדיקלי" &rarr; "ביקורתי", "חותר" &rarr; "חתרני", "מרקסיסטי" &rarr; "ביקורתי".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">המרה לשפת שיווק</div>
+            <div class="step-desc">המונח מוצג להורים ולציבור בשפה ניטרלית לחלוטין: "חשיבה ביקורתית", "חוסן רגשי", "חינוך ערכי".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">הטמעה מוסדית</div>
+            <div class="step-desc">המונח הניטרלי מאושר על ידי משרד החינוך, עיריות וועדות חינוך מקומיות -- כי "חשיבה ביקורתית" לא נשמעת מסוכנת.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ EVIDENCE TAB ═══ -->
+<div id="view-evidence" class="view">
+
+<div class="section">
+    <h2>ראיות מרכזיות</h2>
+
+    <h3>1. אבן רוזטה של קטקו-איילי -- אותו מודל, שני מצגות</h3>
+    <div class="smoking-gun">
+        <h3>ה"אקדח המעשן" -- Rosetta Stone</h3>
+        <p>קרן קטקו-איילי הציגה את <strong>אותו המודל הפדגוגי</strong> בשני הקשרים:</p>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li><strong>2020, הקשר אקדמי:</strong> המודל מוצג כ-<span class="badge red">פדגוגיה אקטיביסטית</span> -- "activist pedagogy"</li>
+            <li><strong>2024, הקשר ממשלתי:</strong> אותו מודל מוצג כ-<span class="badge green">חשיבה ביקורתית</span> -- "critical thinking"</li>
+        </ul>
+        <p>אותה חוקרת. אותו מודל. שתי שפות. ההבדל היחיד: הקהל. זו הראיה החד-משמעית ביותר להמרת שפה מכוונת.</p>
+    </div>
+
+    <h3>2. ניר מיכאלי -- "מהפכה קומוניסטית מתחת לרדאר"</h3>
+    <div class="quote-box">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+        <div class="q-source">ד"ר ניר מיכאלי, לשעבר רקטור סמינר הקיבוצים ומזכיר המזכירות הפדגוגית -- סרטון מכנס חינוך, הופץ 2021</div>
+    </div>
+    <p>מיכאלי מנסח במפורש את האסטרטגיה: תוכן רדיקלי, עטיפה ניטרלית, והסתרה מההורים. המונח "מתחת לרדאר" הוא הודאה ישירה בשפה כפולה מכוונת.</p>
+
+    <h3>3. "כן בבית ספרנו" (2014) -- פדגוגיה ביקורתית = פרשנות מרקסיסטית</h3>
+    <div class="quote-box">
+        הספר "כן בבית ספרנו" (2014) מגדיר במפורש בעמוד 13 את "הפדגוגיה הביקורתית" כ"פרשנות מרקסיסטית" של מערכת החינוך.
+        <div class="q-source">"כן בבית ספרנו", 2014, עמ' 13 -- הגדרה מפורשת</div>
+    </div>
+    <p>ב-2014, השפה עדיין הייתה גלויה. הספר משתמש בגלוי במונח "פרשנות מרקסיסטית" כדי להגדיר את הפדגוגיה הביקורתית. בשנים הבאות, אותו תוכן עטה שפה ניטרלית.</p>
+
+    <h3>4. SafeSchool -- paywall כמחסום שפה</h3>
+    <div class="quote-box blue">
+        מערכי השיעור של SafeSchool שמאחורי ה-paywall משתמשים בשפה שונה מחומרי השיווק הציבוריים. חומרי השיווק מדברים על "מניעת בריונות" ו"בטיחות"; התכנים עצמם עוסקים ב"ספקטרום מגדרי" ו"נזילות מגדרית".
+        <div class="q-source">ניתוח השוואתי: חומרי שיווק vs. מערכי שיעור -- SafeSchool</div>
+    </div>
+    <p>ה-paywall משמש כמעשה כמנגנון הפרדת שפה: מי שמשלם (בתי ספר) רואה שפה אחת; מי שמבחוץ (הורים) רואה שפה אחרת.</p>
+
+    <h3>5. גלית זלמנסון-לוי -- "עבודה במישור הסמוי"</h3>
+    <div class="quote-box">
+        "יש עבודה במישור הגלוי ועבודה במישור הסמוי. עבודה חתרנית."
+        <div class="q-source">גלית זלמנסון-לוי -- מתוך סרטון שנחשף</div>
+    </div>
+    <p>זלמנסון-לוי מפרידה במפורש בין "מישור גלוי" ל"מישור סמוי" -- הגדרה מדויקת של שיטת השפה הכפולה. הפער בין הפרסומים האקדמיים שלה (שפה רדיקלית) לבין ההצהרות הציבוריות (שפה ניטרלית) מדגים את אותה דינמיקה.</p>
+</div>
+
+<div class="section">
+    <h2>סיכום הראיות</h2>
+    <table>
+        <tr><th>ראיה</th><th>סוג</th><th>מה היא מוכיחה</th></tr>
+        <tr>
+            <td>קטקו-איילי 2020 vs 2024</td>
+            <td><span class="badge red">מסמכים</span></td>
+            <td>אותו מודל, שתי שפות -- ראיה ישירה להמרת שפה</td>
+        </tr>
+        <tr>
+            <td>ניר מיכאלי -- ציטוט</td>
+            <td><span class="badge red">הודאה</span></td>
+            <td>"מתחת לרדאר" -- הודאה ישירה באסטרטגיית הסתרה</td>
+        </tr>
+        <tr>
+            <td>"כן בבית ספרנו" עמ' 13</td>
+            <td><span class="badge red">מסמך</span></td>
+            <td>פדגוגיה ביקורתית = פרשנות מרקסיסטית -- הגדרה מפורשת</td>
+        </tr>
+        <tr>
+            <td>SafeSchool paywall</td>
+            <td><span class="badge orange">מבני</span></td>
+            <td>paywall כמנגנון הפרדת שפה -- שיווק vs. תוכן</td>
+        </tr>
+        <tr>
+            <td>זלמנסון-לוי -- ציטוט</td>
+            <td><span class="badge red">הודאה</span></td>
+            <td>"מישור גלוי" ו"מישור סמוי" -- הגדרת השפה הכפולה</td>
+        </tr>
+        <tr>
+            <td>הנרי ז'ירו</td>
+            <td><span class="badge blue">תיאורטי</span></td>
+            <td>"critical" במקום "radical" -- האסטרטגיה מהמקור</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ TIMELINE TAB ═══ -->
+<div id="view-timeline" class="view">
+
+<div class="section">
+    <h2>ציר זמן: כיצד השפה הוחלפה לאורך עשור</h2>
+    <p>מ-2014 ועד 2025, ניתן לזהות מעבר שיטתי משפה רדיקלית גלויה לשפה ניטרלית מוסווית. ציר הזמן הבא מתעד את הנקודות המרכזיות.</p>
+
+    <div class="timeline">
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2014</div>
+            <div class="timeline-text">
+                <strong>"כן בבית ספרנו" -- שפה גלויה</strong><br>
+                הספר משתמש בגלוי במונחים "פדגוגיה ביקורתית" ו"פרשנות מרקסיסטית" (עמ' 13). בשלב זה, אין עדיין צורך להסתיר את השפה כי אין ביקורת ציבורית.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2016--2018</div>
+            <div class="timeline-text">
+                <strong>מעבר הדרגתי לשפה ניטרלית</strong><br>
+                חומרים המופנים להורים ולציבור מתחילים להשתמש במונחים כמו "חינוך ערכי", "חשיבה ביקורתית" ו"העצמה" במקום "פדגוגיה ביקורתית" ו"חינוך חותר". הדיון הפנימי נשאר בשפה הרדיקלית.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2019--2020</div>
+            <div class="timeline-text">
+                <strong>מסגרת SEL מאומצת ככלי הובלה</strong><br>
+                מסגרת הלמידה החברתית-רגשית (SEL) הופכת לכלי המרכזי להחדרת תכנים. "חוסן רגשי" ו"מיומנויות חברתיות" מחליפים את השפה האקטיביסטית בפני הציבור.
+            </div>
+        </div>
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-text">
+                <strong>קטקו-איילי -- "פדגוגיה אקטיביסטית" (הקשר אקדמי)</strong><br>
+                קרן קטקו-איילי מציגה את המודל שלה בכנס אקדמי תחת הכותרת "activist pedagogy" -- פדגוגיה אקטיביסטית. השפה הרדיקלית עדיין קיימת בהקשרים אקדמיים סגורים.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-text">
+                <strong>סרטון ניר מיכאלי נחשף</strong><br>
+                סרטון שבו מיכאלי מדבר על "מהפכה קומוניסטית בכיתה מתחת לרדאר" מופץ ברשת. זו הפעם הראשונה שהשפה הפנימית נחשפת לקהל רחב.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2021--2022</div>
+            <div class="timeline-text">
+                <strong>דומיננטיות "חוסן רגשי" ו-SEL</strong><br>
+                המונחים "חוסן רגשי", "למידה חברתית-רגשית" ו"מיומנויות חיים" הופכים לשפה הדומיננטית בכל המסמכים הציבוריים. המונח "פדגוגיה ביקורתית" כמעט נעלם מחומרים המיועדים להורים.
+            </div>
+        </div>
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2023--2024</div>
+            <div class="timeline-text">
+                <strong>קטקו-איילי -- "חשיבה ביקורתית" (הקשר ממשלתי)</strong><br>
+                קטקו-איילי מציגה את <strong>אותו מודל בדיוק</strong> בפני גורמי ממשל, הפעם תחת הכותרת "critical thinking" -- חשיבה ביקורתית. ההשוואה בין 2020 ל-2024 היא ה"אבן רוזטה" של המרת השפה.
+            </div>
+        </div>
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2024--2025</div>
+            <div class="timeline-text">
+                <strong>חשיפת מערכת השפה הכפולה</strong><br>
+                תנועת נגד מתחילה לחשוף את השיטה: ניתוח השוואתי של מסמכים אקדמיים לעומת ציבוריים, חשיפת תכני paywall, ותיעוד שיטתי של המרות שפה. המילון הזה הוא חלק מתהליך זה.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="section">
+    <h2>הדינמיקה: למה השפה הוחלפה?</h2>
+    <div class="grid-2">
+        <div>
+            <h3>גורם 1: ביקורת ציבורית גוברת</h3>
+            <p>ככל שההורים והציבור התחילו לשאול שאלות, כך נדרשה שפה ניטרלית יותר. מונחים כמו "פדגוגיה ביקורתית" יצרו חשד; "חשיבה ביקורתית" -- לא.</p>
+        </div>
+        <div>
+            <h3>גורם 2: אישור מוסדי</h3>
+            <p>ועדות חינוך עירוניות ומשרד החינוך לא יאשרו תוכנית בשם "חינוך אקטיביסטי". אבל "חינוך ערכי" או "חוסן רגשי" -- עובר בקלות.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית -- סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: מהאקדמיה לכיתה, דמויות מפתח, צינור ההשפעה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_gender_spectrum_national.html">
+        <div>
+            <div class="lc-title">תיק הספקטרום המגדרי -- ניתוח ארצי</div>
+            <div class="lc-desc">כיצד מושג ה"ספקטרום המגדרי" חדר למערכת החינוך הישראלית</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי -- דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">23 החלטות מועצה אמיתיות ב-5 ערים, דצמבר 2022 כנקודת מפנה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="safeschool_evidence.html">
+        <div>
+            <div class="lc-title">SafeSchool -- עדויות שלוש-שכבתיות</div>
+            <div class="lc-desc">תכנים שמאחורי ה-Paywall: ספקטרום מגדרי בבתי ספר</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="ken_bebeit_safrenu.html">
+        <div>
+            <div class="lc-title">"כן בבית ספרנו" (2014) -- ניתוח הספר</div>
+            <div class="lc-desc">פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" -- עמ' 13</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים -- חזרה לעמוד הראשי</div>
+            <div class="lc-desc">דירוג 18 ערים: חינוך, חדשות, פרוטוקולים, דגלים אדומים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>אתרי מחקר חיצוניים</h2>
+
+    <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+        <div>
+            <div class="lc-title">אבן רוזטה הפרוגרסיבית</div>
+            <div class="lc-desc">מיפוי שיטתי של ריכוך טרמינולוגי: "רדיקלי" &rarr; "ביקורתי" &rarr; "חשיבה ביקורתית"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">
+        <div>
+            <div class="lc-title">מחקר SEL</div>
+            <div class="lc-desc">למידה חברתית-רגשית: 136 מסגרות, 1,300+ מיומנויות, ללא הגדרה</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר ארכיון אלכסון + Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

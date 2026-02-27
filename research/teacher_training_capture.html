@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לכידת הכשרת המורים — מהמכללה לכיתה</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step.red-border { border-right-color: #e74c3c; }
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step.red-border .step-num { color: #e74c3c; }
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* Institution cards */
+.inst-card {
+    background: #fff; border-radius: 8px; padding: 22px;
+    border: 1px solid #e8e8e8; margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.inst-card .inst-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.inst-card .inst-name { font-weight: 700; color: #1a1a2e; font-size: 1.15em; }
+.inst-card ul { padding-right: 20px; margin: 8px 0; }
+.inst-card li { font-size: 0.88em; color: #444; margin-bottom: 6px; }
+.inst-card li strong { color: #1a1a2e; }
+
+/* Revolving door */
+.revolving-door {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    margin: 20px 0;
+}
+.rd-node {
+    background: #f8f9fa; border: 2px solid #667eea; border-radius: 8px;
+    padding: 10px 16px; text-align: center; font-size: 0.85em;
+    font-weight: 600; color: #1a1a2e; position: relative;
+    min-width: 140px;
+}
+.rd-node.highlight { border-color: #e74c3c; background: #fde8e8; }
+.rd-arrow {
+    display: flex; align-items: center; font-size: 1.4em; color: #ff8800; font-weight: 700;
+}
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        לכידת הכשרת המורים
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('institutions')">המוסדות</button>
+        <button class="nav-tab" onclick="showView('method')">השיטה</button>
+        <button class="nav-tab" onclick="showView('people')">דמויות מפתח</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>לכידת הכשרת המורים — מהמכללה לכיתה</h1>
+    <div class="subtitle">כיצד מוסדות הכשרת מורים הפכו לצינור להחדרת תכנים אידיאולוגיים למערכת החינוך הישראלית</div>
+    <div class="meta">מיפוי מוסדי: שליטה בהכשרת המורים = שליטה בכיתה</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">3,000+</div><div class="lbl">מנהלים מוכשרים (אבני ראשה)</div></div>
+        <div class="stat"><div class="num">40%</div><div class="lbl">מכלל המנהלים</div></div>
+        <div class="stat"><div class="num">6,000+</div><div class="lbl">תוכניות בגפ"ן</div></div>
+        <div class="stat"><div class="num">1</div><div class="lbl">"צוואר בקבוק" מוסדי</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>הטענה המרכזית: צוואר הבקבוק</h2>
+    <p>מערכת הכשרת המורים בישראל היא <strong>נקודת החנק הקריטית</strong>. מי ששולט במה שמורים לומדים — שולט במה שתלמידים לומדים. ארבעה מוסדות מפתח שולטים בצינור הזה:</p>
+
+    <div class="grid-2" style="margin-top: 16px;">
+        <div>
+            <h3>1. סמינר הקיבוצים / מכללת הקיבוצים</h3>
+            <p>מארח את <strong>המרכז לפדגוגיה ביקורתית</strong> ואת <strong>קתדרת UNESCO לחינוך הומניסטי</strong>. ה"מעבדה" לפדגוגיה רדיקלית שמכשירה מורים שנכנסים למערכת הממלכתית.</p>
+
+            <h3>2. מכון מופ"ת (MOFET)</h3>
+            <p>המכון הלאומי למחקר הכשרת מורים. <strong>קובע סטנדרטים</strong> ותוכניות לימודים לכלל מוסדות הכשרת המורים. פרסם את "כן בבית ספרנו" (2014) שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" (עמ' 13).</p>
+        </div>
+        <div>
+            <h3>3. אבני ראשה</h3>
+            <p>מכשיר <strong>3,000+ מנהלי בתי ספר</strong> (40% מכלל המנהלים בישראל). ממומן על ידי קרן יד הנדיב (רוטשילד). אימץ את מסגרת ה-SEL של CASEL כמתודולוגיה מרכזית. <strong>זהו מנגנון המכפיל</strong> — מנהל אחד = מאות תלמידים.</p>
+
+            <h3>4. מערכת גפ"ן</h3>
+            <p>המערכת הרשמית של משרד החינוך לאישור תוכניות חינוכיות חיצוניות. מעל <strong>6,000 תוכניות</strong> רשומות. תוכניות רבות מאושרות ללא בדיקת תוכן מעמיקה. כשתוכניות מוסרות מגפ"ן, ארגונים עוקפים דרך מימון מוניציפלי.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הצינור: מאידיאולוגיה אוניברסיטאית לכיתה</h2>
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">שלב 1</div>
+            <div class="value" style="font-size: 1.1em;">אידיאולוגיה אקדמית</div>
+            <div class="note">אוניברסיטאות ומכללות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שלב 2</div>
+            <div class="value" style="font-size: 1.1em;">הכשרת מורים</div>
+            <div class="note">מכללות + מופ"ת</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שלב 3</div>
+            <div class="value" style="font-size: 1.1em;">הכשרת מנהלים</div>
+            <div class="note">אבני ראשה (40%)</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שלב 4</div>
+            <div class="value" style="font-size: 1.1em;">יישום בכיתה</div>
+            <div class="note">גפ"ן + עקיפה מוניציפלית</div>
+        </div>
+    </div>
+    <p><strong>התובנה המרכזית:</strong> בכל שלב, השפה משתנה מרדיקלית לנייטרלית (ראו <a href="semantic_shifting_glossary.html">מילון ההחלפה הסמנטית</a>).</p>
+</div>
+
+</div>
+
+<!-- ═══ INSTITUTIONS TAB ═══ -->
+<div id="view-institutions" class="view">
+
+<div class="section">
+    <h2>המוסדות המפתח</h2>
+
+    <div class="inst-card">
+        <div class="inst-header">
+            <div class="inst-name">סמינר הקיבוצים (מכללת לוינסקי-וינגייט)</div>
+            <span class="badge red">צומת אידיאולוגי</span>
+        </div>
+        <ul>
+            <li><strong>קתדרת UNESCO לחינוך הומניסטי</strong> — בראשות פרופ' נמרוד אלוני. מעניקה לגיטימציה בינלאומית לפעילות המרכז</li>
+            <li><strong>המרכז לפדגוגיה ביקורתית</strong> — ה"מעבדה" לפיתוח פדגוגיה רדיקלית</li>
+            <li><strong>תוכנית M.Ed בחינוך לצדק חברתי</strong> — תואר שני שמכשיר מורים בגישה ביקורתית</li>
+            <li><strong>סגל מפתח:</strong> ניר מיכאלי (רקטור לשעבר), נמרוד אלוני, גלית זלמנסון-לוי</li>
+            <li>מכשיר מורים שנכנסים ישירות למערכת הממלכתית</li>
+        </ul>
+    </div>
+
+    <div class="inst-card">
+        <div class="inst-header">
+            <div class="inst-name">מכון מופ"ת (MOFET)</div>
+            <span class="badge blue">מוסד תקינה</span>
+        </div>
+        <ul>
+            <li><strong>המכון הלאומי למחקר הכשרת מורים</strong> — קובע סטנדרטים פדגוגיים ותוכניות לימודים לכלל מוסדות ההכשרה</li>
+            <li>פרסם את <strong>"כן בבית ספרנו"</strong> (2014) — בעריכת ניר מיכאלי</li>
+            <li>הספר מגדיר במפורש פדגוגיה ביקורתית כ<strong>"פרשנות מרקסיסטית"</strong> (עמ' 13)</li>
+            <li><strong>הסתדרות המורים</strong> שיתפה פעולה בהוצאת הספר</li>
+            <li>מה שמופ"ת מגדיר כסטנדרט — כל המכללות מיישמות</li>
+        </ul>
+        <div class="quote-box">
+            "הפדגוגיה הביקורתית מבוססת על הפרשנות המרקסיסטית..."
+            <div class="q-source">"כן בבית ספרנו", עמ' 13, בעריכת ניר מיכאלי, הוצאת מכון מופ"ת, 2014</div>
+        </div>
+    </div>
+
+    <div class="inst-card">
+        <div class="inst-header">
+            <div class="inst-name">אבני ראשה</div>
+            <span class="badge red">מנגנון מכפיל</span>
+        </div>
+        <ul>
+            <li>מכשיר <strong>3,000+ מנהלי בתי ספר</strong> — כ-40% מכלל המנהלים בישראל</li>
+            <li>ממומן בעיקר על ידי <strong>קרן יד הנדיב</strong> (קרן רוטשילד)</li>
+            <li>אימץ את <strong>מסגרת ה-SEL של CASEL</strong> כמתודולוגיה מרכזית</li>
+            <li>מנהלים שמוכשרים כאן <strong>בוחרים אילו תוכניות נכנסות לבית הספר שלהם</strong></li>
+            <li><strong>מנגנון המכפיל:</strong> מנהל אחד = מאות תלמידים נחשפים</li>
+        </ul>
+        <div class="grid-2" style="margin-top: 12px;">
+            <div class="metric alert">
+                <div class="label">מנהלים מוכשרים</div>
+                <div class="value">3,000+</div>
+                <div class="note">מהקמת התוכנית</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">חדירה למערכת</div>
+                <div class="value">40%</div>
+                <div class="note">מכלל מנהלי בתי הספר</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="inst-card">
+        <div class="inst-header">
+            <div class="inst-name">מערכת גפ"ן</div>
+            <span class="badge blue">שער כניסה רשמי</span>
+        </div>
+        <ul>
+            <li><strong>המערכת הרשמית של משרד החינוך</strong> לאישור תוכניות חינוכיות חיצוניות בבתי ספר</li>
+            <li>מעל <strong>6,000 תוכניות</strong> רשומות במערכת</li>
+            <li>תוכניות רבות <strong>מאושרות ללא בדיקת תוכן מעמיקה</strong></li>
+            <li>כשתוכניות מוסרות מגפ"ן — ארגונים <strong>עוקפים דרך מימון מוניציפלי</strong></li>
+            <li>מנגנון ה"עקיפה" הופך את ההסרה לחסרת משמעות</li>
+        </ul>
+        <div class="grid-2" style="margin-top: 12px;">
+            <div class="metric">
+                <div class="label">תוכניות רשומות</div>
+                <div class="value">6,000+</div>
+                <div class="note">במערכת גפ"ן</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">בדיקת תוכן</div>
+                <div class="value">רדודה</div>
+                <div class="note">אישור ללא סקירה מעמיקה</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ METHOD TAB ═══ -->
+<div id="view-method" class="view">
+
+<div class="section">
+    <h2>השיטה: כיצד אידיאולוגיה זורמת מ-UNESCO לכיתה</h2>
+    <p>תרשים הצינור המוסדי — שמונה שלבים מהמסגרת הבינלאומית עד לתלמיד בכיתה:</p>
+
+    <div class="pipeline-step red-border">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">מסגרת בינלאומית <span class="badge red">אידיאולוגי</span></div>
+            <div class="step-desc">UNESCO, CASEL, WHO — מסגרות בינלאומיות ל"חינוך הומניסטי", "למידה חברתית-רגשית" (SEL), "בריאות מינית מקיפה". UNESCO מצטטת במפורש את מרקוזה (2022).</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step red-border">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">קתדרת UNESCO בסמינר הקיבוצים <span class="badge red">אידיאולוגי</span></div>
+            <div class="step-desc">פרופ' נמרוד אלוני — מתרגם את המסגרות הבינלאומיות לשפה ישראלית. הקתדרה מעניקה לגיטימציה אקדמית ובינלאומית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step red-border">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">המרכז לפדגוגיה ביקורתית <span class="badge red">אידיאולוגי</span></div>
+            <div class="step-desc">מפתח תוכניות לימודים ומתודולוגיות. ה"מעבדה" שבה התאוריה הופכת לפרקטיקה. מכשיר "סוכני שינוי".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">מכון מופ"ת — מיסוד כסטנדרט <span class="badge blue">מוסדי</span></div>
+            <div class="step-desc">מה שפותח במרכז הופך ל"סטנדרט מקצועי" דרך מכון מופ"ת. "כן בבית ספרנו" (2014) הוא הדוגמה המובהקת — פדגוגיה ביקורתית כנורמה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">תוכניות הכשרת מורים <span class="badge blue">מוסדי</span></div>
+            <div class="step-desc">מכללות להכשרת מורים מיישמות את הסטנדרטים של מופ"ת. מורים חדשים נחשפים לפדגוגיה ביקורתית כחלק "טבעי" מההכשרה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+            <div class="step-title">אבני ראשה — הכשרת מנהלים <span class="badge blue">מוסדי</span></div>
+            <div class="step-desc">3,000+ מנהלים מוכשרים במסגרת SEL/CASEL. מנהלים אלה בוחרים אילו תוכניות חיצוניות נכנסות לבתי הספר שלהם. מנגנון ההכפלה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">7</div>
+        <div class="step-content">
+            <div class="step-title">מערכת גפ"ן / עקיפה מוניציפלית <span class="badge blue">מוסדי</span></div>
+            <div class="step-desc">תוכניות מאושרות דרך גפ"ן (6,000+) או עוקפות דרך מימון מוניציפלי ישיר. הסרה מגפ"ן אינה עוצרת את התוכנית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step red-border">
+        <div class="step-num">8</div>
+        <div class="step-content">
+            <div class="step-title">הכיתה — תלמידים נחשפים <span class="badge red">תוצאה</span></div>
+            <div class="step-desc">התלמידים נחשפים לתכנים אידיאולוגיים המוצגים כ"חשיבה ביקורתית", "חוסן רגשי", או "אזרחות פעילה". ההורים אינם מודעים לתוכן האמיתי.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תובנת מפתח: ההחלפה הסמנטית</h2>
+    <p>בכל שלב בצינור, השפה משתנה. מה שמתחיל כ"פדגוגיה רדיקלית" ו"מהפכה קומוניסטית" מגיע לכיתה כ"חשיבה ביקורתית" ו"למידה חברתית-רגשית".</p>
+
+    <table>
+        <tr><th>שלב בצינור</th><th>השפה הפנימית</th><th>השפה כלפי חוץ</th></tr>
+        <tr><td>אקדמיה (שלבים 1-3)</td><td>פדגוגיה רדיקלית, מרקסיזם, חינוך חותר</td><td>מחקר אקדמי, חינוך הומניסטי</td></tr>
+        <tr><td>מיסוד (שלבים 4-5)</td><td>סוכני שינוי, תודעה ביקורתית</td><td>סטנדרטים מקצועיים, פיתוח מקצועי</td></tr>
+        <tr><td>הכשרת מנהלים (שלב 6)</td><td>מסגרת SEL/CASEL</td><td>חוסן רגשי, מיומנויות חיים</td></tr>
+        <tr><td>כיתה (שלבים 7-8)</td><td>הנדסת תודעה</td><td>חשיבה ביקורתית, אזרחות פעילה</td></tr>
+    </table>
+
+    <p><strong>הדוגמה המובהקת:</strong> קרן קטקו-עיאלי הציגה את אותו מודל בדיוק כ"פדגוגיה אקטיביסטית" (2020) וכ"חשיבה ביקורתית" (2024). ראו <a href="semantic_shifting_glossary.html">מילון ההחלפה הסמנטית</a>.</p>
+</div>
+
+</div>
+
+<!-- ═══ PEOPLE TAB ═══ -->
+<div id="view-people" class="view">
+
+<div class="section">
+    <h2>דמויות מפתח</h2>
+
+    <div class="person-card">
+        <div class="name">פרופ' נמרוד אלוני <span class="badge blue">קתדרת UNESCO</span></div>
+        <div class="role">ראש קתדרת UNESCO לחינוך הומניסטי, סמינר הקיבוצים</div>
+        <div class="bio">
+            <p>אלוני הוא הצומת המקשרת בין UNESCO הבינלאומית לבין מערכת הכשרת המורים בישראל. קתדרת UNESCO שלו מעניקה לגיטימציה בינלאומית לפעילות המרכז לפדגוגיה ביקורתית ולמודל "החינוך ההומניסטי" שמתרגם את המסגרות הבינלאומיות לשפה מקומית.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ד"ר ניר מיכאלי <span class="badge red">דלת מסתובבת</span></div>
+        <div class="role">רקטור לשעבר של סמינר הקיבוצים | מזכיר המזכירות הפדגוגית לשעבר (משה"ח) | עורך "כן בבית ספרנו" (מופ"ת)</div>
+        <div class="bio">
+            <p>מיכאלי הוא הדוגמה המובהקת ל<strong>"דלת מסתובבת"</strong>: עבר בין סמינר הקיבוצים (רקטור) לבין משרד החינוך (מזכיר המזכירות הפדגוגית) ובחזרה לאקדמיה. הוא ערך את "כן בבית ספרנו" שהוציא מכון מופ"ת — ספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית".</p>
+            <div class="quote-box">
+                "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+                <div class="q-source">ד"ר ניר מיכאלי — סרטון מכנס חינוך</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">גלית זלמנסון-לוי <span class="badge orange">אקטיביזם-מחקר</span></div>
+        <div class="role">אקטיביסטית-חוקרת, המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים</div>
+        <div class="bio">
+            <p>זלמנסון-לוי מייצגת את הקשר בין אקדמיה לאקטיביזם. מאשרת במפורש את מודל ה"חדירה הכפולה":</p>
+            <div class="quote-box">
+                "יש עבודה במישור הגלוי ועבודה במישור הסמוי. עבודה חתרנית."
+                <div class="q-source">גלית זלמנסון-לוי — מתוך סרטון שנחשף</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">קרן קטקו-עיאלי <span class="badge red">החלפה סמנטית</span></div>
+        <div class="role">מציגה את אותו מודל בשני "מיתוגים"</div>
+        <div class="bio">
+            <p>הדוגמה המובהקת להחלפה הסמנטית: הציגה את <strong>אותו מודל בדיוק</strong> כ"פדגוגיה אקטיביסטית" בשנת 2020, ואז כ"חשיבה ביקורתית" בשנת 2024. השינוי אינו בתוכן — אלא במיתוג.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">יולי תמיר <span class="badge red">דלת מסתובבת</span></div>
+        <div class="role">שרת חינוך לשעבר | מערכת "כן בבית ספרנו" | סגל סמינר הקיבוצים</div>
+        <div class="bio">
+            <p>תמיר היא דוגמה נוספת ל"דלת מסתובבת": <strong>שרת חינוך לשעבר</strong> שחברה במערכת של "כן בבית ספרנו" (ספר שמגדיר פדגוגיה ביקורתית כפרשנות מרקסיסטית) ומלמדת בסמינר הקיבוצים. מעבר חופשי בין קביעת מדיניות לבין הכשרת מורים.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הדלת המסתובבת: מעגל התפקידים</h2>
+    <p>אותם אנשים נעים בין ארבעה מוקדות כוח — מה שמבטיח שהאידיאולוגיה נשמרת בכל שלב:</p>
+
+    <div class="revolving-door">
+        <div class="rd-node highlight">המרכז לפדגוגיה ביקורתית</div>
+        <div class="rd-arrow">&#x27F7;</div>
+        <div class="rd-node">מכון מופ"ת</div>
+        <div class="rd-arrow">&#x27F7;</div>
+        <div class="rd-node">משרד החינוך</div>
+        <div class="rd-arrow">&#x27F7;</div>
+        <div class="rd-node highlight">חזרה לאקדמיה</div>
+    </div>
+
+    <table>
+        <tr><th>דמות</th><th>תפקיד 1</th><th>תפקיד 2</th><th>תפקיד 3</th></tr>
+        <tr>
+            <td><strong>ניר מיכאלי</strong></td>
+            <td>רקטור סמינר הקיבוצים <span class="badge red">אידיאולוגי</span></td>
+            <td>מזכיר המזכירות הפדגוגית (משה"ח) <span class="badge blue">מוסדי</span></td>
+            <td>עורך "כן בבית ספרנו" (מופ"ת) <span class="badge blue">מוסדי</span></td>
+        </tr>
+        <tr>
+            <td><strong>יולי תמיר</strong></td>
+            <td>סגל סמינר הקיבוצים <span class="badge red">אידיאולוגי</span></td>
+            <td>שרת חינוך <span class="badge blue">מוסדי</span></td>
+            <td>מערכת "כן בבית ספרנו" <span class="badge blue">מוסדי</span></td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית — סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי מפורט: קתדרת UNESCO, דמויות מפתח, עדויות ישירות וצינור ההשפעה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="semantic_shifting_glossary.html">
+        <div>
+            <div class="lc-title">מילון ההחלפה הסמנטית</div>
+            <div class="lc-desc">כיצד שפה רדיקלית הופכת ללגיטימית: "פדגוגיה רדיקלית" הופכת ל"חשיבה ביקורתית"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="pipeline_institutional.html">
+        <div>
+            <div class="lc-title">הצינור המוסדי — מיפוי מלא</div>
+            <div class="lc-desc">מ-UNESCO ו-CASEL דרך האקדמיה, משרד החינוך ועד הכיתה — שמונה שלבים</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="avney_rosha_dashboard.html">
+        <div>
+            <div class="lc-title">אבני ראשה — דשבורד מנהלים</div>
+            <div class="lc-desc">3,000+ מנהלים מוכשרים, 40% מכלל המנהלים, מסגרת SEL/CASEL כמתודולוגיה מרכזית</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="ken_bebeit_safrenu.html">
+        <div>
+            <div class="lc-title">"כן בבית ספרנו" — ניתוח הספר</div>
+            <div class="lc-desc">ספר מופ"ת (2014) שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" בעמ' 13</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — עמוד ראשי</div>
+            <div class="lc-desc">חזרה לדשבורד הראשי של דירוג ערים</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: ארכיון אלכסון + מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

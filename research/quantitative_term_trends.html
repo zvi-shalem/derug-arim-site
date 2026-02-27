@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניתוח כמותי — תדירות מונחים אידיאולוגיים והתרבות תפקידים מוסדיים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+tr:nth-child(even) { background: #fafbfc; }
+tr:nth-child(even):hover { background: #f0f2f5; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.green { background: #e8fde8; color: #27ae60; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.purple { background: #f3e5f5; color: #7b1fa2; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.prov { font-size: 0.72em; color: #999; font-style: italic; }
+
+/* ======= CSS CHARTS ======= */
+
+/* Horizontal bar chart */
+.h-chart { margin: 18px 0; }
+.h-chart .chart-title {
+    font-size: 1em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 12px; padding-bottom: 4px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.h-bar-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 60px;
+    align-items: center;
+    margin-bottom: 6px;
+    gap: 8px;
+}
+.h-bar-label {
+    font-size: 0.82em; color: #444;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.h-bar-track {
+    background: #f0f0f0; border-radius: 4px;
+    height: 26px; position: relative;
+    overflow: hidden;
+}
+.h-bar-fill {
+    height: 100%; border-radius: 4px;
+    transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 0;
+    display: flex; align-items: center;
+    padding-right: 8px;
+}
+.h-bar-fill.animated { /* width set via style */ }
+.h-bar-value {
+    font-size: 0.82em; font-weight: 700; color: #333;
+    text-align: center;
+}
+
+/* Color coding by institution */
+.fill-gov { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+.fill-idf { background: linear-gradient(90deg, #3498db, #2980b9); }
+.fill-muni { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+.fill-edu { background: linear-gradient(90deg, #9b59b6, #8e44ad); }
+.fill-uni { background: linear-gradient(90deg, #f39c12, #e67e22); }
+
+/* Vertical bar chart */
+.v-chart {
+    margin: 20px 0;
+    padding: 16px;
+    background: #fafbfc;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+.v-chart .chart-title {
+    font-size: 1em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 16px; text-align: center;
+}
+.v-chart-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    height: 220px;
+    padding: 0 10px;
+    border-bottom: 2px solid #ccc;
+    position: relative;
+}
+.v-chart-area::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 50%;
+    border-top: 1px dashed #ddd;
+}
+.v-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 60px;
+    min-width: 30px;
+}
+.v-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: height 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    height: 0;
+    min-height: 2px;
+    position: relative;
+}
+.v-bar-val {
+    font-size: 0.72em; font-weight: 700; color: #333;
+    margin-bottom: 4px;
+    text-align: center;
+}
+.v-chart-labels {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 0 10px;
+}
+.v-chart-labels span {
+    flex: 1;
+    max-width: 60px;
+    min-width: 30px;
+    text-align: center;
+    font-size: 0.72em;
+    color: #666;
+}
+
+/* Growth chart (cumulative) */
+.growth-chart {
+    margin: 20px 0;
+    padding: 16px;
+    background: #fafbfc;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+.growth-chart .chart-title {
+    font-size: 1em; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 16px; text-align: center;
+}
+.growth-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 40px;
+    align-items: center;
+    margin-bottom: 4px;
+    gap: 8px;
+}
+.growth-year {
+    font-size: 0.82em; font-weight: 600; color: #667eea;
+    text-align: left;
+}
+.growth-track {
+    background: #e8e8e8; border-radius: 12px;
+    height: 22px; position: relative; overflow: hidden;
+}
+.growth-fill {
+    height: 100%; border-radius: 12px;
+    transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 0;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+.growth-val {
+    font-size: 0.82em; font-weight: 700; color: #667eea;
+}
+
+/* Legend */
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 12px 0 4px;
+    font-size: 0.78em;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* Timeline styled */
+.timeline { position: relative; padding-right: 30px; }
+.timeline::before {
+    content: ''; position: absolute; right: 12px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.timeline-item {
+    position: relative; margin-bottom: 20px; padding: 14px 18px;
+    background: #fff; border-radius: 8px; border: 1px solid #e8e8e8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.timeline-item::before {
+    content: ''; position: absolute; right: -24px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.timeline-item.highlight::before { background: #ff8800; box-shadow: 0 0 0 2px #ff8800; }
+.timeline-year {
+    font-weight: 800; color: #667eea; font-size: 1.05em; margin-bottom: 4px;
+}
+.timeline-item.highlight .timeline-year { color: #ff8800; }
+.timeline-text { font-size: 0.88em; color: #444; }
+.timeline-badge { margin-top: 4px; }
+
+/* Accumulation table chart */
+.accum-chart {
+    margin: 16px 0;
+}
+.accum-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    margin-bottom: 3px;
+    align-items: center;
+    gap: 6px;
+}
+.accum-year {
+    font-size: 0.82em; font-weight: 600; color: #444;
+    text-align: left;
+}
+.accum-blocks {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+}
+.accum-block {
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65em; font-weight: 700; color: #fff;
+    transition: all 0.5s;
+    opacity: 0;
+}
+.accum-block.show { opacity: 1; }
+.accum-block.gov { background: #e74c3c; }
+.accum-block.idf { background: #3498db; }
+.accum-block.muni { background: #2ecc71; }
+.accum-block.edu { background: #9b59b6; }
+.accum-block.uni { background: #f39c12; }
+
+/* Comparison multi-bar */
+.compare-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+}
+@media (max-width: 700px) {
+    .compare-section { grid-template-columns: repeat(2, 1fr); }
+}
+.compare-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid #e8e8e8;
+    text-align: center;
+}
+.compare-card .cc-title {
+    font-size: 0.85em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.compare-card .cc-bar-area {
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+}
+.cc-bar {
+    width: 30px;
+    border-radius: 3px 3px 0 0;
+    transition: height 1.2s ease;
+    height: 0;
+    position: relative;
+}
+.cc-bar-label {
+    font-size: 0.6em; color: #666;
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.8em; color: #888;
+    border-top: 1px solid #ddd; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        ניתוח כמותי
+        <a href="index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('terms')">מונחים אידיאולוגיים</button>
+        <button class="nav-tab" onclick="showView('roles')">תפקידים חדשים</button>
+        <button class="nav-tab" onclick="showView('policy')">מסמכי מדיניות</button>
+        <button class="nav-tab" onclick="showView('sources')">קישורים ומקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>ניתוח כמותי: תדירות מונחים אידיאולוגיים והתרבות תפקידים</h1>
+    <div class="subtitle">מעקב כרונולוגי אחר חדירת מונחים למוסדות ישראליים: צה"ל, רשויות מקומיות, חינוך, אקדמיה</div>
+    <div class="meta">מבוסס על מסמכים רשמיים, חוזרי מנכ"ל, פקודות צה"ל ופרסומי Gov.il | פברואר 2026</div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">5</div>
+            <div class="lbl">מונחי מפתח</div>
+        </div>
+        <div class="stat">
+            <div class="num">4</div>
+            <div class="lbl">מוסדות שנבדקו</div>
+        </div>
+        <div class="stat">
+            <div class="num">9</div>
+            <div class="lbl">ממלאות תפקיד יוהל"ם</div>
+        </div>
+        <div class="stat">
+            <div class="num">8+</div>
+            <div class="lbl">גופי SEL ב-2025</div>
+        </div>
+        <div class="stat">
+            <div class="num">256</div>
+            <div class="lbl">רשויות מקומיות</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ====================== TAB 1: TERMS ====================== -->
+<div id="view-terms" class="view active">
+
+<div class="section">
+    <h2>תדירות המונח "מגדר" במוסדות ישראליים</h2>
+    <p>המונח "מגדר" (gender) החליף בהדרגה את המונח "נשים" ו"שוויון בין המינים" במסמכים רשמיים ישראליים. להלן המיפוי הכרונולוגי של אימוץ המונח על ידי מוסדות שונים. <span class="prov">[WEB-SEARCH: ויקיפדיה יוהל"ם; pop.education.gov.il; Gov.il יועצות מגדר]</span></p>
+
+    <div class="h-chart">
+        <div class="chart-title">שנת אימוץ רשמי של המונח "מגדר" לפי מוסד</div>
+        <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> ממשלה</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3498db"></div> צה"ל</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2ecc71"></div> רשויות מקומיות</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div> חינוך</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div> אקדמיה</div>
+        </div>
+
+        <div class="h-bar-row">
+            <div class="h-bar-label">רשויות מקומיות</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-muni" data-width="100%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2000</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">צה"ל (פנימי)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="85%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2013</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">משרד החינוך (מסמך)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-edu" data-width="85%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2013</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">צה"ל (רשמי)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="73%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2016</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">משרד החינוך (חוזר מנכ"ל)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-edu" data-width="50%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2022</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">אקדמיה (אוגדנים)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-uni" data-width="50%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2022</div>
+        </div>
+    </div>
+    <p class="prov">[WEB-SEARCH: ויקיפדיה "יועצת הרמטכ"ל לענייני מגדר"; חוזר מנכ"ל 2022 "שוויון בין המינים בחינוך"; Gov.il "יועצת לקידום מעמד האישה"]</p>
+</div>
+
+<div class="section">
+    <h2>צמיחת תשתית SEL (למידה רגשית-חברתית) בישראל</h2>
+    <p>ממונח אקדמי לא מוכר ב-2010, SEL הפך למושג שמוסד במשרד החינוך, שפ"י, לשכת המדען הראשי, מכללות להכשרת מורים ומרכזי ידע עצמאיים. <span class="prov">[WEB-SEARCH: asel.co.il; shefi.education.gov.il/sel; pop.education.gov.il]</span></p>
+
+    <div class="growth-chart">
+        <div class="chart-title">צמיחת גופים מוסדיים העוסקים ב-SEL בישראל (2010-2025)</div>
+        <div class="growth-row">
+            <div class="growth-year">עד 2010</div>
+            <div class="growth-track">
+                <div class="growth-fill" data-width="0%" style="width:0"></div>
+            </div>
+            <div class="growth-val">0</div>
+        </div>
+        <div class="growth-row">
+            <div class="growth-year">2010-2015</div>
+            <div class="growth-track">
+                <div class="growth-fill" data-width="12.5%" style="width:0"></div>
+            </div>
+            <div class="growth-val">1</div>
+        </div>
+        <div class="growth-row">
+            <div class="growth-year">2015-2018</div>
+            <div class="growth-track">
+                <div class="growth-fill" data-width="25%" style="width:0"></div>
+            </div>
+            <div class="growth-val">2</div>
+        </div>
+        <div class="growth-row">
+            <div class="growth-year">2018-2020</div>
+            <div class="growth-track">
+                <div class="growth-fill" data-width="50%" style="width:0"></div>
+            </div>
+            <div class="growth-val">4</div>
+        </div>
+        <div class="growth-row">
+            <div class="growth-year">2020-2022</div>
+            <div class="growth-track">
+                <div class="growth-fill" data-width="75%" style="width:0"></div>
+            </div>
+            <div class="growth-val">6</div>
+        </div>
+        <div class="growth-row">
+            <div class="growth-year">2022-2025</div>
+            <div class="growth-track">
+                <div class="growth-fill" data-width="100%" style="width:0"></div>
+            </div>
+            <div class="growth-val">8+</div>
+        </div>
+    </div>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">גופי SEL ב-2025</div>
+            <div class="value">8+</div>
+            <div class="note">מ-0 ב-2010</div>
+        </div>
+        <div class="metric">
+            <div class="label">עמודי משרד החינוך</div>
+            <div class="value">4</div>
+            <div class="note">שפ"י, מרחב פדגוגי, מדען ראשי, ערכת מיפוי</div>
+        </div>
+        <div class="metric">
+            <div class="label">מרכז אקדמי ייעודי</div>
+            <div class="value">SEL.IL</div>
+            <div class="note">אוניברסיטת רייכמן, הרצליה</div>
+        </div>
+    </div>
+
+    <h3>פירוט 8 הגופים המוסדיים</h3>
+    <table>
+        <tr><th>#</th><th>גוף</th><th>סוג</th><th>תיאור</th></tr>
+        <tr><td>1</td><td>SEL.IL (asel.co.il)</td><td><span class="badge purple">אקדמיה</span></td><td>מרכז יישומי-אקדמי, בית הספר לפסיכולוגיה ע"ש ברוך איווצ'ר, אוניברסיטת רייכמן</td></tr>
+        <tr><td>2</td><td>שפ"י -- עמוד SEL</td><td><span class="badge red">ממשלה</span></td><td>עמוד ייעודי בשירות הפסיכולוגי-ייעוצי: ידע תיאורטי, ערכת מיפוי, פעילויות</td></tr>
+        <tr><td>3</td><td>מרחב פדגוגי -- למידה רגשית-חברתית</td><td><span class="badge red">ממשלה</span></td><td>עמוד ייעודי באתר הפדגוגי של משרד החינוך</td></tr>
+        <tr><td>4</td><td>לשכת המדען הראשי</td><td><span class="badge red">ממשלה</span></td><td>מסמך הטמעת SEL, הצבת SEL בראש סדר העדיפויות המחוזי</td></tr>
+        <tr><td>5</td><td>יוזמה -- האקדמיה הלאומית למדעים</td><td><span class="badge purple">אקדמיה</span></td><td>מסמך "הטמעה מערכתית של למידה רגשית-חברתית" (8 דפים)</td></tr>
+        <tr><td>6</td><td>אבני ראשה</td><td><span class="badge orange">הכשרה</span></td><td>מדריך הטמעת SEL בית-ספרי, מתורגם מ-CASEL ומותאם לישראל</td></tr>
+        <tr><td>7</td><td>מכללת קיי</td><td><span class="badge purple">אקדמיה</span></td><td>מסמך על למידה חברתית-רגשית במערכת החינוך (יוני 2022)</td></tr>
+        <tr><td>8</td><td>ערכת מיפוי בית-ספרי (meyda.education)</td><td><span class="badge red">ממשלה</span></td><td>PDF בן 28 דפים, כלי מעשי למדידת SEL בבתי ספר</td></tr>
+    </table>
+    <p class="prov">[WEB-SEARCH: asel.co.il -- SEL.IL מרכז יישומי-אקדמי, אוניברסיטת רייכמן; shefi.education.gov.il/top-topics/sel; education.academy.ac.il SEL]</p>
+</div>
+
+<div class="section">
+    <h2>תדירות מונחים נוספים: "גיוון", "הכלה", "2030"</h2>
+
+    <div class="v-chart">
+        <div class="chart-title">נוכחות מונחים במוסדות ישראליים (ציון יחסי 0-10)</div>
+        <div class="v-chart-area">
+            <div class="v-bar-col">
+                <div class="v-bar-val">9</div>
+                <div class="v-bar fill-idf" data-height="90%" style="background: linear-gradient(0deg, #3498db, #2980b9);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">8</div>
+                <div class="v-bar fill-edu" data-height="80%" style="background: linear-gradient(0deg, #9b59b6, #8e44ad);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">7</div>
+                <div class="v-bar fill-muni" data-height="70%" style="background: linear-gradient(0deg, #2ecc71, #27ae60);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">6</div>
+                <div class="v-bar fill-uni" data-height="60%" style="background: linear-gradient(0deg, #f39c12, #e67e22);"></div>
+            </div>
+            <div class="v-bar-col" style="margin-right: 20px;">
+                <div class="v-bar-val">7</div>
+                <div class="v-bar" data-height="70%" style="background: linear-gradient(0deg, #3498db, #2980b9);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">8</div>
+                <div class="v-bar" data-height="80%" style="background: linear-gradient(0deg, #9b59b6, #8e44ad);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">5</div>
+                <div class="v-bar" data-height="50%" style="background: linear-gradient(0deg, #2ecc71, #27ae60);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">6</div>
+                <div class="v-bar" data-height="60%" style="background: linear-gradient(0deg, #f39c12, #e67e22);"></div>
+            </div>
+            <div class="v-bar-col" style="margin-right: 20px;">
+                <div class="v-bar-val">4</div>
+                <div class="v-bar" data-height="40%" style="background: linear-gradient(0deg, #3498db, #2980b9);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">3</div>
+                <div class="v-bar" data-height="30%" style="background: linear-gradient(0deg, #9b59b6, #8e44ad);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">5</div>
+                <div class="v-bar" data-height="50%" style="background: linear-gradient(0deg, #2ecc71, #27ae60);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">4</div>
+                <div class="v-bar" data-height="40%" style="background: linear-gradient(0deg, #f39c12, #e67e22);"></div>
+            </div>
+        </div>
+        <div class="v-chart-labels">
+            <span>צה"ל</span>
+            <span>חינוך</span>
+            <span>עיריות</span>
+            <span>אקדמיה</span>
+            <span>צה"ל</span>
+            <span>חינוך</span>
+            <span>עיריות</span>
+            <span>אקדמיה</span>
+            <span>צה"ל</span>
+            <span>חינוך</span>
+            <span>עיריות</span>
+            <span>אקדמיה</span>
+        </div>
+        <div style="display:flex; justify-content:center; gap: 40px; margin-top: 8px; font-size: 0.82em; font-weight: 600;">
+            <span>"מגדר"</span>
+            <span>"רגשי-חברתי"</span>
+            <span>"גיוון / הכלה"</span>
+        </div>
+    </div>
+
+    <h3>אג'נדה 2030 -- נוכחות מוסדית</h3>
+    <p>המונח "אג'נדה 2030" (Agenda 2030 / יעדי הפיתוח בר-הקיימא של האו"ם) מופיע במסמכים ישראליים בעיקר באמצעות יעדי SDG. ישראל הגישה דוחות VNR (Voluntary National Review) לאו"ם ב-2019. <span class="prov">[WEB-SEARCH: "אג'נדה 2030" ישראל; Israel VNR 2019 sustainable development]</span></p>
+
+    <div class="h-chart">
+        <div class="chart-title">אזכורי "2030" / "פיתוח בר-קיימא" לפי מגזר</div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">ממשלה (VNR 2019)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-gov" data-width="90%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">גבוה</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">רשויות מקומיות</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-muni" data-width="55%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">בינוני</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">משרד החינוך</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-edu" data-width="40%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">נמוך-בינוני</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">צה"ל</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="15%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">נמוך</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">אקדמיה</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-uni" data-width="65%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">בינוני-גבוה</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השוואה בין-מוסדית: שנת חדירת מונח "מגדר"</h2>
+    <p>גרף ההשוואה מציג את הפער בין השימוש הפנימי הראשון למיסוד הרשמי בכל מוסד. <span class="prov">[WEB-SEARCH: ויקיפדיה יוהל"ם; חוזר מנכ"ל 2022; חוק רשויות מקומיות 2000]</span></p>
+
+    <div class="compare-section">
+        <div class="compare-card">
+            <div class="cc-title" style="color:#3498db;">צה"ל</div>
+            <div class="cc-bar-area">
+                <div class="cc-bar" data-height="45%" style="background:#3498db; opacity:0.5; width:30px;">
+                    <span class="cc-bar-label">2013</span>
+                </div>
+                <div class="cc-bar" data-height="73%" style="background:#3498db; width:30px;">
+                    <span class="cc-bar-label">2016</span>
+                </div>
+            </div>
+            <div style="font-size:0.75em; color:#666; margin-top:20px;">פנימי / רשמי</div>
+        </div>
+        <div class="compare-card">
+            <div class="cc-title" style="color:#9b59b6;">משרד החינוך</div>
+            <div class="cc-bar-area">
+                <div class="cc-bar" data-height="45%" style="background:#9b59b6; opacity:0.5; width:30px;">
+                    <span class="cc-bar-label">2013</span>
+                </div>
+                <div class="cc-bar" data-height="90%" style="background:#9b59b6; width:30px;">
+                    <span class="cc-bar-label">2022</span>
+                </div>
+            </div>
+            <div style="font-size:0.75em; color:#666; margin-top:20px;">מסמך / חוזר מנכ"ל</div>
+        </div>
+        <div class="compare-card">
+            <div class="cc-title" style="color:#2ecc71;">רשויות מקומיות</div>
+            <div class="cc-bar-area">
+                <div class="cc-bar" data-height="20%" style="background:#2ecc71; opacity:0.5; width:30px;">
+                    <span class="cc-bar-label">2000</span>
+                </div>
+                <div class="cc-bar" data-height="60%" style="background:#2ecc71; width:30px;">
+                    <span class="cc-bar-label">2015</span>
+                </div>
+            </div>
+            <div style="font-size:0.75em; color:#666; margin-top:20px;">חקיקה / הטמעה</div>
+        </div>
+        <div class="compare-card">
+            <div class="cc-title" style="color:#f39c12;">אקדמיה</div>
+            <div class="cc-bar-area">
+                <div class="cc-bar" data-height="55%" style="background:#f39c12; opacity:0.5; width:30px;">
+                    <span class="cc-bar-label">2010</span>
+                </div>
+                <div class="cc-bar" data-height="90%" style="background:#f39c12; width:30px;">
+                    <span class="cc-bar-label">2022</span>
+                </div>
+            </div>
+            <div style="font-size:0.75em; color:#666; margin-top:20px;">מחקר / אוגדנים</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ====================== TAB 2: ROLES ====================== -->
+<div id="view-roles" class="view">
+
+<div class="section">
+    <h2>יוהל"ן ליוהל"ם: ציר זמן של 9 מינויים ב-25 שנה</h2>
+    <p>יחידת יועצת הרמטכ"ל עברה שינוי מהותי ב-23 בפברואר 2016: שינוי השם מ"יועצת הרמטכ"ל לענייני נשים" (יוהל"ן) ל"יועצת הרמטכ"ל לענייני מגדר" (יוהל"ם). השינוי מייצג מעבר מהתמקדות ב"נשים" לשפת "מגדר" הרחבה הכוללת נטייה מינית וזהות מגדרית. <span class="prov">[WEB-SEARCH: ויקיפדיה "יועצת הרמטכ"ל לענייני מגדר"; הארץ 23.2.2016 שינוי שם יוהל"ן]</span></p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">ממלאות תפקיד</div>
+            <div class="value">9</div>
+            <div class="note">2001-2025</div>
+        </div>
+        <div class="metric">
+            <div class="label">דרגה</div>
+            <div class="value">תת-אלוף</div>
+            <div class="note">שייכת לאגף כוח האדם</div>
+        </div>
+        <div class="metric">
+            <div class="label">שינוי שם</div>
+            <div class="value">2016</div>
+            <div class="note">23 בפברואר</div>
+        </div>
+        <div class="metric">
+            <div class="label">תת-יחידות</div>
+            <div class="value">3+</div>
+            <div class="note">יוהל"ם, מהו"ת, מצפים</div>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-year">2001</div>
+            <div class="timeline-text"><strong>תא"ל סוזי יוגב</strong> -- קצינת ח"ן ראשית אחרונה; ראשונה בתפקיד יועצת הרמטכ"ל לענייני נשים (יוהל"ן). פירוק חיל הנשים.</div>
+            <div class="timeline-badge"><span class="badge blue">יוהל"ן</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2003</div>
+            <div class="timeline-text"><strong>תא"ל דבורה חסיד</strong> (2003-2006)</div>
+            <div class="timeline-badge"><span class="badge blue">יוהל"ן</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2006</div>
+            <div class="timeline-text"><strong>תא"ל יהודית גריסרו</strong> (ספט' 2006 - יוני 2009)</div>
+            <div class="timeline-badge"><span class="badge blue">יוהל"ן</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2009</div>
+            <div class="timeline-text"><strong>תא"ל גילה כליפי-אמיר</strong> (יוני 2009 - ינו' 2012)</div>
+            <div class="timeline-badge"><span class="badge blue">יוהל"ן</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2012</div>
+            <div class="timeline-text"><strong>תא"ל רחל טבת-ויזל</strong> (ינו' 2012 - יולי 2016). אחרונה כ"יוהל"ן", ראשונה שהוגדרה כ"יוהל"ם".</div>
+            <div class="timeline-badge"><span class="badge blue">יוהל"ן</span> <span class="badge orange">יוהל"ם</span></div>
+        </div>
+        <div class="timeline-item highlight">
+            <div class="timeline-year">23 בפברואר 2016</div>
+            <div class="timeline-text"><strong>שינוי שם רשמי:</strong> מ"יועצת הרמטכ"ל לענייני נשים" (יוהל"ן) ל"יועצת הרמטכ"ל לענייני מגדר" (יוהל"ם). מסמך "מנשים למגדר -- הבסיס התפיסתי" נכתב על ידי ענף "מוקד ידע מגדר".</div>
+            <div class="timeline-badge"><span class="badge red">שינוי מהותי</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2016</div>
+            <div class="timeline-text"><strong>תא"ל שרון ניר</strong> (יולי 2016 - ספט' 2019)</div>
+            <div class="timeline-badge"><span class="badge orange">יוהל"ם</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-text">מסמך "התפיסה המגדרית" <strong>הוסר מאתר צה"ל</strong> לאחר חשיפתו על ידי ארגון "תורת לחימה" (יולי 2018).</div>
+            <div class="timeline-badge"><span class="badge red">הסרה</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2019</div>
+            <div class="timeline-text"><strong>תא"ל יפעת תומר-ירושלמי</strong> (ספט' 2019 - נוב' 2021). לימים הפרקליטה הצבאית הראשית בדרגת אלוף.</div>
+            <div class="timeline-badge"><span class="badge orange">יוהל"ם</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-text"><strong>תא"ל אלה שדו שכטמן</strong> (נוב' 2021 - אוג' 2025)</div>
+            <div class="timeline-badge"><span class="badge orange">יוהל"ם</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-text"><strong>תא"ל רוזיטל אביב</strong> (אוג' 2025 - מכהנת). יוהל"ם נוכחית.</div>
+            <div class="timeline-badge"><span class="badge orange">יוהל"ם</span></div>
+        </div>
+    </div>
+    <p class="prov">[WEB-SEARCH: ויקיפדיה "יועצת הרמטכ"ל לענייני מגדר" -- רשימת כל ממלאות התפקיד; ערוץ 7 "מסמך התפיסה המגדרית" 13.7.2018]</p>
+</div>
+
+<div class="section">
+    <h2>התרבות תפקידי מגדר חדשים -- כל המוסדות</h2>
+    <p>גרף הצטברות תפקידי מגדר חדשים לפי מוסד ושנה. כל בלוק מייצג תפקיד או מבנה חדש שנוצר. <span class="prov">[WEB-SEARCH: Gov.il יועצת מגדר; pop.education.gov.il; ויקיפדיה יוהל"ם]</span></p>
+
+    <div class="accum-chart" id="accumChart">
+        <div class="chart-legend" style="margin-bottom: 14px;">
+            <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> ממשלה</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3498db"></div> צה"ל</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#2ecc71"></div> רשויות מקומיות</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div> חינוך</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div> אקדמיה</div>
+        </div>
+
+        <div class="accum-row">
+            <div class="accum-year">2000</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni" data-delay="0" title="יועצת לענייני נשים (חוק)">1</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2001</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show" title="חוק יועצות">1</div>
+                <div class="accum-block idf" data-delay="200" title="יוהל&quot;ן -- יועצת הרמטכ&quot;ל לענייני נשים">2</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2008</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni" data-delay="400" title="תיקון חוק יועצות">3</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2013</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni show">3</div>
+                <div class="accum-block idf" data-delay="600" title="ענף מוקד ידע מגדר (צה&quot;ל)">4</div>
+                <div class="accum-block edu" data-delay="700" title="משרד החינוך: מסמך מגדר וחינוך">5</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2015</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni show">3</div>
+                <div class="accum-block idf show">4</div>
+                <div class="accum-block edu show">5</div>
+                <div class="accum-block muni" data-delay="800" title="תכנית שוויון מגדרי ברשויות (אדוה)">6</div>
+                <div class="accum-block uni" data-delay="900" title="תחילת SEL.IL">7</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2016</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni show">3</div>
+                <div class="accum-block idf show">4</div>
+                <div class="accum-block edu show">5</div>
+                <div class="accum-block muni show">6</div>
+                <div class="accum-block uni show">7</div>
+                <div class="accum-block idf" data-delay="1000" title="יוהל&quot;ם -- שינוי שם רשמי">8</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2019</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni show">3</div>
+                <div class="accum-block idf show">4</div>
+                <div class="accum-block edu show">5</div>
+                <div class="accum-block muni show">6</div>
+                <div class="accum-block uni show">7</div>
+                <div class="accum-block idf show">8</div>
+                <div class="accum-block gov" data-delay="1100" title="Gov.il: תיאור תפקיד רשמי יועצת מגדר">9</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2022</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni show">3</div>
+                <div class="accum-block idf show">4</div>
+                <div class="accum-block edu show">5</div>
+                <div class="accum-block muni show">6</div>
+                <div class="accum-block uni show">7</div>
+                <div class="accum-block idf show">8</div>
+                <div class="accum-block gov show">9</div>
+                <div class="accum-block edu" data-delay="1200" title="חוזר מנכ&quot;ל שוויון מגדרי">10</div>
+                <div class="accum-block edu" data-delay="1300" title="יחידה לשוויון בין המינים (משרד החינוך)">11</div>
+                <div class="accum-block uni" data-delay="1400" title="מסמכי SEL אקדמיים">12</div>
+            </div>
+        </div>
+        <div class="accum-row">
+            <div class="accum-year">2024-25</div>
+            <div class="accum-blocks">
+                <div class="accum-block muni show">1</div>
+                <div class="accum-block idf show">2</div>
+                <div class="accum-block muni show">3</div>
+                <div class="accum-block idf show">4</div>
+                <div class="accum-block edu show">5</div>
+                <div class="accum-block muni show">6</div>
+                <div class="accum-block uni show">7</div>
+                <div class="accum-block idf show">8</div>
+                <div class="accum-block gov show">9</div>
+                <div class="accum-block edu show">10</div>
+                <div class="accum-block edu show">11</div>
+                <div class="accum-block uni show">12</div>
+                <div class="accum-block gov" data-delay="1500" title="דו&quot;ח מבקר המדינה מגדר 2024">13</div>
+                <div class="accum-block edu" data-delay="1600" title="קול קורא זהות מגדרית (שפ&quot;י)">14</div>
+                <div class="accum-block muni" data-delay="1700" title="פרסום פרטי כל היועצות">15</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 20px;">
+        <div class="metric alert">
+            <div class="label">סה"כ תפקידים/מבנים חדשים</div>
+            <div class="value">15+</div>
+            <div class="note">2000-2025</div>
+        </div>
+        <div class="metric">
+            <div class="label">קצב התרבות</div>
+            <div class="value">x5</div>
+            <div class="note">מ-3 ב-2008 ל-15 ב-2025</div>
+        </div>
+        <div class="metric">
+            <div class="label">תחום עם הצמיחה הגבוהה</div>
+            <div class="value">חינוך</div>
+            <div class="note">4 מבנים חדשים 2013-2024</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פירוט תפקידים חדשים לפי מוסד</h2>
+
+    <h3>צה"ל</h3>
+    <table>
+        <tr><th>שנה</th><th>תפקיד/מבנה</th><th>תיאור</th><th>שינוי מונחי</th></tr>
+        <tr><td>2001</td><td>יוהל"ן -- יועצת הרמטכ"ל לענייני נשים</td><td>הוקם לאחר פירוק חיל הנשים. דרגת תת-אלוף.</td><td><span class="badge blue">נשים</span></td></tr>
+        <tr><td>2013</td><td>ענף "מוקד ידע מגדר"</td><td>ענף פנימי ביוהל"ן שהחל להשתמש במונח "מגדר"</td><td><span class="badge orange">מגדר (פנימי)</span></td></tr>
+        <tr><td>2016</td><td>יוהל"ם -- יועצת הרמטכ"ל לענייני מגדר</td><td>שינוי שם רשמי. מסמך "מנשים למגדר -- הבסיס התפיסתי".</td><td><span class="badge red">מגדר (רשמי)</span></td></tr>
+        <tr><td>~2018</td><td>יחידת מהו"ת</td><td>מענה הומני ותמיכתי -- פגיעה מינית, אלימות, היריון לא מתוכנן</td><td><span class="badge orange">מגדר</span></td></tr>
+        <tr><td>~2020</td><td>מרכז "מצפים"</td><td>חיבור בין הורות לשירות צבאי</td><td><span class="badge orange">מגדר</span></td></tr>
+    </table>
+    <p class="prov">[WEB-SEARCH: ויקיפדיה יוהל"ם; idf.il יוהל"ם; הארץ 23.2.2016]</p>
+
+    <h3>רשויות מקומיות</h3>
+    <table>
+        <tr><th>שנה</th><th>תפקיד/מבנה</th><th>תיאור</th><th>שינוי מונחי</th></tr>
+        <tr><td>2000</td><td>יועצת לענייני נשים (חוק)</td><td>חוק הרשויות המקומיות (יועצת לענייני נשים), התש"ס 2000</td><td><span class="badge blue">נשים</span></td></tr>
+        <tr><td>2008</td><td>תיקון החוק</td><td>עדכון הוראות החוק</td><td><span class="badge blue">נשים</span></td></tr>
+        <tr><td>2015</td><td>תכנית להטמעת שוויון מגדרי ברשויות</td><td>פרויקט משותף של מרכז אדוה, איגוד היועצות</td><td><span class="badge orange">שוויון מגדרי</span></td></tr>
+        <tr><td>2019</td><td>תיאור תפקיד רשמי ב-Gov.il</td><td>"להוביל תהליך התוויית מדיניות... השגת השוויון המגדרי"</td><td><span class="badge red">מגדר</span></td></tr>
+        <tr><td>2024</td><td>יועצת ראש הרשות לענייני מגדר</td><td>דוגמה: מועצה אזורית תמר -- "לענייני מגדר" במקום "לענייני נשים"</td><td><span class="badge red">מגדר</span></td></tr>
+    </table>
+    <p class="prov">[WEB-SEARCH: Gov.il "יועצת לקידום מעמד האישה"; ma-tamar.org.il "יועצת ראש הרשות לענייני מגדר"]</p>
+
+    <h3>משרד החינוך</h3>
+    <table>
+        <tr><th>שנה</th><th>תפקיד/מבנה</th><th>תיאור</th><th>שינוי מונחי</th></tr>
+        <tr><td>2013</td><td>מסמך "נערים, מגדר וחינוך"</td><td>סקירת ספרות: "מעבר מחינוך משמר מגדר לחינוך מגיב למגדר"</td><td><span class="badge orange">מגדר</span></td></tr>
+        <tr><td>~2018</td><td>היחידה לשוויון בין המינים</td><td>יחידה ייעודית במשרד: הטמעת חשיבה מגדרית בתוכניות, רכזות מחוזיות</td><td><span class="badge orange">שוויון מגדרי</span></td></tr>
+        <tr><td>2022</td><td>חוזר מנכ"ל: שוויון בין המינים</td><td>אסטרטגיות לקידום שוויון מגדרי, הטמעת חשיבה מגדרית</td><td><span class="badge red">מגדר רשמי</span></td></tr>
+        <tr><td>2024</td><td>קול קורא: נטייה מינית וזהות מגדרית</td><td>שפ"י + תקצוב גפ"ן, אפשרות הגשה לבתי ספר</td><td><span class="badge red">זהות מגדרית</span></td></tr>
+    </table>
+    <p class="prov">[WEB-SEARCH: pop.education.gov.il "היחידה לשוויון בין המינים"; חוזר מנכ"ל 464 2022; שפ"י קול קורא]</p>
+
+    <h3>אקדמיה</h3>
+    <table>
+        <tr><th>שנה</th><th>תפקיד/מבנה</th><th>תיאור</th><th>מונח</th></tr>
+        <tr><td>~2015</td><td>SEL.IL (asel.co.il)</td><td>מרכז יישומי-אקדמי, אוניברסיטת רייכמן. "מחקר, פיתוח, הכשרה, הטמעה בשטח וייעוץ מדיניות"</td><td><span class="badge purple">SEL</span></td></tr>
+        <tr><td>2022</td><td>מכללת קיי -- מסמך SEL</td><td>מסמך על למידה חברתית-רגשית, 5 דפים</td><td><span class="badge purple">SEL</span></td></tr>
+        <tr><td>2022</td><td>מכללת שאנן -- מרכז סימולציות SEL</td><td>ד"ר מירב חמי, הנחיית קבוצות SEL</td><td><span class="badge purple">SEL</span></td></tr>
+        <tr><td>~2022</td><td>אוניברסיטת בן גוריון</td><td>אוגדן "הוגנות מגדרית בשיח כיתתי"</td><td><span class="badge orange">הוגנות מגדרית</span></td></tr>
+        <tr><td>~2022</td><td>אבני ראשה -- מדריך SEL</td><td>תרגום והתאמה של מדריך CASEL לישראל</td><td><span class="badge purple">SEL</span></td></tr>
+    </table>
+    <p class="prov">[WEB-SEARCH: asel.co.il; kaye.ac.il SEL 2022; avneyrosha.org.il SEL; bgu.ac.il הוגנות מגדרית]</p>
+</div>
+
+</div>
+
+<!-- ====================== TAB 3: POLICY DOCUMENTS ====================== -->
+<div id="view-policy" class="view">
+
+<div class="section">
+    <h2>ציר זמן: מסמכי מדיניות בנושאי מגדר ו-SEL</h2>
+    <p>סידור כרונולוגי של כלל המסמכים הרשמיים, החוזרים, החוקים והפרסומים שנוגעים למונחים האידיאולוגיים שנבדקו. <span class="prov">[WEB-SEARCH: חוזרי מנכ"ל משרד החינוך; Gov.il; ויקיפדיה; כנסת]</span></p>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-year">2000</div>
+            <div class="timeline-text"><strong>חוק הרשויות המקומיות (יועצת לענייני נשים)</strong>, התש"ס 2000. מחייב מינוי יועצת בכל רשות מקומית (256 רשויות).</div>
+            <div class="timeline-badge"><span class="badge green">חקיקה</span> <span class="badge blue">נשים</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2001</div>
+            <div class="timeline-text"><strong>הקמת תפקיד יוהל"ן</strong> -- יועצת הרמטכ"ל לענייני נשים. תא"ל סוזי יוגב. פירוק חיל הנשים.</div>
+            <div class="timeline-badge"><span class="badge blue">צה"ל</span> <span class="badge blue">נשים</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2008</div>
+            <div class="timeline-text"><strong>תיקון חוק יועצת לענייני נשים</strong> ברשויות מקומיות.</div>
+            <div class="timeline-badge"><span class="badge green">חקיקה</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2013</div>
+            <div class="timeline-text"><strong>משרד החינוך:</strong> "נערים, מגדר וחינוך -- ממשבר לפתרון: מעבר הנדרש מחינוך משמר מגדר ל'חינוך מגיב למגדר'". סקירת ספרות + קווי מתאר לתוכנית פעולה.</div>
+            <div class="timeline-badge"><span class="badge purple">חינוך</span> <span class="badge orange">מגדר</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2013</div>
+            <div class="timeline-text"><strong>צה"ל:</strong> הקמת ענף "מוקד ידע מגדר" ביוהל"ן. תחילת שימוש פנים-ארגוני במונח "מגדר".</div>
+            <div class="timeline-badge"><span class="badge blue">צה"ל</span> <span class="badge orange">מגדר (פנימי)</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2015</div>
+            <div class="timeline-text"><strong>מרכז אדוה:</strong> תכנית להטמעת שוויון מגדרי ברשויות מקומיות. קבוצות נשים פועלות ברחבי הארץ.</div>
+            <div class="timeline-badge"><span class="badge green">רשויות</span> <span class="badge orange">שוויון מגדרי</span></div>
+        </div>
+        <div class="timeline-item highlight">
+            <div class="timeline-year">23 בפברואר 2016</div>
+            <div class="timeline-text"><strong>שינוי שם יוהל"ן ליוהל"ם:</strong> מ"יועצת לענייני נשים" ל"יועצת לענייני מגדר". מסמך "מנשים למגדר -- הבסיס התפיסתי" מפרט את ההצדקה.</div>
+            <div class="timeline-badge"><span class="badge red">שינוי מהותי</span> <span class="badge blue">צה"ל</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2018 (אפריל)</div>
+            <div class="timeline-text"><strong>המכון הישראלי לדמוקרטיה:</strong> "שירות נשים בצה"ל -- בין צבא העם לשוויון מגדרי".</div>
+            <div class="timeline-badge"><span class="badge blue">מחקר</span></div>
+        </div>
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2018 (יולי)</div>
+            <div class="timeline-text"><strong>מסמך "התפיסה המגדרית" של צה"ל הוסר מהאתר</strong> לאחר חשיפתו על ידי ארגון "תורת לחימה".</div>
+            <div class="timeline-badge"><span class="badge red">הסרה</span> <span class="badge blue">צה"ל</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-text"><strong>מסמך כנסת:</strong> "ייצוג מגדרי בחומרי למידה" (26 דפים). לבקשת ח"כ יפעת שאשא ביטון, יו"ר הוועדה לזכויות הילד.</div>
+            <div class="timeline-badge"><span class="badge purple">חינוך</span> <span class="badge orange">מגדר</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2019 (יוני)</div>
+            <div class="timeline-text"><strong>Gov.il:</strong> פרסום תיאור תפקיד רשמי של יועצת לקידום מעמד האישה. "להוביל תהליך התוויית מדיניות של הרשות לשם... השגת השוויון המגדרי".</div>
+            <div class="timeline-badge"><span class="badge green">רשויות</span> <span class="badge red">מגדר</span></div>
+        </div>
+        <div class="timeline-item highlight">
+            <div class="timeline-year">26 באוקטובר 2022</div>
+            <div class="timeline-text"><strong>חוזר מנכ"ל משרד החינוך:</strong> "שוויון בין המינים בחינוך". מפרט אסטרטגיות לקידום שוויון מגדרי, הטמעת חשיבה מגדרית בתוכניות.</div>
+            <div class="timeline-badge"><span class="badge red">חוזר מנכ"ל</span> <span class="badge purple">חינוך</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-text"><strong>משרד החינוך:</strong> ערכת מיפוי בית-ספרי SEL (28 דפים). "תהליך חינוכי התפתחותי לקידום עמדות, ידע ומיומנויות רגשיות וחברתיות".</div>
+            <div class="timeline-badge"><span class="badge purple">חינוך</span> <span class="badge orange">SEL</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-text"><strong>מדריך גפ"ן תשפ"ד</strong> (97 דפים). שריון עד 20% מתקציב שנתי ליוזמה חינוכית. כולל אפשרות תקצוב פעילויות מגדר.</div>
+            <div class="timeline-badge"><span class="badge purple">חינוך</span> <span class="badge red">תקציב</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2024 (יולי)</div>
+            <div class="timeline-text"><strong>Gov.il:</strong> פרסום פרטי התקשרות עם יועצות בכל הרשויות המקומיות.</div>
+            <div class="timeline-badge"><span class="badge green">רשויות</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-text"><strong>מבקר המדינה:</strong> דוח הבודק יישום הוראות דין על ידי הרשות לקידום מעמד האישה, נציבות שוויון ההזדמנויות בעבודה.</div>
+            <div class="timeline-badge"><span class="badge red">ביקורת</span> <span class="badge green">ממשלה</span></div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">פעיל</div>
+            <div class="timeline-text"><strong>שפ"י:</strong> קול קורא בנושא "נטייה מינית וזהות מגדרית". בתי ספר מגישים בקשות תקצוב דרך גפ"ן.</div>
+            <div class="timeline-badge"><span class="badge red">קול קורא</span> <span class="badge purple">חינוך</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>סיכום: מסמכים לפי שנה וסוג מוסד</h2>
+
+    <div class="v-chart">
+        <div class="chart-title">מספר מסמכי מדיניות רשמיים בנושא מגדר/SEL לפי תקופה</div>
+        <div class="v-chart-area">
+            <div class="v-bar-col">
+                <div class="v-bar-val">2</div>
+                <div class="v-bar" data-height="20%" style="background: linear-gradient(0deg, #667eea, #764ba2);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">1</div>
+                <div class="v-bar" data-height="10%" style="background: linear-gradient(0deg, #667eea, #764ba2);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">3</div>
+                <div class="v-bar" data-height="30%" style="background: linear-gradient(0deg, #667eea, #764ba2);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">2</div>
+                <div class="v-bar" data-height="20%" style="background: linear-gradient(0deg, #667eea, #764ba2);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">4</div>
+                <div class="v-bar" data-height="40%" style="background: linear-gradient(0deg, #667eea, #764ba2);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">3</div>
+                <div class="v-bar" data-height="30%" style="background: linear-gradient(0deg, #667eea, #764ba2);"></div>
+            </div>
+            <div class="v-bar-col">
+                <div class="v-bar-val">5</div>
+                <div class="v-bar" data-height="50%" style="background: linear-gradient(0deg, #e74c3c, #c0392b);"></div>
+            </div>
+        </div>
+        <div class="v-chart-labels">
+            <span>2000-2005</span>
+            <span>2006-2010</span>
+            <span>2011-2015</span>
+            <span>2016-2017</span>
+            <span>2018-2019</span>
+            <span>2020-2021</span>
+            <span>2022-2025</span>
+        </div>
+    </div>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">שיא מסמכים</div>
+            <div class="value">2022-25</div>
+            <div class="note">5 מסמכים מרכזיים</div>
+        </div>
+        <div class="metric">
+            <div class="label">סה"כ מסמכים שזוהו</div>
+            <div class="value">20+</div>
+            <div class="note">חוקים, חוזרים, דוחות, קולות קוראים</div>
+        </div>
+        <div class="metric">
+            <div class="label">מוסד עם הכי הרבה מסמכים</div>
+            <div class="value">משרד החינוך</div>
+            <div class="note">8+ מסמכים רשמיים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תחומי עיסוק של יוהל"ם: הרחבת הסקופ</h2>
+    <p>השוואה בין תחומי העיסוק המקוריים של חיל הנשים (1948) לבין היקף הפעילות הנוכחי של יוהל"ם (2025). <span class="prov">[WEB-SEARCH: ויקיפדיה יוהל"ם; idf.il יוהל"ם]</span></p>
+
+    <div class="h-chart">
+        <div class="chart-title">הרחבת תחומי עיסוק: 1948 לעומת 2025</div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">שילוב נשים בשירות</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="100%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">1948+</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">שוויון הזדמנויות מגדרי</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="80%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2001+</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">נטייה מינית / זהות מגדרית</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="55%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">2016+</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">פגיעה מינית (מהו"ת)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="50%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">~2018+</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">הורות ושירות (מצפים)</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="40%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">~2020+</div>
+        </div>
+        <div class="h-bar-row">
+            <div class="h-bar-label">ייצוג מול גופים חיצוניים</div>
+            <div class="h-bar-track">
+                <div class="h-bar-fill fill-idf" data-width="35%" style="width:0"></div>
+            </div>
+            <div class="h-bar-value">~2016+</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ====================== TAB 4: SOURCES ====================== -->
+<div id="view-sources" class="view">
+
+<div class="section">
+    <h2>מסמכי מחקר קשורים באתר זה</h2>
+    <div class="grid-3">
+        <a href="semantic_shifting_glossary.html" class="link-card">
+            <div>
+                <div class="lc-title">מילון ההמרה -- המרות שפה</div>
+                <div class="lc-desc">כיצד שפה רדיקלית הופכת למונחים חינוכיים ניטרליים. ניתוח איכותני מקביל לנתונים כמותיים.</div>
+            </div>
+        </a>
+        <a href="key_individuals_municipal.html" class="link-card">
+            <div>
+                <div class="lc-title">יזמים מוסדיים -- דמויות מפתח</div>
+                <div class="lc-desc">דמויות מפתח במדיניות חינוך עירונית. מי עומד מאחורי התפקידים החדשים.</div>
+            </div>
+        </a>
+        <a href="teacher_training_capture.html" class="link-card">
+            <div>
+                <div class="lc-title">לכידת הכשרת המורים</div>
+                <div class="lc-desc">מהמכללה לכיתה: כיצד הכשרת מורים משמשת ערוץ להפצת מונחים.</div>
+            </div>
+        </a>
+    </div>
+    <div class="grid-3">
+        <a href="pipeline_institutional.html" class="link-card">
+            <div>
+                <div class="lc-title">הצינור המוסדי</div>
+                <div class="lc-desc">מיפוי צינור ההשפעה מארגון חוץ למסמך מדיניות ממשלתי.</div>
+            </div>
+        </a>
+        <a href="ideological_terms_frequency_data.html" class="link-card">
+            <div>
+                <div class="lc-title">נתוני גלם: תדירות מונחים</div>
+                <div class="lc-desc">קובץ נתונים גולמיים מהמחקר הכמותי -- JSON, טבלאות, וציורי זמן.</div>
+            </div>
+        </a>
+        <a href="munzenberg_municipal.html" class="link-card">
+            <div>
+                <div class="lc-title">מודל מינצנברג העירוני</div>
+                <div class="lc-desc">ניתוח מודל ההשפעה של ארגונים על רשויות מקומיות.</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מקורות ראשוניים -- צה"ל</h2>
+    <table>
+        <tr><th>מקור</th><th>סוג</th><th>קישור</th></tr>
+        <tr>
+            <td>ויקיפדיה: יועצת הרמטכ"ל לענייני מגדר</td>
+            <td><span class="badge blue">ויקיפדיה</span></td>
+            <td><a href="https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A2%D7%A6%D7%AA_%D7%94%D7%A8%D7%9E%D7%98%D7%9B%22%D7%9C_%D7%9C%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%99_%D7%9E%D7%92%D7%93%D7%A8" target="_blank">קישור</a></td>
+        </tr>
+        <tr>
+            <td>אתר צה"ל: עמוד יוהל"ם הרשמי</td>
+            <td><span class="badge blue">רשמי</span></td>
+            <td><a href="https://www.idf.il/%D7%90%D7%AA%D7%A8%D7%99-%D7%99%D7%97%D7%99%D7%93%D7%95%D7%AA/%D7%99%D7%95%D7%94%D7%9C-%D7%9D/" target="_blank">idf.il</a></td>
+        </tr>
+        <tr>
+            <td>הארץ: שינוי שם יוהל"ן ליוהל"ם (23.2.2016)</td>
+            <td><span class="badge orange">תקשורת</span></td>
+            <td><a href="https://www.haaretz.co.il/1.2861076" target="_blank">haaretz.co.il</a></td>
+        </tr>
+        <tr>
+            <td>ערוץ 7: מסמך "התפיסה המגדרית" בוטל (13.7.2018)</td>
+            <td><span class="badge orange">תקשורת</span></td>
+            <td><a href="https://www.inn.co.il/news/377848" target="_blank">inn.co.il</a></td>
+        </tr>
+        <tr>
+            <td>אתר מילואים: שוויון מגדרי בצה"ל</td>
+            <td><span class="badge blue">רשמי</span></td>
+            <td><a href="https://www.miluim.idf.il/articles-list/%D7%A9%D7%99%D7%95%D7%95%D7%99%D7%95%D7%9F-%D7%9E%D7%92%D7%93%D7%A8%D7%99-%D7%91%D7%A6%D7%94%D7%9C" target="_blank">miluim.idf.il</a></td>
+        </tr>
+        <tr>
+            <td>המכון הישראלי לדמוקרטיה: שירות נשים בצה"ל (אפריל 2018)</td>
+            <td><span class="badge purple">מחקר</span></td>
+            <td><a href="https://www.idi.org.il/parliaments/22242/22247" target="_blank">idi.org.il</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות ראשוניים -- משרד החינוך</h2>
+    <table>
+        <tr><th>מקור</th><th>סוג</th><th>קישור</th></tr>
+        <tr>
+            <td>חוזר מנכ"ל: שוויון בין המינים בחינוך (26.10.2022)</td>
+            <td><span class="badge red">חוזר מנכ"ל</span></td>
+            <td><a href="https://apps.education.gov.il/mankal/Horaa.aspx?siduri=464" target="_blank">education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>היחידה לשוויון בין המינים -- מרחב פדגוגי</td>
+            <td><span class="badge purple">אתר רשמי</span></td>
+            <td><a href="https://pop.education.gov.il/tchumey_daat/global-subjects/gender-and-gender-equality/about-gender-equaliy-unit/" target="_blank">pop.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>חומרי הוראה: מגדר ושוויון בין המינים</td>
+            <td><span class="badge purple">חומרי לימוד</span></td>
+            <td><a href="https://pop.education.gov.il/tchumey_daat/global-subjects/gender-and-gender-equality/teaching-materials/" target="_blank">pop.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>שפ"י: למידה חברתית-רגשית (SEL)</td>
+            <td><span class="badge purple">אתר רשמי</span></td>
+            <td><a href="https://shefi.education.gov.il/top-topics/sel/" target="_blank">shefi.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>מרחב פדגוגי: למידה רגשית-חברתית</td>
+            <td><span class="badge purple">אתר רשמי</span></td>
+            <td><a href="https://pop.education.gov.il/emotional-social-learning/" target="_blank">pop.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>ערכת מיפוי SEL (PDF, 28 דפים)</td>
+            <td><span class="badge orange">מסמך</span></td>
+            <td><a href="https://meyda.education.gov.il/files/Shefi/SEL/Erkat_Mipuy.pdf" target="_blank">meyda.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>לשכת המדען הראשי: הטמעת SEL</td>
+            <td><span class="badge orange">מסמך</span></td>
+            <td><a href="https://chief-scientist.education.gov.il/knowledge/daily-review/227/" target="_blank">chief-scientist.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>שפ"י: קול קורא -- נטייה מינית וזהות מגדרית</td>
+            <td><span class="badge red">קול קורא</span></td>
+            <td><a href="https://shefi.education.gov.il/publication/voices-calling/sexual-orientation/" target="_blank">shefi.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>מדריך גפ"ן תשפ"ד (PDF, 97 דפים)</td>
+            <td><span class="badge orange">מדריך</span></td>
+            <td><a href="https://meyda.education.gov.il/files/PortalBaaluyot/POB/gefen/guide-gefen-tashpah.pdf" target="_blank">meyda.education.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>yodaat.org: חוזר מנכ"ל חינוך לשוויון מגדרי</td>
+            <td><span class="badge purple">מעקב</span></td>
+            <td><a href="https://yodaat.org/item/publications/5LI2ACRI" target="_blank">yodaat.org</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות ראשוניים -- רשויות מקומיות</h2>
+    <table>
+        <tr><th>מקור</th><th>סוג</th><th>קישור</th></tr>
+        <tr>
+            <td>Gov.il: תפקיד היועצת לקידום מעמד האישה (יוני 2019)</td>
+            <td><span class="badge green">רשמי</span></td>
+            <td><a href="https://www.gov.il/he/departments/general/adviser_info" target="_blank">gov.il</a></td>
+        </tr>
+        <tr>
+            <td>Gov.il: פרטי התקשרות עם יועצות (יולי 2024)</td>
+            <td><span class="badge green">רשמי</span></td>
+            <td><a href="https://www.gov.il/he/pages/local_authorities_consultants_contact_info" target="_blank">gov.il</a></td>
+        </tr>
+        <tr>
+            <td>ויקיפדיה: יועצת לקידום מעמד האישה ברשויות</td>
+            <td><span class="badge blue">ויקיפדיה</span></td>
+            <td><a href="https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A2%D7%A6%D7%AA_%D7%9C%D7%A7%D7%99%D7%93%D7%95%D7%9D_%D7%9E%D7%A2%D7%9E%D7%93_%D7%94%D7%90%D7%99%D7%A9%D7%94_%D7%91%D7%A8%D7%A9%D7%95%D7%99%D7%95%D7%AA_%D7%94%D7%9E%D7%A7%D7%95%D7%9E%D7%99%D7%95%D7%AA" target="_blank">ויקיפדיה</a></td>
+        </tr>
+        <tr>
+            <td>מסמך כנסת: יועצות למעמד האישה ברשויות (PDF, 11 דפים)</td>
+            <td><span class="badge orange">מסמך כנסת</span></td>
+            <td><a href="https://fs.knesset.gov.il/globaldocs/MMM/074e6b58-e9f7-e411-80c8-00155d010977/2_074e6b58-e9f7-e411-80c8-00155d010977_11_6746.pdf" target="_blank">knesset.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>מבקר המדינה 2024: מסמך מגדר ושלטון</td>
+            <td><span class="badge red">ביקורת</span></td>
+            <td><a href="https://library.mevaker.gov.il/sites/DigitalLibrary/Documents/2024/Shilton/2024-Shilton-201-Gender-Taktzir.docx" target="_blank">mevaker.gov.il</a></td>
+        </tr>
+        <tr>
+            <td>מרכז אדוה: תכנית שוויון מגדרי ברשויות</td>
+            <td><span class="badge orange">מסמך</span></td>
+            <td><a href="https://adva.org/wp-content/uploads/2015/12/Netanya_mail.pdf" target="_blank">adva.org</a></td>
+        </tr>
+        <tr>
+            <td>עיריית ירושלים: המחלקה לקידום נשים</td>
+            <td><span class="badge green">עירוני</span></td>
+            <td><a href="https://www.jerusalem.muni.il/he/residents/promoting-women/who-we-are/" target="_blank">jerusalem.muni.il</a></td>
+        </tr>
+        <tr>
+            <td>מועצה אזורית תמר: יועצת ראש הרשות לענייני מגדר</td>
+            <td><span class="badge green">עירוני</span></td>
+            <td><a href="https://www.ma-tamar.org.il/%D7%99%D7%95%D7%A2%D7%A6%D7%AA-%D7%A8%D7%90%D7%A9-%D7%94%D7%A8%D7%A9%D7%95%D7%AA-%D7%9C%D7%A2%D7%A0%D7%99%D7%99%D7%A0%D7%99-%D7%9E%D7%92%D7%93%D7%A8/" target="_blank">ma-tamar.org.il</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מקורות ראשוניים -- אקדמיה ו-SEL</h2>
+    <table>
+        <tr><th>מקור</th><th>סוג</th><th>קישור</th></tr>
+        <tr>
+            <td>SEL.IL: מרכז לקידום למידה רגשית-חברתית בישראל</td>
+            <td><span class="badge purple">אקדמי</span></td>
+            <td><a href="https://asel.co.il/" target="_blank">asel.co.il</a></td>
+        </tr>
+        <tr>
+            <td>יוזמה (האקדמיה הלאומית): הטמעה מערכתית של SEL (8 דפים)</td>
+            <td><span class="badge orange">מסמך</span></td>
+            <td><a href="https://education.academy.ac.il/SystemFiles/23545.pdf" target="_blank">education.academy.ac.il</a></td>
+        </tr>
+        <tr>
+            <td>יוזמה: SEL.IL מסמך (16 דפים)</td>
+            <td><span class="badge orange">מסמך</span></td>
+            <td><a href="https://education.academy.ac.il/SystemFiles/lindod%20Dafna%20Sel.pdf" target="_blank">education.academy.ac.il</a></td>
+        </tr>
+        <tr>
+            <td>מכללת קיי: למידה חברתית-רגשית (PDF, יוני 2022)</td>
+            <td><span class="badge purple">אקדמי</span></td>
+            <td><a href="https://kaye.ac.il/wp-content/uploads/2022/06/%D7%9C%D7%9E%D7%99%D7%93%D7%94-%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA-%D7%A8%D7%92%D7%A9%D7%99%D7%AA.pdf" target="_blank">kaye.ac.il</a></td>
+        </tr>
+        <tr>
+            <td>אבני ראשה: מדריך הטמעת SEL בית-ספרי</td>
+            <td><span class="badge purple">הכשרה</span></td>
+            <td><a href="https://avneyrosha.org.il/resources/article/sel-schoolwide-guide/" target="_blank">avneyrosha.org.il</a></td>
+        </tr>
+        <tr>
+            <td>אוניברסיטת בן גוריון: הוגנות מגדרית בשיח כיתתי (PDF)</td>
+            <td><span class="badge purple">אקדמי</span></td>
+            <td><a href="https://www.bgu.ac.il/media/rl5pkurq/%D7%90%D7%95%D7%92%D7%93%D7%9F-4.pdf" target="_blank">bgu.ac.il</a></td>
+        </tr>
+        <tr>
+            <td>מסמך כנסת: ייצוג מגדרי בחומרי למידה (PDF, 26 דפים)</td>
+            <td><span class="badge orange">מסמך כנסת</span></td>
+            <td><a href="https://fs.knesset.gov.il/globaldocs/MMM/6d19fd4f-8a82-e811-80de-00155d0a0b8d/2_6d19fd4f-8a82-e811-80de-00155d0a0b8d_11_12387.pdf" target="_blank">knesset.gov.il</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>הערות מתודולוגיות</h2>
+    <div class="quote-box blue">
+        <p><strong>מתודולוגיה:</strong> הנתונים נאספו באמצעות חיפוש אינטרנטי שיטתי בעברית, סריקת אתרי מוסדות (משרד החינוך, צה"ל, ויקיפדיה, אתר הכנסת, אתרי רשויות מקומיות), וחילוץ נתונים כמותיים מתוך מסמכים רשמיים. לאחר מכן בוצע ניתוח כרונולוגי של השינויים המונחיים.</p>
+        <div class="q-source">כל הנתונים מבוססים על מסמכים פומביים זמינים. ציוני "נוכחות" יחסית (גרף 0-10) מבוססים על מספר מסמכים רשמיים שזוהו ולא על ספירת מילים מדויקת.</div>
+    </div>
+
+    <h3>פערים ידועים -- נדרש מחקר נוסף</h3>
+    <table>
+        <tr><th>נושא</th><th>מה חסר</th><th>מקור פוטנציאלי</th></tr>
+        <tr><td>"אג'נדה 2030" בחינוך</td><td>ספירת אזכורים מדויקת במסמכי משרד החינוך</td><td>ארכיון חוזרי מנכ"ל, תוכניות עבודה עירוניות</td></tr>
+        <tr><td>"חוסן רגשי" -- תדירות לאורך זמן</td><td>ספירה כמותית בתוכניות בית-ספריות</td><td>ארכיון שפ"י</td></tr>
+        <tr><td>"צדק חברתי" בחינוך</td><td>תדירות בתוכניות הכשרת מורים</td><td>סילבוסים של מכללות</td></tr>
+        <tr><td>תואר שני בצדק חברתי/מגדר</td><td>רשימה מלאה של תוכניות חדשות</td><td>אתרי מכללות ואוניברסיטאות</td></tr>
+        <tr><td>תפקידי גיוון בצה"ל</td><td>מפה מלאה של תפקידים חדשים</td><td>מצבת תפקידים של אכ"א</td></tr>
+        <tr><td>מספר רשויות עם יועצת בפועל</td><td>מתוך 256, כמה מינו בפועל?</td><td>Gov.il רשימת יועצות 2024</td></tr>
+    </table>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<footer>
+    מקור: מחקר ארכיון אלכסון + Gemini Deep Research | פברואר 2026
+    <br>
+    נתונים כמותיים מבוססי מסמכים רשמיים: ויקיפדיה, Gov.il, משרד החינוך, אתר צה"ל, הכנסת, אקדמיה
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// Animate charts on scroll
+function animateOnScroll() {
+    // Horizontal bars
+    document.querySelectorAll('.h-bar-fill[data-width]').forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            bar.style.width = bar.getAttribute('data-width');
+        }
+    });
+    // Growth bars
+    document.querySelectorAll('.growth-fill[data-width]').forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            bar.style.width = bar.getAttribute('data-width');
+        }
+    });
+    // Vertical bars
+    document.querySelectorAll('.v-bar[data-height]').forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            bar.style.height = bar.getAttribute('data-height');
+        }
+    });
+    // Compare bars
+    document.querySelectorAll('.cc-bar[data-height]').forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            bar.style.height = bar.getAttribute('data-height');
+        }
+    });
+    // Accumulation blocks
+    document.querySelectorAll('.accum-block[data-delay]').forEach(block => {
+        const rect = block.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 30) {
+            const delay = parseInt(block.getAttribute('data-delay')) || 0;
+            setTimeout(() => {
+                block.classList.add('show');
+            }, delay);
+        }
+    });
+}
+
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', () => {
+    setTimeout(animateOnScroll, 300);
+});
+
+// Also trigger on tab switch
+document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        setTimeout(animateOnScroll, 100);
+        setTimeout(animateOnScroll, 500);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המודל החדש של הבגרות — ארבעה מודלים | מכללת בית ברל</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-overview')">מבט על</a>
+    <a href="#" onclick="openTab(event,'tab-document')">המסמך</a>
+    <a href="#" onclick="openTab(event,'tab-actors')">השחקנים</a>
+    <a href="#" onclick="openTab(event,'tab-missing')">מה חסר</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>המודל החדש של הבגרות — ארבעה מודלים</h1>
+  <div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">מכללת בית ברל האקדמית | תשפ"ג (2023) | 44 עמודים</div>
+  <div class="meta">מסמך מכונן להחלפת מערכת הבגרות הישראלית</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-overview')">מבט על</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-document')">המסמך</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-actors')">השחקנים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-missing')">מה חסר</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: OVERVIEW ==================== -->
+  <div class="tab-panel active" id="tab-overview">
+    <div class="section">
+      <h2>מבט על: מהו המסמך</h2>
+      <p>מסמך בן 44 עמודים שפותח במסגרת <strong>קורס שנתי במכללת בית ברל</strong> (תשפ"ג, 2022-2023), ביוזמת <strong>איגוד מנהלי מחלקות חינוך ברשויות המקומיות</strong>. המסמך מציע להחליף את מערכת בחינות הבגרות הישראלית כולה בארבעה מודלים חלופיים, המבוססים על הערכה מעצבת, תיק עבודות, נרטיב אישי וצבירת נקודות — במקום מבחנים חיצוניים סטנדרטיים.</p>
+
+      <p>הקבוצה כללה <strong>27 חברות וחברים</strong> — מנהלי מחלקות חינוך, מנהלי בתי ספר, מורים מובילים ונציג מועצת התלמידים הארצית. הם נפגשו ב-9 מפגשים לאורך שנת הלימודים, במסגרת הכשרה בהיקף 60 שעות.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num">44</span><span class="label">עמודים</span></div>
+        <div class="stat-card"><span class="num">27</span><span class="label">משתתפים</span></div>
+        <div class="stat-card"><span class="num">4</span><span class="label">מודלים מוצעים</span></div>
+        <div class="stat-card"><span class="num">0</span><span class="label">אזכורי תנ"ך / מורשת יהודית</span></div>
+        <div class="stat-card"><span class="num">9</span><span class="label">מפגשי פיתוח</span></div>
+        <div class="stat-card"><span class="num">60</span><span class="label">שעות השתלמות</span></div>
+      </div>
+
+      <h3>מה המסמך אומר מול מה הוא עושה</h3>
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר:</span> "מודל רלוונטי, נאמן ותקף להערכה משולבת (ידע, ערכים ומיומנויות) של ביצועי תלמידות ותלמידים" (עמ' 11). "הערכה הוגנת" ו"שוויון הזדמנויות" לכל תלמיד.</p>
+        <p><span class="done">מה שנעשה בפועל:</span></p>
+        <ul>
+          <li><strong>ביטול מבחנים חיצוניים סטנדרטיים</strong> — אין מדידה אובייקטיבית, אין מבחן ארצי אחיד. ההערכה עוברת לידי המורה הבודד בכיתה (עמ' 22).</li>
+          <li><strong>היפוך טקסונומיית בלום</strong> — ידע והבנה יורדים מהמרכז, "מיומנויות" ו"ערכים" תופסים את מקומם (עמ' 15-16).</li>
+          <li><strong>אימוץ מסגרת OECD 2030 זרה</strong> — מסגרת מושגית של ארגון בינלאומי מחליפה תוכן חינוכי ישראלי-יהודי (עמ' 8-9).</li>
+          <li><strong>העלמת מורשת יהודית</strong> — מסמך של 44 עמודים על חינוך ישראלי ללא אזכור אחד של תנ"ך, תורה, מורשת יהודית, ציונות.</li>
+          <li><strong>"סיפור חיים" במקום הישגים</strong> — נרטיב אישי-סובייקטיבי מחליף מדידה אקדמית (עמ' 36-39).</li>
+          <li><strong>קונסטרוקטיביזם כפדגוגיה</strong> — "בניית ידע" (לא העברתו), ויגוצקי, בובר, פריירה כמקורות סמכות (עמ' 19-21).</li>
+        </ul>
+      </div>
+
+      <div class="thesis">
+        <strong>תזה:</strong> מסמך זה הוא הניסיון המפורט ביותר לביטול מערכת הבגרות הישראלית. הוא אינו מציע "רפורמה" אלא <strong>החלפה מוחלטת</strong> של מדידה אובייקטיבית בהערכה סובייקטיבית, של ידע אקדמי ב"מיומנויות", ושל תוכן יהודי-ישראלי במסגרת OECD בינלאומית. ה"האקתון" ביוני 2021 עם 100+ משתתפים היה נקודת הפתיחה, ומכללת בית ברל סיפקה את האכסניה המוסדית.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: THE DOCUMENT ==================== -->
+  <div class="tab-panel" id="tab-document">
+    <div class="section">
+      <h2>המסגרת התיאורטית</h2>
+
+      <h3>מקורות הפרויקט: "חינוך 2030" של ה-OECD</h3>
+      <p>המסמך מאמץ במפורש את מסגרת "חינוך 2030" של ארגון ה-OECD כבסיס אידאולוגי. המסגרת מגדירה "שלוש קטגוריות עומק של יכולות טרנספורמטיביות" — יצירת ערך חדש, יישוב מתחים ודילמות, נטילת אחריות (עמ' 9).</p>
+
+      <blockquote>
+        "לחינוך יש תפקיד חיוני בפיתוח הידע, המיומנויות, הגישות והערכים המאפשרים לבני האדם לתרום לעתיד שיתאפיין בשיתוף ובקיימות [...] פרויקט 'חינוך 2030' זיהה שלוש קטגוריות עומק של יכולות טרנספורמטיביות"
+        <br><span class="source-tag">עמ' 9, מצטט את OECD Education 2030</span>
+      </blockquote>
+
+      <p>ממשרד החינוך פורסם מיפוי "דמות הבוגרת והבוגר" (סתיו 2022), המבוסס על "תפיסת הלמידה 2030" שפותחה באגף אסטרטגיה ותכנון במשרד (עמ' 16). המסמך מציין שמיפוי המיומנויות של משרד החינוך "אינו שונה מהותית" מזה שעשתה הקבוצה (עמ' 16).</p>
+
+      <h3>היפוך הטקסונומיה של בלום</h3>
+      <p>המסמך מתאר כיצד מערכת החינוך נשענה באופן מסורתי על שלושת השלבים הראשונים של טקסונומיית בלום — ידע, הבנה, יישום (עמ' 15). במודל החדש, <strong>הידע נשאר לבדו</strong> ואילו שלבי הלמידה המתקדמים (הבנה, יישום, אנליזה, סינתזה, הערכה) <strong>הועברו לתחום המיומנויות</strong> תחת הקטגוריה "מיומנויות קוגניטיביות". כמו כן, "גם עמדות נוספו לתחום הערכים" (עמ' 15).</p>
+
+      <blockquote>
+        "בנוסח משנת 2015 של המודל, נעשה סידור חדש [...] כך שהידע נותר לעצמו, ואילו שלבי הלמידה המתקדמים הועברו לתחום המיומנויות, תחת הקטגוריה 'מיומנויות קוגניטיביות'"
+        <br><span class="source-tag">עמ' 15</span>
+      </blockquote>
+
+      <h3>קונסטרוקטיביזם כתשתית</h3>
+      <p>הערכה לשם למידה "נובעת מתוך תפיסת הלמידה כהבניית ידע (קונסטרוקטיביזם)" (עמ' 21). הכוונה: הידע אינו מועבר אלא נבנה בתודעת התלמיד, שלב על שלב — ולכן "יש היגיון לבחון כל שלב בהבניה, בטרם ייקלע התלמיד לתפיסות מוטעות" (עמ' 21).</p>
+
+      <blockquote>
+        "הערכה לשם למידה נובעת מתוך תפיסת הלמידה כהבניית ידע (קונסטרוקטיביזם). מכיוון שההבנות והרקשרים נבנים בהכרה של התלמיד, בזה אחר בזה, ובזה על גבי זה, יש היגיון לבחון כל שלב בהבניה"
+        <br><span class="source-tag">עמ' 21</span>
+      </blockquote>
+
+      <p>בנוסף, המסמך מאמץ את הגישה הדיאלוגית של <strong>מרטין בובר</strong> (1923) ו<strong>פאולו פריירה</strong> כמקורות סמכות פדגוגיים (עמ' 19). "הדיאלוג הוא מצב שבו בני אדם נפגשים כדי לחשוב באתוותא על המציאות שלהם" (עמ' 20).</p>
+
+      <h3>ארבעה עקרונות הערכה משותפים לכל המודלים</h3>
+      <p>הקבוצה גיבשה ארבעה עקרונות יסוד (עמ' 14-23):</p>
+      <ol>
+        <li><strong>הערכת יכולות</strong> — שילוב ידע, מיומנויות וערכים. "המיומנויות הן בלב הלמידה וההערכה" (עמ' 24).</li>
+        <li><strong>הערכה מצמיחה ודיאלוגית</strong> — לא ציון מספרי אלא "שיח" בין מורה לתלמיד. "בהערכה דיאלוגית המורה אינו מסביר לתלמיד מה עליו לעשות באופן חד סטרי, אלא תומך בתהליך הזיהוי וההכרה העצמית של התלמיד" (עמ' 19).</li>
+        <li><strong>הערכה מתמשכת ומצטברת</strong> — תיק עבודות (פורטפוליו) שנצבר לאורך שנים, במקום מבחן חד-פעמי. "מבחן ארצי אחיד שייחשב הוגן ותקף לא ייתכן" (עמ' 22).</li>
+        <li><strong>הערכה הוגנת</strong> — "כל תלמידה ותלמיד זכאים להערכת 'בגרות'" (עמ' 22). הערכה "שאינה רק שיפוט אם 'עברו' או 'לא עברו'" (עמ' 22).</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>ארבעת המודלים</h2>
+
+      <div class="model-card" style="border-right-color:#e74c3c;">
+        <h4>מודל 1: "הקפיצה למיומנויות"</h4>
+        <p><strong>צוות:</strong> רשף בורדה, אורית פולק, נעה צוק, מולי רובין, יאיר רטנר</p>
+        <p><strong>הרעיון:</strong> מיומנויות הן מרכז הלמידה וההערכה. הידע, התרבות והערכים "שזורים בתוך המיומנויות" (עמ' 24). המודל מציע 7 שדות מיומנויות (יצירתיות, חברתיות-תקשורתיות, אוריינות לשונית, אוריינות מדעית, רגישות ורפלקטיביות, אתיות ומוסריות, גוף ותנועה) ו-7 שדות למידה (אומנות, שפות, מדעים מדויקים, מדעי החברה, מדעי הרוח, נושאי ליבה מערכתיים) (עמ' 25-26).</p>
+        <p><strong>מבנה:</strong> תלמידים בוחרים 9 קורסים בשנה (3 בכל שליש), כל קורס 8-10 שעות שבועיות למשך כחודשיים. שנת הלימודים מחולקת ל-3 טרימסטרים (עמ' 26).</p>
+        <p><strong>הערכה:</strong> שלוש דרגות — בוגר, מתקדם, מומחה. הערכה עצמית, הערכת עמיתים, הערכת המורה. <strong>ללא ציון מספרי</strong> (עמ' 28).</p>
+        <blockquote>"הידע, התרבות והערכים שזורים בתוך המיומנויות [...] אדרבה, במודל זה הידע נלמד בתוך הקשר תמטי, יישומי משמעותי, ולכן רלוונטי גם לעולמם של התלמידות והתלמידים"<br><span class="source-tag">עמ' 24</span></blockquote>
+      </div>
+
+      <div class="model-card" style="border-right-color:#e67e22;">
+        <h4>מודל 2: "צמיחה" — צבירה, משוב, יכולות, חוויה, התפתחות</h4>
+        <p><strong>צוות:</strong> אמנון סודובסקי, ד"ר סיגל סטרשנוב, נעמי רוזנברג, תום שי</p>
+        <p><strong>הרעיון:</strong> "מודל 'צמיחה' נועד לטפח לומד עצמאי שיודע לנהל, לנתב ולהעריך את תהליך הלמידה שלו" (עמ' 30). למידה כ"תהליך של צבירת 'נכסים'" — התלמיד בוחר היכן להעמיק ולהרחיב (עמ' 30).</p>
+        <p><strong>מבנה:</strong> מבוסס על "אשכולות" — 6 אשכולות תחומיים (יכולת לשונית, אוריינות גופנית-בריאותית, אומנויות, מדעי החברה, מדעי הרוח, מדע-טכנולוגיה-מתמטיקה) ומרכיבי ליבה ("יסודות ישראל", מעורבות חברתית, אורח חיים מקיים, למידה על למידה, פרויקט גמר אישי) (עמ' 31-32).</p>
+        <p><strong>הערכה:</strong> סולם שלוש דרגות — עובר, מתקדם, מצטיין. <strong>ללא ציון מספרי, ללא אזכור קורסים שלא עברו</strong> (עמ' 34). חונך אישי מלווה כל תלמיד, עם פורטפוליו ויומן רפלקטיבי (עמ' 34).</p>
+        <blockquote>"אנו רואים בלמידה תהליך של התפתחות וצבירת 'נכסים' על ידי מתן בחירה ללומד היכן להעמיק ולהרחיב, תוך חשיפה לוועד רחב של תחומים, והקניה של ידע, מיומנויות וערכי בסיס"<br><span class="source-tag">עמ' 30</span></blockquote>
+      </div>
+
+      <div class="model-card" style="border-right-color:#8e44ad;">
+        <h4>מודל 3: "סיפור חיים"</h4>
+        <p><strong>צוות:</strong> שרון בר נטע לוסקי, שרון דודיק, מירב עדני הכהן, אבי צ'פניק, רן שוורץ</p>
+        <p><strong>הרעיון:</strong> "הנחת היסוד של פיתוח המודל היא שכל בוגרת ובוגר של מערכת החינוך זכאים ל'סיפור חיים' המשקף את התהליך החינוכי שעברו" (עמ' 36). הנרטיב האישי מחליף את ההישג האקדמי — "השאיפה היא, במידת האפשר, לתת תיאור מילולי ולא ציון" (עמ' 39).</p>
+        <p><strong>מבנה:</strong> 6 רכיבי הערכה — שלושה בית-ספריים (ידע, מיומנויות, ערכים) ושלושה נוספים (דבר התלמיד/ה עם רפלקציה אישית, מעורבות חברתית, תעודות ממסגרות מחוץ לבית הספר) (עמ' 37). שלושה מעגלים: ארצי (מחייב), מגזרי/קהילתי, אישי (עמ' 36).</p>
+        <p><strong>הערכה:</strong> חמש דרגות למיומנויות — דורש שיפור, בינוני, משביע רצון, מיטבי, "מעל המצופה" (עמ' 38). הערכה מצטברת לאורך שנים ב"ריבוי מעריכים" (עמ' 38). <strong>דבר התלמיד — רפלקציה אישית</strong> שהתלמידים כותבים לסיכום לימודיהם, יחד עם דבר מנהל/ת ודבר מחנכ/ת (עמ' 38).</p>
+        <blockquote>"הערכה במודל זה מספרת סיפור חיים רחב ועשיר, הכולל את כל היבטי החיים [...] בבית הספר, בחינוך הבלתי-פורמלי, ובמרחב הקהילתי והאזרחי"<br><span class="source-tag">עמ' 36</span></blockquote>
+      </div>
+
+      <div class="model-card" style="border-right-color:#27ae60;">
+        <h4>מודל 4: "המסע הלימודי" — תעודת בגרות צוברת</h4>
+        <p><strong>צוות:</strong> אדר ארד, אלה אוזן, שלי קרן, רוני צימר, ישראל שלו, קמה תן-עזר מרקשייד</p>
+        <p><strong>הרעיון:</strong> "מודל זה מתבסס על שתי הנחות יסוד: ראשית, עולם הידע הוא בלתי-מוגבל [...] שנית, פיתוח מיומנויות קוגניטיביות, אישיות ובין-אישיות הוא הבסיס הטוב ביותר ללמידה, להתפתחות ולמוביליות חברתית" (עמ' 40).</p>
+        <p><strong>מבנה:</strong> קורסים בין-תחומיים בני 30 שעות, גמישים במרחב ובזמן. צבירת "נקודות זכות" לפי 6 אשכולות תחומיים ו-13 מיומנויות (עמ' 41-42). קורסים יכולים להילמד בבית הספר, בקהילה, בתנועות נוער, אונליין (עמ' 41).</p>
+        <p><strong>הערכה:</strong> סולם ארבע דרגות — השתתפות, השתתפות פעילה, השתתפות מיטבית, הצטיינות (עמ' 41). ריבוי מעריכים — מורה, תלמיד, מומחה חיצוני (עמ' 41). <strong>התעודה לא תכלול ציון מתייג כגון "עובר לעומת נכשל"</strong> (עמ' 43). "לכולם/ן יש תעודה! שניתן 'לתקן' ולעדכן אותה תמיד" (עמ' 30).</p>
+        <blockquote>"שילוב של שתי הנחות יסוד אלה הוביל אותנו לפיתוח מודל הערכה שבו טיפוח המיומנויות מבוסס על ששה תחומי דעת כלליים [...] קורסים אלו יפותחו וילמדו תוך שותפות עם גורמים רבים במשרד החינוך ובקהילה"<br><span class="source-tag">עמ' 40</span></blockquote>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>טבלת השוואה: ארבעת המודלים</h2>
+      <table>
+        <tr>
+          <th>מאפיין</th>
+          <th>הקפיצה למיומנויות</th>
+          <th>צמיחה</th>
+          <th>סיפור חיים</th>
+          <th>המסע הלימודי</th>
+        </tr>
+        <tr>
+          <td><strong>דף</strong></td>
+          <td>24-29</td>
+          <td>30-35</td>
+          <td>36-39</td>
+          <td>40-44</td>
+        </tr>
+        <tr>
+          <td><strong>מוקד ההערכה</strong></td>
+          <td>מיומנויות (7 שדות)</td>
+          <td>צבירת "נכסים" באשכולות</td>
+          <td>נרטיב אישי — "סיפור חיים"</td>
+          <td>צבירת נקודות זכות</td>
+        </tr>
+        <tr>
+          <td><strong>ציון מספרי?</strong></td>
+          <td>לא — בוגר/מתקדם/מומחה</td>
+          <td>לא — עובר/מתקדם/מצטיין</td>
+          <td>לא — 5 דרגות מילוליות</td>
+          <td>לא — 4 דרגות השתתפות</td>
+        </tr>
+        <tr>
+          <td><strong>מבחן חיצוני?</strong></td>
+          <td>לא</td>
+          <td>חלקי (ליבה בלבד)</td>
+          <td>לא — שילוב הערכה פנימית וחיצונית</td>
+          <td>לא — ריבוי מעריכים</td>
+        </tr>
+        <tr>
+          <td><strong>תפקיד המורה</strong></td>
+          <td>"פדגוג — מלווה אדם בהתפתחותו"</td>
+          <td>חונך אישי + יומן רפלקטיבי</td>
+          <td>מעריך + כותב "דבר מחנך"</td>
+          <td>"מלווה, שותפה, מתווכת ומעצבת"</td>
+        </tr>
+        <tr>
+          <td><strong>תעודה</strong></td>
+          <td>דיגיטלית, שכבות (פתוחה + אישית)</td>
+          <td>פתוחה ומצטברת</td>
+          <td>דיגיטלית, רזולוציות שונות</td>
+          <td>"לכולם יש תעודה! ניתן לתקן ולעדכן"</td>
+        </tr>
+        <tr>
+          <td><strong>מסגרת אידאולוגית</strong></td>
+          <td>OECD 2030 + 21P</td>
+          <td>OECD 2030 + IB + Mastery Transcript</td>
+          <td>AI + ערכים + נרטיב</td>
+          <td>OECD 2030 + גפ"ן</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>ההאקתון (יוני 2021) — נקודת ההתחלה</h2>
+      <p>ביוני 2021 כינס הצוות "יום דיונים פתוח לציבור (האקתון)" בו השתתפו <strong>כמאה בעלות ובעלי תפקידים מגוונים במערכת: מורים, מנהלי בתי ספר, אנשי אקדמיה, עובדי משרד החינוך ועוד</strong> (עמ' 9).</p>
+      <p>במהלך יום הדיונים "התגבשו עקרונות אחדים למודל הבגרות החדש, ובהם: בגרות המקנה סיום תיכון הוגן לכל התלמידות והתלמידים [...] הערכה מצטברת רב-שנתית כחלופה לאירוע הערכה יחיד וחד-פעמי" (עמ' 9-10).</p>
+      <blockquote>
+        "המשתתפות והמשתתפים ביום הדיונים חולקו לכמה צוותי משנה אשר נועדו להמשיך בפיתוח היבטים שונים של מודל הבגרות"
+        <br><span class="source-tag">עמ' 10</span>
+      </blockquote>
+    </div>
+
+    <div class="section">
+      <h2>ביקורת עצמית על הבגרות — מנקודת המבט של המסמך</h2>
+      <p>המסמך מציג נתונים סטטיסטיים (עמ' 8) המראים שמתוך כ-150,000 נערות ונערים שסיימו לימודיהם בתשפ"א:</p>
+      <ul>
+        <li>57% סיימו עם בגרות מוכרת להמשך לימודים אקדמיים</li>
+        <li>43% סיימו ללא בגרות מוכרת — כולל 15% שנכשלו בבחינות, 6% שלא ניגשו, 11% שלמדו במגמות ללא בגרות, 2% שנשרו</li>
+        <li>"רק 27% מהנערות והנערים שהוריהם בחמישון הסוציו-אקונומי הנמוך ביותר קיבלו תעודת בגרות, לעומת 84% מקרב החמישון הגבוה ביותר" (עמ' 8)</li>
+      </ul>
+      <p>מנתונים אלה מסיק המסמך: "מבחן ארצי אחיד שייחשב הוגן ותקף לכל תהליכי הלמידה המגוונים שהתרחשו לא ייתכן" (עמ' 22). הפתרון המוצע: ביטול המבחן החיצוני, לא שיפורו.</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: THE ACTORS ==================== -->
+  <div class="tab-panel" id="tab-actors">
+    <div class="section">
+      <h2>השחקנים: מי עומד מאחורי המסמך</h2>
+
+      <div class="actor-card">
+        <h3>מכללת בית ברל האקדמית</h3>
+        <span class="role">אכסניה מוסדית</span>
+        <p>"במאי 2022 נרתמה המכללה האקדמית בית ברל לשמש אכסניה לקבוצת הלמידה והפיתוח" (עמ' 10). המכללה אירחה את 9 המפגשים, הכירה בקורס כהשתלמות בת 60 שעות, ותמכה בפרויקט דרך מרכז קשת ונשיאות המכללה.</p>
+        <p><a href="deep_Beit_Berl.html">ראו דוח עומק: מכללת בית ברל</a></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>פרופ' יולי תמיר — נשיאת מכללת בית ברל</h3>
+        <span class="role">תמיכה והובלה מוסדית</span>
+        <p>מופיעה ברשימת "תמיכה וליווי הקבוצה" (עמ' 3): "פרופ' יולי תמיר, נשיאת המכללה האקדמית בית ברל". שרת חינוך לשעבר (2006-2009), פרופסור לפילוסופיה של החינוך, דמות מפתח בעיצוב מדיניות חינוך פרוגרסיבית בישראל.</p>
+        <p><a href="radical_tamir.html">ראו דוח עומק: יולי תמיר</a></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>יעקב הכט — מוביל תוכנית "המהפכה" בבית ברל</h3>
+        <span class="role">יוזם, מחנך והוגה חינוכי</span>
+        <p>מופיע ברשימת "תמיכה וליווי" (עמ' 3): "יעקב הכט, מוביל תוכנית 'המהפכה' במכללת בית ברל, מחנך, יוזם והוגה חינוכי". מייסד המכון לחינוך דמוקרטי, דמות מרכזית ב"ערי חינוך" והחינוך הדמוקרטי בישראל.</p>
+        <p><a href="ken_bebeit_safrenu.html">ראו: כן, בבית ספרנו</a></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>ד"ר גיל גרטל — רכז הקורס ועורך המסמך</h3>
+        <span class="role">ריכוז הקורס ועריכת המסמך המסכם</span>
+        <p>"ד"ר גיל גרטל, עצמאי בתחום תכנון לימודים והערכה" (עמ' 2). כתב את המסגרת התיאורטית (עמ' 5-23), ציטט את ספרו שלו על קומניוס. ריכז את הקורס יחד עם תום שי ("מדריכה בתחום פיתוח תוכניות פדגוגיות חדשניות").</p>
+      </div>
+
+      <div class="actor-card">
+        <h3>איגוד מנהלי מחלקות חינוך ברשויות המקומיות</h3>
+        <span class="role">היוזם המקורי</span>
+        <p>"המיוזמה שהובילה לכינוס קבוצת הלמידה והפיתוח החלה בשנת 2021 באיגוד מנהלות ומנהלי מחלקות החינוך ברשויות המקומיות, בראשות אז אבי קמינסקי" (עמ' 9). שלושה מנהלי חינוך ברשויות הובילו את היוזמה: נעה צוק (מועצה אזורית משגב), אבי צ'פניק (מועצה אזורית מרום הגליל), ישראל שלו (עיריית חריש) (עמ' 2).</p>
+      </div>
+
+      <div class="actor-card">
+        <h3>המזכירות הפדגוגית — משרד החינוך</h3>
+        <span class="role">שותף מוזמן</span>
+        <p>מפגש חשיבה משותף עם הנהלת המזכירות הפדגוגית (עמ' 3), כולל: ד"ר טלי ינבי (יו"ר המזכירות), עדית רובין (ממונה על מטה), ד"ר ציונה לוי (מנהלת אגף שפות ומפמ"ר אנגלית), יובל סרי (מנהל אגף תבו"ר), ד"ר גילמור קשת מאור (מנהלת אגף מדעים). בנוסף, רשומים גם גילי רומן (מנהל אגף אסטרטגיה לשעבר), איל רם (מנהל מינהל עובדי הוראה), וד"ר מירי שליסל (יו"ר המזכירות הפדגוגית עד דצמבר 2022).</p>
+      </div>
+
+      <div class="actor-card">
+        <h3>אורחים נוספים שתרמו</h3>
+        <span class="role">מומחים חיצוניים שהוזמנו למפגשים</span>
+        <p>לפי עמ' 3:</p>
+        <ul>
+          <li><strong>פרופ' ניר אוריון</strong> — ראש התוכנית להוראת מדעי כדור הארץ, מכון ויצמן למדע</li>
+          <li><strong>ד"ר גלעד גולדשמידט</strong> — יו"ר הארגון הארצי של חינוך ולדורף בישראל</li>
+          <li><strong>ד"ר רינת יצחקי</strong> — ראש תוכנית התמחות בהערכה ומדידה, בית ברל</li>
+          <li><strong>ד"ר הילית פינקלשטיין</strong> — ראש תחום מחקר ופיתוח פדגוגי, רשת אמי"ת</li>
+          <li><strong>דליה פניג</strong> — מ"מ יו"ר המזכירות הפדגוגית (לשעבר)</li>
+          <li><strong>פרופ' עירית ששון</strong> — ראש התוכנית לתואר שני, המכללה האקדמית תל חי</li>
+        </ul>
+      </div>
+
+      <h3>רשת השחקנים — סיכום ויזואלי</h3>
+      <table>
+        <tr>
+          <th>שחקן</th>
+          <th>תפקיד במסמך</th>
+          <th>זיקה מוסדית</th>
+        </tr>
+        <tr>
+          <td>מכללת בית ברל</td>
+          <td>אכסניה, מסגרת אקדמית</td>
+          <td>מכללה אקדמית ציבורית</td>
+        </tr>
+        <tr>
+          <td>פרופ' יולי תמיר</td>
+          <td>תמיכה וליווי</td>
+          <td>נשיאת בית ברל, שרת חינוך לשעבר</td>
+        </tr>
+        <tr>
+          <td>יעקב הכט</td>
+          <td>תמיכה וליווי, הוגה</td>
+          <td>"המהפכה" בבית ברל, מכון לחינוך דמוקרטי</td>
+        </tr>
+        <tr>
+          <td>ד"ר גיל גרטל</td>
+          <td>רכז קורס, עורך מסמך</td>
+          <td>עצמאי, בית ברל</td>
+        </tr>
+        <tr>
+          <td>איגוד מנהלי חינוך</td>
+          <td>יוזם מקורי, האקתון</td>
+          <td>רשויות מקומיות</td>
+        </tr>
+        <tr>
+          <td>המזכירות הפדגוגית</td>
+          <td>שותף מוזמן לחשיבה</td>
+          <td>משרד החינוך</td>
+        </tr>
+        <tr>
+          <td>OECD "חינוך 2030"</td>
+          <td>מסגרת אידאולוגית</td>
+          <td>ארגון בינלאומי</td>
+        </tr>
+        <tr>
+          <td>ד"ר שי פרוכטרמן</td>
+          <td>יו"ר איגוד מנהלי מחלקות חינוך</td>
+          <td>רשויות מקומיות</td>
+        </tr>
+        <tr>
+          <td>אורלי פרומן</td>
+          <td>ראש מרכז קשת, בית ברל</td>
+          <td>מכללת בית ברל</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: WHAT'S MISSING ==================== -->
+  <div class="tab-panel" id="tab-missing">
+    <div class="section">
+      <h2>מה חסר: ההיעדרויות הבולטות מהמסמך</h2>
+
+      <p>מסמך בן 44 עמודים העוסק ברפורמה מקיפה בחינוך הישראלי — אך חסרים ממנו רכיבים מהותיים שצפויים להופיע בכל דיון רציני על מערכת החינוך במדינת ישראל.</p>
+
+      <div class="missing-item">
+        <strong>תנ"ך, תורה ומורשת יהודית — 0 אזכורים</strong>
+        <p>44 עמודים על רפורמה חינוכית במדינה היהודית, ואין אזכור אחד של תנ"ך, תורה, מורשת יהודית, לימודי קודש, או טקסטים יהודיים. גם כשמודל "צמיחה" מזכיר "יסודות ישראל" (עמ' 31), ההגדרה היא: "קורס המקנה תמונה מורכבת וביקורתית על מדינת ישראל" — ללא שום זיקה למורשת, למסורת או לטקסטים יהודיים. המילים "יהודי" ו"עברי" מופיעות רק בהקשרים היסטוריים ("מחלקת החינוך של הוועד הלאומי [...] הנהיגה את החינוך העברי", עמ' 6).</p>
+      </div>
+
+      <div class="missing-item">
+        <strong>ציונות — 0 אזכורים</strong>
+        <p>מסמך על עתיד החינוך בישראל שאינו מזכיר ציונות, חלום ההתיישבות, תנועת התחייה הלאומית, או כל ביטוי של זהות לאומית-יהודית. ה"ערכים" שנדונים הם "יצירת ערך חדש, יישוב מתחים ודילמות, נטילת אחריות" — לקוחים מ-OECD, לא מהמסורת הישראלית.</p>
+      </div>
+
+      <div class="missing-item">
+        <strong>סטנדרטים חיצוניים — מבוטלים במפורש</strong>
+        <p>המסמך קובע: "מבחן ארצי אחיד שייחשב הוגן ותקף לכל תהליכי הלמידה המגוונים שהתרחשו לא ייתכן" (עמ' 22). "הערכה המתארגנת מלמטה — מהמורה בכיתה — היא בעלת תוקף גבוה יותר מהערכת בגרות ארצית אחידה" (עמ' 22). בכל ארבעת המודלים, אין מבחן חיצוני אחיד.</p>
+      </div>
+
+      <div class="missing-item">
+        <strong>קול ההורים — נעדר</strong>
+        <p>במסמך אין כל אזכור של תפקיד ההורים בתהליך הרפורמה. 27 משתתפים — מנהלי חינוך, מורים, אקדמאים, נציג תלמידים — אך אף לא נציג הורים אחד. ההחלטות על ביטול הבגרות, שינוי מערכת ההערכה והחלפת התכנים מתקבלות ללא שום ייצוג של מי שילדיהם מושפעים מהשינוי.</p>
+      </div>
+
+      <div class="missing-item">
+        <strong>מוכנות אקדמית — לא נמדדת</strong>
+        <p>תעודת הבגרות החדשה מוגדרת בכל המודלים כ"דיגיטלית", "פתוחה", "מצטברת" — אך אין בה מנגנון לבדיקת מוכנות לאוניברסיטה. ההנחה שהאוניברסיטאות ומקומות העבודה "ימצאו עניין" בתעודה ההוגנת (עמ' 22) אינה מבוססת. מודל "סיפור חיים" אף מצהיר: "השאיפה היא, במידת האפשר, לתת תיאור מילולי ולא ציון" (עמ' 39).</p>
+      </div>
+
+      <div class="missing-item">
+        <strong>OECD/UNESCO כמסגרת אידאולוגית — במקום מסגרת ישראלית</strong>
+        <p>מסגרת "חינוך 2030" של ה-OECD שימשה כמסגרת המושגית העיקרית (עמ' 8-9, 15-16, 30). "דמות הבוגרת והבוגר" של משרד החינוך מבוססת אף היא על "תפיסת הלמידה 2030" (עמ' 16). ה"יכולות הטרנספורמטיביות" שנקבעו — יצירת ערך חדש, יישוב מתחים ודילמות, נטילת אחריות — הן ניסוחי OECD גנריים, לא ערכים ישראליים. אין כל התייחסות לייחודיות של מערכת החינוך הישראלית כמערכת של מדינה יהודית ודמוקרטית.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>השוואה: מה נמצא מול מה נעדר</h2>
+      <table>
+        <tr>
+          <th>נושא</th>
+          <th>נמצא במסמך</th>
+          <th>נעדר מהמסמך</th>
+        </tr>
+        <tr>
+          <td>מקורות סמכות</td>
+          <td>OECD, בובר, פריירה, ויגוצקי, קומניוס</td>
+          <td>תנ"ך, משנה, רמב"ם, הוגים יהודיים</td>
+        </tr>
+        <tr>
+          <td>"ערכים"</td>
+          <td>מיומנויות טרנספורמטיביות, אזרחות פעילה, קיימות</td>
+          <td>ציונות, זהות יהודית, מורשת, מסורת</td>
+        </tr>
+        <tr>
+          <td>מדידה</td>
+          <td>הערכה מעצבת, דיאלוגית, תיק עבודות</td>
+          <td>מבחן ארצי אחיד, סטנדרט חיצוני</td>
+        </tr>
+        <tr>
+          <td>שותפים</td>
+          <td>מנהלי חינוך, מורים, אקדמיה, תלמידים</td>
+          <td>הורים, אוניברסיטאות, מעסיקים</td>
+        </tr>
+        <tr>
+          <td>תוכן דוגמה</td>
+          <td>"בית מדרש דילמה" (עמ' 27), אוריינות מידע</td>
+          <td>תנ"ך, ספרות עברית, היסטוריה יהודית</td>
+        </tr>
+        <tr>
+          <td>מודלים מהעולם</td>
+          <td>International Baccalaureate, Mastery Transcript, 21P</td>
+          <td>שום מודל ישראלי-יהודי</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 5: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>המסמך המקורי</h3>
+      <div class="model-card">
+        <p><strong>המודל החדש של הבגרות — ארבעה מודלים</strong></p>
+        <p>מכללת בית ברל האקדמית, תשפ"ג (2023). 44 עמודים.</p>
+        <p>ריכוז הקורס ועריכת המסמך: ד"ר גיל גרטל, תום שי.</p>
+        <p><a href="https://drive.google.com/file/d/1M6Z2RDmSbWPxWa9fdpXaEm-YDFUjEVwi/view" target="_blank">צפייה במסמך המקורי (Google Drive)</a></p>
+      </div>
+
+      <h3>מסגרת OECD</h3>
+      <ul>
+        <li>OECD (2019). <em>עתיד החינוך והמיומנויות: פרויקט חינוך 2030</em>. מרכז למחקר וחדשנות בחינוך. — מצוטט בעמ' 9.</li>
+        <li>מיכל טביביאן מזרחי ואחרים (2021). <em>תפיסת הלמידה 2030 — מיומנויות</em>. משרד החינוך. — עמ' 16.</li>
+        <li>משרד החינוך. <em>דמות הבוגרת והבוגר — המדיניות הפדגוגית הלאומית</em> (בהרצאה). — עמ' 16.</li>
+      </ul>
+
+      <h3>מקורות תיאורטיים שהמסמך מצטט</h3>
+      <ul>
+        <li>Benjamin S. Bloom (1956). <em>Taxonomy of Educational Objectives</em>. Longman. — עמ' 15.</li>
+        <li>Michael Scriven (1967). <em>The Methodology of Evaluation</em>. Rand McNally. — עמ' 18.</li>
+        <li>גיל גרטל (2021). <em>המצאת החינוך — קריאה בספריו של יאן עמוס קומניוס</em>. ניב. — עמ' 5, 14.</li>
+        <li>אריה לוי (1976). הלכה ומעשה בהערכה של תוכניות לימודים. <em>הלכה למעשה</em> 1, 39-62. — עמ' 22.</li>
+        <li>אירית אייזן ויעל שטיינברג (2016). <em>תרבות הערכה דיאלוגית כמדקת הוראה ולמידה</em>. המכון לחינוך דמוקרטי. — עמ' 11.</li>
+        <li>איירה שור, פאולו פריירה (1990). <em>מהי שיטת ההוראה הדיאלוגית</em>. ספרי מפרש, עמ' 105-126. — עמ' 19.</li>
+        <li>דרור זמרי (2020). מפגש בגובה הלב — חונכות דיאלוגית בבית הספר הדמוקרטי בחדרה. <em>מפינה</em>, עמ' 70. — עמ' 19.</li>
+        <li>Chris Sturgis, Katherine Casey (2018). <em>Designing for Equity: Leveraging Competency-Based Education</em>. iNACOL. — עמ' 23.</li>
+        <li>Framework for 21st Century Learning (2019). Partnership for 21st Century Learning. — עמ' 15.</li>
+      </ul>
+
+      <h3>דוחות מחקר קשורים באתר</h3>
+      <ul>
+        <li><a href="deep_Beit_Berl.html">דוח עומק: מכללת בית ברל</a></li>
+        <li><a href="radical_tamir.html">דוח עומק: פרופ' יולי תמיר</a></li>
+        <li><a href="ken_bebeit_safrenu.html">כן, בבית ספרנו — יעקב הכט והחינוך הדמוקרטי</a></li>
+      </ul>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>המסמך המקורי הוא PDF בן 44 עמודים בעברית. החילוץ הטקסטואלי בוצע בטכנולוגיית OCR עם ארטיפקט של היפוך כיווניות (RTL). כל הציטוטים שוחזרו לעברית תקנית ונבדקו מול המקור. הפניות העמודים מתייחסות למסמך המקורי.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    // Handle both nav links and tab buttons
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      // Find matching tab button
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-overview':0,'tab-document':1,'tab-actors':2,'tab-missing':3,'tab-sources':4};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

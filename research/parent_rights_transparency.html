@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>זכויות הורים ושקיפות בחינוך — מה חסר בישראל</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+tr.row-israel { background: #fde8e8; }
+tr.row-israel:hover { background: #fbd5d5; }
+tr.row-israel td { font-weight: 600; color: #c0392b; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f8e8; color: #27ae60; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.comparison-highlight {
+    display: flex; gap: 24px; justify-content: center; align-items: center;
+    margin: 20px 0; flex-wrap: wrap;
+}
+.comparison-highlight .comp-box {
+    text-align: center; padding: 20px 30px; border-radius: 10px;
+    min-width: 180px;
+}
+.comparison-highlight .comp-box.positive {
+    background: #e8f8e8; border: 2px solid #27ae60;
+}
+.comparison-highlight .comp-box.negative {
+    background: #fde8e8; border: 2px solid #e74c3c;
+}
+.comparison-highlight .comp-box .comp-num {
+    font-size: 2.5em; font-weight: 800;
+}
+.comparison-highlight .comp-box.positive .comp-num { color: #27ae60; }
+.comparison-highlight .comp-box.negative .comp-num { color: #e74c3c; }
+.comparison-highlight .comp-box .comp-label {
+    font-size: 0.85em; color: #555; margin-top: 4px;
+}
+.comparison-highlight .comp-vs {
+    font-size: 1.5em; font-weight: 800; color: #999;
+}
+
+ul.checklist { list-style: none; padding: 0; margin: 10px 0; }
+ul.checklist li { padding: 6px 0; padding-right: 24px; position: relative; font-size: 0.92em; }
+ul.checklist li::before { content: ""; position: absolute; right: 0; top: 10px; width: 14px; height: 14px; border-radius: 3px; }
+ul.checklist li.missing::before { background: #e74c3c; }
+ul.checklist li.exists::before { background: #27ae60; }
+ul.checklist li.partial::before { background: #f39c12; }
+
+.case-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    border-right: 4px solid #e74c3c;
+}
+.case-card .case-title { font-weight: 700; color: #1a1a2e; font-size: 1.05em; margin-bottom: 4px; }
+.case-card .case-year { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 6px; }
+.case-card .case-desc { font-size: 0.88em; color: #555; }
+
+.law-item {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #ff8800; margin: 10px 0;
+}
+.law-item .law-title { font-weight: 700; color: #1a1a2e; }
+.law-item .law-desc { font-size: 0.85em; color: #555; margin-top: 4px; }
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.78em; color: #999;
+    border-top: 1px solid #eee; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        זכויות הורים
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('israel')">המצב בישראל</button>
+        <button class="nav-tab" onclick="showView('international')">השוואה בינלאומית</button>
+        <button class="nav-tab" onclick="showView('legislation')">הצעות חוק</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>זכויות הורים ושקיפות בחינוך — מה חסר בישראל</h1>
+    <div class="subtitle">ניתוח משפטי-השוואתי: מנגנוני הגנה על זכויות הורים בחינוך ברחבי העולם מול הריק הישראלי</div>
+    <div class="meta">מבוסס על חקיקה בינלאומית, ארכיון אלכסון ומחקר השוואתי</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">6+</div><div class="lbl">מדינות עם Opt-out</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">מנגנון בישראל</div></div>
+        <div class="stat"><div class="num">8,100</div><div class="lbl">תלמידים ללא הסכמה (באר שבע)</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">מנגנוני עקיפה מזוהים</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>הבעיה המרכזית</h2>
+    <p>בישראל <strong>אין מנגנון Opt-out רשמי</strong> המאפשר להורים להוציא את ילדיהם מתוכניות חינוכיות חיצוניות. כאשר ארגונים חיצוניים נכנסים לבתי ספר להעביר תכנים בנושאי מיניות, מגדר או אידיאולוגיה, ההורים:</p>
+    <ul class="checklist">
+        <li class="missing">לעיתים קרובות אינם יודעים מראש על התוכנית</li>
+        <li class="missing">אינם יכולים לצפות מראש בתוכן</li>
+        <li class="missing">אינם יכולים להוציא את ילדיהם מהתוכנית (Opt-out)</li>
+        <li class="missing">אין להם מנגנון משפטי לערער</li>
+    </ul>
+    <p>מצב זה עומד בניגוד חריף למצב בבריטניה, אוסטרליה ומדינות רבות בארה"ב, שם קיימים מנגנוני הודעה להורים וזכות Opt-out בחוק.</p>
+</div>
+
+<div class="section">
+    <h2>שלושה מקרים שממחישים את הבעיה</h2>
+
+    <div class="case-card">
+        <div class="case-title">באר שבע — 8,100 תלמידים דרך מחלקת הרווחה</div>
+        <div class="case-year">2023</div>
+        <div class="case-desc">
+            תוכנית דלת פתוחה של עמותת "אלוט" הופעלה דרך מחלקת הרווחה העירונית — לא דרך מערכת החינוך. 8,100 תלמידים נחשפו לתכנים ללא כל הסכמת הורים. מנגנון העקיפה: כניסה דרך רווחה ולא דרך חינוך, כך שהתוכנית פטורה מפיקוח חינוכי.
+        </div>
+    </div>
+
+    <div class="case-card">
+        <div class="case-title">גני ילדים — תכני מגדר ללא ידיעת ההורים</div>
+        <div class="case-year">2021-2022</div>
+        <div class="case-desc">
+            תכנים בנושא ספקטרום מגדרי הוכנסו לגני ילדים ללא ידיעת ההורים ומבלי שנדרשה הסכמתם. ההורים גילו את התכנים רק בדיעבד, כשהילדים חזרו הביתה וסיפרו.
+        </div>
+    </div>
+
+    <div class="case-card">
+        <div class="case-title">רחובות — הורים נאלצו לפנות לבית המשפט</div>
+        <div class="case-year">2022</div>
+        <div class="case-desc">
+            הורים שגילו תכנים בעייתיים בבית הספר נאלצו לפנות לבית משפט רק כדי להעלות את הנושא לדיון. עצם הצורך בפנייה משפטית ממחיש את היעדר מנגנון פנים-מוסדי לטיפול בפניות הורים בנושאי תוכן.
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הפער הבינלאומי במבט-על</h2>
+    <div class="comparison-highlight">
+        <div class="comp-box positive">
+            <div class="comp-num">6+</div>
+            <div class="comp-label">מדינות עם מנגנון Opt-out רשמי</div>
+        </div>
+        <div class="comp-vs">מול</div>
+        <div class="comp-box negative">
+            <div class="comp-num">0</div>
+            <div class="comp-label">מנגנונים בישראל</div>
+        </div>
+    </div>
+    <p style="text-align:center; font-size:0.88em; color:#666;">בריטניה, אוסטרליה, ניו זילנד, קנדה ולפחות 24 מדינות בארה"ב מחייבות הודעה להורים או מאפשרות Opt-out מתכני מיניות ומגדר — ישראל לא.</p>
+</div>
+
+</div>
+
+<!-- ═══ ISRAEL TAB ═══ -->
+<div id="view-israel" class="view">
+
+<div class="section">
+    <h2>מה קיים — ולמה זה לא מספיק</h2>
+    <p>בישראל קיימים כמה מנגנונים שנועדו להסדיר פעילות חינוכית, אך אף אחד מהם אינו מעניק להורים זכות ממשית לפקח על תכנים או לבחור שלא להשתתף.</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>מנגנונים קיימים</h3>
+            <ul class="checklist">
+                <li class="partial"><strong>חוזרי מנכ"ל</strong> — קובעים מדיניות כללית אך אינם מחייבים הודעה להורים על תוכניות חיצוניות</li>
+                <li class="partial"><strong>מערכת גפ"ן</strong> — מאשרת תוכניות אך אינה דורשת הסכמת הורים</li>
+                <li class="partial"><strong>ועדי הורים</strong> — תפקיד ייעוצי בלבד, ללא זכות וטו על תכנים</li>
+                <li class="partial"><strong>חוק חינוך חובה (1949)</strong> — מעגן חינוך חובה אך שותק לחלוטין בנושא פיקוח הורים על תכנים</li>
+            </ul>
+        </div>
+        <div>
+            <div class="grid-3" style="grid-template-columns: 1fr;">
+                <div class="metric alert">
+                    <div class="label">חובת הודעה מוקדמת</div>
+                    <div class="value"><span class="badge red">אין</span></div>
+                    <div class="note">אין דרישה חוקית להודיע להורים לפני כניסת ארגון חיצוני</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">מנגנון Opt-out</div>
+                    <div class="value"><span class="badge red">אין</span></div>
+                    <div class="note">ההורים אינם יכולים להוציא ילדיהם מתוכנית ספציפית</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">שקיפות תוכן</div>
+                    <div class="value"><span class="badge red">חסר</span></div>
+                    <div class="note">ארגונים כמו SafeSchool מסתירים תוכן מאחורי Paywall</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה חסר — הפערים המרכזיים</h2>
+    <ul class="checklist">
+        <li class="missing">אין דרישה חוקית להודיע להורים <strong>לפני</strong> כניסת ארגונים חיצוניים לבתי ספר</li>
+        <li class="missing">אין מנגנון Opt-out מתכנים ספציפיים</li>
+        <li class="missing">אין דרישת שקיפות תוכן — חלק מהארגונים מסתירים תוכן מאחורי Paywall</li>
+        <li class="missing">אין דרישת הסכמת הורים לתכנים ערכיים/אידיאולוגיים</li>
+        <li class="missing">אין גוף עצמאי שבוחן תכנים מנקודת מבט של הורים</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>מנגנוני עקיפה שמחמירים את הבעיה</h2>
+    <p>מעבר להיעדר מנגנוני הגנה, קיימים מסלולים המאפשרים לארגונים לעקוף אפילו את הפיקוח המינימלי הקיים.</p>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">1</div>
+        <div class="step-content">
+            <div class="step-title">כניסה דרך מחלקות רווחה/בריאות</div>
+            <div class="step-desc">תוכניות הנכנסות לבתי ספר דרך מחלקות רווחה או בריאות (ולא דרך מערכת החינוך) — פטורות מפיקוח חינוכי. כך קרה בבאר שבע עם 8,100 תלמידים.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">2</div>
+        <div class="step-content">
+            <div class="step-title">מימון עירוני ישיר</div>
+            <div class="step-desc">כאשר הרשות המקומית ממנה ארגון ישירות, היא עוקפת לחלוטין את מנגנון הבקרה של משרד החינוך. התוכנית אינה עוברת אישור גפ"ן.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">3</div>
+        <div class="step-content">
+            <div class="step-title">פטור ממכרז</div>
+            <div class="step-desc">שימוש ב"פטור ממכרז" לחתימת הסכמים עם ארגונים אידיאולוגיים ללא תחרות וללא שקיפות מלאה. מנגנון זה זוהה בין היתר בתל אביב.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ INTERNATIONAL TAB ═══ -->
+<div id="view-international" class="view">
+
+<div class="section">
+    <h2>השוואה בינלאומית — מנגנוני הגנה על זכויות הורים</h2>
+    <p>הטבלה הבאה משווה בין מנגנוני הגנה על זכויות הורים בחינוך בנושאי מיניות, מגדר ואידיאולוגיה ברחבי העולם.</p>
+
+    <div class="comparison-highlight">
+        <div class="comp-box positive">
+            <div class="comp-num">6+</div>
+            <div class="comp-label">מדינות עם מנגנוני Opt-out</div>
+        </div>
+        <div class="comp-vs">מול</div>
+        <div class="comp-box negative">
+            <div class="comp-num">0</div>
+            <div class="comp-label">מנגנונים בישראל</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>מדינה</th>
+                <th>מנגנון</th>
+                <th>תיאור</th>
+                <th>סטטוס</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>בריטניה</td>
+                <td>RSE Opt-out</td>
+                <td>הורים יכולים להוציא ילדים מחינוך מיני עד גיל 15 (Education Act 2019)</td>
+                <td><span class="badge green">פעיל מ-2020</span></td>
+            </tr>
+            <tr>
+                <td>בריטניה</td>
+                <td>Parental notification</td>
+                <td>בתי ספר חייבים לפרסם את תוכנית RSE ולהתייעץ עם הורים</td>
+                <td><span class="badge green">חובה</span></td>
+            </tr>
+            <tr>
+                <td>אוסטרליה</td>
+                <td>מנגנון מדינתי</td>
+                <td>חלק מהמדינות מאפשרות Opt-out מחינוך מיני</td>
+                <td><span class="badge orange">חלקי</span></td>
+            </tr>
+            <tr>
+                <td>ארה"ב — פלורידה</td>
+                <td>Parental Rights in Education Act (2022)</td>
+                <td>אוסר הוראת נטייה מינית וזהות מגדרית בגילאי K-3</td>
+                <td><span class="badge green">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>ארה"ב — טקסס</td>
+                <td>SB 15 (2023)</td>
+                <td>חובת הסכמה כתובה של הורים לתכנים על מגדר ומיניות</td>
+                <td><span class="badge green">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>ארה"ב — 24+ מדינות</td>
+                <td>Parents' Bill of Rights</td>
+                <td>חקיקה שונה בנוגע לזכות ההורים לדעת ולהחליט</td>
+                <td><span class="badge green">מתרחבת</span></td>
+            </tr>
+            <tr>
+                <td>קנדה — אלברטה</td>
+                <td>Parental notification</td>
+                <td>הורים מקבלים הודעה על תכנים הנוגעים לדת, מיניות ומגדר</td>
+                <td><span class="badge green">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>ניו זילנד</td>
+                <td>RSE consent</td>
+                <td>הורים יכולים למשוך ילדים מחינוך מיני</td>
+                <td><span class="badge green">פעיל</span></td>
+            </tr>
+            <tr class="row-israel">
+                <td>ישראל</td>
+                <td><span class="badge red">אין</span></td>
+                <td>אין מנגנון Opt-out, אין חובת הודעה, אין שקיפות תוכן</td>
+                <td><span class="badge red">ריק</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>ניתוח השוואתי — מה ניתן ללמוד</h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>המודל הבריטי — RSE Opt-out</h3>
+            <p>חוק החינוך הבריטי (2019) מעגן זכות הורים להוציא ילדים מחינוך ביחסים ומיניות (RSE) עד גיל 15. בתי ספר חייבים:</p>
+            <ul class="checklist">
+                <li class="exists">לפרסם את תוכנית ה-RSE מראש</li>
+                <li class="exists">להתייעץ עם הורים על התוכן</li>
+                <li class="exists">לכבד בקשת Opt-out</li>
+                <li class="exists">להבטיח שתלמידים שיצאו לא ייפגעו אקדמית</li>
+            </ul>
+        </div>
+        <div>
+            <h3>המודל האמריקאי — חקיקת מדינות</h3>
+            <p>למעלה מ-24 מדינות בארה"ב חוקקו גרסאות של "Parents' Bill of Rights". המנגנונים כוללים:</p>
+            <ul class="checklist">
+                <li class="exists">זכות לצפות בכל חומר לימודי</li>
+                <li class="exists">הסכמה כתובה לתכני מיניות ומגדר</li>
+                <li class="exists">הגבלות גיל על תכנים ספציפיים</li>
+                <li class="exists">דיווח שנתי על ארגונים חיצוניים בבית הספר</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="quote-box blue">
+        המסקנה המרכזית: ישראל עומדת מחוץ לקונצנזוס בינלאומי מתהווה. מדינות דמוקרטיות מערביות — משמאל ומימין — הכירו בצורך להגן על זכות ההורים לדעת ולהחליט בנושאי חינוך ערכי. ישראל טרם עשתה זאת.
+        <div class="q-source">סיכום ניתוח השוואתי — מחקר דירוג ערים 2026</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LEGISLATION TAB ═══ -->
+<div id="view-legislation" class="view">
+
+<div class="section">
+    <h2>הצעות לחקיקה ורגולציה</h2>
+    <p>בישראל טרם נחקקה חקיקה ייעודית להגנת זכויות הורים בנושאי תוכן חינוכי. להלן הצעות שעלו ממחקרים ומארכיון אלכסון.</p>
+</div>
+
+<div class="section">
+    <h2>קוויר ותחום החינוך — חוק שקיפות מוסדית</h2>
+    <p>הצעת חוק לשקיפות מוסדית שנמצאה בארכיון אלכסון, המתייחסת לפעילות ארגונים חיצוניים במוסדות חינוך:</p>
+
+    <div class="law-item">
+        <div class="law-title">חובת גילוי ארגונים חיצוניים</div>
+        <div class="law-desc">חובה לדווח על כל ארגון חיצוני הנכנס לבית הספר — שמו, מטרותיו, מקורות מימונו ותכניו.</div>
+    </div>
+
+    <div class="law-item">
+        <div class="law-title">שקיפות תוכן</div>
+        <div class="law-desc">הורים חייבים לקבל גישה מלאה לתכנים שיועברו לילדיהם, לרבות חומרים כתובים, מצגות וסרטונים — לפני תחילת התוכנית.</div>
+    </div>
+
+    <div class="law-item">
+        <div class="law-title">עקרונות הזדהות עצמית (Self-ID) — חובת הודעה</div>
+        <div class="law-desc">כל תוכנית המציגה עקרונות של הזדהות עצמית (Self-Identification) בנושאי מגדר מחייבת הודעה מוקדמת ומפורשת להורים.</div>
+    </div>
+
+    <div class="law-item">
+        <div class="law-title">קוד אתי לארגונים העובדים עם קטינים</div>
+        <div class="law-desc">הגדרת כללי אתיקה מחייבים לכל ארגון המעביר תכנים לקטינים, כולל הפרדה בין מידע עובדתי לבין עמדות ערכיות.</div>
+    </div>
+
+    <div class="quote-box blue">
+        ההצעה מתייחסת לפסיקת בית המשפט העליון (21.12.2010) בנושא חופש אקדמי מול פלורליזם, וקובעת כי חופש אקדמי אינו מבטל את זכות ההורים לדעת ולהחליט בנושאים ערכיים הנוגעים לילדיהם.
+        <div class="q-source">על בסיס פסיקת בג"ץ 21.12.2010 — חופש אקדמי מול פלורליזם</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>חוק שקיפות מוסדית — הצעה מפורטת</h2>
+    <p>הצעת חקיקה שמטרתה ליצור מסגרת חוקית מקיפה להגנת זכויות הורים בחינוך:</p>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">גילוי תוכן מלא להורים</div>
+            <div class="step-desc">כל תוכנית חיצונית חייבת לחשוף את מלוא תכניה להורים לפני תחילת הפעילות. חל איסור על הסתרת תכנים מאחורי Paywall או תנאי סודיות.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">מנגנון Opt-out לתכנים ערכיים</div>
+            <div class="step-desc">הורים זכאים להוציא את ילדיהם מכל תוכנית העוסקת בערכים, אידיאולוגיה, מיניות או מגדר, מבלי שהדבר ישפיע על הציונים או המעמד האקדמי.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">דוח שנתי לפרסום</div>
+            <div class="step-desc">כל מוסד חינוכי חייב לפרסם דוח שנתי המפרט את כל הארגונים החיצוניים שפעלו בו, כולל נושאי הפעילות, היקף השעות ומקורות המימון.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">ועדת ביקורת עצמאית</div>
+            <div class="step-desc">הקמת גוף עצמאי הכולל נציגי הורים, אנשי חינוך ומשפטנים, שיבחן תכנים חינוכיים חיצוניים מנקודת מבט של זכויות הורים ורווחת הקטין.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מדוע חקיקה נדרשת — ולא רק רגולציה</h2>
+    <div class="grid-2">
+        <div>
+            <h3>למה חוזרי מנכ"ל לא מספיקים</h3>
+            <ul class="checklist">
+                <li class="missing">חוזרי מנכ"ל אינם חוק — אין עליהם אכיפה</li>
+                <li class="missing">ניתן לשנותם ללא הליך חקיקתי</li>
+                <li class="missing">אינם חלים על תוכניות שנכנסות דרך מחלקות רווחה/בריאות</li>
+                <li class="missing">אינם מעגנים זכות תביעה להורים</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מה חוק יעשה</h3>
+            <ul class="checklist">
+                <li class="exists">יעגן זכות חוקית להורים לקבל מידע ולהחליט</li>
+                <li class="exists">יחול על כל המסלולים — חינוך, רווחה, בריאות</li>
+                <li class="exists">יאפשר פנייה לבית משפט במקרה של הפרה</li>
+                <li class="exists">ייצור הרתעה מפני עקיפת מנגנוני פיקוח</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מקרים מתועדים</h2>
+
+    <a class="link-card" href="case_rehovot_parents_petition.html">
+        <div>
+            <div class="lc-title">עתירת הורים ברחובות</div>
+            <div class="lc-desc">מקרה בוחן: הורים נאלצו לפנות לבית משפט לשם העלאת סוגיית תכנים בבית הספר</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_delet_ptucha_beersheva.html">
+        <div>
+            <div class="lc-title">דלת פתוחה — באר שבע</div>
+            <div class="lc-desc">8,100 תלמידים נחשפו לתוכנית דרך מחלקת הרווחה ללא הסכמת הורים</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_gender_kindergartens.html">
+        <div>
+            <div class="lc-title">גני ילדים — תכני מגדר</div>
+            <div class="lc-desc">תכנים בנושא ספקטרום מגדרי שהוכנסו ללא ידיעת ההורים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מחקרים קשורים</h2>
+
+    <a class="link-card" href="funding_flows_municipal.html">
+        <div>
+            <div class="lc-title">זרימת מימון עירונית</div>
+            <div class="lc-desc">כיצד מימון ישיר מרשויות מקומיות עוקף פיקוח של משרד החינוך</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="safeschool_evidence.html">
+        <div>
+            <div class="lc-title">SafeSchool — עדויות</div>
+            <div class="lc-desc">תכנים שמוסתרים מאחורי Paywall: דוגמה חיה להיעדר שקיפות</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית</div>
+            <div class="lc-desc">צינור ההשפעה: מהאקדמיה לכיתה — "מתחת לרדאר, בלי שההורים ישימו לב"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — מפה ראשית</div>
+            <div class="lc-desc">דירוג 18 ערים: חינוך, מדיניות, פרוטוקולים ודגלים אדומים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>חקיקה בינלאומית — מקורות</h2>
+
+    <a class="link-card" href="https://www.legislation.gov.uk/ukpga/2017/16/section/34" target="_blank">
+        <div>
+            <div class="lc-title">UK — Children and Social Work Act 2017, Section 34</div>
+            <div class="lc-desc">הבסיס החוקי לחינוך ביחסים ומיניות (RSE) בבריטניה ולזכות ה-Opt-out</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://www.flsenate.gov/Session/Bill/2022/1557" target="_blank">
+        <div>
+            <div class="lc-title">Florida — Parental Rights in Education Act (HB 1557)</div>
+            <div class="lc-desc">חוק זכויות הורים בחינוך — פלורידה, 2022</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://capitol.texas.gov/BillLookup/History.aspx?LegSess=88R&Bill=SB15" target="_blank">
+        <div>
+            <div class="lc-title">Texas — SB 15 (2023)</div>
+            <div class="lc-desc">חובת הסכמה כתובה של הורים לתכנים על מגדר ומיניות</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: ארכיון אלכסון + חקיקה בינלאומית + Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

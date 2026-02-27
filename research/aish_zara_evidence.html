@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אש זרה — ראיות מתועדות של חינוך חותר במערכת הישראלית</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f3e5f5; color: #7b1fa2; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.video-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #667eea;
+}
+.video-card .vc-title { font-weight: 700; color: #1a1a2e; font-size: 1.05em; margin-bottom: 4px; }
+.video-card .vc-file { font-size: 0.8em; color: #667eea; margin-bottom: 6px; font-family: monospace; direction: ltr; text-align: right; }
+.video-card .vc-desc { font-size: 0.88em; color: #555; margin-bottom: 6px; }
+.video-card .vc-evidence { font-size: 0.85em; color: #333; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; }
+.video-card .vc-evidence strong { color: #e74c3c; }
+
+.doc-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #ff8800;
+}
+.doc-card .dc-title { font-weight: 700; color: #1a1a2e; font-size: 1.05em; margin-bottom: 4px; }
+.doc-card .dc-meta { font-size: 0.82em; color: #667eea; margin-bottom: 6px; }
+.doc-card .dc-desc { font-size: 0.88em; color: #555; }
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 20px; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        אש זרה — ראיות
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('quotes')">ציטוטים מתועדים</button>
+        <button class="nav-tab" onclick="showView('videos')">סרטוני ראיה</button>
+        <button class="nav-tab" onclick="showView('documents')">מסמכים</button>
+        <button class="nav-tab" onclick="showView('sources')">מקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>אש זרה — ראיות מתועדות של חינוך חותר במערכת הישראלית</h1>
+    <div class="subtitle">אוסף ציטוטים, סרטונים, ומסמכים ראשוניים המתעדים את האסטרטגיה בפועל</div>
+    <div class="meta">הכל בפה של השחקנים עצמם — אלה לא האשמות, הם אמרו את זה</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">8+</div><div class="lbl">ציטוטים מתועדים</div></div>
+        <div class="stat"><div class="num">9+</div><div class="lbl">סרטוני ראיה</div></div>
+        <div class="stat"><div class="num">5+</div><div class="lbl">מסמכים ראשוניים</div></div>
+        <div class="stat"><div class="num">100%</div><div class="lbl">הכל בפה של השחקנים עצמם</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>מהי "אש זרה"?</h2>
+    <p>"אש זרה" (Foreign Fire) הוא אוסף ראיות מקיף המתעד כיצד תכנים אידיאולוגיים רדיקליים חודרים למערכת החינוך הישראלית. הראיות מבוססות על שלושה סוגי מקורות ראשוניים:</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">סוג ראיה 1</div>
+            <div class="value">ציטוטים</div>
+            <div class="note">ציטוטים ישירים מדמויות מפתח, שנאמרו בפומבי, בהם הם מתארים את האסטרטגיה במפורש</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">סוג ראיה 2</div>
+            <div class="value">סרטונים</div>
+            <div class="note">קטעי וידאו בהם הדמויות מדברות במילים שלהם — עדות ישירה ובלתי ניתנת להכחשה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">סוג ראיה 3</div>
+            <div class="value">מסמכים</div>
+            <div class="note">מסמכים פנימיים, תוכניות לימודים, מצגות ופרסומים אקדמיים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>העיקרון המנחה</h2>
+    <p>האוסף הזה בנוי על עיקרון אחד: <strong>אלה לא האשמות חיצוניות — הם אמרו את זה בעצמם.</strong></p>
+    <p>כל ראיה באוסף הזה מגיעה מהפה של השחקנים עצמם: מרצים, אקדמאים, ופעילים שמתארים בגלוי את האסטרטגיה שלהם — "חינוך חותר", "עבודה חתרנית", "מהפכה מתחת לרדאר". הם לא מתביישים בזה; הם מתגאים בזה — כל עוד הם חושבים שרק אנשי שלומם מקשיבים.</p>
+
+    <div class="quote-box">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+        <div class="q-source">ד"ר ניר מיכאלי — סרטון מכנס חינוך 2021/2022</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מבנה הראיות</h2>
+    <div class="grid-2">
+        <div>
+            <h3>מה תמצאו כאן</h3>
+            <p><strong>ציטוטים מתועדים</strong> — 8 ציטוטים ישירים מדמויות מפתח, עם ייחוס מלא למקור.</p>
+            <p><strong>סרטוני ראיה</strong> — 9 קטעי וידאו מארכיון אלכסון, עם תיאור מה כל סרטון מתעד ולמה הוא ראיה.</p>
+            <p><strong>מסמכים ראשוניים</strong> — 5 מסמכים מרכזיים מהארכיון, כולל ספרים, מסמכי מדיניות, ודוחות.</p>
+        </div>
+        <div>
+            <h3>למה זה חשוב</h3>
+            <p>הארכיון הזה מפריך את הטענה ש"זה רק חשיבה ביקורתית". הדמויות עצמן משתמשות במילים כמו "מהפכה קומוניסטית", "עבודה חתרנית", "מישור סמוי" — ואז מציגות את אותו תוכן בדיוק כ"חשיבה ביקורתית" או "חוסן רגשי" כשהם מדברים עם הורים ומקבלי החלטות.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניתוחים קשורים</h2>
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית — סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: מהאקדמיה לכיתה</div>
+        </div>
+    </a>
+    <a class="link-card" href="semantic_shifting_glossary.html">
+        <div>
+            <div class="lc-title">מילון ההמרה הסמנטית</div>
+            <div class="lc-desc">כיצד מונחים רדיקליים הופכים לשפה "ניטרלית"</div>
+        </div>
+    </a>
+    <a class="link-card" href="teacher_training_capture.html">
+        <div>
+            <div class="lc-title">לכידת הכשרת המורים</div>
+            <div class="lc-desc">כיצד מכללות להכשרת מורים מכשירות "סוכני שינוי"</div>
+        </div>
+    </a>
+    <a class="link-card" href="ken_bebeit_safrenu.html">
+        <div>
+            <div class="lc-title">"כן בבית ספרנו" — ניתוח הספר</div>
+            <div class="lc-desc">הספר שמשווה במפורש פדגוגיה ביקורתית לפרשנות מרקסיסטית</div>
+        </div>
+    </a>
+    <a class="link-card" href="radicals_dashboard.html">
+        <div>
+            <div class="lc-title">לוח בקרה — דמויות רדיקליות</div>
+            <div class="lc-desc">מיפוי רשת הפעילים, האקדמאים, והמוסדות</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<!-- ═══ QUOTES TAB ═══ -->
+<div id="view-quotes" class="view">
+
+<div class="section">
+    <h2>ציטוטים מתועדים — בפה שלהם</h2>
+    <p>כל ציטוט כאן הוא עדות ישירה: נאמר בפומבי, מתועד בסרטון או בכתב, עם ייחוס מלא למקור. אלה לא פרשנויות — אלה המילים שלהם.</p>
+</div>
+
+<div class="section">
+    <h3>1. ד"ר ניר מיכאלי — "מהפכה קומוניסטית בכיתה מתחת לרדאר"</h3>
+    <p><span class="badge red">סרטון</span> <span class="badge red">ציטוט ישיר</span></p>
+    <div class="quote-box">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+        <div class="q-source">מקור: סרטון מכנס חינוך 2021/2022 | ד"ר ניר מיכאלי, לשעבר רקטור סמינר הקיבוצים</div>
+    </div>
+    <p>הציטוט הזה הוא אולי הראיה הבודדת החזקה ביותר: רקטור של מכללה להכשרת מורים מדבר במפורש על "מהפכה קומוניסטית" בכיתה, ומדגיש שזה צריך להיות "מתחת לרדאר" — כלומר, בהסתרה מכוונת מההורים.</p>
+</div>
+
+<div class="section">
+    <h3>2. ד"ר ניר מיכאלי — "חינוך חותר" כאסטרטגיה</h3>
+    <p><span class="badge blue">ספר</span> <span class="badge red">ציטוט ישיר</span></p>
+    <div class="quote-box">
+        "חינוך חותר" = היכולת של המורה לפעול כסוכן פוליטי בתוך המערכת הממלכתית תוך שימוש בשפה פדגוגית לגיטימית.
+        <div class="q-source">מקור: "כן בבית ספרנו" (2014), בעריכת ד"ר ניר מיכאלי</div>
+    </div>
+    <p>מיכאלי לא מסתפק בסרטון אחד. בספר "כן בבית ספרנו" (2014) שהוא עצמו ערך, הוא מגדיר במפורש את המושג "חינוך חותר" — המורה כ"סוכן פוליטי" שמשתמש בשפה פדגוגית כמסווה.</p>
+</div>
+
+<div class="section">
+    <h3>3. "כן בבית ספרנו" — הגדרה רשמית של פדגוגיה ביקורתית</h3>
+    <p><span class="badge purple">הגדרה רשמית</span></p>
+    <div class="quote-box">
+        פדגוגיה ביקורתית = "פרשנות מרקסיסטית"
+        <div class="q-source">מקור: "כן בבית ספרנו" (2014), עמ' 13 | הוצאת מכון מופ"ת + הסתדרות המורים</div>
+    </div>
+    <p>בעמוד 13 של הספר, בהוצאת מכון מופ"ת (הגוף הרשמי לפיתוח מקצועי של מורים) בשיתוף הסתדרות המורים, מופיעה ההגדרה המפורשת: פדגוגיה ביקורתית היא "פרשנות מרקסיסטית". לא פרשנות שלנו — ההגדרה שלהם.</p>
+</div>
+
+<div class="section">
+    <h3>4. גלית זלמנסון-לוי — מישור גלוי, מישור סמוי, עבודה חתרנית</h3>
+    <p><span class="badge red">סרטון</span> <span class="badge orange">אסטרטגיה</span></p>
+    <div class="quote-box">
+        מישור גלוי — מישור סמוי — עבודה חתרנית
+        <div class="q-source">מקור: סרטון מכנס פדגוגיה ביקורתית | גלית זלמנסון-לוי</div>
+    </div>
+    <p>זלמנסון-לוי מתארת במפורש מודל של פעולה בשני מישורים: גלוי (לגיטימי) וסמוי (חתרני). זהו אישור ישיר לטענה שיש אסטרטגיה מכוונת של הצגת פנים אחת כלפי חוץ ופעולה אחרת כלפי פנים.</p>
+</div>
+
+<div class="section">
+    <h3>5. קרן קטקו-איילי — "אבן הרוזטה" של השפה הכפולה</h3>
+    <p><span class="badge green">אבן הרוזטה</span> <span class="badge orange">שפה כפולה</span></p>
+    <div class="quote-box blue">
+        אותו מודל בדיוק מוצג כ"פדגוגיה אקטיביסטית" (מאמר אקדמי 2020) וכ"חשיבה ביקורתית" (מסמך ממשלתי 2024).
+        <div class="q-source">מקור: שני מאמרים מתועדים של קרן קטקו-איילי — 2020 (אקדמי) ו-2024 (ממשלתי)</div>
+    </div>
+    <p>זוהי "אבן הרוזטה" של הפרויקט כולו: אותה חוקרת, אותו מודל, שפה שונה לחלוטין. במאמר האקדמי (2020) השפה רדיקלית וגלויה — "פדגוגיה אקטיביסטית". במסמך הממשלתי (2024) אותו תוכן בדיוק מוצג כ"חשיבה ביקורתית". זוהי ראיה ישירה להמרה סמנטית מכוונת.</p>
+</div>
+
+<div class="section">
+    <h3>6. הנרי ז'ירו (Henry Giroux) — למה "ביקורתי" ולא "רדיקלי"</h3>
+    <p><span class="badge blue">תיאורטיקן מייסד</span></p>
+    <div class="quote-box blue">
+        בחר במילה "ביקורתי" (critical) במקום "רדיקלי" (radical) כי האחרונה "מפחידה אנשים".
+        <div class="q-source">מקור: פרסומים אקדמיים של Henry Giroux | תיאורטיקן מייסד של הפדגוגיה הביקורתית</div>
+    </div>
+    <p>ז'ירו הוא אחד מאבות הפדגוגיה הביקורתית ומקור ההשראה המרכזי של המרכז בסמינר הקיבוצים. ההודאה שלו שהמילה "ביקורתי" נבחרה במכוון כי "רדיקלי מפחיד אנשים" מאששת את הטענה שהריכוך הטרמינולוגי הוא אסטרטגיה מכוונת מהיסוד — לא התפתחות טבעית.</p>
+</div>
+
+<div class="section">
+    <h3>7. "הזהות הציונית צריכה להתערער"</h3>
+    <p><span class="badge red">סרטון</span> <span class="badge red">ציטוט ישיר</span></p>
+    <div class="quote-box">
+        "הזהות הציונית צריכה להתערער"
+        <div class="q-source">מקור: מצגת "אמיתי" בארכיון אלכסון | סרטון מתועד</div>
+    </div>
+    <p>ציטוט ישיר מתוך מצגת שנחשפה בארכיון אלכסון. לא מדובר בחשיבה ביקורתית על ציונות — מדובר בהצהרה מפורשת שהמטרה היא לערער את הזהות הציונית של התלמידים.</p>
+</div>
+
+<div class="section">
+    <h3>8. "רק מדכאים ומדוכאים"</h3>
+    <p><span class="badge red">סרטון</span> <span class="badge purple">מסגרת מרקסיסטית</span></p>
+    <div class="quote-box">
+        "רק מדכאים ומדוכאים"
+        <div class="q-source">מקור: מצגת "אמיתי" בארכיון אלכסון | סרטון מתועד</div>
+    </div>
+    <p>כל המציאות מצומצמת לעדשה בינארית אחת: מדכאים מול מדוכאים. זוהי המסגרת המרקסיסטית הקלאסית של פריירה — ולא "חשיבה ביקורתית" במובן האקדמי המקובל. כשמגישים את זה לתלמידים, כל מצב חברתי נתפס דרך עדשה של כוח ודיכוי.</p>
+</div>
+
+</div>
+
+<!-- ═══ VIDEOS TAB ═══ -->
+<div id="view-videos" class="view">
+
+<div class="section">
+    <h2>סרטוני ראיה — מארכיון אלכסון</h2>
+    <p>הסרטונים הבאים שמורים בארכיון אלכסון. כל סרטון מתעד דמויות מפתח מדברות במילים שלהן על האסטרטגיה. אלה לא סרטונים שצולמו בסתר — אלה הרצאות, כנסים, ומצגות שהדוברים עצמם העלו או הסכימו לתיעודם.</p>
+</div>
+
+<div class="section">
+    <div class="video-card">
+        <div class="vc-title">ניר מיכאלי ותשובה לניר מיכאלי</div>
+        <div class="vc-file">ניר מיכאלי ותשובה לניר מיכאלי.mp4</div>
+        <p><span class="badge red">ציטוט ישיר</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="vc-desc">ד"ר ניר מיכאלי מדבר על "מהפכה קומוניסטית בכיתה מתחת לרדאר" + תגובה וניתוח.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> רקטור של מכללה להכשרת מורים מודה בגלוי שהמטרה היא מהפכה פוליטית בכיתה, בהסתרה מכוונת מהורים. זהו אישור ישיר לטענה המרכזית.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">הזהות הציונית צריכה להתערער</div>
+        <div class="vc-file">הזהות הציונית צריכה להתערער.mp4</div>
+        <p><span class="badge red">ציטוט ישיר</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="vc-desc">דובר מצהיר במפורש שהמטרה היא ערעור הזהות הציונית של התלמידים.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> חושף את המטרה האמיתית מאחורי "חשיבה ביקורתית" — לא ללמד לחשוב, אלא לערער זהות ספציפית.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">רק מדכאים ומדוכאים</div>
+        <div class="vc-file">רק מדכאים ומדוכאים.mp4</div>
+        <p><span class="badge red">ציטוט ישיר</span> <span class="badge purple">מסגרת מרקסיסטית</span></p>
+        <div class="vc-desc">הצגת המציאות כולה דרך עדשה בינארית של מדכאים מול מדוכאים — המסגרת המרקסיסטית הקלאסית.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> מוכיח שמה שמוצג כ"חשיבה ביקורתית" הוא למעשה החדרת מסגרת מרקסיסטית ספציפית — עדשת כוח ודיכוי על כל מצב חברתי.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">להזדהות עם האויב</div>
+        <div class="vc-file">להזדהות עם האויב.mp4</div>
+        <p><span class="badge red">ציטוט ישיר</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="vc-desc">דובר מציג את הצורך "להזדהות עם האויב" כערך חינוכי.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> חושף כיצד "אמפתיה" ו"ראיית האחר" משמשות כמסווה להחדרת עמדה פוליטית ספציפית במסגרת חינוכית.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">גליה זלמנסון — פדגוגיה ביקורתית</div>
+        <div class="vc-file">גליה זלמנסון - פדגוגיה ביקורתית.mp4</div>
+        <p><span class="badge orange">אסטרטגיה</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="vc-desc">גלית זלמנסון-לוי מסבירה את מודל הפעולה הכפול: מישור גלוי (לגיטימי) ומישור סמוי (חתרני).</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> אישור ישיר מפי אחת הפעילות המרכזיות שיש אסטרטגיה מכוונת של הסוואה — "עבודה חתרנית" מאחורי פנים לגיטימיות.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">ניר מיכאלי — שטיפת מוח</div>
+        <div class="vc-file">ניר מיכאלי - שטיפת מוח.mp4</div>
+        <p><span class="badge red">ציטוט ישיר</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="vc-desc">ד"ר ניר מיכאלי מתייחס למושג "שטיפת מוח" בהקשר חינוכי.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> הסרטון מתעד את הדיון הפנימי על הגבול בין "חינוך" ל"שטיפת מוח" — ומאיר את המודעות לבעייתיות מצד הפעילים עצמם.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">קדמה — ביקורתיים, חתרניים, חינוך פוליטי</div>
+        <div class="vc-file">קדמה - ביקורתיים - חתרניים - חינוך פוליטי.mp4</div>
+        <p><span class="badge orange">אסטרטגיה</span> <span class="badge purple">מסגרת מרקסיסטית</span></p>
+        <div class="vc-desc">ארגון קדמה מציג את עצמו כ"ביקורתי", "חתרני", ועוסק ב"חינוך פוליטי" — בשפה שלהם.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> ארגון שפועל במערכת החינוך מגדיר את עצמו בגלוי כ"חתרני" ו"פוליטי" — ואז מציג את עצמו כ"חינוכי" כלפי הורים ומקבלי החלטות.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">The March Through the Institutions</div>
+        <div class="vc-file">the march through the institutions.mp4</div>
+        <p><span class="badge blue">תיאורטיקן מייסד</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="vc-desc">תיעוד של אסטרטגיית "המסע הארוך דרך המוסדות" (Long March Through the Institutions) — המושג של גרמשי/דוצ'קה.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> מקשר את הפעילות בישראל לאסטרטגיה בינלאומית מתועדת של חדירה אידיאולוגית למוסדות — לא בדיעבד, אלא כתוכנית מוצהרת.</div>
+    </div>
+
+    <div class="video-card">
+        <div class="vc-title">מישור גלוי — מישור סמוי — עבודה חתרנית</div>
+        <div class="vc-file">מישור גלוי - מישור סמוי - עבודה חתרנית.mp4</div>
+        <p><span class="badge orange">אסטרטגיה</span> <span class="badge red">ציטוט ישיר</span></p>
+        <div class="vc-desc">תיעוד מפורש של מודל הפעולה הכפול: מישור גלוי לגיטימי ומישור סמוי חתרני.</div>
+        <div class="vc-evidence"><strong>למה זו ראיה:</strong> זהו הסרטון שמתעד באופן המפורש ביותר את מודל ה"חדירה הכפולה" — פנים לגיטימיות כלפי חוץ, אג'נדה רדיקלית כלפי פנים. בפה שלהם, במילים שלהם.</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ DOCUMENTS TAB ═══ -->
+<div id="view-documents" class="view">
+
+<div class="section">
+    <h2>מסמכים ראשוניים — מהארכיון</h2>
+    <p>המסמכים הבאים הם מקורות ראשוניים — ספרים, מסמכי מדיניות, ודוחות שמתעדים את האסטרטגיה מבפנים.</p>
+</div>
+
+<div class="section">
+    <div class="doc-card">
+        <div class="dc-title">"כן בבית ספרנו" (2014)</div>
+        <div class="dc-meta">ספר | הוצאת מכון מופ"ת + הסתדרות המורים | בעריכת ד"ר ניר מיכאלי</div>
+        <p><span class="badge red">מסמך מפתח</span> <span class="badge purple">הגדרה רשמית</span></p>
+        <div class="dc-desc">
+            <p>הספר שמשווה במפורש, בעמוד 13, בין פדגוגיה ביקורתית לבין "פרשנות מרקסיסטית". זהו המסמך המרכזי ביותר כי הוא יצא בהוצאה רשמית (מכון מופ"ת) בשיתוף הסתדרות המורים — כלומר, ההגדרה הזו לא באה מבחוץ, היא ההגדרה הפנימית שלהם.</p>
+            <p>הספר מגדיר את תפקיד המורה כ"סוכן שינוי" ואת "חינוך חותר" כאסטרטגיה לגיטימית.</p>
+        </div>
+    </div>
+
+    <div class="doc-card">
+        <div class="dc-title">SEL.docx — מסמך תוכנית SEL מקיף</div>
+        <div class="dc-meta">מסמך Word | 3.5MB | תיעוד תוכנית למידה חברתית-רגשית</div>
+        <p><span class="badge orange">תוכנית לימודים</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="dc-desc">
+            <p>מסמך מקיף המתעד תוכנית למידה חברתית-רגשית (SEL). חשיבותו בכך שהוא מראה כיצד תכנים אידיאולוגיים מוטמעים בתוך מסגרת ש"נשמעת" ניטרלית ומקצועית.</p>
+            <p>SEL הפך לכלי המרכזי להחדרת תכנים מבלי שהורים יזהו את האג'נדה — כי מי יתנגד ל"חוסן רגשי" או "מיומנויות חברתיות"?</p>
+        </div>
+    </div>
+
+    <div class="doc-card">
+        <div class="dc-title">קתדרת אונסק"ו לחינוך הומניסטי — דו"ח מצב</div>
+        <div class="dc-meta">דו"ח | קתדרת UNESCO בסמינר הקיבוצים | פרופ' נמרוד אלוני</div>
+        <p><span class="badge blue">מוסדי</span> <span class="badge green">בינלאומי</span></p>
+        <div class="dc-desc">
+            <p>דו"ח המתעד את פעילות קתדרת UNESCO לחינוך הומניסטי בסמינר הקיבוצים. הקתדרה מהווה את הצומת המרכזי שבו מסגרות בינלאומיות מתורגמות למדיניות חינוך ישראלית.</p>
+            <p>חשיבות הדו"ח: מראה כיצד לגיטימציה בינלאומית (UNESCO) משמשת כ"מגן" מפני ביקורת על התכנים עצמם.</p>
+        </div>
+    </div>
+
+    <div class="doc-card">
+        <div class="dc-title">שיח כפוי ומיגור האמת בתחום החינוך</div>
+        <div class="dc-meta">מסמך ניתוח | ארכיון אלכסון</div>
+        <p><span class="badge red">ביקורת</span> <span class="badge blue">ארכיון אלכסון</span></p>
+        <div class="dc-desc">
+            <p>מסמך המנתח כיצד השיח החינוכי בישראל הפך ל"שיח כפוי" — מצב שבו ביקורת על גישות חינוכיות מסוימות מושתקת או מתויגת כ"פוביה", "בורות", או "ימנוניות".</p>
+            <p>המסמך מתעד דוגמאות קונקרטיות של דיכוי עמדות חולקות בתוך מערכת החינוך.</p>
+        </div>
+    </div>
+
+    <div class="doc-card">
+        <div class="dc-title">חוק שקיפות מוסדית — הצעת חוק</div>
+        <div class="dc-meta">הצעת חוק | מסמך מדיניות</div>
+        <p><span class="badge green">מדיניות</span> <span class="badge orange">הצעת חוק</span></p>
+        <div class="dc-desc">
+            <p>הצעת חוק לשקיפות מוסדית שתחייב מוסדות חינוך לחשוף את התכנים האידיאולוגיים המוטמעים בתוכניות הלימודים שלהם.</p>
+            <p>חשיבות המסמך: מציע מנגנון מוסדי שיאפשר להורים ולציבור לדעת מה באמת מלמדים את ילדיהם — כי כל האסטרטגיה מבוססת על כך שההורים לא יודעים.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ SOURCES TAB ═══ -->
+<div id="view-sources" class="view">
+
+<div class="section">
+    <h2>מקורות ומוצא — טבלת ייחוס</h2>
+    <p>כל ראיה באוסף הזה מיוחסת למקור ספציפי, עם סוג המקור ותאריך הגילוי או הפרסום. השקיפות הזו חיונית: אם טוענים שהראיות מדברות בעד עצמן, צריך לאפשר לכל אחד לבדוק אותן באופן עצמאי.</p>
+
+    <table>
+        <tr>
+            <th>ראיה</th>
+            <th>מקור</th>
+            <th>סוג</th>
+            <th>תאריך גילוי</th>
+        </tr>
+        <tr>
+            <td>ציטוט מיכאלי — "מהפכה קומוניסטית בכיתה"</td>
+            <td>סרטון כנס חינוך</td>
+            <td><span class="badge red">סרטון ראשוני</span></td>
+            <td>2021/2022</td>
+        </tr>
+        <tr>
+            <td>מיכאלי — "חינוך חותר"</td>
+            <td>"כן בבית ספרנו" (2014)</td>
+            <td><span class="badge blue">ספר</span></td>
+            <td>2014</td>
+        </tr>
+        <tr>
+            <td>"כן בבית ספרנו" עמ' 13 — "פרשנות מרקסיסטית"</td>
+            <td>ספר מופ"ת 2014</td>
+            <td><span class="badge purple">מסמך ראשוני</span></td>
+            <td>2014</td>
+        </tr>
+        <tr>
+            <td>זלמנסון-לוי — "מישור גלוי, מישור סמוי"</td>
+            <td>סרטון כנס פדגוגיה ביקורתית</td>
+            <td><span class="badge red">סרטון ראשוני</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+        <tr>
+            <td>קטקו-איילי — אבן הרוזטה</td>
+            <td>שני מאמרים אקדמיים</td>
+            <td><span class="badge blue">מאמר ראשוני</span></td>
+            <td>2020 + 2024</td>
+        </tr>
+        <tr>
+            <td>ז'ירו — "ביקורתי" במקום "רדיקלי"</td>
+            <td>פרסומים אקדמיים של Giroux</td>
+            <td><span class="badge blue">מאמר ראשוני</span></td>
+            <td>פרסומים אקדמיים</td>
+        </tr>
+        <tr>
+            <td>"הזהות הציונית צריכה להתערער"</td>
+            <td>מצגת "אמיתי" — ארכיון אלכסון</td>
+            <td><span class="badge red">סרטון ראשוני</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+        <tr>
+            <td>"רק מדכאים ומדוכאים"</td>
+            <td>מצגת "אמיתי" — ארכיון אלכסון</td>
+            <td><span class="badge red">סרטון ראשוני</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+        <tr>
+            <td>SEL.docx — מסמך תוכנית SEL</td>
+            <td>ארכיון אלכסון</td>
+            <td><span class="badge orange">מסמך ראשוני</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+        <tr>
+            <td>קתדרת אונסק"ו — דו"ח מצב</td>
+            <td>סמינר הקיבוצים / UNESCO</td>
+            <td><span class="badge green">מסמך מוסדי</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+        <tr>
+            <td>שיח כפוי ומיגור האמת</td>
+            <td>ארכיון אלכסון</td>
+            <td><span class="badge orange">מסמך ניתוח</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+        <tr>
+            <td>חוק שקיפות מוסדית</td>
+            <td>הצעת חוק</td>
+            <td><span class="badge green">מסמך מדיניות</span></td>
+            <td>ארכיון אלכסון</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>על הארכיון</h2>
+    <p>ארכיון אלכסון הוא אוסף מתועד של ראיות ראשוניות — סרטונים, מסמכים, מצגות ופרסומים — שנאספו ממקורות פומביים. הארכיון אינו מייצר ראיות; הוא שומר ומסדר ראיות שהשחקנים עצמם יצרו ופרסמו.</p>
+    <p>העיקרון המנחה: כל ראיה חייבת להיות מיוחסת, ניתנת לאימות, ומבוססת על מקור ראשוני — לא על פרשנות צד שלישי.</p>
+</div>
+
+<div class="section">
+    <h2>קישורים לניתוחים נוספים</h2>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית — סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי מלא: מ-UNESCO לכיתה</div>
+        </div>
+    </a>
+    <a class="link-card" href="semantic_shifting_glossary.html">
+        <div>
+            <div class="lc-title">מילון ההמרה הסמנטית</div>
+            <div class="lc-desc">כיצד "רדיקלי" הפך ל"ביקורתי" הפך ל"חשיבה ביקורתית"</div>
+        </div>
+    </a>
+    <a class="link-card" href="teacher_training_capture.html">
+        <div>
+            <div class="lc-title">לכידת הכשרת המורים</div>
+            <div class="lc-desc">כיצד מכללות מכשירות "סוכני שינוי" במקום מורים</div>
+        </div>
+    </a>
+    <a class="link-card" href="ken_bebeit_safrenu.html">
+        <div>
+            <div class="lc-title">"כן בבית ספרנו" — ניתוח הספר</div>
+            <div class="lc-desc">ניתוח מפורט של הספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית"</div>
+        </div>
+    </a>
+    <a class="link-card" href="radicals_dashboard.html">
+        <div>
+            <div class="lc-title">לוח בקרה — דמויות רדיקליות</div>
+            <div class="lc-desc">מיפוי רשת הפעילים, האקדמאים, והמוסדות</div>
+        </div>
+    </a>
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — דף ראשי</div>
+            <div class="lc-desc">חזרה לדירוג 18 הערים</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: ארכיון אלכסון — מסמכים ראשוניים | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

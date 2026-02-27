@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>גבעת חביבה — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">דיוקן מוסדי</a> <a href="#section-2">השומר הצעיר</a> <a href="#section-3">תוכניות חינוך</a> <a href="#section-4">אנשי מפתח</a> <a href="#section-5">מבחן אמר-עשה</a> <a href="#section-6">סיכום</a></span>
+</nav>
+
+<div class="hero">
+  <h1>גבעת חביבה</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fef3e2;color:#e67e22;font-weight:600;font-size:0.85em;margin:8px 0;">שמאל — עמדה שקופה</div>
+  <div class="subtitle">חבצלת מוסדות תרבות וחנוך של השומר הצעיר (חל"צ) | ח"פ 510490451</div>
+  <div class="meta">דוח מחקר עומק | מקור ראשי: מאגר וינברג + אתר הארגון</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">דיוקן מוסדי: גבעת חביבה — 75 שנה של פעילות</a></li>
+<li><a href="#section-2">השורשים: השומר הצעיר ותנועת הקיבוצים</a></li>
+<li><a href="#section-3">התוכניות החינוכיות: "חברה משותפת" בכיתה</a></li>
+<li><a href="#section-4">אנשי מפתח ורשת קשרים</a></li>
+<li><a href="#section-5">מבחן אמר-עשה: שקיפות אידיאולוגית</a></li>
+<li><a href="#section-6">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>דיוקן מוסדי: גבעת חביבה — 75 שנה של פעילות</h2>
+<p>גבעת חביבה היא אחד הארגונים הוותיקים והגדולים ביותר במגזר השלישי בישראל, בפעילות רצופה מאז 1949. הארגון רשום כחברה לתועלת הציבור (חל"צ) תחת השם הרשמי "חבצלת מוסדות תרבות וחנוך של השומר הצעיר".</p>
+
+<div class="thesis">
+<strong>תיאור וינברג (מאגר DB):</strong> "ארגון שמאל תחתיו פועל 'המרכז יהודי ערבי לשלום', המרכז 'הגדול והמוביל בישראל למען השכנת שלום והתפייסות בין הישראלים לפלסטינאים ולמען עידוד ההבנה בין יהודים לערבים'. במסגרת המרכז פועל הארגון בשת"פ עם משרד החינוך בנושא חיים משותפים."
+<br><span class="source-tag">מקור: מאגר וינברג, מס"ד 1102</span>
+</div>
+
+<table>
+<tr><th>נתון</th><th>פירוט</th></tr>
+<tr><td>שם רשמי</td><td>חבצלת מוסדות תרבות וחנוך של השומר הצעיר (חל"צ)</td></tr>
+<tr><td>שם מיתוג</td><td>Givat Haviva — The Center for Shared Society</td></tr>
+<tr><td>ח"פ</td><td>510490451</td></tr>
+<tr><td>שנת ייסוד</td><td>1949</td></tr>
+<tr><td>מייסד</td><td>תנועת השומר הצעיר / התנועה הקיבוצית</td></tr>
+<tr><td>מיקום</td><td>מועצה אזורית מנשה (קמפוס)</td></tr>
+<tr><td>סיווג וינברג</td><td>"ארגון שמאל"</td></tr>
+<tr><td>פרסים</td><td>פרס אונסק"ו לחינוך לשלום (2001)</td></tr>
+</table>
+
+<p>גבעת חביבה מתפקדת כקמפוס חינוכי עצמאי הכולל: מכון ללימודי ערבית, מרכז לאמנות משותפת, חללי כנסים, ותוכניות חינוכיות לבתי ספר ומבוגרים כאחד. הארגון זכה בפרס אונסק"ו לחינוך לשלום בשנת 2001 — פרס בינלאומי שמעניק ללגיטימציה בינלאומית משמעותית.</p>
+</div>
+
+  <div class="section" id="section-2">
+<h2>השורשים: השומר הצעיר ותנועת הקיבוצים</h2>
+<p>השם הרשמי מגלה הכל: <strong>"חבצלת מוסדות תרבות וחנוך של השומר הצעיר"</strong>. גבעת חביבה נוסדה ב-1949 על ידי תנועת השומר הצעיר — תנועת נוער ציונית-סוציאליסטית שמקורה בפולין, שמאז ומתמיד זוהתה עם השמאל המובהק בישראל.</p>
+
+<h3>מה זה "השומר הצעיר"?</h3>
+<ul>
+<li><strong>אידיאולוגיה:</strong> ציונות-סוציאליסטית, מארקסיזם בגרסתו הקיבוצית</li>
+<li><strong>עמדה פוליטית:</strong> שמאל מובהק — תמיד תמכו בפשרות טריטוריאליות, דו-קיום עם ערבים, ולעיתים אף תמכו ברעיון המדינה הדו-לאומית</li>
+<li><strong>מפלגות:</strong> היוו את הבסיס למפ"ם, שמאוחר יותר התמזגה למרצ</li>
+<li><strong>תנועת הקיבוצים:</strong> הקיבוץ הארצי (השומר הצעיר) היה הגוף הקיבוצי השמאלני ביותר</li>
+</ul>
+
+<p>בניגוד לארגונים אחרים שמסתירים את שורשיהם האידיאולוגיים, גבעת חביבה שומרת על הקשר הגלוי עם השומר הצעיר — השם הרשמי לא השתנה מאז 1949. זוהי שקיפות אידיאולוגית.</p>
+
+<h3>המרכז היהודי-ערבי לשלום</h3>
+<p>לב הפעילות של גבעת חביבה הוא "המרכז היהודי-ערבי לשלום", שמתואר (כולל על ידי הארגון עצמו) כ"הגדול והמוביל בישראל". זהו מרכז ממוסד ובעל תשתית פיזית (קמפוס) שמפעיל תוכניות חינוכיות נרחבות בשיתוף פעולה עם משרד החינוך.</p>
+<span class="source-tag">מקור: מאגר וינברג, מס"ד 1102</span>
+</div>
+
+  <div class="section" id="section-3">
+<h2>התוכניות החינוכיות: "חברה משותפת" בכיתה</h2>
+<p>גבעת חביבה מפעילה מערך חינוכי נרחב בשיתוף עם משרד החינוך:</p>
+
+<h3>תוכניות מרכזיות</h3>
+<ul>
+<li><strong>ימ"י (ילדים מלמדים ילדים):</strong> תוכנית מפגשים שנתית בין כיתות יהודיות וערביות — ילדים פוגשים ילדים מהקהילה האחרת למשך שנה שלמה</li>
+<li><strong>"שפה משותפת":</strong> תוכנית ללימוד עברית לתלמידים ערבים דרך מפגשים עם מורים יהודים, כולל מחנות קיץ (120 נוער ערבי ללימוד עברית מדוברת)</li>
+<li><strong>מכון ללימודי ערבית:</strong> הכשרת מורים ותלמידים בשפה הערבית</li>
+<li><strong>מנהיגות משותפת:</strong> תוכניות לפיתוח מנהיגות יהודית-ערבית, כולל מנהיגות נשים</li>
+<li><strong>מרכז אמנות משותפת:</strong> גלריה, בית ספר לקרמיקה, מחנות אמנות, תערוכות</li>
+<li><strong>"פורחים בהייטק" ו"אתגרים":</strong> תוכניות טכנולוגיה לאוכלוסיות מעורבות</li>
+<li><strong>מדד השותפות:</strong> פרסום שנתי המודד את מצב היחסים היהודיים-ערביים בישראל</li>
+</ul>
+<span class="source-tag">מקור: אתר גבעת חביבה — givathaviva.org.il</span>
+
+<p>המנכ"לית מיכל סלע מדגישה עשייה קהילתית ישירה, לא קמפיינים או מחקר תיאורטי. הארגון רואה בשותפות יהודית-ערבית את "היסוד המרכזי בתפיסת העולם והערכים של הארגון", וחזונו: "חברה דמוקרטית, שוויונית ומשגשגת לכל אזרחיה ותושביה, השואפת לשלום עם שכניה ולפתרון מדיני מבוסס שתי מדינות החיות ביחסי שכנות טובים".</p>
+<span class="source-tag">מקור: אתר גבעת חביבה</span>
+
+<div class="thesis">
+<strong>הערכה:</strong> התוכניות של גבעת חביבה שקופות לגבי כיוונן. "חברה משותפת" פירושה שיתוף ערבי-יהודי מלא, ופתרון שתי המדינות הוא עמדה פוליטית מוצהרת. הארגון מאמין ש"הדרך הטובה ביותר לחנך ילדים לדמוקרטיה היא חינוך לחברה משותפת" — זו עמדה ברורה, אך מוצהרת בגלוי.
+</div>
+</div>
+
+  <div class="section" id="section-4">
+<h2>אנשי מפתח ורשת קשרים</h2>
+<p>מאגר וינברג מזהה מספר אנשים הקשורים לגבעת חביבה:</p>
+
+<table>
+<tr><th>שם</th><th>תפקיד</th><th>רשת קשרים</th><th>מס"ד</th></tr>
+<tr><td>ריאד כבהא</td><td>מנהל המרכז היהודי-ערבי לשלום בגבעת חביבה</td><td>—</td><td>5195</td></tr>
+<tr><td>ד"ר שרה אוסצקי-לזר</td><td>מנהלת עמיתה של המרכז היהודי-ערבי (לשעבר)</td><td>חברה לשעבר במועצת המנהלים של <strong>הקרן החדשה לישראל</strong>; עמיתת מחקר ב<strong>מכון ון ליר</strong></td><td>3932</td></tr>
+<tr><td>מיכל סלע</td><td>מנכ"לית</td><td>—</td><td>(אתר הארגון)</td></tr>
+</table>
+
+<h3>ד"ר שרה אוסצקי-לזר — צומת הרשתות</h3>
+<p>אוסצקי-לזר מופיעה <strong>פעמיים</strong> במאגר וינברג (מס"ד 3932 ו-12086) — עובדה שמעידה על מרכזיותה ברשת. היא מדגימה את סיבוב הדלתות הטיפוסי בין ארגוני השמאל:</p>
+<ul>
+<li><strong>גבעת חביבה</strong> — מנהלת עמיתה של המרכז היהודי-ערבי</li>
+<li><strong>הקרן החדשה לישראל (NIF)</strong> — חברה במועצת המנהלים</li>
+<li><strong>מכון ון ליר</strong> — עמיתת מחקר</li>
+</ul>
+<p>שלושה ארגונים שונים, אידיאולוגיה אחת. הקרן החדשה לישראל היא אחד הגופים המרכזיים שממנים ארגוני שמאל בישראל, ומכון ון ליר הוא מכון מחקר בירושלים המזוהה עם השמאל הליברלי.</p>
+<span class="source-tag">מקור: מאגר וינברג, מס"ד 3932, 12086</span>
+</div>
+
+  <div class="section" id="section-5">
+<h2>מבחן אמר-עשה: שקיפות אידיאולוגית</h2>
+
+<h3>מה אומרים</h3>
+<ul>
+<li>"חברה משותפת" — דו-קיום יהודי-ערבי</li>
+<li>"דמוקרטיה, שוויון ושגשוג לכל אזרחי ישראל"</li>
+<li>"שתי מדינות לשני עמים"</li>
+<li>הקשר לשומר הצעיר גלוי בשם הרשמי</li>
+</ul>
+
+<h3>מה עושים</h3>
+<ul>
+<li>מפעילים את המרכז היהודי-ערבי "הגדול והמוביל בישראל" עם תוכניות חינוכיות בשת"פ עם משרד החינוך</li>
+<li>מקיימים מפגשים בין ילדים יהודים וערבים (תוכנית ימ"י)</li>
+<li>מלמדים ערבית ועברית כ"שפה משותפת"</li>
+<li>מפתחים מנהיגות משותפת יהודית-ערבית</li>
+<li>מפעילים מרכז אמנות משותפת</li>
+<li>רשת קשרים עם NIF ומכון ון ליר (דרך אנשי מפתח)</li>
+</ul>
+
+<div class="thesis">
+<strong>ההבדל מארגונים "חתרניים":</strong> גבעת חביבה אינה מסתירה את עצמה. השם הרשמי חושף את הקשר לשומר הצעיר. האג'נדה מוצהרת, החזון פוליטי וגלוי ("שתי מדינות"), ומי שנכנס לשם יודע לאן הוא נכנס. יש כאן עמדה פוליטית ברורה של שמאל — אך היא מוצהרת, שקופה ולא מתחפשת למשהו אחר. ההורה ששולח את ילדו לתוכנית של גבעת חביבה יכול לדעת עם מה הוא מתעסק.
+</div>
+</div>
+
+  <div class="section" id="section-6">
+<h2>סיכום וסיווג</h2>
+
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fef3e2;color:#e67e22;font-weight:600;font-size:0.85em;margin:8px 0;">שמאל — עמדה שקופה</div>
+
+<h3>נימוקים לסיווג:</h3>
+<ol>
+<li><strong>הגדרת וינברג מפורשת:</strong> "ארגון שמאל" — סיווג ישיר וברור</li>
+<li><strong>שקיפות אידיאולוגית:</strong> השם הרשמי כולל "השומר הצעיר" — אין ניסיון להסתרה</li>
+<li><strong>עמדה פוליטית גלויה:</strong> "שתי מדינות", "חברה משותפת" — עמדות שמאל מוצהרות</li>
+<li><strong>ותק ויציבות:</strong> 75+ שנות פעילות רצופה באותו כיוון — אין "ריברנדינג" אידיאולוגי</li>
+<li><strong>שת"פ ממוסד:</strong> פועלים עם משרד החינוך — אך לא מסתירים את הכיוון</li>
+</ol>
+
+<p><strong>מדוע לא "פרוגרסיבי חתרני"?</strong> כי גבעת חביבה לא משקרת. השם הרשמי חושף הכל, האג'נדה מוצהרת, ומי שנכנס לשם יודע לאן הוא נכנס. הבעיה אינה בשקיפות — הבעיה היא במשרד החינוך שמשלב ארגון שמאל מובהק בחינוך הממלכתי. אך זו שאלה של מדיניות ממשלתית, לא של הונאה ארגונית.</p>
+
+<h3>מקורות</h3>
+<ul>
+<li>מאגר וינברג — מס"ד 1102 (גבעת חביבה)</li>
+<li>מאגר וינברג — מס"ד 5195 (ריאד כבהא)</li>
+<li>מאגר וינברג — מס"ד 3932, 12086 (ד"ר שרה אוסצקי-לזר)</li>
+<li>אתר גבעת חביבה — givathaviva.org.il</li>
+</ul>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

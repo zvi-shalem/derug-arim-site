@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכון מרחבים — דוח מחקר עומק | דירוג ערים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">אמר vs עשה</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מכון מרחבים — המכון לקידום אזרחות משותפת בישראל</h1>
+  <span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;margin-right:10px;">שמאל</span>
+  <div class="subtitle">Merchavim: The Institute for the Advancement of Shared Citizenship in Israel</div>
+  <div class="meta">ע"ר | ח.פ. 580323855 | נוסד 1998</div>
+</div>
+
+<div class="container">
+  <a href="../index_v2.html" class="back-link">&#8592; חזרה לדירוג</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <table>
+        <tr>
+          <th>פרט</th>
+          <th>מידע</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>שם רשמי</strong></td>
+          <td>מרחבים - המכון לקידום אזרחות משותפת בישראל (ע"ר)</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td><strong>שם באנגלית</strong></td>
+          <td>Merchavim: The Institute for the Advancement of Shared Citizenship in Israel</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td><strong>מספר עמותה (ח.פ.)</strong></td>
+          <td>580323855</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td><strong>שנת הקמה</strong></td>
+          <td>1998</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>סיווג אידאולוגי</strong></td>
+          <td><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;">שמאל</span> — "אג'נדת שמאל מובהקת"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>אישיות מפתח</strong></td>
+          <td>אילנה שריג היוז — מנהלת תוכנית עמיתים ללכידות חברתית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>תיאור הארגון במאגר ויינברג</h3>
+      <blockquote>
+        "מכון בעל אג'נדת שמאל מובהקת. פועל בקרב עשרות אלפי תלמידים במערכת החינוך. פועל בשיתוף משרד החינוך. פועל במערכת החינוך להטמעת חינוך לרב תרבותיות. פועל במערכת החינוך להדגשת ריבוי הזהויות בחברה הישראלית. ממומן ע"י ממשלות זרות."
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <h3>נתוני מפתח</h3>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="num">1998</span>
+          <span class="label">שנת הקמה<br><span class="source-tag">Weinberg DB — LIBA Research</span></span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.4em;">עשרות אלפים</span>
+          <span class="label">תלמידים בתכניות הארגון<br><span class="source-tag">Weinberg DB — LIBA Research</span></span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.4em;">ממשלות זרות</span>
+          <span class="label">מקור מימון מרכזי<br><span class="source-tag">Weinberg DB — LIBA Research</span></span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.4em;">משרד החינוך</span>
+          <span class="label">שותף מוסדי לפעילות<br><span class="source-tag">Weinberg DB — LIBA Research</span></span>
+        </div>
+      </div>
+
+      <h3>תחומי פעילות מרכזיים</h3>
+      <ul>
+        <li><strong>הטמעת חינוך לרב תרבותיות</strong> — תכניות חינוכיות המופעלות ישירות בבתי ספר <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>הדגשת ריבוי הזהויות</strong> — קידום תפיסה של זהויות מרובות בחברה הישראלית <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>קידום "אזרחות משותפת"</strong> — המושג המרכזי של הארגון (Shared Citizenship) <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></li>
+        <li><strong>תוכנית עמיתים ללכידות חברתית</strong> — בניהול אילנה שריג היוז <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+      </ul>
+
+      <div class="thesis">
+        <strong>הערכה כללית:</strong> מכון מרחבים הוא ארגון חינוכי הפועל בגלוי לקידום רב-תרבותיות ו"אזרחות משותפת" במערכת החינוך הישראלית. <span class="source-tag">GuideStar IL — ח.פ. 580323855</span> הארגון שקוף יחסית לגבי מטרותיו, אך השילוב בין מימון ממשלות זרות <span class="source-tag">Weinberg DB — LIBA Research</span> לבין גישה ישירה לעשרות אלפי תלמידים <span class="source-tag">Weinberg DB — LIBA Research</span> דרך שיתוף פעולה רשמי עם משרד החינוך <span class="source-tag">Weinberg DB — LIBA Research</span> — מהווה נקודה הראויה לבדיקה ציבורית.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID VS DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
+
+      <p>ניתוח הפערים בין השפה הרשמית של מכון מרחבים לבין האפיון שעולה ממקורות מחקר בלתי תלויים.</p>
+
+      <div class="gap-box">
+        <p><span class="said">אומרים:</span> "קידום אזרחות משותפת" — שפה ניטרלית של אזרחות שוויונית ודו-קיום. <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></p>
+        <p><span class="done">בפועל:</span> מאגר ויינברג מסווג את הארגון כ"מכון בעל אג'נדת שמאל מובהקת" — לא ארגון ניטרלי אלא ארגון בעל אג'נדה אידאולוגית ברורה. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="gap-box">
+        <p><span class="said">אומרים:</span> הארגון עוסק ב"גיוון" (diversity) ו"הכלה" — מושגים המתארים פעילות חינוכית לגיטימית. <span class="source-tag">NIF/Shatil Network Report</span></p>
+        <p><span class="done">בפועל:</span> הפעילות מתמקדת ב"הדגשת ריבוי הזהויות בחברה הישראלית" ו"הטמעת חינוך לרב תרבותיות" — מסגרת אידאולוגית ספציפית המדגישה שסעים ופלורליזם. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="gap-box">
+        <p><span class="said">אומרים:</span> ארגון ישראלי עצמאי הפועל מתוך החברה האזרחית. <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></p>
+        <p><span class="done">בפועל:</span> "ממומן ע"י ממשלות זרות" — ממשלות של מדינות אחרות מממנות פעילות חינוכית ישירה שמגיעה לעשרות אלפי תלמידים בתוך מערכת החינוך הישראלית. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="gap-box">
+        <p><span class="said">אומרים:</span> שיתוף פעולה עם משרד החינוך — כביכול הארגון פועל בהתאם למדיניות ממלכתית. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+        <p><span class="done">בפועל:</span> שיתוף הפעולה מעניק לארגון בעל "אג'נדת שמאל מובהקת" גישה ישירה לתלמידים בבתי ספר ממלכתיים, כאשר לפחות חלק מהמימון מגיע מממשלות זרות. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>טבלת סיכום: אמר מול עשה</h3>
+      <table>
+        <tr>
+          <th>מה נאמר</th>
+          <th>מה עולה מהמקורות</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>"אזרחות משותפת" — ניטרלי</td>
+          <td>"אג'נדת שמאל מובהקת"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ארגון ישראלי עצמאי</td>
+          <td>ממומן ע"י ממשלות זרות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"גיוון" ו"הכלה"</td>
+          <td>הדגשת ריבוי זהויות, חינוך לרב-תרבותיות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>שותף של משרד החינוך</td>
+          <td>גישה לעשרות אלפי תלמידים עם אג'נדה אידאולוגית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ארגון חינוכי</td>
+          <td>נתמך ע"י שתי"ל — הזרוע הפעילותית של NIF</td>
+          <td><span class="source-tag">NIF/Shatil Network Report</span></td>
+        </tr>
+      </table>
+
+      <div class="thesis">
+        <strong>שורה תחתונה:</strong> מכון מרחבים פועל בגלוי ובשקיפות יחסית — אינו מסתיר את מטרותיו. <span class="source-tag">GuideStar IL — ח.פ. 580323855</span> אולם השילוב בין אג'נדה אידאולוגית מוגדרת <span class="source-tag">Weinberg DB — LIBA Research</span>, מימון ממשלות זרות <span class="source-tag">Weinberg DB — LIBA Research</span>, שותפות מוסדית עם משרד החינוך <span class="source-tag">Weinberg DB — LIBA Research</span>, והיקף חשיפה של עשרות אלפי תלמידים <span class="source-tag">Weinberg DB — LIBA Research</span> — יוצרים מודל שראוי לבדיקה ציבורית.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <p>מכון מרחבים פועל בתוך רשת של קשרים מוסדיים, תקציביים ואידאולוגיים. להלן מיפוי הרשת על סמך המקורות הזמינים.</p>
+
+      <div class="actor-card">
+        <h3>שתי"ל (Shatil)</h3>
+        <span class="role">תמיכה ארגונית</span>
+        <p>מכון מרחבים רשום כארגון חינוכי הנתמך על ידי שתי"ל — הזרוע הפעילותית של הקרן החדשה לישראל (NIF). שתי"ל מספקת ייעוץ ארגוני, הכשרה וליווי לארגוני חברה אזרחית. <span class="source-tag">NIF/Shatil Network Report</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>הקרן החדשה לישראל (NIF)</h3>
+        <span class="role">רשת הקשר העקיפה</span>
+        <p>כארגון הנתמך על ידי שתי"ל, מרחבים נמצא ברשת הארגונים של הקרן החדשה לישראל (New Israel Fund). NIF היא הגוף המממן את שתי"ל ומעצב את כיווני הפעילות שלה. <span class="source-tag">NIF/Shatil Network Report</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>משרד החינוך</h3>
+        <span class="role">שותף מוסדי</span>
+        <p>מרחבים "פועל בשיתוף משרד החינוך" — שיתוף פעולה המאפשר לארגון גישה ישירה לבתי ספר ולתלמידים במערכת הממלכתית. שיתוף הפעולה מעניק לתכניות הארגון לגיטימציה ממלכתית. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>ממשלות זרות</h3>
+        <span class="role">מממנים</span>
+        <p>הארגון "ממומן ע"י ממשלות זרות" — מימון ממשלתי זר לפעילות חינוכית ישירה בתוך מערכת החינוך הישראלית. זהות הממשלות המממנות הספציפיות אינה מפורטת במקורות הזמינים. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>אילנה שריג היוז</h3>
+        <span class="role">דמות מפתח</span>
+        <p>מנהלת תוכנית עמיתים ללכידות חברתית במכון מרחבים. מזוהה כאישיות מפתח בזיקה לארגון במאגר ויינברג. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מפת רשת — סיכום</h3>
+      <table>
+        <tr>
+          <th>גורם</th>
+          <th>סוג הקשר</th>
+          <th>מהות</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>שתי"ל (Shatil)</td>
+          <td>תמיכה ארגונית</td>
+          <td>ייעוץ, ליווי, הכשרה</td>
+          <td><span class="source-tag">NIF/Shatil Network Report</span></td>
+        </tr>
+        <tr>
+          <td>הקרן החדשה לישראל (NIF)</td>
+          <td>רשת עקיפה</td>
+          <td>גוף-על המממן את שתי"ל</td>
+          <td><span class="source-tag">NIF/Shatil Network Report</span></td>
+        </tr>
+        <tr>
+          <td>משרד החינוך</td>
+          <td>שותפות מוסדית</td>
+          <td>גישה לבתי ספר ולתלמידים</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ממשלות זרות</td>
+          <td>מימון</td>
+          <td>תקציב פעילות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>אילנה שריג היוז</td>
+          <td>מנהלת תוכנית</td>
+          <td>תוכנית עמיתים ללכידות חברתית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <div class="thesis">
+        <strong>דפוס הרשת:</strong> מרחבים פועל בתוך מערכת יחסים מרובת שכבות: מימון מממשלות זרות <span class="source-tag">Weinberg DB — LIBA Research</span>, תמיכה ארגונית משתי"ל/NIF <span class="source-tag">NIF/Shatil Network Report</span>, ושותפות מוסדית עם משרד החינוך הישראלי <span class="source-tag">Weinberg DB — LIBA Research</span>. מודל זה מאפשר לארגון בעל אג'נדה מוגדרת <span class="source-tag">Weinberg DB — LIBA Research</span> גישה ישירה לעשרות אלפי תלמידים <span class="source-tag">Weinberg DB — LIBA Research</span> בחינוך הממלכתי.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מאגרי מידע ראשיים</h3>
+
+      <div class="model-card">
+        <h4>מאגר ויינברג — מחקר LIBA</h4>
+        <p>מאגר מידע מחקרי על ארגוני חברה אזרחית בישראל. המאגר מסווג ארגונים לפי מיקום אידאולוגי ומתעד פעילות, מימון וקשרים מוסדיים.</p>
+        <p><strong>נתונים ששימשו בדוח זה:</strong></p>
+        <ul>
+          <li>שם רשמי ושנת הקמה (1998) <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li>תיאור: "מכון בעל אג'נדת שמאל מובהקת" <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li>היקף פעילות: "פועל בקרב עשרות אלפי תלמידים במערכת החינוך" <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li>שיתוף מוסדי: "פועל בשיתוף משרד החינוך" <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li>תחומי פעילות: "הטמעת חינוך לרב תרבותיות", "הדגשת ריבוי הזהויות בחברה הישראלית" <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li>מימון: "ממומן ע"י ממשלות זרות" <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li>דמות מפתח: אילנה שריג היוז — מנהלת תוכנית עמיתים ללכידות חברתית <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        </ul>
+      </div>
+
+      <div class="model-card">
+        <h4>GuideStar Israel — רשם העמותות</h4>
+        <p>מאגר העמותות הישראלי. מכון מרחבים רשום תחת ח.פ. 580323855.</p>
+        <p><strong>נתונים ששימשו בדוח זה:</strong></p>
+        <ul>
+          <li>שם רשמי מלא: "מרחבים - המכון לקידום אזרחות משותפת בישראל (ע"ר)" <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></li>
+          <li>שם באנגלית: Merchavim: The Institute for the Advancement of Shared Citizenship in Israel <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></li>
+          <li>מספר ח.פ.: 580323855 <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></li>
+          <li>סטטוס רישום כעמותה <span class="source-tag">GuideStar IL — ח.פ. 580323855</span></li>
+        </ul>
+      </div>
+
+      <div class="model-card">
+        <h4>דוח רשת NIF/שתי"ל</h4>
+        <p>מיפוי ארגוני חברה אזרחית הנתמכים על ידי שתי"ל, הזרוע הפעילותית של הקרן החדשה לישראל (NIF).</p>
+        <p><strong>נתונים ששימשו בדוח זה:</strong></p>
+        <ul>
+          <li>סיווג כארגון חינוכי נתמך שתי"ל <span class="source-tag">NIF/Shatil Network Report</span></li>
+          <li>תיאור: ארגון המוקדש לקידום diversity ו-Shared Citizenship בתוך מערכת החינוך <span class="source-tag">NIF/Shatil Network Report</span></li>
+          <li>הקשר לרשת ארגוני NIF <span class="source-tag">NIF/Shatil Network Report</span></li>
+        </ul>
+      </div>
+
+      <h3>מפתח ציטוטים — כל עובדה ומקורה</h3>
+      <table>
+        <tr>
+          <th>עובדה</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>שם רשמי: "מרחבים - המכון לקידום אזרחות משותפת בישראל (ע"ר)"</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td>שם באנגלית: Merchavim: The Institute for the Advancement of Shared Citizenship in Israel</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td>ח.פ. 580323855</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td>סטטוס: עמותה (ע"ר)</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580323855</span></td>
+        </tr>
+        <tr>
+          <td>שנת הקמה: 1998</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"מכון בעל אג'נדת שמאל מובהקת"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועל בקרב עשרות אלפי תלמידים במערכת החינוך"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועל בשיתוף משרד החינוך"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועל במערכת החינוך להטמעת חינוך לרב תרבותיות"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועל במערכת החינוך להדגשת ריבוי הזהויות בחברה הישראלית"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"ממומן ע"י ממשלות זרות"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>אילנה שריג היוז — מנהלת תוכנית עמיתים ללכידות חברתית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ארגון חינוכי נתמך שתי"ל</td>
+          <td><span class="source-tag">NIF/Shatil Network Report</span></td>
+        </tr>
+        <tr>
+          <td>מוקדש לקידום diversity ו-Shared Citizenship במערכת החינוך</td>
+          <td><span class="source-tag">NIF/Shatil Network Report</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על שלושה מקורות מידע: מאגר ויינברג (LIBA Research), GuideStar Israel (רשם העמותות), ודוח רשת NIF/שתי"ל. <span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">GuideStar IL — ח.פ. 580323855</span> <span class="source-tag">NIF/Shatil Network Report</span></p>
+
+      <p>כל נקודת מידע בדוח מצוטטת עם המקור הספציפי שלה באמצעות תגיות <code>.source-tag</code>. לא נכלל בדוח שום מידע שאין לו מקור מאומת.</p>
+
+      <p>הסיווג "שמאל" מבוסס על תיאור מאגר ויינברג ("אג'נדת שמאל מובהקת"). <span class="source-tag">Weinberg DB — LIBA Research</span> הארגון פועל בגלוי לגבי מטרותיו <span class="source-tag">GuideStar IL — ח.פ. 580323855</span>, מה שמבדיל אותו מארגונים המסתירים את אג'נדתם.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

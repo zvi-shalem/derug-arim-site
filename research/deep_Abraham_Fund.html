@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>קרן יוזמות אברהם — דוח מחקר עומק | דירוג ערים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-funding')">רשת מימון</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>יוזמות אברהם (ע"ר) — Abraham Fund Initiatives</h1>
+  <div><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;margin-right:10px;">שמאל</span></div>
+  <div class="subtitle">ח.פ. 580165256 | נוסד: 1989 | <a href="https://www.abrahamfund.org/heb" target="_blank" style="color:#b0c4de;">abrahamfund.org</a></div>
+  <div class="meta">ארגון שמאל יהודי-ערבי הפועל במערכת החינוך ובהכשרת מורים | ממומן ע"י ממשלות זרות</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-funding')">רשת מימון</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num">1989</span><span class="label">שנת ייסוד</span></div>
+        <div class="stat-card"><span class="num">580165256</span><span class="label">ח.פ. (עמותה)</span></div>
+        <div class="stat-card"><span class="num" style="font-size:1.2em;">$100K–$150K</span><span class="label">מענקי NIF (לפי שנה)</span></div>
+      </div>
+
+      <h3>פרטי רישום</h3>
+      <table>
+        <tr>
+          <th>שדה</th>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>שם רשמי</strong></td>
+          <td>יוזמות אברהם (ע"ר)</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580165256</span></td>
+        </tr>
+        <tr>
+          <td><strong>שם באנגלית</strong></td>
+          <td>Abraham Fund Initiatives</td>
+          <td><span class="source-tag">abrahamfund.org</span></td>
+        </tr>
+        <tr>
+          <td><strong>מספר עמותה (ח.פ.)</strong></td>
+          <td>580165256</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580165256</span></td>
+        </tr>
+        <tr>
+          <td><strong>שנת ייסוד</strong></td>
+          <td>1989</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>אתר אינטרנט</strong></td>
+          <td><a href="https://www.abrahamfund.org/heb" target="_blank">abrahamfund.org/heb</a></td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>תיאור הארגון</h3>
+      <blockquote>
+        "ארגון שמאל יהודי-ערבי אשר הוקם במטרה לקדם את זכויות הערבים במדינת ישראל, 'זאת לצד מדינה פלסטינית שתתקיים בשלום לצד מדינת ישראל' לדידו של הארגון. הארגון פועל באופן נרחב במערכת החינוך. הארגון פועל במערכת החינוך בהכשרות מורים. ממומן ע"י ממשלות זרות"
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <h3>תחומי פעילות עיקריים</h3>
+      <ul>
+        <li><strong>תוכניות חינוכיות "חברה משותפת"</strong> — הפעלת תוכניות חינוכיות בנושא "Shared Society" בערים מעורבות ובבתי ספר ברחבי ישראל <span class="source-tag">abrahamfund.org</span></li>
+        <li><strong>הכשרת מורים</strong> — הארגון פועל במערכת החינוך בתחום הכשרות מורים <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>סדנאות "חברה משותפת"</strong> — סדנאות חינוכיות בשיתוף קרן סליפקא (Slifka Foundation) <span class="source-tag">Slifka Foundation Annual Report</span></li>
+        <li><strong>קידום זכויות האוכלוסייה הערבית</strong> — פעילות לקידום זכויות הערבים בישראל, כולל תמיכה ברעיון מדינה פלסטינית <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+      </ul>
+
+      <div class="thesis">
+        <strong>סיווג:</strong> הארגון מסווג כ<strong>שמאל</strong> — ארגון שמאל יהודי-ערבי גלוי ושקוף יחסית לגבי מטרותיו, כולל קידום מדינה פלסטינית לצד ישראל. ממומן ע"י ממשלות זרות. הפעילות המרכזית היא חדירה למערכת החינוך דרך הכשרת מורים ותוכניות "חברה משותפת".
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+
+      <h3>הבחנה חשובה: קרן אברהם (Abraham Fund) — ישות נפרדת</h3>
+      <p><strong>קרן אברהם</strong> (Abraham Fund) היא ישות נפרדת מ<strong>יוזמות אברהם</strong> (Abraham Fund Initiatives). קרן אברהם היא קרן (foundation) המופיעה כשורה נפרדת (שורה 295) במאגר וינברג. יש להבחין בין שני הגופים למרות הדמיון בשמות.</p>
+      <span class="source-tag">Weinberg DB — LIBA Research, שורה 295</span>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
+
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר:</span> "קידום חיים משותפים" (promoting shared living) — הארגון מציג עצמו כגוף המקדם דו-קיום וחברה משותפת בין יהודים וערבים בישראל.</p>
+        <p><span class="done">מה שנעשה בפועל:</span> ארגון שמאל המקדם מדינה פלסטינית, ממומן ע"י ממשלות זרות, פועל בהכשרת מורים ובמערכת החינוך באופן נרחב.</p>
+      </div>
+
+      <h3>הפער בפירוט</h3>
+
+      <div class="model-card" style="border-right-color:#27ae60;">
+        <h4>מה הארגון אומר על עצמו</h4>
+        <ul>
+          <li>קידום "חיים משותפים" (Shared Society) בין יהודים וערבים <span class="source-tag">abrahamfund.org</span></li>
+          <li>הפעלת תוכניות חינוכיות ל"דו-קיום" בבתי ספר ובערים מעורבות <span class="source-tag">abrahamfund.org</span></li>
+          <li>הכשרת מורים לעבודה בסביבה רב-תרבותית <span class="source-tag">abrahamfund.org</span></li>
+          <li>פעולה לשוויון אזרחי בין כלל אזרחי ישראל <span class="source-tag">abrahamfund.org</span></li>
+        </ul>
+      </div>
+
+      <div class="model-card" style="border-right-color:#c0392b;">
+        <h4>מה שעולה מהמחקר</h4>
+        <ul>
+          <li><strong>סיווג "ארגון שמאל"</strong> — מאגר וינברג מסווג את הארגון במפורש כ"ארגון שמאל יהודי-ערבי" <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>קידום מדינה פלסטינית</strong> — הארגון תומך ב"מדינה פלסטינית שתתקיים בשלום לצד מדינת ישראל", מעבר ל"דו-קיום" פנים-ישראלי <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>מימון ממשלות זרות</strong> — הארגון ממומן על-ידי ממשלות זרות, מה שמעלה שאלות לגבי אג'נדה חיצונית <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>חדירה למערכת החינוך</strong> — פעילות נרחבת במערכת החינוך הישראלית דרך הכשרת מורים ותוכניות "חברה משותפת", כלומר גישה ישירה לעיצוב תודעה של תלמידים ומורים <span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">abrahamfund.org</span></li>
+          <li><strong>נתמך ע"י שתי"ל</strong> — הארגון נתמך על-ידי שתי"ל (הזרוע התפעולית של הקרן החדשה לישראל) עבור תוכניות "חברה משותפת" חינוכיות <span class="source-tag">NIF Annual Report 2024</span></li>
+        </ul>
+      </div>
+
+      <h3>הפער המרכזי</h3>
+      <div class="thesis">
+        <strong>ניתוח:</strong> ההצגה העצמית של "חיים משותפים" ו"דו-קיום" היא עטיפה נייטרלית לפעילות שמאלית מובהקת. הארגון אינו רק מקדם הבנה הדדית בין יהודים וערבים — הוא ארגון בעל אג'נדה פוליטית ברורה (תמיכה במדינה פלסטינית), הממומן ע"י ממשלות זרות, ופועל בצורה נרחבת בתוך מערכת החינוך הישראלית דרך הכשרת מורים.
+        <br><br>
+        עם זאת, בהשוואה לארגונים אחרים, יוזמות אברהם שקוף יחסית: הוא אינו מסתיר את עמדותיו הפוליטיות. הפער העיקרי הוא בין הצגת הפעילות כ"חינוכית" ו"אזרחית" לבין האופי הפוליטי-אידאולוגי של התכנים המועברים למורים ולתלמידים.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">abrahamfund.org</span>
+      </div>
+
+      <h3>פעילות במערכת החינוך — סיכום</h3>
+      <table>
+        <tr>
+          <th>תחום</th>
+          <th>אופן הפעולה</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>הכשרת מורים</td>
+          <td>הכשרות בנושא "חברה משותפת" למורים בבתי ספר</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תוכניות בבתי ספר</td>
+          <td>תוכניות חינוכיות "Shared Society" בבתי ספר ובערים מעורבות</td>
+          <td><span class="source-tag">abrahamfund.org</span></td>
+        </tr>
+        <tr>
+          <td>סדנאות</td>
+          <td>סדנאות חינוכיות בשיתוף קרן סליפקא</td>
+          <td><span class="source-tag">Slifka Foundation Annual Report</span></td>
+        </tr>
+        <tr>
+          <td>ליווי שתי"ל</td>
+          <td>תמיכה ארגונית של שתי"ל (NIF) בתוכניות "חברה משותפת"</td>
+          <td><span class="source-tag">NIF Annual Report 2024</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: FUNDING NETWORK ==================== -->
+  <div class="tab-panel" id="tab-funding">
+    <div class="section">
+      <h2>רשת מימון</h2>
+
+      <p>יוזמות אברהם נהנה ממספר ערוצי מימון מרכזיים, כולל ממשלות זרות, קרנות אמריקאיות, והקרן החדשה לישראל (NIF). להלן פירוט המקורות הידועים:</p>
+
+      <h3>מקורות מימון עיקריים</h3>
+      <table>
+        <tr>
+          <th>גורם ממן</th>
+          <th>סוג</th>
+          <th>היקף / פירוט</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>ממשלות זרות</strong></td>
+          <td>מענקים ממשלתיים</td>
+          <td>ממומן ע"י ממשלות זרות (ללא פירוט ממשלות ספציפיות)</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>הקרן החדשה לישראל (NIF)</strong></td>
+          <td>מענק שנתי</td>
+          <td>~$100,000–$150,000 (משתנה לפי שנה ופרויקט)</td>
+          <td><span class="source-tag">NIF Annual Report 2024</span></td>
+        </tr>
+        <tr>
+          <td><strong>קרן סליפקא (Slifka Foundation)</strong></td>
+          <td>שותפות פרויקטלית</td>
+          <td>שותף עיקרי לסדנאות "חברה משותפת" חינוכיות</td>
+          <td><span class="source-tag">Slifka Foundation Annual Report</span></td>
+        </tr>
+        <tr>
+          <td><strong>שתי"ל (Shatil)</strong></td>
+          <td>תמיכה ארגונית</td>
+          <td>ליווי וייעוץ ארגוני לתוכניות "חברה משותפת" חינוכיות</td>
+          <td><span class="source-tag">NIF Annual Report 2024</span></td>
+        </tr>
+      </table>
+
+      <h3>הקרן החדשה לישראל (NIF)</h3>
+      <div class="model-card" style="border-right-color:#e74c3c;">
+        <h4>מענק NIF — ~$100K–$150K</h4>
+        <p>יוזמות אברהם מופיע כנתמק (grantee) של הקרן החדשה לישראל. היקף המענק השנתי נע בטווח של <strong>$100,000 עד $150,000</strong>, ומשתנה בהתאם לפרויקטים ולשנה. בנוסף למענק הכספי, הארגון נתמך גם באמצעות <strong>שתי"ל</strong> — הזרוע התפעולית של NIF — המספקת ייעוץ ארגוני ותמיכה בבניית קיבולת (capacity building) לתוכניות "חברה משותפת" החינוכיות.</p>
+        <span class="source-tag">NIF Annual Report 2024</span>
+      </div>
+
+      <h3>קרן סליפקא (Slifka Foundation)</h3>
+      <div class="model-card" style="border-right-color:#e67e22;">
+        <h4>שותף עיקרי לסדנאות חינוכיות</h4>
+        <p>קרן סליפקא (Alan B. Slifka Foundation) היא שותפה מרכזית של יוזמות אברהם עבור סדנאות חינוכיות בנושא "חברה משותפת" (Shared Society educational workshops). השותפות כוללת מימון ותמיכה בפיתוח התוכניות החינוכיות.</p>
+        <span class="source-tag">Slifka Foundation Annual Report</span>
+      </div>
+
+      <h3>מימון ממשלות זרות</h3>
+      <div class="model-card" style="border-right-color:#8e44ad;">
+        <h4>ממומן ע"י ממשלות זרות</h4>
+        <p>מאגר וינברג מציין במפורש כי הארגון "ממומן ע"י ממשלות זרות". הממשלות הספציפיות אינן מפורטות במאגר, אך עצם המימון הממשלתי הזר ראוי לציון — מדובר בארגון הפועל <strong>בתוך מערכת החינוך הישראלית</strong> (הכשרת מורים, תוכניות בבתי ספר) עם מימון ממשלתי חיצוני.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+
+      <h3>מפת רשת המימון</h3>
+      <div class="thesis">
+        <strong>תמונת המימון:</strong> יוזמות אברהם ממומן משלושה כיוונים עיקריים: (1) ממשלות זרות — מימון ממשלתי חיצוני ישיר; (2) קרנות אמריקאיות — NIF (~$100K–$150K שנתי) וקרן סליפקא; (3) תמיכה ארגונית — שתי"ל (NIF). שלושת הערוצים מצביעים על תלות בגורמים חיצוניים למימון פעילות פנים-ישראלית, במיוחד בתחום החינוך.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">NIF Annual Report 2024</span> <span class="source-tag">Slifka Foundation Annual Report</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מאגרי מידע</h3>
+      <div class="model-card">
+        <h4>מאגר וינברג (Weinberg DB) — מחקר ליב"א</h4>
+        <p>מאגר מחקר של מכון ליב"א (LIBA Research) למיפוי ארגונים בישראל. הרשומה של יוזמות אברהם כוללת: שם רשמי, ח.פ., שנת ייסוד, תיאור, אתר אינטרנט, וסיווג.</p>
+        <p><strong>נתונים ששימשו:</strong> שם רשמי (יוזמות אברהם ע"ר), ח.פ. 580165256, שנת ייסוד 1989, תיאור הארגון, סיווג כ"ארגון שמאל", אתר אינטרנט, הבחנה מקרן אברהם (שורה 295).</p>
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+
+      <div class="model-card">
+        <h4>GuideStar Israel — מאגר העמותות</h4>
+        <p>רישום רשמי של עמותת יוזמות אברהם (ע"ר), מספר עמותה 580165256.</p>
+        <p><strong>נתונים ששימשו:</strong> ח.פ. 580165256, מעמד רשמי כעמותה.</p>
+        <span class="source-tag">GuideStar IL — ח.פ. 580165256</span>
+      </div>
+
+      <h3>דוחות שנתיים</h3>
+      <div class="model-card">
+        <h4>NIF Annual Report 2024 — הקרן החדשה לישראל</h4>
+        <p>דוח שנתי של הקרן החדשה לישראל המפרט נתמקים (grantees), כולל יוזמות אברהם.</p>
+        <p><strong>נתונים ששימשו:</strong> היקף מענק (~$100K–$150K, משתנה), תמיכת שתי"ל לתוכניות "חברה משותפת" חינוכיות.</p>
+        <span class="source-tag">NIF Annual Report 2024</span>
+      </div>
+
+      <div class="model-card">
+        <h4>Slifka Foundation Annual Report — קרן סליפקא</h4>
+        <p>דוח שנתי של Alan B. Slifka Foundation המפרט שותפויות וארגונים נתמקים.</p>
+        <p><strong>נתונים ששימשו:</strong> שותפות עיקרית עם יוזמות אברהם לסדנאות "חברה משותפת" חינוכיות.</p>
+        <span class="source-tag">Slifka Foundation Annual Report</span>
+      </div>
+
+      <h3>אתרים</h3>
+      <div class="model-card">
+        <h4>abrahamfund.org — אתר הארגון</h4>
+        <p>האתר הרשמי של יוזמות אברהם (Abraham Fund Initiatives).</p>
+        <p><strong>נתונים ששימשו:</strong> שם הארגון באנגלית, תיאור תוכניות חינוכיות "Shared Society", תחומי פעילות בערים מעורבות ובבתי ספר.</p>
+        <p><a href="https://www.abrahamfund.org/heb" target="_blank">abrahamfund.org/heb</a></p>
+        <span class="source-tag">abrahamfund.org</span>
+      </div>
+
+      <h3>סיכום מקורות לפי נתון</h3>
+      <table>
+        <tr>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>שם רשמי, ח.פ., שנת ייסוד</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">GuideStar IL — ח.פ. 580165256</span></td>
+        </tr>
+        <tr>
+          <td>סיווג "ארגון שמאל"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תמיכה במדינה פלסטינית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מימון ממשלות זרות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>פעילות במערכת החינוך, הכשרת מורים</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">abrahamfund.org</span></td>
+        </tr>
+        <tr>
+          <td>מענק NIF ~$100K–$150K</td>
+          <td><span class="source-tag">NIF Annual Report 2024</span></td>
+        </tr>
+        <tr>
+          <td>תמיכת שתי"ל</td>
+          <td><span class="source-tag">NIF Annual Report 2024</span></td>
+        </tr>
+        <tr>
+          <td>שותפות קרן סליפקא</td>
+          <td><span class="source-tag">Slifka Foundation Annual Report</span></td>
+        </tr>
+        <tr>
+          <td>תוכניות "חברה משותפת" בבתי ספר</td>
+          <td><span class="source-tag">abrahamfund.org</span></td>
+        </tr>
+        <tr>
+          <td>הבחנה מ"קרן אברהם" (שורה 295)</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על צולבת מקורות: מאגר וינברג (LIBA Research) לסיווג ותיאור, GuideStar לנתוני רישום, דוחות שנתיים של NIF וקרן סליפקא לרשת מימון, ואתר הארגון לתיאור פעילות. כל נתון מתויג במקור ספציפי. היקפי המענקים (~$100K–$150K) הם הערכה המבוססת על דוחות NIF ומשתנים לפי שנה ופרויקט.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-funding':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

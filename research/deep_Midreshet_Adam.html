@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מדרשת אדם — ארגון חינוכי לקידום דמוקרטיה ושלום | דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מדרשת אדם</h1>
+  <span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;margin-right:10px;">שמאל</span>
+  <div class="subtitle">ארגון חינוכי ארצי לקידום דמוקרטיה ושלום | ח.פ. 580115541</div>
+  <div class="meta">פועלת בכל שדרות החינוך מאז 1987 | <span class="source-tag">Weinberg DB — LIBA Research</span></div>
+</div>
+
+<div class="container">
+  <a href="../index_v2.html" class="back-link">&#8592; חזרה לדירוג</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num">1987</span><span class="label">שנת הקמה <span class="source-tag">Weinberg DB</span></span></div>
+        <div class="stat-card"><span class="num">580115541</span><span class="label">ח.פ. (חברה לתועלת הציבור) <span class="source-tag">GuideStar IL</span></span></div>
+        <div class="stat-card"><span class="num">ארצי</span><span class="label">היקף פעילות <span class="source-tag">Weinberg DB</span></span></div>
+      </div>
+
+      <h3>מהי מדרשת אדם</h3>
+      <p>מדרשת אדם היא <strong>ארגון חינוכי ארצי</strong> שמטרתו המוצהרת לקדם את הדמוקרטיה והשלום, ולבסס תפיסת עולם המכבדת את זכויות האדם והאזרח. הארגון מוגדר כ"ארגון הפועל למען קידום הדמוקרטיה והשלום".</p>
+      <blockquote>
+        "ארגון הפועל 'למען קידום הדמוקרטיה והשלום'. מדרשת אדם היא ארגון חינוכי ארצי שמטרתו לקדם את הדמוקרטיה והשלום, ולבסס תפיסת עולם המכבדת את זכויות האדם והאזרח."
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <h3>תחילת פעילות</h3>
+      <p>הארגון הוקם בשנת <strong>1987</strong>. מאז הקמתו, מדרשת אדם פועלת <strong>בכל שדרות החינוך</strong> — כלומר, פעילותה משתרעת על פני מערכת החינוך כולה, מבלי להגביל את עצמה לשלב חינוכי מסוים.</p>
+      <blockquote>
+        "מאז הקמתה בשנת 1987 המדרשה פועלת בכל שדרות החינוך"
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <h3>סוג הישות המשפטית</h3>
+      <p>מדרשת אדם רשומה כחברה לתועלת הציבור (חל"צ) במרשם רשם החברות ברשות התאגידים, תחת מספר ח.פ. <strong>580115541</strong>.</p>
+      <p><span class="source-tag">GuideStar IL — ח.פ. 580115541</span></p>
+
+      <div class="thesis">
+        <strong>סיווג:</strong> <span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;">שמאל</span> — הארגון שקוף לגבי מטרותיו: "קידום הדמוקרטיה והשלום" ו"ביסוס תפיסת עולם המכבדת את זכויות האדם והאזרח". פועל בגלוי בתוך מערכת החינוך, בכל שדרותיה, מאז 1987.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים vs מה עושים</h2>
+
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר:</span> הארגון מגדיר את עצמו כ"ארגון הפועל למען קידום הדמוקרטיה והשלום" — ארגון חינוכי שמטרתו "לבסס תפיסת עולם המכבדת את זכויות האדם והאזרח".</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+        <p><span class="done">מה שנעשה בפועל:</span></p>
+        <ul>
+          <li><strong>פעילות חינוכית ארצית רציפה מאז 1987</strong> — הארגון אינו מסתפק בהצהרות. הוא פועל באופן מעשי "בכל שדרות החינוך" מזה כמעט ארבעה עשורים. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>חדירה לכל רמות מערכת החינוך</strong> — הניסוח "כל שדרות החינוך" מצביע על פעילות בבתי ספר יסודיים, חטיבות ביניים ותיכונים, ואולי גם בהשכלה גבוהה ובחינוך הבלתי-פורמלי. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>ביסוס תפיסת עולם</strong> — הארגון אינו מציע "כלים פדגוגיים ניטרליים". המטרה המוצהרת היא "לבסס תפיסת עולם" — כלומר, לעצב את ההשקפה הערכית של התלמידים והמחנכים שהוא פועל עמם. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        </ul>
+      </div>
+
+      <div class="thesis">
+        <strong>הערכה:</strong> מדרשת אדם היא ארגון שקוף יחסית לגבי מטרותיו. ההגדרה "למען קידום הדמוקרטיה והשלום" אינה מוסווית — הארגון מצהיר בפירוש שמטרתו לקדם אג'נדה ערכית ספציפית (דמוקרטיה, שלום, זכויות אדם ואזרח) ושהוא עושה זאת <strong>בתוך מערכת החינוך הפורמלית</strong> ובכל רמותיה. זוהי פעילות פוליטית-חינוכית מוצהרת, לא נסתרת.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+
+      <h3>נקודות לתשומת לב</h3>
+      <table>
+        <tr>
+          <th>ממד</th>
+          <th>פירוט</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>משך פעילות</strong></td>
+          <td>מאז 1987 — כמעט 40 שנה של פעילות רציפה במערכת החינוך</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>היקף</strong></td>
+          <td>ארצי, "כל שדרות החינוך" — אין הגבלה לאזור גיאוגרפי או שלב חינוכי</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>מטרה מוצהרת</strong></td>
+          <td>"קידום הדמוקרטיה והשלום", "ביסוס תפיסת עולם" של זכויות אדם ואזרח</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>אופי הפעילות</strong></td>
+          <td>חינוכי — עבודה ישירה עם מערכת החינוך, לא רק הסברה או לובי</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>שקיפות</strong></td>
+          <td>האג'נדה מוצהרת בגלוי — אין ניסיון להסוות את המטרות הפוליטיות-ערכיות</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <p>המידע הזמין על מדרשת אדם ממסד הנתונים של וינברג מאפשר לשרטט את המאפיינים הבסיסיים של רשת הקשרים שלה, גם אם אין פירוט מלא של כל הגורמים המשתפים פעולה.</p>
+
+      <h3>מאפייני הרשת</h3>
+
+      <div class="actor-card">
+        <h3>פריסה ארצית</h3>
+        <span class="role">היקף גיאוגרפי</span>
+        <p>מדרשת אדם מוגדרת כארגון <strong>ארצי</strong>, מה שמצביע על רשת קשרים הנפרסת ברחבי הארץ — לא ארגון מקומי או אזורי. הפעילות "בכל שדרות החינוך" מעידה על קשרים עם מוסדות חינוך מגוונים ברמות שונות.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>כל שדרות החינוך</h3>
+        <span class="role">חדירה לרמות חינוך מרובות</span>
+        <p>הניסוח "כל שדרות החינוך" מעיד על כך שמדרשת אדם מקיימת קשרים ופעילות <strong>בבתי ספר יסודיים, חטיבות ביניים ותיכונים</strong>, ואולי גם במסגרות חינוך בלתי-פורמליות. משמעות הדבר: הארגון מוטמע במערכת החינוך ברמות רבות, ולא פועל רק מול קהל יעד יחיד.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>פעילות מתמשכת מ-1987</h3>
+        <span class="role">עומק הטמעה זמני</span>
+        <p>כמעט ארבעה עשורים של פעילות רציפה מאז 1987 מעידים על <strong>מבנה ארגוני יציב</strong>, מקורות מימון מתמשכים, ורשת קשרים מוסדית שהצליחה לשרוד ממשלות שונות, שרי חינוך מתחלפים, ותמורות פוליטיות.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>סיכום רשת הקשרים</h3>
+      <table>
+        <tr>
+          <th>מאפיין</th>
+          <th>פירוט</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>פריסה</strong></td>
+          <td>ארצית</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>רמות חינוך</strong></td>
+          <td>כל שדרות החינוך — יסודי, חטיבה, תיכון ואולי בלתי-פורמלי</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>ותק</strong></td>
+          <td>מ-1987 — כמעט 40 שנה</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td><strong>ישות משפטית</strong></td>
+          <td>חברה לתועלת הציבור (ח.פ. 580115541)</td>
+          <td><span class="source-tag">GuideStar IL</span></td>
+        </tr>
+        <tr>
+          <td><strong>סוג פעילות</strong></td>
+          <td>חינוכי — עבודה ישירה בתוך מערכת החינוך</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מקורות ראשוניים</h3>
+
+      <div class="model-card">
+        <h4>מסד הנתונים של וינברג (LIBA Research)</h4>
+        <p>מסד נתונים מחקרי שנבנה על ידי מכון ליב"א. כולל מידע על ארגונים הפועלים בתחומי חינוך, חברה ופוליטיקה בישראל.</p>
+        <p><strong>נתונים שנשאבו:</strong></p>
+        <ul>
+          <li>מספר ח.פ.: 580115541</li>
+          <li>תיאור: "ארגון הפועל 'למען קידום הדמוקרטיה והשלום'. מדרשת אדם היא ארגון חינוכי ארצי שמטרתו לקדם את הדמוקרטיה והשלום, ולבסס תפיסת עולם המכבדת את זכויות האדם והאזרח."</li>
+          <li>שנת הקמה: 1987</li>
+          <li>היקף: ארצי, כל שדרות החינוך</li>
+        </ul>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="model-card">
+        <h4>GuideStar Israel — רשם החברות</h4>
+        <p>מאגר מידע ציבורי על עמותות וחברות לתועלת הציבור בישראל, המבוסס על נתוני רשם העמותות ורשם החברות ברשות התאגידים.</p>
+        <p><strong>נתון שנשאב:</strong> אימות מספר ח.פ. 580115541 של מדרשת אדם.</p>
+        <p><span class="source-tag">GuideStar IL — ח.פ. 580115541</span></p>
+      </div>
+
+      <h3>סיכום ציטוטים ומקורות</h3>
+      <table>
+        <tr>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>מספר ח.פ. 580115541</td>
+          <td><span class="source-tag">GuideStar IL</span> <span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td>שנת הקמה: 1987</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>הגדרה: "למען קידום הדמוקרטיה והשלום"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ארגון חינוכי ארצי</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"ביסוס תפיסת עולם המכבדת את זכויות האדם והאזרח"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועלת בכל שדרות החינוך"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>סיווג: שמאל</td>
+          <td>ניתוח מבוסס על מטרות מוצהרות <span class="source-tag">Weinberg DB</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס אך ורק על המידע הזמין ממסד הנתונים של וינברג (LIBA Research) ומרשם רשות התאגידים (GuideStar IL). לא נעשה שימוש במקורות שלא אומתו. כל נתון בדוח מלווה בציון המקור הספציפי שממנו נשאב.</p>
+      <p>הסיווג "שמאל" מבוסס על המטרות המוצהרות של הארגון עצמו — "קידום הדמוקרטיה והשלום" — ועל פעילותו הגלויה בתוך מערכת החינוך.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מט"ח — המרכז לטכנולוגיה חינוכית | דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מט"ח — המרכז לטכנולוגיה חינוכית</h1>
+  <div><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fde8e8;color:#c0392b;margin-right:10px;">פרוגרסיבי חתרני</span></div>
+  <div class="subtitle">ח.פ. 510557705 | חברה פרטית — לא חלק ממשרד החינוך</div>
+  <div class="meta">מפתח חומרי למידה, מכשיר אלפי מורים, מעצב תוכן אזרחות בשיתוף ארגוני שמאל</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי: מט"ח — המרכז לטכנולוגיה חינוכית</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="num">510557705</span>
+          <span class="label">ח.פ. (חברה פרטית)</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.4em;">מיליונים</span>
+          <span class="label">מחזור כספי</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.4em;">אלפים</span>
+          <span class="label">מורים מוכשרים</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.2em;">לא ממשלתי</span>
+          <span class="label">סטטוס: חברה פרטית</span>
+        </div>
+      </div>
+
+      <h3>מהו מט"ח?</h3>
+      <p>מט"ח — המרכז לטכנולוגיה חינוכית — הוא גוף המציג עצמו כמרכז ממלכתי לפיתוח חומרי למידה וטכנולוגיה חינוכית. למרות התדמית הממלכתית והציבורית, <strong>מדובר בחברה פרטית (ח.פ. 510557705) שאיננה חלק ממשרד החינוך</strong>.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">GuideStar IL — ח.פ. 510557705</span></p>
+
+      <h3>סטטוס משפטי: חברה פרטית, לא גוף ממשלתי</h3>
+      <p>נקודה קריטית: מט"ח <strong>איננו חלק ממשרד החינוך</strong>, למרות שהציבור הרחב — ואף חלק ניכר מאנשי החינוך — מניחים שמדובר בגוף ממשלתי. מט"ח רשום כחברה פרטית (ח.פ. 510557705) ופועל כישות עסקית עצמאית המגלגלת מיליונים.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">GuideStar IL — ח.פ. 510557705</span></p>
+
+      <h3>תחומי פעילות</h3>
+      <ul>
+        <li><strong>פיתוח חומרי למידה</strong> — מט"ח מפתח חומרי למידה דיגיטליים ומודפסים עבור מערכת החינוך הישראלית. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>הכשרת מורים</strong> — מכשיר אלפי מורים בתחומי הטכנולוגיה החינוכית והפדגוגיה. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>תוכן אזרחות</strong> — בתחום האזרחות משתף פעולה עם ארגוני השמאל הקיצוניים ביותר. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>אתרי אינטרנט</strong> — מקים אתרי אינטרנט במימון ממשלתי שהתוכן שלהם מעוצב על ידי ארגוני שמאל. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+      </ul>
+
+      <h3>מחזור כספי</h3>
+      <p>מט"ח מגלגל מיליוני שקלים. חלק ניכר מהמימון הוא ממשלתי — דהיינו, כספי ציבור המועברים לחברה פרטית שמשתמשת בהם לפיתוח תכנים ואתרים. הפער בין הסטטוס הפרטי לתדמית הציבורית מאפשר למט"ח ליהנות מאמון ציבורי ומכספי ממשלה בו-זמנית, ללא הביקורת הציבורית המוטלת על גופים ממשלתיים.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <div class="thesis">
+        <strong>סיווג: פרוגרסיבי חתרני.</strong> מט"ח הוא מקרה מבית הספר: נראה ממשלתי, מהימן, ניטרלי — אך בפועל חברה פרטית המשתפת פעולה עם ארגוני שמאל קיצוני לעיצוב תוכן אזרחות, המגיע לאלפי מורים ותלמידים. זהו סוס טרויאני קלאסי — מישהו מבחוץ שנראה כאילו הוא מבפנים.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
+
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר (SAID):</span> מרכז ממלכתי לטכנולוגיה חינוכית — נשמע כמו גוף ממשלתי ניטרלי העוסק בפיתוח טכנולוגיה לטובת מערכת החינוך.</p>
+        <p><span class="done">מה שנעשה בפועל (DONE):</span> חברה פרטית המגלגלת מיליונים, משתפת פעולה עם ארגוני שמאל קיצוני בתוכן אזרחות, מייצרת אתרים ממומנים ממשלתית עם תוכן של ארגוני שמאל.</p>
+      </div>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <h3>הפער המרכזי: תדמית ממלכתית, מציאות פרטית</h3>
+      <p>השם "המרכז לטכנולוגיה חינוכית" נשמע כמו יחידה של משרד החינוך. המציאות שונה לחלוטין: מט"ח הוא חברה פרטית (ח.פ. 510557705) שאיננה חלק ממשרד החינוך. הפער הזה אינו מקרי — הוא מאפשר למט"ח:</p>
+      <ul>
+        <li><strong>להיתפס כגוף ממלכתי</strong> — ובכך ליהנות מאמון אוטומטי של מורים, מנהלים ורשויות. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>לקבל מימון ממשלתי</strong> — כספי ציבור מופנים לחברה פרטית. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        <li><strong>לעצב תוכן ללא ביקורת ציבורית</strong> — כחברה פרטית, היא אינה כפופה לאותן דרישות שקיפות של גוף ממשלתי. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+      </ul>
+
+      <h3>סוס טרויאני בתחום האזרחות</h3>
+      <p>בתחום האזרחות, מט"ח משתף פעולה עם ארגוני השמאל הקיצוניים ביותר. הכוונה: חומרי הלמידה שמט"ח מפתח — וזוכים לאמון ממלכתי — מכילים תוכן שעוצב על ידי ארגונים בעלי אג'נדה פוליטית מובהקת.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <div class="missing-item">
+        <strong>אתרי אינטרנט במימון ממשלתי עם תוכן שמאלי</strong>
+        <p>מט"ח מקים אתרי אינטרנט במימון ממשלתי — דהיינו, בכספי משלמי המסים — אך התוכן של אתרים אלה מעוצב על ידי ארגוני שמאל. התוצאה: הציבור משלם, ארגונים פוליטיים מחליטים מה יהיה התוכן, ומט"ח מספק את הכיסוי הממלכתי.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מנגנון ההשפעה: למה זה חשוב</h3>
+      <table>
+        <tr>
+          <th>רכיב</th>
+          <th>מה שהציבור חושב</th>
+          <th>מה שבפועל</th>
+        </tr>
+        <tr>
+          <td><strong>סטטוס</strong></td>
+          <td>גוף ממשלתי / חלק ממשרד החינוך</td>
+          <td>חברה פרטית (ח.פ. 510557705)</td>
+        </tr>
+        <tr>
+          <td><strong>מימון</strong></td>
+          <td>תקציב ממשלתי שקוף</td>
+          <td>חברה המגלגלת מיליונים, חלקם ממשלתיים</td>
+        </tr>
+        <tr>
+          <td><strong>תוכן</strong></td>
+          <td>חומרי למידה ניטרליים ומקצועיים</td>
+          <td>תוכן אזרחות בשיתוף ארגוני שמאל קיצוני</td>
+        </tr>
+        <tr>
+          <td><strong>אתרים</strong></td>
+          <td>אתרי חינוך ממשלתיים</td>
+          <td>אתרים ממומנים ממשלתית עם תוכן של ארגוני שמאל</td>
+        </tr>
+        <tr>
+          <td><strong>הכשרת מורים</strong></td>
+          <td>הכשרה מקצועית ניטרלית</td>
+          <td>אלפי מורים מוכשרים עם חומרים שעוצבו בשיתוף ארגונים פוליטיים</td>
+        </tr>
+      </table>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">GuideStar IL — ח.פ. 510557705</span></p>
+
+      <div class="thesis">
+        <strong>התבנית:</strong> תדמית ממלכתית + מימון ממשלתי + תוכן פוליטי = סוס טרויאני. מט"ח פועל כצינור שדרכו ארגונים פוליטיים מחדירים תוכן למערכת החינוך, תחת חסות של "טכנולוגיה חינוכית ממלכתית".
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <h3>ערוץ המימון הממשלתי</h3>
+      <div class="actor-card">
+        <h3>ממשלת ישראל / משרד החינוך</h3>
+        <span class="role">מקור מימון</span>
+        <p>מט"ח מקבל מימון ממשלתי להקמת אתרי אינטרנט ולפיתוח חומרי למידה. למרות שמט"ח איננו חלק ממשרד החינוך, הוא נהנה ממימון ממשלתי משמעותי — כספי ציבור המופנים לחברה פרטית.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>שותפי תוכן: ארגוני שמאל</h3>
+      <div class="actor-card">
+        <h3>ארגוני שמאל קיצוני — שותפים לתוכן אזרחות</h3>
+        <span class="role">עיצוב תוכן</span>
+        <p>בתחום האזרחות, מט"ח משתף פעולה עם ארגוני השמאל הקיצוניים ביותר. ארגונים אלה מעצבים את התוכן של חומרי הלמידה ושל אתרי האינטרנט שמט"ח מקים במימון ממשלתי.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>תחום ההשפעה: תוכנית הלימודים באזרחות</h3>
+      <div class="actor-card">
+        <h3>מערכת החינוך הישראלית</h3>
+        <span class="role">קהל יעד</span>
+        <p>מט"ח מפתח חומרי למידה ומכשיר אלפי מורים. כל מורה שעובר הכשרה או משתמש בחומרי המט"ח הופך לצינור נוסף שדרכו התוכן מגיע לכיתות — ומשם לתלמידים. הסקאלה עצומה: אלפי מורים, מאות אלפי תלמידים.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מפת הזרימה: כסף, תוכן, השפעה</h3>
+      <table>
+        <tr>
+          <th>שלב</th>
+          <th>מי</th>
+          <th>מה</th>
+          <th>לאן</th>
+        </tr>
+        <tr>
+          <td>1. מימון</td>
+          <td>ממשלת ישראל</td>
+          <td>כספי ציבור</td>
+          <td>מט"ח (חברה פרטית)</td>
+        </tr>
+        <tr>
+          <td>2. עיצוב תוכן</td>
+          <td>ארגוני שמאל קיצוני</td>
+          <td>אג'נדה פוליטית</td>
+          <td>חומרי למידה + אתרים של מט"ח</td>
+        </tr>
+        <tr>
+          <td>3. הכשרה</td>
+          <td>מט"ח</td>
+          <td>הכשרת אלפי מורים</td>
+          <td>בתי ספר ברחבי הארץ</td>
+        </tr>
+        <tr>
+          <td>4. הגעה לתלמידים</td>
+          <td>מורים מוכשרים</td>
+          <td>תוכן שעוצב ע"י ארגונים פוליטיים</td>
+          <td>מאות אלפי תלמידים</td>
+        </tr>
+        <tr>
+          <td>5. לגיטימציה</td>
+          <td>מט"ח</td>
+          <td>תדמית "ממלכתית"</td>
+          <td>אמון ציבורי — אף אחד לא מפקפק</td>
+        </tr>
+      </table>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <div class="thesis">
+        <strong>המבנה:</strong> ממשלה מממנת &rarr; ארגוני שמאל מעצבים תוכן &rarr; מט"ח ארוז ומפיץ בחסות ממלכתית &rarr; אלפי מורים מוכשרים &rarr; מאות אלפי תלמידים נחשפים. הציבור משלם עבור התוכן, אך אין לו מושג מי מעצב אותו.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מקור ראשי</h3>
+      <div class="model-card">
+        <p><strong>מאגר וויינברג (Weinberg DB) — מחקר ליב"א</strong></p>
+        <p>מאגר מידע מחקרי של ארגון ליב"א (LIBA), המתעד ארגונים הפועלים במערכת החינוך הישראלית. הרשומה על מט"ח כוללת:</p>
+        <ul>
+          <li>ח.פ.: 510557705</li>
+          <li>תיאור: "למרות תדמיתו הממלכתית, מדובר בחברה המגלגלת מיליונים אשר איננה חלק ממשרד החינוך. מט"ח מפתח חומרי למידה ומכשיר אלפי מורים. בתחום האזרחות משתף פעולה עם ארגוני השמאל הקיצוניים ביותר. מקים אתרי אינטרנט במימון ממשלתי שהתוכן שלהם מעוצב על ידי ארגוני שמאל."</li>
+        </ul>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מידע על הישות המשפטית</h3>
+      <div class="model-card">
+        <p><strong>GuideStar Israel — רשם החברות</strong></p>
+        <p>מט"ח רשום כחברה פרטית, מספר ח.פ. 510557705. ניתן לאמת את הסטטוס המשפטי דרך אתר GuideStar Israel (מלכ"ר / חברה פרטית) או דרך רשם החברות של משרד המשפטים.</p>
+        <p><span class="source-tag">GuideStar IL — ח.פ. 510557705</span></p>
+      </div>
+
+      <h3>סיווג</h3>
+      <div class="model-card" style="border-right-color: #c0392b;">
+        <p><strong>סיווג: פרוגרסיבי חתרני (Subversive Progressive)</strong></p>
+        <p>מט"ח הוא מקרה קלאסי של גוף שנראה ממשלתי, מהימן וניטרלי — אך בפועל חברה פרטית המשתפת פעולה עם ארגוני שמאל קיצוני לעיצוב תוכן אזרחות, שמגיע לאלפי מורים ומאות אלפי תלמידים. התבנית: תדמית ממלכתית כ"כיסוי" להחדרת תוכן פוליטי למערכת החינוך.</p>
+      </div>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על הרשומה במאגר וויינברג (מחקר ליב"א) ועל נתוני הרישום ב-GuideStar Israel. כל נקודת מידע מצוטטת עם המקור הספציפי. לא נעשה שימוש במידע שאינו מגובה במקור.</p>
+      <p>הסיווג "פרוגרסיבי חתרני" מבוסס על הפער המתועד בין התדמית הממלכתית (מה שנאמר) לפעילות בפועל (מה שנעשה), כפי שמתועד במאגר וויינברג.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

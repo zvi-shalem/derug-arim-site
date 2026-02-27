@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בית ספר מנדל למנהיגות חינוכית — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">דיוקן מוסדי</a> <a href="#section-2">מנגנון ההשפעה</a> <a href="#section-3">הסגל והאידיאולוגיה</a> <a href="#section-4">בוגרים בעמדות מפתח</a> <a href="#section-5">מכון מנדל בצה"ל</a> <a href="#section-6">מבחן אמר-עשה</a> <a href="#section-7">סיכום</a></span>
+</nav>
+
+<div class="hero">
+  <h1>בית ספר מנדל למנהיגות חינוכית</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">בית ספר מנדל למנהיגות חינוכית (ע"ר) | ח"פ 580213627</div>
+  <div class="meta">דוח מחקר עומק | מקור ראשי: מאגר וינברג + אתר קרן מנדל</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">דיוקן מוסדי: קרן מנדל ובית הספר למנהיגות</a></li>
+<li><a href="#section-2">מנגנון ההשפעה: 20 עמיתים בשנה — אלפי בתי ספר לדורות</a></li>
+<li><a href="#section-3">הסגל והאידיאולוגיה: "ראשי מנדל הינם יהודים רפורמים"</a></li>
+<li><a href="#section-4">בוגרים בעמדות מפתח: רשת ההשפעה</a></li>
+<li><a href="#section-5">מכון מנדל בצה"ל: חדירה למערכת הביטחון</a></li>
+<li><a href="#section-6">מבחן אמר-עשה: "מנהיגות חינוכית" או עיצוב אידיאולוגי</a></li>
+<li><a href="#section-7">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>דיוקן מוסדי: קרן מנדל ובית הספר למנהיגות</h2>
+<p>בית ספר מנדל למנהיגות חינוכית הוקם בשנת 1992 כחלק ממכון מנדל למנהיגות, עצמו מיסודם של האחים ג'ק, ג'וזף ומורטון מנדל — פילנתרופים יהודים-אמריקאיים. הארגון רשום כעמותה תחת ח"פ 580213627.</p>
+
+<div class="thesis">
+<strong>תיאור וינברג (מאגר DB):</strong> "לביה"ס מתקבלים מידי שנה רק כ-20 עמיתים ממשרד החינוך. העמיתים ממשרד החינוך המתקבלים לביה"ס מתברגים לאחר מכן לתפקידי מפתח בכירים במערכת החינוך. <strong>ראשי מנדל הינם יהודים רפורמים. רבים מאנשי הסגל הינם אנשי שמאל קיצוני.</strong> המכון משקיע בעיצוב תפישת העולם והערכים של העמיתים הלומדים בו."
+<br><span class="source-tag">מקור: מאגר וינברג, מס"ד 609</span>
+</div>
+
+<table>
+<tr><th>נתון</th><th>פירוט</th></tr>
+<tr><td>שם רשמי</td><td>בית ספר מנדל למנהיגות חינוכית (ע"ר)</td></tr>
+<tr><td>ח"פ</td><td>580213627</td></tr>
+<tr><td>שנת ייסוד</td><td>1992</td></tr>
+<tr><td>מייסדים</td><td>ג'ק, ג'וזף ומורטון מנדל (אמריקה)</td></tr>
+<tr><td>סוג</td><td>מיזם משותף עם משרד החינוך</td></tr>
+<tr><td>עמיתים בשנה</td><td>~20 (בכירי משרד החינוך)</td></tr>
+<tr><td>משך לימודים</td><td>שנתיים במשרה מלאה + מלגת קיום</td></tr>
+<tr><td>רשת בוגרים</td><td>~2,500 (כל תוכניות מנדל)</td></tr>
+<tr><td>אתר</td><td>school.mandelfoundation.org.il</td></tr>
+</table>
+
+<p>קרן מנדל מתארת את חזונה: "פיתוח חברות צודקות, סובלניות, נדיבות ודמוקרטיות בארצות הברית ובישראל". הסגנון נשמע מיטיב — אך מי מגדיר מה "צודק"? מה "סובלני"? ומה "דמוקרטי"?</p>
+</div>
+
+  <div class="section" id="section-2">
+<h2>מנגנון ההשפעה: 20 עמיתים בשנה — אלפי בתי ספר לדורות</h2>
+<p>בית ספר מנדל מקבל רק כ-20 עמיתים בשנה ממשרד החינוך. מספר זעום לכאורה — אך זהו בדיוק הגאוניות של המודל. אלו אינם מורים רגילים. אלו <strong>בכירי משרד החינוך</strong> — מנהלים, מפקחים, קובעי מדיניות.</p>
+
+<div class="thesis">
+<strong>מנגנון המנוף:</strong> קחו 20 בכירים בשנה × 30 שנות פעילות = 600 בוגרים בתפקידי מפתח × השפעה על אלפי בתי ספר כל אחד = השפעה מערכתית מסיבית. זהו אינו חינוך — זו הנדסה חברתית דרך "צוואר הבקבוק" של ההנהגה החינוכית.
+</div>
+
+<h3>מאגר וינברג מאשר:</h3>
+<blockquote>
+"העמיתים ממשרד החינוך המתקבלים לביה"ס מתברגים לאחר מכן לתפקידי מפתח בכירים במערכת החינוך."
+</blockquote>
+
+<p>אתר קרן מנדל עצמו מאשר: "בוגרי התוכנית ממלאים תפקידי מפתח בשדה החינוך". התוכנית מעניקה מלגת קיום לשנתיים מלאות — כלומר, בכירי משרד החינוך יוצאים לחופשת לימודים בתשלום מלא כדי ללמוד במנדל. זוהי השקעה אישית עצומה שיוצרת נאמנות עמוקה לערכי המוסד.</p>
+</div>
+
+  <div class="section" id="section-3">
+<h2>הסגל והאידיאולוגיה: "ראשי מנדל הינם יהודים רפורמים"</h2>
+<p>מאגר וינברג מציין שתי עובדות חמורות:</p>
+
+<ol>
+<li><strong>"ראשי מנדל הינם יהודים רפורמים"</strong> — היהדות הרפורמית היא זרם אמריקאי שמבטל את מרבית ההלכה, תומך בנישואים חד-מיניים, ובישראל מזוהה עם שמאל פוליטי ומאבק נגד הרבנות</li>
+<li><strong>"רבים מאנשי הסגל הינם אנשי שמאל קיצוני"</strong> — לא "נוטים שמאל", לא "ליברלים" — <strong>שמאל קיצוני</strong></li>
+</ol>
+
+<div class="thesis">
+<strong>משמעות:</strong> כאשר ראשי המכון הם יהודים רפורמים ורבים מהסגל הם שמאל קיצוני, ו"המכון משקיע בעיצוב תפישת העולם והערכים של העמיתים" — התוצאה היא ברורה: בוגרי מנדל חוזרים למערכת החינוך עם תפיסת עולם מעוצבת לפי הסגל שלימד אותם.
+</div>
+
+<h3>יורם הרפז — דוגמה מהסגל</h3>
+<p>פרופ' יורם הרפז (מס"ד 2188, 5376) — "היה מורה, עיתונאי, עמית בביה"ס מנדל למנהיגות חינוכית, מנהל במכון ברנקו וייס [...] היה עורך הביטאון 'הד לחינוך' ומנהל מכון מנדל למנהיגות חינוכית." אדם שניהל את מנדל ועורך את הביטאון המרכזי של עולם החינוך בישראל — שליטה בו-זמנית בצינור ההכשרה ובצינור התקשורת המקצועית.</p>
+
+<h3>ד"ר ורדה שיפר</h3>
+<p>ד"ר ורדה שיפר (מס"ד 4004) — "כיהנה כנשיאת קרן מנדל; מייסדת מרכז מנדל למנהיגות בנגב; כיהנה כמדענית ראשית בנציבות שירות המדינה וכממונה על ביקורת מערכת החינוך במשרד מבקר המדינה." — דוגמה מושלמת לסיבוב הדלתות: מנדל → שירות המדינה → ביקורת מערכת החינוך → בחזרה למנדל.</p>
+</div>
+
+  <div class="section" id="section-4">
+<h2>בוגרים בעמדות מפתח: רשת ההשפעה</h2>
+<p>מאגר וינברג חושף את עומק החדירה של בוגרי מנדל למערכת:</p>
+
+<table>
+<tr><th>בוגר/ת</th><th>תפקיד</th><th>מס"ד</th></tr>
+<tr><td>דלית שטאובר</td><td>מנכ"לית משרד החינוך (לשעבר); מנהלת מחוז ת"א; מפקחת חינוך על-יסודי</td><td>1918</td></tr>
+<tr><td>רות קבסה-אברמזון</td><td>מנכ"לית עמותת "שערים"; חוקרת ב-UCLA; ראש תחום מנהיגות וממשל בג'וינט</td><td>920</td></tr>
+<tr><td>חנה דורסמן</td><td>מנכ"לית עמותת חינוך לפסגות; ניהלה מדור מעורבות חברתית באונ' ת"א</td><td>928</td></tr>
+<tr><td>יואב ללום</td><td>עו"ד; ייסד עמותת "נוער כהלכה"; ריכז מאבק באפליה עדתית בחינוך חרדי</td><td>1019</td></tr>
+<tr><td>יונית יעקובוביץ</td><td>מנכ"לית תכנית קרב למעורבות בחינוך — 260,000 ילדים ב-120 רשויות</td><td>2180</td></tr>
+<tr><td>אפרת ארן</td><td>סמנכ"לית תוכן ופיתוח מקצועי, אלומה; דירקטורית ב"רנה קאסן" (תאגיד חינוך ירושלים)</td><td>974</td></tr>
+<tr><td>חנין מג'אדלה</td><td>ד"ר לעבודה סוציאלית; מרצה במכללת אל-קאסמי; ממייסדי עמותה להתנדבות באוכלוסייה הערבית</td><td>11828</td></tr>
+<tr><td>רן מרכוס</td><td>אלומה; 27 שנות שירות קבע בחיל התקשוב</td><td>9177</td></tr>
+</table>
+
+<p>שימו לב לדפוס: בוגרי מנדל אינם חוזרים רק למשרד החינוך. הם מתפזרים לעמדות מפתח ב<strong>עמותות, תאגידי חינוך עירוניים, אוניברסיטאות, מכללות ערביות, הג'וינט</strong> — ויוצרים רשת השפעה חוצת-מגזרים. יונית יעקובוביץ לבדה משפיעה על 260,000 ילדים דרך תכנית קרב.</p>
+</div>
+
+  <div class="section" id="section-5">
+<h2>מכון מנדל בצה"ל: חדירה למערכת הביטחון</h2>
+<p>מאגר וינברג מגלה עוד ערוץ השפעה:</p>
+
+<div class="thesis">
+<strong>תכנית מנדל למנהיגות בצה"ל (מס"ד 4589):</strong> "המכון מפעיל תכנית מנהיגות לקצינים מחיל החינוך ובכירים נוספים, <strong>בהתקשרות מול משרד הביטחון ללא מכרז</strong>. מכון מנדל נכנס לפעילות בצה"ל ב-2005."
+</div>
+
+<p>ההתקשרות ללא מכרז מול משרד הביטחון פירושה שמנדל זכה בגישה ישירה להכשרת קצינים בלי שאף גורם אחר יכל להתחרות בו. הקצינים המוכשרים הם מחיל החינוך — הגוף שקובע מה חיילי צה"ל לומדים, שומעים ומפנימים בנוגע לערכים, זהות ומורשת.</p>
+</div>
+
+  <div class="section" id="section-6">
+<h2>מבחן אמר-עשה: "מנהיגות חינוכית" או עיצוב אידיאולוגי</h2>
+
+<h3>מה אומרים</h3>
+<ul>
+<li>"ליצור מנהיגים סוכני שינוי" — נשמע כמנהיגות כללית</li>
+<li>"שיפור המציאות החברתית והחינוכית" — מי יחלוק?</li>
+<li>"חברות צודקות, סובלניות, נדיבות ודמוקרטיות" — ערכים שנשמעים אוניברסליים</li>
+</ul>
+
+<h3>מה עושים</h3>
+<ul>
+<li>מכשירים את בכירי משרד החינוך (20 בשנה) בתוכנית דו-שנתית אינטנסיבית</li>
+<li>הסגל כולל "אנשי שמאל קיצוני" וראשי המכון הם "יהודים רפורמים"</li>
+<li>"המכון משקיע בעיצוב תפישת העולם והערכים" — הודאה מפורשת באינדוקטרינציה</li>
+<li>הבוגרים מתברגים לתפקידי מפתח ומשפיעים על מאות אלפי ילדים</li>
+<li>חדרו גם לצה"ל — התקשרות ללא מכרז עם משרד הביטחון</li>
+</ul>
+
+<div class="thesis">
+<strong>הפער:</strong> מנדל מציג את עצמו כמוסד ל"מנהיגות חינוכית" — אך בפועל הוא מפעל לעיצוב אידיאולוגי של הדור הבא של בכירי מערכת החינוך (והצבא) בישראל. כאשר הסגל הוא "שמאל קיצוני" והמנהיגות היא "יהדות רפורמית", ה"שינוי" שהבוגרים מובילים אינו ניטרלי — הוא פרוגרסיבי-ליברלי. השימוש במלגות קיום נדיבות ובהתקשרויות ללא מכרז מוסיף ממד של כוח כלכלי שקשה לעמוד בפניו.
+</div>
+</div>
+
+  <div class="section" id="section-7">
+<h2>סיכום וסיווג</h2>
+
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+
+<h3>נימוקים לסיווג:</h3>
+<ol>
+<li><strong>סגל שמאל קיצוני:</strong> וינברג מציין במפורש "רבים מאנשי הסגל הינם אנשי שמאל קיצוני"</li>
+<li><strong>מנהיגות רפורמית:</strong> "ראשי מנדל הינם יהודים רפורמים" — זרם המזוהה עם שמאל פוליטי בישראל</li>
+<li><strong>עיצוב ערכים מכוון:</strong> "המכון משקיע בעיצוב תפישת העולם והערכים" — הודאה מפורשת</li>
+<li><strong>חדירה לתפקידי מפתח:</strong> בוגרים מגיעים לתפקידי מנכ"ל משרד החינוך, מפקחים, מנהלי תאגידי חינוך</li>
+<li><strong>חדירה לצבא:</strong> התקשרות ללא מכרז עם משרד הביטחון מ-2005</li>
+<li><strong>שפת הסוואה:</strong> "מנהיגות", "שינוי", "שיפור" — מונחים ניטרליים שמסתירים כיוון ספציפי</li>
+</ol>
+
+<h3>מקורות</h3>
+<ul>
+<li>מאגר וינברג — מס"ד 609 (בית ספר מנדל למנהיגות חינוכית)</li>
+<li>מאגר וינברג — מס"ד 192 (מכון מנדל)</li>
+<li>מאגר וינברג — מס"ד 402 (קרן מנדל)</li>
+<li>מאגר וינברג — מס"ד 4589 (תכנית מנדל בצה"ל)</li>
+<li>מאגר וינברג — מס"ד 1918, 920, 928, 1019, 2180, 974, 11828 (בוגרים)</li>
+<li>אתר קרן מנדל — mandel.org.il</li>
+</ul>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

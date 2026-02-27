@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכון תמורה — יהדות ישראלית | דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מכון תמורה — יהדות ישראלית</h1>
+  <div><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fde8e8;color:#c0392b;margin-right:10px;">פרוגרסיבי חתרני</span></div>
+  <div class="subtitle">המכון הבינלאומי ליהדות חילונית הומניסטית — תמורה ישראל (ע"ר) | ח.פ. 580517241</div>
+  <div class="meta">מכון להכשרת "רבנים חילונים" כ"סוכני תרבות" | 37 מוסמכים עד כה</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num">580517241</span><span class="label">ח.פ. (עמותה רשומה)</span></div>
+        <div class="stat-card"><span class="num">37</span><span class="label">רבנים ורבות חילונים שהוסמכו</span></div>
+      </div>
+
+      <h3>שם רשמי ומעמד משפטי</h3>
+      <p><strong>המכון הבינלאומי ליהדות חילונית הומניסטית — תמורה ישראל (ע"ר)</strong>, מספר עמותה (ח.פ.) 580517241. העמותה רשומה ברשם העמותות ומופיעה במאגר GuideStar IL.</p>
+      <p><span class="source-tag">GuideStar IL — ח.פ. 580517241</span></p>
+
+      <h3>מהות הארגון</h3>
+      <p>מכון תמורה הוא <strong>מכון להכשרת רבנים חילונים-הומניסטים</strong> הרואים את עצמם כ<strong>"סוכני תרבות"</strong>. המכון ידוע בשם <strong>"תמורה — יהדות ישראלית"</strong>. עד כה הוסמכו <strong>37 רבנים ורבות חילונים</strong> במסגרת התוכנית.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <h3>מטרה מוצהרת</h3>
+      <blockquote>
+        "המכון נוסד במטרה לקדם תרבות יהודית חילונית-הומניסטית בצמתים החשובים של חיינו: טקסי חיים ולוח השנה, בתי הספר, תנועות הנוער והצבא, משפחות, קהילות ומרחב ציבורי"
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <p>המכון מציג את עצמו כגוף שמקדם "תרבות יהודית" — אך מדובר בתרבות יהודית <strong>חילונית-הומניסטית</strong> שנבדלת מהותית מהיהדות המסורתית. ה"רבנים" שהמכון מכשיר אינם רבנים במובן ההלכתי, אלא בעלי תפקיד אלטרנטיבי שמטרתם לספק תחליף חילוני לסמכות הדתית המסורתית.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span> <span class="source-tag">israeli-judaism.org.il</span></p>
+
+      <h3>אתר רשמי</h3>
+      <p><a href="https://www.israeli-judaism.org.il/about-tmura" target="_blank">israeli-judaism.org.il/about-tmura</a></p>
+      <p><span class="source-tag">israeli-judaism.org.il</span></p>
+
+      <div class="thesis">
+        <strong>סיווג:</strong> פרוגרסיבי חתרני — המיתוג הוא "יהדות ישראלית" ו"תרבות", אך הפעולה בפועל היא יצירת סמכות דתית חלופית ("רבנים חילונים"), הצבת "סוכני תרבות" אידיאולוגיים בבתי ספר, תנועות נוער וצבא, והחלפה שיטתית של תוכן יהודי מסורתי בחלופה הומניסטית-חילונית.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
+
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר (SAID):</span> "לקדם תרבות יהודית חילונית-הומניסטית" — קידום תרבות, חיבור לזהות יהודית, העשרה בטקסי חיים ובלוח השנה.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+        <p><span class="done">מה שנעשה בפועל (DONE):</span> מכשיר "רבנים חילונים" כ"סוכני תרבות" הפועלים בבתי ספר, תנועות נוער, צבא — מחליפים סמכות דתית מסורתית באלטרנטיבה אידיאולוגית. 37 מוסמכים שהוצבו במוסדות חינוך, צבא וקהילות.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>פירוק הפער</h3>
+
+      <div class="model-card" style="border-right-color:#e74c3c;">
+        <h4>1. "רבנים חילונים" — סמכות חלופית</h4>
+        <p>המונח "רב חילוני" הוא אוקסימורון מכוון. הרבנות היא מוסד הלכתי-מסורתי בעל סמכות שנובעת מידע בתורה שבכתב ושבעל-פה. מכון תמורה יוצר <strong>מוסד מקביל</strong> שמשתמש באותו תואר ("רב") אך עם תוכן שונה לחלוטין — הומניסטי-חילוני. זהו אינו "קידום תרבות" אלא <strong>יצירת סמכות דתית חלופית</strong>.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="model-card" style="border-right-color:#e67e22;">
+        <h4>2. "סוכני תרבות" — שפת הפצה אידיאולוגית</h4>
+        <p>המכון מגדיר את בוגריו כ<strong>"סוכני תרבות"</strong> — לא כמורים, לא כאנשי רוח, אלא כ"סוכנים". המינוח עצמו חושף את התפקיד האמיתי: הפצת אידיאולוגיה ספציפית דרך מוסדות מפתח. סוכן תרבות אינו מלמד — הוא <strong>מחליף</strong> תוכן קיים בתוכן חדש.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="model-card" style="border-right-color:#8e44ad;">
+        <h4>3. חדירה למוסדות ליבה</h4>
+        <p>שדות הפעולה המוצהרים של המכון — <strong>בתי ספר, תנועות נוער, צבא, קהילות</strong> — הם בדיוק המוסדות שמעצבים זהות. המכון אינו מפעיל מרכז תרבות עצמאי, אלא <strong>מציב סוכנים בתוך מוסדות קיימים</strong>. מכאן הפער: "קידום תרבות" (מבחוץ) לעומת <strong>החלפת תוכן</strong> (מבפנים).</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="model-card" style="border-right-color:#27ae60;">
+        <h4>4. "יהדות ישראלית" — מיתוג מחודש</h4>
+        <p>השם "תמורה — יהדות ישראלית" מרמז שהיהדות המסורתית אינה "ישראלית" — ושצריך ליצור גרסה חדשה שתתאים. זוהי לא רק עמדה תרבותית אלא <strong>טענת בעלות על ההגדרה</strong> של מהי יהדות מתאימה לישראל. המיתוג מאפשר להציג את היהדות המסורתית כ"לא ישראלית" — ולהציע את החלופה ההומניסטית כברירת המחדל.</p>
+        <p><span class="source-tag">israeli-judaism.org.il</span></p>
+      </div>
+
+      <h3>37 מוסמכים — מספר קטן, השפעה גדולה</h3>
+      <p>37 "רבנים חילונים" שהוסמכו אינם מספר גדול, אך כל אחד מהם פועל כנקודת השפעה ב<strong>מוסד מפתח</strong>: בית ספר, תנועת נוער, יחידה צבאית, קהילה. זהו מודל של <strong>הפצה דרך מכפילי כוח</strong> — לא המונים, אלא אנשי מפתח במיקומי מפתח.</p>
+      <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <h3>מבנה ארגוני</h3>
+      <table>
+        <tr>
+          <th>ישות</th>
+          <th>קשר</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>המכון הבינלאומי ליהדות חילונית הומניסטית — תמורה ישראל (ע"ר)</strong></td>
+          <td>ארגון-אם (ח.פ. 580517241)</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580517241</span></td>
+        </tr>
+        <tr>
+          <td><strong>מכון תמורה</strong></td>
+          <td>מכון ההכשרה — מכשיר רבנים חילונים כ"סוכני תרבות"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>המכון ליהדות חילונית ירושלים</strong></td>
+          <td>ישות קשורה — מקושרת לארגון-האם</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>שדות פעולה מוסדיים</h3>
+      <p>המכון מצהיר על פעולה ב<strong>חמישה שדות מוסדיים</strong> מרכזיים, כל אחד מהם בעל השפעה מעצבת על זהות:</p>
+
+      <div class="actor-card">
+        <h3>בתי ספר</h3>
+        <span class="role">שדה פעולה — חינוך פורמלי</span>
+        <p>הצבת "סוכני תרבות" מוסמכים בתוך מערכת החינוך. בוגרי המכון פועלים בבתי ספר לקידום "תרבות יהודית חילונית-הומניסטית" — כלומר, חלופה מאורגנת לתוכן היהודי המסורתי הנלמד בבתי הספר.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>תנועות נוער</h3>
+        <span class="role">שדה פעולה — חינוך בלתי-פורמלי</span>
+        <p>תנועות הנוער הן מוסד מעצב זהות מרכזי בישראל. פעולה בתוכן משמעותה גישה ישירה לבני נוער בגיל קריטי לעיצוב השקפת עולם.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>צבא (צה"ל)</h3>
+        <span class="role">שדה פעולה — מוסד מדינתי</span>
+        <p>נוכחות בצה"ל מאפשרת גישה לכלל החברה הישראלית בגיל 18-21. הצבא הוא אחד ממוסדות הסוציאליזציה החזקים ביותר בישראל.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>משפחות וטקסי חיים</h3>
+        <span class="role">שדה פעולה — מרחב פרטי</span>
+        <p>"טקסי חיים ולוח השנה" — כלומר, ברית מילה, בר/בת מצווה, חתונה, לוויה, חגים — כולם מקבלים גרסה חילונית-הומניסטית. "הרבנים החילונים" מספקים תחליף לסמכות הרבנית בצמתי חיים.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>קהילות ומרחב ציבורי</h3>
+        <span class="role">שדה פעולה — חברה אזרחית</span>
+        <p>הקמת קהילות של "שוחרי יהדות חילונית הומניסטית" — מבנה קהילתי מקביל למודל בית הכנסת, עם סמכות רוחנית אלטרנטיבית.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>אנשי מפתח</h3>
+
+      <div class="actor-card">
+        <h3>אורן יהי שלום</h3>
+        <span class="role">בוגר מכון תמורה — "רב חילוני" מוסמך</span>
+        <p>לשעבר דובר <strong>תנועת דור שלום</strong>. מוסמך כרב חילוני ממכון תמורה. מוביל קהילה של <strong>"שוחרי יהדות חילונית הומניסטית"</strong>. דוגמה מובהקת למודל הפעולה: אדם מרקע פוליטי-שמאלי (תנועת דור שלום) שעובר הכשרה ב"רבנות חילונית" ופועל להקמת קהילה אלטרנטיבית.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="actor-card">
+        <h3>מיכל כהן</h3>
+        <span class="role">קשר למערכת החינוך הממלכתית</span>
+        <p><strong>מנכ"לית לשעבר של משרד החינוך</strong>. ניהלה את <strong>הנהגת המהלך לצמצום פערים</strong> וכן את הרפורמות <strong>"עוז לתמורה"</strong> ו<strong>"אופק חדש"</strong> במערכת החינוך. הקשר למכון תמורה מציב שאלה לגבי ההשפעה של האידיאולוגיה ההומניסטית-חילונית על מדיניות חינוכית ממלכתית.</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מפת הקשרים — סיכום</h3>
+      <table>
+        <tr>
+          <th>גורם</th>
+          <th>סוג קשר</th>
+          <th>משמעות</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>ארגון-אם בינלאומי</td>
+          <td>מבנה ארגוני</td>
+          <td>חלק מתנועה בינלאומית ליהדות הומניסטית</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580517241</span></td>
+        </tr>
+        <tr>
+          <td>המכון ליהדות חילונית ירושלים</td>
+          <td>ישות קשורה</td>
+          <td>הרחבה גיאוגרפית של הפעילות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>בתי ספר</td>
+          <td>שדה פעולה</td>
+          <td>חדירת "סוכני תרבות" לחינוך פורמלי</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תנועות נוער</td>
+          <td>שדה פעולה</td>
+          <td>עיצוב זהות בגיל מעצב</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>צה"ל</td>
+          <td>שדה פעולה</td>
+          <td>גישה לכלל החברה דרך שירות חובה</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>אורן יהי שלום</td>
+          <td>בוגר + מוביל קהילה</td>
+          <td>דוגמה למודל "סוכן תרבות" בפעולה</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מיכל כהן</td>
+          <td>קשר למערכת הממלכתית</td>
+          <td>מנכ"לית משרד החינוך לשעבר, ניהלה רפורמות מרכזיות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תנועת דור שלום</td>
+          <td>רקע פוליטי (אורן יהי שלום)</td>
+          <td>זיקה לפעילות שמאלית-שלום</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מאגרי מידע</h3>
+      <div class="model-card">
+        <h4>Weinberg DB — LIBA Research</h4>
+        <p>מאגר מחקר Weinberg, מכון מחקר ליב"א (LIBA). מכיל רשומות ארגוניות ופרופילים של גופי חברה אזרחית בישראל. הנתונים הבאים נשאבו ממאגר זה:</p>
+        <ul>
+          <li>שם הארגון-האם: המכון הבינלאומי ליהדות חילונית הומניסטית — תמורה ישראל (ע"ר)</li>
+          <li>מספר עמותה: 580517241</li>
+          <li>תיאור מכון תמורה ותפקידו</li>
+          <li>מטרת המכון (ציטוט על "צמתים חשובים")</li>
+          <li>מספר מוסמכים: 37 רבנים ורבות חילונים</li>
+          <li>ישות קשורה: המכון ליהדות חילונית ירושלים</li>
+          <li>פרופיל אורן יהי שלום (דובר דור שלום, רב חילוני מוסמך, מוביל קהילה)</li>
+          <li>פרופיל מיכל כהן (מנכ"לית משרד החינוך לשעבר, רפורמות "עוז לתמורה" ו"אופק חדש")</li>
+        </ul>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="model-card">
+        <h4>GuideStar Israel</h4>
+        <p>אתר GuideStar IL (גיידסטאר ישראל) — מאגר הנתונים על עמותות וחברות לתועלת הציבור בישראל. פועל בשיתוף עם רשם העמותות.</p>
+        <ul>
+          <li>אימות מספר עמותה (ח.פ.) 580517241</li>
+          <li>שם רשמי: המכון הבינלאומי ליהדות חילונית הומניסטית — תמורה ישראל (ע"ר)</li>
+        </ul>
+        <p><span class="source-tag">GuideStar IL — ח.פ. 580517241</span></p>
+      </div>
+
+      <div class="model-card">
+        <h4>אתר "תמורה — יהדות ישראלית"</h4>
+        <p>האתר הרשמי של מכון תמורה:</p>
+        <ul>
+          <li><a href="https://www.israeli-judaism.org.il/about-tmura" target="_blank">israeli-judaism.org.il/about-tmura</a> — דף "אודות תמורה"</li>
+          <li>מידע על מיתוג "יהדות ישראלית" ותוכנית ההכשרה</li>
+        </ul>
+        <p><span class="source-tag">israeli-judaism.org.il</span></p>
+      </div>
+
+      <h3>סיכום מקורות לפי נתון</h3>
+      <table>
+        <tr>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>שם רשמי + ח.פ. 580517241</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580517241</span> <span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תיאור מכון תמורה ("מכון להכשרת רבנים חילונים...")</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מטרה מוצהרת ("לקדם תרבות יהודית חילונית-הומניסטית...")</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>37 רבנים ורבות חילונים שהוסמכו</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>המכון ליהדות חילונית ירושלים — ישות קשורה</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>אורן יהי שלום — דובר דור שלום, רב חילוני, מוביל קהילה</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מיכל כהן — מנכ"לית משרד החינוך, רפורמות "עוז לתמורה", "אופק חדש"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>אתר רשמי + מיתוג "יהדות ישראלית"</td>
+          <td><span class="source-tag">israeli-judaism.org.il</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על שלושה מקורות מוגדרים: מאגר Weinberg (מכון מחקר ליב"א), מאגר GuideStar Israel (רשם העמותות), ואתר הארגון הרשמי. כל נתון בדוח מצוין עם מקור ספציפי. ניתוח הפער בין המוצהר למעשה מבוסס על קריאה ביקורתית של ההצהרות המפורשות של הארגון עצמו — השוואה בין המיתוג ("תרבות", "יהדות ישראלית") לבין הפעילות המתוארת (הכשרת "סוכני תרבות", הצבה בבתי ספר, תנועות נוער וצבא).</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

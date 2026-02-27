@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכון מליץ — דוח מחקר עומק | דירוג ערים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מכון מליץ</h1>
+  <span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;margin-right:10px;">שמאל</span>
+  <div class="subtitle">עמותה רשומה | ח.פ. 580052553</div>
+  <div class="meta">חינוך יהודי פלורליסטי — ישראל והתפוצות | כולל הזרם הרפורמי במפורש</div>
+</div>
+
+<div class="container">
+  <a href="../index_v2.html" class="back-link">&#8592; חזרה לדירוג</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num" style="font-size:1.1em;">580052553</span><span class="label">ח.פ. (הקצאת פרט)</span></div>
+        <div class="stat-card"><span class="num" style="font-size:1.4em;">עמותה</span><span class="label">סוג תאגיד</span></div>
+        <div class="stat-card"><span class="num" style="font-size:1.4em;">חינוך</span><span class="label">תחום פעילות מרכזי</span></div>
+        <div class="stat-card"><span class="num" style="font-size:1.1em;">ישראל + תפוצות</span><span class="label">טווח גאוגרפי</span></div>
+      </div>
+
+      <h3>תיאור רשמי</h3>
+      <blockquote>
+        "עוסקת בחינוך באמצעות הדגשת העמיות היהודית, ריבוי הקולות והגוונים ביהדות, כולל הזרם הרפורמי. פועלת בישראל ובתפוצות."
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <h3>מאפייני הארגון</h3>
+      <p>מכון מליץ הוא עמותה ישראלית הרשומה ברשם העמותות תחת מספר ח.פ. 580052553. הארגון מציג עצמו כמי שעוסק בחינוך יהודי המדגיש <strong>עמיות יהודית</strong> (Jewish peoplehood) ו<strong>ריבוי קולות וגוונים ביהדות</strong>. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <p>מליץ פועל בשני מישורים גאוגרפיים: <strong>בישראל</strong> ו<strong>בתפוצות</strong>, מה שמצביע על מבנה ארגוני בעל זיקות בינלאומיות וקשרים עם קהילות יהודיות מחוץ לישראל. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <h3>מיקום אידאולוגי</h3>
+      <p>התיאור הרשמי של הארגון מציין במפורש את <strong>הכללת הזרם הרפורמי</strong> כחלק מ"ריבוי הקולות והגוונים ביהדות". זהו סמן אידאולוגי מובהק: ארגונים שמציינים את הזרם הרפורמי כחלק מהגדרת פעילותם מזדהים באופן גלוי עם גישה פלורליסטית-ליברלית ליהדות, להבדיל מגישה אורתודוקסית או מסורתית. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <div class="thesis">
+        <strong>סיווג: שמאל</strong> — מכון מליץ מסווג כארגון שמאל על בסיס שלושה סמנים מצטברים: (1) הדגשת פלורליזם יהודי כערך מרכזי; (2) הכללה מפורשת של הזרם הרפורמי בהגדרת הפעילות; (3) שימוש בשפת "עמיות יהודית" (Jewish peoplehood) — מונח המזוהה עם זרמים ליברליים ביהדות. הארגון שקוף לגבי עמדתו האידאולוגית.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+
+      <h3>נתוני רישום</h3>
+      <table>
+        <tr>
+          <th>פרט</th>
+          <th>ערך</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>שם</strong></td>
+          <td>מכון מליץ</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580052553</span></td>
+        </tr>
+        <tr>
+          <td><strong>ח.פ.</strong></td>
+          <td>580052553</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>סוג ישות</strong></td>
+          <td>עמותה רשומה</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580052553</span></td>
+        </tr>
+        <tr>
+          <td><strong>תחום</strong></td>
+          <td>חינוך</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>טווח גאוגרפי</strong></td>
+          <td>ישראל + תפוצות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים vs מה עושים</h2>
+
+      <p>ניתוח הפער בין השפה הרשמית של מכון מליץ לבין המשמעות המעשית של פעילותו, על בסיס התיאור הרשמי במאגר ויינברג.</p>
+
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר:</span> "עוסקת בחינוך באמצעות הדגשת העמיות היהודית, ריבוי הקולות והגוונים ביהדות"</p>
+        <p><span class="done">מה שנעשה בפועל:</span></p>
+        <ul>
+          <li><strong>הכללת הזרם הרפורמי במפורש</strong> — התיאור הרשמי מציין "כולל הזרם הרפורמי" כחלק מ"ריבוי הקולות". זו אינה סתם פלורליזם כללי אלא הצהרה אידאולוגית ברורה: ההכרה בתנועה הרפורמית כזרם לגיטימי ביהדות, בניגוד לעמדה האורתודוקסית. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>מסגור פלורליסטי (framing)</strong> — השימוש בביטוי "עמיות יהודית" (Jewish peoplehood) מסמן הזדהות עם שיח ליברלי-פלורליסטי. מונח זה נפוץ בעיקר בקרב ארגונים יהודיים לא-אורתודוקסיים ובקרנות פילנתרופיות אמריקאיות. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+          <li><strong>פעילות חוצת גבולות</strong> — הפעילות בישראל ובתפוצות במקביל מצביעה על מודל ארגוני המושפע מקרנות ומוסדות יהודיים אמריקאיים, שם הפלורליזם הדתי הוא נורמה. <span class="source-tag">Weinberg DB — LIBA Research</span></li>
+        </ul>
+      </div>
+
+      <h3>ניתוח שפתי</h3>
+      <table>
+        <tr>
+          <th>ביטוי רשמי</th>
+          <th>משמעות מעשית</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>"עמיות יהודית"</td>
+          <td>מונח מזוהה עם שיח ליברלי-פלורליסטי; חלופה ל"עם ישראל" או "כלל ישראל" בשפה מסורתית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"ריבוי הקולות והגוונים ביהדות"</td>
+          <td>לגיטימציה שווה לכל הזרמים, כולל אלה שאינם מוכרים ע"י הרבנות הראשית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"כולל הזרם הרפורמי"</td>
+          <td>הצהרה אידאולוגית מפורשת — לא הסתרה, לא ריכוך. הארגון שקוף בנוגע לעמדתו</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועלת בישראל ובתפוצות"</td>
+          <td>מודל דו-לאומי; זיקות למוסדות יהודיים בארה"ב ובעולם</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>הערכת שקיפות</h3>
+      <div class="model-card" style="border-right-color:#27ae60;">
+        <h4>שקיפות גבוהה</h4>
+        <p>בניגוד לארגונים רבים המסתירים את האוריינטציה האידאולוגית שלהם מאחורי שפה ניטרלית, מכון מליץ <strong>מצהיר בגלוי</strong> על הכללת הזרם הרפורמי בפעילותו. התיאור הרשמי לא מנסה לטשטש את העמדה — הוא מציג אותה כעובדה. זו שקיפות שראוי לציין, גם אם הסיווג האידאולוגי ברור. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="thesis">
+        <strong>מסקנה:</strong> מכון מליץ הוא ארגון חינוכי עם אוריינטציה פלורליסטית-רפורמית מוצהרת. הפער בין "מה אומרים" ל"מה עושים" הוא קטן יחסית — הארגון שקוף לגבי כיוונו. השאלה אינה האם מליץ הוא ארגון שמאל (הוא כן), אלא מהי מידת ההשפעה שלו על מערכת החינוך הציבורית בישראל.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <p>מיפוי הרשת הארגונית של מכון מליץ על בסיס המידע הזמין. הפעילות בישראל ובתפוצות יוצרת רשת קשרים דו-צדדית.</p>
+
+      <h3>מישור הפעילות: ישראל</h3>
+      <div class="actor-card">
+        <h3>חינוך יהודי פלורליסטי בישראל</h3>
+        <span class="role">תחום פעילות מרכזי</span>
+        <p>מליץ פועל בתחום החינוך בישראל תוך "הדגשת העמיות היהודית, ריבוי הקולות והגוונים ביהדות". פעילות חינוכית מסוג זה בישראל ממוקמת בדרך כלל בשדה של ארגוני חברה אזרחית העוסקים בפלורליזם דתי, לצד גופים כמו התנועה הרפורמית בישראל, מרכז יעקב הרצוג, ומכון שלום הרטמן. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מישור הפעילות: תפוצות</h3>
+      <div class="actor-card">
+        <h3>רשת יהודית בינלאומית</h3>
+        <span class="role">פעילות חוצת גבולות</span>
+        <p>הפעילות "בתפוצות" מצביעה על קשרים עם קהילות ומוסדות יהודיים מחוץ לישראל. ארגונים ישראליים הפועלים גם בתפוצות מקיימים בדרך כלל זיקות עם קרנות פילנתרופיות יהודיות-אמריקאיות, פדרציות יהודיות, ומוסדות חינוך יהודיים בעולם הדובר אנגלית. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <h3>מיפוי רשת — סוג הקשרים</h3>
+      <table>
+        <tr>
+          <th>סוג קשר</th>
+          <th>מאפיין</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>תחום תוכן</strong></td>
+          <td>חינוך יהודי פלורליסטי — עמיות יהודית, ריבוי קולות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>זרם דתי</strong></td>
+          <td>כולל במפורש את הזרם הרפורמי</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>גאוגרפיה — ישראל</strong></td>
+          <td>פעילות חינוכית מקומית</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>גאוגרפיה — תפוצות</strong></td>
+          <td>פעילות בקהילות יהודיות בעולם</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>שדה ארגוני</strong></td>
+          <td>פלורליזם יהודי — רשת הכוללת ארגוני חינוך, זהות ודיאלוג בין-זרמי</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>סביבה אידאולוגית</h3>
+      <div class="model-card">
+        <h4>ארגוני פלורליזם יהודי — שדה משותף</h4>
+        <p>מכון מליץ ממוקם בשדה הארגוני של <strong>פלורליזם יהודי</strong> — רשת של ארגונים ישראליים ובינלאומיים המקדמים הכרה בריבוי הזרמים ביהדות. שדה זה כולל ארגוני חינוך, סנגור, ודיאלוג בין-דתי, ונתמך בעיקר ע"י פילנתרופיה יהודית-אמריקאית. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="thesis">
+        <strong>סיכום:</strong> מכון מליץ ממוקם בצומת בין חינוך יהודי ישראלי לרשת היהודית הבינלאומית. הדגש על "עמיות יהודית" ו"ריבוי קולות כולל הזרם הרפורמי" מציב אותו בתוך שדה הפלורליזם היהודי — סביבה ארגונית בעלת זיקות ברורות למגזר הליברלי-רפורמי ביהדות העולמית.
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מקורות ראשוניים</h3>
+      <div class="model-card">
+        <p><strong>מאגר ויינברג (Weinberg DB)</strong> — מחקר LIBA</p>
+        <p>רשומת ארגון: מכון מליץ. ח.פ. 580052553.</p>
+        <p>תיאור: "עוסקת בחינוך באמצעות הדגשת העמיות היהודית, ריבוי הקולות והגוונים ביהדות, כולל הזרם הרפורמי. פועלת בישראל ובתפוצות."</p>
+        <p><span class="source-tag">Weinberg DB — LIBA Research</span></p>
+      </div>
+
+      <div class="model-card">
+        <p><strong>GuideStar Israel</strong> — רשם העמותות</p>
+        <p>נתוני רישום: עמותה מספר 580052553 — מכון מליץ.</p>
+        <p><span class="source-tag">GuideStar IL — ח.פ. 580052553</span></p>
+      </div>
+
+      <h3>ציטוטים שנעשה בהם שימוש</h3>
+      <table>
+        <tr>
+          <th>ציטוט / נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>ח.פ. 580052553</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"עוסקת בחינוך באמצעות הדגשת העמיות היהודית..."</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"ריבוי הקולות והגוונים ביהדות, כולל הזרם הרפורמי"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועלת בישראל ובתפוצות"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>סוג ישות: עמותה רשומה</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580052553</span></td>
+        </tr>
+      </table>
+
+      <h3>סיווג</h3>
+      <p><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fef3e2;color:#e67e22;margin-right:10px;">שמאל</span> — על בסיס: פלורליזם יהודי מוצהר, הכללת הזרם הרפורמי במפורש, שימוש בשפת "עמיות יהודית", פעילות בישראל ובתפוצות. <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על שני מקורות מידע: מאגר ויינברג (Weinberg DB) שנאסף במסגרת מחקר LIBA, ונתוני רישום מ-GuideStar Israel (רשם העמותות). כל נתון ומסקנה בדוח מפנים למקור ספציפי. הניתוח האידאולוגי נגזר מהתיאור הרשמי של הארגון עצמו — לא מפרשנות חיצונית.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

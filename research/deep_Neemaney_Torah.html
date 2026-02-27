@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>נאמני תורה ועבודה — דוח מחקר עומק | דירוג ערים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>נאמני תורה ועבודה</h1>
+  <div style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fde8e8;color:#c0392b;margin-right:10px;">פרוגרסיבי חתרני</div>
+  <div class="subtitle">עמותה רשומה | ח.פ. 580052421</div>
+  <div class="meta">מקרה מודל של "אמור דבר אחד, עשה ההפך" — טוענת לציונות דתית אותנטית תוך קידום פירוק הציונות הדתית מבפנים</div>
+</div>
+
+<div class="container">
+  <a href="../index_v2.html" class="back-link">&#8592; חזרה לדירוג</a>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="num">580052421</span>
+          <span class="label">ח.פ. (מספר עמותה)</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.2em;">ציונית-דתית</span>
+          <span class="label">הגדרה עצמית</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" style="font-size:1.2em;">חתרנית</span>
+          <span class="label">פעילות בפועל</span>
+        </div>
+      </div>
+
+      <h3>הגדרה עצמית</h3>
+      <p>נאמני תורה ועבודה <strong>מגדירה עצמה כתנועה ציונית-דתית אותנטית</strong>. השם עצמו — "תורה ועבודה" — מאזכר את הסיסמה ההיסטורית של הפועל המזרחי, ונועד לשדר שייכות עמוקה למרכז הציונות הדתית.</p>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+
+      <h3>מספר עמותה (ח.פ.)</h3>
+      <p>העמותה רשומה ברשם העמותות תחת מספר <strong>580052421</strong>.</p>
+      <span class="source-tag">GuideStar IL — ח.פ. 580052421</span>
+
+      <h3>סיווג: פרוגרסיבי חתרני</h3>
+      <div class="thesis">
+        <strong>תזה:</strong> נאמני תורה ועבודה היא מקרה ספר-לימוד של תבנית "אמור דבר אחד, עשה ההפך". הארגון טוען להיות <strong>ציונות דתית אותנטית</strong>, אך בפועל מקדם <strong>עמדות שהן ההפך הגמור</strong> של הציונות הדתית ההיסטורית: הפרדת דת ומדינה, ביטול הסטטוס קוו, נישואין אזרחיים, יחס חיובי ללהט"ב ושיתוף פעולה עם הרפורמים. זהו ניסיון לכידת מוסדות (institutional capture) של הציונות הדתית עצמה — לפרק אותה מבפנים תוך שימוש בשמה ובמוניטין שלה.
+      </div>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+    </div>
+
+    <div class="section">
+      <h2>תיאור מהמאגר</h2>
+      <blockquote>
+        "מגדירה עצמה כתנועה ציונית-דתית אותנטית. בפועל מהווה סמן ליברלי-קיצוני המעוניין בהפרדת דת ומדינה. מעוניינים בביטול הסטטוס קוו. מעוניינים בקידום נישואין אזרחיים. מעוניינים בקידום יחס חיובי כלפי הלהט"ב. מעוניינים בשיתוף פעולה עם הרפורמים."
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+      <p>תיאור זה מגלם את כל הסממנים של <strong>פעולה חתרנית מתוחכמת</strong>: הארגון אינו מציג עצמו כחילוני או כרפורמי — הוא מציג עצמו כציוני-דתי "אמיתי", ומתוך עמדה זו מקדם אג'נדה שמפרקת את הציונות הדתית.</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
+
+      <p>נאמני תורה ועבודה היא <strong>מקרה קלאסי של חתרנות מוסדית</strong>: הניגוד בין ההצהרה להתנהלות בפועל אינו שולי — הוא מוחלט. כל עמדה שהארגון מקדם בפועל סותרת את המהות של מה שהציונות הדתית מייצגת.</p>
+
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר:</span> "תנועה ציונית-דתית אותנטית" — הגדרה עצמית של הארגון, המציגה אותו כנושא דגל הציונות הדתית המקורית.</p>
+        <p><span class="done">מה שנעשה בפועל:</span> מקדמים הפרדת דת ומדינה, ביטול הסטטוס קוו, נישואין אזרחיים, שיתוף פעולה עם הרפורמים ויחס חיובי ללהט"ב — ההפך הגמור מציונות דתית.</p>
+      </div>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+
+      <h3>ניתוח הפערים — סעיף אחר סעיף</h3>
+
+      <table>
+        <tr>
+          <th>נושא</th>
+          <th>עמדת הציונות הדתית</th>
+          <th>עמדת נאמני תורה ועבודה</th>
+        </tr>
+        <tr>
+          <td><strong>דת ומדינה</strong></td>
+          <td>שילוב דת ומדינה; ההלכה כמקור חקיקה</td>
+          <td>הפרדת דת ומדינה</td>
+        </tr>
+        <tr>
+          <td><strong>סטטוס קוו</strong></td>
+          <td>שמירה על הסטטוס קוו הדתי (שבת, כשרות, גיור, נישואין)</td>
+          <td>ביטול הסטטוס קוו</td>
+        </tr>
+        <tr>
+          <td><strong>נישואין</strong></td>
+          <td>נישואין על פי ההלכה בלבד</td>
+          <td>קידום נישואין אזרחיים</td>
+        </tr>
+        <tr>
+          <td><strong>להט"ב</strong></td>
+          <td>עמדה הלכתית מסורתית</td>
+          <td>יחס חיובי כלפי הלהט"ב</td>
+        </tr>
+        <tr>
+          <td><strong>תנועה הרפורמית</strong></td>
+          <td>שמירה על אורתודוקסיה; התנגדות להכרה ברפורמים</td>
+          <td>שיתוף פעולה עם הרפורמים</td>
+        </tr>
+      </table>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+
+      <h3>מדוע זה חתרני ולא "ליברלי"</h3>
+      <p>ארגון ליברלי שמציג עצמו כליברלי — הוא לגיטימי. הבעיה כאן שונה מהותית: נאמני תורה ועבודה <strong>אינם מציגים עצמם כליברלים</strong>. הם מציגים עצמם כציונות דתית "אותנטית" — כלומר, האמיתית, המקורית. על ידי כך הם:</p>
+      <ol>
+        <li><strong>מנכסים את השם</strong> — "תורה ועבודה" הוא ברנד היסטורי של הציונות הדתית</li>
+        <li><strong>מערערים מבפנים</strong> — כל עמדה שהם מקדמים חותרת תחת היסודות של הקהילה שהם טוענים לייצג</li>
+        <li><strong>מחלישים את ההתנגדות</strong> — כשציוני-דתי "אותנטי" אומר שנישואין אזרחיים זה בסדר, זה מנטרל את ההתנגדות מבפנים</li>
+      </ol>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+
+      <div class="thesis">
+        <strong>מסקנה:</strong> זוהי תבנית קלאסית של כידת מוסדות (institutional capture). הארגון משתמש בלגיטימציה של שייכות לציונות הדתית כדי לקדם אג'נדה שמפרקת את הציונות הדתית מבפנים. זו אינה "מחלוקת לגיטימית" — זהו ניסיון שיטתי להחליף את תוכנה של תנועה תוך שמירה על שמה.
+      </div>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <h3>שיתוף פעולה עם התנועה הרפורמית</h3>
+      <p>על פי מאגר ויינברג (LIBA Research), נאמני תורה ועבודה <strong>מעוניינים בשיתוף פעולה עם הרפורמים</strong>. זהו ציר מרכזי: הציונות הדתית ההיסטורית עומדת על אורתודוקסיה הלכתית כתנאי סף. שיתוף פעולה עם התנועה הרפורמית, שאינה מכירה בסמכות ההלכה, חותר תחת היסוד הזה.</p>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+
+      <h3>מיקום בתוך הציונות הדתית</h3>
+      <p>נאמני תורה ועבודה פועלת <strong>בתוך</strong> הקהילה הציונית-דתית — לא מחוצה לה. היא פונה לציבור דתי-לאומי, משתמשת בשפה דתית-ציונית, ומנסה ליצור מצג של "גרסה מתוקנת" של ציונות דתית. בפועל, כל עמדה שהיא מקדמת (הפרדת דת ומדינה, ביטול סטטוס קוו, נישואין אזרחיים, פרו-להט"ב, שיתוף פעולה עם רפורמים) מקרבת אותה לעמדות של מפלגות חילוניות-ליברליות ומרחיקה אותה ממה שהציונות הדתית ייצגה היסטורית.</p>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+
+      <h3>מפת זיקות</h3>
+      <table>
+        <tr>
+          <th>צד</th>
+          <th>אופי הקשר</th>
+          <th>משמעות</th>
+        </tr>
+        <tr>
+          <td><strong>התנועה הרפורמית</strong></td>
+          <td>שיתוף פעולה מוצהר</td>
+          <td>חציית קו אדום לציונות הדתית האורתודוקסית</td>
+        </tr>
+        <tr>
+          <td><strong>הציונות הדתית (מיינסטרים)</strong></td>
+          <td>טוענים לייצג אותה "באופן אותנטי"</td>
+          <td>מנכסים את הזהות תוך חתירה תחת עקרונותיה</td>
+        </tr>
+        <tr>
+          <td><strong>ארגוני הפרדת דת ומדינה</strong></td>
+          <td>זהות עמדות בנושאי ליבה</td>
+          <td>עמדות זהות לזרם החילוני-ליברלי בשאלות דת ומדינה</td>
+        </tr>
+        <tr>
+          <td><strong>ארגוני נישואין אזרחיים</strong></td>
+          <td>עמדה זהה — קידום נישואין אזרחיים</td>
+          <td>חלק ממגמה רחבה לביטול מונופול הרבנות</td>
+        </tr>
+        <tr>
+          <td><strong>ארגוני להט"ב</strong></td>
+          <td>יחס חיובי מוצהר</td>
+          <td>פערים מהעמדה ההלכתית המסורתית</td>
+        </tr>
+      </table>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+    </div>
+
+    <div class="section">
+      <h2>תבנית "הסוס הטרויאני"</h2>
+      <p>נאמני תורה ועבודה מגלמת תבנית מוכרת של <strong>כידת מוסדות</strong> (institutional capture), הנקראת לעתים "אסטרטגיית הסוס הטרויאני":</p>
+      <ol>
+        <li><strong>שלב א' — חדירה:</strong> הצטרפות לקהילה קיימת (הציונות הדתית) תוך שימוש בשפה ובסמלים שלה ("תורה ועבודה", "אותנטית")</li>
+        <li><strong>שלב ב' — לגיטימציה:</strong> יצירת מצג של שייכות אמיתית, "אנחנו הציונות הדתית המקורית"</li>
+        <li><strong>שלב ג' — החלפת תוכן:</strong> קידום עמדות שסותרות את עקרונות היסוד של הקהילה (הפרדת דת ומדינה, ביטול סטטוס קוו, נישואין אזרחיים, פרו-להט"ב, שיתוף פעולה עם רפורמים)</li>
+        <li><strong>שלב ד' — נרמול:</strong> הפיכת העמדות הללו ל"לגיטימיות" בתוך השיח הציוני-דתי, תוך הצגת המתנגדים כ"קיצוניים"</li>
+      </ol>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מאגר ויינברג (LIBA Research)</h3>
+      <div class="model-card">
+        <p><strong>מאגר ויינברג</strong> — מאגר מחקר של מכון ליב"א (LIBA Center for Policy Research)</p>
+        <p>התיאור המלא של נאמני תורה ועבודה במאגר:</p>
+        <blockquote>
+          "מגדירה עצמה כתנועה ציונית-דתית אותנטית. בפועל מהווה סמן ליברלי-קיצוני המעוניין בהפרדת דת ומדינה. מעוניינים בביטול הסטטוס קוו. מעוניינים בקידום נישואין אזרחיים. מעוניינים בקידום יחס חיובי כלפי הלהט"ב. מעוניינים בשיתוף פעולה עם הרפורמים."
+          <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+        </blockquote>
+        <p>מקור זה שימש לכל הנתונים בדוח אודות תיאור הארגון, עמדותיו, וזיקותיו.</p>
+      </div>
+
+      <h3>רשם העמותות / GuideStar IL</h3>
+      <div class="model-card">
+        <p><strong>GuideStar Israel</strong> — מאגר נתוני עמותות</p>
+        <p>ח.פ. <strong>580052421</strong> — נאמני תורה ועבודה</p>
+        <p><a href="https://www.guidestar.org.il/organization/580052421" target="_blank">צפייה בכרטיס הארגון ב-GuideStar</a></p>
+        <span class="source-tag">GuideStar IL — ח.פ. 580052421</span>
+      </div>
+
+      <h3>ציטוט נתונים בדוח זה</h3>
+      <table>
+        <tr>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>מספר עמותה: 580052421</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 580052421</span></td>
+        </tr>
+        <tr>
+          <td>הגדרה עצמית: "תנועה ציונית-דתית אותנטית"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"סמן ליברלי-קיצוני"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>הפרדת דת ומדינה</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ביטול הסטטוס קוו</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>קידום נישואין אזרחיים</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>יחס חיובי כלפי הלהט"ב</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>שיתוף פעולה עם הרפורמים</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על <strong>שני מקורות עיקריים בלבד</strong>: מאגר ויינברג (LIBA Research) ורשם העמותות (GuideStar IL). כל טענה בדוח מצוטטת עם מקור ספציפי. הניתוח (סיווג "פרוגרסיבי חתרני", תבנית "הסוס הטרויאני", טבלת ההשוואה בין עמדות) מבוסס על <strong>ההשוואה העובדתית</strong> בין ההגדרה העצמית של הארגון ("ציונות דתית אותנטית") לבין עמדותיו בפועל כפי שמתועדות במאגר ויינברג.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

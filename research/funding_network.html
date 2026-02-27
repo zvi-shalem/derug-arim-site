@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשת המימון — זרימת כספים במערכת החינוך הישראלית</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a3a1a 50%, #1a2a3e 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+/* ── Grids ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 900px) {
+    .grid-3, .grid-4, .grid-5 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.ok { border-right: 4px solid #27ae60; }
+.metric.ok .value { color: #27ae60; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* ── Evidence table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+tr.highlight { background: #fff5f5; }
+td a { color: #2a5a8a; }
+td a:hover { color: #ff8800; }
+
+/* ── Badge / tag ── */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.green { background: #e8fde8; color: #27ae60; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.gray { background: #f0f0f0; color: #666; }
+.badge.purple { background: #f0e8fd; color: #8e44ad; }
+
+/* ── Quote boxes ── */
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.blue .q-source { color: #667eea; }
+
+/* ── Source pill ── */
+.src {
+    display: inline-block; padding: 1px 8px; border-radius: 10px;
+    font-size: 0.68em; font-weight: 600; vertical-align: middle;
+}
+.src.gemini { background: #e8f5e9; color: #2e7d32; }
+.src.weinberg { background: #e3f2fd; color: #1565c0; }
+.src.web { background: #fce4ec; color: #c62828; }
+.src.obudget { background: #fff3e0; color: #e65100; }
+.src.guide { background: #f3e5f5; color: #6a1b9a; }
+
+/* ── Funder card ── */
+.funder-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    border: 1px solid #e8e8e8; transition: all 0.2s;
+    margin-bottom: 14px;
+}
+.funder-card:hover { border-color: #667eea; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.funder-card .fc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.funder-card .fc-name { font-weight: 700; color: #1a1a2e; font-size: 1.05em; }
+.funder-card .fc-amount { font-weight: 800; color: #e74c3c; font-size: 1.1em; }
+.funder-card .fc-desc { font-size: 0.88em; color: #555; margin-bottom: 8px; }
+.funder-card .fc-grantees { font-size: 0.82em; color: #666; }
+.funder-card .fc-grantees strong { color: #2a5a8a; }
+
+/* ── Pipeline flow ── */
+.pipeline {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 30px 10px; flex-wrap: wrap;
+    background: #fafbff; border-radius: 8px; border: 1px solid #e8e8e8;
+    margin: 16px 0;
+}
+.pipe-node {
+    text-align: center; padding: 16px 14px;
+    background: #fff; border-radius: 8px;
+    border: 2px solid #667eea; min-width: 130px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.pipe-node:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.pipe-node .p-title { font-weight: 700; font-size: 0.9em; color: #1a1a2e; }
+.pipe-node .p-sub { font-size: 0.72em; color: #888; margin-top: 2px; }
+.pipe-node.source { border-color: #e74c3c; background: #fff5f5; }
+.pipe-node.hub { border-color: #ff8800; background: #fffaf0; }
+.pipe-node.target { border-color: #27ae60; background: #f0fff4; }
+.pipe-node.gov { border-color: #3498db; background: #f0f8ff; }
+.pipe-arrow {
+    font-size: 1.8em; color: #667eea; padding: 0 6px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .pipeline { flex-direction: column; gap: 8px; }
+    .pipe-arrow { transform: rotate(90deg); }
+}
+
+/* ── Flow diagram (vertical) ── */
+.flow-vertical { position: relative; max-width: 800px; margin: 20px auto; }
+.flow-level {
+    display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 8px; position: relative;
+}
+.flow-level::after {
+    content: ''; display: block; width: 3px; height: 30px;
+    background: #667eea; margin: 8px auto;
+    border-radius: 2px;
+}
+.flow-level:last-child::after { display: none; }
+.flow-level .fl-label {
+    font-size: 0.72em; color: #999; font-weight: 700; text-transform: uppercase;
+    position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    writing-mode: vertical-rl; letter-spacing: 2px;
+}
+.flow-box {
+    display: inline-block; padding: 10px 18px; border-radius: 8px;
+    border: 2px solid #ccc; font-size: 0.88em; font-weight: 600;
+    text-align: center; min-width: 120px;
+    transition: all 0.2s;
+}
+.flow-box:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.flow-box.intl { border-color: #e74c3c; background: #fff5f5; color: #c0392b; }
+.flow-box.inter { border-color: #ff8800; background: #fffaf0; color: #e67e22; }
+.flow-box.impl { border-color: #3498db; background: #f0f8ff; color: #2980b9; }
+.flow-box.school { border-color: #27ae60; background: #f0fff4; color: #27ae60; }
+.flow-connector {
+    text-align: center; color: #667eea; font-size: 1.6em; line-height: 1;
+    padding: 4px 0;
+}
+
+/* ── Link cards ── */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Footer ── */
+footer {
+    text-align: center; padding: 30px 20px; color: #999; font-size: 0.82em;
+    border-top: 1px solid #e8e8e8; margin-top: 40px;
+}
+footer a { color: #667eea; }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        רשת המימון
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">מבט על</button>
+        <button class="nav-tab" onclick="showTab('nif')">הקרן החדשה</button>
+        <button class="nav-tab" onclick="showTab('yad')">יד הנדיב</button>
+        <button class="nav-tab" onclick="showTab('others')">תורמים נוספים</button>
+        <button class="nav-tab" onclick="showTab('pipeline')">הצינור</button>
+        <button class="nav-tab" onclick="showTab('sources')">מקורות</button>
+    </div>
+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>רשת המימון &mdash; זרימת כספים במערכת החינוך</h1>
+    <div class="subtitle">מיפוי הזרמות פיננסיות מקרנות בינלאומיות דרך מתווכים ישראליים ועד לכיתת הלימוד</div>
+    <div class="meta">Gemini Deep Research + Weinberg DB + GuideStar + obudget.org | נתוני 2024&ndash;2025</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">$36.3M</div><div class="lbl">הקרן החדשה (NIF) &mdash; שנתי</div></div>
+        <div class="stat"><div class="num">$48.1M</div><div class="lbl">Open Society &mdash; MENA</div></div>
+        <div class="stat"><div class="num">$41M</div><div class="lbl">Leichtag &mdash; ירושלים</div></div>
+        <div class="stat"><div class="num">3,000+</div><div class="lbl">מנהלים שהוכשרו (אבני ראשה)</div></div>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+<!-- ═══ TAB 1: OVERVIEW ═══ -->
+<div id="tab-overview" class="view active">
+
+<div class="section">
+    <h2>התזה: מעט קרנות, שליטה מערכתית</h2>
+    <p>
+        מספר קטן של קרנות בינלאומיות &mdash; רובן אמריקאיות ובריטיות &mdash; מממנות רשת צפופה של ארגוני ביניים ישראליים.
+        ארגונים אלה (שתיל, מנדל, אבני ראשה, מרכבים, יד ביד, גבעת חביבה ועוד) פועלים כ"צינורות" המעבירים תפיסות חינוכיות, תוכניות הכשרה ומודלים פדגוגיים &mdash; מהקרן הבינלאומית ישירות לתוך מערכת החינוך הציבורית.
+    </p>
+    <p>
+        המנגנון מבוסס על שלושה מסלולים מקבילים: (1) מימון ישיר לארגוני חינוך, (2) הכשרת מנהלים ומורים דרך מכוני הכשרה, (3) מימון מחקר ומסמכי מדיניות דרך מוסדות אקדמיים.
+    </p>
+</div>
+
+<div class="section">
+    <h2>סיכום הזרמות &mdash; מקרן בינלאומית לחינוך ישראלי</h2>
+    <div class="grid-5">
+        <div class="metric alert">
+            <div class="label">הקרן החדשה (NIF)</div>
+            <div class="value">$36.3M</div>
+            <div class="note">מענקים שנתיים, 2024 <span class="src gemini">GEMINI</span></div>
+        </div>
+        <div class="metric alert">
+            <div class="label">Open Society (MENA)</div>
+            <div class="value">$48.1M</div>
+            <div class="note">אזור MENA, 2024 <span class="src gemini">GEMINI</span></div>
+        </div>
+        <div class="metric warn">
+            <div class="label">Leichtag Foundation</div>
+            <div class="value">$41M</div>
+            <div class="note">מענקי ירושלים, 2023/24 <span class="src gemini">GEMINI</span></div>
+        </div>
+        <div class="metric warn">
+            <div class="label">Slifka Foundation</div>
+            <div class="value">$1.2M</div>
+            <div class="note">תשלומים שנתיים, 2024 <span class="src gemini">GEMINI</span></div>
+        </div>
+        <div class="metric">
+            <div class="label">הכנסות NIF כולל</div>
+            <div class="value">$58.1M</div>
+            <div class="note">GuideStar Israel, 2024 <span class="src guide">GUIDE</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>המתווכים הישראליים &mdash; מי מעביר את הכסף לשטח?</h2>
+    <table>
+        <tr>
+            <th>ארגון מתווך</th>
+            <th>תפקיד</th>
+            <th>ממומן ע"י</th>
+            <th>נתון מפתח</th>
+            <th>מקור</th>
+        </tr>
+        <tr class="highlight">
+            <td><strong>שתיל</strong></td>
+            <td>בניית יכולת, ייעוץ אסטרטגי לארגוני חברה אזרחית</td>
+            <td>הקרן החדשה (NIF) &mdash; זרוע תפעולית</td>
+            <td>22,500 שעות הכשרה/שנה ל-300+ ארגונים</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr class="highlight">
+            <td><strong>אבני ראשה</strong></td>
+            <td>הכשרת מנהלי בתי ספר</td>
+            <td>יד הנדיב (רוטשילד) + משרד החינוך + IVN (של NIF)</td>
+            <td>3,000+ מנהלים הוכשרו מאז 2007 (40% מכלל מנהלי בתי הספר)</td>
+            <td><span class="src weinberg">WEINBERG</span> <span class="src web">WEB</span></td>
+        </tr>
+        <tr class="highlight">
+            <td><strong>מכון מנדל</strong></td>
+            <td>פיתוח מנהיגות חינוכית</td>
+            <td>קרן מנדל (ארה"ב)</td>
+            <td>מאז 1992: בוגרים בעמדות מפתח במשרד החינוך ומועצות חינוך עירוניות</td>
+            <td><span class="src weinberg">WEINBERG</span></td>
+        </tr>
+        <tr>
+            <td><strong>האגודה לזכויות האזרח (ACRI)</strong></td>
+            <td>תוכניות חינוך לזכויות אדם בבתי ספר</td>
+            <td>NIF: $500K+ | OSF: $100K</td>
+            <td>תוכניות למידה בעברית ובערבית</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td><strong>יוזמות אברהם</strong></td>
+            <td>תוכניות "חברה משותפת" בבתי ספר</td>
+            <td>NIF: $100&ndash;150K | Slifka</td>
+            <td>פעילות בערים מעורבות</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td><strong>יד ביד (Hand in Hand)</strong></td>
+            <td>רשת בתי ספר דו-לשוניים</td>
+            <td>NIF + Leichtag + Slifka</td>
+            <td>6 בתי ספר דו-לשוניים עברית-ערבית</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td><strong>גבעת חביבה</strong></td>
+            <td>סמינרים חינוכיים יהודים-ערבים</td>
+            <td>Slifka: $50&ndash;100K | NIF</td>
+            <td>מרכז לחברה משותפת</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td><strong>מרחבים</strong></td>
+            <td>קידום גיוון ו"אזרחות משותפת" בבתי ספר</td>
+            <td>NIF + שתיל</td>
+            <td>פעילות ישירה במערכת החינוך</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td><strong>סיכוי-אופוק</strong></td>
+            <td>קידום שוויון בתקציב ובתוכנית הלימודים</td>
+            <td>NIF: $50&ndash;100K</td>
+            <td>סנגור לשוויון בתקציבי חינוך ממלכתיים</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>הממצא המרכזי מ-Weinberg DB</h2>
+    <div class="quote-box blue">
+        "המכון [אבני ראשה] עוסק בהכשרה ובפיתוח מקצועי של כלל מנהלי בתי הספר והמפקחים בישראל. הוקם בשותפות של משרד החינוך עם קרן יד הנדיב באמצעות מט"ח. וקרן IVN &mdash; שהוקמה ע"י הקרן החדשה לישראל. כיום בוועד המנהל של המכון יושבים במשותף נציגי משרד החינוך וקרן יד הנדיב."
+        <div class="q-source">&mdash; Weinberg DB, שורה 658: אבני ראשה</div>
+    </div>
+    <p>
+        <strong>משמעות:</strong> שתי הקרנות הגדולות ביותר &mdash; יד הנדיב (רוטשילד) והקרן החדשה (דרך IVN) &mdash; יושבות יחד בוועד המנהל של המכון שמכשיר את כלל מנהלי בתי הספר בישראל, לצד משרד החינוך. זו נקודת ממשק קריטית שבה כסף פילנתרופי הופך למדיניות חינוכית.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══ TAB 2: NIF ═══ -->
+<div id="tab-nif" class="view">
+
+<div class="section">
+    <h2>הקרן החדשה לישראל (NIF) &mdash; פרופיל מימון</h2>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מענקים מאושרים, 2024</div>
+            <div class="value">$36.3M</div>
+            <div class="note">NIF Annual Report <span class="src gemini">GEMINI</span></div>
+        </div>
+        <div class="metric warn">
+            <div class="label">הכנסות כוללות, 2024</div>
+            <div class="value">$58.1M</div>
+            <div class="note">GuideStar Israel <span class="src guide">GUIDE</span></div>
+        </div>
+        <div class="metric">
+            <div class="label">זרוע תפעולית</div>
+            <div class="value">שתיל</div>
+            <div class="note">22,500 שעות הכשרה/שנה <span class="src gemini">GEMINI</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נתמכים בתחום חינוך &mdash; סכומים ידועים</h2>
+    <table>
+        <tr>
+            <th>ארגון נתמך</th>
+            <th>סכום שנתי</th>
+            <th>תחום</th>
+            <th>מקור</th>
+        </tr>
+        <tr class="highlight">
+            <td><strong>האגודה לזכויות האזרח (ACRI)</strong></td>
+            <td><strong>$500,000+</strong></td>
+            <td>נתמך דגל; כולל מחלקת חינוך לזכויות אדם + ליטיגציה</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td>בימקום &mdash; מתכננים למען זכויות תכנון</td>
+            <td><strong>$200,000</strong></td>
+            <td>תכנון תשתיות חינוכיות בקהילות בדואיות</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td>יוזמות אברהם (Abraham Initiatives)</td>
+            <td><strong>$100&ndash;150K</strong></td>
+            <td>תוכניות "חברה משותפת" בבתי ספר בערים מעורבות</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td>עדאלה</td>
+            <td><strong>$100,000</strong></td>
+            <td>סנגור לזכויות חינוך של מיעוטים</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+        <tr>
+            <td>סיכוי-אופוק</td>
+            <td><strong>$50&ndash;100K</strong></td>
+            <td>קידום שוויון בתקציבי חינוך</td>
+            <td><span class="src gemini">GEMINI</span></td>
+        </tr>
+    </table>
+    <p style="font-size:0.82em; color:#999;">סה"כ חלקי &mdash; סכומים נוספים מופנים לתוכניות שלא פורטו בדיווח. NIF מסווגת חלק ניכר מהמענקים תחת "שמירה על ערכים ליברליים-דמוקרטיים בחינוך".</p>
+</div>
+
+<div class="section">
+    <h2>שתיל &mdash; הזרוע התפעולית</h2>
+    <p>
+        שתיל, שנוסדה ב-1982, היא <strong>זרוע בניית היכולת של NIF</strong>. היא אינה קרן מענקים בעצמה, אלא מספקת ייעוץ, הכשרה ותכנון אסטרטגי לארגוני חינוך ושינוי חברתי.
+        <span class="src gemini">GEMINI</span>
+    </p>
+    <div class="grid-2">
+        <div>
+            <h3>ארגוני חינוך שנתמכים ע"י שתיל</h3>
+            <table>
+                <tr><th>ארגון</th><th>תחום</th></tr>
+                <tr><td>הוועד לחינוך ערבי</td><td>זכויות ותוכנית לימודים של התלמידים הערבים</td></tr>
+                <tr><td>ACRI &mdash; מחלקת חינוך</td><td>תוכניות לימוד זכויות אדם בעברית ובערבית</td></tr>
+                <tr><td>יוזמות אברהם</td><td>תוכניות חינוך "חברה משותפת"</td></tr>
+                <tr><td>סיכוי-אופוק</td><td>שוויון בתקציב ובתוכנית הלימודים</td></tr>
+                <tr><td>יד ביד (Hand in Hand)</td><td>רשת בתי ספר דו-לשוניים</td></tr>
+                <tr><td>גבעת חביבה</td><td>סמינרים חינוכיים יהודים-ערבים</td></tr>
+                <tr><td>מרחבים</td><td>גיוון ו"אזרחות משותפת" בבתי ספר</td></tr>
+            </table>
+        </div>
+        <div>
+            <h3>מספרים</h3>
+            <div class="metric alert">
+                <div class="label">שעות הכשרה שנתיות</div>
+                <div class="value">22,500</div>
+                <div class="note"><span class="src gemini">GEMINI</span></div>
+            </div>
+            <div class="metric" style="margin-top:14px;">
+                <div class="label">ארגונים נתמכים</div>
+                <div class="value">300+</div>
+                <div class="note">כלל התחומים <span class="src gemini">GEMINI</span></div>
+            </div>
+            <div class="quote-box" style="margin-top:14px;">
+                "בשתיל כ-20 שנה... כסמנכ"ל אחראי על החלטות מדיניות ותכנון, הנחיית הצוות והקשר עם הקרן החדשה לישראל."
+                <div class="q-source">&mdash; Weinberg DB: קרלוס שטיגליץ, סמנכ"ל שתיל</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>אנשי מפתח של NIF מתוך Weinberg DB</h2>
+    <table>
+        <tr>
+            <th>שם</th>
+            <th>תפקיד / קשר</th>
+            <th>מקור</th>
+        </tr>
+        <tr><td>דניאל סוקאץ'</td><td>מנכ"ל NIF. לשעבר מנכ"ל הפדרציה היהודית של סן פרנסיסקו</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>נעמי חזן</td><td>נשיאת NIF 2008&ndash;2012. ח"כ מר"צ לשעבר. פרופ' אמריטה באוניברסיטה העברית</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>נועם לאוטמן</td><td>לשעבר נשיא NIF. יו"ר קרן לאוטמן. חבר JFN</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>אבי ערמוני</td><td>לשעבר מנהל NIF בישראל. סגן נשיא האוניברסיטה העברית</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>אלה אלקלעי</td><td>יו"ר ועדת מענקים NIF. יו"ר שדולת הנשים</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>פיטר אידלמן (Peter Edelman)</td><td>יו"ר דירקטוריון NIF. פרופ' למשפטים, ג'ורג'טאון</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>איציק דנציגר</td><td>סגן נשיאת NIF. יו"ר מט"ח. ממייסדי אבני ראשה</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>אברהם בורג</td><td>יו"ר עמית מועצה בינלאומית NIF. יו"ר הסוכנות לשעבר. יו"ר כנסת לשעבר</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>ארגונים שהוקמו / נוסדו ע"י NIF</h2>
+    <div class="grid-2">
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">איתך-מעכי</span>
+                <span class="badge red">הוקם ע"י NIF</span>
+            </div>
+            <div class="fc-desc">"ארגון יהודי-ערבי פמיניסטי... הוקם ע"י הקרן החדשה לישראל וממומן ע"י הקרן החדשה, האיחוד האירופי, וממשלות זרות"</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורה 568</div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">אג'נדה (כיום חלק מ"אנו")</span>
+                <span class="badge red">הוקם ע"י NIF</span>
+            </div>
+            <div class="fc-desc">"הוקם בתמיכת קרן פורד ובייסוד משותף של ארגון שתיל וחברת בן-אור תקשורת". בן-אור הוקמה ע"י ג'רמי בן עמי, מנהל התקשורת לשעבר של NIF ומייסד J Street.</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורה 38</div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">בן אור תקשורת</span>
+                <span class="badge orange">קשור ל-NIF</span>
+            </div>
+            <div class="fc-desc">"בן אור תקשורת הקימה את ארגון 'יש דין', ורבים מלקוחותיה הם ארגוני הקרן החדשה"</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורה 6231</div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">קרן קרומר</span>
+                <span class="badge blue">תורמת ל-NIF</span>
+            </div>
+            <div class="fc-desc">"קרן משפחתית המופעלת ע"י חותמים מחדש. תורמת לארגוני הקרן החדשה"</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורה 511</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>obudget.org: מימון ממשלתי לעומת NIF</h2>
+    <div class="quote-box">
+        "הוועד לחינוך ערבי &mdash; מימון ממשלתי פחות מ-2% מתקציבו. הקרן החדשה ושתיל הם התמיכה הכספית והאסטרטגית העיקרית."
+        <div class="q-source">&mdash; GuideStar Israel + obudget.org <span class="src obudget">OBUDGET</span> <span class="src guide">GUIDE</span></div>
+    </div>
+    <p>
+        משמעות: ארגון חינוכי מרכזי שפועל בתוך מערכת החינוך הממלכתית ממומן ברובו המוחלט מקרן בינלאומית &mdash; לא מהמדינה.
+    </p>
+</div>
+
+</div>
+
+<!-- ═══ TAB 3: YAD HANADIV ═══ -->
+<div id="tab-yad" class="view">
+
+<div class="section">
+    <h2>יד הנדיב &mdash; קרן רוטשילד בישראל</h2>
+    <p>
+        יד הנדיב היא קרן פילנתרופית של משפחת רוטשילד הפועלת בישראל.
+        "קרן של ג'ייקוב רוטשילד, מממן קרן יד הנדיב הפועלת בישראל" <span class="src weinberg">WEINBERG</span>.
+        הקרן מצהירה באופן מפורש על Social and Emotional Learning (SEL) כתחום פעילות.
+        <span class="src web">WEB</span>
+    </p>
+    <div class="grid-3">
+        <div class="metric warn">
+            <div class="label">SEL כתחום מוצהר</div>
+            <div class="value">כן</div>
+            <div class="note">yadhanadiv.org.il <span class="src web">WEB</span></div>
+        </div>
+        <div class="metric alert">
+            <div class="label">ייסוד אבני ראשה</div>
+            <div class="value">2007</div>
+            <div class="note">יחד עם משרד החינוך <span class="src weinberg">WEINBERG</span></div>
+        </div>
+        <div class="metric">
+            <div class="label">מנהלים שהוכשרו</div>
+            <div class="value">3,000+</div>
+            <div class="note">40% מכלל מנהלי בתי הספר <span class="src web">WEB</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תחומי פעילות בחינוך</h2>
+    <table>
+        <tr>
+            <th>תוכנית</th>
+            <th>תיאור</th>
+            <th>מקור</th>
+        </tr>
+        <tr class="highlight">
+            <td><strong>אבני ראשה</strong></td>
+            <td>המכון הישראלי למנהיגות בית ספרית. הכשרה ופיתוח מקצועי לכלל מנהלי בתי הספר. הוקם בשותפות משרד החינוך + יד הנדיב + מט"ח + IVN (של NIF)</td>
+            <td><span class="src weinberg">WEINBERG</span></td>
+        </tr>
+        <tr>
+            <td><strong>K-12 Education</strong></td>
+            <td>תוכניות חינוך בכל שכבות הגיל</td>
+            <td><span class="src web">WEB</span></td>
+        </tr>
+        <tr>
+            <td><strong>Meisharim Turnaround Schools</strong></td>
+            <td>שיקום בתי ספר חלשים</td>
+            <td><span class="src web">WEB</span></td>
+        </tr>
+        <tr>
+            <td><strong>Teacher Leaders</strong></td>
+            <td>הכשרת מורים מובילים</td>
+            <td><span class="src web">WEB</span></td>
+        </tr>
+        <tr>
+            <td><strong>Early Childhood</strong></td>
+            <td>חינוך לגיל הרך</td>
+            <td><span class="src web">WEB</span></td>
+        </tr>
+        <tr>
+            <td><strong>פרסי רוטשילד לחינוך</strong></td>
+            <td>פרסי הצטיינות למורים ומנהלים</td>
+            <td><span class="src web">WEB</span></td>
+        </tr>
+        <tr>
+            <td><strong>אלפנאר</strong></td>
+            <td>קידום תעסוקת ערבים. "ממומנת ע"י יד הנדיב והג'וינט וכן יש מימון מהמדינה"</td>
+            <td><span class="src weinberg">WEINBERG</span></td>
+        </tr>
+        <tr>
+            <td><strong>"היוזמה &mdash; מרכז ידע לחינוך"</strong></td>
+            <td>שותפות אקדמיה למדעים + משרד החינוך + יד הנדיב, מאז 2003. מפיקה מסמכי מדיניות כולל מסמך SEL</td>
+            <td><span class="src web">WEB</span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>הקשר ל-CASEL ול-SEL</h2>
+    <p>
+        אתר יד הנדיב מציין באופן מפורש Social and Emotional Learning כתחום פעילות.
+        הצינור:
+    </p>
+    <div class="pipeline">
+        <div class="pipe-node source">
+            <div class="p-title">CASEL</div>
+            <div class="p-sub">שיקגו | SEL Framework</div>
+            <div class="p-sub">$18M שיא הכנסות</div>
+        </div>
+        <div class="pipe-arrow">&larr;</div>
+        <div class="pipe-node" style="border-color:#9b59b6;">
+            <div class="p-title">יד הנדיב</div>
+            <div class="p-sub">רוטשילד | מימון</div>
+            <div class="p-sub">SEL = תחום מוצהר</div>
+        </div>
+        <div class="pipe-arrow">&larr;</div>
+        <div class="pipe-node hub">
+            <div class="p-title">אבני ראשה</div>
+            <div class="p-sub">הכשרת מנהלים</div>
+            <div class="p-sub">3,000+ מנהלים</div>
+        </div>
+        <div class="pipe-arrow">&larr;</div>
+        <div class="pipe-node gov">
+            <div class="p-title">משרד החינוך</div>
+            <div class="p-sub">חוזרי מנכ"ל</div>
+            <div class="p-sub">שפ"י + מפתח הל"ב</div>
+        </div>
+        <div class="pipe-arrow">&larr;</div>
+        <div class="pipe-node target">
+            <div class="p-title">כיתות</div>
+            <div class="p-sub">~1.8M תלמידים</div>
+        </div>
+    </div>
+    <p style="font-size:0.82em; color:#888; text-align:center;">
+        מקור: <a href="casel_israel_connection.html" style="color:#667eea;">CASEL לישראל &mdash; הצינור המלא</a>
+    </p>
+</div>
+
+<div class="section">
+    <h2>אנשי מפתח מ-Weinberg DB</h2>
+    <table>
+        <tr>
+            <th>שם</th>
+            <th>תפקיד</th>
+            <th>מקור</th>
+        </tr>
+        <tr><td>גל פישר</td><td>ראש תחום חינוך, יד הנדיב</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>איציק דנציגר</td><td>יו"ר מט"ח, חבר דירקטוריון IVN, סגן נשיאת NIF, ממייסדי אבני ראשה</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>ליסה לוי</td><td>ראש תחום עתודה ניהולית, אבני ראשה</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>חיים שמילה</td><td>מנהל תוכניות &mdash; תחום מנהלים, אבני ראשה</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+        <tr><td>אריאן דה רוטשילד</td><td>מנהלת קרן רוטשילד קיסריה יחד עם בנג'מין רוטשילד</td><td><span class="src weinberg">WEINBERG</span></td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מבנה הקרנות &mdash; Rothschild</h2>
+    <table>
+        <tr>
+            <th>ישות</th>
+            <th>מיקום</th>
+            <th>קשר</th>
+            <th>מקור</th>
+        </tr>
+        <tr>
+            <td>קרן רוטשילד (הנדיב) אירופה</td>
+            <td>בריטניה</td>
+            <td>"קרן של ג'ייקוב רוטשילד, מממן קרן יד הנדיב הפועלת בישראל"</td>
+            <td><span class="src weinberg">WEINBERG</span></td>
+        </tr>
+        <tr>
+            <td>יד הנדיב</td>
+            <td>ישראל</td>
+            <td>הקרן הפילנתרופית המבצעת</td>
+            <td><span class="src weinberg">WEINBERG</span></td>
+        </tr>
+        <tr>
+            <td>קרן רוטשילד קיסריה</td>
+            <td>ישראל</td>
+            <td>קרן נפרדת של בנג'מין ואריאן רוטשילד</td>
+            <td><span class="src weinberg">WEINBERG</span></td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ TAB 4: OTHER FUNDERS ═══ -->
+<div id="tab-others" class="view">
+
+<div class="section">
+    <h2>תורמים נוספים &mdash; הזרמות למערכת החינוך הישראלית</h2>
+</div>
+
+<div class="section">
+    <h2>Open Society Foundations (OSF) &mdash; ג'ורג' סורוס</h2>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מענקים שנתיים (MENA)</div>
+            <div class="value">$48.1M</div>
+            <div class="note">2024, כולל ישראל/פלסטין <span class="src gemini">GEMINI</span></div>
+        </div>
+        <div class="metric">
+            <div class="label">ישויות ב-Weinberg DB</div>
+            <div class="value">2</div>
+            <div class="note">"מכון החברה הפתוחה", "מכון למחשבה כלכלית חדשה" <span class="src weinberg">WEINBERG</span></div>
+        </div>
+        <div class="metric">
+            <div class="label">חפיפה עם NIF</div>
+            <div class="value">כן</div>
+            <div class="note">ACRI, בלדנה, גישה</div>
+        </div>
+    </div>
+    <h3>נתמכים ישראליים ידועים</h3>
+    <table>
+        <tr>
+            <th>ארגון</th>
+            <th>סכום</th>
+            <th>מחזור</th>
+            <th>תחום</th>
+        </tr>
+        <tr><td>בלדנה (עמותת נוער ערבי)</td><td><strong>$300,000</strong></td><td>2023&ndash;2025</td><td>מנהיגות נוער וחינוך בלתי פורמלי</td></tr>
+        <tr><td>ACRI</td><td><strong>$100,000</strong></td><td>2023&ndash;2024</td><td>זכויות אדם בחינוך</td></tr>
+        <tr><td>גישה</td><td><strong>$90,000</strong></td><td>2023</td><td>גישה לחינוך</td></tr>
+    </table>
+    <p style="font-size:0.82em;"><span class="src gemini">GEMINI</span> כל הסכומים מתוך מחקר Gemini Deep Research, פברואר 2026</p>
+</div>
+
+<div class="section">
+    <h2>Alan B. Slifka Foundation</h2>
+    <div class="grid-2">
+        <div>
+            <div class="metric warn">
+                <div class="label">תשלומים שנתיים</div>
+                <div class="value">~$1.2M</div>
+                <div class="note">2024, מיקוד "חברה משותפת" <span class="src gemini">GEMINI</span></div>
+            </div>
+        </div>
+        <div>
+            <h3>נתמכים בישראל</h3>
+            <table>
+                <tr><th>ארגון</th><th>סכום</th></tr>
+                <tr><td>יוזמות אברהם</td><td>שותף עיקרי לסדנאות "חברה משותפת"</td></tr>
+                <tr><td>גבעת חביבה</td><td>$50&ndash;100K (תוכנית "דיור משותף" וחינוך אמנות)</td></tr>
+                <tr><td>Brandeis University</td><td>קתדרה Slifka לפתרון סכסוכים (חילופי מרצים עם ישראל)</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Leichtag Foundation</h2>
+    <div class="grid-2">
+        <div>
+            <div class="metric warn">
+                <div class="label">מענקי ירושלים</div>
+                <div class="value">~$41M</div>
+                <div class="note">2023/24, דרך Jerusalem Foundation + מענקים ישירים <span class="src gemini">GEMINI</span></div>
+            </div>
+        </div>
+        <div>
+            <h3>נתמכים חינוכיים</h3>
+            <table>
+                <tr><th>ארגון</th><th>תחום</th></tr>
+                <tr><td><strong>Jerusalem Model</strong></td><td>בניית יכולת למנהיגי חינוך (חילוני, חרדי, מזרח ירושלים)</td></tr>
+                <tr><td><strong>יד ביד (Hand in Hand)</strong></td><td>תשתיות חינוך דו-לשוני בירושלים</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קרן מנדל</h2>
+    <div class="grid-2">
+        <div>
+            <div class="quote-box blue">
+                "מכון מנדל למנהיגות פועל ליצירת מנהיגים סוכני שינוי אשר יובילו ארגונים ומיזמים חינוכיים בישראל ובקהילות יהודיות ברחבי העולם."
+                <div class="q-source">&mdash; Weinberg DB, שורה 223 <span class="src weinberg">WEINBERG</span></div>
+            </div>
+            <p><strong>שנת הקמה:</strong> 1992</p>
+        </div>
+        <div>
+            <h3>אנשי מנדל בתפקידי מפתח (Weinberg DB)</h3>
+            <table>
+                <tr><th>שם</th><th>תפקיד</th></tr>
+                <tr><td>ורדית רוזנבלום</td><td>מנחה, קרן מנדל-ישראל (גם עורכת דין וטוענת רבנית)</td></tr>
+                <tr><td>משה אוחיון</td><td>ממונה תכנון ופיתוח, מרכז מנדל למנהיגות בצפון</td></tr>
+                <tr><td>אפרת ארן</td><td>סמנכ"לית תוכן, אלומה. בוגרת בית הספר מנדל למנהיגות חינוכית</td></tr>
+                <tr><td>מנחם בומבך</td><td>חבר סגל מכון מנדל בתוכנית לפיתוח מנהיגות חרדית</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>האיחוד האירופי (EU)</h2>
+    <div class="grid-2">
+        <div>
+            <p>
+                האיחוד האירופי ממן ארגונים ישראליים ישירות ודרך מנגנוני EMHRF. דוגמאות מ-Weinberg DB:
+            </p>
+            <div class="quote-box">
+                "איתך-מעכי... הוקם ע"י הקרן החדשה לישראל וממומן ע"י הקרן החדשה, האיחוד האירופי, וממשלות זרות"
+                <div class="q-source">&mdash; Weinberg DB, שורה 568 <span class="src weinberg">WEINBERG</span></div>
+            </div>
+        </div>
+        <div>
+            <p>דפוס המימון: ארגון שהוקם ע"י NIF ממומן גם מהאיחוד האירופי &mdash; מימון מקביל ממספר מקורות בינלאומיים.</p>
+            <p>ישויות EU ב-Weinberg DB:</p>
+            <ul>
+                <li>האיחוד האירופי (European Union) &mdash; שורה 86</li>
+                <li>EMHRF (האיחוד האירופי) &mdash; שורה 610</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קרנות נוספות</h2>
+    <div class="grid-2">
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">קרן פורד</span>
+                <span class="badge purple">היסטורי</span>
+            </div>
+            <div class="fc-desc">מימנה הקמת "אג'נדה" יחד עם שתיל. אג'נדה &mdash; "מרכז ישראלי לאסטרטגיה תקשורתית" &mdash; כיום חלק מ"אנו".</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורה 38</div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">תוכנית פולברייט</span>
+                <span class="badge blue">ממשל אמריקאי</span>
+            </div>
+            <div class="fc-desc">"תוכנית של הממשל האמריקאי להקצאת מענקי מימון לחילופי סטודנטים, חוקרים ומרצים." מנוהלת בישראל ע"י USIEF (מאז 1956).</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורות 7, 15</div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">Israel Venture Network (IVN)</span>
+                <span class="badge orange">צומת קריטי</span>
+            </div>
+            <div class="fc-desc">שותף בהקמת אבני ראשה. איציק דנציגר (סגן נשיאת NIF) חבר בדירקטוריון IVN.</div>
+            <div class="fc-grantees"><span class="src weinberg">WEINBERG</span> שורות 24, 4047</div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header">
+                <span class="fc-name">Leichtag Foundation</span>
+                <span class="badge orange">ירושלים</span>
+            </div>
+            <div class="fc-desc">~$41M. מימון Jerusalem Model לפיתוח מנהיגי חינוך + Hand in Hand.</div>
+            <div class="fc-grantees"><span class="src gemini">GEMINI</span> <span class="src weinberg">WEINBERG</span> שורה 10035</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ TAB 5: THE PIPELINE ═══ -->
+<div id="tab-pipeline" class="view">
+
+<div class="section">
+    <h2>הצינור: מקרן בינלאומית לכיתה</h2>
+    <p>
+        מודל הזרמת הכסף והתפיסות החינוכיות מתנהל בארבע שכבות. כל שכבה מתפקדת גם כמסנן וגם כמגבר &mdash; היא מתרגמת את המסר לשפה מקומית תוך שמירה על התוכן המקורי.
+    </p>
+</div>
+
+<div class="section">
+    <h2>תרשים זרימה: 4 שכבות</h2>
+
+    <div class="flow-vertical">
+
+        <!-- Level 1: International Foundations -->
+        <div style="text-align:center; margin-bottom:10px;">
+            <div style="font-size:0.78em; color:#999; font-weight:700; margin-bottom:6px;">שכבה 1: קרנות בינלאומיות</div>
+        </div>
+        <div class="flow-level" style="gap:12px;">
+            <div class="flow-box intl">NIF<br><span style="font-size:0.72em;">$36.3M</span></div>
+            <div class="flow-box intl">OSF<br><span style="font-size:0.72em;">$48.1M MENA</span></div>
+            <div class="flow-box intl">רוטשילד<br><span style="font-size:0.72em;">יד הנדיב</span></div>
+            <div class="flow-box intl">Leichtag<br><span style="font-size:0.72em;">$41M ירושלים</span></div>
+            <div class="flow-box intl">Slifka<br><span style="font-size:0.72em;">$1.2M</span></div>
+            <div class="flow-box intl">מנדל<br><span style="font-size:0.72em;">ארה"ב</span></div>
+            <div class="flow-box intl">EU<br><span style="font-size:0.72em;">EMHRF</span></div>
+        </div>
+
+        <div class="flow-connector">&darr;</div>
+
+        <!-- Level 2: Israeli Intermediaries -->
+        <div style="text-align:center; margin-bottom:10px;">
+            <div style="font-size:0.78em; color:#999; font-weight:700; margin-bottom:6px;">שכבה 2: ארגוני ביניים ישראליים (מתווכים)</div>
+        </div>
+        <div class="flow-level" style="gap:12px;">
+            <div class="flow-box inter">שתיל<br><span style="font-size:0.72em;">22,500 שעות/שנה</span></div>
+            <div class="flow-box inter">אבני ראשה<br><span style="font-size:0.72em;">3,000 מנהלים</span></div>
+            <div class="flow-box inter">מכון מנדל<br><span style="font-size:0.72em;">מנהיגות חינוכית</span></div>
+            <div class="flow-box inter">ACRI<br><span style="font-size:0.72em;">$600K+</span></div>
+            <div class="flow-box inter">יוזמות אברהם<br><span style="font-size:0.72em;">$150K+</span></div>
+        </div>
+
+        <div class="flow-connector">&darr;</div>
+
+        <!-- Level 3: Implementation mechanisms -->
+        <div style="text-align:center; margin-bottom:10px;">
+            <div style="font-size:0.78em; color:#999; font-weight:700; margin-bottom:6px;">שכבה 3: מנגנוני יישום</div>
+        </div>
+        <div class="flow-level" style="gap:12px;">
+            <div class="flow-box impl">הכשרת מנהלים</div>
+            <div class="flow-box impl">תוכניות למידה</div>
+            <div class="flow-box impl">מסמכי מדיניות</div>
+            <div class="flow-box impl">חוזרי מנכ"ל</div>
+            <div class="flow-box impl">פרויקטי GEFEN</div>
+        </div>
+
+        <div class="flow-connector">&darr;</div>
+
+        <!-- Level 4: Schools and classrooms -->
+        <div style="text-align:center; margin-bottom:10px;">
+            <div style="font-size:0.78em; color:#999; font-weight:700; margin-bottom:6px;">שכבה 4: בתי ספר וכיתות</div>
+        </div>
+        <div class="flow-level" style="gap:12px;">
+            <div class="flow-box school">בתי ספר יסודיים</div>
+            <div class="flow-box school">חטיבות ביניים</div>
+            <div class="flow-box school">תיכונים</div>
+            <div class="flow-box school">~1.8M תלמידים</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="section">
+    <h2>שלושה מסלולים מקבילים</h2>
+    <div class="grid-3">
+        <div class="funder-card">
+            <div class="fc-header"><span class="fc-name">מסלול 1: מימון ישיר</span></div>
+            <div class="fc-desc">
+                <strong>קרן &rarr; ארגון חינוכי &rarr; תוכנית בבית ספר</strong><br>
+                NIF &rarr; יוזמות אברהם &rarr; סדנאות "חברה משותפת" בערים מעורבות<br>
+                NIF &rarr; ACRI &rarr; שיעורי זכויות אדם בעברית ובערבית<br>
+                Slifka &rarr; גבעת חביבה &rarr; סמינרים יהודי-ערבי
+            </div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header"><span class="fc-name">מסלול 2: הכשרת מנהיגות</span></div>
+            <div class="fc-desc">
+                <strong>קרן &rarr; מכון הכשרה &rarr; מנהלי/מורים &rarr; כיתה</strong><br>
+                יד הנדיב &rarr; אבני ראשה &rarr; 3,000 מנהלים &rarr; SEL בכיתות<br>
+                מנדל &rarr; מכון מנדל &rarr; בוגרים בעמדות מנהיגות חינוכית<br>
+                NIF/שתיל &rarr; 22,500 שעות הכשרה &rarr; 300 ארגונים
+            </div>
+        </div>
+        <div class="funder-card">
+            <div class="fc-header"><span class="fc-name">מסלול 3: מדיניות</span></div>
+            <div class="fc-desc">
+                <strong>קרן &rarr; מוסד מחקר &rarr; מסמך מדיניות &rarr; חוזר מנכ"ל</strong><br>
+                יד הנדיב &rarr; האקדמיה למדעים ("היוזמה") &rarr; מסמך קונסנזוס SEL &rarr; חוזר מנכ"ל<br>
+                NIF &rarr; סנגור (עדאלה, סיכוי) &rarr; לחץ על משרד החינוך &rarr; שינויי תקציב
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נקודת הצומת: אבני ראשה</h2>
+    <div class="quote-box blue">
+        "הוקם בשותפות של משרד החינוך עם קרן יד הנדיב באמצעות מט"ח. וקרן IVN &mdash; שהוקמה ע"י הקרן החדשה לישראל. כיום בוועד המנהל של המכון יושבים במשותף נציגי משרד החינוך וקרן יד הנדיב."
+        <div class="q-source">&mdash; Weinberg DB <span class="src weinberg">WEINBERG</span></div>
+    </div>
+    <p>
+        אבני ראשה היא <strong>נקודת הצומת</strong> שבה נפגשים שני המממנים הגדולים:
+    </p>
+    <table>
+        <tr>
+            <th>גורם</th>
+            <th>תפקיד באבני ראשה</th>
+            <th>איש מפתח</th>
+        </tr>
+        <tr>
+            <td>יד הנדיב (רוטשילד)</td>
+            <td>שותף מייסד + מימון שוטף + חבר ועד מנהל</td>
+            <td>גל פישר (ראש תחום חינוך ביד הנדיב)</td>
+        </tr>
+        <tr>
+            <td>NIF (דרך IVN)</td>
+            <td>שותף מייסד (באמצעות IVN)</td>
+            <td>איציק דנציגר (יו"ר מט"ח, סגן נשיאת NIF, חבר דירקטוריון IVN, ממייסדי אבני ראשה)</td>
+        </tr>
+        <tr>
+            <td>משרד החינוך</td>
+            <td>שותף מייסד + חבר ועד מנהל</td>
+            <td>נציגי משרד החינוך</td>
+        </tr>
+    </table>
+    <p>
+        <strong>המשמעות:</strong> מנהל בית ספר שעובר הכשרה באבני ראשה מקבל תוכנית שעוצבה במימון משותף של שני גופים פילנתרופיים בינלאומיים. ההכשרה כוללת SEL (הגיעה דרך CASEL &rarr; יד הנדיב) ותכנים נוספים. 40% מכלל מנהלי בתי הספר בישראל עברו הכשרה זו.
+    </p>
+</div>
+
+<div class="section">
+    <h2>חפיפת מימון: אותם ארגונים, מספר מקורות</h2>
+    <table>
+        <tr>
+            <th>ארגון</th>
+            <th>NIF</th>
+            <th>OSF</th>
+            <th>Slifka</th>
+            <th>EU</th>
+            <th>יד הנדיב</th>
+        </tr>
+        <tr>
+            <td>ACRI</td>
+            <td><span class="badge red">$500K+</span></td>
+            <td><span class="badge red">$100K</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>יוזמות אברהם</td>
+            <td><span class="badge orange">$100-150K</span></td>
+            <td></td>
+            <td><span class="badge orange">שותף</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>גבעת חביבה</td>
+            <td><span class="badge orange">נתמך</span></td>
+            <td></td>
+            <td><span class="badge orange">$50-100K</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>יד ביד</td>
+            <td><span class="badge orange">נתמך</span></td>
+            <td></td>
+            <td><span class="badge orange">נתמך</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>אבני ראשה</td>
+            <td><span class="badge blue">IVN</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><span class="badge red">מייסד</span></td>
+        </tr>
+        <tr>
+            <td>איתך-מעכי</td>
+            <td><span class="badge red">מייסד</span></td>
+            <td></td>
+            <td></td>
+            <td><span class="badge blue">ממומן</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>אלפנאר</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><span class="badge red">ממומן</span></td>
+        </tr>
+    </table>
+    <p style="font-size:0.82em; color:#999;">מקורות: <span class="src gemini">GEMINI</span> <span class="src weinberg">WEINBERG</span></p>
+</div>
+
+</div>
+
+<!-- ═══ TAB 6: SOURCES ═══ -->
+<div id="tab-sources" class="view">
+
+<div class="section">
+    <h2>מקורות נתונים</h2>
+
+    <h3>1. Gemini Deep Research</h3>
+    <p>מחקר עומק שבוצע בפברואר 2026 באמצעות Gemini. נושא: "Deep investigation of financial flows in Israeli educational program ecosystem." כלל חקירה של NIF, Yad Hanadiv, Mandel, Rabinovich, EU ו-Shatil.</p>
+    <p><strong>נתונים שנלקחו:</strong></p>
+    <ul>
+        <li>NIF $36.3M מענקים שנתיים (2024)</li>
+        <li>NIF $58.1M הכנסות כוללות (GuideStar Israel 2024)</li>
+        <li>ACRI $500K+ מ-NIF</li>
+        <li>Abraham Initiatives $100&ndash;150K מ-NIF</li>
+        <li>Bimkom $200K מ-NIF</li>
+        <li>Adalah $100K מ-NIF</li>
+        <li>Sikkuy-Aufoq $50&ndash;100K מ-NIF</li>
+        <li>OSF $48.1M MENA (2024)</li>
+        <li>Baladna $300K מ-OSF (2023&ndash;2025)</li>
+        <li>ACRI $100K מ-OSF (2023&ndash;2024)</li>
+        <li>Gisha $90K מ-OSF (2023)</li>
+        <li>Slifka ~$1.2M שנתי (2024)</li>
+        <li>Leichtag ~$41M ירושלים (2023/24)</li>
+        <li>שתיל 22,500 שעות הכשרה/שנה ל-300+ ארגונים</li>
+        <li>obudget.org: הוועד לחינוך ערבי &lt;2% מימון ממשלתי</li>
+    </ul>
+
+    <h3>2. Weinberg DB</h3>
+    <p>מסד נתונים org_mapping_weinberg_db.csv. ממפה ישויות (ארגונים, אנשים, קרנות) וקשרים ביניהם. שורות מפתח שצוטטו:</p>
+    <table>
+        <tr><th>שורה</th><th>ישות</th><th>תוכן</th></tr>
+        <tr><td>5</td><td>Inter-Agency Task Force</td><td>ראשיו קשורים לקרן החדשה</td></tr>
+        <tr><td>34</td><td>קרן רוטשילד (הנדיב) אירופה</td><td>"קרן של ג'ייקוב רוטשילד, מממן יד הנדיב"</td></tr>
+        <tr><td>38</td><td>אג'נדה</td><td>"הוקם בתמיכת קרן פורד ובייסוד משותף של שתיל"</td></tr>
+        <tr><td>86</td><td>האיחוד האירופי</td><td>ישות ב-DB</td></tr>
+        <tr><td>109</td><td>מכון למחשבה כלכלית חדשה (סורוס)</td><td>ישות ב-DB</td></tr>
+        <tr><td>169</td><td>יד הנדיב</td><td>ישות ב-DB</td></tr>
+        <tr><td>219</td><td>מכון החברה הפתוחה (סורוס)</td><td>ישות ב-DB</td></tr>
+        <tr><td>223</td><td>מכון מנדל</td><td>"מנהיגים סוכני שינוי" מאז 1992</td></tr>
+        <tr><td>511</td><td>קרן קרומר</td><td>"תורמת לארגוני הקרן החדשה"</td></tr>
+        <tr><td>568</td><td>איתך-מעכי</td><td>"הוקם ע"י NIF וממומן ע"י NIF, EU, ממשלות זרות"</td></tr>
+        <tr><td>658</td><td>אבני ראשה</td><td>הוקם: משה"ח + יד הנדיב + מט"ח + IVN</td></tr>
+        <tr><td>920</td><td>גל פישר</td><td>"ראש תחום חינוך, יד הנדיב"</td></tr>
+        <tr><td>4044</td><td>רחל ליאל</td><td>"מנהלת שתיל"</td></tr>
+        <tr><td>4045</td><td>דניאל סוקאץ'</td><td>"מנכ"ל NIF"</td></tr>
+        <tr><td>4047</td><td>איציק דנציגר</td><td>יו"ר מט"ח + IVN + סגן נשיאת NIF + מייסד אבני ראשה</td></tr>
+        <tr><td>6231</td><td>בן אור תקשורת</td><td>"הקימה את 'יש דין', לקוחותיה ארגוני NIF"</td></tr>
+        <tr><td>6529</td><td>Peter Edelman</td><td>"Board Chair, NIF"</td></tr>
+        <tr><td>6545</td><td>Larry Garber</td><td>"Fmr. CEO NIF"</td></tr>
+        <tr><td>6639</td><td>Daniel Sokatch</td><td>"CEO, NIF"</td></tr>
+        <tr><td>15121</td><td>אלפנאר</td><td>"ממומנת ע"י יד הנדיב והג'וינט"</td></tr>
+    </table>
+
+    <h3>3. מיניסייטים קשורים</h3>
+    <div class="grid-2">
+        <div>
+            <a href="casel_israel_connection.html" class="link-card">
+                <div>
+                    <div class="lc-title">CASEL לישראל &mdash; הצינור המלא</div>
+                    <div class="lc-desc">מסגרת SEL מ-CASEL דרך יד הנדיב ואבני ראשה למשרד החינוך</div>
+                </div>
+            </a>
+            <a href="academy_sciences_dashboard.html" class="link-card">
+                <div>
+                    <div class="lc-title">האקדמיה הלאומית למדעים</div>
+                    <div class="lc-desc">תפקידה ב-SEL ובעיצוב חינוך. "היוזמה" עם יד הנדיב</div>
+                </div>
+            </a>
+            <a href="avney_rosha_dashboard.html" class="link-card">
+                <div>
+                    <div class="lc-title">אבני ראשה</div>
+                    <div class="lc-desc">המכון למנהיגות בית ספרית. 3,000 מנהלים</div>
+                </div>
+            </a>
+        </div>
+        <div>
+            <a href="casel_dashboard.html" class="link-card">
+                <div>
+                    <div class="lc-title">CASEL &mdash; דשבורד</div>
+                    <div class="lc-desc">ניתוח CASEL הבינלאומי</div>
+                </div>
+            </a>
+            <a href="acri_dashboard.html" class="link-card">
+                <div>
+                    <div class="lc-title">ACRI &mdash; האגודה לזכויות האזרח</div>
+                    <div class="lc-desc">$500K+ מ-NIF, $100K מ-OSF</div>
+                </div>
+            </a>
+            <a href="munzenberg_municipal.html" class="link-card">
+                <div>
+                    <div class="lc-title">ניתוח מינצנברגי מוניציפלי</div>
+                    <div class="lc-desc">דפוסי השפעה מוסדית בזירה העירונית</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <h3>4. מקורות חיצוניים</h3>
+    <table>
+        <tr><th>מקור</th><th>URL</th><th>שימוש</th></tr>
+        <tr><td>GuideStar Israel</td><td>guidestar.org.il</td><td>הכנסות NIF $58.1M, מבנה ארגוני</td></tr>
+        <tr><td>obudget.org</td><td>obudget.org</td><td>העברות ממשלתיות לארגוני חינוך</td></tr>
+        <tr><td>NIF Annual Reports</td><td>nif.org</td><td>מענקים $36.3M, רשימת נתמכים</td></tr>
+        <tr><td>Yad Hanadiv</td><td>yadhanadiv.org.il</td><td>SEL כתחום מוצהר, תוכניות חינוך</td></tr>
+        <tr><td>Avney Rosha</td><td>avneyrosha.org.il</td><td>3,000+ מנהלים, מבנה ממשל</td></tr>
+        <tr><td>CASEL</td><td>casel.org</td><td>$18M שיא הכנסות, מסגרת SEL</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>סימוני מקור בדשבורד זה</h2>
+    <p><span class="src gemini">GEMINI</span> &mdash; נתונים ממחקר Gemini Deep Research, פברואר 2026</p>
+    <p><span class="src weinberg">WEINBERG</span> &mdash; נתונים מ-Weinberg DB (org_mapping_weinberg_db.csv)</p>
+    <p><span class="src web">WEB</span> &mdash; נתונים מאתרי אינטרנט של הארגונים (Yad Hanadiv, Avney Rosha, NIF)</p>
+    <p><span class="src obudget">OBUDGET</span> &mdash; נתונים מ-obudget.org (העברות ממשלתיות)</p>
+    <p><span class="src guide">GUIDE</span> &mdash; נתונים מ-GuideStar Israel</p>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer>
+    <p>רשת המימון &mdash; מיפוי זרימות כספיות במערכת החינוך הישראלית | מקורות: Gemini Deep Research, Weinberg DB, GuideStar Israel, obudget.org, NIF, Yad Hanadiv, CASEL</p>
+    <p style="margin-top:6px;"><a href="../index.html">דירוג ערים</a> &bull; <a href="index.html">מאגר מחקר</a> &bull; <a href="casel_israel_connection.html">CASEL &rarr; ישראל</a> &bull; <a href="academy_sciences_dashboard.html">האקדמיה למדעים</a> &bull; <a href="avney_rosha_dashboard.html">אבני ראשה</a></p>
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const map = {overview:0, nif:1, yad:2, others:3, pipeline:4, sources:5};
+    if (map[id] !== undefined) tabs[map[id]].classList.add('active');
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

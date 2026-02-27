@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תיאטרון הבימה — דשבורד מחקר</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+nav { position: sticky; top: 0; z-index: 100; background: #1a1a2e; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.nav-brand { font-weight: 700; font-size: 1.05em; padding: 12px 0; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 0.72em; font-weight: 600; background: #e74c3c; color: #fff; margin-right: 8px; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab { padding: 14px 16px; cursor: pointer; font-size: 0.82em; border-bottom: 3px solid transparent; transition: all 0.2s; color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%); color: #fff; padding: 40px 20px 30px; text-align: center; }
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #b0c4de; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+.section { background: #fff; border-radius: 8px; padding: 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 768px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } .nav-tabs { overflow-x: auto; } }
+.metric { background: #f8f9fa; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid #e8e8e8; transition: transform 0.2s; }
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.finding { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+.warning-box { background: #fff5f5; border-right: 4px solid #cc0000; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 14px 0; }
+.warning-box strong { color: #8b0000; }
+.depth-level { border-right: 3px solid #667eea; margin: 12px 0; background: #fafbff; border-radius: 0 8px 8px 0; overflow: hidden; }
+.depth-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; transition: background 0.2s; }
+.depth-header:hover { background: #f0f4fa; }
+.depth-header .d-icon { font-size: 1.3em; }
+.depth-header .d-title { font-weight: 700; color: #1a1a2e; }
+.depth-header .d-sub { font-size: 0.82em; color: #666; }
+.depth-header .d-arrow { margin-right: auto; color: #999; transition: transform 0.3s; }
+.depth-level.open .depth-header .d-arrow { transform: rotate(180deg); }
+.depth-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 16px; }
+.depth-level.open .depth-body { max-height: 2000px; padding: 0 16px 16px; }
+.depth-quote { background: #fff; border-right: 3px solid #cc0000; padding: 8px 14px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 0.9em; color: #333; font-style: italic; }
+.link-card { display: flex; gap: 10px; padding: 10px 14px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8; text-decoration: none; color: inherit; transition: all 0.2s; margin-bottom: 8px; }
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+footer { background: #1a1a2e; color: #667; padding: 20px; text-align: center; font-size: 0.82em; }
+footer a { color: #ff8800; text-decoration: none; }
+.source-tag { display: inline-block; background: #f0f4fa; border: 1px solid #d0d8e8; padding: 2px 8px; border-radius: 4px; font-size: 0.78em; color: #555; margin: 2px; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>תיאטרון הבימה</span>
+            <span class="risk-pill">חתרני</span>
+            <a href="../index_v2.html">&#8592; דירוג ערים</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="navigate('overview')">מבט על</button>
+            <button class="nav-tab" onclick="navigate('finance')">מעקב כסף</button>
+            <button class="nav-tab" onclick="navigate('content')">רפרטואר</button>
+            <button class="nav-tab" onclick="navigate('evidence')">שרשרת ראיות</button>
+            <button class="nav-tab" onclick="navigate('conclusions')">סיכום</button>
+        </div>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>תיאטרון הבימה — התיאטרון הלאומי</h1>
+    <div class="subtitle">חברה עירונית בת עיריית תל אביב-יפו | מאז אפריל 2021</div>
+    <div class="meta">400 שחקנים ועובדים | 30+ הצגות בשבוע | 4 אולמות | גירעון 100M &#8362; הוביל להשתלטות עירונית</div>
+</div>
+
+<div class="container">
+
+    <!-- TAB: OVERVIEW -->
+    <div id="view-overview" class="view active">
+
+        <div class="section">
+            <h2>מה קרה בהבימה</h2>
+            <p>תיאטרון הבימה, שנוסד ב-1917 כסטודיו עברי במוסקבה, היה לעשרות שנים <strong>אגודה עצמאית</strong> ("קולקטיב שחקנים"). ב-2019, עם גירעון של למעלה מ-<strong>100 מיליון &#8362;</strong>, הועבר לבעלות עיריית תל אביב-יפו כ<strong>חברה עירונית בת</strong>.</p>
+            <p>המשמעות: <strong>העירייה ממנה את הדירקטוריון</strong>, קובעת את ההרכב הניהולי, ומפקחת על התקציב. התיאטרון הלאומי הפך לכלי עירוני.</p>
+
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">גירעון שהוביל להשתלטות</div>
+                    <div class="value">100M &#8362;</div>
+                    <div class="note">עברית: "הצלה" — בפועל: העברת שליטה</div>
+                </div>
+                <div class="metric">
+                    <div class="label">שנת המעבר</div>
+                    <div class="value">2021</div>
+                    <div class="note">אפריל — חברה עירונית בת</div>
+                </div>
+                <div class="metric">
+                    <div class="label">חברי דירקטוריון</div>
+                    <div class="value">13</div>
+                    <div class="note">ממונים ע"י העירייה</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הנהלה נוכחית (2024-2025)</h2>
+            <table>
+                <thead><tr><th>תפקיד</th><th>שם</th><th>תחום סמכות</th></tr></thead>
+                <tbody>
+                    <tr class="highlight"><td>מנכ"ל</td><td>דני וייס</td><td>מנהיגות אסטרטגית, יחסי עירייה ומדינה</td></tr>
+                    <tr class="highlight"><td>מנהל אמנותי</td><td>נועם שמואל</td><td>בחירת רפרטואר, הזמנת במאים</td></tr>
+                    <tr><td>סמנכ"ל כספים</td><td>גדי לוין</td><td>ניהול פיסקלי, ביקורת</td></tr>
+                    <tr><td>סמנכ"ל תפעול</td><td>יניב איתן</td><td>לוגיסטיקה, תשתית</td></tr>
+                    <tr><td>מנהלת שיווק</td><td>עינת פנחס</td><td>מכירות, מיתוג</td></tr>
+                </tbody>
+            </table>
+
+            <h3>נועם שמואל — פרופיל</h3>
+            <p>בוגר <strong>Drama Centre London</strong> (BA Directing, First Class Honours) ובוגר <strong>תלמה ילין</strong>. כיהן כמנהל אמנותי של <strong>תיאטרון המדיטק חולון</strong>. רקע ב"פסיכולוגיה של תנועה" (שיטת Yat). מיקוד ב<strong>"כוח הנהגה חינוכית"</strong> ומעורבות קהילתית דרך אמנות. מטרה: להפוך תלמידים ל"סוכנים תרבותיים".</p>
+        </div>
+
+        <div class="section">
+            <h2>דירקטוריון — ממונה ע"י העירייה</h2>
+            <table>
+                <thead><tr><th>שם</th><th>תפקיד</th><th>רקע מקצועי</th></tr></thead>
+                <tbody>
+                    <tr class="highlight"><td>זיוה פתיר</td><td>יו"ר</td><td>מנכ"לית מכון התקנים, דירקטורית תאגידית</td></tr>
+                    <tr><td>ד"ר איילת בן-עזר, עו"ד</td><td>יו"ר ועדת ביקורת</td><td>משפט ומנהל אקדמי</td></tr>
+                    <tr><td>פרופ' אריאל בנדור</td><td>ועדת ביקורת</td><td>פרופסור למשפטים</td></tr>
+                    <tr><td>נילי סיר-ראובן, רו"ח</td><td>ועדת ביקורת</td><td>ראיית חשבון</td></tr>
+                    <tr><td>עדיבה גפן</td><td>חברת דירקטוריון</td><td>מחזאית, סופרת, דוברת לשעבר</td></tr>
+                    <tr><td>הוה טיזזו</td><td>חברת דירקטוריון</td><td>אקטיביזם חברתי</td></tr>
+                    <tr class="highlight"><td>גיורא יהלום</td><td>חבר דירקטוריון</td><td>מנהל מחלקת התרבות של תל אביב</td></tr>
+                    <tr><td>דורון מאירי</td><td>חבר דירקטוריון</td><td>מנהל ציבורי</td></tr>
+                    <tr class="highlight"><td>ראובן לדיאנסקי, עו"ד</td><td>חבר דירקטוריון</td><td>חבר מועצת העיר תל אביב</td></tr>
+                    <tr><td>מוטי רייף</td><td>חבר דירקטוריון</td><td>הפקה, יחסי ציבור</td></tr>
+                    <tr><td>אייל בסון</td><td>חבר דירקטוריון</td><td>ייעוץ ניהולי</td></tr>
+                    <tr class="highlight"><td>ליאור שפירא, עו"ד</td><td>חבר דירקטוריון</td><td>חבר מועצת העיר תל אביב</td></tr>
+                    <tr><td>נחמה רוזנברג</td><td>חברת דירקטוריון</td><td>קידום אמנויות</td></tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>שלושה חברי דירקטוריון הם נציגי עירייה ישירים:</strong> גיורא יהלום (מנהל מחלקת התרבות), ראובן לדיאנסקי (חבר מועצה), ליאור שפירא (חבר מועצה). לא מדובר בפיקוח חיצוני אלא בשליטה עירונית ישירה.
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: FINANCE -->
+    <div id="view-finance" class="view">
+
+        <div class="section">
+            <h2>מערכת מימון</h2>
+            <p>התיאטרון ממומן משלושה מקורות עיקריים: <strong>העירייה</strong> (כבעלים), <strong>משרד התרבות</strong> (תמיכה ממשלתית), ו<strong>רשת קרנות ותורמים פרטיים</strong>.</p>
+
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">קרן רבינוביץ'</div>
+                    <div class="value">מרכזית</div>
+                    <div class="note">הממן הלא-ממשלתי המשמעותי ביותר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מפעל הפיס</div>
+                    <div class="value">מענקים</div>
+                    <div class="note">שיפוץ מבנה + פרסים אמנותיים</div>
+                </div>
+                <div class="metric">
+                    <div class="label">הקרן החדשה (NIF)</div>
+                    <div class="value">עקיף</div>
+                    <div class="note">דרך כוח אדם ופרויקטים ספציפיים</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>קרן יהושע רבינוביץ' לאמנויות</h2>
+            <p>נוסדה ב-1970 ע"י <strong>ראש עיריית תל אביב לשעבר</strong>. ממומנת מ<strong>תקציבי העירייה</strong>, משרד התרבות ומפעל הפיס. תומכת בספרות, תיאטרון ניסיוני וקולנוע.</p>
+            <p>המנהל האמנותי נועם שמואל קיבל את <strong>"פרס הבמאי של הקאמרי"</strong> מקרן רבינוביץ' על ההפקה "עזה 17".</p>
+            <p>הקרן מממנת גם סרטים תיעודיים על אגדות הבימה, כמו "אהבות של לאה קניג", בשיתוף הבימה וקרן מקור.</p>
+
+            <div class="warning-box">
+                <strong>צינור מימון עירוני:</strong> עיריית תל אביב &#8592; קרן רבינוביץ' &#8592; הבימה. אותה עירייה שמחזיקה בבעלות על התיאטרון גם מממנת אותו דרך קרן שנוסדה ע"י ראש עיר לשעבר שלה.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הקרן החדשה לישראל (NIF)</h2>
+            <p>הקשר בין הבימה ל-NIF הוא <strong>עקיף ומבוסס-פרויקטים</strong>, בעיקר דרך כוח האדם ולא דרך המוסד:</p>
+            <ul style="padding-right: 20px; margin: 10px 0;">
+                <li>מחאת 2011: אוהלי מחאה הוקמו מול תיאטרון הבימה. שחקני הבימה השתתפו באירועים בתמיכת NIF.</li>
+                <li>סרטים תיעודיים עם שחקני הבימה (כמו "הסרט האחרון של דונקל") קיבלו מימון גם מרבינוביץ' וגם מ-NIF.</li>
+                <li>2012: הופעת הבימה בגלוב לונדון סובסדה ע"י משרד החוץ נגד BDS, בעקבות ביקורת על הופעות ביישובים.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>עמותת ידידי הבימה</h2>
+            <p>בראשות <strong>עו"ד ציפי רובין</strong>. רשימת חברים = "מי ומי" של האליטה הכלכלית:</p>
+            <table>
+                <thead><tr><th>תורם / גוף</th><th>תחום</th></tr></thead>
+                <tbody>
+                    <tr><td>משפחת עופר (ליאורה, רותי, דן)</td><td>תעשייה, ספנות</td></tr>
+                    <tr><td>משפחת פדרמן</td><td>מלונאות (דן), פילנתרופיה</td></tr>
+                    <tr><td>Gornitzky & Co.</td><td>יועץ משפטי</td></tr>
+                    <tr><td>מנורה מבטחים</td><td>ביטוח</td></tr>
+                    <tr><td>הפניקס</td><td>ביטוח</td></tr>
+                    <tr><td>מפעל הפיס</td><td>מענקי שיפוץ ופרסים</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB: CONTENT (REPERTOIRE) -->
+    <div id="view-content" class="view">
+
+        <div class="section">
+            <h2>שינוי אידיאולוגי ברפרטואר (2010-2025)</h2>
+            <p>הרפרטואר עבר מ<strong>תרגומים מודרניסטיים אירופיים</strong> ו"דרמות גלות" לכיוון <strong>מוזיקלים מסחריים</strong> ו<strong>מיזם "גיבורי תרבות"</strong> — הצגות ביוגרפיות שמקדשות את קאנון התרבות העברית החילונית-עבודתית.</p>
+        </div>
+
+        <div class="section">
+            <h2>מיזם "גיבורי תרבות" — כלי אידיאולוגי</h2>
+            <p>בעשור האחרון, הרפרטואר התגבש סביב הצגות ביוגרפיות שמנציחות "ענקי" התרבות העברית. המיזם פועל כ<strong>קאנוניזציה תרבותית</strong> — שזירת סיפורים אישיים עם תרומה אמנותית לבניית זהות לאומית משותפת.</p>
+            <table>
+                <thead><tr><th>גיבור/ה</th><th>הצגה</th><th>ציר אידיאולוגי</th></tr></thead>
+                <tbody>
+                    <tr><td>נעמי שמר</td><td>שלטי דרך</td><td>"המשוררת הלאומית" והנוף הישראלי</td></tr>
+                    <tr><td>לאה גולדברג</td><td>ימים לבנים (שחר פינקס)</td><td>מודרניזם ספרותי וטיהור השפה העברית</td></tr>
+                    <tr><td>נתן אלתרמן</td><td>המנגינה הנטושה (מוטי לרנר)</td><td>מחויבות פוליטית ומורשת שירית</td></tr>
+                    <tr><td>עידה נודל</td><td>מחזה מאת שי להב</td><td>מאבק "סרבני ציון" ויהדות בריה"מ</td></tr>
+                    <tr><td>יצחק נבון</td><td>בוסתן ספרדי</td><td>זהות ספרדית-ירושלמית והרמוניה קהילתית</td></tr>
+                    <tr><td>יאיר רוזנבלום</td><td>מיקה</td><td>תרבות להקות צה"ל ואבל קולקטיבי</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>"הגמוניה אשכנזית" — ביקורת סוציולוגית</h2>
+            <p>חוקרים מציינים שלמרות ניסיונות לגיוון אתני, הרפרטואר של הבימה (והתיאטרון העברי בכלל) מושרש ב<strong>"אשכנזיות הגמונית"</strong>: סטנדרטים אסתטיים אירוצנטריים, דוקטרינת "שלילת הגלות", ובחירות ליהוק שמעדיפות שחקנים אשכנזים.</p>
+            <p>"בוסתן ספרדי" נחשב לפריצת דרך של ייצוג מזרחי, אך חוקרים טוענים שהוא משחזר "עמדות אוריינטליסטיות" — מסגור תרבות מזרחית דרך עדשה נוסטלגית-פולקלוריסטית.</p>
+        </div>
+
+        <div class="section">
+            <h2>צינור אקדמי — במאים חוזרים</h2>
+            <table>
+                <thead><tr><th>במאי</th><th>השתייכות אקדמית</th><th>הפקות בולטות בהבימה</th></tr></thead>
+                <tbody>
+                    <tr class="highlight"><td>חנן סניר</td><td>ותיק מקצועי / מחנך</td><td>הסוחר מונציה, ליל העשרים</td></tr>
+                    <tr><td>אילן רונן</td><td>מערכת הרפרטואר הישראלית</td><td>הסוחר מונציה (גלוב), מייסד קבוצת נוער</td></tr>
+                    <tr class="highlight"><td>נועם שמואל</td><td>Drama Centre London, תלמה ילין</td><td>Fool For Love, חוות החיות (גשר)</td></tr>
+                    <tr class="highlight"><td>אופירה הניג</td><td>סמינר הקיבוצים</td><td>זהב, נושים, עומק נמוך</td></tr>
+                    <tr><td>שרון און</td><td>סמינר הקיבוצים</td><td>עוזר במאי (הפקות מרובות)</td></tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>צינור סמינר הקיבוצים &#8594; הבימה:</strong> אופירה הניג ושרון און — שתיהן בוגרות תוכנית בימוי בסמינר הקיבוצים. סמינר הקיבוצים הוא אותו מוסד שבו נמצא <strong>המרכז לפדגוגיה ביקורתית</strong> (חגית גור-זיו) וקורס חובה בפדגוגיה ביקורתית.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>המטרה: מכללה פנימית</h2>
+            <p>ההנהלה החדשה מתכננת להקים <strong>מכללה אקדמית לאמנויות הבמה</strong> בתוך מבנה התיאטרון — מסלולים לכתיבה, בימוי, עיצוב וניהול. זה יהפוך את הבימה ל<strong>מוסד שמשכפל את עצמו</strong> — מכשיר את הדור הבא של האמנים שיעבדו באותו מוסד.</p>
+        </div>
+    </div>
+
+    <!-- TAB: EVIDENCE -->
+    <div id="view-evidence" class="view">
+
+        <div class="section">
+            <h2>שרשרת ראיות — מהעירייה לבמה</h2>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">1</span>
+                    <span class="d-title">עיריית תל אביב רוכשת את הבימה</span>
+                    <span class="d-sub">אפריל 2021 — "הצלה" או השתלטות?</span>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>ב-2019, הבימה עמדה בפני קריסה עם גירעון של 100 מיליון &#8362;. העירייה "הצילה" אותה על ידי הפיכתה לחברה עירונית בת. הבעלות עברה מ"אגודת הבימה" העצמאית לעירייה.</p>
+                    <div class="depth-quote">"התערבות משרד התרבות, ההסתדרות ושח"ם היתה קריטית... תוכנית החילוץ הממשלתית הבטיחה טיפול בחובות תוך שימור התעסוקה של 400 השחקנים וחברי הצוות."</div>
+                    <span class="source-tag">seligfilmnews.com — "Habima National Theater Transferred to Ownership of Tel Aviv-Yafo Municipality"</span>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">2</span>
+                    <span class="d-title">העירייה ממנה את הדירקטוריון</span>
+                    <span class="d-sub">13 חברים — כולל 3 נציגי עירייה ישירים</span>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>הדירקטוריון כולל את גיורא יהלום (מנהל מחלקת התרבות של העירייה), ראובן לדיאנסקי וליאור שפירא (חברי מועצת העיר). לא פיקוח חיצוני — שליטה ישירה.</p>
+                    <p>היו"ר, זיוה פתיר, מגיעה מרקע של סטנדרטיזציה תאגידית (מכון התקנים). לא אשת תיאטרון — אשת ניהול.</p>
+                    <span class="source-tag">habima.co.il — "Who We Are"</span>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">3</span>
+                    <span class="d-title">מנהל אמנותי מתמנה — בוחר רפרטואר</span>
+                    <span class="d-sub">נועם שמואל — "כוח הנהגה חינוכית"</span>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>נועם שמואל, שמונה ב-2025, מגיע מתיאטרון המדיטק חולון. הוא בוחר את הרפרטואר דרך "מחלקת האמנות" לפי 6 עקרונות שנקבעו ע"י ההנהלה:</p>
+                    <ol style="padding-right: 20px; margin: 10px 0; font-size: 0.9em;">
+                        <li>קלאסיקות ישראליות ומחזאים צעירים</li>
+                        <li>מחזאות יהודית</li>
+                        <li>"גיבורי תרבות" עבריים</li>
+                        <li><strong>אינטגרציה אקדמית — מכללה פנימית</strong></li>
+                        <li>שימור היסטורי (ארכיון + מוזיאון)</li>
+                        <li>סניף ירושלים</li>
+                    </ol>
+                    <span class="source-tag">noamshmuel.com — ביוגרפיה</span>
+                    <span class="source-tag">gesher-theatre.co.il</span>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">4</span>
+                    <span class="d-title">צינור אקדמי: אוניברסיטת תל אביב + סמינר הקיבוצים</span>
+                    <span class="d-sub">המכונה האקדמית שמזינה את התיאטרון</span>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p><strong>אוניברסיטת תל אביב:</strong> המחלקה לתיאטרון (נוסדה 1958) מספקת זרם רציף של שחקנים, במאים וחוקרים. פרופ' גד קינר ופרופ' נורית יערי משמשים כמנוע הדרמטורגי של הפקות הבימה. בוגרים בולטים: ששון גבאי, מוני מושונוב, דן שפירא.</p>
+                    <p><strong>סמינר הקיבוצים:</strong> שדה אימונים עיקרי לצוות הבימוי והטכני. אופירה הניג ושרון און — בוגרות תוכנית בימוי. אותו מוסד שבו פועל המרכז לפדגוגיה ביקורתית.</p>
+                    <span class="source-tag">en-arts.tau.ac.il</span>
+                    <span class="source-tag">ofirahenig.com</span>
+                </div>
+            </div>
+
+            <div class="depth-level" onclick="this.classList.toggle('open')">
+                <div class="depth-header">
+                    <span class="d-icon">5</span>
+                    <span class="d-title">קרן רבינוביץ' — מימון עירוני חוזר</span>
+                    <span class="d-sub">הקרן שנוסדה ע"י ראש עיר + ממומנת ע"י עירייה = מממנת את התיאטרון של העירייה</span>
+                    <span class="d-arrow">&#9660;</span>
+                </div>
+                <div class="depth-body">
+                    <p>קרן יהושע רבינוביץ' נוסדה ע"י ראש עיריית תל אביב לשעבר, ממומנת בחלקה מתקציבי העירייה. היא הממן הלא-ממשלתי המשמעותי ביותר של הבימה. מעגל סגור: עירייה &#8594; קרן &#8594; תיאטרון עירוני.</p>
+                    <span class="source-tag">israelgives.org — Rabinovich Foundation</span>
+                    <span class="source-tag">screendaily.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: CONCLUSIONS -->
+    <div id="view-conclusions" class="view">
+
+        <div class="section">
+            <h2>הערכה: חתרני או נוטה שמאלה?</h2>
+
+            <div class="grid-2">
+                <div style="background: #fff5f5; padding: 20px; border-radius: 8px; border: 2px solid #cc0000;">
+                    <h3 style="color: #cc0000; margin-top: 0;">חתרני — מנגנון מתועד</h3>
+                    <ul style="padding-right: 16px; font-size: 0.9em;">
+                        <li>עירייה <strong>רכשה</strong> את התיאטרון הלאומי</li>
+                        <li>עירייה <strong>ממנה</strong> את הדירקטוריון (13 חברים)</li>
+                        <li>3 חברי מועצה/עירייה יושבים בדירקטוריון</li>
+                        <li>צינור מימון סגור: עירייה &#8594; רבינוביץ' &#8594; הבימה</li>
+                        <li>צינור אקדמי: סמינר הקיבוצים &#8594; במאים</li>
+                        <li>תוכנית למכללה פנימית = שכפול עצמי</li>
+                    </ul>
+                </div>
+                <div style="background: #f0f8f0; padding: 20px; border-radius: 8px; border: 2px solid #44aa44;">
+                    <h3 style="color: #44aa44; margin-top: 0;">מה אינו חתרני כאן</h3>
+                    <ul style="padding-right: 16px; font-size: 0.9em;">
+                        <li>הרפרטואר עצמו — "גיבורי תרבות" = קאנון ציוני</li>
+                        <li>לא נמצא NIF ישיר למוסד</li>
+                        <li>הדירקטוריון מורכב מאנשי ניהול, לא אידיאולוגים</li>
+                        <li>הצלת התיאטרון מגירעון היתה הכרחית</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>סיכום — רלוונטיות למדד תל אביב</h2>
+            <p>הבימה מוסיפה <strong>ממד חדש</strong> למדד תל אביב: <strong>לכידת תרבות</strong>, לא רק חינוך. העירייה לא רק מפעילה תוכניות חינוך — היא <strong>מחזיקה בתיאטרון הלאומי</strong>, ממנה את הנהלתו, ומממנת אותו דרך קרן עירונית.</p>
+            <p>המנגנון הוא <strong>חתרני</strong> — לא בגלל שהרפרטואר רדיקלי (הוא לא), אלא בגלל שה<strong>מבנה</strong> מאפשר שליטה עירונית על מוסד תרבותי לאומי. כשהמבנה קיים, השאלה היא רק מי ממלא אותו.</p>
+
+            <div class="warning-box">
+                <strong>שורה תחתונה:</strong> תל אביב מחזיקה בדירקטוריון של התיאטרון הלאומי, מממנת אותו דרך קרן שנוסדה ע"י ראש עיר שלה, ובונה צינור אקדמי מסמינר הקיבוצים. זה לא "נוטה שמאלה" — זה מנגנון לכידה מוסדית.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מקורות</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <span class="source-tag">habima.co.il</span>
+                <span class="source-tag">seligfilmnews.com</span>
+                <span class="source-tag">israelnationalnews.com</span>
+                <span class="source-tag">noamshmuel.com</span>
+                <span class="source-tag">gesher-theatre.co.il</span>
+                <span class="source-tag">israelgives.org</span>
+                <span class="source-tag">screendaily.com</span>
+                <span class="source-tag">en-arts.tau.ac.il</span>
+                <span class="source-tag">ofirahenig.com</span>
+                <span class="source-tag">researchgate.net</span>
+                <span class="source-tag">jime.csesm.org</span>
+                <span class="source-tag">Club 100 Plus (Ziva Patir)</span>
+                <span class="source-tag">Wikipedia — Habima Theatre</span>
+            </div>
+            <p style="font-size: 0.82em; color: #888; margin-top: 12px;">מבוסס על מחקר עומק Gemini Deep Research, פברואר 2026. כל השמות והעובדות מתועדים ומקושרים למקורות ציבוריים.</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    תיאטרון הבימה — דשבורד מחקר | <a href="../index_v2.html">דירוג ערים</a>
+</footer>
+
+<script>
+function navigate(viewName) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + viewName).classList.add('active');
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

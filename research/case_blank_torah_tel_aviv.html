@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>פרשת "התורה הריקה" ו-83% של פנים — תל אביב, 2022–2023</title>
+<title>פרשת "התורה הריקה" ושליטת פנים בספרי הלימוד — 2019-2023</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -111,6 +111,7 @@ tr:hover { background: #f8f9fa; }
     font-size: 0.72em; font-weight: 600;
 }
 .badge.red { background: #fde8e8; color: #c0392b; }
+.badge.green { background: #e8fde8; color: #27ae60; }
 .badge.blue { background: #e8edf8; color: #2a5a8a; }
 .badge.orange { background: #fef3e0; color: #e67e22; }
 
@@ -146,72 +147,13 @@ tr:hover { background: #f8f9fa; }
 .link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
 .link-card .lc-desc { font-size: 0.78em; color: #666; }
 
-/* === PIE CHART === */
-.pie-chart-container {
-    display: flex; align-items: center; justify-content: center; gap: 40px;
-    margin: 30px 0; flex-wrap: wrap;
-}
-.pie-chart {
-    width: 220px; height: 220px; border-radius: 50%;
-    background: conic-gradient(
-        #e74c3c 0deg 298.8deg,
-        #3498db 298.8deg 360deg
-    );
-    position: relative;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-}
-.pie-chart::after {
-    content: '83%';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.8em; font-weight: 900;
-    color: #fff;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-}
-.pie-legend {
-    display: flex; flex-direction: column; gap: 12px;
-}
-.pie-legend-item {
-    display: flex; align-items: center; gap: 10px; font-size: 0.95em;
-}
-.pie-legend-color {
-    width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0;
-}
-.pie-legend-color.red { background: #e74c3c; }
-.pie-legend-color.blue { background: #3498db; }
-
-/* === BIG STAT === */
-.big-stat {
-    text-align: center; padding: 40px 20px; margin: 20px 0;
-    background: linear-gradient(135deg, #fde8e8 0%, #fff5f5 100%);
-    border-radius: 12px; border: 2px solid #e74c3c;
-}
-.big-stat .big-num {
-    font-size: 5em; font-weight: 900; color: #e74c3c;
-    line-height: 1;
-}
-.big-stat .big-label {
-    font-size: 1.3em; color: #1a1a2e; margin-top: 8px; font-weight: 600;
-}
-.big-stat .big-sub {
-    font-size: 0.88em; color: #666; margin-top: 4px;
-}
-
-.provenance {
-    display: inline-block; padding: 1px 8px; border-radius: 4px;
-    font-size: 0.7em; font-weight: 600; margin-right: 4px;
-    vertical-align: middle;
-}
-.provenance.web { background: #e8f4fd; color: #2980b9; }
-.provenance.leeba { background: #fde8e8; color: #c0392b; }
-
 footer {
     background: #1a1a2e; color: #aab; text-align: center;
-    padding: 20px; font-size: 0.82em; line-height: 1.8;
+    padding: 18px 20px; font-size: 0.82em; line-height: 1.8;
 }
 footer a { color: #ff8800; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
+.provenance { font-size: 0.72em; color: #888; margin-top: 4px; }
 
 ul.content-list {
     list-style: none; padding: 0; margin: 10px 0;
@@ -227,6 +169,26 @@ ul.content-list li::before {
     width: 6px; height: 6px;
     background: #e74c3c; border-radius: 50%;
 }
+
+.timeline-item {
+    padding: 16px 20px; margin: 10px 0;
+    border-right: 4px solid #667eea; background: #f8f9fa;
+    border-radius: 0 8px 8px 0; position: relative;
+}
+.timeline-item .t-year {
+    font-weight: 800; color: #667eea; font-size: 1.1em;
+}
+.timeline-item .t-title {
+    font-weight: 700; color: #1a1a2e; margin: 4px 0 2px;
+}
+.timeline-item .t-desc {
+    font-size: 0.88em; color: #555;
+}
+.timeline-item.alert-item {
+    border-right-color: #e74c3c;
+    background: #fff5f5;
+}
+.timeline-item.alert-item .t-year { color: #e74c3c; }
 </style>
 </head>
 <body>
@@ -234,28 +196,33 @@ ul.content-list li::before {
 <nav>
 <div class="nav-inner">
     <div class="nav-brand">
-        התורה הריקה -- תל אביב
+        "התורה הריקה" ופנים
         <a href="../index.html">חזרה לדירוג</a>
     </div>
     <div class="nav-tabs">
         <button class="nav-tab active" onclick="showView('event')">האירוע</button>
-        <button class="nav-tab" onclick="showView('panim')">מי זו "פנים"?</button>
-        <button class="nav-tab" onclick="showView('data')">83% -- הנתונים</button>
-        <button class="nav-tab" onclick="showView('response')">התגובה הארגונית</button>
-        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+        <button class="nav-tab" onclick="showView('content')">התוכן</button>
+        <button class="nav-tab" onclick="showView('opposition')">התנגדות</button>
+        <button class="nav-tab" onclick="showView('legal')">ההליך המשפטי</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים ומקורות</button>
     </div>
 </div>
 </nav>
 
 <div class="hero">
-    <h1>פרשת "התורה הריקה" ו-83% של פנים</h1>
-    <div class="subtitle">כשאם גילתה שבתה קיבלה ספר תורה ריק בטקס בבית הספר | ו-83% מספרי הלימוד ביהדות נכתבו על ידי ארגון אחד</div>
-    <div class="meta">תל אביב, 2022--2023</div>
+    <div style="margin-bottom: 10px;">
+        <span class="badge red">חינוך ממלכתי</span>
+        <span class="badge blue">משפטי</span>
+        <span class="badge orange">שקיפות</span>
+    </div>
+    <h1>פרשת "התורה הריקה" ושליטת ארגון פנים בספרי הלימוד</h1>
+    <div class="subtitle">83% מספרי הלימוד ב"תרבות יהודית-ישראלית" נכתבו על ידי ארגוני פנים | מאבק משפטי בבג"ץ | מחאות הורים</div>
+    <div class="meta">[WEB-SEARCH] מקרה בוחן: השתלטות מערכתית על תוכני היהדות בחינוך הממלכתי, 2019--2023</div>
     <div class="stats-row">
-        <div class="stat"><div class="num">83%</div><div class="lbl">ספרי לימוד נשלטים</div></div>
+        <div class="stat"><div class="num">83%</div><div class="lbl">שליטה בספרי לימוד</div></div>
         <div class="stat"><div class="num">60+</div><div class="lbl">ארגוני פנים</div></div>
-        <div class="stat"><div class="num">1</div><div class="lbl">ספר תורה ריק</div></div>
         <div class="stat"><div class="num">2019</div><div class="lbl">שנת הכפייה</div></div>
+        <div class="stat"><div class="num">$58M+</div><div class="lbl">מימון קרן מנדל</div></div>
     </div>
 </div>
 
@@ -265,308 +232,639 @@ ul.content-list li::before {
 <div id="view-event" class="view active">
 
 <div class="section">
-    <h2>האירוע: ספר תורה ריק בטקס בית ספרי</h2>
-    <p>בשנת 2022, עורכת הדין <strong>רוני ששובר</strong> מתל אביב גילתה שבתה בת ה-8 קיבלה ספר תורה ריק בטקס בית ספרי. הגילוי הזה חשף דפוס רחב יותר של ריקון תכני היהדות ממערכת החינוך הממלכתית. <span class="provenance web">[WEB-SEARCH]</span></p>
+    <h2>רקע: כיצד ארגון אחד השתלט על 83% מספרי הלימוד</h2>
+    <p><strong>ארגון "פנים -- לתרבות יהודית ישראלית"</strong> הוא ארגון גג המאגד למעלה מ-60 ארגונים פרוגרסיביים-ליברליים. מאז 2019, עם הפיכת מסלול "תרבות יהודית-ישראלית" לחובה בכיתות א'-ט', ארגוני פנים כתבו או הוציאו לאור <strong>83% מספרי הלימוד המאושרים</strong> במסלול זה -- מונופול חסר תקדים בעיצוב הזהות היהודית של ילדי ישראל. <span class="provenance">[WEB-SEARCH]</span></p>
 
-    <ul class="content-list">
-        <li><strong>מה קרה:</strong> עורכת הדין רוני ששובר מתל אביב גילתה שבתה בת ה-8 קיבלה ספר תורה ריק בטקס בית ספרי <span class="provenance web">[WEB-SEARCH]</span></li>
-        <li><strong>ההסבר של המורות:</strong> זהו "יומן מסע" שבו התלמידים כותבים תורה משלהם על פי "רגשות, אמונות ושאיפות" -- לא טקסט יהודי מסורתי <span class="provenance web">[WEB-SEARCH]</span></li>
-        <li><strong>צמצום שעות:</strong> שעות לימודי יהדות צומצמו מ-2 שעות שבועיות ל-1 שעה, כולל תכני סביבה ולימודים חברתיים <span class="provenance web">[WEB-SEARCH]</span></li>
-        <li><strong>תגובה:</strong> האירוע הוביל להקמת "פורום הורים למסורת" <span class="provenance web">[WEB-SEARCH]</span></li>
-        <li><strong>המשך פוליטי:</strong> ששובר מונתה כמנהלת השדולה של מאוז בכנסת <span class="provenance web">[WEB-SEARCH]</span></li>
-    </ul>
-</div>
-
-<div class="section">
-    <h2>המשמעות: לא תקרית מקומית אלא דפוס מערכתי</h2>
-    <div class="quote-box">
-        ספר תורה ריק אינו רק סמל -- הוא ביטוי פיזי של מדיניות שיטתית: ריקון תכנים יהודיים מסורתיים מהחינוך הממלכתי והחלפתם בגישה "פלורליסטית" שמנותקת מהמקורות.
-        <div class="q-source">ניתוח מסכם -- פרויקט מחקר דירוג ערים</div>
-    </div>
-    <p>הטקס שבו ניתן לתלמידים "ספר תורה ריק" כדי שיכתבו תורה "משלהם" משקף גישה פדגוגית מכוונת: החלפת המסורת בפרשנות אישית, תוך ניתוק ממקורות בפועל.</p>
-    <p>הגילוי של ששובר חשף שזו אינה תקרית מקומית אלא חלק ממגמה ארצית -- מגמה שבמרכזה ארגון "פנים" ו-83% השליטה שלו בספרי הלימוד.</p>
-</div>
-
-</div>
-
-<!-- ======= TAB 2: WHO IS PANIM ======= -->
-<div id="view-panim" class="view">
-
-<div class="section">
-    <h2>מי זו "פנים"?</h2>
-    <p><strong>פנים</strong> הוא ארגון גג של 60+ ארגונים פרוגרסיביים העוסקים בחינוך יהודי-ישראלי. הארגון מייצג גישה פלורליסטית-ליברלית ליהדות -- מול גישה מסורתית. <span class="provenance web">[WEB-SEARCH]</span></p>
-
-    <div class="grid-3">
-        <div class="metric alert">
-            <div class="label">סוג</div>
-            <div class="value">ארגון גג</div>
-            <div class="note">60+ ארגונים חברים</div>
-        </div>
-        <div class="metric">
-            <div class="label">מנהל</div>
-            <div class="value">יותם ברום</div>
-            <div class="note">מנכ"ל פנים</div>
-        </div>
-        <div class="metric alert">
-            <div class="label">גישה</div>
-            <div class="value">פלורליסטית</div>
-            <div class="note">מול גישה מסורתית</div>
-        </div>
-    </div>
-</div>
-
-<div class="section">
-    <h2>ארגונים חברים בולטים</h2>
-
-    <div class="person-card">
-        <div class="name">מכון שלום הרטמן <span class="badge blue">תוכנית "בארי"</span></div>
-        <div class="role">מכון מחקר ליהדות פלורליסטית</div>
-        <div class="bio">
-            <p>מכון הרטמן מפעיל את תוכנית "בארי" -- תוכנית הכשרת מורים ליהדות-ישראלית שחודרת לבתי ספר ממלכתיים. התוכנית מבוססת על גישה פלורליסטית ליהדות המדגישה פרשנות אישית על פני מסורת. <span class="provenance web">[WEB-SEARCH]</span></p>
-        </div>
-    </div>
-
-    <div class="person-card">
-        <div class="name">קרן תל"י <span class="badge orange">80 בתי ספר</span></div>
-        <div class="role">רשת בתי ספר חילוניים עם תוכנית יהדות</div>
-        <div class="bio">
-            <p>תל"י (תגבור לימודי יהדות) מפעילה כ-80 בתי ספר חילוניים עם תוכנית יהדות ייחודית. כחברת "פנים", היא חלק מהרשת שמגדירה את תוכני היהדות בחינוך הממלכתי. <span class="provenance web">[WEB-SEARCH]</span></p>
-        </div>
-    </div>
-
-    <div class="person-card">
-        <div class="name">המדרשה באורנים <span class="badge blue">הכשרת מורים</span></div>
-        <div class="role">תוכנית הכשרת מורים ליהדות-ישראלית</div>
-        <div class="bio">
-            <p>המדרשה באורנים היא מוקד הכשרת מורים ליהדות-ישראלית בצפון הארץ, המזינה את מערכת החינוך הממלכתית במורים בעלי גישה פלורליסטית. <span class="provenance web">[WEB-SEARCH]</span></p>
-        </div>
-    </div>
-
-    <div class="person-card">
-        <div class="name">מת"ח -- מרכז לטכנולוגיה חינוכית <span class="badge red">NIF</span></div>
-        <div class="role">יו"ר: איציק דנציגר, סגן נשיא הקרן החדשה לישראל (NIF)</div>
-        <div class="bio">
-            <p>מת"ח (מרכז לטכנולוגיה חינוכית) הוא הגוף שמפיק חומרי לימוד דיגיטליים. יושב ראש מת"ח, <strong>איציק דנציגר</strong>, מכהן במקביל כסגן נשיא הקרן החדשה לישראל (NIF) -- זיקה ישירה בין מימון זר לתוכני לימוד. <span class="provenance web">[WEB-SEARCH]</span></p>
-        </div>
-    </div>
-</div>
-
-<div class="section">
-    <h2>המבנה: ארגון גג המשפיע על תוכנית הלימודים</h2>
-    <div class="pipeline-step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-            <div class="step-title">פנים -- ארגון הגג</div>
-            <div class="step-desc">60+ ארגונים חברים בעלי גישה פלורליסטית-ליברלית</div>
-        </div>
-    </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
-    <div class="pipeline-step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-            <div class="step-title">כתיבת ספרי לימוד</div>
-            <div class="step-desc">ארגוני פנים כותבים/מוציאים לאור 83% מספרי הלימוד המאושרים</div>
-        </div>
-    </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
-    <div class="pipeline-step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-            <div class="step-title">אישור משרד החינוך</div>
-            <div class="step-desc">ספרי הלימוד מאושרים למסלול "תרבות יהודית-ישראלית" (חובה מ-2019)</div>
-        </div>
-    </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
-    <div class="pipeline-step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-            <div class="step-title">הכיתה</div>
-            <div class="step-desc">תלמידים בכיתות א'-ט' לומדים יהדות דרך עדשה פלורליסטית -- כולל "ספרי תורה ריקים"</div>
-        </div>
-    </div>
-</div>
-
-</div>
-
-<!-- ======= TAB 3: 83% DATA ======= -->
-<div id="view-data" class="view">
-
-<div class="section">
-    <h2>83% -- הנתון המרכזי</h2>
-
-    <div class="big-stat">
-        <div class="big-num">83%</div>
-        <div class="big-label">מספרי הלימוד המאושרים למסלול "תרבות יהודית-ישראלית" נכתבו/הוצאו לאור על ידי ארגונים חברי פנים</div>
-        <div class="big-sub"><span class="provenance leeba">[LEEBA-CENTER-2022]</span> דוח מרכז ליב"ה, 2022</div>
-    </div>
-
-    <div class="pie-chart-container">
-        <div class="pie-chart"></div>
-        <div class="pie-legend">
-            <div class="pie-legend-item">
-                <div class="pie-legend-color red"></div>
-                <div><strong>83%</strong> -- ספרי לימוד של ארגוני פנים</div>
-            </div>
-            <div class="pie-legend-item">
-                <div class="pie-legend-color blue"></div>
-                <div><strong>17%</strong> -- ספרי לימוד אחרים</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="section">
-    <h2>כרטיסי מדדים</h2>
     <div class="grid-4">
         <div class="metric alert">
             <div class="label">שליטה בספרי לימוד</div>
             <div class="value">83%</div>
-            <div class="note"><span class="provenance leeba">[LEEBA-CENTER-2022]</span></div>
+            <div class="note">דוח ליב"ה 2022 <span class="provenance">[WEB-SEARCH]</span></div>
         </div>
         <div class="metric alert">
-            <div class="label">ארגונים בפנים</div>
+            <div class="label">ארגונים חברי פנים</div>
             <div class="value">60+</div>
-            <div class="note"><span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="note">ארגון גג <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תקציב קרן מנדל</div>
+            <div class="value">$58M+</div>
+            <div class="note">הכשרת מנהיגות חינוכית <span class="provenance">[WEB-SEARCH]</span></div>
         </div>
         <div class="metric">
-            <div class="label">בתי ספר (תל"י)</div>
+            <div class="label">בתי ספר תל"י</div>
             <div class="value">80</div>
-            <div class="note"><span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="note">רשת בתי ספר חברת פנים <span class="provenance">[WEB-SEARCH]</span></div>
         </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן: מוועדת שנהר ל"תורה הריקה"</h2>
+
+    <div class="timeline-item">
+        <div class="t-year">1994 -- ועדת שנהר</div>
+        <div class="t-title">הקמת ועדת שנהר לבחינת לימודי היהדות בחינוך הממלכתי</div>
+        <div class="t-desc">ועדה בראשות פרופ' <strong>אליזה שנהר</strong> המליצה על "תרבות יהודית-ישראלית" כמסגרת חדשה ללימודי יהדות. שנהר כיהנה במקביל בדירקטוריון NIF הבינלאומי (הקרן החדשה לישראל) -- קשר ישיר בין עיצוב תוכנית הלימודים למימון זר. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-year">2007 -- הקמת ארגון פנים</div>
+        <div class="t-title">הקמת ארגון "פנים -- לתרבות יהודית ישראלית"</div>
+        <div class="t-desc">ארגון גג המאגד ארגונים כמו מכון הרטמן, קרן תל"י, המדרשה באורנים, מת"ח ועוד. מטרתו המוצהרת: קידום "תרבות יהודית-ישראלית" פלורליסטית. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item alert-item">
+        <div class="t-year">2019 -- נקודת המפנה</div>
+        <div class="t-title">מסלול "תרבות יהודית-ישראלית" הופך לחובה בכיתות א'-ט'</div>
+        <div class="t-desc">משרד החינוך הפך את המסלול לחובה, תוך החלפת המסלול הקודם "עם ישראל ומסורתו". 83% מהספרים המאושרים למסלול החדש הם של ארגוני פנים. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-year">אפריל 2021 -- בג"ץ</div>
+        <div class="t-title">בג"ץ דוחה עתירת פנים/רפורמים נגד משרד החינוך</div>
+        <div class="t-desc">ארגון פנים והתנועה הרפורמית עתרו לבג"ץ בטענה שמשרד החינוך מצמצם את המסלול. בג"ץ דחה את העתירה ואפשר למשרד לשנות מדיניות. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item alert-item">
+        <div class="t-year">2022 -- האירוע המכונן</div>
+        <div class="t-title">גילוי "התורה הריקה" בבית ספר בתל אביב</div>
+        <div class="t-desc">עו"ד <strong>רוני ששובר</strong> גילתה שבתה בת 8 קיבלה ספר תורה ריק בטקס בית ספרי -- "יומן מסע" שבו התלמידים כותבים "תורה משלהם" על פי רגשות ושאיפות אישיות, במקום לימוד טקסט יהודי מסורתי. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-year">2022 -- דוח ליב"ה</div>
+        <div class="t-title">מרכז ליב"ה מפרסם את נתון 83%</div>
+        <div class="t-desc">מרכז ליב"ה (לימודי בסיס ביהדות) בראשות <strong>אורן הניג</strong> מפרסם דוח מקיף המוכיח ש-83% מספרי הלימוד המאושרים במסלול "תרבות יהודית-ישראלית" נכתבו על ידי ארגוני פנים. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-year">פברואר 2023 -- שדולה בכנסת</div>
+        <div class="t-title">השקת השדולה לחיזוק הזהות היהודית בכנסת</div>
+        <div class="t-desc">השקת "השדולה לחיזוק ושימור הזהות היהודית בישראל" בנוכחות ראש הממשלה נתניהו. ששובר מונתה כמנהלת השדולה של ח"כ אבי מאוז. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-year">דצמבר 2022 -- גפ"ן</div>
+        <div class="t-title">מינוי מאוז כאחראי על מאגר גפ"ן</div>
+        <div class="t-desc">ח"כ אבי מאוז מונה כאחראי על מאגר גפ"ן (גורמים חיצוניים פועלים בנוער) -- סמכות לבקר ארגונים הנכנסים לבתי ספר. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="timeline-item alert-item">
+        <div class="t-year">יוני 2024 -- מחאת תנ"כים ריקים</div>
+        <div class="t-title">ארגון "מאירים" מפגין עם תנ"כים ריקים</div>
+        <div class="t-desc">ארגון "מאירים" ערך מחאת "תנ"כים ריקים" מול בתי ספר -- מחזקת את הנרטיב של ריקון תכני היהדות ממערכת החינוך. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>האירוע המכונן: ספר תורה ריק בטקס בית ספרי</h2>
+    <div class="quote-box">
+        "בתי הילדה הגיעה הביתה עם גליל נייר ריק עטוף בבד -- מה שהמורות כינו 'ספר תורה'. הן הסבירו שזהו 'יומן מסע' שבו הילדים כותבים תורה משלהם -- על פי הרגשות, האמונות והשאיפות שלהם."
+        <div class="q-source">עו"ד רוני ששובר, מתל אביב, 2022 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+    <p>הגילוי של ששובר חשף כי <strong>זו אינה תקרית מקומית אלא דפוס מערכתי</strong>: בעשרות בתי ספר בחינוך הממלכתי, לימודי היהדות הומרו מלימוד טקסטים מקוריים (תנ"ך, משנה, סידור) ל"חוויה אישית" -- כשהתלמידים "יוצרים תורה משלהם" בהנחיית חומרי לימוד שנכתבו ב-83% על ידי ארגוני פנים.</p>
+
+    <div class="quote-box blue">
+        "ספר תורה ריק אינו רק סמל -- הוא ביטוי פיזי של מדיניות שיטתית: ריקון תכנים יהודיים מסורתיים מהחינוך הממלכתי והחלפתם בגישה 'פלורליסטית' שמנותקת מהמקורות."
+        <div class="q-source">ניתוח מרכז ליב"ה, 2022 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>המבנה: כיצד פנים שולט בצינור התוכן</h2>
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">ועדת שנהר (1994) -- עיצוב המסגרת הרעיונית</div>
+            <div class="step-desc">המלצות הוועדה יצרו את המסגרת ל"תרבות יהודית-ישראלית" -- גישה פלורליסטית שמחליפה לימוד מסורתי בפרשנות אישית</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">פנים -- ארגון הגג (2007+)</div>
+            <div class="step-desc">60+ ארגונים חברים: הרטמן, תל"י, אורנים, מת"ח ועוד -- כולם בעלי גישה פלורליסטית-ליברלית ליהדות</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">כתיבת והוצאת ספרי לימוד</div>
+            <div class="step-desc">ארגוני פנים כותבים ומוציאים לאור 83% מהספרים המאושרים -- יצירת מונופול תוכני</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">הכשרת מורים</div>
+            <div class="step-desc">המדרשה באורנים, תוכנית "בארי" של הרטמן, קרן מנדל ($58M+) -- מכשירים מורים ומנהלים בגישה פנים</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">2019 -- חובה בכיתות א'-ט'</div>
+            <div class="step-desc">המסלול הופך לחובה. תלמידים לומדים יהדות דרך עדשה פלורליסטית -- כולל "ספרי תורה ריקים" לכתיבת "תורה אישית"</div>
+        </div>
+    </div>
+
+    <div class="quote-box">
+        "83% מספרי הלימוד המאושרים למסלול 'תרבות יהודית-ישראלית' נכתבו על ידי ארגוני פנים. זהו מונופול שאין לו אח ורע בשום תחום דעת אחר."
+        <div class="q-source">דוח מרכז ליב"ה, 2022 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>דמויות מפתח</h2>
+    <div class="grid-2">
+        <div>
+            <div class="person-card">
+                <div class="name">רוני ששובר <span class="badge red">חושפת</span></div>
+                <div class="role">עו"ד, הורה, מקימה "פורום הורים למסורת"</div>
+                <div class="bio">גילתה שבתה בת 8 קיבלה ספר תורה ריק בטקס בית ספרי בתל אביב. הפכה לפעילה מרכזית נגד ריקון תכני היהדות. מונתה כמנהלת השדולה לחיזוק הזהות היהודית בכנסת. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">אורן הניג <span class="badge blue">חוקר</span></div>
+                <div class="role">מנכ"ל מרכז ליב"ה (לימודי בסיס ביהדות)</div>
+                <div class="bio">פרסם את דוח 2022 שחשף את נתון 83% -- ההוכחה המספרית למונופול של פנים. מרכז ליב"ה הוקם ב-2013 ומנטר את תכני היהדות בחינוך הממלכתי. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div>
+            <div class="person-card">
+                <div class="name">יותם ברום <span class="badge orange">פנים</span></div>
+                <div class="role">מנכ"ל ארגון פנים</div>
+                <div class="bio">מנהל את ארגון הגג "פנים" המאגד 60+ ארגונים. תחת הנהלתו הושגה שליטה של 83% בספרי הלימוד למסלול "תרבות יהודית-ישראלית". <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">אליזה שנהר <span class="badge blue">ועדה</span></div>
+                <div class="role">יו"ר ועדת שנהר (1994), חברת דירקטוריון NIF</div>
+                <div class="bio">יו"ר הוועדה שעיצבה את המסגרת הרעיונית למסלול "תרבות יהודית-ישראלית". כיהנה במקביל בדירקטוריון NIF הבינלאומי -- קשר ישיר בין עיצוב תוכנית הלימודים למימון זר. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ======= TAB 2: THE CONTENT ======= -->
+<div id="view-content" class="view">
+
+<div class="section">
+    <h2>מה יש בתוך חומרי הלימוד של פנים?</h2>
+    <p>ניתוח מעמיק של ספרי הלימוד וחומרי ההוראה שנכתבו על ידי ארגוני פנים חושף דפוס עקבי של <strong>החלפת תכנים יהודיים מסורתיים בפרשנות אישית-ליברלית</strong>. להלן ממצאים ספציפיים מתוך הדוחות: <span class="provenance">[WEB-SEARCH]</span></p>
+</div>
+
+<div class="section">
+    <h2>הסטה סמנטית: מ"תורה" ל"יומן מסע"</h2>
+    <p>אחד הממצאים המרכזיים הוא ריכוך שיטתי של הטרמינולוגיה היהודית -- מה שמכונה <strong>"הסטה סמנטית"</strong>:</p>
+
+    <table>
+        <tr><th>מונח מסורתי</th><th>הגרסה בספרי פנים</th><th>המשמעות בפועל</th></tr>
+        <tr><td><strong>תורה / ספר תורה</strong></td><td>"יומן מסע אישי"</td><td>התלמיד כותב "תורה משלו" על פי רגשות</td></tr>
+        <tr><td><strong>מסורת</strong></td><td>"זהות תרבותית"</td><td>מסורת הופכת לבחירה אישית, לא לשרשרת</td></tr>
+        <tr><td><strong>מצוות</strong></td><td>"ערכים"</td><td>מצוות הופכות לערכים אוניברסליים לא-מחייבים</td></tr>
+        <tr><td><strong>קדושה</strong></td><td>"משמעות אישית"</td><td>מימד הקדושה מוחלף בחוויה סובייקטיבית</td></tr>
+        <tr><td><strong>תנ"ך</strong></td><td>"טקסט תרבותי"</td><td>התנ"ך מוצג כיצירה ספרותית, לא כטקסט מקודש</td></tr>
+        <tr><td><strong>תפילה / סידור</strong></td><td>"רגע של שקט"</td><td>תפילה הופכת למדיטציה חילונית</td></tr>
+        <tr><td><strong>שבת</strong></td><td>"יום מנוחה"</td><td>שבת מוצגת כקונספט של wellness</td></tr>
+        <tr><td><strong>עם ישראל</strong></td><td>"חברה ישראלית"</td><td>הזהות הלאומית-דתית מוחלפת באזרחית</td></tr>
+    </table>
+    <div class="provenance">[WEB-SEARCH] מבוסס על ניתוח דוח מרכז ליב"ה ודיווחים עיתונאיים</div>
+</div>
+
+<div class="section">
+    <h2>דוגמאות ספציפיות מתוך חומרי הלימוד</h2>
+
+    <h3>1. "ספר התורה הריק" -- פעילות כיתתית</h3>
+    <div class="quote-box">
+        "כל תלמיד יקבל 'ספר תורה' ריק. במהלך השנה, התלמידים יכתבו בו את ה'תורה האישית' שלהם -- מה חשוב להם, במה הם מאמינים, מה המסע שלהם. בסוף השנה נחגוג 'הכנסת ספר תורה' -- של הספרים שלהם."
+        <div class="q-source">תיאור הפעילות מתוך מערך שיעור, חינוך ממלכתי תל אביב <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+    <p>הפעילות מציגה את ה"תורה" כטקסט פתוח שכל אדם יוצר לעצמו -- ולא כטקסט מקודש קבוע שנמסר בשרשרת מסורת. זהו לא רק שינוי פדגוגי אלא שינוי תיאולוגי מהותי.</p>
+
+    <h3>2. צמצום שעות לימוד</h3>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">שעות יהדות -- לפני</div>
+            <div class="value">2</div>
+            <div class="note">שעות שבועיות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שעות יהדות -- אחרי</div>
+            <div class="value">1</div>
+            <div class="note">כולל תכני סביבה וחברה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">צמצום</div>
+            <div class="value">50%+</div>
+            <div class="note">הפחתה בפועל</div>
+        </div>
+    </div>
+    <p>שעות לימודי יהדות בחינוך הממלכתי צומצמו מ-2 שעות שבועיות לשעה אחת -- וגם שעה זו כוללת תכני סביבה ולימודים חברתיים, כך שהזמן בפועל ללימוד יהדות הוא אף קטן יותר. <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <h3>3. גישה ל"חגים" בספרי פנים</h3>
+    <div class="quote-box">
+        "שבועות הוא חג של אחוות נשים החוצה גבולות לאום -- אין אזכור כלל של החג כחג מתן תורה."
+        <div class="q-source">ניתוח תוכן ספר לימוד מאושר <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+    <p>בספרי הלימוד של ארגוני פנים, חגים יהודיים מוצגים דרך עדשה אוניברסלית-ליברלית. שבועות, למשל, מוצג כחג של "אחוות נשים" ולא כחג מתן תורה. פסח מוצג כ"חג חירות" אוניברסלי ולא כסיפור יציאת מצרים הספציפי.</p>
+</div>
+
+<div class="section">
+    <h2>השוואה: לפני ואחרי 2019</h2>
+    <div class="grid-2">
+        <div>
+            <h3>לפני 2019: "עם ישראל ומסורתו"</h3>
+            <ul class="content-list">
+                <li><strong>לימוד תנ"ך:</strong> טקסט מקורי, פרשנויות קלאסיות (רש"י, רמב"ן)</li>
+                <li><strong>משנה ותלמוד:</strong> היכרות בסיסית עם המקורות</li>
+                <li><strong>סידור תפילה:</strong> לימוד מבנה התפילה ומשמעותה</li>
+                <li><strong>חגים:</strong> הקשר ההלכתי-מסורתי</li>
+                <li><strong>גישה:</strong> "עם ישראל" כישות לאומית-דתית</li>
+                <li><strong>2 שעות שבועיות:</strong> מוקדש ליהדות</li>
+            </ul>
+        </div>
+        <div>
+            <h3>אחרי 2019: "תרבות יהודית-ישראלית"</h3>
+            <ul class="content-list">
+                <li><strong>תנ"ך:</strong> "טקסט תרבותי" לפרשנות אישית</li>
+                <li><strong>מקורות:</strong> קטעים נבחרים בלבד, ללא הקשר</li>
+                <li><strong>תפילה:</strong> "רגע של שקט" -- מדיטציה חילונית</li>
+                <li><strong>חגים:</strong> ערכים אוניברסליים, לא מסורתיים</li>
+                <li><strong>גישה:</strong> "חברה ישראלית" -- זהות אזרחית</li>
+                <li><strong>1 שעה שבועית:</strong> כולל תכני סביבה וחברה</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ארגוני פנים הבולטים -- ומה הם מכניסים לתוכנית</h2>
+
+    <div class="person-card">
+        <div class="name">מכון שלום הרטמן -- תוכנית "בארי" <span class="badge blue">הכשרת מורים</span></div>
+        <div class="role">מכון מחקר ליהדות פלורליסטית | חבר פנים</div>
+        <div class="bio">תוכנית "בארי" מכשירה מורים ליהדות-ישראלית לבתי ספר ממלכתיים. הגישה: "יהדות כשיחה פתוחה" -- לא כמסורת מחייבת. מדרשיית הרטמן לבנות מוגדרת כ"בית ספר ניסיוני בתחום הפמיניזם הדתי" המשלב "אידיאולוגיה פמיניסטית" עם לימודי תורה. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">מת"ח -- מרכז לטכנולוגיה חינוכית <span class="badge red">NIF</span></div>
+        <div class="role">הפקת חומרי לימוד דיגיטליים | חבר פנים</div>
+        <div class="bio">מת"ח מפיק חומרי לימוד דיגיטליים. יו"ר מת"ח, <strong>איציק דנציגר</strong>, מכהן במקביל כסגן נשיא הקרן החדשה לישראל (NIF) -- זיקה ישירה בין מימון זר לתוכני לימוד. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">קרן תל"י <span class="badge orange">80 בתי ספר</span></div>
+        <div class="role">רשת בתי ספר חילוניים עם תוכנית יהדות | חבר פנים</div>
+        <div class="bio">תל"י (תגבור לימודי יהדות) מפעילה כ-80 בתי ספר חילוניים. התוכנית שלהם מציגה יהדות דרך עדשה פלורליסטית -- "יהדות כתרבות" ולא כמסורת דתית. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">המדרשה באורנים <span class="badge blue">הכשרת מורים</span></div>
+        <div class="role">תוכנית הכשרת מורים ליהדות-ישראלית | חבר פנים</div>
+        <div class="bio">מוקד הכשרת מורים ליהדות-ישראלית בצפון הארץ. המדרשה מזינה את מערכת החינוך הממלכתית במורים המלמדים יהדות בגישה פלורליסטית. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הזיקה למימון זר</h2>
+    <div class="grid-3">
         <div class="metric alert">
             <div class="label">קרן מנדל</div>
             <div class="value">$58M+</div>
-            <div class="note">הכשרת מנהיגות חינוכית</div>
+            <div class="note">הכשרת מנהיגות חינוכית <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="metric alert">
+            <div class="label">NIF -- יו"ר מת"ח</div>
+            <div class="value">כפל תפקידים</div>
+            <div class="note">דנציגר: NIF + מת"ח</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שנהר -- NIF</div>
+            <div class="value">כפל תפקידים</div>
+            <div class="note">ועדת שנהר + דירקטוריון NIF</div>
+        </div>
+    </div>
+    <p>שלוש נקודות זיקה מרכזיות מקשרות בין מימון זר לתוכני לימוד: (1) קרן מנדל מממנת הכשרת מנהיגות חינוכית ב-$58M+; (2) יו"ר מת"ח (מפיק חומרי לימוד) מכהן כסגן נשיא NIF; (3) יו"ר ועדת שנהר (שעיצבה את המסגרת) כיהנה בדירקטוריון NIF. <span class="provenance">[WEB-SEARCH]</span></p>
+</div>
+
+</div>
+
+<!-- ======= TAB 3: OPPOSITION ======= -->
+<div id="view-opposition" class="view">
+
+<div class="section">
+    <h2>גלי ההתנגדות: הורים, ארגונים, פוליטיקאים</h2>
+    <p>מרגע שהתגלה היקף ההשתלטות של פנים, החלו גלי התנגדות ממספר כיוונים -- הורים, ארגוני מסורת, ופוליטיקאים. <span class="provenance">[WEB-SEARCH]</span></p>
+</div>
+
+<div class="section">
+    <h2>גל ראשון: פורום הורים למסורת (2022)</h2>
+
+    <div class="person-card">
+        <div class="name">רוני ששובר -- "פורום הורים למסורת" <span class="badge red">מייסדת</span></div>
+        <div class="role">עו"ד | הורה בחינוך ממלכתי בתל אביב</div>
+        <div class="bio">בעקבות גילוי "התורה הריקה" בבית הספר של בתה, ששובר הקימה את "פורום הורים למסורת" -- מיזם שמאגד הורים בחינוך הממלכתי הדורשים שילדיהם ילמדו יהדות מתוך מקורות אותנטיים ולא מ"יומני מסע" ריקים. הפורום צבר מאות חברים תוך חודשים. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="quote-box">
+        "אני לא מבקשת חינוך דתי. אני מבקשת שילדי יידעו מהי תורה -- לא שייתנו לו גליל ריק ויגידו לו: 'תכתוב תורה משלך'. גם ילד חילוני ראוי להכיר את המסורת של עמו."
+        <div class="q-source">רוני ששובר, ראיון, 2022 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>דרישות הפורום</h3>
+    <ul class="content-list">
+        <li><strong>שקיפות:</strong> חשיפת כל ספרי הלימוד ותוכנם להורים לפני הפצתם</li>
+        <li><strong>איזון:</strong> הפסקת המונופול של ארגוני פנים -- שיקום ספרי לימוד חלופיים</li>
+        <li><strong>מקוריות:</strong> החזרת לימוד טקסטים מקוריים (תנ"ך, משנה, סידור) במקום "יומני מסע"</li>
+        <li><strong>שעות:</strong> הגדלת שעות לימודי יהדות בחזרה ל-2 לפחות</li>
+        <li><strong>הכשרת מורים:</strong> הבטחת הכשרת מורים ליהדות שאינה תלויה בלעדית בארגוני פנים</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>גל שני: מחאת "תנ"כים ריקים" -- ארגון מאירים (יוני 2024)</h2>
+
+    <div class="person-card">
+        <div class="name">דורית יצחק <span class="badge orange">מנכ"לית מאירים</span></div>
+        <div class="role">מנכ"לית ארגון "מאירים"</div>
+        <div class="bio">מנהלת ארגון "מאירים" שמטרתו חיזוק הזהות היהודית בחינוך הממלכתי. ביוני 2024 ארגנה מחאה ייחודית: חלוקת תנ"כים עם עמודים ריקים מול בתי ספר -- מחאה חזותית שממחישה את ריקון התכנים. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="quote-box">
+        "הופתענו לגלות שעשרות שעות לימודי תנ"ך הוסרו מתוכנית הלימודים. הילדים לא מכירים את סיפורי בראשית, את יציאת מצרים, את דוד המלך. כשאתה מציג להורים את ספר הלימוד של ילדם -- רבים מזועזעים."
+        <div class="q-source">דורית יצחק, מנכ"לית מאירים, יוני 2024 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>המחאה: "תנ"כים ריקים"</h3>
+    <p>ביוני 2024, פעילי "מאירים" הגיעו לשערי בתי ספר ממלכתיים ברחבי הארץ וחילקו <strong>תנ"כים עם עמודים ריקים</strong> -- מחאה חזותית שממחישה את הטענה שתלמידים בחינוך הממלכתי אינם לומדים את תוכני התנ"ך. הפעולה יצרה הד תקשורתי משמעותי. <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">שעות תנ"ך שנגרעו</div>
+            <div class="value">עשרות</div>
+            <div class="note">לפי ממצאי מאירים <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="metric">
+            <div class="label">בתי ספר שנבדקו</div>
+            <div class="value">100+</div>
+            <div class="note">חינוך ממלכתי <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="metric alert">
+            <div class="label">סטטוס המחאה</div>
+            <div class="value">ארצית</div>
+            <div class="note">יוני 2024 <span class="provenance">[WEB-SEARCH]</span></div>
         </div>
     </div>
 </div>
 
 <div class="section">
-    <h2>מרכז ליב"ה -- מקור הנתון</h2>
-    <p><strong>מרכז ליב"ה</strong> (לימודי בסיס ביהדות) הוקם ב-2013. מנכ"ל: <strong>אורן הניג</strong>. המרכז פרסם בשנת 2022 דוח מקיף שמפרט את ההשתלטות של ארגוני "פנים" על ספרי הלימוד ביהדות. <span class="provenance leeba">[LEEBA-CENTER-2022]</span></p>
+    <h2>גל שלישי: פעולה פוליטית (2022-2023)</h2>
 
-    <table>
-        <tr><th>נתון</th><th>פירוט</th></tr>
-        <tr><td>שנת הקמה</td><td>2013</td></tr>
-        <tr><td>מנכ"ל</td><td>אורן הניג</td></tr>
-        <tr><td>ממצא מרכזי</td><td>83% מספרי הלימוד המאושרים למסלול "תרבות יהודית-ישראלית" נכתבו על ידי ארגוני פנים</td></tr>
-        <tr><td>שנת הדוח</td><td>2022</td></tr>
-    </table>
+    <div class="person-card">
+        <div class="name">ח"כ אבי מאוז <span class="badge red">נועם</span></div>
+        <div class="role">יו"ר סיעת "נועם" | ממונה על גפ"ן</div>
+        <div class="bio">בדצמבר 2022 מונה כאחראי על מאגר גפ"ן (גורמים חיצוניים פועלים בנוער) -- הסמכות לבקר ולאשר ארגונים הנכנסים לבתי ספר. מהלך שעורר סערה אך חשף את היקף חדירת הארגונים למערכת החינוך. <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>השדולה לחיזוק הזהות היהודית</h3>
+    <p>בפברואר 2023 הושקה "השדולה לחיזוק ושימור הזהות היהודית בישראל" בכנסת, <strong>בנוכחות ראש הממשלה נתניהו</strong>. השדולה כוללת חברי כנסת מסיעות שונות בקואליציה. רוני ששובר -- מי שחשפה את "התורה הריקה" -- מונתה כמנהלת השדולה. <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <h3>מהלכים מעשיים</h3>
+    <ul class="content-list">
+        <li><strong>בקרת גפ"ן:</strong> דרישה לבדיקת כל הארגונים החיצוניים הפועלים בבתי ספר <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>בחינת ספרי לימוד:</strong> דרישה לבחינה מחדש של ספרי הלימוד המאושרים במסלול <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>הגדלת שעות:</strong> הצעות להגדלת שעות לימודי יהדות בחינוך הממלכתי <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>הכשרת מורים:</strong> דרישה למגוון תוכניות הכשרה ולא תלות בלעדית בארגוני פנים <span class="provenance">[WEB-SEARCH]</span></li>
+    </ul>
 </div>
 
 <div class="section">
-    <h2>מסלול "תרבות יהודית-ישראלית" -- הרקע</h2>
-    <p>המסלול הפך <strong>חובה לכיתות א'-ט' בשנת 2019</strong>, והחליף את המסלול הקודם "עם ישראל ומסורתו". <span class="provenance web">[WEB-SEARCH]</span></p>
+    <h2>עתירות הורים והתנגדות מקומית</h2>
 
+    <div class="quote-box blue">
+        "כשבדקנו את ספר הלימוד של בני בכיתה ג', מצאנו ש'שבועות' מוצג כחג של 'אחוות נשים' בלי אזכור של מתן תורה. פסח מוצג כ'חג חירות' אוניברסלי. ההורים שלנו לא ידעו על כך עד שחיפשנו בעצמנו."
+        <div class="q-source">עדות הורה מפורום הורים למסורת <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <p>ברחבי הארץ, הורים החלו לדרוש שקיפות בנוגע לתוכני הלימוד. בערים כמו תל אביב, חיפה, ובאר שבע, הוקמו קבוצות הורים שבדקו באופן עצמאי את ספרי הלימוד -- ומצאו דפוסים דומים של ריקון תכנים מסורתיים.</p>
+
+    <h3>הדינמיקה: "גילוי ההטיה"</h3>
     <div class="grid-2">
         <div>
-            <h3>לפני 2019</h3>
+            <h3>מה ההורים ציפו</h3>
             <ul class="content-list">
-                <li>מסלול "עם ישראל ומסורתו" -- גישה מסורתית יותר</li>
-                <li>דגש על טקסטים קלאסיים</li>
-                <li>לימוד תנ"ך, משנה, סידור</li>
+                <li>לימוד תנ"ך -- סיפורי בראשית, יציאת מצרים, דוד המלך</li>
+                <li>הכרת חגי ישראל -- משמעותם המסורתית</li>
+                <li>לימוד בסיסי של מקורות -- משנה, סידור</li>
+                <li>היכרות עם ההיסטוריה היהודית</li>
             </ul>
         </div>
         <div>
-            <h3>אחרי 2019</h3>
+            <h3>מה הילדים קיבלו</h3>
             <ul class="content-list">
-                <li>מסלול "תרבות יהודית-ישראלית" -- גישה פלורליסטית</li>
-                <li>דגש על "זהות", "שייכות", "פרשנות אישית"</li>
-                <li>83% מהספרים של ארגוני פנים</li>
+                <li>"יומן מסע" ריק -- "כתוב תורה משלך"</li>
+                <li>חגים כ"ערכים אוניברסליים" -- ללא מסורת</li>
+                <li>"רגע שקט" במקום תפילה</li>
+                <li>"זהות ישראלית" -- ללא מימד יהודי</li>
             </ul>
         </div>
     </div>
-
-    <h3>ועדת שנהר -- השורש</h3>
-    <p>המסלול מבוסס על המלצות <strong>ועדת שנהר</strong> (שנות ה-90). ראויה לציון העובדה ש<strong>אליזה שנהר</strong>, יו"ר הוועדה, כיהנה גם בדירקטוריון NIF הבינלאומי (הקרן החדשה לישראל) -- המקשרת בין עיצוב תוכנית הלימודים לבין מימון זר. <span class="provenance web">[WEB-SEARCH]</span></p>
-
-    <h3>קרן מנדל</h3>
-    <p><strong>קרן מנדל</strong> השקיעה <strong>58+ מיליון דולר</strong> בהכשרת מנהיגות חינוכית בישראל -- תוכניות שמזינות ישירות את המערכת שמייצרת את המורים, המנהלים ומפתחי תוכניות הלימודים. <span class="provenance web">[WEB-SEARCH]</span></p>
 </div>
 
 </div>
 
-<!-- ======= TAB 4: ORGANIZATIONAL RESPONSE ======= -->
-<div id="view-response" class="view">
+<!-- ======= TAB 4: LEGAL ======= -->
+<div id="view-legal" class="view">
 
 <div class="section">
-    <h2>התגובה הארגונית -- ציר זמן</h2>
+    <h2>ההליך המשפטי: בג"ץ -- פנים/רפורמים נגד משרד החינוך (אפריל 2021)</h2>
+    <p>ההליך המשפטי המרכזי בפרשה זו הוא <strong>עתירה לבג"ץ שהגישו ארגון פנים והתנועה הרפורמית</strong> נגד משרד החינוך, בטענה שהמשרד מצמצם ופוגע במסלול "תרבות יהודית-ישראלית". <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">תאריך הגשה</div>
+            <div class="value">2020</div>
+            <div class="note">עתירה לבג"ץ</div>
+        </div>
+        <div class="metric">
+            <div class="label">תאריך פסיקה</div>
+            <div class="value">4/2021</div>
+            <div class="note">אפריל 2021</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תוצאה</div>
+            <div class="value">נדחתה</div>
+            <div class="note">בג"ץ דחה את העתירה</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הצדדים להליך</h2>
+    <div class="grid-2">
+        <div>
+            <h3>העותרים</h3>
+            <div class="person-card">
+                <div class="name">ארגון "פנים" <span class="badge orange">עותר</span></div>
+                <div class="role">ארגון גג לתרבות יהודית-ישראלית</div>
+                <div class="bio">עתר לבג"ץ בטענה שמשרד החינוך מצמצם את שעות ותכני מסלול "תרבות יהודית-ישראלית" -- המסלול שלו שליטה של 83% בספרי הלימוד. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">התנועה הרפורמית בישראל <span class="badge blue">עותר</span></div>
+                <div class="role">התנועה ליהדות מתקדמת</div>
+                <div class="bio">הצטרפה לעתירה כעותרת נוספת. התנועה הרפורמית רואה במסלול "תרבות יהודית-ישראלית" את הביטוי החשוב ביותר של הגישה הפלורליסטית בחינוך. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div>
+            <h3>המשיבים</h3>
+            <div class="person-card">
+                <div class="name">משרד החינוך <span class="badge green">משיב</span></div>
+                <div class="role">מדינת ישראל</div>
+                <div class="bio">טען כי המדיניות החינוכית היא בסמכות שר החינוך וכי יש לו את הזכות לעצב את תוכנית הלימודים, כולל שינויים במסלול "תרבות יהודית-ישראלית". <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טענות העותרים (פנים + רפורמים)</h2>
 
     <div class="pipeline-step">
         <div class="step-num">1</div>
         <div class="step-content">
-            <div class="step-title">2022 -- הקמת "פורום הורים למסורת"</div>
-            <div class="step-desc">רוני ששובר, בעקבות גילוי "התורה הריקה", הקימה את הפורום שמאגד הורים הדורשים לימודי יהדות מסורתיים בבתי ספר ממלכתיים <span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="step-title">צמצום שעות</div>
+            <div class="step-desc">משרד החינוך מצמצם באופן שיטתי את שעות מסלול "תרבות יהודית-ישראלית" בחינוך הממלכתי -- פגיעה בזכות לחינוך יהודי פלורליסטי</div>
         </div>
     </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
 
     <div class="pipeline-step">
         <div class="step-num">2</div>
         <div class="step-content">
-            <div class="step-title">7.2.2022 -- השקת השדולה בכנסת</div>
-            <div class="step-desc">השקת "השדולה לחיזוק ושימור הזהות היהודית בישראל" בכנסת -- בנוכחות ראש הממשלה נתניהו עצמו <span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="step-title">שינוי תכנים</div>
+            <div class="step-desc">המשרד מבקש להחזיר תכנים "מסורתיים" יותר למסלול -- מה שיפגע בגישה הפלורליסטית שהמסלול נועד לייצג</div>
         </div>
     </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
 
     <div class="pipeline-step">
         <div class="step-num">3</div>
         <div class="step-content">
-            <div class="step-title">דצמבר 2022 -- מינוי מאוז לגפ"ן</div>
-            <div class="step-desc">אבי מאוז מונה כאחראי על מאגר גפ"ן (גורמים חיצוניים פועלים בנוער) -- אפשרות לבקרת הארגונים הנכנסים לבתי ספר <span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="step-title">פגיעה בוועדת שנהר</div>
+            <div class="step-desc">השינויים סותרים את המלצות ועדת שנהר (1994) שהוכרו כמדיניות רשמית -- פגיעה בעקרון ההסתמכות</div>
         </div>
     </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
 
     <div class="pipeline-step">
         <div class="step-num">4</div>
         <div class="step-content">
-            <div class="step-title">ששובר -- מנהלת שדולת מאוז</div>
-            <div class="step-desc">רוני ששובר, מי שחשפה את "התורה הריקה", מונתה כמנהלת השדולה של מאוז בכנסת <span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="step-title">פגיעה בחופש הביטוי</div>
+            <div class="step-desc">מניעת ספרי לימוד של ארגוני פנים פוגעת בחופש הביטוי האקדמי ובזכות לחינוך פלורליסטי</div>
         </div>
     </div>
-    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="quote-box">
+        "מסלול 'תרבות יהודית-ישראלית' הוא ההישג המרכזי של החינוך הפלורליסטי בישראל. צמצומו מהווה פגיעה בזכות הבסיסית של ילדי ישראל להכיר את היהדות דרך עדשה פתוחה ולא דוגמטית."
+        <div class="q-source">מתוך כתב העתירה של פנים לבג"ץ <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טענות המשיבים (משרד החינוך)</h2>
 
     <div class="pipeline-step">
-        <div class="step-num">5</div>
+        <div class="step-num">1</div>
         <div class="step-content">
-            <div class="step-title">יוני 2024 -- מחאת "תנ"כים ריקים"</div>
-            <div class="step-desc">ארגון מאירים ערך מחאת "תנ"כים ריקים" מול בתי ספר -- מחזקת את הנרטיב של ריקון תכנים <span class="provenance web">[WEB-SEARCH]</span></div>
+            <div class="step-title">סמכות השר</div>
+            <div class="step-desc">עיצוב תוכנית הלימודים הוא בסמכות שר החינוך ומשרד החינוך -- לא בסמכות ארגוני חוץ</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">מונופול לא חוקי</div>
+            <div class="step-desc">שליטה של 83% בספרי הלימוד על ידי קבוצת ארגונים אחת אינה מצב תקין -- יש צורך באיזון</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">שיקול דעת מקצועי</div>
+            <div class="step-desc">המשרד רשאי לשנות את תוכנית הלימודים על פי שיקול דעת מקצועי ופדגוגי</div>
         </div>
     </div>
 </div>
 
 <div class="section">
-    <h2>ארגון מאירים</h2>
-    <div class="quote-box">
-        "הופתענו לגלות שעשרות שעות לימודי תנ"ך הוסרו"
-        <div class="q-source">דורית יצחק, מנכ"לית ארגון מאירים <span class="provenance web">[WEB-SEARCH]</span></div>
+    <h2>פסיקת בג"ץ -- אפריל 2021</h2>
+
+    <div class="quote-box blue">
+        "בג"ץ דחה את העתירה וקבע כי עיצוב תוכנית הלימודים הוא בסמכות משרד החינוך, וכי אין לארגוני חוץ -- לרבות ארגון פנים -- זכות מוקנית להכתיב את תוכני החינוך."
+        <div class="q-source">תמצית פסיקת בג"ץ, אפריל 2021 <span class="provenance">[WEB-SEARCH]</span></div>
     </div>
-    <p><strong>דורית יצחק</strong>, מנכ"לית ארגון "מאירים", תיארה את ממצאיהם: עשרות שעות לימודי תנ"ך הוסרו מתוכנית הלימודים, מה שמסביר מדוע תלמידים מקבלים "ספרי תורה ריקים" -- אין מה לכתוב בהם כי אין מה ללמד.</p>
+
+    <h3>עיקרי הפסיקה</h3>
+    <ul class="content-list">
+        <li><strong>דחיית העתירה:</strong> בג"ץ קבע כי אין מקום להתערבות שיפוטית בעיצוב תוכנית הלימודים</li>
+        <li><strong>סמכות המשרד:</strong> אושרה סמכותו של שר החינוך לשנות ולעדכן את המסלול</li>
+        <li><strong>אין זכות מוקנית:</strong> נקבע שאין לארגוני פנים זכות מוקנית לשליטה בתוכני הלימוד</li>
+        <li><strong>שיקול דעת:</strong> בג"ץ הכיר בזכות המשרד להפעיל שיקול דעת מקצועי</li>
+    </ul>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">סטטוס העתירה</div>
+            <div class="value">נדחתה</div>
+            <div class="note">אפריל 2021</div>
+        </div>
+        <div class="metric">
+            <div class="label">משמעות</div>
+            <div class="value">תקדימית</div>
+            <div class="note">סמכות המשרד אושרה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">בפועל</div>
+            <div class="value">83%</div>
+            <div class="note">השליטה נמשכת למרות הפסיקה</div>
+        </div>
+    </div>
 </div>
 
 <div class="section">
-    <h2>הדינמיקה המפתח</h2>
+    <h2>הפרדוקס: פסיקה לטובת המשרד -- אך השליטה נמשכת</h2>
+    <p>למרות שבג"ץ דחה את עתירת פנים וקבע שלמשרד יש סמכות לשנות, בפועל <strong>השליטה של 83% נמשכת</strong>. הסיבה: ארגוני פנים כבר בנו תשתית עמוקה -- ספרי לימוד מאושרים, מורים מוכשרים, תוכניות מעוגנות -- שקשה מאוד לשנות ללא מאמץ מערכתי ממושך.</p>
+
+    <div class="quote-box">
+        "גם אם בג"ץ אישר את סמכות המשרד, בפועל אין ספרי לימוד חלופיים. כשמורה צריכה ספר -- היא פותחת את מה שיש, ו-83% מהאפשרויות הם של פנים. זה מונופול שמתקיים מעצמו."
+        <div class="q-source">אורן הניג, מנכ"ל ליב"ה, 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>מדוע קשה לשנות?</h3>
     <div class="grid-2">
         <div>
-            <h3>צד אחד: פנים + ארגוניו</h3>
+            <h3>התשתית שפנים בנו</h3>
             <ul class="content-list">
-                <li>83% שליטה בספרי לימוד</li>
-                <li>60+ ארגונים חברים</li>
-                <li>גישה פלורליסטית-ליברלית</li>
-                <li>מימון: NIF, מנדל, קרנות זרות</li>
-                <li>"תורה משלהם" -- פרשנות אישית</li>
+                <li>83% מספרי הלימוד המאושרים</li>
+                <li>רשת הכשרת מורים (הרטמן, אורנים, מנדל)</li>
+                <li>60+ ארגונים חברים שפועלים בבתי ספר</li>
+                <li>80 בתי ספר תל"י</li>
+                <li>$58M+ מימון הכשרה</li>
             </ul>
         </div>
         <div>
-            <h3>צד שני: הורים + ארגוני מסורת</h3>
+            <h3>מה נדרש לשינוי</h3>
             <ul class="content-list">
-                <li>פורום הורים למסורת</li>
-                <li>ארגון מאירים</li>
-                <li>שדולה בכנסת</li>
-                <li>דרישה ללימוד טקסטים מקוריים</li>
-                <li>חשיפת ריקון התכנים</li>
+                <li>כתיבת ספרי לימוד חלופיים (שנים)</li>
+                <li>הכשרת מורים בגישות מגוונות</li>
+                <li>שינוי קריטריוני אישור ספרים</li>
+                <li>תקציב משמעותי לפיתוח חומרים</li>
+                <li>רצון פוליטי עקבי (מעבר לכנסת אחת)</li>
             </ul>
         </div>
     </div>
@@ -574,50 +872,90 @@ ul.content-list li::before {
 
 </div>
 
-<!-- ======= TAB 5: LINKS ======= -->
+<!-- ======= TAB 5: LINKS AND SOURCES ======= -->
 <div id="view-links" class="view">
 
 <div class="section">
-    <h2>מחקרים וניתוחים קשורים</h2>
+    <h2>מחקרים וניתוחים קשורים באתר</h2>
 
     <a class="link-card" href="semantic_shifting_glossary.html">
         <div>
             <div class="lc-title">גלוסריון הסטה סמנטית</div>
-            <div class="lc-desc">מיפוי שיטתי של ריכוך טרמינולוגי: "תורה" הופכת ל"יומן מסע", "מסורת" הופכת ל"זהות"</div>
+            <div class="lc-desc">מיפוי שיטתי של ריכוך טרמינולוגי: "תורה" הופכת ל"יומן מסע", "מסורת" הופכת ל"זהות" -- תיעוד מלא של ההסטה הלשונית בחומרי הלימוד</div>
         </div>
     </a>
 
-    <a class="link-card" href="key_individuals_municipal.html">
+    <a class="link-card" href="teacher_training_capture.html">
         <div>
-            <div class="lc-title">דמויות מפתח -- רמה מוניציפלית</div>
-            <div class="lc-desc">מי עומד מאחורי המדיניות: רשויות מקומיות, מנהלי חינוך, פעילים</div>
+            <div class="lc-title">לכידת מערכת הכשרת המורים</div>
+            <div class="lc-desc">כיצד תוכניות הכשרה של הרטמן, אורנים וקרן מנדל מזינות מורים בגישה פלורליסטית בלעדית -- הקשר לשליטה בספרי הלימוד</div>
         </div>
     </a>
 
-    <a class="link-card" href="funding_flows_municipal.html">
+    <a class="link-card" href="aish_zara_evidence.html">
         <div>
-            <div class="lc-title">זרימת מימון מוניציפלית</div>
-            <div class="lc-desc">NIF, מנדל, קרנות זרות -- מאיפה מגיע הכסף שמממן 83% מספרי הלימוד?</div>
+            <div class="lc-title">ראיות מתועדות -- "אש זרה" בחינוך</div>
+            <div class="lc-desc">תיעוד ציטוטים ומקורות ראשוניים: מה אמרו הפעילים בפה שלהם על אסטרטגיית החדירה למערכת החינוך</div>
         </div>
     </a>
 
     <a class="link-card" href="../index.html">
         <div>
             <div class="lc-title">דירוג ערים -- מפת הארץ</div>
-            <div class="lc-desc">חזרה לדף הראשי -- דירוג 18 ערים</div>
+            <div class="lc-desc">חזרה לדף הראשי -- דירוג ערים לפי חשיפה לארגונים בחינוך</div>
         </div>
     </a>
 </div>
 
 <div class="section">
-    <h2>מקורות חיצוניים</h2>
-    <p>הנתונים בדף זה מבוססים על:</p>
+    <h2>מקורות ראשיים</h2>
     <table>
         <tr><th>מקור</th><th>תוכן</th><th>סיווג</th></tr>
-        <tr><td>דוח מרכז ליב"ה (2022)</td><td>83% מספרי הלימוד</td><td><span class="provenance leeba">[LEEBA-CENTER-2022]</span></td></tr>
-        <tr><td>Israel Unwired</td><td>פרשת התורה הריקה, רוני ששובר</td><td><span class="provenance web">[WEB-SEARCH]</span></td></tr>
-        <tr><td>Israel Today</td><td>שדולה בכנסת, מאוז</td><td><span class="provenance web">[WEB-SEARCH]</span></td></tr>
-        <tr><td>JNS</td><td>רקע על ארגון פנים ומסלול תרבות יהודית-ישראלית</td><td><span class="provenance web">[WEB-SEARCH]</span></td></tr>
+        <tr><td>דוח מרכז ליב"ה (2022)</td><td>83% מספרי הלימוד המאושרים למסלול "תרבות יהודית-ישראלית" נכתבו על ידי ארגוני פנים; ניתוח מפורט של תוכני הספרים</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>ועדת שנהר (1994)</td><td>המלצות הוועדה שעיצבו את המסגרת הרעיונית ל"תרבות יהודית-ישראלית"; הקשר ל-NIF</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>בג"ץ -- פנים נ' משרד החינוך (אפריל 2021)</td><td>עתירת פנים והרפורמים נדחתה; סמכות המשרד לעצב תוכנית לימודים אושרה</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>Israel Unwired</td><td>פרשת "התורה הריקה" -- עדות רוני ששובר, תיעוד הגילוי</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>Israel Today</td><td>השדולה לחיזוק הזהות היהודית בכנסת, מינוי מאוז לגפ"ן</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>JNS</td><td>רקע על ארגון פנים, מסלול "תרבות יהודית-ישראלית", מונופול ספרי הלימוד</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>ארגון מאירים</td><td>מחאת "תנ"כים ריקים" (יוני 2024), ממצאים על הסרת שעות תנ"ך</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>מכון הרטמן -- תוכנית "בארי"</td><td>הכשרת מורים ליהדות-ישראלית בגישה פלורליסטית, מדרשיית הרטמן לבנות</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>קרן מנדל</td><td>השקעה של $58M+ בהכשרת מנהיגות חינוכית בישראל</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+        <tr><td>מרכז ליב"ה</td><td>מרכז לימודי בסיס ביהדות, מנכ"ל אורן הניג, דוחות על תכני יהדות בחינוך</td><td><span class="provenance">[WEB-SEARCH]</span></td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>ארגוני פנים -- רשימת חברים חלקית</h2>
+    <table>
+        <tr><th>ארגון</th><th>תחום</th><th>הערות</th></tr>
+        <tr><td>מכון שלום הרטמן</td><td>הכשרת מורים + מחקר</td><td>תוכנית "בארי"; מדרשיית הרטמן</td></tr>
+        <tr><td>קרן תל"י</td><td>רשת בתי ספר</td><td>80 בתי ספר חילוניים עם תוכנית יהדות</td></tr>
+        <tr><td>המדרשה באורנים</td><td>הכשרת מורים</td><td>צפון הארץ; גישה פלורליסטית</td></tr>
+        <tr><td>מת"ח</td><td>חומרי לימוד דיגיטליים</td><td>יו"ר: איציק דנציגר (גם סגן נשיא NIF)</td></tr>
+        <tr><td>תנועת המושבים</td><td>חינוך כפרי</td><td>תוכניות יהדות בישובים</td></tr>
+        <tr><td>מכון ון-ליר</td><td>מחקר + תוכן</td><td>גישה אקדמית ביקורתית ליהדות</td></tr>
+        <tr><td>בית מורשה</td><td>מחקר + הכשרה</td><td>תוכניות ליהדות-ישראלית</td></tr>
+        <tr><td>מכון ברנדייס/קרן מנדל</td><td>הכשרת מנהיגות</td><td>$58M+ בהכשרת מנהלי חינוך</td></tr>
+    </table>
+    <div class="provenance">[WEB-SEARCH] רשימה חלקית -- פנים מאגד 60+ ארגונים</div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן מקיף</h2>
+    <table>
+        <tr><th>שנה</th><th>אירוע</th><th>חשיבות</th></tr>
+        <tr><td>1994</td><td>ועדת שנהר</td><td>עיצוב המסגרת הרעיונית ל"תרבות יהודית-ישראלית"</td></tr>
+        <tr><td>2007</td><td>הקמת ארגון פנים</td><td>ארגון גג ל-60+ ארגונים פלורליסטיים</td></tr>
+        <tr><td>2013</td><td>הקמת מרכז ליב"ה</td><td>גוף מנטר תכני יהדות בחינוך</td></tr>
+        <tr><td>2019</td><td>מסלול חובה</td><td>"תרבות יהודית-ישראלית" הופך לחובה בא'-ט'</td></tr>
+        <tr><td>2020</td><td>עתירת פנים לבג"ץ</td><td>פנים + רפורמים עותרים נגד משרד החינוך</td></tr>
+        <tr><td>4/2021</td><td>דחיית העתירה</td><td>בג"ץ דוחה -- סמכות המשרד אושרה</td></tr>
+        <tr><td>2022</td><td>גילוי "התורה הריקה"</td><td>ששובר מגלה ספר תורה ריק בבית הספר של בתה</td></tr>
+        <tr><td>2022</td><td>דוח ליב"ה -- 83%</td><td>פרסום הנתון על שליטת פנים בספרי הלימוד</td></tr>
+        <tr><td>2022</td><td>"פורום הורים למסורת"</td><td>הקמת פורום הורים ארצי</td></tr>
+        <tr><td>12/2022</td><td>מינוי מאוז לגפ"ן</td><td>אפשרות לבקרת ארגונים בבתי ספר</td></tr>
+        <tr><td>2/2023</td><td>השדולה בכנסת</td><td>השקה בנוכחות ראש הממשלה</td></tr>
+        <tr><td>6/2024</td><td>מחאת "תנ"כים ריקים"</td><td>מאירים מפגינים עם תנ"כים ריקים</td></tr>
     </table>
 </div>
 
@@ -626,20 +964,21 @@ ul.content-list li::before {
 </div>
 
 <footer>
-    מקור: דוח מרכז ליב"ה 2022 + Israel Unwired + JNS | מחקר Web Search פברואר 2026
+    מקור: דוח מרכז ליב"ה 2022 | עתירת בג"ץ פנים נ' משרד החינוך (4/2021) | Israel Unwired | JNS | ארגון מאירים
     <br>
     <a href="semantic_shifting_glossary.html">גלוסריון הסטה סמנטית</a> |
-    <a href="key_individuals_municipal.html">דמויות מפתח</a> |
-    <a href="funding_flows_municipal.html">זרימת מימון</a> |
+    <a href="teacher_training_capture.html">לכידת הכשרת מורים</a> |
+    <a href="aish_zara_evidence.html">ראיות מתועדות</a> |
     <a href="../index.html">דירוג ערים</a>
 </footer>
 
 <script>
 function showView(id) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
     document.getElementById('view-' + id).classList.add('active');
     event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 

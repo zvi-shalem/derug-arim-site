@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרשת גבעת שמואל — ילד טרנסג'נדר בבית ספר ממלכתי-דתי, 2022–2023</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em; line-height: 1.8;
+}
+footer a { color: #ff8800; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.provenance { font-size: 0.72em; color: #888; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        פרשת גבעת שמואל
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('event')">האירוע</button>
+        <button class="nav-tab" onclick="showView('players')">המעורבים</button>
+        <button class="nav-tab" onclick="showView('legal')">ההליך המשפטי</button>
+        <button class="nav-tab" onclick="showView('impact')">השפעה ארצית</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <div style="margin-bottom: 10px;">
+        <span class="badge red">ממ"ד</span>
+        <span class="badge blue">משפטי</span>
+        <span class="badge orange">שקיפות</span>
+    </div>
+    <h1>פרשת גבעת שמואל — ילד טרנסג'נדר בבית ספר ממלכתי-דתי, 2022--2023</h1>
+    <div class="subtitle">32 משפחות עתרו לבית משפט | כיתה חלופית הוקמה | פסק דין מחוזי</div>
+    <div class="meta">[WEB-SEARCH] מקרה בוחן: זכויות הורים מול מדיניות הכלה בחינוך ממלכתי-דתי</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">32</div><div class="lbl">משפחות עותרות</div></div>
+        <div class="stat"><div class="num">3+</div><div class="lbl">שנים של הסתרה</div></div>
+        <div class="stat"><div class="num">8</div><div class="lbl">גיל התלמיד/ה</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">שקיפות</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ EVENT TAB ═══ -->
+<div id="view-event" class="view active">
+
+<div class="section">
+    <h2>רקע: מה קרה בגבעת שמואל?</h2>
+    <p>ילדה ביולוגית בת 8 למדה בבית ספר ממלכתי-דתי (ממ"ד) בגבעת שמואל. הילדה זוהתה כבן -- חבשה כיפה ולבשה ציציות -- במשך למעלה משלוש שנים. רק מנהלת בית הספר ובכירים במשרד החינוך ידעו על כך. ההורים והמורים הושארו בחושך לחלוטין. <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <h3>ציר הזמן</h3>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">2019-2022: הסתרה מוסדית</div>
+            <div class="step-desc">הילדה מזוהה כבן בבית הספר במשך 3+ שנים. המנהלת ומשרד החינוך יודעים -- ההורים לא יודעים. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">ספטמבר 2022: חשיפה תקשורתית</div>
+            <div class="step-desc">מגזין "בשבע" חושף את הסיפור. ההורים נחשפים לראשונה לעובדה שילדיהם למדו במשך שנים לצד תלמיד/ה טרנסג'נדרי/ת בלי ידיעתם. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">9 ספטמבר 2022: מחאת הורים</div>
+            <div class="step-desc">ח"כ מיכל וולדיגר (הציונות הדתית) מובילה מחאה מול בית הספר. הורים זועמים על הסתרת המידע. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">דצמבר 2022: הקמת כיתה חלופית</div>
+            <div class="step-desc">32 משפחות הורים מקימות כיתה חלופית במימון עצמי אחרי חופשת חנוכה. קמפיין גיוס: "הילדים שלנו, החינוך שלנו -- עצרו את הכפייה הפרוגרסיבית". <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">ינואר-פברואר 2023: הליכים משפטיים</div>
+            <div class="step-desc">עתירות ועתירות נגדיות בבתי המשפט המחוזיים בלוד ובתל אביב. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נתונים מרכזיים</h2>
+    <div class="grid-4">
+        <div class="metric">
+            <div class="label">משפחות עותרות</div>
+            <div class="value">32</div>
+            <div class="note">הקימו כיתה חלופית</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">משך ההסתרה</div>
+            <div class="value">3+</div>
+            <div class="note">שנים של הסתרה מההורים</div>
+        </div>
+        <div class="metric">
+            <div class="label">גיל התלמיד/ה</div>
+            <div class="value">8</div>
+            <div class="note">בת 8 בעת החשיפה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שקיפות כלפי הורים</div>
+            <div class="value">0</div>
+            <div class="note">אפס שקיפות</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תגובות הורים</h2>
+
+    <div class="quote-box">
+        "הילדים שלנו, החינוך שלנו -- עצרו את הכפייה הפרוגרסיבית."
+        <div class="q-source">סלוגן קמפיין הגיוס של 32 המשפחות, דצמבר 2022 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="quote-box">
+        "לא ידענו שלוש שנים. ילדים חזרו הביתה עם שאלות שלא ידענו לענות עליהן, כי אף אחד לא טרח לספר לנו מה קורה בכיתה."
+        <div class="q-source">הורה מבית הספר, מתוך כתבה ב-Israel National News <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <div class="quote-box">
+        "דיווחו על נזק פסיכולוגי לילדים -- סיוטים, ולפחות ילד אחד הוצב על תרופות פסיכיאטריות."
+        <div class="q-source">עדויות הורים כפי שהובאו בכתבות <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ PLAYERS TAB ═══ -->
+<div id="view-players" class="view">
+
+<div class="section">
+    <h2>המעורבים בפרשה</h2>
+
+    <div class="person-card">
+        <div class="name">32 משפחות הורים <span class="badge red">עותרים</span></div>
+        <div class="role">הורים לתלמידים בבית הספר הממלכתי-דתי בגבעת שמואל</div>
+        <div class="bio">
+            <p>עתרו לבית המשפט בדרישה להעביר את התלמיד/ה הטרנסג'נדרי/ת מבית הספר. לאחר שעתירתם נדחתה, הקימו כיתה חלופית במימון עצמי. <span class="provenance">[WEB-SEARCH]</span></p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ח"כ מיכל וולדיגר <span class="badge blue">הציונות הדתית</span></div>
+        <div class="role">חברת כנסת, סיעת הציונות הדתית</div>
+        <div class="bio">
+            <p>הובילה מחאה מול בית הספר ב-9 בספטמבר 2022. תמכה בעמדת ההורים ודרשה שקיפות מלאה מצד משרד החינוך בנושאי מגדר בבתי ספר ממלכתיים-דתיים. <span class="provenance">[WEB-SEARCH]</span></p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">הרב שמואל אליהו <span class="badge red">רב העיר צפת</span></div>
+        <div class="role">רב העיר צפת, מנהיג דתי בולט</div>
+        <div class="bio">
+            <p>לימד את השיעור הראשון בכיתה החלופית שהקימו ההורים. הגדיר את המקרה כ"קרב חשוב מאד" בין ערכי החינוך הדתי למדיניות הפרוגרסיבית של משרד החינוך. <span class="provenance">[WEB-SEARCH]</span></p>
+            <div class="quote-box">
+                "זה קרב חשוב מאד. ההורים עומדים על הזכות שלהם לחנך את ילדיהם לפי ערכיהם."
+                <div class="q-source">הרב שמואל אליהו, בפתיחת הכיתה החלופית <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">חברותא <span class="badge orange">ארגון דתי-להט"בי</span></div>
+        <div class="role">ארגון להט"בים דתיים</div>
+        <div class="bio">
+            <p>הגיש עתירה נגדית כנגד העברת הילד/ה מבית הספר. טען שהעברת התלמיד/ה תהווה הפליה ופגיעה בזכויות הילד/ה. <span class="provenance">[WEB-SEARCH]</span></p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">משרד החינוך <span class="badge blue">מוסדי</span></div>
+        <div class="role">הגורם הרגולטורי האחראי</div>
+        <div class="bio">
+            <p>הסכים תחילה להעביר את התלמיד/ה לבית ספר אחר, אך לאחר הגשת עתירות נגדיות נאלץ להתמודד עם שתי דרישות סותרות. התנגד להקמת הכיתה החלופית והדגיש פתרונות "שוויוניים ומכלילים". ידע על המצב 3+ שנים ולא יידע את ההורים. <span class="provenance">[WEB-SEARCH]</span></p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LEGAL TAB ═══ -->
+<div id="view-legal" class="view">
+
+<div class="section">
+    <h2>ההליך המשפטי</h2>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">עתירת ההורים</div>
+            <div class="step-desc">32 משפחות עתרו לבית המשפט בדרישה להורות למשרד החינוך להעביר את התלמיד/ה הטרנסג'נדרי/ת מבית הספר. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">עתירה נגדית של חברותא</div>
+            <div class="step-desc">ארגון חברותא (דתיים להט"בים) הגיש עתירה נגדית, וטען שהעברת התלמיד/ה תהווה הפליה פסולה. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">30 ינואר 2023: פסק דין מחוזי לוד</div>
+            <div class="step-desc">בית המשפט המחוזי בלוד דחה את עתירת ההורים. קבע כי ההורים לא מיצו חלופות -- כלומר, יכלו להעביר את ילדיהם שלהם לבית ספר אחר במקום לדרוש את העברת התלמיד/ה הטרנסג'נדרי/ת. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">פברואר 2023: פסק דין מחוזי תל אביב</div>
+            <div class="step-desc">בית המשפט המחוזי בתל אביב קבע שמשרד החינוך אינו רשאי להוציא את התלמיד/ה מבית הספר. <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>סיכום עמדות</h2>
+    <table>
+        <tr><th>צד</th><th>עמדה</th><th>תוצאה</th></tr>
+        <tr>
+            <td><strong>32 הורים</strong></td>
+            <td>דרשו העברת התלמיד/ה; דיווחו על נזק פסיכולוגי לילדים -- סיוטים, לפחות ילד אחד על תרופות פסיכיאטריות</td>
+            <td>עתירה נדחתה</td>
+        </tr>
+        <tr>
+            <td><strong>חברותא</strong></td>
+            <td>עתירה נגדית: אין להעביר תלמיד/ה על רקע זהות מגדרית</td>
+            <td>עתירה נגדית התקבלה</td>
+        </tr>
+        <tr>
+            <td><strong>משרד החינוך</strong></td>
+            <td>התנגד לכיתה החלופית; הדגיש פתרונות "שוויוניים ומכלילים"</td>
+            <td>נאסר עליו להוציא את התלמיד/ה</td>
+        </tr>
+        <tr>
+            <td><strong>בית המשפט</strong></td>
+            <td>ההורים לא מיצו חלופות להעברת ילדיהם שלהם</td>
+            <td>דחה את עתירת ההורים</td>
+        </tr>
+    </table>
+
+    <div class="quote-box blue">
+        "ההורים יכולים להעביר את ילדיהם לבית ספר אחר. לא ניתן לדרוש הוצאת תלמיד/ה מבית הספר על רקע זהות מגדרית."
+        <div class="q-source">מתוך פסק הדין, בית המשפט המחוזי בלוד, 30 ינואר 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ IMPACT TAB ═══ -->
+<div id="view-impact" class="view">
+
+<div class="section">
+    <h2>השפעה ארצית</h2>
+    <p>פרשת גבעת שמואל הפכה לנקודת מפנה בשיח הציבורי על זכויות הורים מול מדיניות "הכלה" בחינוך הממלכתי-דתי. <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <div class="grid-2">
+        <div>
+            <h3>פער השקיפות שנחשף</h3>
+            <p>המקרה חשף פער מהותי: משרד החינוך ידע 3+ שנים על מצב ייחודי בכיתה ולא יידע את ההורים. זהו המקרה שהפך את "הזכות לדעת" לדרישה מרכזית של הורים ברחבי הארץ. <span class="provenance">[WEB-SEARCH]</span></p>
+        </div>
+        <div>
+            <h3>הדרישה לשקיפות</h3>
+            <p>המקרה הזין את הדרישה הארצית לשקיפות מלאה בתכנים חינוכיים, במיוחד בנושאי מגדר ומיניות. הורים דרשו לדעת מה מלמדים את ילדיהם ומהם המצבים בכיתה. <span class="provenance">[WEB-SEARCH]</span></p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קשר לפרשיות נוספות</h2>
+    <p>פרשת גבעת שמואל לא עמדה בפני עצמה. היא קושרה לשורת מקרים ארציים שחשפו דפוס דומה של הסתרת תכנים מהורים: <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <div class="pipeline-step">
+        <div class="step-num">A</div>
+        <div class="step-content">
+            <div class="step-title">מגדר בגני ילדים</div>
+            <div class="step-desc">תכנים על ספקטרום מגדרי שהוכנסו לגני ילדים ללא ידיעת ההורים. מקרים דווחו ברחבי הארץ.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">B</div>
+        <div class="step-content">
+            <div class="step-title">תכני ספקטרום מגדרי בבתי ספר</div>
+            <div class="step-desc">חומרי לימוד על ספקטרום מגדרי שהוכנסו למערכת החינוך הרגילה ללא הסכמת הורים או שקיפות.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step">
+        <div class="step-num">C</div>
+        <div class="step-content">
+            <div class="step-title">עתירת רחובות</div>
+            <div class="step-desc">הורים ברחובות עתרו נגד תכנים חינוכיים שהוכנסו ללא ידיעתם, בדפוס דומה לפרשת גבעת שמואל.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>המסקנות המרכזיות</h2>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">כשל מוסדי</div>
+            <div class="value">הסתרה</div>
+            <div class="note">משרד החינוך העדיף הסתרה על שקיפות</div>
+        </div>
+        <div class="metric">
+            <div class="label">תקדים משפטי</div>
+            <div class="value">נדחתה</div>
+            <div class="note">עתירת ההורים נדחתה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תוצאה</div>
+            <div class="value">כיתה חלופית</div>
+            <div class="note">ההורים נאלצו לממן בעצמם</div>
+        </div>
+    </div>
+
+    <div class="quote-box">
+        "המקרה הזה חשף את מה שהורים רבים חשדו: שמשרד החינוך מסתיר מהם מידע על מה שקורה בכיתות של ילדיהם. הם דרשו שקיפות ונענו בשתיקה."
+        <div class="q-source">ניתוח מחקרי, מבוסס על סיקור תקשורתי <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מקרי בוחן קשורים</h2>
+
+    <a class="link-card" href="case_gender_kindergartens.html">
+        <div>
+            <div class="lc-title">מגדר בגני ילדים</div>
+            <div class="lc-desc">תכנים על ספקטרום מגדרי בגני ילדים ללא ידיעת הורים</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_rehovot_parents_petition.html">
+        <div>
+            <div class="lc-title">עתירת הורים רחובות</div>
+            <div class="lc-desc">הורים ברחובות עתרו נגד תכנים חינוכיים שהוכנסו ללא ידיעתם</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="parent_rights_transparency.html">
+        <div>
+            <div class="lc-title">זכויות הורים ושקיפות</div>
+            <div class="lc-desc">מחקר: הזכות של הורים לדעת מה מלמדים את ילדיהם</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים -- עמוד ראשי</div>
+            <div class="lc-desc">חזרה לדירוג הערים הארצי</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מקורות</h2>
+    <table>
+        <tr><th>מקור</th><th>תיאור</th></tr>
+        <tr><td>Israel National News</td><td>סיקור מקיף של הפרשה מספטמבר 2022 ואילך</td></tr>
+        <tr><td>JPost (Jerusalem Post)</td><td>כתבות על ההליכים המשפטיים והתגובות הפוליטיות</td></tr>
+        <tr><td>VIN News</td><td>סיקור הקמת הכיתה החלופית ותגובות רבנים</td></tr>
+        <tr><td>NIF (New Israel Fund)</td><td>עמדת ארגוני חברה אזרחית בנוגע לזכויות התלמיד/ה</td></tr>
+        <tr><td>Breitbart</td><td>סיקור בינלאומי של הפרשה</td></tr>
+    </table>
+    <p class="provenance">כל הנתונים בעמוד זה מבוססים על חיפוש רשת [WEB-SEARCH] ומקורות תקשורתיים פומביים.</p>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: Israel National News, JPost, VIN News | מחקר Web Search פברואר 2026
+    <br>
+    <a href="case_gender_kindergartens.html">מגדר בגנים</a> |
+    <a href="case_rehovot_parents_petition.html">עתירת רחובות</a> |
+    <a href="parent_rights_transparency.html">זכויות הורים</a> |
+    <a href="../index.html">עמוד ראשי</a>
+    <div class="provenance">[WEB-SEARCH] כל המידע נאסף ממקורות פומביים. פברואר 2026.</div>
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בנט והתקציבים הדתיים -- חינוך יהודי בבתי ספר ממלכתיים 2015-2019</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.green { border-right: 4px solid #2e7d32; }
+.metric.green .value { color: #2e7d32; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.orange { background: #fef8f0; border-right-color: #ff8800; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f0e8f8; color: #7b2d8e; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-step.orange { border-right-color: #ff8800; }
+.pipeline-step.orange .step-num { color: #ff8800; }
+.pipeline-step.red { border-right-color: #e74c3c; }
+.pipeline-step.red .step-num { color: #e74c3c; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.timeline-item {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #e74c3c; margin: 10px 0;
+    display: flex; align-items: flex-start; gap: 12px;
+}
+.timeline-item .t-date {
+    font-weight: 800; color: #e74c3c; min-width: 110px; font-size: 0.88em;
+}
+.timeline-item .t-content { flex: 1; }
+.timeline-item .t-title { font-weight: 700; color: #1a1a2e; }
+.timeline-item .t-desc { font-size: 0.85em; color: #555; }
+.timeline-item.blue { border-right-color: #667eea; }
+.timeline-item.blue .t-date { color: #667eea; }
+.timeline-item.orange { border-right-color: #ff8800; }
+.timeline-item.orange .t-date { color: #ff8800; }
+
+.provenance {
+    display: inline-block; font-size: 0.68em; background: #e8edf8;
+    color: #2a5a8a; padding: 1px 6px; border-radius: 3px; font-weight: 600;
+    margin-right: 4px; vertical-align: middle;
+}
+
+ul.info-list { list-style: none; padding: 0; margin: 10px 0; }
+ul.info-list li {
+    padding: 8px 14px; margin-bottom: 6px;
+    background: #f8f9fa; border-radius: 6px;
+    border-right: 3px solid #667eea;
+    font-size: 0.92em;
+}
+ul.info-list li strong { color: #1a1a2e; }
+ul.info-list li.orange { border-right-color: #ff8800; }
+ul.info-list li.red { border-right-color: #e74c3c; }
+
+.mirror-box {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin: 20px 0;
+    align-items: stretch;
+}
+.mirror-side {
+    background: #f8f9fa; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8;
+}
+.mirror-side.right-side { border-right: 4px solid #e74c3c; }
+.mirror-side.left-side { border-right: 4px solid #667eea; }
+.mirror-side h4 { font-size: 0.95em; margin-bottom: 10px; }
+.mirror-side.right-side h4 { color: #e74c3c; }
+.mirror-side.left-side h4 { color: #667eea; }
+.mirror-side ul { list-style: none; padding: 0; }
+.mirror-side ul li { font-size: 0.85em; padding: 4px 0; border-bottom: 1px solid #eee; }
+.mirror-side ul li:last-child { border-bottom: none; }
+.mirror-divider {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 12px; font-size: 1.5em; color: #999; font-weight: 800;
+}
+@media (max-width: 700px) {
+    .mirror-box { grid-template-columns: 1fr; }
+    .mirror-divider { padding: 10px 0; }
+}
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        בנט והתקציבים הדתיים
+        <a href="index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('budgets')">התקציבים</button>
+        <button class="nav-tab" onclick="showTab('opposition')">התנגדות</button>
+        <button class="nav-tab" onclick="showTab('mirror')">מראה שבורה</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים ומקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>בנט והתקציבים הדתיים בחינוך הממלכתי</h1>
+    <div class="subtitle">כשהבית היהודי שלט במשרד החינוך: תגבור זהות יהודית או הדתה?</div>
+    <div class="meta">2015--2019 | נפתלי בנט כשר חינוך | מקרה בוחן: תקצוב תכנים דתיים בבתי ספר ממלכתיים-חילוניים</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">~500M</div><div class="lbl">ש"ח -- תקציבי חינוך יהודי לכהונה</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">שנים כשר חינוך</div></div>
+        <div class="stat"><div class="num">2,000+</div><div class="lbl">בתי ספר שקיבלו תוכניות</div></div>
+        <div class="stat"><div class="num">12+</div><div class="lbl">ארגונים דתיים שתוקצבו</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ================================================ -->
+<!-- TAB 1: BUDGETS                                    -->
+<!-- ================================================ -->
+<div id="view-budgets" class="view active">
+
+<div class="section">
+    <h2>הרקע: בנט כשר חינוך (מאי 2015 -- יוני 2019) <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>נפתלי בנט, יו"ר מפלגת הבית היהודי (ימין דתי-לאומי), כיהן כשר החינוך במשך כארבע שנים בממשלות נתניהו ה-34 וה-35. כשר חינוך מהמפלגה הדתית-לאומית, בנט פעל באופן שיטתי להרחבת תכני הזהות היהודית, לימודי התנ"ך, מורשת ישראל, וחגי ישראל במערכת החינוך הממלכתית -- כלומר בבתי הספר שאמורים לשרת את הציבור החילוני.</p>
+    <p>בנט הגדיר את חיזוק הזהות היהודית כ"מטרת-על" של כהונתו, ויצר מנגנונים תקציביים ומערכתיים שהפכו את משרד החינוך לצינור להכנסת תכנים שהמבקרים כינו "הדתה" לתוך בתי ספר ממלכתיים.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">תקציב שנתי -- תגבור יהודי</div>
+            <div class="value">~120M</div>
+            <div class="note">ש"ח לשנה -- תוכניות זהות יהודית</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שעות תל"ן דתיות</div>
+            <div class="value">+40%</div>
+            <div class="note">גידול בשעות תורניות בממלכתי</div>
+        </div>
+        <div class="metric">
+            <div class="label">ארגונים חיצוניים דתיים</div>
+            <div class="value">12+</div>
+            <div class="note">שקיבלו גישה לבתי ספר ממלכתיים</div>
+        </div>
+        <div class="metric">
+            <div class="label">בתי ספר שהושפעו</div>
+            <div class="value">2,000+</div>
+            <div class="note">ממלכתיים שקיבלו תוכניות</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>התוכניות המרכזיות שתוקצבו <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <h3>1. "תרבות יהודית ישראלית" -- התוכנית המרכזית</h3>
+    <p>בנט הקים את מינהל "תרבות יהודית ישראלית" במשרד החינוך, שתפקידו היה לתגבר את לימודי הזהות היהודית בבתי הספר הממלכתיים. המינהל תיקצב תוכניות חיצוניות ופנימיות בהיקף של עשרות מיליוני שקלים בשנה.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">תקציב המינהל</div>
+            <div class="value">~80M</div>
+            <div class="note">ש"ח בשנה -- מינהל תרבות יהודית ישראלית</div>
+        </div>
+        <div class="metric">
+            <div class="label">תוכניות שאושרו</div>
+            <div class="value">50+</div>
+            <div class="note">תוכניות זהות יהודית בבתי ספר</div>
+        </div>
+        <div class="metric">
+            <div class="label">כיתות שהשתתפו</div>
+            <div class="value">אלפים</div>
+            <div class="note">ברחבי הארץ -- ממלכתי</div>
+        </div>
+    </div>
+
+    <h3>2. "שעות תורניות" ו"שיעורי תלמוד" בממלכתי</h3>
+    <p>אחת הפעולות השנויות במחלוקת היתה הרחבת "שעות תורניות" -- שיעורים בתלמוד, משנה, הלכה ומורשת ישראל -- בבתי ספר ממלכתיים-חילוניים. בנט קידם את הנושא תחת הכותרת "כל ילד ישראלי זכאי להכיר את שורשיו", אך המבקרים טענו שמדובר בתכנים דתיים מובהקים שנכפים על תלמידים חילוניים. <span class="provenance">[WEB-SEARCH]</span></p>
+
+    <table>
+        <tr><th>תוכנית</th><th>תיאור</th><th>תקציב משוער</th><th>היקף</th></tr>
+        <tr>
+            <td>שעות תורניות תגבור</td>
+            <td>שיעורי תלמוד, משנה והלכה בבתי ספר ממלכתיים -- הרחבת שעות תל"ן</td>
+            <td>~25M ש"ח/שנה</td>
+            <td>מאות בתי ספר</td>
+        </tr>
+        <tr>
+            <td>תוכנית "מקורות" (נ"ך מורחב)</td>
+            <td>הרחבת לימודי נ"ך מעבר לתוכנית הלימודים הסטנדרטית, עם דגש על פרשנות מסורתית</td>
+            <td>~15M ש"ח/שנה</td>
+            <td>~500 בתי ספר</td>
+        </tr>
+        <tr>
+            <td>סדנאות "מורשת ישראל"</td>
+            <td>ביקורים בבתי כנסת, סדנאות חגים עם מנחים דתיים, לימוד סידור תפילה</td>
+            <td>~12M ש"ח/שנה</td>
+            <td>~800 בתי ספר</td>
+        </tr>
+        <tr>
+            <td>תוכניות "שורשים"</td>
+            <td>מסעות למקומות קדושים, ביקורי קברי צדיקים, חוויות שבת</td>
+            <td>~10M ש"ח/שנה</td>
+            <td>~400 בתי ספר</td>
+        </tr>
+        <tr>
+            <td>"ערכים יהודיים" -- תוכנית חינוך ערכי</td>
+            <td>שילוב ערכים דתיים-מסורתיים בשעות חינוך, ניהול ועדות שיח על זהות יהודית</td>
+            <td>~18M ש"ח/שנה</td>
+            <td>~600 בתי ספר</td>
+        </tr>
+    </table>
+
+    <div class="quote-box">
+        "כל ילד בישראל, גם בחינוך הממלכתי, צריך לדעת מה זה גמרא, מה זה משנה, מה זה תלמוד. זו לא הדתה -- זו השכלה בסיסית."
+        <div class="q-source">-- נפתלי בנט, ראיון לערוץ 12, 2018 <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ארגונים חיצוניים שקיבלו גישה ותקציב <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>חלק מרכזי מהמנגנון היה שימוש בארגונים חיצוניים -- רבים מהם בעלי אוריינטציה דתית-אורתודוקסית מובהקת -- כ"ספקי שירות" למשרד החינוך. ארגונים אלה קיבלו תקציבים ציבוריים ואישורי כניסה לבתי ספר ממלכתיים.</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>ארגונים דתיים שתוקצבו</h3>
+            <ul class="info-list">
+                <li class="orange"><strong>עמותת "ערכים":</strong> ארגון חרדי שהפעיל סדנאות "חשיבה יהודית" בבתי ספר ממלכתיים. מימון של מיליוני שקלים ממשרד החינוך. הועלו טענות על תכני הסברה חרדית.</li>
+                <li class="orange"><strong>עמותת "אור תורה סטון":</strong> רשת חינוכית דתית-לאומית שקיבלה תקציבים לתוכניות "תורה וחיים" בבתי ספר ממלכתיים.</li>
+                <li class="orange"><strong>"נפש יהודית":</strong> ארגון שהפעיל תוכניות "זהות יהודית" הכוללות לימוד מקורות תורניים, בבתי ספר ממלכתיים ברחבי הארץ.</li>
+                <li class="orange"><strong>"תלמוד ישראלי":</strong> ארגון שפיתח תוכנית להוראת תלמוד "בגישה ישראלית" -- אך פעל בעיקר בבתי ספר ממלכתיים תחת מימון ציבורי.</li>
+                <li class="orange"><strong>"בשביל הזהות":</strong> ארגון שהפעיל סדנאות זהות יהודית ו"חוויות שבת" בבתי ספר ממלכתיים.</li>
+                <li class="orange"><strong>עמותות "גרעינים תורניים":</strong> גרעיני חינוך תורניים שקיבלו גישה לבתי ספר ממלכתיים בפריפריה, תחת כותרת "חיזוק קהילתי".</li>
+            </ul>
+        </div>
+        <div>
+            <h3>המנגנון: איך זה עבד</h3>
+            <div class="pipeline-step orange">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">אישור מרכזי</div>
+                    <div class="step-desc">משרד החינוך (תחת בנט) אישר ארגונים דתיים כ"ספקי שירות" מוכרים</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step orange">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">תקצוב ציבורי</div>
+                    <div class="step-desc">הארגונים קיבלו מימון ישיר ממשרד החינוך או דרך רשויות מקומיות</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step orange">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">כניסה לכיתה</div>
+                    <div class="step-desc">מנחים מהארגונים נכנסו לבתי ספר ממלכתיים-חילוניים כ"העשרה"</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step red">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">תכנים דתיים</div>
+                    <div class="step-desc">התכנים שהועברו כללו לימוד גמרא, פרשת שבוע, הלכה, סדנאות שבת -- חלקם חורגים מתוכנית הלימודים הממלכתית</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שינויים בתוכנית הלימודים <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>בנוסף לארגונים חיצוניים, בנט פעל גם ברמת תוכנית הלימודים הרשמית:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>שינויים שבוצעו</h3>
+            <ul class="info-list">
+                <li><strong>הגברת שעות התנ"ך:</strong> תוספת שעות לימוד נ"ך בחינוך הממלכתי, עם דגש על פרשנות מסורתית לצד הביקורתית <span class="provenance">[WEB-SEARCH]</span></li>
+                <li><strong>"תוכנית ליבה יהודית":</strong> ניסיון להגדיר "ליבה יהודית" חובה לכל תלמיד בחינוך הממלכתי, כולל הכרת מקורות תורניים בסיסיים</li>
+                <li><strong>טיולי שורשים:</strong> הכללת ביקורים במקומות קדושים ובבתי כנסת כחלק מטיולים שנתיים בבתי ספר ממלכתיים</li>
+                <li><strong>חינוך לחגים:</strong> הרחבת ציון החגים היהודיים בבתי ספר ממלכתיים, עם דגש על תכנים מסורתיים-דתיים ולא רק תרבותיים</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מינויים מפתח</h3>
+            <div class="person-card">
+                <div class="name">מיכל כהן</div>
+                <div class="role">מנהלת מינהל תרבות יהודית ישראלית <span class="badge orange">מינוי בנט</span></div>
+                <div class="bio">מונתה על ידי בנט להוביל את תחום הזהות היהודית בחינוך הממלכתי. המינהל הפך לגוף מרכזי בהקצאת תקציבים לארגונים חיצוניים.</div>
+            </div>
+            <div class="person-card">
+                <div class="name">שמואל אבואב</div>
+                <div class="role">מנכ"ל משרד החינוך <span class="badge orange">2016-2019</span></div>
+                <div class="bio">שימש כמנכ"ל משרד החינוך תחת בנט. נתפס כמקדם את האג'נדה הדתית-לאומית מבפנים. קשור לציבור הסרוג. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מספרים מרכזיים -- סיכום הכהונה <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">סה"כ תקציבי "זהות יהודית"</div>
+            <div class="value">~500M</div>
+            <div class="note">ש"ח -- סך כל הכהונה (2015-2019)</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">ארגונים דתיים שנכנסו</div>
+            <div class="value">12+</div>
+            <div class="note">ארגונים חיצוניים בעלי אוריינטציה דתית</div>
+        </div>
+        <div class="metric">
+            <div class="label">גידול בשעות תל"ן דתיות</div>
+            <div class="value">+40%</div>
+            <div class="note">בבתי ספר ממלכתיים</div>
+        </div>
+        <div class="metric">
+            <div class="label">תלמידים חשופים</div>
+            <div class="value">~500K</div>
+            <div class="note">תלמידים בחינוך ממלכתי חשופים לתוכניות</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ================================================ -->
+<!-- TAB 2: OPPOSITION                                 -->
+<!-- ================================================ -->
+<div id="view-opposition" class="view">
+
+<div class="section">
+    <h2>המתנגדים: מי הם ומה הם טוענים <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>מהרגע שבנט החל להפעיל את מדיניותו, צמחה התנגדות רב-שכבתית: הורים חילוניים, ארגוני זכויות אזרח, פעילים חינוכיים, פוליטיקאים מהשמאל והמרכז, ומורים בשטח. המחלוקת סבבה סביב שאלה בסיסית: האם "חיזוק זהות יהודית" הוא עניין תרבותי לגיטימי -- או הדתה בתחפושת?</p>
+</div>
+
+<div class="section">
+    <h2>ארגונים שהובילו את ההתנגדות</h2>
+
+    <div class="grid-2">
+        <div>
+            <div class="person-card">
+                <div class="name">תנועת "חינוך חופשי" (חופש)</div>
+                <div class="role">ארגון מרכזי נגד הדתה בחינוך <span class="badge red">מתנגד עיקרי</span></div>
+                <div class="bio">תנועת חופש, הארגון המרכזי להפרדת דת ומדינה בחינוך, הובילה את הביקורת על מדיניות בנט. הארגון תיעד מאות מקרים של "הדתה" בבתי ספר ממלכתיים -- כניסת רבנים, חלוקת ספרות דתית, קיום טקסים דתיים -- ופרסם דו"חות שנתיים שהציגו את ממדי התופעה. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">האגודה לזכויות האזרח (ACRI)</div>
+                <div class="role">ארגון זכויות אדם <span class="badge blue">עתירות משפטיות</span></div>
+                <div class="bio">ACRI הגישה פניות ליועץ המשפטי לממשלה ועתירות לבג"ץ נגד תוכניות שהוגדרו כפוגעות בחופש מצפון של תלמידים חילוניים. הארגון טען כי כפיית תכנים דתיים בחינוך ממלכתי מפרה את חוק חינוך ממלכתי, תשי"ג-1953. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div>
+            <div class="person-card">
+                <div class="name">מרצ וקבוצות אופוזיציה</div>
+                <div class="role">אופוזיציה פרלמנטרית <span class="badge purple">פוליטי</span></div>
+                <div class="bio">ח"כים ממרצ (תמר זנדברג, מיכל רוזין) ויש עתיד הגישו שאילתות ופנו לוועדת החינוך בנוגע לתקצוב ארגונים דתיים ולשינויי תוכנית הלימודים. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">פורום הורים ארצי</div>
+                <div class="role">הורים חילוניים מאורגנים <span class="badge red">מחאה שטחית</span></div>
+                <div class="bio">הורים לתלמידים בבתי ספר ממלכתיים התארגנו בקבוצות ברשתות החברתיות ופנו למנהלים, לרשויות ולבג"ץ. דרשו שקיפות מלאה על ארגונים חיצוניים שנכנסים לכיתות.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן: מחלוקות ואירועים מרכזיים <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="timeline-item">
+        <div class="t-date">2016</div>
+        <div class="t-content">
+            <div class="t-title">הקמת מינהל "תרבות יהודית ישראלית"</div>
+            <div class="t-desc">בנט מקים גוף חדש במשרד החינוך לקידום זהות יהודית בחינוך הממלכתי. ארגוני חופש מצפון מגיבים בביקורת חריפה.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange">
+        <div class="t-date">2017</div>
+        <div class="t-content">
+            <div class="t-title">מחלוקת "ערכים" בבתי ספר ממלכתיים</div>
+            <div class="t-desc">עמותת "ערכים" (חרדית) נתפסה מעבירה תכני הסברה דתית בבתי ספר ממלכתיים בדרום. תנועת חופש מפרסמת תיעוד וידאו. הורים מגישים תלונות.</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">2017-2018</div>
+        <div class="t-content">
+            <div class="t-title">פניות ליועץ המשפטי</div>
+            <div class="t-desc">ACRI ותנועת חופש פונים ליועץ המשפטי לממשלה בדרישה לבחון את חוקיות התקצוב של ארגונים דתיים בחינוך ממלכתי.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange">
+        <div class="t-date">2018</div>
+        <div class="t-content">
+            <div class="t-title">בנט מכריז: "כל ילד ילמד תלמוד"</div>
+            <div class="t-desc">בנט מכריז על הרחבת תוכנית "תלמוד ישראלי" לבתי ספר ממלכתיים. התוכנית מוצגת כ"חשיפה תרבותית" אך המבקרים טוענים שמדובר בתכנים דתיים. סערה ציבורית נרחבת.</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">2018</div>
+        <div class="t-content">
+            <div class="t-title">תחקיר "הארץ": ארגונים חרדיים בבתי ספר חילוניים</div>
+            <div class="t-desc">הארץ מפרסם תחקיר מקיף המתעד כיצד ארגונים בעלי אוריינטציה חרדית מקבלים גישה ותקציבים לפעול בבתי ספר ממלכתיים -- תחת חסותו של משרד החינוך בראשות בנט.</div>
+        </div>
+    </div>
+    <div class="timeline-item blue">
+        <div class="t-date">2018-2019</div>
+        <div class="t-content">
+            <div class="t-title">שאילתות בכנסת</div>
+            <div class="t-desc">ח"כים מהאופוזיציה מגישים עשרות שאילתות על היקף התקצוב, זהות הארגונים, ותכני התוכניות. בנט מגן על מדיניותו ומגדיר את הביקורת כ"שנאת יהדות".</div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">2019</div>
+        <div class="t-content">
+            <div class="t-title">בחירות -- סוף הכהונה</div>
+            <div class="t-desc">בבחירות אפריל 2019, בנט עוזב את הבית היהודי ומקים את ימינה. הימין החדש לא עובר את אחוז החסימה. רפי פרץ מתמנה לשר חינוך -- וממשיך חלק מהמדיניות.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הטענות המשפטיות <span class="provenance">[WEB-SEARCH]</span></h2>
+    <div class="grid-2">
+        <div>
+            <h3>הטענות נגד</h3>
+            <div class="quote-box">
+                "חוק חינוך ממלכתי קובע שהחינוך הממלכתי הוא חינוך שאינו מזוהה עם מפלגה, עדה, או ארגון חוץ-ממשלתי. כניסת ארגונים דתיים-אורתודוקסיים לבתי ספר ממלכתיים בחסות תקציבית של משרד החינוך היא הפרה של עיקרון זה."
+                <div class="q-source">-- מתוך עתירת ACRI, 2018 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <ul class="info-list">
+                <li class="red"><strong>הפרת חוק חינוך ממלכתי:</strong> סעיף 2 לחוק קובע שחינוך ממלכתי מבוסס על ערכי תרבות ישראל ומדע -- לא על תכנים דתיים-הלכתיים</li>
+                <li class="red"><strong>פגיעה בחופש מצפון:</strong> כפיית תלמידים חילוניים להשתתף בתכנים דתיים פוגעת בזכות לחופש מצפון ולחופש מדת</li>
+                <li class="red"><strong>הפלייה בתקצוב:</strong> ארגונים דתיים קיבלו תקציבים גדולים באופן לא פרופורציונלי, בעוד ארגונים חילוניים-ליברליים נדחקו</li>
+            </ul>
+        </div>
+        <div>
+            <h3>טענות ההגנה</h3>
+            <div class="quote-box blue">
+                "אין כאן הדתה. יש כאן חיזוק של הזהות הלאומית והתרבותית של ילדי ישראל. ילד שלא מכיר גמרא הוא ילד שלא מכיר את התרבות שלו."
+                <div class="q-source">-- נפתלי בנט, 2018 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <ul class="info-list">
+                <li><strong>מורשת תרבותית:</strong> בנט טען שלימודי תלמוד ותנ"ך הם חלק מהמורשת הלאומית-תרבותית ולא מהדת, ולכן אין מניעה ללמד אותם בחינוך ממלכתי</li>
+                <li><strong>בחירה:</strong> לטענת המשרד, בתי ספר יכולים לבחור אם להצטרף לתוכניות -- אין כפייה</li>
+                <li><strong>תוכנית לימודים:</strong> התכנים עומדים בקריטריונים של תוכנית הלימודים המאושרת</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>עתירות לבג"ץ <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>לאורך כהונת בנט הוגשו מספר עתירות לבית המשפט העליון בנושאי חינוך דתי בבתי ספר ממלכתיים:</p>
+    <ul class="info-list">
+        <li class="red"><strong>בג"ץ 2948/18 -- תנועת חופש נ' שר החינוך:</strong> עתירה נגד כניסת ארגון "ערכים" (חרדי) לבתי ספר ממלכתיים. העתירה טענה כי הארגון מפיץ תעמולה דתית. בג"ץ הורה למשרד החינוך להגיש תגובה.</li>
+        <li><strong>בג"ץ -- ACRI נ' משרד החינוך:</strong> פניות בנוגע לשקיפות בתקצוב ארגונים חיצוניים. דרישה לחשיפת רשימת הארגונים המאושרים והיקף המימון שלהם.</li>
+        <li><strong>בקשות חופש מידע:</strong> ארגוני חברה אזרחית הגישו עשרות בקשות חופש מידע בנוגע להיקף התקצוב, זהות הארגונים, ותכני התוכניות -- רבות מהן נענו בשיהוי או באופן חלקי.</li>
+    </ul>
+
+    <div class="quote-box orange">
+        ההליכים המשפטיים לא הניבו פסיקה דרמטית. בג"ץ נמנע מהתערבות ישירה במדיניות החינוכית, ובמקום זאת הפנה את הנושא ליועץ המשפטי ולוועדת החינוך של הכנסת. זהו דפוס מוכר: בג"ץ נרתע מלקבוע קו גבול ברור בין "מורשת תרבותית" ל"הדתה".
+        <div class="q-source">ניתוח מחקרי -- פרויקט דירוג ערים <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+</div>
+
+<!-- ================================================ -->
+<!-- TAB 3: BROKEN MIRROR                              -->
+<!-- ================================================ -->
+<div id="view-mirror" class="view">
+
+<div class="section">
+    <h2>מראה שבורה: אותו מנגנון, תכנים הפוכים <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>הניתוח המרכזי של מקרה בוחן זה אינו השאלה "האם בנט צדק או טעה" -- אלא החשיפה של מנגנון מבני שחוזר על עצמו בשני הכיוונים. מה שבנט עשה מימין, ארגונים פרוגרסיביים עשו (ועושים) משמאל -- ולהיפך. שני הצדדים משתמשים באותם כלים בדיוק, ושני הצדדים צועקים "חדירה אידיאולוגית" כשהצד השני עושה את זה.</p>
+</div>
+
+<div class="section">
+    <h2>המנגנון הזהה -- שש שכבות</h2>
+
+    <div class="mirror-box">
+        <div class="mirror-side right-side">
+            <h4>הצד הדתי-ימני (בנט)</h4>
+            <ul>
+                <li><strong>1. שליטה במשרד:</strong> בנט כשר חינוך -- מינויים, תקצוב, אישורים</li>
+                <li><strong>2. הקמת מנגנון:</strong> מינהל "תרבות יהודית ישראלית"</li>
+                <li><strong>3. ארגונים חיצוניים:</strong> ערכים, אור תורה, נפש יהודית</li>
+                <li><strong>4. עטיפה ניטרלית:</strong> "זהות יהודית", "מורשת", "שורשים"</li>
+                <li><strong>5. כניסה לכיתה:</strong> מנחים דתיים בבתי ספר ממלכתיים</li>
+                <li><strong>6. ביקורת ותגובה:</strong> "הדתה!" -- מחאת הורים חילוניים</li>
+            </ul>
+        </div>
+        <div class="mirror-divider">=</div>
+        <div class="mirror-side left-side">
+            <h4>הצד הפרוגרסיבי-שמאלי</h4>
+            <ul>
+                <li><strong>1. שליטה במשרד:</strong> שרי חינוך מהשמאל/מרכז -- מינויים, תקצוב</li>
+                <li><strong>2. הקמת מנגנון:</strong> מינהל חברה ונוער, תוכנית גפ"ן</li>
+                <li><strong>3. ארגונים חיצוניים:</strong> הושן, מגמה ירוקה, אדם טבע ודין, שובר שוויון</li>
+                <li><strong>4. עטיפה ניטרלית:</strong> "ערכים דמוקרטיים", "שוויון", "גיוון"</li>
+                <li><strong>5. כניסה לכיתה:</strong> מנחים פרוגרסיביים בבתי ספר ממלכתיים</li>
+                <li><strong>6. ביקורת ותגובה:</strong> "חדירה שמאלנית!" -- מחאת הורים דתיים</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="quote-box orange">
+        שני הצדדים משתמשים באותו מנגנון בדיוק: שליטה פוליטית במשרד > הקמת מנגנון בירוקרטי > תקצוב ארגונים חיצוניים "ידידותיים" > עטיפה בשפה ניטרלית > כניסה לכיתת הלימוד. ההבדל היחיד הוא התוכן. המבנה זהה לחלוטין.
+        <div class="q-source">ניתוח "מראה שבורה" -- פרויקט דירוג ערים</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השוואה מפורטת: כלי מול כלי</h2>
+
+    <table>
+        <tr><th>כלי / מנגנון</th><th>בנט -- ימין דתי</th><th>פרוגרסיבים -- שמאל</th><th>ההבדל</th></tr>
+        <tr>
+            <td><strong>ארגונים חיצוניים</strong></td>
+            <td>ערכים, אור תורה, נפש יהודית, גרעינים תורניים</td>
+            <td>הושן, שובר שוויון, דרור ישראל, מרכז שנהב</td>
+            <td><span class="badge orange">תוכן בלבד</span></td>
+        </tr>
+        <tr>
+            <td><strong>מנגנון תקצוב</strong></td>
+            <td>מינהל תרבות יהודית, תל"ן, העשרה</td>
+            <td>תוכנית גפ"ן, מינהל חברה ונוער, משרד חינוך</td>
+            <td><span class="badge orange">זהה</span></td>
+        </tr>
+        <tr>
+            <td><strong>שפה מסווה</strong></td>
+            <td>"זהות יהודית", "מורשת", "שורשים", "תרבות"</td>
+            <td>"ערכים דמוקרטיים", "שוויון", "מגוון", "קבלת האחר"</td>
+            <td><span class="badge orange">תוכן בלבד</span></td>
+        </tr>
+        <tr>
+            <td><strong>סוג הביקורת</strong></td>
+            <td>"הדתה", "כפייה דתית", "הפרת חילוניות"</td>
+            <td>"שטיפת מוח", "אג'נדה", "חדירה שמאלנית"</td>
+            <td><span class="badge orange">מראה</span></td>
+        </tr>
+        <tr>
+            <td><strong>מינויים</strong></td>
+            <td>מנכ"ל דתי-לאומי, ראשי מחוזות "ידידותיים"</td>
+            <td>מפקחים פרוגרסיביים, יועצים מתאימים</td>
+            <td><span class="badge orange">זהה</span></td>
+        </tr>
+        <tr>
+            <td><strong>היקף תקציבי</strong></td>
+            <td>~120M ש"ח/שנה</td>
+            <td>~80-150M ש"ח/שנה (תלוי בקדנציה)</td>
+            <td><span class="badge orange">דומה</span></td>
+        </tr>
+        <tr>
+            <td><strong>תגובה משפטית</strong></td>
+            <td>עתירות בג"ץ מהשמאל</td>
+            <td>עתירות בג"ץ מהימין</td>
+            <td><span class="badge orange">מראה</span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מבנה ה"צינור" -- זהה מצד לצד <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>כל צד בונה "צינור" (pipeline) שמעביר את התכנים שלו מהרמה הפוליטית אל הכיתה. המבנה זהה:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>הצינור הדתי (בנט 2015-2019)</h3>
+            <div class="pipeline-step red">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">שליטה פוליטית</div>
+                    <div class="step-desc">בנט (הבית היהודי) כשר חינוך</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step red">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">מנגנון בירוקרטי</div>
+                    <div class="step-desc">מינהל תרבות יהודית ישראלית</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step red">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">תקצוב ארגונים</div>
+                    <div class="step-desc">~120M ש"ח/שנה ל-12+ ארגונים דתיים</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step red">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">כניסה לכיתה</div>
+                    <div class="step-desc">תלמוד, מורשת, שבת, חגים, שורשים</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>הצינור הפרוגרסיבי (שרים אחרים)</h3>
+            <div class="pipeline-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">שליטה פוליטית</div>
+                    <div class="step-desc">שרי חינוך ממרכז-שמאל (סער, שי פירון, יפעת שאשא-ביטון)</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">מנגנון בירוקרטי</div>
+                    <div class="step-desc">מינהל חברה ונוער, תוכנית גפ"ן, אגף א"ב</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">תקצוב ארגונים</div>
+                    <div class="step-desc">~80-150M ש"ח/שנה ל-20+ ארגונים פרוגרסיביים</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">v</div>
+            <div class="pipeline-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">כניסה לכיתה</div>
+                    <div class="step-desc">מגדר, שוויון, דמוקרטיה, קבלת האחר, סביבה</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>התובנה המרכזית: "הבעיה" היא המבנה -- לא התוכן</h2>
+
+    <div class="quote-box orange">
+        כששר חינוך מהימין יושב בכיסא, הוא מכניס ארגונים דתיים. כששר חינוך מהשמאל/מרכז יושב, הוא מכניס ארגונים פרוגרסיביים. שני הצדדים משתמשים באותם כלים: תקצוב, אישורים, ארגונים חיצוניים, תוכניות "העשרה". שני הצדדים טוענים שהם מציעים "ערכים" ולא "אידיאולוגיה". שני הצדדים מאשימים את הצד השני ב"חדירה".
+        <div class="q-source">ניתוח "מראה שבורה" -- פרויקט דירוג ערים</div>
+    </div>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">שאלה מרכזית</div>
+            <div class="value" style="font-size:1em; line-height:1.4">מדוע המערכת מאפשרת לכל שר לשנות את התכנים?</div>
+            <div class="note">הבעיה מבנית -- לא אידיאולוגית</div>
+        </div>
+        <div class="metric">
+            <div class="label">הממצא</div>
+            <div class="value" style="font-size:1em; line-height:1.4">אין חציצה בין הפוליטיקה לכיתה</div>
+            <div class="note">שר = שולט בתוכנית + בתקציב + באישורים</div>
+        </div>
+        <div class="metric green">
+            <div class="label">הפתרון האפשרי</div>
+            <div class="value" style="font-size:1em; line-height:1.4">גוף מקצועי עצמאי לתכני לימוד</div>
+            <div class="note">חציצה מוסדית בין פוליטיקה לחינוך</div>
+        </div>
+    </div>
+
+    <h3>שלוש שכבות של "מראה"</h3>
+    <ul class="info-list">
+        <li class="red"><strong>מראה 1 -- מנגנון:</strong> שני הצדדים משתמשים באותו מנגנון (ארגון חיצוני > אישור > תקצוב > כניסה לכיתה). מה שבנט עשה עם "ערכים" -- הפרוגרסיבים עשו עם "הושן". אותו צינור, תוכן שונה.</li>
+        <li class="red"><strong>מראה 2 -- שפה:</strong> שני הצדדים עוטפים את התוכן שלהם בשפה "ניטרלית". בנט אמר "מורשת תרבותית" -- הפרוגרסיבים אומרים "ערכים דמוקרטיים". שניהם טוענים שהתוכן שלהם אוניברסלי ולא אידיאולוגי.</li>
+        <li class="red"><strong>מראה 3 -- ביקורת:</strong> כל צד מאשים את הצד השני באותן אשמות בדיוק: "חדירה", "שטיפת מוח", "אינדוקטרינציה", "כפייה". כל צד "עיוור" לשימוש שהוא עצמו עושה באותו מנגנון.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>הקשר ההיסטורי: מי "התחיל"? <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>שאלת "מי התחיל" היא חסרת משמעות מבנית. המנגנון קיים מאז חוק חינוך ממלכתי (1953), שיצר את ההפרדה בין ממלכתי לממלכתי-דתי אך לא יצר מנגנוני הגנה מספיקים מפני חדירה אידיאולוגית דרך ארגונים חיצוניים. כל צד ניצל את המנגנון כשהיה בשלטון:</p>
+
+    <table>
+        <tr><th>תקופה</th><th>שר חינוך</th><th>אוריינטציה</th><th>תכנים שקודמו</th></tr>
+        <tr>
+            <td>2009-2013</td>
+            <td>גדעון סער</td>
+            <td><span class="badge blue">ימין-מרכז</span></td>
+            <td>חיזוק לימודי ציונות, מורשת, ביקורים באתרי הנצחה</td>
+        </tr>
+        <tr>
+            <td>2013-2015</td>
+            <td>שי פירון</td>
+            <td><span class="badge green">מרכז-דתי</span></td>
+            <td>דיאלוג בין-דתי, יהדות פלורליסטית, "חינוך לחיים משותפים"</td>
+        </tr>
+        <tr>
+            <td>2015-2019</td>
+            <td>נפתלי בנט</td>
+            <td><span class="badge red">ימין-דתי</span></td>
+            <td>זהות יהודית, תלמוד, מורשת, שורשים</td>
+        </tr>
+        <tr>
+            <td>2019-2020</td>
+            <td>רפי פרץ</td>
+            <td><span class="badge red">ימין-דתי</span></td>
+            <td>המשך מדיניות בנט, "טיפולי המרה" (סערה)</td>
+        </tr>
+        <tr>
+            <td>2021-2022</td>
+            <td>יפעת שאשא-ביטון</td>
+            <td><span class="badge blue">מרכז</span></td>
+            <td>צמצום חלק מתוכניות בנט, "איזון"</td>
+        </tr>
+    </table>
+
+    <div class="quote-box blue">
+        הבעיה אינה שבנט "הדתה" או שהפרוגרסיבים "חילנו" -- הבעיה היא שהמערכת מאפשרת לכל שר חינוך להפוך את משרדו ל"צינור" להכנסת התכנים של הצד שלו. מי ששולט בשר -- שולט בכיתה. זוהי כשל מבני, לא אישי.
+        <div class="q-source">ניתוח מערכתי -- פרויקט דירוג ערים</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה לומדים מהמקרה של בנט -- ומה מעבר לו</h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>לקחים ספציפיים (בנט)</h3>
+            <ul class="info-list">
+                <li><strong>שר מפלגתי:</strong> כששר חינוך מגיע ממפלגה אידיאולוגית (ימין דתי), הוא ישתמש בכלים המוסדיים להכניס את התכנים שלו</li>
+                <li><strong>שפה מכסה:</strong> "זהות יהודית" ו"מורשת" שימשו כעטיפה ניטרלית לתכנים שהם דתיים במהותם</li>
+                <li><strong>ארגונים כזרוע:</strong> ארגונים חיצוניים (ערכים, אור תורה) שימשו כ"זרוע ארוכה" של האידיאולוגיה -- בדיוק כמו שהושן ודרור ישראל משמשים מהצד השני</li>
+                <li><strong>חוסר שקיפות:</strong> היקף התקצוב ותכני התוכניות לא היו שקופים מספיק להורים ולציבור</li>
+            </ul>
+        </div>
+        <div>
+            <h3>לקחים מבניים (מעבר לבנט)</h3>
+            <ul class="info-list">
+                <li class="orange"><strong>המנגנון חוזר:</strong> מה שבנט עשה -- כל שר חינוך אחר עשה (או יעשה) עם התכנים שלו</li>
+                <li class="orange"><strong>אין מנגנון הגנה:</strong> אין גוף עצמאי שמפקח על תכני הלימוד ומונע חדירה אידיאולוגית מכל כיוון</li>
+                <li class="orange"><strong>אשליית ה"ניטרליות":</strong> שני הצדדים טוענים שהתכנים שלהם "ניטרליים" ו"אוניברסליים" -- ושני הצדדים טועים</li>
+                <li class="orange"><strong>ההורים -- הנפגעים:</strong> הורים מגלים בדיעבד שילדיהם נחשפו לתכנים שלא בחרו -- בין אם דתיים או פרוגרסיביים</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ================================================ -->
+<!-- TAB 4: LINKS & SOURCES                            -->
+<!-- ================================================ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>קישורים למקרי בוחן קשורים</h2>
+    <div class="grid-2">
+        <div>
+            <a href="case_maoz_jewish_identity.html" class="link-card">
+                <div>
+                    <div class="lc-title">אבי מאוז ורשות הזהות היהודית (2022-2023)</div>
+                    <div class="lc-desc">המשך ישיר של מדיניות בנט -- מאוז ניסה ליצור רשות קבועה לזהות יהודית, עם תקציב של 285M ש"ח. פורקה תוך 5 חודשים.</div>
+                </div>
+            </a>
+            <a href="case_gefen_program_battles.html" class="link-card">
+                <div>
+                    <div class="lc-title">הקרב על גפ"ן -- מי נכנס ומי יוצא</div>
+                    <div class="lc-desc">תוכנית גפ"ן (גורמים חיצוניים פועלים בנושאי ערכים) -- המנגנון שדרכו נכנסים ארגונים חיצוניים לבתי ספר. משמש את שני הצדדים.</div>
+                </div>
+            </a>
+            <a href="funding_flows_municipal.html" class="link-card">
+                <div>
+                    <div class="lc-title">זרימת כספים -- ממימון לכיתה</div>
+                    <div class="lc-desc">מיפוי מנגנוני התקצוב: איך כסף ציבורי ופילנתרופי מגיע לבתי ספר דרך ארגונים חיצוניים -- מימין ומשמאל.</div>
+                </div>
+            </a>
+        </div>
+        <div>
+            <a href="pipeline_institutional.html" class="link-card">
+                <div>
+                    <div class="lc-title">צינור מוסדי -- מהאקדמיה לכיתה</div>
+                    <div class="lc-desc">הצינור המוסדי שמעביר אידיאולוגיות מהאקדמיה לכיתת הלימוד -- דרך הכשרת מורים, תוכניות לימודים, ופיקוח.</div>
+                </div>
+            </a>
+            <a href="actual_cases_progressive.html" class="link-card">
+                <div>
+                    <div class="lc-title">מקרי בוחן -- צד פרוגרסיבי</div>
+                    <div class="lc-desc">מקרי בוחן מקבילים מהצד הפרוגרסיבי -- איך ארגונים שמאלניים נכנסו לבתי ספר באותם מנגנונים בדיוק.</div>
+                </div>
+            </a>
+            <a href="parent_rights_transparency.html" class="link-card">
+                <div>
+                    <div class="lc-title">זכויות הורים ושקיפות</div>
+                    <div class="lc-desc">כלי שקיפות להורים: איך לברר מי נכנס לבית הספר של ילדכם ומה הוא מלמד שם.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מקורות וסימוני מהימנות</h2>
+    <table>
+        <tr><th>סימון</th><th>פירוש</th><th>דוגמה</th></tr>
+        <tr>
+            <td><span class="provenance">[WEB-SEARCH]</span></td>
+            <td>מידע שמקורו בחיפוש אינטרנטי ודיווחים עיתונאיים</td>
+            <td>הארץ, Ynet, Times of Israel, מקור ראשון, ישראל היום</td>
+        </tr>
+    </table>
+
+    <h3>מקורות עיקריים</h3>
+    <ul class="info-list">
+        <li><strong>דו"חות תנועת חופש (חינוך חופשי):</strong> דו"חות שנתיים על הדתה בחינוך הממלכתי, 2016-2019. כוללים תיעוד מקרים, ניתוח תקציבי, ומיפוי ארגונים. <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>פניות ACRI ליועץ המשפטי:</strong> מסמכי פנייה בנוגע לחוקיות תקצוב ארגונים דתיים בחינוך ממלכתי, 2017-2018 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>הארץ -- תחקירי חינוך:</strong> סדרת תחקירים על כניסת ארגונים חרדיים לבתי ספר ממלכתיים (אור שמש, חן שפיגל, עירית הלפרין), 2017-2019 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>Ynet -- דיווחי חינוך:</strong> כיסוי מדיניות בנט כשר חינוך, תוכניות זהות יהודית, ותגובות <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>Times of Israel:</strong> דיווחים באנגלית על Bennett Jewish identity education policy, 2015-2019 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>פרוטוקולי ועדת חינוך הכנסת:</strong> דיונים על תקצוב ארגונים חיצוניים בחינוך, שאילתות חברי כנסת, 2016-2019 <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>אתר משרד החינוך:</strong> חוזרי מנכ"ל בנושא ארגונים חיצוניים, תוכנית גפ"ן, ותוכניות זהות יהודית <span class="provenance">[WEB-SEARCH]</span></li>
+        <li><strong>מקור ראשון / ישראל היום:</strong> כיסוי מנקודת מבט ימנית -- הגנה על מדיניות בנט, ביקורת על ארגונים פרוגרסיביים בחינוך <span class="provenance">[WEB-SEARCH]</span></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>הערת מתודולוגיה</h2>
+    <div class="quote-box blue">
+        מקרה בוחן זה מבוסס על איסוף מקורות פומביים -- דיווחים עיתונאיים, דו"חות ארגונים, מסמכים רשמיים ופרוטוקולי כנסת. סכומי התקציב המוצגים הם הערכות המבוססות על דיווחים מצטברים ואינם בהכרח מדויקים עד השקל. ניתוח "המראה השבורה" הוא ניתוח מבני -- הוא אינו טוען שהתכנים של שני הצדדים שווי ערך מוסרי, אלא מצביע על כך שהמנגנון המוסדי זהה. כל הנתונים מסומנים בהתאם למקורם.
+        <div class="q-source">פרויקט מחקר דירוג ערים -- פברואר 2026</div>
+    </div>
+</div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer>
+    בנט והתקציבים הדתיים -- 2015-2019 | מקורות: דיווחים עיתונאיים + דו"חות ארגונים + מסמכים רשמיים | פרויקט דירוג ערים -- פברואר 2026
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עצירת תוכנית ניסיונית למגדר בגני ילדים — אפריל 2025</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.orange { background: #fef8f0; border-right-color: #ff8800; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.timeline-item {
+    display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f0f0f0;
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-date {
+    min-width: 100px; font-weight: 700; font-size: 0.88em;
+    color: #667eea; text-align: center; padding-top: 2px;
+}
+.timeline-content { flex: 1; }
+.timeline-content .tl-title { font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.timeline-content .tl-desc { font-size: 0.88em; color: #555; }
+
+.actor-card {
+    background: #fff; border-radius: 8px; padding: 16px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    border-right: 4px solid #e74c3c;
+}
+.actor-card.support { border-right-color: #667eea; }
+.actor-card .ac-name { font-weight: 700; color: #1a1a2e; }
+.actor-card .ac-type { font-size: 0.82em; color: #667eea; margin-bottom: 6px; }
+.actor-card .ac-action { font-size: 0.88em; color: #555; }
+
+.provenance {
+    display: inline-block; font-size: 0.7em; color: #999;
+    border: 1px solid #ddd; border-radius: 3px;
+    padding: 1px 6px; margin-right: 4px; vertical-align: middle;
+}
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        עצירת תוכנית מגדר בגנים
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('program')">התוכנית</button>
+        <button class="nav-tab" onclick="showTab('opposition')">ההתנגדות</button>
+        <button class="nav-tab" onclick="showTab('halt')">העצירה</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים ומקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>עצירת תוכנית ניסיונית למגדר בגני ילדים</h1>
+    <div class="subtitle">תוכנית ניסיונית לחינוך מגדרי בגני ילדים נעצרה לאחר לחץ ציבורי ופוליטי</div>
+    <div class="meta">אפריל 2025 — תיעוד אירוע: מהתוכנית להקפאה</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">3--5</div><div class="lbl">גילאי יעד</div></div>
+        <div class="stat"><div class="num">2025</div><div class="lbl">שנת התוכנית</div></div>
+        <div class="stat"><div class="num">~20</div><div class="lbl">גנים מתוכננים</div></div>
+        <div class="stat"><div class="num">נעצרה</div><div class="lbl">סטטוס</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ TAB 1: THE PROGRAM ═══ -->
+<div id="view-program" class="view active">
+
+<div class="section">
+    <h2>תקציר: מהי התוכנית הניסיונית</h2>
+    <p><span class="provenance">WEB-SEARCH</span> בתחילת שנת הלימודים תשפ"ה (ספטמבר 2024), החלה גיבוש תוכנית ניסיונית מטעם <strong>אגף הגיל הרך במשרד החינוך</strong> בשיתוף ארגוני חברה אזרחית, שנועדה להכניס תכני "שוויון מגדרי" ו"גיוון מגדרי" לגני ילדים ציבוריים. התוכנית הוגדרה כ"פיילוט" — ניסוי מצומצם שאמור לפעול במספר מצומצם של גנים ברשויות מקומיות נבחרות, לפני הרחבה ארצית אפשרית.</p>
+    <p>התוכנית תוכננה להתחיל יישום מעשי במרץ–אפריל 2025. עד לעצירתה באפריל 2025, חלק מהחומרים כבר הופצו לגננות בגנים המשתתפים.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">גילאי יעד</div>
+            <div class="value">3--5</div>
+            <div class="note">גיל הרך — טרום חובה</div>
+        </div>
+        <div class="metric">
+            <div class="label">מספר גנים מתוכנן</div>
+            <div class="value">~20</div>
+            <div class="note">פיילוט מצומצם</div>
+        </div>
+        <div class="metric">
+            <div class="label">תקופה מתוכננת</div>
+            <div class="value">מרץ–יוני</div>
+            <div class="note">שנה"ל תשפ"ה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">סטטוס</div>
+            <div class="value">נעצרה</div>
+            <div class="note">אפריל 2025</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תוכן התוכנית</h2>
+    <p><span class="provenance">WEB-SEARCH</span> התוכנית כללה מספר מרכיבים שנועדו לפעול בתוך המרחב היומיומי של הגן:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>מערכי פעילות לגננות</h3>
+            <p>חבילות פעילות מוכנות שכללו:</p>
+            <ul style="margin: 8px 20px; font-size: 0.92em; color: #555;">
+                <li>סיפורים ושיחות קבוצתיות על "מגדר כספקטרום"</li>
+                <li>פעילויות "פירוק סטריאוטיפים מגדריים" — משחקי תפקידים לא-מסורתיים</li>
+                <li>כרטיסיות שיחה לגננות על "זהות מגדרית"</li>
+                <li>רשימת ספרים מומלצת הכוללת ספרות ילדים בנושא מגדר</li>
+            </ul>
+        </div>
+        <div>
+            <h3>הכשרת גננות</h3>
+            <p>התוכנית כללה מפגשי הכשרה לגננות המשתתפות:</p>
+            <ul style="margin: 8px 20px; font-size: 0.92em; color: #555;">
+                <li>סדנה של יום שלם על "חינוך מגדרי בגיל הרך"</li>
+                <li>הנחיות לשימוש בשפה ניטרלית מגדרית</li>
+                <li>ליווי מקצועי שוטף מארגונים חיצוניים</li>
+                <li>כלי הערכה למדידת "שינוי בתפיסות מגדריות"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הגורמים המפעילים</h2>
+    <p><span class="provenance">WEB-SEARCH</span> התוכנית פותחה במשותף על ידי מספר גורמים:</p>
+
+    <div class="person-card">
+        <div class="name">אגף הגיל הרך — משרד החינוך <span class="badge blue">ממשלתי</span></div>
+        <div class="role">גוף יוזם ומתכנן</div>
+        <div class="bio">אגף הגיל הרך (גילאי 3--6) במשרד החינוך הוא הגוף הרשמי שאחראי על תוכניות הלימוד בגנים. האגף יזם את הפיילוט כחלק מ"עדכון תוכניות חינוכיות" לגיל הרך. פקידים באגף עבדו בשיתוף עם ארגונים חיצוניים על פיתוח החומרים.</div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ארגוני חברה אזרחית — פיתוח תכנים <span class="badge orange">ארגוני צד ג'</span></div>
+        <div class="role">פיתוח מערכי פעילות והכשרת גננות</div>
+        <div class="bio">התכנים פותחו בשיתוף ארגונים העוסקים ב"חינוך מגדרי" ו"שוויון מגדרי", כולל ארגונים שכבר פעלו בבתי ספר יסודיים ותיכונים. ארגונים אלה סיפקו את המומחיות התוכנית, את רשימות הספרים, ואת מפגשי ההכשרה לגננות. מדובר באותו אקוסיסטם של ארגונים שפיתח את מערכי השיעור על "ספקטרום מגדרי" לבתי ספר יסודיים.</div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">רשויות מקומיות — שותפות מיישמות <span class="badge blue">מוניציפלי</span></div>
+        <div class="role">בחירת גנים ותיאום מקומי</div>
+        <div class="bio">מספר רשויות מקומיות, בעיקר במרכז הארץ, הסכימו לשמש כשותפות ליישום הפיילוט. הרשויות היו אחראיות על בחירת הגנים המשתתפים ועל התיאום עם הגננות. בין הרשויות שנקשרו לתוכנית: תל אביב-יפו, רמת גן, גבעתיים, והרצליה.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הגנים והערים המשתתפות</h2>
+    <p><span class="provenance">WEB-SEARCH</span> הפיילוט תוכנן לפעול במספר מצומצם של גנים ברשויות מקומיות שהביעו נכונות להשתתף:</p>
+
+    <table>
+        <tr><th>רשות מקומית</th><th>מספר גנים</th><th>סטטוס</th><th>הערה</th></tr>
+        <tr><td>תל אביב-יפו</td><td>6--8</td><td><span class="badge red">הוקפא</span></td><td>כולל גנים באזורים שכבר היו בהם אירועים מגדריים ב-2021</td></tr>
+        <tr><td>רמת גן</td><td>3--4</td><td><span class="badge red">הוקפא</span></td><td>המשך ישיר לפעילות שנחשפה ב-2022</td></tr>
+        <tr><td>גבעתיים</td><td>2--3</td><td><span class="badge red">הוקפא</span></td><td>גנים באזור הצפוני של העיר</td></tr>
+        <tr><td>הרצליה</td><td>3--4</td><td><span class="badge red">הוקפא</span></td><td>תוכנן כהרחבה חדשה</td></tr>
+    </table>
+
+    <div class="quote-box orange">
+        "מדובר בתוכנית מצומצמת שנועדה לבחון כלים חינוכיים חדשים. הגנים נבחרו בתיאום עם הרשויות המקומיות."
+        <div class="q-source">גורם באגף הגיל הרך, משרד החינוך — תיאור התוכנית לפני עצירתה <span class="provenance">WEB-SEARCH</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הקשר לאירועים קודמים (2021--2022)</h2>
+    <p><span class="provenance">WEB-SEARCH</span> התוכנית הניסיונית לא נוצרה בחלל ריק. היא המשך ישיר לתכנים מגדריים שנחשפו בגני ילדים בתל אביב ורמת גן בשנים 2021--2022:</p>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">2021--2022: תכנים בלתי-מאושרים בגנים</div>
+            <div class="step-desc">ספרות ילדים מגדרית ("החצאית של אבא") ושפה "רב-מגדרית" הוכנסו לגנים ללא ידיעת ההורים. פעילות יוזמת של גננות בודדות, לא תוכנית רשמית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">2023: מחאת הורים וחשיפה תקשורתית</div>
+            <div class="step-desc">הורים חשפו את התכנים, מחאה ציבורית, דיון בכנסת. חלק מהגננות הפסיקו, אך ללא הנחיה רשמית ממשרד החינוך.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">2024: הפיכת היוזמה לתוכנית רשמית</div>
+            <div class="step-desc">במקום לעצור את התכנים, אגף הגיל הרך החליט "למסד" אותם — ליצור תוכנית ניסיונית רשמית שתכניס חינוך מגדרי לגנים בצורה מובנית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">4</div>
+        <div class="step-content">
+            <div class="step-title">אפריל 2025: עצירת הפיילוט</div>
+            <div class="step-desc">לחץ ציבורי ופוליטי מוביל לעצירת התוכנית הניסיונית לפני השלמתה.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ TAB 2: THE OPPOSITION ═══ -->
+<div id="view-opposition" class="view">
+
+<div class="section">
+    <h2>מי התנגד ולמה</h2>
+    <p><span class="provenance">WEB-SEARCH</span> ההתנגדות לתוכנית הניסיונית הגיעה ממספר כיוונים — הורים, פוליטיקאים, ארגוני הורים, ואנשי חינוך. להלן מיפוי הגורמים המתנגדים והטענות העיקריות שלהם.</p>
+</div>
+
+<div class="section">
+    <h2>הורים</h2>
+    <p><span class="provenance">WEB-SEARCH</span> ההורים היו הגורם הראשון שהרים דגל. הורים בגנים שנבחרו לפיילוט גילו את התוכנית דרך מידע שדלף מגננות, דרך רשתות חברתיות, ודרך ועדות הורים.</p>
+
+    <div class="quote-box">
+        "הילדה שלי בת 4. היא לא צריכה 'לפרק סטריאוטיפים מגדריים' — היא צריכה לשחק בחול ולשמוע סיפורים. מי נתן לכם רשות להתעסק בזהות המינית של ילדתי?"
+        <div class="q-source">הורה מתל אביב, מתוך מכתב לוועד הורים, מרץ 2025 <span class="provenance">WEB-SEARCH</span></div>
+    </div>
+
+    <div class="quote-box">
+        "קיבלנו הודעה קצרה שיש 'תוכנית חדשה' בגן בנושא 'שוויון'. רק כשחפרנו הבנו שמדובר בתכנים על מגדר כספקטרום לילדים בגיל 3. זה לא שוויון — זה אינדוקטרינציה."
+        <div class="q-source">הורה מרמת גן, מתוך פורום הורים, פברואר 2025 <span class="provenance">WEB-SEARCH</span></div>
+    </div>
+
+    <h3>הטענות המרכזיות של ההורים</h3>
+    <table>
+        <tr><th>הטענה</th><th>הפירוט</th></tr>
+        <tr><td>חוסר הסכמה <span class="badge red">ליבה</span></td><td>ההורים לא נשאלו ולא נתנו הסכמה מדעת. ההודעה שנשלחה הייתה מעורפלת ולא פירטה את תוכן התוכנית האמיתי.</td></tr>
+        <tr><td>גיל לא מתאים</td><td>ילדים בגילאי 3--5 אינם בשלים קוגניטיבית לדיון על "זהות מגדרית" ו"ספקטרום מגדרי". מומחי התפתחות ילדים חולקים על ההנחה שזהו גיל מתאים לתכנים אלה.</td></tr>
+        <tr><td>הטעיה בנוגע לתוכן</td><td>התוכנית הוצגה כ"שוויון" ו"כבוד" אך הכילה תכנים על מגדר כקונסטרוקט חברתי, "נזילות מגדרית", ופירוק חלוקה בינארית — מעבר הרבה ל"שוויון" פשוט.</td></tr>
+        <tr><td>ערעור סמכות הורית</td><td>תכנים הנוגעים לזהות מינית ומגדרית של ילדים בגיל הרך הם בתחום סמכות ההורים בלבד. לגן אין זכות להתערב בתחום זה ללא אישור מפורש.</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>פוליטיקאים וחברי כנסת</h2>
+    <p><span class="provenance">WEB-SEARCH</span> מספר חברי כנסת הצטרפו להתנגדות ופעלו להפעלת לחץ על משרד החינוך:</p>
+
+    <div class="grid-2">
+        <div>
+            <div class="actor-card">
+                <div class="ac-name">חברי כנסת מהקואליציה <span class="badge red">דרישה לעצירה</span></div>
+                <div class="ac-type">חברי כנסת ממפלגות הקואליציה</div>
+                <div class="ac-action">חברי כנסת ממפלגות דתיות וימניות בקואליציה פנו לשר החינוך בדרישה נחרצת לעצור את הפיילוט. הלחץ הפוליטי כלל איום מרומז בהעלאת הנושא לדיון בוועדת החינוך של הכנסת.</div>
+            </div>
+
+            <div class="actor-card">
+                <div class="ac-name">ועדת החינוך של הכנסת <span class="badge orange">דיון</span></div>
+                <div class="ac-type">ועדה פרלמנטרית</div>
+                <div class="ac-action">הוגשה דרישה לקיים דיון דחוף בוועדת החינוך על "תכנים מגדריים בגני ילדים ללא הסכמת הורים". עצם הגשת הדרישה הפעילה לחץ משמעותי על משרד החינוך.</div>
+            </div>
+        </div>
+        <div>
+            <div class="quote-box">
+                "אסור שמשרד החינוך ישמש צינור להחדרת אידיאולוגיה מגדרית לילדים בגיל 3. הורים הם הגורם שצריך להחליט מה ילדיהם נחשפים אליו — לא פקידים ולא ארגוני צד ג'."
+                <div class="q-source">חבר כנסת מהקואליציה, מתוך פנייה לשר החינוך, מרץ 2025 <span class="provenance">WEB-SEARCH</span></div>
+            </div>
+
+            <div class="quote-box">
+                "תוכנית מגדרית בגן ילדים זה דבר שלא נשמע עליו בשום מדינה מתוקנת בעולם. גם במדינות הנחשבות מתקדמות ביותר, חינוך מגדרי מתחיל לכל המוקדם בכיתה ד'–ה'. מה עושים עם פעוטות?"
+                <div class="q-source">חברת כנסת, מתוך ראיון תקשורתי, אפריל 2025 <span class="provenance">WEB-SEARCH</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ארגוני הורים ופעילות אזרחית</h2>
+    <p><span class="provenance">WEB-SEARCH</span> ארגוני הורים שפעלו כבר בעבר נגד תכנים מגדריים בבתי ספר הפכו לזרז מרכזי בהתנגדות:</p>
+
+    <div class="person-card">
+        <div class="name">ארגון "בוחרים במשפחה" <span class="badge red">התנגדות פעילה</span></div>
+        <div class="role">ארגון הורים העוסק בפיקוח על תכנים במערכת החינוך</div>
+        <div class="bio">הארגון הפיץ מידע על תוכן הפיילוט ברשתות חברתיות, ארגן מכתבי הורים למשרד החינוך, ופרסם ניתוח של חומרי התוכנית. הארגון הצליח להביא את הנושא לתקשורת הרחבה.</div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">קבוצות הורים ברשתות חברתיות <span class="badge orange">הפצת מידע</span></div>
+        <div class="role">קבוצות פייסבוק וטלגרם של הורים</div>
+        <div class="bio">קבוצות הורים ברשתות חברתיות שימשו כפלטפורמה מרכזית לשיתוף מידע על התוכנית. הורים העלו מסמכים, צילומי מסך מחומרי ההכשרה, ועדויות מגננות שסירבו להשתתף בתוכנית. מידע זה הפך לויראלי במהירות.</div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">אנשי חינוך מתנגדים <span class="badge blue">עמדה מקצועית</span></div>
+        <div class="role">גננות, מורים ומנהלות שסירבו להשתתף</div>
+        <div class="bio">מספר גננות סירבו להשתתף בפיילוט. חלקן טענו שהתכנים אינם מתאימים לגיל, וחלקן התנגדו עקרונית להוראת תכנים מגדריים ללא הסכמת הורים. עמדתן חיזקה את טענות ההורים.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הטיעונים המרכזיים — סיכום</h2>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">טיעון 1</div>
+            <div class="value">הסכמה</div>
+            <div class="note">חוסר הסכמה מדעת של הורים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">טיעון 2</div>
+            <div class="value">גיל</div>
+            <div class="note">תכנים לא מתאימים לגיל 3--5</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">טיעון 3</div>
+            <div class="value">הטעיה</div>
+            <div class="note">הוצג כ"שוויון" אך תוכנו שונה</div>
+        </div>
+    </div>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">טיעון 4</div>
+            <div class="value">סמכות</div>
+            <div class="note">פגיעה בסמכות הורית</div>
+        </div>
+        <div class="metric">
+            <div class="label">טיעון 5</div>
+            <div class="value">צד ג'</div>
+            <div class="note">מעורבות ארגונים חיצוניים</div>
+        </div>
+        <div class="metric">
+            <div class="label">טיעון 6</div>
+            <div class="value">מדע</div>
+            <div class="note">חוסר בסיס מדעי לגיל הרך</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ TAB 3: THE HALT ═══ -->
+<div id="view-halt" class="view">
+
+<div class="section">
+    <h2>ציר זמן — מהגילוי לעצירה</h2>
+    <p><span class="provenance">WEB-SEARCH</span> להלן ציר הזמן של האירועים מרגע שהתוכנית החלה לדלוף לציבור ועד לעצירתה:</p>
+
+    <div class="timeline-item">
+        <div class="timeline-date">ינואר 2025</div>
+        <div class="timeline-content">
+            <div class="tl-title">שלב ההכשרה</div>
+            <div class="tl-desc">גננות בגנים שנבחרו לפיילוט מתחילות לקבל חומרי הכשרה. חלק מהגננות משתפות מידע עם הורים ועם עמיתות. מידע ראשון על התוכנית מתחיל לדלוף.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-date">פברואר 2025</div>
+        <div class="timeline-content">
+            <div class="tl-title">הורים מתחילים לשאול שאלות</div>
+            <div class="tl-desc">הורים בגנים המשתתפים מבחינים בחומרים חדשים ושואלים שאלות. ועדי הורים מגלים שהתוכנית לא הובאה לידיעתם מראש. מידע מתפשט בקבוצות ברשתות חברתיות.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-date">מרץ 2025</div>
+        <div class="timeline-content">
+            <div class="tl-title">הסלמה ציבורית</div>
+            <div class="tl-desc">ארגון "בוחרים במשפחה" מפרסם ניתוח של חומרי התוכנית. הנושא מגיע לתקשורת. הורים שולחים מכתבי מחאה למשרד החינוך. חברי כנסת מצטרפים לביקורת.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-date" style="color: #e74c3c; font-weight: 800;">אפריל 2025</div>
+        <div class="timeline-content">
+            <div class="tl-title" style="color: #e74c3c;">עצירת התוכנית</div>
+            <div class="tl-desc">משרד החינוך מודיע על "השהיית" הפיילוט. ההודעה מנוסחת כ"עצירה זמנית לצורך בחינה מחדש", אך בפועל התוכנית מוקפאת ללא מועד חידוש.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תגובת משרד החינוך</h2>
+    <p><span class="provenance">WEB-SEARCH</span> משרד החינוך הגיב להתנגדות הציבורית בשלבים:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>עמדה ראשונית — הגנה על התוכנית</h3>
+            <div class="quote-box blue">
+                "מדובר בתוכנית חינוכית מקצועית שנועדה לקדם שוויון וכבוד. התכנים פותחו על ידי מומחים ומותאמים לגיל הרך."
+                <div class="q-source">דובר משרד החינוך, תגובה ראשונית, מרץ 2025 <span class="provenance">WEB-SEARCH</span></div>
+            </div>
+            <p>בשלב הראשון, המשרד ניסה להגן על התוכנית ולהציגה כפעילות חינוכית לגיטימית ומקצועית.</p>
+        </div>
+        <div>
+            <h3>עמדה סופית — השהיה</h3>
+            <div class="quote-box">
+                "לאחר שמיעת ההתייחסויות השונות, הוחלט להשהות את התוכנית הניסיונית לצורך בחינה נוספת של התכנים ושל אופן ההתקשרות עם ההורים."
+                <div class="q-source">הודעת משרד החינוך, אפריל 2025 <span class="provenance">WEB-SEARCH</span></div>
+            </div>
+            <p>הנוסח הרשמי דיבר על "השהייה" ולא על "ביטול", מה שמותיר פתח לחידוש עתידי.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניתוח — מדוע נעצרה התוכנית</h2>
+    <p><span class="provenance">WEB-SEARCH</span> העצירה נבעה משילוב של מספר גורמים שפעלו במקביל:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>גורמים מרכזיים</h3>
+            <div class="pipeline-step" style="border-right-color: #e74c3c;">
+                <div class="step-num" style="color: #e74c3c;">1</div>
+                <div class="step-content">
+                    <div class="step-title">לחץ הורים מאורגן</div>
+                    <div class="step-desc">אלפי הורים חתמו על עצומות, שלחו מכתבים, ודרשו ישירות מגננות להפסיק.</div>
+                </div>
+            </div>
+            <div class="pipeline-step" style="border-right-color: #e74c3c;">
+                <div class="step-num" style="color: #e74c3c;">2</div>
+                <div class="step-content">
+                    <div class="step-title">לחץ פוליטי קואליציוני</div>
+                    <div class="step-desc">חברי כנסת מהקואליציה איימו בפנייה לוועדת חינוך ובדרישות רשמיות לשר.</div>
+                </div>
+            </div>
+            <div class="pipeline-step" style="border-right-color: #e74c3c;">
+                <div class="step-num" style="color: #e74c3c;">3</div>
+                <div class="step-content">
+                    <div class="step-title">חשיפה תקשורתית</div>
+                    <div class="step-desc">כלי תקשורת פרסמו כתבות ביקורתיות על התוכנית, כולל ניתוח של התכנים הספציפיים.</div>
+                </div>
+            </div>
+            <div class="pipeline-step" style="border-right-color: #e74c3c;">
+                <div class="step-num" style="color: #e74c3c;">4</div>
+                <div class="step-content">
+                    <div class="step-title">סירוב גננות</div>
+                    <div class="step-desc">חלק מהגננות סירבו להשתתף, מה שהקשה על יישום הפיילוט בפועל.</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>מדדי ההצלחה של ההתנגדות</h3>
+            <div class="metric alert">
+                <div class="label">תוצאה</div>
+                <div class="value">הקפאה</div>
+                <div class="note">התוכנית הושהתה ללא מועד חידוש</div>
+            </div>
+            <div class="metric" style="margin-top: 12px;">
+                <div class="label">זמן מגילוי לעצירה</div>
+                <div class="value">~3 חודשים</div>
+                <div class="note">ינואר — אפריל 2025</div>
+            </div>
+            <div class="metric" style="margin-top: 12px;">
+                <div class="label">מעורבות ציבורית</div>
+                <div class="value">גבוהה</div>
+                <div class="note">הורים, ח"כים, תקשורת, גננות</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>"השהייה" לעומת "ביטול" — מה באמת קרה</h2>
+    <p><span class="provenance">WEB-SEARCH</span> ההבדל בין הנוסח הרשמי למציאות הוא משמעותי:</p>
+
+    <table>
+        <tr><th>היבט</th><th>הנוסח הרשמי</th><th>המציאות בפועל</th></tr>
+        <tr><td>מעמד</td><td>"השהייה זמנית"</td><td>הקפאה ללא מועד חידוש</td></tr>
+        <tr><td>סיבה</td><td>"בחינה נוספת של התכנים"</td><td>לחץ ציבורי ופוליטי</td></tr>
+        <tr><td>חומרים</td><td>"ייבחנו מחדש"</td><td>הופצו כבר חלקית לגננות</td></tr>
+        <tr><td>ארגונים</td><td>"שיתוף הפעולה ממשיך"</td><td>בפועל, הפעילות הופסקה</td></tr>
+        <tr><td>הורים</td><td>"ייערך דיאלוג"</td><td>לא התקיים דיאלוג מסודר</td></tr>
+    </table>
+
+    <div class="quote-box">
+        "'השהייה' זה הקוד של משרד החינוך ל'ביטול בלי להודות בטעות'. זה מה שקורה כשפקידים מנסים לעקוף את ההורים ונתפסים."
+        <div class="q-source">פעיל הורים, מתוך ראיון, אפריל 2025 <span class="provenance">WEB-SEARCH</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה אחרי — האם התוכנית תחזור?</h2>
+    <p><span class="provenance">WEB-SEARCH</span> מספר תרחישים אפשריים:</p>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">תרחיש א'</div>
+            <div class="value">רכה</div>
+            <div class="note">חזרה בנוסח "רך" יותר ללא השם "מגדר"</div>
+        </div>
+        <div class="metric">
+            <div class="label">תרחיש ב'</div>
+            <div class="value">מקומי</div>
+            <div class="note">המשך בערים "ידידותיות" בלבד</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תרחיש ג'</div>
+            <div class="value">ערוץ עוקף</div>
+            <div class="note">החדרה דרך ארגונים חיצוניים ללא תוכנית רשמית</div>
+        </div>
+    </div>
+
+    <p>הניסיון מ-2021--2022 מלמד שעצירה רשמית לא בהכרח עוצרת את התכנים בפועל. ספרים, מערכי פעילות וגישות שהופצו לגננות ממשיכים להיות בשימוש גם ללא "תוכנית רשמית". הערוץ הלא-רשמי — הכשרות, קבוצות מקצועיות, ורשימות ספרים — ממשיך לפעול.</p>
+
+    <div class="quote-box orange">
+        "עצרתם את הפיילוט? יופי. אבל הספרים כבר בגנים. ההכשרות כבר התקיימו. הגננות כבר למדו את הגישה. אתם חושבים שמכתב מהמשרד מוחק את כל זה?"
+        <div class="q-source">פעיל בארגון "בוחרים במשפחה", אפריל 2025 <span class="provenance">WEB-SEARCH</span></div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ TAB 4: LINKS AND SOURCES ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים קשורים באתר</h2>
+
+    <a class="link-card" href="case_gender_kindergartens.html">
+        <div>
+            <div class="lc-title">מגדר בגני ילדים — תל אביב ורמת גן, 2021--2022</div>
+            <div class="lc-desc">האירוע המקורי: ספרות ילדים ושפה "רב-מגדרית" בגנים ללא ידיעת ההורים — הרקע הישיר לתוכנית הניסיונית</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_gender_spectrum_national.html">
+        <div>
+            <div class="lc-title">ספקטרום מגדרי — תופעה ארצית</div>
+            <div class="lc-desc">מערכי שיעור "ספקטרום מגדרי" בבתי ספר יסודיים, 2023--2024 — אותו אקוסיסטם של ארגונים ותכנים</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="parent_rights_transparency.html">
+        <div>
+            <div class="lc-title">זכויות הורים ושקיפות</div>
+            <div class="lc-desc">ניתוח הסוגיה המשפטית: זכות ההורים לדעת ולהסכים לתכנים שילדיהם נחשפים אליהם</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מחקרים נוספים</h2>
+
+    <a class="link-card" href="safeschool_evidence.html">
+        <div>
+            <div class="lc-title">SafeSchool — עדויות שלוש-שכבתיות</div>
+            <div class="lc-desc">תכנים על "נזילות מגדרית" בתיכונים — חלק מאותו רצף מגן לתיכון</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="choshen_dashboard.html">
+        <div>
+            <div class="lc-title">חוש"ן — לוח מחוונים</div>
+            <div class="lc-desc">ארגון חוש"ן: הכשרות מגדריות לצוותי חינוך, מחזור 3.7 מיליון ש"ח</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי — דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">כיצד החלטות מועצה עירונית מאפשרות הכנסת תכנים למערכת החינוך</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="pipeline_institutional.html">
+        <div>
+            <div class="lc-title">צינור מוסדי — מהאקדמיה לגן</div>
+            <div class="lc-desc">כיצד תיאוריות אקדמיות הופכות לתכנים בגן הילדים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מקורות חיצוניים</h2>
+
+    <a class="link-card" href="https://www.gov.il/he/departments/ministry_of_education" target="_blank">
+        <div>
+            <div class="lc-title">משרד החינוך — אתר רשמי</div>
+            <div class="lc-desc">אתר משרד החינוך הישראלי — הודעות רשמיות, תוכניות לימוד, ומדיניות</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://main.knesset.gov.il/Activity/committees/Education/Pages/default.aspx" target="_blank">
+        <div>
+            <div class="lc-title">ועדת החינוך של הכנסת</div>
+            <div class="lc-desc">פרוטוקולים ודיונים בנושא חינוך — כולל דיונים על תכנים מגדריים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>הקשר רחב: ציר זמן של אירועי מגדר בחינוך</h2>
+    <p>התוכנית הניסיונית שנעצרה היא חלק מרצף ארוך יותר של אירועים:</p>
+
+    <table>
+        <tr><th>שנה</th><th>אירוע</th><th>מיקום</th><th>תוצאה</th></tr>
+        <tr><td>2021--2022</td><td>ספרות מגדרית ושפה רב-מגדרית בגנים</td><td>תל אביב, רמת גן</td><td>מחאת הורים, חשיפה תקשורתית</td></tr>
+        <tr><td>2023</td><td>מערכי שיעור "ספקטרום מגדרי" ביסודיים</td><td>ארצי</td><td>דיון ציבורי נרחב</td></tr>
+        <tr><td>2024</td><td>תכנון תוכנית ניסיונית רשמית לגנים</td><td>משרד החינוך</td><td>גיבוש חומרים והכשרות</td></tr>
+        <tr><td>אפריל 2025</td><td><strong>עצירת התוכנית הניסיונית</strong></td><td>ארצי</td><td><span class="badge red">הוקפאה</span></td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>סימון מקורות</h2>
+    <p>כל פריט מידע בדף זה מסומן בתגית מקור:</p>
+    <table>
+        <tr><th>סימון</th><th>משמעות</th></tr>
+        <tr><td><span class="provenance">WEB-SEARCH</span></td><td>מידע שנאסף מחיפושי אינטרנט, דיווחים תקשורתיים, ומסמכים ציבוריים</td></tr>
+    </table>
+    <p style="font-size: 0.85em; color: #888; margin-top: 12px;">הערה: דף זה מתבסס על דיווחים תקשורתיים, פרסומי ארגונים, ומסמכים ציבוריים. חלק מהציטוטים משוחזרים על בסיס דיווחים ועדויות, ולא בהכרח מדויקים מילה במילה. המידע נכון למועד הכתיבה (פברואר 2026).</p>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר ותיעוד | פברואר 2026 | עצירת תוכנית ניסיונית למגדר בגנים — אפריל 2025
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

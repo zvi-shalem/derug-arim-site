@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המכללה האקדמית בית ברל — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.warning-box {
+  background: #fff5f5; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #5a1010;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.gap-table td:nth-child(1) { font-weight: 600; width: 30%; }
+.gap-table td:nth-child(2) { background: #f0f8f0; }
+.gap-table td:nth-child(3) { background: #fff5f5; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#section-1">דיוקן מוסדי</a>
+    <a href="#section-2">המבחן: מוצהר מול מעש</a>
+    <a href="#section-3">קתדרת אונסק"ו</a>
+    <a href="#section-4">יולי תמיר — הדלת המסתובבת</a>
+    <a href="ken_bebeit_safrenu.html" style="color:#ff8800;">"כן בבית ספרנו"</a>
+    <a href="#section-5">תוכנית "המהפכה"</a>
+    <a href="#section-6">הקמפוס כמרחב אירוח</a>
+    <a href="#section-7">צינור ההשפעה</a>
+    <a href="#section-8">סיווג</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>המכללה האקדמית בית ברל</h1>
+  <div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">מכללה להכשרת מורים | קתדרת אונסק"ו לרב-תרבותיות | נשיאה: פרופ' יולי תמיר</div>
+  <div class="meta">דוח מחקר עומק — כל הנתונים ממקורות ציבוריים</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <!-- ═══ TABLE OF CONTENTS ═══ -->
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+    <li><a href="#section-1">דיוקן מוסדי: מכללת בית ברל</a></li>
+    <li><a href="#section-2">המבחן: מה בית ברל אומרת על עצמה לעומת מה שהיא עושה</a></li>
+    <li><a href="#section-3">קתדרת אונסק"ו לרב-תרבותיות בהכשרת מורים</a></li>
+    <li><a href="#section-4">יולי תמיר — הדלת המסתובבת בין מדיניות להכשרה</a></li>
+    <li><a href="#section-5">תוכנית "המהפכה" (hamahapecha.com)</a></li>
+    <li><a href="#section-6">הקמפוס כמרחב אירוח: AWseeds, דרור ישראל, ועוד</a></li>
+    <li><a href="#section-7">צינור ההשפעה: מבית ברל לכיתה</a></li>
+    <li><a href="#section-8">סיווג: פרוגרסיבי חתרני — הנימוקים</a></li>
+    <li><a href="#section-9">שאלות פתוחות</a></li>
+    <li><a href="#section-10">מקורות</a></li>
+  </ol></div>
+
+  <!-- ═══ SECTION 1 ═══ -->
+  <div class="section" id="section-1">
+    <h2>1. דיוקן מוסדי: מכללת בית ברל</h2>
+
+    <table>
+      <tr><th>נתון</th><th>פרט</th></tr>
+      <tr><td><strong>שם רשמי</strong></td><td>המכללה האקדמית בית ברל</td></tr>
+      <tr><td><strong>סוג</strong></td><td>מכללה אקדמית להכשרת מורים וחינוך</td></tr>
+      <tr><td><strong>מיקום</strong></td><td>ליד כפר סבא (קמפוס בית ברל)</td></tr>
+      <tr><td><strong>הקמה</strong></td><td>1947 — כבית ספר לפעילי תנועת העבודה. מכללה אקדמית מ-1983</td></tr>
+      <tr><td><strong>נשיאה</strong></td><td>פרופ' יולי (יעל) תמיר — מאוקטובר 2020</td></tr>
+      <tr><td><strong>אתר</strong></td><td><a href="https://www.beitberl.ac.il" target="_blank">beitberl.ac.il</a></td></tr>
+      <tr><td><strong>קתדרת אונסק"ו</strong></td><td>UNESCO Chair for Multiculturalism in Teacher Training</td></tr>
+      <tr><td><strong>תחומי לימוד</strong></td><td>הכשרת מורים, חינוך בלתי פורמלי, קידום נוער, אמנויות, חינוך מיוחד, רב-תרבותיות</td></tr>
+      <tr><td><strong>ייחוד</strong></td><td>"הקיבוץ האקדמי הראשון בעולם" — מגורים קהילתיים לסטודנטים בקמפוס</td></tr>
+    </table>
+
+    <h3>רקע היסטורי</h3>
+    <p>בית ברל הוקם ב-1947 כבית ספר לפעילי תנועת העבודה — מלכתחילה כמוסד עם זיקה פוליטית מובהקת למפ"י ולזרם הסוציאל-דמוקרטי. השם "בית ברל" נקרא על שם ברל כצנלסון, מאבות תנועת העבודה הישראלית. הנה עוד אינדיקטור: המוסד נקרא על שם אידיאולוג פוליטי, לא על שם מחנך.</p>
+    <p>ב-1983 קיבל המוסד הכרה כמכללה אקדמית. מאז הפך לאחד ממוסדות הכשרת המורים המשמעותיים בישראל, עם דגש על חינוך רב-תרבותי, חינוך בלתי פורמלי, וקידום נוער.</p>
+
+    <p class="source-tag">מקור: אתר מכללת בית ברל</p>
+    <p class="source-tag">מקור: ויקיפדיה — המכללה האקדמית בית ברל</p>
+  </div>
+
+  <!-- ═══ SECTION 2 ═══ -->
+  <div class="section" id="section-2">
+    <h2>2. המבחן: מה בית ברל אומרת על עצמה לעומת מה שהיא עושה</h2>
+
+    <div class="thesis">
+      <strong>מבחן הסיווג:</strong> האם יש פער בין השפה הציבורית ("מה שאנחנו אומרים") לבין המעשים בפועל ("מה שאנחנו עושים")? אם יש פער — זהו הסימן לחתרנות. אם אין פער — זה שמאל גלוי, שקוף ולגיטימי.
+    </div>
+
+    <table class="gap-table">
+      <tr><th>תחום</th><th>מה בית ברל אומרת</th><th>מה בית ברל עושה</th></tr>
+      <tr>
+        <td>ייעוד</td>
+        <td>"מכללה אקדמית להכשרת מורים וחינוך" — מוסד אקדמי ניטרלי המכשיר אנשי חינוך מקצועיים</td>
+        <td>מארחת קתדרת אונסק"ו לרב-תרבותיות המתורגמת לחינוך ברוח GCED (אזרחות גלובלית). מציעה "מתודות פרוגרסיביות" ו"חשיבה ביקורתית" במסלולי ההכשרה. מפעילה תוכנית בשם "המהפכה".</td>
+      </tr>
+      <tr>
+        <td>הנהגה</td>
+        <td>נשיאה אקדמית — פרופ' יולי תמיר, תלמידת ישעיהו ברלין, פילוסופית ליברלית</td>
+        <td>שרת חינוך לשעבר (מרצ/עבודה) שישבה במועצת העריכה של "כן בבית ספרנו" — ספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית" ומצדד בה. מי שעיצבה מדיניות חינוך עומדת כעת בראש המוסד שמכשיר את המורים.</td>
+      </tr>
+      <tr>
+        <td>רב-תרבותיות</td>
+        <td>חינוך לכבוד הדדי בין קבוצות, אינטגרציה חברתית, הכלה</td>
+        <td>קתדרת האונסק"ו מסומנת כ"רלוונטיות גבוהה ל-SDG 4.7" — יעד הפיתוח הבר-קיימא של אונסק"ו, שמסמך אונסק"ו 2022 עצמו מצטט את מרקוזה כ"עסקים לא גמורים". רב-תרבותיות = כלי פדגוגי, לא סתם ערך.</td>
+      </tr>
+      <tr>
+        <td>חינוך בלתי פורמלי</td>
+        <td>הכשרה למסלול חינוך בלתי פורמלי — כלים מגוונים, סדנאות, סיורים</td>
+        <td>המכללה עצמה מפרטת: "מתודות פרוגרסיביות" בתוכנית החינוך הבלתי פורמלי. ובמסלול קידום נוער: "פיתוח חשיבה ביקורתית ויצירתית". אלו מונחים טעונים בהקשר ישראלי.</td>
+      </tr>
+      <tr>
+        <td>קמפוס</td>
+        <td>קמפוס אקדמי פתוח</td>
+        <td>מארח על אדמתו את AWseeds (גלי ברוורמן), מרכז ליאה ארד, וכפר דרור (קיבוץ חינוכי של דרור ישראל). דרור ישראל מחייבת את חבריה ללמוד אך ורק בבית ברל.</td>
+      </tr>
+    </table>
+
+    <div class="warning-box">
+      <strong>הפער המרכזי:</strong> בית ברל מציגה עצמה כמכללה אקדמית מקצועית ניטרלית. בפועל, היא מפעילה תוכנית בשם "המהפכה", מארחת קתדרת אונסק"ו עם זיקה ל-SDG 4.7, מציעה "מתודות פרוגרסיביות" במסלוליה, שנשיאתה היא שרת חינוך לשעבר שישבה במועצת עריכה של ספר המצדד בפדגוגיה ביקורתית מרקסיסטית, ושתנועת דרור ישראל — הפועלת על בסיס "פדגוגיה של המדוכאים" של פריירה — מחייבת את חבריה ללמוד דווקא שם.
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3 ═══ -->
+  <div class="section" id="section-3">
+    <h2>3. קתדרת אונסק"ו לרב-תרבותיות בהכשרת מורים</h2>
+
+    <table>
+      <tr><th>נתון</th><th>פרט</th></tr>
+      <tr><td><strong>שם הקתדרה</strong></td><td>UNESCO Chair for Multiculturalism in Teacher Training</td></tr>
+      <tr><td><strong>מוסד מארח</strong></td><td>מכללת בית ברל</td></tr>
+      <tr><td><strong>סטטוס</strong></td><td>פעילה — דף אינטרנט עודכן מאי 2024</td></tr>
+      <tr><td><strong>תחום</strong></td><td>רב-תרבותיות; הכשרת מורים; זהות; גיוון</td></tr>
+      <tr><td><strong>דירוג רלוונטיות</strong></td><td>רלוונטיות גבוהה ל-SDG 4.7</td></tr>
+      <tr><td><strong>URL</strong></td><td><a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">beitberl.ac.il/research/unesco</a></td></tr>
+    </table>
+
+    <h3>מה זה SDG 4.7?</h3>
+    <p>יעד 4.7 של אג'נדה 2030 של האו"ם קובע: "עד 2030, להבטיח כי כל הלומדים ירכשו ידע ומיומנויות הדרושים לקידום פיתוח בר-קיימא, כולל, בין היתר, דרך <strong>חינוך לפיתוח בר-קיימא ואורחות חיים בני-קיימא, זכויות אדם, שוויון מגדרי, קידום תרבות של שלום ואי-אלימות, אזרחות גלובלית, והערכת מגוון תרבותי</strong>."</p>
+
+    <div class="thesis">
+      <strong>למה זה חשוב:</strong> "רב-תרבותיות" נשמע חיובי. אבל SDG 4.7 הוא היעד שבו אונסק"ו עצמה, במסמך 2022, מצטטת את מרקוזה ("האדם החד-ממדי") כ"עסקים לא גמורים" ודורשת ממוסדות אקדמיים "לסרב לעסוק במחקר התומך בפרקטיקות לא בנות-קיימא". קתדרה המסומנת כ"רלוונטיות גבוהה ל-SDG 4.7" אינה סתם מקדמת "כבוד בין תרבויות" — היא חלק ממערכת שמגדירה מה מותר לחקור ומה אסור.
+    </div>
+
+    <h3>השוואה: שתי קתדרות אונסק"ו בהכשרת מורים</h3>
+    <table>
+      <tr><th>מכללה</th><th>קתדרה</th><th>דמויות מפתח</th></tr>
+      <tr>
+        <td>מכללת בית ברל</td>
+        <td>UNESCO Chair for Multiculturalism in Teacher Training</td>
+        <td>נשיאה: פרופ' יולי תמיר (שרת חינוך לשעבר)</td>
+      </tr>
+      <tr>
+        <td>סמינר הקיבוצים (לוינסקי-וינגייט)</td>
+        <td>UNESCO Chair for Humanistic Education</td>
+        <td>פרופ' נמרוד אלוני; ד"ר ניר מיכאלי</td>
+      </tr>
+    </table>
+    <p>שתי מכללות הכשרת המורים המרכזיות מחזיקות כל אחת קתדרת אונסק"ו. שתיהן מכשירות מורים שנכנסים למערכת החינוך הציבורית. השילוב של קתדרה בינלאומית עם הכשרת מורים מקומית יוצר <strong>צינור ישיר: אידיאולוגיה בינלאומית → הכשרת מורה → כיתה ישראלית</strong>.</p>
+
+    <p class="source-tag">מקור: <a href="unesco_israel_deep_connection.html">unesco_israel_deep_connection.html</a></p>
+    <p class="source-tag">מקור: <a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">Beit Berl UNESCO Chair page</a></p>
+    <p class="source-tag">מקור: אונסק"ו — SDG 4.7 (אג'נדה 2030)</p>
+  </div>
+
+  <!-- ═══ SECTION 4 ═══ -->
+  <div class="section" id="section-4">
+    <h2>4. יולי תמיר — הדלת המסתובבת בין מדיניות להכשרה</h2>
+
+    <table>
+      <tr><th>נתון</th><th>פרט</th></tr>
+      <tr><td><strong>שם</strong></td><td>פרופ' יעל (יולי) תמיר</td></tr>
+      <tr><td><strong>תואר שלישי</strong></td><td>PhD — אוניברסיטת אוקספורד, בהנחיית ישעיהו ברלין</td></tr>
+      <tr><td><strong>תפקיד נוכחי</strong></td><td>נשיאת מכללת בית ברל (מאוקטובר 2020)</td></tr>
+      <tr><td><strong>תפקידים קודמים</strong></td><td>שרת החינוך (2006-2009); שרת הקליטה (1999-2001); נשיאת שנקר</td></tr>
+      <tr><td><strong>מפלגות</strong></td><td>מייסדת מרצ; מפלגת העבודה</td></tr>
+      <tr><td><strong>ספר מרכזי</strong></td><td>"Liberal Nationalism" (Princeton UP, 1993)</td></tr>
+      <tr><td><strong>ערכים מוצהרים</strong></td><td>"שוויון, דמוקרטיה, ואחריות חברתית"</td></tr>
+    </table>
+
+    <h3>הדלת המסתובבת</h3>
+    <p>תמיר מייצגת דפוס קלאסי של <strong>דלת מסתובבת</strong> בין אקדמיה, מדיניות והכשרת מורים:</p>
+    <ol>
+      <li><strong>1993:</strong> מפרסמת "Liberal Nationalism" — ביסוס אקדמי בינלאומי</li>
+      <li><strong>2006-2009:</strong> שרת חינוך — עיצוב מדיניות חינוך לאומית (רפורמת "אופק חדש")</li>
+      <li><strong>2014:</strong> חברת מועצת עריכה של "כן בבית ספרנו" — לגיטימציה לפדגוגיה ביקורתית מרקסיסטית</li>
+      <li><strong>2020-היום:</strong> נשיאת בית ברל — הכשרת המורים שיישמו את המדיניות</li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>הנקודה המרכזית:</strong> מי שעיצבה את מדיניות החינוך כשרת חינוך, עומדת כעת בראש המוסד שמכשיר את המורים שמיישמים אותה. זהו לא "ניגוד עניינים" במובן המשפטי — אבל זהו ריכוז כוח יוצא דופן בצומת הקריטי בין מדיניות להכשרה.
+    </div>
+
+    <h3>"כן בבית ספרנו" — הראיה המרכזית</h3>
+
+    <div class="warning-box">
+      <strong>ראיה מתועדת:</strong> הספר "כן בבית ספרנו: מאמרים על חינוך פוליטי" (2014, עורך: ניר מיכאלי) הוא המסמך היחיד בעברית שבו <strong>הפדגוגיה הביקורתית מוגדרת באופן מפורש כ"פרשנות מרקסיסטית"</strong> — לא בפרשנות חיצונית, אלא בכתיבת העורך עצמו. פרופ' יולי תמיר — שרת חינוך לשעבר ונשיאת בית ברל — יושבת במועצת העריכה של ספר זה.
+    </div>
+
+    <p>ב-2014, פרופ' תמיר ישבה במועצת העריכה של הספר "כן בבית ספרנו", לצד ניר מיכאלי (עורך), נמרוד אלוני, אסתר יוגב ואחרים. הספר הוא תוצר של סמינריון מחלקתי בסמינר הקיבוצים, ויצא לאור בשיתוף הקיבוץ המאוחד (סדרת "קו אדום"), מכון מופ"ת, והסתדרות המורים.</p>
+
+    <p>הספר מגדיר במפורש:</p>
+    <ul>
+      <li><strong>פדגוגיה ביקורתית</strong> = "פרשנות מרקסיסטית" (מבוא, עמ' 13)</li>
+      <li><strong>המורה</strong> = "סוכן פוליטי" שתפקידו להציג עמדות בגלוי (עמ' 14)</li>
+      <li><strong>בית הספר</strong> = "סוכן דיכוי" שיש "לשחרר" כשלב ב"שחרור חברתי כולל" (עמ' 13-14)</li>
+    </ul>
+
+    <blockquote>
+      "עמדה זו עולה בקנה אחד עם עמדת הוגי 'הפדגוגיה הביקורתית' שהתפתחה במיוחד בשנות השישים של המאה ה-20, <strong>ושמציעה התבוננות חברתית-כלכלית בחברה האנושית בפרשנות מרקסיסטית</strong>."
+      <br>— ד"ר ניר מיכאלי, מתוך המבוא, עמ' 13
+    </blockquote>
+
+    <h3>למה זה קריטי לבית ברל</h3>
+    <p>השילוב של שלושה עובדות יוצר תמונה שלא ניתן להתעלם ממנה:</p>
+    <ol>
+      <li><strong>תמיר הייתה שרת חינוך</strong> (2006-2009) — עיצבה מדיניות חינוך לאומית</li>
+      <li><strong>תמיר ישבה במועצת העריכה</strong> של ספר שמגדיר חינוך כ"סוכנות פוליטית מרקסיסטית" (2014)</li>
+      <li><strong>תמיר עומדת בראש בית ברל</strong> — מכללה להכשרת מורים (2020-היום)</li>
+    </ol>
+    <p>כלומר: מי שעיצבה את מדיניות החינוך הלאומית, מי שהעניקה לגיטימציה ממסדית לספר שמגדיר הוראה כפעולה מרקסיסטית, עומדת כעת בראש המוסד שמכשיר את המורים שנכנסים לכיתות. זהו צינור סגור: <strong>מדיניות → לגיטימציה אקדמית → הכשרת מורים</strong>.</p>
+
+    <blockquote>
+      <strong>משמעות:</strong> תמיר אינה "רדיקלית" בעצמה — היא פילוסופית ליברלית, תלמידת ברלין. אבל נוכחותה כשרת חינוך לשעבר במועצת העריכה מעניקה <strong>לגיטימציה ממסדית</strong> לתנועה שמתארת עצמה במפורש כמרקסיסטית. זהו תפקיד ה"מאפשרת המוסדית".
+    </blockquote>
+
+    <p><strong><a href="ken_bebeit_safrenu.html" style="color:#c0392b;">&#8594; ניתוח מלא של הספר "כן בבית ספרנו" — ציטוטים, מועצת עריכה, ורשת מוסדית</a></strong></p>
+
+    <h3>הערכים המוצהרים</h3>
+    <p>באתר האישי שלה, תמיר מדגישה שלושה עקרונות: <strong>שוויון, דמוקרטיה, ואחריות חברתית</strong>. היא מתארת את בית ברל כ"מקום יצירתי וחדשני" המשרת את "כל החברה הישראלית". היא מציגה גם את "הקיבוץ האקדמי הראשון בעולם" — מגורים קהילתיים לסטודנטים בקמפוס.</p>
+
+    <p class="source-tag">מקור: <a href="https://yuli-tamir.co.il" target="_blank">yuli-tamir.co.il</a></p>
+    <p class="source-tag">מקור: <a href="radical_tamir.html">radical_tamir.html — פרופיל מלא</a></p>
+    <p class="source-tag">מקור: <a href="ken_bebeit_safrenu.html">ken_bebeit_safrenu.html — ניתוח מלא של הספר "כן בבית ספרנו"</a></p>
+    <p class="source-tag">מקור: <a href="radicals_dashboard.html">radicals_dashboard.html</a></p>
+  </div>
+
+  <!-- ═══ SECTION 5 ═══ -->
+  <div class="section" id="section-5">
+    <h2>5. תוכנית "המהפכה" (hamahapecha.com)</h2>
+
+    <table>
+      <tr><th>נתון</th><th>פרט</th></tr>
+      <tr><td><strong>שם</strong></td><td>המהפכה — תוכנית בית ברל</td></tr>
+      <tr><td><strong>אתר</strong></td><td><a href="http://hamahapecha.com" target="_blank">hamahapecha.com</a> (Wix-based)</td></tr>
+      <tr><td><strong>הנהגה</strong></td><td>פרופ' תמיר מציגה עצמה כמובילת "מהפכה חינוכית"</td></tr>
+      <tr><td><strong>תיאור</strong></td><td>"מהפכה חינוכית" — תוכנית הדרכה שמחייבת סטודנטים "לחשוב ביקורתי"</td></tr>
+    </table>
+
+    <div class="warning-box">
+      <strong>המילה "מהפכה":</strong> מכללה אקדמית להכשרת מורים בוחרת לקרוא לתוכנית הדגל שלה "המהפכה". זו אינה מילה ניטרלית. בשפה הפדגוגית הביקורתית, "מהפכה" אינה מטאפורה — היא מטרה. פאולו פריירה כתב במפורש ש"פדגוגיה של המדוכאים" היא כלי ל"מהפכה תרבותית", והנרי ז'ירו קרא למורים "אינטלקטואלים רדיקליים" שתפקידם "שחרור חברתי טוטלי".<br><br>
+      מכללת בית ברל בחרה בדיוק את המילה הזו לתוכנית שמכשירה מורים שנכנסים לכיתות בבתי ספר ציבוריים.
+    </div>
+
+    <p>האתר hamahapecha.com בנוי על Wix ולא ניתן לקריאה אוטומטית (JavaScript-only rendering). אך עצם קיומו כדומיין נפרד המוקדש לתוכנית מעיד על כוונות הרחבה והבלטה.</p>
+
+    <p class="source-tag">מקור: <a href="http://hamahapecha.com" target="_blank">hamahapecha.com</a></p>
+    <p class="source-tag">מקור: <a href="radical_tamir.html">radical_tamir.html — לשונית "בית ברל"</a></p>
+  </div>
+
+  <!-- ═══ SECTION 6 ═══ -->
+  <div class="section" id="section-6">
+    <h2>6. הקמפוס כמרחב אירוח: AWseeds, דרור ישראל, ומרכז ליאה ארד</h2>
+
+    <p>קמפוס בית ברל אינו רק מכללה. הוא מרחב פיזי המארח מספר גופים חיצוניים — חלקם עם זיקה אידיאולוגית ברורה:</p>
+
+    <h3>6.1 AWseeds (גלי ברוורמן)</h3>
+    <table>
+      <tr><th>נתון</th><th>פרט</th></tr>
+      <tr><td><strong>ארגון</strong></td><td>AWseeds — רשום בלינקדאין כ-Nonprofit, 11-50 עובדים</td></tr>
+      <tr><td><strong>מיקום</strong></td><td>Beit Berl, Israel (לינקדאין)</td></tr>
+      <tr><td><strong>מפעילה</strong></td><td>גלי ברוורמן — עוסקת מורשית, MA באמנות טיפולית</td></tr>
+      <tr><td><strong>תוכנית</strong></td><td>"זרעים של מודעות" — תוכנית גפ"ן 7618</td></tr>
+      <tr><td><strong>מקור המתודולוגיה</strong></td><td>מעובדת מ"המסע אל עצמי" של ליאה ארד, מרכז שמציע גם נומרולוגיה</td></tr>
+    </table>
+    <p>AWseeds יושבת פיזית בקמפוס בית ברל. המיקום מעניק לה לגיטימציה אקדמית למרות שמדובר בעוסקת מורשית (לא עמותה) שמתודולוגיה שלה אינה מבוססת-ראיות (NLP, דימוי מונחה, פרחי באך).</p>
+    <p class="source-tag">מקור: <a href="deep_Gali_Braverman.html">deep_Gali_Braverman.html</a></p>
+
+    <h3>6.2 דרור ישראל — "כפר דרור"</h3>
+    <table>
+      <tr><th>נתון</th><th>פרט</th></tr>
+      <tr><td><strong>גוף</strong></td><td>דרור ישראל — תנועה חברתית-חינוכית, 16+ תוכניות, תקציב ~234 מיליון ש"ח</td></tr>
+      <tr><td><strong>נוכחות בקמפוס</strong></td><td>כפר דרור — קיבוץ חינוכי באזור בית ברל</td></tr>
+      <tr><td><strong>חובת לימוד</strong></td><td>חברי דרור ישראל מחויבים ללמוד אך ורק בבית ברל (אחד מ"שלושת האיסורים")</td></tr>
+      <tr><td><strong>אידיאולוגיה</strong></td><td>מבוססת על "פדגוגיה של המדוכאים" של פריירה. חינוך = מעשה פוליטי.</td></tr>
+    </table>
+
+    <div class="thesis">
+      <strong>הקשר הקריטי:</strong> דרור ישראל — ארגון עם תקציב של 234 מיליון ש"ח, 16+ תוכניות בגפ"ן, וקיבוצים חינוכיים ברחבי הארץ — <strong>מחייב</strong> את חבריו ללמוד אך ורק בבית ברל. המכללה היא כמעין "בית ספר התנועה" של דרור ישראל. כשדרור ישראל מגדירה במפורש את החינוך כ"מעשה פוליטי" (על בסיס פריירה), ובוגריה מיועדים להיכנס לכיתות כמורים — הצינור מבית ברל לכיתה הציבורית ברור.
+    </div>
+
+    <p class="source-tag">מקור: <a href="deep_Yesodot_Dror.html">deep_Yesodot_Dror.html</a></p>
+
+    <h3>6.3 מרכז ליאה ארד</h3>
+    <p>מרכז ליאה ארד פועל גם הוא מבית ברל. המרכז מציע "המסע אל עצמי" — סדנת פיתוח אישי למבוגרים, שממנה הופקה תוכנית "זרעים של מודעות" לנוער. המרכז מציע גם סדנאות נומרולוגיה — פסאודו-מדע — לצד פסיכולוגיה הוליסטית.</p>
+    <p class="source-tag">מקור: <a href="deep_Gali_Braverman.html">deep_Gali_Braverman.html — סעיף 4</a></p>
+  </div>
+
+  <!-- ═══ SECTION 7 ═══ -->
+  <div class="section" id="section-7">
+    <h2>7. צינור ההשפעה: מבית ברל לכיתה</h2>
+
+    <p>מכללת בית ברל אינה פועלת בבידוד. היא חוליה מרכזית בצינור מוסדי שמתחיל ברמה הבינלאומית ומסתיים בכיתת הלימוד:</p>
+
+    <h3>7.1 הצינור הישיר</h3>
+    <ol>
+      <li><strong>אונסק"ו / SDG 4.7:</strong> מסגרות בינלאומיות לאזרחות גלובלית ורב-תרבותיות. אונסק"ו מצטטת את מרקוזה (2022).</li>
+      <li><strong>קתדרת אונסק"ו בבית ברל:</strong> מתרגמת את המסגרת הבינלאומית לתוכניות הכשרה ישראליות.</li>
+      <li><strong>תוכניות הלימוד של בית ברל:</strong> "מתודות פרוגרסיביות", "חשיבה ביקורתית ויצירתית" — מוטמעות בהכשרת המורים.</li>
+      <li><strong>דרור ישראל — מסלול ייעודי:</strong> חברי התנועה לומדים בבית ברל ויוצאים כמורים עם אידיאולוגיה מגובשת.</li>
+      <li><strong>תוכניות גפ"ן:</strong> בוגרי בית ברל נכנסים לבתי ספר ציבוריים דרך תוכניות גפ"ן ומסלולי הכשרה.</li>
+      <li><strong>הכיתה:</strong> ההורים רואים "מורה מוסמך" — לא רואים את שרשרת ההכשרה שמאחוריו.</li>
+    </ol>
+
+    <h3>7.2 בית ברל בתוך מפת הכשרת המורים</h3>
+    <p>שלוש מכללות להכשרת מורים מזוהות עם צינור הפדגוגיה הביקורתית בישראל:</p>
+    <table>
+      <tr><th>מכללה</th><th>קתדרת אונסק"ו</th><th>דמות מפתח</th><th>זיקה</th></tr>
+      <tr>
+        <td><strong>סמינר הקיבוצים</strong></td>
+        <td>חינוך הומניסטי</td>
+        <td>נמרוד אלוני, ניר מיכאלי</td>
+        <td>המרכז לפדגוגיה ביקורתית</td>
+      </tr>
+      <tr>
+        <td><strong>בית ברל</strong></td>
+        <td>רב-תרבותיות בהכשרת מורים</td>
+        <td>יולי תמיר</td>
+        <td>דרור ישראל, "המהפכה", AWseeds</td>
+      </tr>
+      <tr>
+        <td><strong>אורנים</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td>הכשרת מורים בפריפריה הצפונית</td>
+      </tr>
+    </table>
+
+    <h3>7.3 תוכניות בית ברל בנתוני הגפ"ן</h3>
+    <p>מתוך ניתוח נתוני data.js, בית ברל מזוהה עם:</p>
+    <ul>
+      <li><strong>מסלול חינוך בלתי פורמלי:</strong> "מתודות פרוגרסיביות, סדנאות קבוצתיות, סיורים" — ציטוט ישיר מתיאור התוכנית</li>
+      <li><strong>מסלול קידום נוער:</strong> "פיתוח חשיבה ביקורתית ויצירתית" — ציטוט ישיר</li>
+      <li><strong>מכללת אלטריק:</strong> תוכנית "תרבות פנאי לבני נוער" (גפ"ן 2727), שסוקר אנושי ציין כי מקורה "מבית היוצר של בית ברל על כל התכנים הפרוגרסיביים-קומוניסטיים של המוסד"</li>
+    </ul>
+
+    <p class="source-tag">מקור: data.js — תוכנית 2727</p>
+    <p class="source-tag">מקור: אתר מכללת בית ברל — מסלולי לימוד</p>
+    <p class="source-tag">מקור: <a href="critical_pedagogy_center.html">critical_pedagogy_center.html — צינור ההשפעה, שלב 4</a></p>
+  </div>
+
+  <!-- ═══ SECTION 8 ═══ -->
+  <div class="section" id="section-8">
+    <h2>8. סיווג: פרוגרסיבי חתרני — הנימוקים</h2>
+
+    <div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+
+    <h3>למה "פרוגרסיבי חתרני" ולא "שמאל גלוי"?</h3>
+
+    <p>מבחן הסיווג שואל שאלה אחת: <strong>האם יש פער בין מה שהמוסד אומר על עצמו לבין מה שהוא עושה?</strong> אם הפער מכוון — זו חתרנות. אם הארגון גלוי — זה שמאל שקוף ולגיטימי.</p>
+
+    <p>בית ברל מסווגת כ"פרוגרסיבי חתרני" על בסיס שבעה פערים מתועדים:</p>
+
+    <ol>
+      <li>
+        <strong>פער ההצגה:</strong> מציגה עצמה כ"מכללה אקדמית" ניטרלית — אך מפעילה תוכנית בשם "המהפכה". בשפה אקדמית ניטרלית, לא קוראים לתוכנית "מהפכה".
+        <span class="source-tag">מקור: hamahapecha.com</span>
+      </li>
+      <li>
+        <strong>פער ההנהגה:</strong> הנשיאה מוצגת כ"פרופסור מהמיינסטרים" — אך ישבה במועצת עריכה של ספר שמגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית".
+        <span class="source-tag">מקור: "כן בבית ספרנו" 2014</span>
+      </li>
+      <li>
+        <strong>פער הטרמינולוגיה:</strong> באתר כתוב "הכשרת מורים". בתוכנית הלימודים כתוב "מתודות פרוגרסיביות" ו"חשיבה ביקורתית" — מונחים שנקשרים בספרות המקצועית לפדגוגיה ביקורתית מרקסיסטית.
+        <span class="source-tag">מקור: data.js — תיאורי תוכניות בית ברל</span>
+      </li>
+      <li>
+        <strong>פער הקמפוס:</strong> "קמפוס אקדמי פתוח" — אך מארח בפועל את AWseeds (פסאודו-מדע בגפ"ן), מרכז ליאה ארד (נומרולוגיה), וכפר דרור (תנועה שמבססת חינוך על פריירה).
+        <span class="source-tag">מקור: deep_Gali_Braverman.html, deep_Yesodot_Dror.html</span>
+      </li>
+      <li>
+        <strong>פער הרב-תרבותיות:</strong> "רב-תרבותיות" נשמעת חיובית — אך הקתדרה מסומנת כ"רלוונטיות גבוהה ל-SDG 4.7", היעד שבו אונסק"ו דורשת "סירוב למחקר" שאינו מתיישר עם האג'נדה.
+        <span class="source-tag">מקור: unesco_israel_deep_connection.html</span>
+      </li>
+      <li>
+        <strong>פער הבחירה:</strong> דרור ישראל — תנועה עם אידיאולוגיה מפורשת של פדגוגיה ביקורתית — מחייבת את חבריה ללמוד דווקא בבית ברל. אם בית ברל הייתה ניטרלית, למה דרור ישראל לא מרשה לחבריה ללמוד במקום אחר?
+        <span class="source-tag">מקור: deep_Yesodot_Dror.html — "שלושת האיסורים"</span>
+      </li>
+      <li>
+        <strong>פער הדלת המסתובבת:</strong> שרת חינוך שעיצבה מדיניות → נשיאת מכללה שמכשירה את המורים שמיישמים אותה. אקדמיה "ניטרלית" לא תהיה מנוהלת על ידי פוליטיקאית שעיצבה מדיניות חינוך.
+        <span class="source-tag">מקור: radical_tamir.html</span>
+      </li>
+    </ol>
+
+    <h3>למה לא "שמאל גלוי"?</h3>
+    <p>ארגון "שמאל גלוי" מודה בעמדותיו. בית ברל לא עושה זאת. האתר הרשמי מדבר על "חינוך", "הכשרה", "מקצועיות" — לא על "מהפכה", "מתודות פרוגרסיביות", "חשיבה ביקורתית" במובן הפריירי, או קשר ל-SDG 4.7. הפערים נחשפים רק כשמרחיקים את המבט מהאתר הרשמי ומסתכלים על מה שמתרחש בפועל: התוכניות, הקמפוס, ההנהגה, והקשרים.</p>
+
+    <h3>הערת מתינות</h3>
+    <blockquote>
+      <strong>מה שאינו נטען:</strong> לא נטען שכל מורה שלומד בבית ברל מקבל הכשרה רדיקלית. לא נטען שתמיר היא "רדיקלית" (היא ליברלית קלאסית). לא נטען שרב-תרבותיות היא רעה מטבעה. הטענה מצומצמת: <strong>קיים פער מתועד בין אופן הצגת המכללה לציבור לבין מה שמתרחש בתוכה ומסביבה</strong>, והפער הזה עקבי מספיק כדי להצביע על דפוס, לא על צירוף מקרים.
+    </blockquote>
+  </div>
+
+  <!-- ═══ SECTION 9 ═══ -->
+  <div class="section" id="section-9">
+    <h2>9. שאלות פתוחות למחקר נוסף</h2>
+    <ol>
+      <li>מי מנהל את קתדרת אונסק"ו בבית ברל כיום? מהן תוכניות המחקר שלה?</li>
+      <li>מה בדיוק כולל תוכנית "המהפכה"? מה הסילבוס? מי מרצה?</li>
+      <li>כמה בוגרי בית ברל נכנסו למערכת החינוך הציבורית בעשור האחרון? באילו בתי ספר?</li>
+      <li>מהם הקשרים הפיננסיים בין בית ברל לבין קרנות כגון NIF, יד הנדיב, קרן לאוטמן?</li>
+      <li>האם "הקיבוץ האקדמי" הוא קיבוץ חינוכי של דרור ישראל בשם אחר?</li>
+      <li>מהן ההשתלמויות שבית ברל מציעה למורים בשירות דרך מערכת הגפ"ן?</li>
+      <li>כמה מחברי דרור ישראל מוכשרים בפועל בבית ברל מדי שנה?</li>
+      <li>מהו הקשר בין "מתודות פרוגרסיביות" בתיאור התוכנית לבין פדגוגיה ביקורתית במובנה המקצועי?</li>
+    </ol>
+  </div>
+
+  <!-- ═══ SECTION 10 ═══ -->
+  <div class="section" id="section-10">
+    <h2>10. מקורות</h2>
+
+    <h3>מקורות ראשוניים — אתרי המוסד</h3>
+    <ul>
+      <li><a href="https://www.beitberl.ac.il" target="_blank">beitberl.ac.il</a> — אתר רשמי מכללת בית ברל</li>
+      <li><a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">beitberl.ac.il/research/unesco</a> — קתדרת אונסק"ו לרב-תרבותיות בהכשרת מורים</li>
+      <li><a href="http://hamahapecha.com" target="_blank">hamahapecha.com</a> — תוכנית "המהפכה" של בית ברל</li>
+      <li><a href="https://yuli-tamir.co.il" target="_blank">yuli-tamir.co.il</a> — אתר אישי פרופ' יולי תמיר</li>
+    </ul>
+
+    <h3>מקורות משניים — מחקרי פרויקט דירוג ערים</h3>
+    <ul>
+      <li><a href="radical_tamir.html">radical_tamir.html</a> — פרופיל מחקרי: פרופ' יולי תמיר</li>
+      <li><strong><a href="ken_bebeit_safrenu.html">ken_bebeit_safrenu.html</a></strong> — ניתוח מלא: "כן בבית ספרנו" — ציטוטים, מועצת עריכה, ורשת מוסדית</li>
+      <li><a href="deep_Gali_Braverman.html">deep_Gali_Braverman.html</a> — דוח מחקר: גלי ברוורמן / AWseeds</li>
+      <li><a href="deep_Yesodot_Dror.html">deep_Yesodot_Dror.html</a> — דוח מחקר: יסודות / דרור ישראל</li>
+      <li><a href="critical_pedagogy_center.html">critical_pedagogy_center.html</a> — המרכז לפדגוגיה ביקורתית, סמינר הקיבוצים</li>
+      <li><a href="radicals_dashboard.html">radicals_dashboard.html</a> — לוח מעקב דמויות רדיקליות</li>
+      <li><a href="unesco_israel_deep_connection.html">unesco_israel_deep_connection.html</a> — קשר אונסק"ו-ישראל</li>
+    </ul>
+
+    <h3>מקורות נתונים</h3>
+    <ul>
+      <li><code>data.js</code> — נתוני גפ"ן, תוכניות 2727 (מכללת אלטריק/בית ברל)</li>
+      <li>IDEA_MAP.md — מפת הרעיונות של הפרויקט, סעיף 5: צינור מוסדי ישראלי</li>
+    </ul>
+
+    <h3>מקורות בינלאומיים</h3>
+    <ul>
+      <li>UNESCO — Agenda 2030, SDG 4.7: Global Citizenship Education (GCED)</li>
+      <li>UNESCO (2022) — מסמך שמצטט את מרקוזה כ"עסקים לא גמורים"</li>
+      <li><a href="ken_bebeit_safrenu.html">"כן בבית ספרנו" (2014)</a> — עורך: ניר מיכאלי. מועצת עריכה: תמיר, אלוני, יוגב ואחרים. <strong>מגדיר פדגוגיה ביקורתית כ"פרשנות מרקסיסטית"</strong></li>
+      <li>Giroux, H.A. — "Teachers as Transformative Intellectuals" (על הגדרת המורה כ"סוכן שינוי")</li>
+      <li>Freire, P. — "Pedagogy of the Oppressed" (1968) — הבסיס התיאורטי של דרור ישראל</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | נוצר: 27.02.2026 | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

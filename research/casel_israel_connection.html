@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASEL לישראל — הצינור המלא | מחקר מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding .icon { font-size: 1.5em; flex-shrink: 0; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Pipeline diagram -- */
+.pipeline {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 30px 10px; flex-wrap: wrap;
+    background: #fafbff; border-radius: 8px; border: 1px solid #e8e8e8;
+    margin: 16px 0;
+}
+.pipe-node {
+    text-align: center; padding: 16px 14px;
+    background: #fff; border-radius: 8px;
+    border: 2px solid #667eea; min-width: 130px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.pipe-node:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.pipe-node .p-icon { font-size: 1.8em; margin-bottom: 4px; }
+.pipe-node .p-title { font-weight: 700; font-size: 0.9em; color: #1a1a2e; }
+.pipe-node .p-sub { font-size: 0.72em; color: #888; margin-top: 2px; }
+.pipe-node.source { border-color: #e74c3c; }
+.pipe-node.hub { border-color: #ff8800; background: #fffaf0; }
+.pipe-node.target { border-color: #27ae60; }
+.pipe-arrow {
+    font-size: 1.8em; color: #667eea; padding: 0 6px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .pipeline { flex-direction: column; gap: 8px; }
+    .pipe-arrow { transform: rotate(90deg); }
+}
+
+/* -- Timeline -- */
+.timeline { position: relative; padding-right: 30px; margin: 20px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; padding: 14px 20px 14px 0; margin-bottom: 8px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.critical::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-date { font-size: 0.78em; color: #ff8800; font-weight: 700; }
+.tl-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; }
+.tl-desc { font-size: 0.85em; color: #555; margin-top: 2px; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333; font-size: 0.9em;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; margin-left: 6px;
+}
+.badge.red { background: #fef2f2; color: #dc2626; }
+.badge.orange { background: #fff7ed; color: #ea580c; }
+.badge.blue { background: #eff6ff; color: #2563eb; }
+.badge.green { background: #f0fdf4; color: #16a34a; }
+.badge.gray { background: #f5f5f5; color: #666; }
+
+/* -- Pipeline step -- */
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-step.critical { border-right-color: #e74c3c; }
+.pipeline-step.critical .step-num { color: #e74c3c; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+/* -- Person card -- */
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+/* -- Naming gap -- */
+.naming-gap {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin: 14px 0; flex-wrap: wrap;
+}
+.ng-box {
+    padding: 10px 18px; border-radius: 8px; font-weight: 700;
+    text-align: center; font-size: 0.9em;
+}
+.ng-box.usa { background: #e8f4fd; color: #1a6fb5; border: 1px solid #b3d9f2; }
+.ng-box.bridge { background: #fff5e6; color: #b87300; border: 1px solid #f0d9a8; }
+.ng-box.israel { background: #e8fde8; color: #1a7a1a; border: 1px solid #b3e8b3; }
+.ng-arrow { font-size: 1.3em; color: #999; }
+
+/* -- Funder card -- */
+.funder-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+.funder-card:hover { transform: translateY(-2px); }
+.funder-card h4 { font-size: 0.95em; color: #1a1a2e; margin-bottom: 6px; }
+.funder-card .f-role { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 4px; }
+.funder-card .f-detail { font-size: 0.85em; color: #555; }
+.funder-card.primary { border-right: 4px solid #ff8800; }
+.funder-card.cross { border-right: 4px solid #e74c3c; }
+
+/* -- Link card -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Competency list -- */
+.comp-list { list-style: none; padding: 0; }
+.comp-list li {
+    padding: 10px 14px; margin-bottom: 8px;
+    background: #f8f9fa; border-radius: 6px;
+    border-right: 3px solid #667eea;
+    font-size: 0.92em;
+}
+.comp-list li strong { color: #2a5a8a; }
+
+/* -- Org card -- */
+.org-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.org-card h4 { font-weight: 700; color: #1a1a2e; font-size: 1em; margin-bottom: 6px; }
+.org-card .org-type { font-size: 0.82em; color: #ff8800; font-weight: 600; margin-bottom: 4px; }
+.org-card .org-detail { font-size: 0.85em; color: #555; }
+.org-card.primary { border-right: 4px solid #ff8800; }
+.org-card.secondary { border-right: 4px solid #667eea; }
+.org-card.gov { border-right: 4px solid #27ae60; }
+
+/* -- Provenance marker -- */
+.prov {
+    display: inline-block; font-size: 0.7em; padding: 1px 7px;
+    border-radius: 8px; font-weight: 600; margin-right: 4px;
+    vertical-align: middle;
+}
+.prov.web { background: #e8f4fd; color: #1a6fb5; }
+.prov.doc { background: #fef2f2; color: #dc2626; }
+.prov.gov { background: #f0fdf4; color: #16a34a; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>CASEL &rarr; ישראל</span>
+            <span class="risk-pill">מחקר מעמיק</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('casel')">CASEL</button>
+            <button class="nav-tab" onclick="showTab('pipeline')">הצינור לישראל</button>
+            <button class="nav-tab" onclick="showTab('orgs')">ארגונים ישראליים</button>
+            <button class="nav-tab" onclick="showTab('problem')">הבעיה</button>
+            <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>הצינור מ-CASEL לכיתות בישראל</h1>
+    <div class="subtitle">כיצד מסגרת SEL אמריקאית חדרה למערכת החינוך הישראלית דרך יד הנדיב, אבני ראשה ומשרד החינוך</div>
+    <div class="meta">CASEL (1994, שיקגו) | $18M שיא הכנסות | 3,000+ מנהלים ישראליים הוכשרו | 40% מכלל המנהלים | Transformative SEL &mdash; המפנה של 2020 | RAND: אפס ראיות</div>
+</div>
+
+<div class="container">
+
+    <!-- ============================================================ -->
+    <!-- TAB 1: CASEL -->
+    <!-- ============================================================ -->
+    <div id="view-casel" class="view active">
+
+        <div class="section">
+            <h2>מה זה CASEL?</h2>
+            <p><span class="prov web">WEB-SEARCH</span> <strong>CASEL</strong> &mdash; Collaborative for Academic, Social, and Emotional Learning &mdash; הוא הארגון הדומיננטי בעולם בהגדרה, קידום ומדיניות של למידה חברתית-רגשית (Social-Emotional Learning, SEL). הארגון נוסד ב-1994 בשיקגו על ידי <strong>ד"ר רוג'ר פ. וייסברג</strong> (Roger P. Weissberg) ו<strong>דניאל גולמן</strong> (Daniel Goleman), מחבר הספר "אינטליגנציה רגשית".</p>
+
+            <p><span class="prov web">WEB-SEARCH</span> החזון המוצהר של CASEL: <em>"all children and adults as self-aware, caring, responsible, engaged, and lifelong learners who work together to achieve their goals and create a more inclusive, just world."</em> &mdash; casel.org/about-us</p>
+
+            <div class="grid-4">
+                <div class="metric alert">
+                    <div class="label">שיא הכנסות</div>
+                    <div class="value">$18M</div>
+                    <div class="note">2022 &mdash; ESSER funds</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">הכנסות FY2024</div>
+                    <div class="value">$11.7M</div>
+                    <div class="note">+136% מ-$5M ב-2023</div>
+                </div>
+                <div class="metric">
+                    <div class="label">נוסד</div>
+                    <div class="value">1994</div>
+                    <div class="note">שיקגו, ארה"ב</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מדינות עם תקני SEL</div>
+                    <div class="value">50</div>
+                    <div class="note">תקני SEL בגנים, 27+ K-12</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>"גלגל CASEL" &mdash; 5 יכולות ליבה</h2>
+            <p><span class="prov web">WEB-SEARCH</span> CASEL מגדיר מסגרת של 5 יכולות חברתיות-רגשיות שעל כל תלמיד לפתח. ההגדרה הרשמית מ-casel.org:</p>
+
+            <div class="quote-box">
+                "Social and emotional learning (SEL) is the process through which all young people and adults acquire and apply the knowledge, skills, and attitudes to develop healthy identities, manage emotions and achieve personal and collective goals, feel and show empathy for others, establish and maintain supportive relationships, and make responsible and caring decisions."
+                <div class="q-source">&mdash; CASEL, הגדרה רשמית (casel.org/fundamentals-of-sel)</div>
+            </div>
+
+            <ul class="comp-list">
+                <li><strong>1. מודעות עצמית (Self-Awareness)</strong> &mdash; הבנת רגשות, חוזקות וחולשות; "develop healthy identities"</li>
+                <li><strong>2. ניהול עצמי (Self-Management)</strong> &mdash; ויסות רגשי, שליטה עצמית, הצבת מטרות</li>
+                <li><strong>3. מודעות חברתית (Social Awareness)</strong> &mdash; אמפתיה, הבנת אחרים ונקודות מבט שונות</li>
+                <li><strong>4. מיומנויות יחסים (Relationship Skills)</strong> &mdash; תקשורת, שיתוף פעולה, פתרון קונפליקטים</li>
+                <li><strong>5. קבלת החלטות אחראית (Responsible Decision-Making)</strong> &mdash; בחירות אתיות ובטוחות</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>נשמע טוב?</strong> אכן, היכולות הללו נשמעות טבעיות וסבירות. זו הסיבה שההגנה הביקורתית עליהן מקשה: מי יתנגד ל"אמפתיה" ול"קבלת החלטות אחראית"? אבל השאלה המכרעת היא: <strong>מה קרה ב-2020 כשהתוכן שהוכנס לתוך המסגרת השתנה</strong>.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מקורות מימון של CASEL</h2>
+            <p><span class="prov web">WEB-SEARCH</span> CASEL ממומנת על ידי שלוש מהקרנות הגדולות בעולם:</p>
+
+            <div class="grid-3">
+                <div class="funder-card primary">
+                    <h4>Bill &amp; Melinda Gates Foundation</h4>
+                    <div class="f-role">תורם מרכזי &mdash; ~$4.5M+</div>
+                    <div class="f-detail">הקרן הגדולה בעולם. מממנת את CASEL מראשיתו. ממנפת את SEL לתוך מערכות חינוך ציבוריות.</div>
+                </div>
+                <div class="funder-card primary">
+                    <h4>NoVo Foundation</h4>
+                    <div class="f-role">תורם אסטרטגי &mdash; $4.2M+</div>
+                    <div class="f-detail">קרן פיטר באפט. מתמקדת ב"empathy" ו-"social-emotional well-being". שותפה אסטרטגית ל-CASEL.</div>
+                </div>
+                <div class="funder-card primary">
+                    <h4>Chan Zuckerberg Initiative (CZI)</h4>
+                    <div class="f-role">תורם מרכזי</div>
+                    <div class="f-detail">יוזמת צוקרברג-צ'אן. מממנת טכנולוגיה חינוכית ותוכניות SEL בבתי ספר ציבוריים.</div>
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="funder-card">
+                    <h4>Allstate Foundation</h4>
+                    <div class="f-role">שותפה מוצהרת</div>
+                    <div class="f-detail">ממנפת את פלטפורמת CASEL ותוכניות הכשרה.</div>
+                </div>
+                <div class="funder-card">
+                    <h4>Spencer Foundation</h4>
+                    <div class="f-role">מימון מחקר</div>
+                    <div class="f-detail">מימון מחקר אקדמי על יעילות SEL.</div>
+                </div>
+                <div class="funder-card cross">
+                    <h4>1954 Project &mdash; Schusterman</h4>
+                    <div class="f-role">אקוסיסטם משותף</div>
+                    <div class="f-detail">$1M למנהיגים שמשתמשים ב-Transformative SEL. Schusterman פעילה גם בישראל.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>RAND Corporation: אפס ראיות</h2>
+            <div class="metric alert" style="max-width: 400px; margin: 0 auto 16px;">
+                <div class="label">ממצא RAND 2023</div>
+                <div class="value">0 ראיות</div>
+                <div class="note">אפס ראיות ליעילות תוכניות SEL ברמה המערכתית</div>
+            </div>
+
+            <p><span class="prov doc">WEB-SEARCH</span> תאגיד RAND &mdash; אחד ממכוני המחקר היוקרתיים בעולם &mdash; פרסם ב-2023 סקירה שיטתית (Research Report RRA1822-1) של תוכניות SEL שיישמו ברמה המערכתית (schoolwide / districtwide). הממצא המרכזי:</p>
+
+            <div class="warning-box">
+                <strong>ממצא RAND:</strong> מרבית תוכניות ה-SEL שנבדקו לא הציגו השפעה מובהקת סטטיסטית על תוצאות תלמידים. הסקירה מצאה שכאשר SEL מיושם ברמה מערכתית (ולא כניסוי מצומצם), <strong>אין ראיות מספקות שהתוכניות אפקטיביות</strong>. זה בניגוד גמור לטענות CASEL על "11 percentile points" ו-"$11 return for every $1 invested".
+            </div>
+
+            <div class="quote-box">
+                הפער בין ממצאי RAND לבין טענות CASEL נובע מכך שמרבית המחקרים שמצטט CASEL הם ניסויים קטנים ומבוקרים (RCT) שנעשו בתנאי "מעבדה", לא יישומים מערכתיים בשטח. כאשר המדיניות מיושמת במציאות &mdash; ההשפעה מתנדפת.
+                <div class="q-source">&mdash; סינתזה מממצאי RAND Corporation, 2023</div>
+            </div>
+
+            <p>CASEL עצמו טוען, בניגוד ל-RAND, כי:</p>
+            <div class="quote-box">
+                "Students in SEL programs demonstrated academic performance gains of 11 percentile points compared to non-participants... for every dollar invested in SEL there is an $11 return."
+                <div class="q-source">&mdash; CASEL, What Does the Research Say (casel.org)</div>
+            </div>
+
+            <div class="info-box">
+                <strong>הסתירה:</strong> CASEL ממשיך לצטט נתונים חיוביים בעוד RAND &mdash; גוף עצמאי &mdash; מצא שבתנאי מציאות, אין ראיות ליעילות. למרות זאת, ישראל ממשיכה ליישם.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ציר זמן: התפתחות CASEL</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-date">1968</div>
+                    <div class="tl-title">ד"ר ג'יימס קומר &mdash; Yale Child Study Center</div>
+                    <div class="tl-desc">פיתח תוכניות לתמיכה ב-"whole child" שהוו בסיס מושגי ל-SEL.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">1994</div>
+                    <div class="tl-title">CASEL נוסד בשיקגו</div>
+                    <div class="tl-desc">וייסברג וגולמן מייסדים את CASEL. ספר "Emotional Intelligence" מפרסם את הרעיון.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">1997</div>
+                    <div class="tl-title">פרסום מסגרת ראשונית</div>
+                    <div class="tl-desc">תשעה חוקרים מפרסמים הנחיות שמגדירות את תחום ה-SEL.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2007</div>
+                    <div class="tl-title">אבני ראשה מוקם בישראל</div>
+                    <div class="tl-desc">יד הנדיב (רוטשילד) + משרד החינוך מייסדים את אבני ראשה.</div>
+                </div>
+                <div class="tl-item critical">
+                    <div class="tl-date">2019</div>
+                    <div class="tl-title">מאמר Transformative SEL</div>
+                    <div class="tl-desc">Jagers, Rivas-Drake &amp; Williams מפרסמים ב-Educational Psychologist את המסגרת שתהפוך ל-Transformative SEL.</div>
+                </div>
+                <div class="tl-item critical">
+                    <div class="tl-date">2020</div>
+                    <div class="tl-title">CASEL אימץ רשמית Transformative SEL</div>
+                    <div class="tl-desc">המפנה: SEL כבר לא "ניטרלי" אלא כלי לקידום "equity, social justice, identity".</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2022</div>
+                    <div class="tl-title">שיא הכנסות: $18M</div>
+                    <div class="tl-desc">כספי ESSER (קורונה) מזרימים $18M ל-CASEL. ביקורת גוברת מימין.</div>
+                </div>
+                <div class="tl-item critical">
+                    <div class="tl-date">2023</div>
+                    <div class="tl-title">RAND: אפס ראיות</div>
+                    <div class="tl-desc">RAND Corporation מפרסם סקירה שמוצאת אפס ראיות ליעילות SEL מערכתית.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-date">2025</div>
+                    <div class="tl-title">משרד החינוך האמריקאי (Trump) תוקף SEL</div>
+                    <div class="tl-desc">ממשל טראמפ מזהה SEL כ-"סוס טרויאני" לתוכן אידיאולוגי. CASEL מפרסם הצהרה.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 2: הצינור לישראל -->
+    <!-- ============================================================ -->
+    <div id="view-pipeline" class="view">
+
+        <div class="section">
+            <h2>הצינור המלא: מ-CASEL לכיתה הישראלית</h2>
+            <p><span class="prov web">WEB-SEARCH</span> מסגרת CASEL האמריקאית חדרה לישראל דרך שרשרת מוסדית ברורה. זהו הצינור המלא:</p>
+
+            <!-- Main pipeline diagram -->
+            <div class="pipeline">
+                <div class="pipe-node source">
+                    <div class="p-title">CASEL</div>
+                    <div class="p-sub">ארה"ב | מסגרת SEL</div>
+                    <div class="p-sub">$18M | 1994</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node" style="border-color:#9b59b6;">
+                    <div class="p-title">יד הנדיב</div>
+                    <div class="p-sub">רוטשילד | מימון</div>
+                    <div class="p-sub">SEL = תחום מוצהר</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node hub">
+                    <div class="p-title">אבני ראשה</div>
+                    <div class="p-sub">הכשרת מנהלים</div>
+                    <div class="p-sub">3,000+ מנהלים</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node" style="border-color:#2c3e50;">
+                    <div class="p-title">חוזרי מנכ"ל</div>
+                    <div class="p-sub">מנדט רשמי</div>
+                    <div class="p-sub">משרד החינוך</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node" style="border-color:#e67e22;">
+                    <div class="p-title">שפ"י</div>
+                    <div class="p-sub">כלים + יישום</div>
+                    <div class="p-sub">מפתח הל"ב</div>
+                </div>
+                <div class="pipe-arrow">&larr;</div>
+                <div class="pipe-node target">
+                    <div class="p-title">כיתות</div>
+                    <div class="p-sub">1,000+ בתי ספר</div>
+                    <div class="p-sub">תלמידים</div>
+                </div>
+            </div>
+            <p style="font-size:0.78em; color:#888; text-align:center; margin-top:6px;">הצינור: CASEL &rarr; יד הנדיב (מימון) &rarr; אבני ראשה (הכשרה) &rarr; חוזרי מנכ"ל (מנדט) &rarr; שפ"י + מפתח הל"ב (יישום) &rarr; כיתות</p>
+        </div>
+
+        <div class="section">
+            <h2>שלב אחר שלב</h2>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">CASEL &mdash; המקור (שיקגו, ארה"ב)</div>
+                    <div class="step-desc"><span class="prov web">WEB-SEARCH</span> הארגון שהגדיר את מסגרת ה-5 יכולות (Self-Awareness, Self-Management, Social Awareness, Relationship Skills, Responsible Decision-Making). ב-2020 הוסיף את "Transformative SEL" שמקשרת SEL ל-equity, social justice ו-critical consciousness. הכנסות שיא: $18M (2022). מממנים: Gates, NoVo, CZI.</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&darr;</div>
+
+            <div class="pipeline-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">יד הנדיב (קרן רוטשילד) &mdash; המתווך</div>
+                    <div class="step-desc"><span class="prov web">WEB-SEARCH</span> קרן רוטשילד בישראל. באתר הרשמי מפרטת "Social and Emotional Learning" כתחום פעילות מוצהר. ייסדה את אבני ראשה ב-2007 בשותפות משרד החינוך. מממנת את פעילות המכון באופן שוטף. מנהלת תוכניות חינוך כולל Meisharim (בתי ספר נמוכי הישגים), Teacher Leaders, ו-Early Childhood.</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&darr;</div>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">אבני ראשה &mdash; הנקודה הקריטית</div>
+                    <div class="step-desc"><span class="prov web">WEB-SEARCH</span> המכון להנהגה בחינוך. הוקם 2007 כיוזמה משותפת של משרד החינוך ויד הנדיב. אחראי על "הכשרה ופיתוח מקצועי של כל מנהלי בתי הספר והמפקחים בישראל". הכשיר 3,000+ מנהלים (40% מכלל המנהלים). תקציב: ~16M ש"ח (2022), 87% מקרנות פילנתרופיות. אימץ מסגרת 10 אינדיקטורים שמבוססת על CASEL.</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&darr;</div>
+
+            <div class="pipeline-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">חוזרי מנכ"ל משרד החינוך &mdash; המנדט</div>
+                    <div class="step-desc">חוזרי מנכ"ל משרד החינוך מחייבים בתי ספר ליישם "כישורי חיים" ו"למידה רגשית-חברתית" &mdash; שהם אותו תוכן CASEL בדיוק, תחת שמות עבריים, <strong>מבלי לציין את המקור האמריקאי</strong>.</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&darr;</div>
+
+            <div class="pipeline-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <div class="step-title">שפ"י + מפתח הל"ב &mdash; היישום בכיתה</div>
+                    <div class="step-desc">השירות הפסיכולוגי-ייעוצי (שפ"י) ותוכנית "מפתח הל"ב" (למידת ביטוי) מתרגמים את המסגרת לכלי כיתה מעשיים. התוכנית מגיעה לתלמידים כפעילויות "חינוך רגשי" ללא שקיפות לגבי המקור התיאורטי.</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&darr;</div>
+
+            <div class="pipeline-step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                    <div class="step-title">1,000+ בתי ספר &mdash; כיתות בישראל</div>
+                    <div class="step-desc">תלמידים חווים תוכניות SEL מתורגמות, לעתים ללא שהורים או מורים מודעים למקור האמריקאי או למפנה האידיאולוגי של 2020.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>המספרים</h2>
+            <div class="grid-4">
+                <div class="metric alert">
+                    <div class="label">מנהלים שהוכשרו</div>
+                    <div class="value">3,000+</div>
+                    <div class="note">אבני ראשה, מאז 2007</div>
+                </div>
+                <div class="metric alert">
+                    <div class="label">אחוז מכלל המנהלים</div>
+                    <div class="value">40%</div>
+                    <div class="note">מוסד בודד הכשיר 40%</div>
+                </div>
+                <div class="metric warn">
+                    <div class="label">בתי ספר מיישמים</div>
+                    <div class="value">1,000+</div>
+                    <div class="note">10 אינדיקטורים ל-SEL מערכתי</div>
+                </div>
+                <div class="metric">
+                    <div class="label">מפקחים שהוכשרו</div>
+                    <div class="value">270</div>
+                    <div class="note">פיתוח מקצועי</div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>ריכוז חסר תקדים:</strong> אין מדינת OECD אחרת שבה מוסד בודד, שממומן ברובו מקרנות פילנתרופיות זרות, הכשיר 40% ממנהלי בתי הספר. זהו ריכוז השפעה יוצא דופן שעוקף את הפיקוח הציבורי.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>שינוי שם &mdash; אותו תוכן</h2>
+            <p>הצינור כולל מנגנון "תרגום" שמעלים את המקור האמריקאי:</p>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">CASEL: "5 Core Competencies"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "10 אינדיקטורים"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משרד החינוך: "כישורי חיים"</div>
+            </div>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">CASEL: "Social-Emotional Learning"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "למידה רגשית-חברתית"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">שפ"י: "מפתח הל"ב"</div>
+            </div>
+
+            <div class="naming-gap">
+                <div class="ng-box usa">Transformative SEL: "equity, social justice"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box bridge">אבני ראשה: "שוויון הזדמנויות, הכלה"</div>
+                <div class="ng-arrow">&larr;</div>
+                <div class="ng-box israel">משרד החינוך: "סובלנות וקבלת האחר"</div>
+            </div>
+
+            <div class="info-box">
+                <strong>התבנית:</strong> כל שלב בצינור "מרכך" את המונחים, אבל המסגרת המבנית זהה. חמש היכולות של CASEL הן אותן חמש יכולות שנלמדות בבתי ספר ישראליים &mdash; רק בשם אחר.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>יד הנדיב: SEL כתחום מוצהר</h2>
+            <p><span class="prov web">WEB-SEARCH</span> אתר יד הנדיב (yadhanadiv.org.il) מציין באופן מפורש "Social and Emotional Learning" כאחד מתחומי הפעילות שלהם, לצד:</p>
+            <ul class="comp-list">
+                <li><strong>Academic Excellence and Biomedical Research</strong></li>
+                <li><strong>K-12 Education</strong> &mdash; כולל Meisharim Turnaround Schools</li>
+                <li><strong>Teacher Leaders</strong> &mdash; פיתוח מורים מובילים</li>
+                <li><strong>Social and Emotional Learning</strong> &mdash; תחום SEL מוצהר</li>
+                <li><strong>Early Childhood Education</strong></li>
+                <li><strong>Evidence-Based Policy</strong></li>
+            </ul>
+
+            <div class="quote-box">
+                יד הנדיב היא "a Rothschild family philanthropic foundation in Israel" &mdash; ואבני ראשה הוא "a joint initiative of the Ministry of Education and Yad Hanadiv."
+                <div class="q-source">&mdash; yadhanadiv.org.il, avneyrosha.org.il</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 3: ארגונים ישראליים -->
+    <!-- ============================================================ -->
+    <div id="view-orgs" class="view">
+
+        <div class="section">
+            <h2>המפה הארגונית: SEL בישראל</h2>
+            <p>מספר ארגונים ישראליים פועלים ביישום מסגרות SEL, חלקם בקשר ישיר ל-CASEL וחלקם באימוץ עקיף:</p>
+        </div>
+
+        <div class="section">
+            <h2>ארגונים מרכזיים</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="org-card primary">
+                        <h4>אבני ראשה &mdash; המכון להנהגה בחינוך <span class="badge red">ליבה</span></h4>
+                        <div class="org-type">הכשרת מנהלים | 2007</div>
+                        <div class="org-detail"><span class="prov web">WEB-SEARCH</span> הוקם 2007 על ידי יד הנדיב + משרד החינוך. אחראי על הכשרת <strong>כל מנהלי בתי הספר והמפקחים</strong> בישראל. אימץ מסגרת 10 אינדיקטורים מבוססת CASEL. מייסד-שותף של CASEL, ד"ר רוג'ר פ. וייסברג, שימש כיועץ לארגון SEL.IL הקשור לאבני ראשה. 3,000+ מנהלים הוכשרו, 1,000+ בתי ספר מיישמים. תקציב ~16M ש"ח.</div>
+                    </div>
+
+                    <div class="org-card primary">
+                        <h4>יד הנדיב (קרן רוטשילד) <span class="badge orange">מימון</span></h4>
+                        <div class="org-type">פילנתרופיה | מימון SEL</div>
+                        <div class="org-detail"><span class="prov web">WEB-SEARCH</span> קרן רוטשילד בישראל. מצהירה על SEL כתחום פעילות. ייסדה וממנת את אבני ראשה. מנהלת תוכניות: Meisharim Turnaround Schools, Teacher Leaders, Early Childhood. פרסי רוטשילד לחינוך.</div>
+                    </div>
+
+                    <div class="org-card secondary">
+                        <h4>SEL.IL &mdash; מרכז מחקר <span class="badge blue">מחקר</span></h4>
+                        <div class="org-type">אוניברסיטת רייכמן | מחקר SEL</div>
+                        <div class="org-detail">מרכז מחקר ב-IDC/רייכמן שעוסק ביישום SEL בישראל. עורך מחקרים על יעילות SEL בהקשר הישראלי. מייסד-שותף של CASEL שימש כיועץ. מספק תיקוף אקדמי לאימוץ המסגרת.</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="org-card gov">
+                        <h4>משרד החינוך &mdash; שפ"י <span class="badge green">ממשלתי</span></h4>
+                        <div class="org-type">השירות הפסיכולוגי-ייעוצי</div>
+                        <div class="org-detail">הזרוע של משרד החינוך שאחראית על יישום "כישורי חיים" ו"למידה רגשית-חברתית" בבתי הספר. מפתחת כלי כיתה כמו "מפתח הל"ב". מנדט מחוזרי מנכ"ל.</div>
+                    </div>
+
+                    <div class="org-card gov">
+                        <h4>לשכת המדען הראשי &mdash; משרד החינוך <span class="badge green">ממשלתי</span></h4>
+                        <div class="org-type">אישור ומחקר</div>
+                        <div class="org-detail">לשכת המדען הראשי מאשרת תוכניות SEL למערכת החינוך. מתן "גושפנקה מדעית" למסגרת שמגיעה מ-CASEL. תיקוף ממשלתי שנותן לגיטימציה ליישום.</div>
+                    </div>
+
+                    <div class="org-card secondary">
+                        <h4>מכללת קיי (Kaye College) <span class="badge blue">הכשרה</span></h4>
+                        <div class="org-type">באר שבע | הכשרת מורים</div>
+                        <div class="org-detail">מכללה להכשרת מורים שמשלבת תכנים של למידה חברתית-רגשית בהכשרה ובפיתוח מקצועי של מורים. מפתחת כלי מיפוי (Mapping Toolkit) לאיתור צרכי SEL בבתי ספר.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מיפוי הקשרים</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ארגון</th>
+                        <th>תפקיד בצינור</th>
+                        <th>קשר ל-CASEL</th>
+                        <th>מימון</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td><strong>CASEL</strong></td>
+                        <td>מקור המסגרת</td>
+                        <td>ארגון המקור</td>
+                        <td>Gates, NoVo, CZI</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>יד הנדיב</strong></td>
+                        <td>מימון + הקמה</td>
+                        <td>SEL כתחום מוצהר</td>
+                        <td>קרן רוטשילד</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>אבני ראשה</strong></td>
+                        <td>הכשרת מנהלים</td>
+                        <td>10 אינדיקטורים = CASEL</td>
+                        <td>יד הנדיב + משה"ח</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SEL.IL</strong></td>
+                        <td>תיקוף אקדמי</td>
+                        <td>יועץ: מייסד CASEL</td>
+                        <td>רייכמן</td>
+                    </tr>
+                    <tr>
+                        <td><strong>שפ"י</strong></td>
+                        <td>יישום בשטח</td>
+                        <td>עקיף &mdash; דרך אבני ראשה</td>
+                        <td>ממשלתי</td>
+                    </tr>
+                    <tr>
+                        <td><strong>מדען ראשי</strong></td>
+                        <td>אישור מדעי</td>
+                        <td>אישור מסגרת SEL</td>
+                        <td>ממשלתי</td>
+                    </tr>
+                    <tr>
+                        <td><strong>מכללת קיי</strong></td>
+                        <td>הכשרת מורים</td>
+                        <td>שילוב SEL בהכשרה</td>
+                        <td>אקדמי + ממשלתי</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>אנשי מפתח</h2>
+            <div class="grid-2">
+                <div class="person-card">
+                    <div class="name">ד"ר רוג'ר פ. וייסברג (Roger P. Weissberg)</div>
+                    <div class="role">מייסד-שותף של CASEL | יועץ ל-SEL.IL</div>
+                    <div class="bio">פרופסור לפסיכולוגיה באוניברסיטת אילינוי בשיקגו. ייסד את CASEL ב-1994 עם דניאל גולמן. שימש כיועץ למרכז SEL.IL ברייכמן, ובכך יצר קשר ישיר בין CASEL לישראל.</div>
+                </div>
+                <div class="person-card">
+                    <div class="name">דניאל גולמן (Daniel Goleman)</div>
+                    <div class="role">מייסד-שותף של CASEL | מחבר "אינטליגנציה רגשית"</div>
+                    <div class="bio">עיתונאי מדעי ומחבר. ספרו "Emotional Intelligence" (1995) הפך את SEL ל-best-seller גלובלי ונתן ל-CASEL חשיפה תקשורתית חסרת תקדים.</div>
+                </div>
+                <div class="person-card">
+                    <div class="name">Aaliyah Samuel</div>
+                    <div class="role">מנכ"לית CASEL | שכר: $354K</div>
+                    <div class="bio">מנהלת את CASEL כיום (55 עובדים). ציטוט מרכזי: "It was just part of what a good teacher does" (NPR, 2022) &mdash; ממצבת SEL כמשהו "טבעי", לא כתוכנית מאורגנת.</div>
+                </div>
+                <div class="person-card">
+                    <div class="name">Robert J. Jagers</div>
+                    <div class="role">Vice President of Research, CASEL | מחבר Transformative SEL</div>
+                    <div class="bio">מחבר המאמר "Transformative SEL: Toward SEL in Service of Educational Equity and Excellence" (2019) שהוליד את המפנה של 2020. סגן נשיא למחקר ב-CASEL.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 4: הבעיה -->
+    <!-- ============================================================ -->
+    <div id="view-problem" class="view">
+
+        <div class="section">
+            <h2>הבעיה: Transformative SEL הוא לא ניטרלי</h2>
+            <p><span class="prov doc">WEB-SEARCH</span> ב-2020, CASEL ביצע מפנה מכריע: אימוץ רשמי של <strong>"Transformative SEL"</strong>. זו לא "פרשנות" חיצונית &mdash; אלה המסמכים של CASEL עצמו. הממצא המרכזי של מחקר זה הוא שהמסגרת שנכנסת לבתי ספר בישראל <strong>כבר לא זהה למסגרת שהוצגה כ"ניטרלית"</strong>.</p>
+
+            <div class="metric alert" style="max-width: 500px; margin: 0 auto 20px;">
+                <div class="label">המפנה הקריטי</div>
+                <div class="value">2020</div>
+                <div class="note">CASEL אימץ רשמית Transformative SEL</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>מה CASEL עצמו אומר</h2>
+            <p><span class="prov web">WEB-SEARCH</span> להלן ציטוטים מתוך המסמכים הרשמיים של CASEL עצמו:</p>
+
+            <h3>הגדרת Transformative SEL</h3>
+            <div class="quote-box">
+                "Transformative SEL is a means to better articulate the potential of SEL to mitigate the educational, social, and economic inequities that derive from the interrelated legacies of racialized cultural oppression."
+                <div class="q-source">&mdash; Jagers, Rivas-Drake &amp; Williams, "Transformative Social and Emotional Learning", Educational Psychologist, 2019</div>
+            </div>
+
+            <h3>המטרה המוצהרת</h3>
+            <div class="quote-box">
+                Transformative SEL aims to "effectively address issues such as power, privilege, prejudice, discrimination, social justice, empowerment, and self-determination."
+                <div class="q-source">&mdash; אותו מאמר, 2019</div>
+            </div>
+
+            <h3>ההגדרה מאתר CASEL</h3>
+            <div class="quote-box">
+                "Transformative SEL [is] applying the SEL framework toward the goals of creating equitable settings and systems and promoting justice-oriented school and civic engagement."
+                <div class="q-source">&mdash; CASEL, How Does SEL Support Educational Equity (casel.org)</div>
+            </div>
+
+            <h3>ההגדרה של "equity"</h3>
+            <div class="quote-box">
+                CASEL defines equity as ensuring "every student &mdash; across race, ethnicity, family income levels, learning abilities, home language, immigration status, gender identity, sexual orientation, and other factors &mdash; engaging in high-quality educational opportunities."
+                <div class="q-source">&mdash; CASEL, Equity and Excellence framework (casel.org)</div>
+            </div>
+
+            <h3>"ניהול עצמי" הפך ל"התנגדות"</h3>
+            <div class="quote-box">
+                "Self-management now involves 'resistance' and 'transformative citizenship,' which is defined as a type of citizenship 'most closely aligned with critical democracy, as it refers to actions taken to advance policies or social changes that are consistent with human rights, social justice, and equality. Such efforts might be inconsistent with or violate existing local, state, and national laws.'"
+                <div class="q-source">&mdash; מתוך מסמכי Transformative SEL של CASEL</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>לפני ואחרי: מה השתנה ב-5 היכולות</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>יכולת CASEL</th>
+                        <th>SEL 1.0 (מקורי)</th>
+                        <th>Transformative SEL (2020)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td><strong>מודעות עצמית</strong></td>
+                        <td>הבנת רגשות וחוזקות</td>
+                        <td>"זהויות בריאות" + "הערכה פומבית של הקבוצה הגזעית"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>מודעות חברתית</strong></td>
+                        <td>אמפתיה, הבנת נקודות מבט</td>
+                        <td>"מודעות חברתית ביקורתית" &mdash; הבנת מערכות דיכוי</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>ניהול עצמי</strong></td>
+                        <td>ויסות רגשי, הצבת מטרות</td>
+                        <td>"התנגדות" + "אזרחות טרנספורמטיבית" שעשויה "לסתור חוקים קיימים"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>מיומנויות יחסים</strong></td>
+                        <td>שיתוף פעולה, פתרון קונפליקטים</td>
+                        <td>שיתוף פעולה לקידום "צדק חברתי ושוויון"</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>קבלת החלטות</strong></td>
+                        <td>בחירות אתיות ובטוחות</td>
+                        <td>החלטות שמקדמות "equity, social justice, empowerment"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>המפנה:</strong> אותם חמישה מושגים "ניטרליים" שנשמעו כמו חינוך אופי סביר הפכו למסגרת שמקשרת SEL ל"דמוקרטיה ביקורתית", "אינטרסקציונליות", ו"פעולה שעשויה להפר חוקים קיימים". <strong>זהו הליבה של הממצא.</strong>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>"ביקורת עצמית" של מבוגרים</h2>
+            <p><span class="prov web">WEB-SEARCH</span> CASEL דורש ממורים ומנהלים:</p>
+
+            <div class="quote-box">
+                Adults must "understand their own biases and expectations" and "acknowledge and challenge any inequitable practices and/or policies" that limit child development.
+                <div class="q-source">&mdash; CASEL, How Does SEL Support Educational Equity (casel.org)</div>
+            </div>
+
+            <p>בפועל, זה אומר שמורים נדרשים לעבור "תודעת equity" כתנאי ליישום SEL. אלה לא עוד "כישורי חיים" &mdash; זו הכשרה אידיאולוגית.</p>
+        </div>
+
+        <div class="section">
+            <h2>ציטוטים ביקורתיים</h2>
+
+            <div class="quote-box">
+                "Calling Transformative SEL a Trojan Horse for critical race theory would be an insult to Odysseus, who hid his fellow ancient Greek warriors within the horse and smuggled them into the city. The Transformative SEL strategy is effectively to place social-justice advocates on top of the horse, in open view, and gain entry by calling anyone who points them out 'conspiracy theorists.'"
+                <div class="q-source">&mdash; Max Eden, American Enterprise Institute (City Journal, מאי 2022)</div>
+            </div>
+
+            <div class="quote-box">
+                "If we don't apply an anti-racist, abolitionist, anti-oppressive, anti-bias lens to social-emotional learning, it can very easily turn into white supremacy with a hug."
+                <div class="q-source">&mdash; Dena Simmons, מייסדת LiberatED, תומכת ב-Transformative SEL (NPR, 2022)</div>
+            </div>
+
+            <div class="quote-box">
+                "An attempt at values-free character education" &mdash; כך תיאר את SEL המקורי, לפני המפנה.
+                <div class="q-source">&mdash; Max Eden, American Enterprise Institute</div>
+            </div>
+
+            <div class="quote-box">
+                "shrouding the racist and divisive ideology with vague terminology does not diminish the harm."
+                <div class="q-source">&mdash; חה"כ Elise Stefanik (ניו יורק), בתגובה לשימוש במימון קורונה עבור Transformative SEL</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>הסתירה של CASEL</h2>
+            <p>CASEL מתעקש שהוא "לא קשור לשום עמדה פוליטית" (not tied to any political viewpoints). אבל במקביל:</p>
+
+            <div class="finding">
+                <div class="icon">1.</div>
+                <div>
+                    <h4>פרסם מאמר Transformative SEL</h4>
+                    <p>המקשר SEL לאינטרסקציונליות, "דמוקרטיה ביקורתית", ו"מורשת דיכוי גזעי-תרבותי".</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon">2.</div>
+                <div>
+                    <h4>הגדיר "equity" עם רשימה מגדרית-זהותית</h4>
+                    <p>כולל: "immigration status, gender identity, sexual orientation" &mdash; שהם נושאים פוליטיים מובהקים.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon">3.</div>
+                <div>
+                    <h4>דורש "critical reflection" ממבוגרים</h4>
+                    <p>מורים נדרשים "להכיר ולאתגר כל פרקטיקה ו/או מדיניות בלתי-שוויונית" &mdash; שפה של פדגוגיה ביקורתית.</p>
+                </div>
+            </div>
+            <div class="finding">
+                <div class="icon">4.</div>
+                <div>
+                    <h4>RAND מצא אפס ראיות</h4>
+                    <p>למרות טענות CASEL על $11 תשואה לכל $1, RAND מצא שביישום מערכתי אין ראיות ליעילות.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>השאלה הישראלית:</strong> אם בארה"ב יש עכשיו ביקורת גוברת על Transformative SEL, ומשרד החינוך האמריקאי (2025) מזהה אותו כ"סוס טרויאני", <strong>למה ישראל ממשיכה ליישם את אותה מסגרת בדיוק מבלי לבחון את המפנה של 2020?</strong>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3 שאלות שישראל לא שואלת</h2>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">?</div>
+                <div class="step-content">
+                    <div class="step-title">האם אבני ראשה אימצה את Transformative SEL?</div>
+                    <div class="step-desc">ב-2020, CASEL שינה כיוון. האם אבני ראשה עדכנה את ההכשרות? או שהיא עדיין "תקועה" ב-SEL 1.0? או שאולי כבר עברה ל-Transformative SEL בלי להודיע?</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">?</div>
+                <div class="step-content">
+                    <div class="step-title">מי מפקח על התוכן?</div>
+                    <div class="step-desc">חוזרי מנכ"ל מנדטים "כישורי חיים" אבל לא מציינים את המקור (CASEL). מי בודק מה נכנס בפועל לכיתות? מי מפקח שהתוכן לא "גלש" ל-Transformative SEL?</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">?</div>
+                <div class="step-content">
+                    <div class="step-title">למה ממשיכים בלי ראיות?</div>
+                    <div class="step-desc">RAND מצא אפס ראיות ליעילות SEL מערכתית. למה ישראל ממשיכה להשקיע מיליונים בתוכנית שאין לה בסיס ראייתי ליישום בקנה מידה גדול?</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB 5: קישורים -->
+    <!-- ============================================================ -->
+    <div id="view-links" class="view">
+
+        <div class="section">
+            <h2>דשבורדים ומחקרים קשורים</h2>
+
+            <a href="avney_rosha_dashboard.html" class="link-card">
+                <div class="lc-icon">&#127979;</div>
+                <div>
+                    <div class="lc-title">אבני ראשה &mdash; דשבורד מחקר</div>
+                    <div class="lc-desc">ניתוח מעמיק: 3,000 מנהלים, צינור הכשרה, מימון יד הנדיב, 10 אינדיקטורים</div>
+                </div>
+            </a>
+
+            <a href="casel_dashboard.html" class="link-card">
+                <div class="lc-icon">&#127758;</div>
+                <div>
+                    <div class="lc-title">CASEL &mdash; דשבורד ניתוח ביקורתי</div>
+                    <div class="lc-desc">$18M הכנסות, אבולוציה ל-Transformative SEL, מממנים, ביקורת, הקשר ישראלי</div>
+                </div>
+            </a>
+
+            <a href="pipeline_institutional.html" class="link-card">
+                <div class="lc-icon">&#128268;</div>
+                <div>
+                    <div class="lc-title">צינור מוסדי &mdash; מקרנות לכיתות</div>
+                    <div class="lc-desc">מיפוי הצינור המלא מקרנות בינלאומיות למערכת החינוך הישראלית</div>
+                </div>
+            </a>
+
+            <a href="quantitative_term_trends.html" class="link-card">
+                <div class="lc-icon">&#128200;</div>
+                <div>
+                    <div class="lc-title">מגמות כמותיות &mdash; מונחים בחינוך</div>
+                    <div class="lc-desc">ניתוח כמותי של חדירת מונחים כמו SEL, equity, social justice למערכת החינוך</div>
+                </div>
+            </a>
+
+            <a href="sei_network_dashboard.html" class="link-card">
+                <div class="lc-icon">&#128301;</div>
+                <div>
+                    <div class="lc-title">רשת SEI &mdash; דשבורד</div>
+                    <div class="lc-desc">מיפוי רשת ארגוני חינוך רגשי-חברתי בישראל</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section">
+            <h2>מקורות חיצוניים</h2>
+
+            <a href="https://casel.org" class="link-card" target="_blank">
+                <div class="lc-icon">&#127760;</div>
+                <div>
+                    <div class="lc-title">CASEL.org &mdash; אתר רשמי</div>
+                    <div class="lc-desc">Collaborative for Academic, Social, and Emotional Learning</div>
+                </div>
+            </a>
+
+            <a href="https://casel.org/fundamentals-of-sel/how-does-sel-support-educational-equity/" class="link-card" target="_blank">
+                <div class="lc-icon">&#128196;</div>
+                <div>
+                    <div class="lc-title">CASEL: How SEL Supports Educational Equity</div>
+                    <div class="lc-desc">דף ההגדרה של Transformative SEL באתר CASEL עצמו</div>
+                </div>
+            </a>
+
+            <a href="https://www.avneyrosha.org.il/en" class="link-card" target="_blank">
+                <div class="lc-icon">&#127979;</div>
+                <div>
+                    <div class="lc-title">Avney Rosha &mdash; אתר רשמי</div>
+                    <div class="lc-desc">המכון להנהגה בחינוך &mdash; אתר באנגלית</div>
+                </div>
+            </a>
+
+            <a href="https://www.yadhanadiv.org.il/en" class="link-card" target="_blank">
+                <div class="lc-icon">&#127981;</div>
+                <div>
+                    <div class="lc-title">Yad Hanadiv &mdash; אתר רשמי</div>
+                    <div class="lc-desc">קרן רוטשילד בישראל &mdash; SEL כתחום מוצהר</div>
+                </div>
+            </a>
+
+            <a href="https://schoolguide.casel.org/what-is-sel/" class="link-card" target="_blank">
+                <div class="lc-icon">&#128218;</div>
+                <div>
+                    <div class="lc-title">CASEL School Guide</div>
+                    <div class="lc-desc">מדריך CASEL ליישום SEL בבתי ספר</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section">
+            <h2>מקורות אקדמיים</h2>
+
+            <div class="info-box">
+                <strong>Jagers, R. J., Rivas-Drake, D., &amp; Williams, B. (2019).</strong> "Transformative Social and Emotional Learning (SEL): Toward SEL in Service of Educational Equity and Excellence." <em>Educational Psychologist, 54</em>(3), 162-184. &mdash; המאמר שהוליד את המפנה של CASEL.
+            </div>
+
+            <div class="info-box">
+                <strong>RAND Corporation (2023).</strong> Research Report RRA1822-1: סקירה שיטתית של יעילות תוכניות SEL ברמה מערכתית. ממצא: אין ראיות מספקות להשפעה מובהקת.
+            </div>
+
+            <div class="info-box">
+                <strong>Eden, M. (2022).</strong> "The Social-Emotional Learning Trojan Horse." <em>City Journal</em>, May 2022. &mdash; ניתוח ביקורתי של Transformative SEL מנקודת מבט שמרנית.
+            </div>
+
+            <div class="info-box">
+                <strong>NPR (2022).</strong> "The rising political battle over social-emotional learning." September 2022. &mdash; כולל ריאיון עם מנכ"לית CASEL Aaliyah Samuel ועם ביקורת מ-AEI.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>סימוני מקור</h2>
+            <p>סימונים בדשבורד זה:</p>
+            <p><span class="prov web">WEB-SEARCH</span> &mdash; מידע שנאסף מחיפוש אינטרנט ישיר באתרי CASEL, Avney Rosha, Yad Hanadiv</p>
+            <p><span class="prov doc">WEB-SEARCH</span> &mdash; מידע ממסמכים ומחקרים אקדמיים</p>
+            <p><span class="prov gov">GOV</span> &mdash; מידע ממקורות ממשלתיים (חוזרי מנכ"ל, לשכת מדען ראשי)</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>מחקר מעמיק &mdash; הצינור מ-CASEL לישראל | מקורות: CASEL.org, Avney Rosha, Yad Hanadiv, Educational Psychologist (Jagers et al. 2019), RAND Corporation 2023, City Journal, NPR, AEI</p>
+    <p style="margin-top:6px;"><a href="../index.html">דירוג ערים</a> &bull; <a href="index.html">מאגר מחקר</a> &bull; <a href="avney_rosha_dashboard.html">אבני ראשה</a> &bull; <a href="casel_dashboard.html">CASEL</a></p>
+</footer>
+
+<script>
+function showTab(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

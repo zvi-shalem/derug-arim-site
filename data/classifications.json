@@ -1,0 +1,943 @@
+{
+  "metadata": {
+    "title": "Classification Index - Israeli Education Organizations",
+    "title_he": "מפתח סיווג ארגונים - ארגוני חינוך ישראליים",
+    "methodology": "Compare stated mission vs actual behavior. Gap = subversive. No gap = honest. Insufficient data = unresolved.",
+    "methodology_he": "השווה בין מה שהארגון אומר על עצמו לבין מה שהוא עושה בפועל. אם יש פער - זו חתרנות.",
+    "test": "Would a reasonable parent, seeing the org name and description, understand what their child will receive?",
+    "test_he": "האם הורה סביר, שרואה את שם הארגון והתיאור שלו, מבין מה ילדו עומד לקבל?",
+    "categories": {
+      "radical_subversive": {
+        "label_he": "רדיקלי חתרני",
+        "label_en": "Radical Subversive",
+        "description": "Against traditional identity AND lies about it. The problem is the lie, not the politics."
+      },
+      "honest_leftist": {
+        "label_he": "שמאל גלוי",
+        "label_en": "Honest Leftist",
+        "description": "Openly left-wing, transparent. You may disagree but they do not hide."
+      },
+      "unresolved": {
+        "label_he": "לא מוכרע",
+        "label_en": "Unresolved",
+        "description": "Insufficient data to classify clearly. May have flags but no systematic pattern proven."
+      }
+    },
+    "total_organizations": 67,
+    "counts": {
+      "radical_subversive": 28,
+      "honest_leftist": 21,
+      "unresolved": 18
+    },
+    "last_updated": "2026-02-27"
+  },
+  "classifications": [
+    {
+      "name_he": "SafeSchool",
+      "name_en": "SafeSchool",
+      "category": "radical_subversive",
+      "research_page": "deep_SafeSchool.html",
+      "stated_mission": "בטיחות",
+      "actual_behavior": "תוכן מגדרי מוסתר מהורים",
+      "key_evidence": [
+        "\"בטיחות\" ← תוכן מגדרי מוסתר מהורים"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "המעורר / דרור ישראל",
+      "name_en": "HaMeorer / Dror Israel",
+      "category": "radical_subversive",
+      "research_page": "deep_HaMeorer.html",
+      "stated_mission": "ציונות חלוצית",
+      "actual_behavior": "חברתי-סוציאליסטי",
+      "key_evidence": [
+        "\"ציונות חלוצית\" ← חברתי-סוציאליסטי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "חינוך למיניות בריאה",
+      "name_en": "Healthy Sexuality Education",
+      "category": "radical_subversive",
+      "research_page": "deep_Chinuch_Miniut.html",
+      "stated_mission": "מידע אמין",
+      "actual_behavior": "חינוך מיני מקיף CSE",
+      "key_evidence": [
+        "\"מידע אמין\" ← חינוך מיני מקיף CSE"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "בארי / הרטמן",
+      "name_en": "Baari / Hartman",
+      "category": "radical_subversive",
+      "research_page": "deep_Baari.html",
+      "stated_mission": "פלורליזם יהודי",
+      "actual_behavior": "הדרת קולות שמרניים",
+      "key_evidence": [
+        "\"פלורליזם יהודי\" ← הדרת קולות שמרניים"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "הנהגה ירוקה",
+      "name_en": "Green Leadership",
+      "category": "radical_subversive",
+      "research_page": "deep_Hanhaga_Yeruka.html",
+      "stated_mission": "מנהיגות ירוקה",
+      "actual_behavior": "אזרחות גלובלית",
+      "key_evidence": [
+        "\"מנהיגות ירוקה\" ← אזרחות גלובלית"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "ספורט בקהילה",
+      "name_en": "Sport in the Community",
+      "category": "radical_subversive",
+      "research_page": "deep_Sport_Bakehila.html",
+      "stated_mission": "ספורט",
+      "actual_behavior": "SEL + זהות כפולה",
+      "key_evidence": [
+        "\"ספורט\" ← SEL + זהות כפולה"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מרכז סיוע חיפה",
+      "name_en": "Haifa Assistance Center",
+      "category": "radical_subversive",
+      "research_page": "deep_Merkaz_Siua_Haifa.html",
+      "stated_mission": "תמיכה בנפגעות",
+      "actual_behavior": "אידיאולוגיה פמיניסטית בבתי ספר",
+      "key_evidence": [
+        "\"תמיכה בנפגעות\" ← אידיאולוגיה פמיניסטית בבתי ספר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "AIDS Task Force",
+      "name_en": "AIDS Task Force",
+      "category": "radical_subversive",
+      "research_page": "deep_AIDS_Task_Force.html",
+      "stated_mission": "מניעת איידס",
+      "actual_behavior": "הסברה להט\"בית",
+      "key_evidence": [
+        "\"מניעת איידס\" ← הסברה להט\"בית"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "אווטאר",
+      "name_en": "Avatar",
+      "category": "radical_subversive",
+      "research_page": "deep_Avatar.html",
+      "stated_mission": "דמיון ומציאות",
+      "actual_behavior": "קשר לכת",
+      "key_evidence": [
+        "\"דמיון ומציאות\" ← קשר לכת"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "חלום חדש",
+      "name_en": "New Dream",
+      "category": "radical_subversive",
+      "research_page": "deep_Chalom_Chadash.html",
+      "stated_mission": "חינוך סביבתי",
+      "actual_behavior": "אג'נדה 2030",
+      "key_evidence": [
+        "\"חינוך סביבתי\" ← אג'נדה 2030"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "הרטמן",
+      "name_en": "Hartman Institute",
+      "category": "radical_subversive",
+      "research_page": "deep_Hartman.html",
+      "stated_mission": "פלורליזם",
+      "actual_behavior": "הדרת שמרנים שיטתית",
+      "key_evidence": [
+        "\"פלורליזם\" ← הדרת שמרנים שיטתית"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "לדעת",
+      "name_en": "Ladaat",
+      "category": "radical_subversive",
+      "research_page": "deep_Ladaat.html",
+      "stated_mission": "לבחור נכון",
+      "actual_behavior": "רשת CSE/IPPF",
+      "key_evidence": [
+        "\"לבחור נכון\" ← רשת CSE/IPPF"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "לתת פה",
+      "name_en": "Latet Pe",
+      "category": "radical_subversive",
+      "research_page": "deep_Latet_Pe.html",
+      "stated_mission": "הגנה על ילדים",
+      "actual_behavior": "מייסדת ברשת SEI",
+      "key_evidence": [
+        "\"הגנה על ילדים\" ← מייסדת ברשת SEI"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מגע בתיאום",
+      "name_en": "Maga BeTiaum",
+      "category": "radical_subversive",
+      "research_page": "deep_Maga_BeTiaum.html",
+      "stated_mission": "הסכמה/בטיחות",
+      "actual_behavior": "רשת חינוך מיני",
+      "key_evidence": [
+        "\"הסכמה/בטיחות\" ← רשת חינוך מיני"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מידע אמין",
+      "name_en": "Meyda Amin",
+      "category": "radical_subversive",
+      "research_page": "deep_Meyda_Amin.html",
+      "stated_mission": "מידע ניטרלי",
+      "actual_behavior": "פמיניזם רדיקלי",
+      "key_evidence": [
+        "\"מידע ניטרלי\" ← פמיניזם רדיקלי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "נעמה מונק",
+      "name_en": "Naama Monk",
+      "category": "radical_subversive",
+      "research_page": "deep_Naama_Monk.html",
+      "stated_mission": "מיניות בריאה",
+      "actual_behavior": "MA במגדר, רשת SEI",
+      "key_evidence": [
+        "\"מיניות בריאה\" ← MA במגדר, רשת SEI"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "כל השאלות נכונות",
+      "name_en": "All Questions Are Valid (Or Gelbard)",
+      "category": "radical_subversive",
+      "research_page": "deep_Or_Gelbard.html",
+      "stated_mission": "דיאלוג פתוח",
+      "actual_behavior": "IPPF, אפס שקיפות",
+      "key_evidence": [
+        "\"דיאלוג פתוח\" ← IPPF, אפס שקיפות"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מרכזי סיוע ארציים",
+      "name_en": "National Sexual Assault Centers",
+      "category": "radical_subversive",
+      "research_page": "deep_Sexual_Assault_Centers.html",
+      "stated_mission": "תמיכה בנפגעות",
+      "actual_behavior": "אידיאולוגיה בבתי ספר",
+      "key_evidence": [
+        "\"תמיכה בנפגעות\" ← אידיאולוגיה בבתי ספר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "שביט / גיבורות תרבות",
+      "name_en": "Shavit / Cultural Heroines",
+      "category": "radical_subversive",
+      "research_page": "deep_Shavit_OS.html",
+      "stated_mission": "מודל חיקוי",
+      "actual_behavior": "חינוך פמיניסטי",
+      "key_evidence": [
+        "\"מודל חיקוי\" ← חינוך פמיניסטי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "Tehuda/Chelatz",
+      "name_en": "Tehuda/Chelatz",
+      "category": "radical_subversive",
+      "research_page": "deep_Tehuda.html",
+      "stated_mission": "הכשרה",
+      "actual_behavior": "חינוך מיני מוסווה",
+      "key_evidence": [
+        "\"הכשרה\" ← חינוך מיני מוסווה"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "תודעה/SEI",
+      "name_en": "Todaa/SEI",
+      "category": "radical_subversive",
+      "research_page": "deep_Todaa.html",
+      "stated_mission": "תודעה",
+      "actual_behavior": "מרכז רשת CSE, 3 שמות",
+      "key_evidence": [
+        "\"תודעה\" ← מרכז רשת CSE, 3 שמות"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מהפך תודעתי",
+      "name_en": "Mahapach Todaati",
+      "category": "radical_subversive",
+      "research_page": "deep_Mahapach_Todaati.html",
+      "stated_mission": "שינוי תודעתי",
+      "actual_behavior": "אותו ארגון כמו SEI",
+      "key_evidence": [
+        "\"שינוי תודעתי\" ← אותו ארגון כמו SEI"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "ד\"ר אדוה ברקוביץ'",
+      "name_en": "Dr. Adva Berkowitz",
+      "category": "radical_subversive",
+      "research_page": "deep_Adva_Berkowitz.html",
+      "stated_mission": "חינוך מיני",
+      "actual_behavior": "בנייתיות מגדרית",
+      "key_evidence": [
+        "\"חינוך מיני\" ← בנייתיות מגדרית"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "יסודות לצמיחה דרור",
+      "name_en": "Yesodot Dror Growth",
+      "category": "radical_subversive",
+      "research_page": "deep_Yesodot_Dror.html",
+      "stated_mission": "צמיחה",
+      "actual_behavior": "צינור כספי לדרור ישראל",
+      "key_evidence": [
+        "\"צמיחה\" ← צינור כספי לדרור ישראל"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "ערי חינוך",
+      "name_en": "Education Cities",
+      "category": "radical_subversive",
+      "research_page": "deep_Arei_Chinuch.html",
+      "stated_mission": "שיפור חינוך עירוני",
+      "actual_behavior": "יעקב הכט, חינוך דמוקרטי",
+      "key_evidence": [
+        "\"שיפור חינוך עירוני\" ← יעקב הכט, חינוך דמוקרטי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "שדות מרחבים",
+      "name_en": "Sadot Merhavim",
+      "category": "radical_subversive",
+      "research_page": "deep_Sadot_Merhavim.html",
+      "stated_mission": "חשיבה ביקורתית",
+      "actual_behavior": "פדגוגיה ביקורתית פריירה",
+      "key_evidence": [
+        "\"חשיבה ביקורתית\" ← פדגוגיה ביקורתית פריירה"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "ACRI",
+      "name_en": "ACRI - Association for Civil Rights in Israel",
+      "category": "honest_leftist",
+      "research_page": "deep_ACRI.html",
+      "stated_mission": "זכויות אזרח",
+      "actual_behavior": "השם אומר הכול",
+      "key_evidence": [
+        "זכויות אזרח — השם אומר הכול"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "כל ישראל חברים",
+      "name_en": "Alliance Israel",
+      "category": "honest_leftist",
+      "research_page": "deep_Alliance_Israel.html",
+      "stated_mission": "אוניברסליזם יהודי-צרפתי גלוי",
+      "actual_behavior": "אוניברסליזם יהודי-צרפתי גלוי",
+      "key_evidence": [
+        "אוניברסליזם יהודי-צרפתי גלוי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "חברותא",
+      "name_en": "Chevruta",
+      "category": "honest_leftist",
+      "research_page": "deep_Chevruta.html",
+      "stated_mission": "פלורליזם יהודי מוצהר",
+      "actual_behavior": "פלורליזם יהודי מוצהר",
+      "key_evidence": [
+        "פלורליזם יהודי מוצהר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "חוש\"ן",
+      "name_en": "CHOSHEN",
+      "category": "honest_leftist",
+      "research_page": "deep_CHOSHEN.html",
+      "stated_mission": "חינוך להט\"בי מוצהר",
+      "actual_behavior": "חינוך להט\"בי מוצהר",
+      "key_evidence": [
+        "חינוך להט\"בי מוצהר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "המכון לחינוך דמוקרטי",
+      "name_en": "Institute for Democratic Education",
+      "category": "honest_leftist",
+      "research_page": "deep_Democratic_Institute.html",
+      "stated_mission": "השם: \"מכון דמוקרטי\"",
+      "actual_behavior": "השם: \"מכון דמוקרטי\"",
+      "key_evidence": [
+        "השם: \"מכון דמוקרטי\""
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "גשר",
+      "name_en": "Gesher",
+      "category": "honest_leftist",
+      "research_page": "deep_Gesher.html",
+      "stated_mission": "\"גשר\"",
+      "actual_behavior": "חיבור חילוני-דתי",
+      "key_evidence": [
+        "\"גשר\" — חיבור חילוני-דתי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "השומר הצעיר",
+      "name_en": "Hashomer Hatzair",
+      "category": "honest_leftist",
+      "research_page": "deep_Havatzelet.html",
+      "stated_mission": "שמאל-ציוני מזה 100 שנה",
+      "actual_behavior": "שמאל-ציוני מזה 100 שנה",
+      "key_evidence": [
+        "שמאל-ציוני מזה 100 שנה"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "הושן בבתי ספר",
+      "name_en": "Hoshen in Schools",
+      "category": "honest_leftist",
+      "research_page": "deep_Hoshen_Schools.html",
+      "stated_mission": "חינוך להט\"בי מוצהר",
+      "actual_behavior": "חינוך להט\"בי מוצהר",
+      "key_evidence": [
+        "חינוך להט\"בי מוצהר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "קדמה",
+      "name_en": "Kadma",
+      "category": "honest_leftist",
+      "research_page": "deep_Kadma.html",
+      "stated_mission": "צדק חברתי מזרחי מוצהר",
+      "actual_behavior": "צדק חברתי מזרחי מוצהר",
+      "key_evidence": [
+        "צדק חברתי מזרחי מוצהר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "קהלים שלובים",
+      "name_en": "Kehalim Shluvim",
+      "category": "honest_leftist",
+      "research_page": "deep_Kehalim_Shluvim.html",
+      "stated_mission": "\"שינוי חברתי\" בשם",
+      "actual_behavior": "\"שינוי חברתי\" בשם",
+      "key_evidence": [
+        "\"שינוי חברתי\" בשם"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "ליאדה",
+      "name_en": "Leyada",
+      "category": "honest_leftist",
+      "research_page": "deep_Leyada.html",
+      "stated_mission": "בי\"ס פרוגרסיבי אליטיסטי",
+      "actual_behavior": "בי\"ס פרוגרסיבי אליטיסטי",
+      "key_evidence": [
+        "בי\"ס פרוגרסיבי אליטיסטי"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מרקם",
+      "name_en": "Markam",
+      "category": "honest_leftist",
+      "research_page": "deep_Markam.html",
+      "stated_mission": "\"קהילות מעורבות\" בשם",
+      "actual_behavior": "\"קהילות מעורבות\" בשם",
+      "key_evidence": [
+        "\"קהילות מעורבות\" בשם"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מרקם רשת",
+      "name_en": "Markam Network",
+      "category": "honest_leftist",
+      "research_page": "deep_Markam_Network.html",
+      "stated_mission": "רשת דו-קיום מוצהרת",
+      "actual_behavior": "רשת דו-קיום מוצהרת",
+      "key_evidence": [
+        "רשת דו-קיום מוצהרת"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "ניר",
+      "name_en": "NIR",
+      "category": "honest_leftist",
+      "research_page": "deep_NIR.html",
+      "stated_mission": "חינוך רב-תרבותי מוצהר",
+      "actual_behavior": "חינוך רב-תרבותי מוצהר",
+      "key_evidence": [
+        "חינוך רב-תרבותי מוצהר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "רוסינג",
+      "name_en": "Rossing Center",
+      "category": "honest_leftist",
+      "research_page": "deep_Rossing_Center.html",
+      "stated_mission": "\"חינוך ודיאלוג\" בשם",
+      "actual_behavior": "\"חינוך ודיאלוג\" בשם",
+      "key_evidence": [
+        "\"חינוך ודיאלוג\" בשם"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "שער שוויון",
+      "name_en": "Shaar Shivion",
+      "category": "honest_leftist",
+      "research_page": "deep_Shaar_Shivion.html",
+      "stated_mission": "\"שוויון\" בשם",
+      "actual_behavior": "\"שוויון\" בשם",
+      "key_evidence": [
+        "\"שוויון\" בשם"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "תיקון",
+      "name_en": "Tikkun",
+      "category": "honest_leftist",
+      "research_page": "deep_Tikkun.html",
+      "stated_mission": "\"תיקון\" + \"שינוי חברתי\"",
+      "actual_behavior": "\"תיקון\" + \"שינוי חברתי\"",
+      "key_evidence": [
+        "\"תיקון\" + \"שינוי חברתי\""
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "יד ביד",
+      "name_en": "Yad BYad / Hand in Hand",
+      "category": "honest_leftist",
+      "research_page": "deep_Yad_BYad.html",
+      "stated_mission": "חינוך יהודי-ערבי משותף",
+      "actual_behavior": "חינוך יהודי-ערבי משותף",
+      "key_evidence": [
+        "חינוך יהודי-ערבי משותף"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "יסוד",
+      "name_en": "Yesod",
+      "category": "honest_leftist",
+      "research_page": "deep_Yesod.html",
+      "stated_mission": "\"זכויות ודמוקרטיה\" בשם",
+      "actual_behavior": "\"זכויות ודמוקרטיה\" בשם",
+      "key_evidence": [
+        "\"זכויות ודמוקרטיה\" בשם"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "חלוץ חינוכי",
+      "name_en": "Halutz Chinuchi",
+      "category": "honest_leftist",
+      "research_page": "deep_Halutz_Chinuchi.html",
+      "stated_mission": "\"חינוך דמוקרטי\" מוצהר",
+      "actual_behavior": "\"חינוך דמוקרטי\" מוצהר",
+      "key_evidence": [
+        "\"חינוך דמוקרטי\" מוצהר"
+      ],
+      "networks": [],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מצמיחים",
+      "name_en": "Matzmichim",
+      "category": "unresolved",
+      "research_page": "deep_Matzmichim.html",
+      "stated_mission": "SEL אך מוקד בהפחתת אלימות",
+      "actual_behavior": "SEL אך מוקד בהפחתת אלימות",
+      "key_evidence": [
+        "SEL אך מוקד בהפחתת אלימות"
+      ],
+      "networks": [],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "עדי לבנקו",
+      "name_en": "Adi Levanko",
+      "category": "unresolved",
+      "research_page": "deep_Adi_Lebanko.html",
+      "stated_mission": "אין תוכן אידיאולוגי ברור",
+      "actual_behavior": "אין תוכן אידיאולוגי ברור",
+      "key_evidence": [
+        "אין תוכן אידיאולוגי ברור"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "אפשר אחרת",
+      "name_en": "Efshar Acheret",
+      "category": "unresolved",
+      "research_page": "deep_Efshar_Acheret.html",
+      "stated_mission": "חינוך חלופי, לא מספיק ראיות",
+      "actual_behavior": "חינוך חלופי, לא מספיק ראיות",
+      "key_evidence": [
+        "חינוך חלופי, לא מספיק ראיות"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "אל\"י",
+      "name_en": "ELI",
+      "category": "unresolved",
+      "research_page": "deep_ELI.html",
+      "stated_mission": "דגלים מסווג ולא תוכניתיים",
+      "actual_behavior": "דגלים מסווג ולא תוכניתיים",
+      "key_evidence": [
+        "דגלים מסווג ולא תוכניתיים"
+      ],
+      "networks": [],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "גלי ברוורמן",
+      "name_en": "Gali Braverman",
+      "category": "unresolved",
+      "research_page": "deep_Gali_Braverman.html",
+      "stated_mission": "מיינדפולנס, לא ברור",
+      "actual_behavior": "מיינדפולנס, לא ברור",
+      "key_evidence": [
+        "מיינדפולנס, לא ברור"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "האקדמיה להפסקה",
+      "name_en": "HaAcademia Hafsaka",
+      "category": "unresolved",
+      "research_page": "deep_HaAcademia_Hafsaka.html",
+      "stated_mission": "שיפור הפסקות, ניטרלי",
+      "actual_behavior": "שיפור הפסקות, ניטרלי",
+      "key_evidence": [
+        "שיפור הפסקות, ניטרלי"
+      ],
+      "networks": [],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "קריבוס אור",
+      "name_en": "Krivus Or",
+      "category": "unresolved",
+      "research_page": "deep_Krivus_Or.html",
+      "stated_mission": "לא מספיק ראיות",
+      "actual_behavior": "לא מספיק ראיות",
+      "key_evidence": [
+        "לא מספיק ראיות"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "מים וסלע",
+      "name_en": "Mayim VeSela",
+      "category": "unresolved",
+      "research_page": "deep_Mayim_VeSela.html",
+      "stated_mission": "מתודולוגיית מעגלים",
+      "actual_behavior": "מתודולוגיית מעגלים",
+      "key_evidence": [
+        "מתודולוגיית מעגלים"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "אשכולות חשיבה / Mind Lab",
+      "name_en": "Eshkolot Chashiva / Mind Lab",
+      "category": "unresolved",
+      "research_page": "deep_Mind_Lab.html",
+      "stated_mission": "משחקי חשיבה, ניטרלי",
+      "actual_behavior": "משחקי חשיבה, ניטרלי",
+      "key_evidence": [
+        "משחקי חשיבה, ניטרלי"
+      ],
+      "networks": [],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "טבע האדם",
+      "name_en": "Teva HaAdam",
+      "category": "unresolved",
+      "research_page": "deep_Teva_HaAdam.html",
+      "stated_mission": "אימפטיה, לא אידיאולוגי",
+      "actual_behavior": "אימפטיה, לא אידיאולוגי",
+      "key_evidence": [
+        "אימפטיה, לא אידיאולוגי"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "ידידות טורונטו",
+      "name_en": "Yedidut Toronto",
+      "category": "unresolved",
+      "research_page": "deep_Yedidut_Toronto.html",
+      "stated_mission": "מורכבות פיננסית, לא ברור",
+      "actual_behavior": "מורכבות פיננסית, לא ברור",
+      "key_evidence": [
+        "מורכבות פיננסית, לא ברור"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "מרכז לחינוך קשוב",
+      "name_en": "Merkaz Chinuch Kashuv",
+      "category": "unresolved",
+      "research_page": "deep_Merkaz_Chinuch_Kashuv.html",
+      "stated_mission": "מיינדפולנס, תלות בתורם",
+      "actual_behavior": "מיינדפולנס, תלות בתורם",
+      "key_evidence": [
+        "מיינדפולנס, תלות בתורם"
+      ],
+      "networks": [],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "מעגל אחד",
+      "name_en": "Maagal Echad",
+      "category": "unresolved",
+      "research_page": "deep_Maagal_Echad.html",
+      "stated_mission": "מבנה מסחרי, לא מספיק מידע",
+      "actual_behavior": "מבנה מסחרי, לא מספיק מידע",
+      "key_evidence": [
+        "מבנה מסחרי, לא מספיק מידע"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "א.י.ל (ELI) - אוניברסיטת רייכמן",
+      "name_en": "ELI - Reichman University / SEL.IL",
+      "category": "radical_subversive",
+      "research_page": "deep_ELI_Reichman.html",
+      "stated_mission": "למידה רגשית-חברתית (SEL)",
+      "actual_behavior": "זרוע ישראלית של CASEL",
+      "key_evidence": [
+        "CASEL co-founder Mark Greenberg serves as direct advisor",
+        "Yad Hanadiv funds both Avnei Rosha and SEL.IL",
+        "UNESCO/SDG alignment",
+        "Gender-conscious branding"
+      ],
+      "networks": [
+        "CASEL",
+        "Yad Hanadiv",
+        "Avnei Rosha",
+        "UNESCO"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מן שיח / מסל\"ן",
+      "name_en": "Min Siach / MASLAN Negev",
+      "category": "radical_subversive",
+      "research_page": "deep_Min_Siach.html",
+      "stated_mission": "מניעת אלימות מינית",
+      "actual_behavior": "רשת ARCCI במימון NIF",
+      "key_evidence": [
+        "Deliberate wordplay name",
+        "NIF-funded ARCCI network member",
+        "Feminist framework hidden from parents",
+        "113M NIS combined network revenue"
+      ],
+      "networks": [
+        "ARCCI",
+        "NIF",
+        "Hadassah Foundation",
+        "Jewish Federations"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name_he": "סדקות בתקרה",
+      "name_en": "Cracking the Glass Ceiling / Sodkot Tikra",
+      "category": "honest_leftist",
+      "research_page": "deep_Sodkot_Tikra.html",
+      "stated_mission": "קידום בנות ב-STEM",
+      "actual_behavior": "פמיניזם גלוי",
+      "key_evidence": [
+        "Name openly declares feminist framework",
+        "Alliance Israel is parent org",
+        "Corporate partners include Elbit, IAI, Microsoft",
+        "STEM focus is genuine and transparent"
+      ],
+      "networks": [
+        "Alliance Israel"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מרח מנהיגות",
+      "name_en": "Merach Manhigut / Merach Leadership",
+      "category": "unresolved",
+      "research_page": "deep_Merach_Manhigut.html",
+      "stated_mission": "מנהיגות",
+      "actual_behavior": "אפס נוכחות דיגיטלית",
+      "key_evidence": [
+        "Zero digital presence",
+        "Private company from Kseife",
+        "Company number 516058732",
+        "No connections to known networks"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "אשכולות חשיבה (מחקר מעודכן)",
+      "name_en": "Eshkolot Chashiva / Mind Lab (Updated)",
+      "category": "unresolved",
+      "research_page": "deep_Eshkolot_Chashiva.html",
+      "stated_mission": "משחקי חשיבה",
+      "actual_behavior": "ניטרליות 5/5, שקיפות 2/5",
+      "key_evidence": [
+        "Ideological neutrality 5/5",
+        "Transparency 2/5",
+        "Private company",
+        "No ideological content"
+      ],
+      "networks": [],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "נקרא יחד",
+      "name_en": "Nikra Yachad / Reading Together in Arabic",
+      "category": "unresolved",
+      "research_page": "deep_Nikra_Yachad.html",
+      "stated_mission": "אוריינות ערבית",
+      "actual_behavior": "תוכנית אוריינות טהורה",
+      "key_evidence": [
+        "Pure Arabic literacy program",
+        "Hebrew University backing",
+        "NCJW historical funder only",
+        "No ideological content"
+      ],
+      "networks": [
+        "NCJW"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "name_he": "המראה",
+      "name_en": "HaMaraa / The Mirror",
+      "category": "unresolved",
+      "research_page": "deep_HaMaraa.html",
+      "stated_mission": "למידה רגשית-חברתית",
+      "actual_behavior": "SEL של אשכולות חשיבה",
+      "key_evidence": [
+        "Not on Mind Lab main website",
+        "Parent company neutral",
+        "SEL variant, insufficient info"
+      ],
+      "networks": [],
+      "confidence": "low"
+    },
+    {
+      "name_he": "תקשורת וידאו",
+      "name_en": "Tikshoret Video / Video Communications",
+      "category": "unresolved",
+      "research_page": "deep_Tikshoret_Video.html",
+      "stated_mission": "חינוך קולנועי",
+      "actual_behavior": "הפקות נטור, תוכן טכני",
+      "key_evidence": [
+        "Zero digital presence for operator",
+        "Technical filmmaking only",
+        "Risk score 1/5"
+      ],
+      "networks": [],
+      "confidence": "low"
+    }
+  ]
+}

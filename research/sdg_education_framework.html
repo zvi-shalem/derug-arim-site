@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מסגרת ה-SDG בחינוך — יעדי הפיתוח בר-הקיימא כמנוע מדיניות חינוכית גלובלית וישראלית</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.un { background: #f0f7ff; border-right-color: #4b92db; }
+.quote-box .q-en { display: block; font-size: 0.92em; color: #555; margin-bottom: 6px; direction: ltr; text-align: left; }
+.quote-box .q-he { display: block; font-size: 0.95em; color: #333; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f8e8; color: #27ae60; }
+.badge.purple { background: #f0e8f8; color: #8e44ad; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-step.un { border-right-color: #4b92db; }
+.pipeline-step.un .step-num { color: #4b92db; }
+.pipeline-step.unesco { border-right-color: #0093D5; }
+.pipeline-step.unesco .step-num { color: #0093D5; }
+.pipeline-step.ngo { border-right-color: #e67e22; }
+.pipeline-step.ngo .step-num { color: #e67e22; }
+.pipeline-step.local { border-right-color: #e74c3c; }
+.pipeline-step.local .step-num { color: #e74c3c; }
+.pipeline-step.school { border-right-color: #c0392b; }
+.pipeline-step.school .step-num { color: #c0392b; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.provenance {
+    display: inline-block; padding: 1px 8px; border-radius: 4px;
+    font-size: 0.68em; font-weight: 600; background: #e8edf8; color: #667eea;
+    margin-right: 4px; vertical-align: middle;
+}
+
+.criticism-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #e74c3c;
+}
+.criticism-card h4 { color: #1a1a2e; margin-bottom: 6px; }
+.criticism-card .critic-source { font-size: 0.82em; color: #888; margin-bottom: 6px; }
+.criticism-card p { font-size: 0.88em; color: #555; }
+
+.sdg-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    transition: all 0.2s;
+}
+.sdg-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.sdg-card h3 { margin-bottom: 4px; font-size: 1.05em; }
+.sdg-card .sdg-num { font-size: 2em; font-weight: 800; opacity: 0.15; float: left; margin-left: 12px; line-height: 1; }
+.sdg-card.sdg3 { border-right: 4px solid #4c9f38; }
+.sdg-card.sdg3 h3 { color: #4c9f38; }
+.sdg-card.sdg3 .sdg-num { color: #4c9f38; }
+.sdg-card.sdg4 { border-right: 4px solid #c5192d; }
+.sdg-card.sdg4 h3 { color: #c5192d; }
+.sdg-card.sdg4 .sdg-num { color: #c5192d; }
+.sdg-card.sdg5 { border-right: 4px solid #ff3a21; }
+.sdg-card.sdg5 h3 { color: #ff3a21; }
+.sdg-card.sdg5 .sdg-num { color: #ff3a21; }
+
+.indicator-box {
+    background: #f8f9fa; border-radius: 8px; padding: 14px 18px;
+    border: 1px solid #e0e0e0; margin: 10px 0;
+}
+.indicator-box .ind-code { font-weight: 800; color: #667eea; font-size: 0.95em; }
+.indicator-box .ind-text { font-size: 0.88em; color: #444; margin-top: 4px; }
+
+.mechanism-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    border-right: 4px solid #667eea;
+}
+.mechanism-card h4 { color: #1a1a2e; margin-bottom: 6px; }
+.mechanism-card p { font-size: 0.88em; color: #555; }
+.mechanism-card .mech-type { font-size: 0.78em; color: #667eea; font-weight: 600; margin-bottom: 4px; }
+
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>SDG ומסגרת החינוך</span>
+            <a href="../">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('sdgs')">מהם ה-SDGs</button>
+            <button class="nav-tab" onclick="showTab('sdg47')">SDG 4.7</button>
+            <button class="nav-tab" onclick="showTab('pipeline')">הצינור לישראל</button>
+            <button class="nav-tab" onclick="showTab('criticism')">ביקורת</button>
+            <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>מסגרת ה-SDG &mdash; יעדי הפיתוח בר-הקיימא בחינוך</h1>
+    <div class="subtitle">כיצד החלטת עצרת האו"ם הופכת למדיניות חינוכית בכיתות בישראל</div>
+    <div class="meta">SDG 4 (Quality Education) | SDG 4.7 (ESD &amp; Global Citizenship) | SDG 3.7 (Sexual Health) | SDG 5 (Gender Equality)</div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">193</div>
+            <div class="lbl">מדינות שאימצו את אג'נדה 2030</div>
+        </div>
+        <div class="stat">
+            <div class="num">17</div>
+            <div class="lbl">יעדי פיתוח בר-קיימא</div>
+        </div>
+        <div class="stat">
+            <div class="num">169</div>
+            <div class="lbl">יעדי משנה (Targets)</div>
+        </div>
+        <div class="stat">
+            <div class="num">2015</div>
+            <div class="lbl">שנת אימוץ</div>
+        </div>
+        <div class="stat">
+            <div class="num">107</div>
+            <div class="lbl">מדינות מיישמות ESD</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ======= TAB 1: WHAT ARE SDGs ======= -->
+<div id="view-sdgs" class="view active">
+
+    <div class="section">
+        <h2>מהם יעדי הפיתוח בר-הקיימא (SDGs)?</h2>
+        <p><span class="provenance">[WEB-SEARCH]</span> ב-25 בספטמבר 2015 אימצה עצרת האו"ם את החלטה A/RES/70/1, הידועה כ"אג'נדה 2030 לפיתוח בר-קיימא" (2030 Agenda for Sustainable Development). ההחלטה כוללת 17 יעדי פיתוח בר-קיימא (Sustainable Development Goals) עם 169 יעדי משנה (targets), שאמורים להנחות את המדיניות הגלובלית עד שנת 2030.</p>
+        <p>ה-SDGs הם המשך של יעדי הפיתוח של המילניום (MDGs) שפקעו ב-2015, אך בהיקף רחב בהרבה &mdash; הם חלים על כל המדינות (לא רק מדינות מתפתחות), ומכסים נושאים רחבים מאוד: עוני, רעב, בריאות, חינוך, שוויון מגדרי, אקלים, צדק ועוד.</p>
+
+        <h3>מאפיינים מרכזיים של המנגנון</h3>
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">סטטוס משפטי</div>
+                <div class="value">לא מחייב</div>
+                <div class="note">Voluntary / Soft Law</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">מנגנון דיווח</div>
+                <div class="value">VNR</div>
+                <div class="note">Voluntary National Review</div>
+            </div>
+            <div class="metric">
+                <div class="label">פורום ניטור</div>
+                <div class="value">HLPF</div>
+                <div class="note">High-Level Political Forum</div>
+            </div>
+        </div>
+
+        <p><span class="provenance">[WEB-SEARCH]</span> ה-SDGs מנוטרים באמצעות דו"חות התקדמות שנתיים של מזכ"ל האו"ם, וכל מדינה מוזמנת להגיש "סקירה לאומית וולונטרית" (VNR) ל-High-Level Political Forum on Sustainable Development &mdash; הפלטפורמה המרכזית לניטור והערכת ההתקדמות.</p>
+    </div>
+
+    <div class="section">
+        <h2>ה-SDGs הרלוונטיים לחינוך</h2>
+        <p>מתוך 17 היעדים, ארבעה נוגעים ישירות לתוכן חינוכי, שוויון מגדרי ובריאות מינית &mdash; ויוצרים יחד מסגרת שמכוונת מדיניות חינוכית לאומית:</p>
+
+        <div class="sdg-card sdg4">
+            <div class="sdg-num">4</div>
+            <h3>SDG 4 &mdash; חינוך איכותי (Quality Education)</h3>
+            <div class="quote-box un">
+                <span class="q-en">"Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all"</span>
+                <span class="q-he">"להבטיח חינוך מכליל ושוויוני איכותי ולקדם הזדמנויות למידה לכל אורך החיים לכולם"</span>
+                <div class="q-source"><span class="provenance">[WEB-SEARCH]</span> UN General Assembly Resolution A/RES/70/1, September 2015</div>
+            </div>
+            <p>יעד 4 כולל 10 יעדי משנה (4.1 עד 4.c) ומכסה את כל היבטי החינוך: חינוך יסודי ותיכוני (4.1), גיל רך (4.2), השכלה גבוהה (4.3), מיומנויות תעסוקה (4.4), שוויון מגדרי בחינוך (4.5), אוריינות (4.6), ו&mdash;המפתח&mdash; חינוך לפיתוח בר-קיימא ואזרחות גלובלית (4.7).</p>
+        </div>
+
+        <div class="sdg-card sdg4" style="border-right-color: #8c1a1a;">
+            <div class="sdg-num" style="color: #8c1a1a;">4.7</div>
+            <h3 style="color: #8c1a1a;">SDG 4.7 &mdash; חינוך לפיתוח בר-קיימא ואזרחות גלובלית</h3>
+            <div class="quote-box">
+                <span class="q-en">"By 2030, ensure that all learners acquire the knowledge and skills needed to promote sustainable development, including, among others, through education for sustainable development and sustainable lifestyles, human rights, gender equality, promotion of a culture of peace and non-violence, global citizenship and appreciation of cultural diversity and of culture's contribution to sustainable development"</span>
+                <span class="q-he">"עד 2030, להבטיח שכל הלומדים ירכשו את הידע והמיומנויות הנדרשים לקידום פיתוח בר-קיימא, כולל, בין היתר, באמצעות חינוך לפיתוח בר-קיימא ואורח חיים בר-קיימא, זכויות אדם, שוויון מגדרי, קידום תרבות של שלום ואי-אלימות, אזרחות גלובלית והערכת מגוון תרבותי ותרומת התרבות לפיתוח בר-קיימא"</span>
+                <div class="q-source"><span class="provenance">[WEB-SEARCH]</span> SDG Target 4.7 &mdash; הנוסח המדויק של האו"ם</div>
+            </div>
+            <p>זהו יעד המשנה המרכזי מבחינת תוכן חינוכי. הוא קובע לא רק מה צריך ללמד, אלא גם איזה ערכים ועמדות על החינוך להנחיל: שוויון מגדרי, אזרחות גלובלית, זכויות אדם, תרבות שלום. ראו לשונית ייעודית.</p>
+        </div>
+
+        <div class="sdg-card sdg3">
+            <div class="sdg-num">3.7</div>
+            <h3>SDG 3.7 &mdash; בריאות מינית ורבייה</h3>
+            <div class="quote-box un">
+                <span class="q-en">"By 2030, ensure universal access to sexual and reproductive health-care services, including for family planning, information and education, and the integration of reproductive health into national strategies and programmes"</span>
+                <span class="q-he">"עד 2030, להבטיח גישה אוניברסלית לשירותי בריאות מינית ורבייה, כולל לתכנון משפחה, מידע וחינוך, ושילוב בריאות הרבייה באסטרטגיות ותוכניות לאומיות"</span>
+                <div class="q-source"><span class="provenance">[WEB-SEARCH]</span> SDG Target 3.7 &mdash; UN Official Text</div>
+            </div>
+            <p>יעד זה מחבר בין בריאות לחינוך &mdash; הדרישה ל"מידע וחינוך" (information and education) בתחום בריאות מינית היא הבסיס ליישום תוכניות CSE (Comprehensive Sexuality Education) במערכות חינוך לאומיות.</p>
+        </div>
+
+        <div class="sdg-card sdg5">
+            <div class="sdg-num">5</div>
+            <h3>SDG 5 &mdash; שוויון מגדרי (Gender Equality)</h3>
+            <div class="quote-box un">
+                <span class="q-en">"Achieve gender equality and empower all women and girls"</span>
+                <span class="q-he">"להשיג שוויון מגדרי ולהעצים את כל הנשים והבנות"</span>
+                <div class="q-source"><span class="provenance">[WEB-SEARCH]</span> SDG 5 &mdash; UN Official Text</div>
+            </div>
+            <p>SDG 5 כולל 9 יעדי משנה. הרלוונטיים במיוחד לחינוך:</p>
+            <div class="indicator-box">
+                <div class="ind-code">Target 5.1</div>
+                <div class="ind-text">"End all forms of discrimination against all women and girls everywhere" &mdash; סיום כל צורות האפליה נגד נשים ובנות בכל מקום</div>
+            </div>
+            <div class="indicator-box">
+                <div class="ind-code">Target 5.6</div>
+                <div class="ind-text">"Ensure universal access to sexual and reproductive health and reproductive rights" &mdash; הבטחת גישה אוניברסלית לבריאות מינית ורבייה וזכויות רבייה</div>
+            </div>
+            <div class="indicator-box">
+                <div class="ind-code">Target 5.c</div>
+                <div class="ind-text">"Adopt and strengthen sound policies and enforceable legislation for the promotion of gender equality" &mdash; אימוץ וחיזוק מדיניות וחקיקה לקידום שוויון מגדרי</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>כיצד ארבעת היעדים מתחברים יחד</h2>
+        <p>ארבעת ה-SDGs הללו אינם עומדים בפני עצמם &mdash; הם יוצרים רשת מדיניות מחזקת:</p>
+        <table>
+            <tr>
+                <th>חיבור</th>
+                <th>מנגנון</th>
+                <th>תוצאה בחינוך</th>
+            </tr>
+            <tr>
+                <td>SDG 4.7 + SDG 5</td>
+                <td>4.7 דורש הוראת "שוויון מגדרי" כחלק מחינוך לפיתוח בר-קיימא</td>
+                <td>שילוב תכני מגדר בתוכנית הלימודים</td>
+            </tr>
+            <tr>
+                <td>SDG 4.7 + SDG 3.7</td>
+                <td>3.7 דורש "מידע וחינוך" בבריאות מינית; 4.7 מספק מסגרת חינוכית</td>
+                <td>חינוך מיני מקיף (CSE) בבתי ספר</td>
+            </tr>
+            <tr>
+                <td>SDG 5.6 + SDG 3.7</td>
+                <td>שניהם דורשים גישה ל"בריאות מינית ורבייה"</td>
+                <td>שירותי בריאות מינית ויידוע לבני נוער</td>
+            </tr>
+            <tr>
+                <td>SDG 4.7 (אזרחות גלובלית)</td>
+                <td>"Global citizenship" כערך חינוכי שחוצה גבולות לאומיים</td>
+                <td>חינוך קוסמופוליטי שמדגיש זהות גלובלית</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>מספרים מרכזיים</h2>
+        <div class="grid-4">
+            <div class="metric">
+                <div class="label">מדינות חתומות</div>
+                <div class="value">193</div>
+                <div class="note">כל חברות האו"ם כולל ישראל</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">מדינות עם VNR</div>
+                <div class="value">188+</div>
+                <div class="note">הגישו סקירה וולונטרית</div>
+            </div>
+            <div class="metric">
+                <div class="label">מדינות מיישמות ESD</div>
+                <div class="value">107</div>
+                <div class="note"><span class="provenance">[WEB-SEARCH]</span> UNESCO 2023</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">תוכניות לימוד עם אקלים</div>
+                <div class="value">53%</div>
+                <div class="note"><span class="provenance">[WEB-SEARCH]</span> 47% ללא אזכור</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 2: SDG 4.7 DEEP DIVE ======= -->
+<div id="view-sdg47" class="view">
+
+    <div class="section">
+        <h2>SDG 4.7 &mdash; צלילה עמוקה</h2>
+        <p><span class="provenance">[WEB-SEARCH]</span> יעד 4.7 הוא הרכיב היחיד ב-SDGs שקובע ישירות מה צריך להילמד בבתי ספר. בניגוד ליעדים אחרים שמדברים על גישה לחינוך או איכות מדידה, 4.7 מגדיר תוכן ערכי ספציפי שעל כל מערכות החינוך בעולם לאמץ.</p>
+
+        <h3>הנוסח המלא &mdash; ניתוח מילה במילה</h3>
+        <div class="quote-box">
+            <span class="q-en">"By 2030, ensure that all learners acquire the knowledge and skills needed to promote sustainable development, including, among others, through education for sustainable development and sustainable lifestyles, human rights, gender equality, promotion of a culture of peace and non-violence, global citizenship and appreciation of cultural diversity and of culture's contribution to sustainable development"</span>
+            <div class="q-source"><span class="provenance">[WEB-SEARCH]</span> UN SDG Target 4.7 &mdash; Full Official Text</div>
+        </div>
+
+        <table>
+            <tr>
+                <th>רכיב בנוסח</th>
+                <th>אנגלית</th>
+                <th>המשמעות המעשית</th>
+            </tr>
+            <tr>
+                <td><strong>"כל הלומדים"</strong></td>
+                <td>all learners</td>
+                <td>לא מוגבל לגיל או שלב &mdash; מגן הילדים ועד ההשכלה הגבוהה</td>
+            </tr>
+            <tr>
+                <td><strong>"ידע ומיומנויות"</strong></td>
+                <td>knowledge and skills</td>
+                <td>לא רק אינפורמציה אלא גם כישורים מעשיים והתנהגותיים</td>
+            </tr>
+            <tr>
+                <td><strong>"חינוך לפיתוח בר-קיימא"</strong></td>
+                <td>education for sustainable development (ESD)</td>
+                <td>מסגרת פדגוגית שלמה &mdash; לא רק סביבה אלא חברה וכלכלה</td>
+            </tr>
+            <tr>
+                <td><strong>"זכויות אדם"</strong></td>
+                <td>human rights</td>
+                <td>הוראת מסגרת זכויות האדם הבינלאומית כבסיס ערכי</td>
+            </tr>
+            <tr>
+                <td><strong>"שוויון מגדרי"</strong></td>
+                <td>gender equality</td>
+                <td>שילוב תכני מגדר בחינוך; מתחבר ל-SDG 5</td>
+            </tr>
+            <tr>
+                <td><strong>"תרבות שלום ואי-אלימות"</strong></td>
+                <td>culture of peace and non-violence</td>
+                <td>חינוך לשלום, יישוב סכסוכים, דיאלוג</td>
+            </tr>
+            <tr>
+                <td><strong>"אזרחות גלובלית"</strong></td>
+                <td>global citizenship</td>
+                <td>זהות "אזרח עולם" שחוצה גבולות לאומיים ואתניים</td>
+            </tr>
+            <tr>
+                <td><strong>"הערכת מגוון תרבותי"</strong></td>
+                <td>appreciation of cultural diversity</td>
+                <td>רב-תרבותיות כערך חינוכי מרכזי</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>כיצד נמדד 4.7 &mdash; האינדיקטור הרשמי</h2>
+        <div class="indicator-box">
+            <div class="ind-code">Indicator 4.7.1</div>
+            <div class="ind-text"><span class="provenance">[WEB-SEARCH]</span> "Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies; (b) curricula; (c) teacher education; and (d) student assessment"</div>
+        </div>
+        <p>המדד בודק ארבעה מישורים שבהם צריך לשלב את התכנים:</p>
+        <div class="grid-2">
+            <div>
+                <div class="metric">
+                    <div class="label">(a) מדיניות חינוך לאומית</div>
+                    <div class="value">מדיניות</div>
+                    <div class="note">National education policies</div>
+                </div>
+                <div class="metric" style="margin-top: 12px;">
+                    <div class="label">(b) תוכניות לימודים</div>
+                    <div class="value">תוכנית</div>
+                    <div class="note">Curricula</div>
+                </div>
+            </div>
+            <div>
+                <div class="metric">
+                    <div class="label">(c) הכשרת מורים</div>
+                    <div class="value">מורים</div>
+                    <div class="note">Teacher education</div>
+                </div>
+                <div class="metric" style="margin-top: 12px;">
+                    <div class="label">(d) הערכת תלמידים</div>
+                    <div class="value">מבחנים</div>
+                    <div class="note">Student assessment</div>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 16px;"><span class="provenance">[WEB-SEARCH]</span> האינדיקטור מנוטר על ידי UNESCO Institute for Statistics (UIS), שמגדיר אותו כבעל "כיסוי נמוך" (low coverage) &mdash; רבות מהמדינות מתקשות לספק נתונים. נכון ל-2023, רק כ-53% מתוכניות הלימוד הלאומיות של 100 מדינות שנבדקו מתייחסות לשינוי אקלים, ורק 20% מהמורים מסוגלים ללמד בנושא בצורה יעילה.</p>
+    </div>
+
+    <div class="section">
+        <h2>מה מדינות מחויבות לעשות בפועל</h2>
+        <p>למרות שה-SDGs אינם מחייבים משפטית, ישנם מנגנוני לחץ משמעותיים:</p>
+
+        <div class="mechanism-card">
+            <div class="mech-type">מנגנון 1: דיווח</div>
+            <h4>Voluntary National Review (VNR)</h4>
+            <p>כל מדינה מוזמנת להגיש דו"ח התקדמות ל-HLPF. ישראל הגישה VNR ב-2019. הדו"ח נבחן בפורום בינלאומי פומבי, מה שיוצר לחץ מוניטין.</p>
+        </div>
+
+        <div class="mechanism-card">
+            <div class="mech-type">מנגנון 2: ניטור UNESCO</div>
+            <h4>Global Education Monitoring Report (GEM)</h4>
+            <p><span class="provenance">[WEB-SEARCH]</span> דו"ח GEM הוא דו"ח עצמאי של UNESCO שמנטר את התקדמות SDG 4 בכל העולם מאז 2002. הוא מעריך ומדרג מדינות לפי ביצועיהן ביחס ליעדי החינוך.</p>
+        </div>
+
+        <div class="mechanism-card">
+            <div class="mech-type">מנגנון 3: מסגרת ועדה</div>
+            <h4>SDG-Education 2030 Steering Committee</h4>
+            <p><span class="provenance">[WEB-SEARCH]</span> ועדת ההיגוי הוקמה כ"גוף עליון לשיתוף פעולה חינוכי גלובלי" (apex body for global education cooperation). היא כוללת נציגי מדינות, ארגוני חברה אזרחית, ו-NGOs, ומנחה את היישום באמצעות קבוצות אזוריות (אפריקה, ערב, אסיה-פסיפיק, אמריקה הלטינית).</p>
+        </div>
+
+        <div class="mechanism-card">
+            <div class="mech-type">מנגנון 4: יוזמות מדינתיות</div>
+            <h4>ESD for 2030 Country Initiatives</h4>
+            <p><span class="provenance">[WEB-SEARCH]</span> 107 מדינות מפתחות או מיישמות "יוזמה מדינתית ל-ESD 2030" &mdash; תוכנית לאומית מותאמת ליישום חינוך לפיתוח בר-קיימא בהתאם למסגרת UNESCO.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Global Citizenship Education (GCED) &mdash; אזרחות גלובלית</h2>
+        <p>הרכיב של "אזרחות גלובלית" ב-4.7 הוא המושג השנוי ביותר במחלוקת. UNESCO מגדירה אותו כ:</p>
+        <div class="quote-box blue">
+            <span class="q-en">"A sense of belonging to a broader community and common humanity. It emphasizes political, economic, social and cultural interdependency and interconnectedness between the local, the national and the global."</span>
+            <span class="q-he">תחושת שייכות לקהילה רחבה יותר ולאנושיות משותפת. הוא מדגיש תלות הדדית פוליטית, כלכלית, חברתית ותרבותית וקישוריות בין המקומי, הלאומי והגלובלי.</span>
+            <div class="q-source">UNESCO &mdash; הגדרת Global Citizenship Education</div>
+        </div>
+        <p>בפועל, GCED מיושמת דרך תוכניות המקדמות: זהות על-לאומית, אחריות גלובלית, קבלת שונות תרבותית, זכויות אדם אוניברסליות, ופעילות אזרחית גלובלית.</p>
+    </div>
+
+    <div class="section">
+        <h2>חינוך מיני מקיף (CSE) בצומת ה-SDGs</h2>
+        <p>Comprehensive Sexuality Education (CSE) אינו מוזכר במפורש ב-SDGs, אך הוא נגזר מהצומת של שלושה יעדים:</p>
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">SDG 3.7</div>
+                <div class="value">בריאות מינית</div>
+                <div class="note">"מידע וחינוך" בבריאות רבייה</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">SDG 4.7</div>
+                <div class="value">שוויון מגדרי</div>
+                <div class="note">חינוך לשוויון מגדרי וזכויות</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">SDG 5.6</div>
+                <div class="value">זכויות רבייה</div>
+                <div class="note">גישה לבריאות מינית ורבייה</div>
+            </div>
+        </div>
+        <p><span class="provenance">[WEB-SEARCH]</span> UNESCO, WHO, UNAIDS, UNFPA, UNICEF ו-UN Women פיתחו יחד את ה-International Technical Guidance on Sexuality Education (ITGSE, 2018) &mdash; מדריך של 139 עמודים שמגדיר CSE מגיל 5 ועד 18+. המדריך מפנה ישירות ל-SDGs כבסיס הצדקה.</p>
+        <p>כך, למרות שהמילים "חינוך מיני" לא מופיעות בטקסט ה-SDGs עצמו, סוכנויות האו"ם משתמשות בשילוב של SDG 3.7 + 4.7 + 5.6 כמנדט ליישום CSE ברמה הלאומית.</p>
+    </div>
+</div>
+
+<!-- ======= TAB 3: PIPELINE TO ISRAEL ======= -->
+<div id="view-pipeline" class="view">
+
+    <div class="section">
+        <h2>הצינור: מהחלטת האו"ם לכיתה בישראל</h2>
+        <p>כיצד מסגרת בינלאומית "וולונטרית" הופכת למדיניות חינוכית בפועל? להלן שרשרת ההשפעה המלאה:</p>
+
+        <div class="pipeline-step un">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <div class="step-title">החלטת עצרת האו"ם A/RES/70/1</div>
+                <div class="step-desc"><span class="provenance">[WEB-SEARCH]</span> ספטמבר 2015 &mdash; 193 מדינות, כולל ישראל, מאמצות את אג'נדה 2030 עם 17 SDGs ו-169 יעדי משנה. ההחלטה אינה מחייבת משפטית אך יוצרת מחויבות פוליטית.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+
+        <div class="pipeline-step un">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <div class="step-title">מסגרת SDG עם יעדים ואינדיקטורים</div>
+                <div class="step-desc">היעדים מתורגמים ל-232 אינדיקטורים מדידים. לכל אינדיקטור מטא-דאטה של UN Statistics Division המגדירה כיצד למדוד. Indicator 4.7.1 בודק שילוב GCED ו-ESD במדיניות, תוכנית, הכשרה והערכה.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+
+        <div class="pipeline-step unesco">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <div class="step-title">ניטור UNESCO &mdash; GEM Report ו-UIS</div>
+                <div class="step-desc"><span class="provenance">[WEB-SEARCH]</span> UNESCO מנטרת באמצעות דו"ח GEM (Global Education Monitoring) ו-UNESCO Institute for Statistics. מדינות מדורגות ומוערכות. ועדת ההיגוי SDG-Education 2030 משמשת כ"גוף עליון" לתיאום.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+
+        <div class="pipeline-step un">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <div class="step-title">דיווח לאומי &mdash; VNR ל-HLPF</div>
+                <div class="step-desc">ישראל הגישה Voluntary National Review (VNR) ב-2019 ל-High-Level Political Forum. הדו"ח נבחן בפורום בינלאומי ויוצר לחץ לתיעוד התקדמות בכל 17 היעדים, כולל חינוך.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+
+        <div class="pipeline-step ngo">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <div class="step-title">יישום חברה אזרחית ו-NGOs</div>
+                <div class="step-desc">ארגוני חברה אזרחית בישראל משתמשים במסגרת ה-SDGs כלגיטימציה וכמצפן מדיניותי. הם מפנים ל-SDGs בהצעות מימון, בפרסומים ובלובינג מול מערכת החינוך.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+
+        <div class="pipeline-step local">
+            <div class="step-num">6</div>
+            <div class="step-content">
+                <div class="step-title">הכיתה &mdash; תוכניות בית ספריות</div>
+                <div class="step-desc">תכנים מגיעים לכיתות דרך: תוכניות חיצוניות של NGOs, הכשרות מורים, חומרי לימוד מותאמים, ולחץ מוסדי לעמידה ב"סטנדרטים בינלאומיים".</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ישראל ואג'נדה 2030 &mdash; הקשר הישיר</h2>
+
+        <h3>ההיסטוריה</h3>
+        <table>
+            <tr>
+                <th>שנה</th>
+                <th>אירוע</th>
+                <th>משמעות</th>
+            </tr>
+            <tr>
+                <td>2015</td>
+                <td>ישראל מצביעה בעד אימוץ אג'נדה 2030 בעצרת האו"ם</td>
+                <td>מחויבות פוליטית לכל 17 היעדים</td>
+            </tr>
+            <tr>
+                <td>2016</td>
+                <td>ממשלת ישראל מתחילה בהיערכות ליישום SDGs</td>
+                <td>מיפוי ראשוני של יעדים רלוונטיים</td>
+            </tr>
+            <tr>
+                <td>2019</td>
+                <td><span class="provenance">[WEB-SEARCH]</span> ישראל מגישה VNR ראשון ל-HLPF</td>
+                <td>דו"ח רשמי על יישום SDGs בישראל</td>
+            </tr>
+            <tr>
+                <td>2019+</td>
+                <td>ארגוני חברה אזרחית ישראליים מפרסמים "דו"חות צל"</td>
+                <td>ביקורת על קצב היישום הממשלתי ודרישה להאצה</td>
+            </tr>
+        </table>
+
+        <h3>מנגנוני החדירה למערכת החינוך</h3>
+        <div class="grid-2">
+            <div>
+                <div class="mechanism-card">
+                    <div class="mech-type">ערוץ ישיר</div>
+                    <h4>משרד החינוך ותוכניות לימודים</h4>
+                    <p>שילוב תכני פיתוח בר-קיימא, אזרחות גלובלית וזכויות אדם בתוכניות הלימודים. דגש על "חינוך סביבתי" כשער כניסה רחב יותר.</p>
+                </div>
+                <div class="mechanism-card">
+                    <div class="mech-type">ערוץ ישיר</div>
+                    <h4>הכשרת מורים ומכללות</h4>
+                    <p>שילוב ESD בהכשרת מורים, כנדרש באינדיקטור 4.7.1(c). מכללות לחינוך מפתחות קורסים בחינוך לפיתוח בר-קיימא.</p>
+                </div>
+            </div>
+            <div>
+                <div class="mechanism-card">
+                    <div class="mech-type">ערוץ עקיף</div>
+                    <h4>NGOs ותוכניות חיצוניות</h4>
+                    <p>ארגוני חברה אזרחית מכניסים תוכניות לבתי ספר תוך ציטוט SDGs כמסגרת הצדקה. תוכניות לחינוך מגדרי, שלום, רב-תרבותיות ואזרחות.</p>
+                </div>
+                <div class="mechanism-card">
+                    <div class="mech-type">ערוץ עקיף</div>
+                    <h4>רשויות מקומיות</h4>
+                    <p>ערים שמאמצות SDGs ("ערים בנות-קיימא") מיישמות תוכניות חינוך מותאמות ברמה המוניציפלית, לעתים מעבר למדיניות משרד החינוך.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ה-"Soft Law" &mdash; איך "וולונטרי" הופך ל"מעשי"</h2>
+        <p>אחד ההיבטים המרכזיים של מסגרת ה-SDGs הוא שהיא מוגדרת כ"וולונטרית" &mdash; אך בפועל ישנם מנגנוני לחץ שהופכים אותה למשמעותית מאוד:</p>
+
+        <div class="grid-3">
+            <div class="metric warn">
+                <div class="label">לחץ מוניטין</div>
+                <div class="value">דירוג</div>
+                <div class="note">מדינות מדורגות בדו"חות פומביים</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">לחץ עמיתים</div>
+                <div class="value">HLPF</div>
+                <div class="note">סקירה פומבית בפורום בינלאומי</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">לחץ מימון</div>
+                <div class="value">תנאי</div>
+                <div class="note">מימון בינלאומי מותנה ב-SDGs</div>
+            </div>
+        </div>
+
+        <h3>מנגנוני "Soft Law"</h3>
+        <table>
+            <tr>
+                <th>מנגנון</th>
+                <th>תיאור</th>
+                <th>השפעה על חינוך</th>
+            </tr>
+            <tr>
+                <td>Peer Review</td>
+                <td>מדינות סוקרות זו את זו בפורום HLPF</td>
+                <td>לחץ לדווח על "התקדמות" ביעדי חינוך</td>
+            </tr>
+            <tr>
+                <td>Shadow Reports</td>
+                <td>NGOs מפרסמים "דו"חות צל" שמבקרים את הממשלה</td>
+                <td>לחץ פנימי להוכיח יישום</td>
+            </tr>
+            <tr>
+                <td>Indicator Framework</td>
+                <td>אינדיקטורים מדידים שנקבעו ע"י UN Stats</td>
+                <td>מה שנמדד הופך למדיניות</td>
+            </tr>
+            <tr>
+                <td>Capacity Building</td>
+                <td>UNESCO מציעה "סיוע טכני" ליישום</td>
+                <td>הכוונת תוכן ומתודולוגיה</td>
+            </tr>
+            <tr>
+                <td>Civil Society Engagement</td>
+                <td>ה-SDGs מעודדים שיתוף NGOs ביישום</td>
+                <td>NGOs הופכים לשחקנים לגיטימיים במדיניות חינוך</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>ארגונים ישראליים ומסגרת ה-SDGs</h2>
+        <p>מספר סוגי ארגונים בישראל משתמשים במפורש במסגרת ה-SDGs כמנוף למדיניות חינוכית:</p>
+
+        <div class="person-card">
+            <div class="name">ארגוני סביבה וקיימות</div>
+            <div class="role"><span class="badge green">שער כניסה ראשי</span></div>
+            <div class="bio">ארגוני סביבה הם לעתים קרובות "שער הכניסה" של ה-SDGs למערכת החינוך. חינוך סביבתי (SDG 13) פחות שנוי במחלוקת, אך המסגרת כוללת גם את SDGs 4.7, 5, 3.7.</div>
+        </div>
+
+        <div class="person-card">
+            <div class="name">ארגוני זכויות אדם ושוויון</div>
+            <div class="role"><span class="badge purple">שימוש באזרחות גלובלית</span></div>
+            <div class="bio">ארגונים כמו ACRI, האגודה לזכויות האזרח, ארגוני נשים ו-LGBTQ+ מפנים ל-SDGs כמסגרת בינלאומית המחייבת את ישראל לקדם שוויון מגדרי וזכויות.</div>
+        </div>
+
+        <div class="person-card">
+            <div class="name">ארגוני דו-קיום ושלום</div>
+            <div class="role"><span class="badge blue">שימוש בתרבות שלום</span></div>
+            <div class="bio">ארגוני דו-קיום משתמשים ברכיב "culture of peace and non-violence" ו-"appreciation of cultural diversity" של SDG 4.7 כמנדט לתוכניות שלום וחינוך משותף.</div>
+        </div>
+
+        <div class="person-card">
+            <div class="name">ארגוני חינוך מיני ובריאות</div>
+            <div class="role"><span class="badge red">שימוש ב-SDG 3.7 + 5.6</span></div>
+            <div class="bio">ארגוני חינוך מיני מפנים ל-SDG 3.7 (גישה למידע ובריאות מינית) ו-SDG 5.6 (זכויות רבייה) כבסיס להרחבת CSE בבתי ספר.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 4: CRITICISM ======= -->
+<div id="view-criticism" class="view">
+
+    <div class="section">
+        <h2>ביקורת על מסגרת ה-SDGs בחינוך</h2>
+        <p>מסגרת ה-SDGs בתחום החינוך ספגה ביקורת מגוונת &mdash; משמאל ומימין, ממדינות מפותחות ומתפתחות, מקהילות דתיות וחילוניות. להלן הביקורות המרכזיות.</p>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת 1: ריבונות לאומית</h2>
+
+        <div class="criticism-card">
+            <h4>"דמוקרטיה עוקפת" &mdash; מדיניות חינוך ללא הצבעה</h4>
+            <div class="critic-source">ביקורת שמרנית ממדינות שונות</div>
+            <p>הביקורת המרכזית: ה-SDGs נקבעו בהחלטת עצרת ולא באמנה בינלאומית שנחתמה ואושררה. בישראל, לא היה דיון בכנסת על אימוץ אג'נדה 2030. למרות זאת, היעדים הופכים בפועל למדיניות דרך "מנגנוני soft law" &mdash; דיווח, ניטור, לחץ עמיתים, ו-NGOs.</p>
+        </div>
+
+        <div class="criticism-card">
+            <h4>"אזרחות גלובלית" vs. זהות לאומית</h4>
+            <div class="critic-source">ביקורת ממדינות רבות</div>
+            <p>הרעיון של "אזרחות גלובלית" (Global Citizenship) ב-SDG 4.7 נתפס כמכרסם בזהות לאומית ובלויאליות למדינת הלאום. מבקרים טוענים שהמושג מקדם זהות קוסמופוליטית על חשבון פטריוטיזם, ומחליש את הקשר בין אזרח למדינתו.</p>
+        </div>
+
+        <div class="criticism-card">
+            <h4>מי מחליט מה ללמד?</h4>
+            <div class="critic-source">ביקורת פדגוגית</div>
+            <p>SDG 4.7 הוא היעד היחיד שקובע ישירות תוכן ערכי ספציפי למערכות חינוך. מבקרים טוענים שהחלטה על ערכים שילמדו בבתי ספר צריכה להתקבל בתהליך דמוקרטי לאומי, לא בהחלטת עצרת האו"ם.</p>
+        </div>
+
+        <div class="quote-box">
+            <span class="q-en">"The SDGs represent a soft-law mechanism that effectively bypasses national democratic processes. No parliament voted on what values should be taught in its schools &mdash; it was decided at the UN General Assembly."</span>
+            <span class="q-he">"ה-SDGs מייצגים מנגנון של 'משפט רך' שעוקף למעשה תהליכים דמוקרטיים לאומיים. שום פרלמנט לא הצביע על אילו ערכים ילמדו בבתי הספר שלו &mdash; ההחלטה התקבלה בעצרת האו"ם."</span>
+            <div class="q-source">סיכום ביקורת שמרנית נפוצה</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת 2: התנגדות ממדינות מתפתחות</h2>
+
+        <div class="criticism-card">
+            <h4>"ערכים מערביים בעטיפה אוניברסלית"</h4>
+            <div class="critic-source">מדינות אפריקה, המזרח התיכון ואסיה</div>
+            <p>מדינות רבות במזרח התיכון, אפריקה ואסיה מתנגדות לתכני CSE ו"שוויון מגדרי" כפי שמוגדרים במסגרת ה-SDGs. הן טוענות שמדובר בכפיית ערכים מערביים-ליברליים באמצעות מסגרת "אוניברסלית".</p>
+        </div>
+
+        <div class="criticism-card">
+            <h4>התנגדות לחינוך מיני מקיף (CSE)</h4>
+            <div class="critic-source">קואליציה של מדינות בעצרת האו"ם</div>
+            <p>קואליציה של מדינות, בעיקר אפריקאיות, ערביות ומדרום-מזרח אסיה, מתנגדת לפרשנות של SDG 3.7 ו-5.6 כמחייבת CSE מלא. הן טוענות שהנוסח "מידע וחינוך" אינו שווה ל"חינוך מיני מקיף" כפי שמוגדר במדריכי UNESCO.</p>
+        </div>
+
+        <div class="criticism-card">
+            <h4>"Language Wars" &mdash; מלחמות הנוסח</h4>
+            <div class="critic-source">משא ומתן בעצרת ועל מסמכי מעקב</div>
+            <p>חלק ניכר מהמשא ומתן על SDGs עסק בנוסח מדויק. מונחים כמו "gender equality" vs. "equity", "sexual and reproductive health" vs. "reproductive health", "comprehensive sexuality education" vs. "age-appropriate education" &mdash; כל אלה היו שדות קרב דיפלומטיים.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת 3: מנגנון "הסלמה פרשנית"</h2>
+        <p>ביקורת מבנית מרכזית: הפער בין הנוסח הרשמי של ה-SDGs לבין הפרשנות המעשית שניתנת להם על ידי סוכנויות האו"ם:</p>
+
+        <table>
+            <tr>
+                <th>שלב</th>
+                <th>נוסח / פעולה</th>
+                <th>הרחבה</th>
+            </tr>
+            <tr>
+                <td>1. נוסח SDG</td>
+                <td>"gender equality" (SDG 4.7)</td>
+                <td>נוסח כללי ומוסכם</td>
+            </tr>
+            <tr>
+                <td>2. פרשנות UNESCO</td>
+                <td>ESD כולל "challenging gender norms"</td>
+                <td>הנוסח הכללי מקבל תוכן ספציפי</td>
+            </tr>
+            <tr>
+                <td>3. מדריכי יישום</td>
+                <td>ITGSE (מדריך CSE) עם תכנים מגיל 5</td>
+                <td>139 עמודים של תוכן מפורט</td>
+            </tr>
+            <tr>
+                <td>4. אינדיקטור</td>
+                <td>4.7.1 &mdash; בדיקת שילוב בתוכנית לימודים</td>
+                <td>מה שנמדד &mdash; מיושם</td>
+            </tr>
+            <tr>
+                <td>5. יישום מקומי</td>
+                <td>NGOs מציגים CSE כ"חובה בינלאומית"</td>
+                <td>ה-"וולונטרי" הפך ל-"מחייב"</td>
+            </tr>
+        </table>
+
+        <div class="quote-box blue">
+            <span class="q-he">הבעיה המבנית: מדינות הצביעו על נוסח כללי כמו "שוויון מגדרי", אבל הפרשנות המעשית &mdash; מה זה אומר בכיתה &mdash; נקבעת לא על ידי הפרלמנט הלאומי אלא על ידי סוכנויות האו"ם ו-NGOs בינלאומיים.</span>
+            <div class="q-source">ניתוח מבני</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת 4: ביקורת דתית ומסורתית</h2>
+
+        <div class="criticism-card">
+            <h4>התנגשות עם ערכי משפחה מסורתיים</h4>
+            <div class="critic-source">קהילות דתיות &mdash; יהודיות, נוצריות, מוסלמיות</div>
+            <p>קהילות דתיות ברחבי העולם מתנגדות להוראת CSE ו"שוויון מגדרי" כפי שמוגדרים ב-SDGs, בטענה שהם סותרים ערכים דתיים ומסורתיים לגבי משפחה, מגדר ומיניות. בישראל, ההתנגדות מגיעה בעיקר מהמגזר החרדי והדתי-לאומי.</p>
+        </div>
+
+        <div class="criticism-card">
+            <h4>זכות ההורים vs. "סטנדרטים בינלאומיים"</h4>
+            <div class="critic-source">ביקורת הורים</div>
+            <p>הורים טוענים שזכותם להחליט על החינוך הערכי של ילדיהם נשללת כשתכנים מוכנסים לבתי ספר בשם "סטנדרטים בינלאומיים" ו-"SDGs" &mdash; ללא דיון ציבורי ובלי שניתנה להם אפשרות התנגדות.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת 5: ביקורת מהשמאל</h2>
+
+        <div class="criticism-card" style="border-right-color: #667eea;">
+            <h4>"Greenwashing מוסדי"</h4>
+            <div class="critic-source">ביקורת שמאל רדיקלי</div>
+            <p>מבקרים משמאל טוענים שה-SDGs הם מסגרת שמאפשרת ל"עסקים כרגיל" להמשיך &mdash; מבלי לטפל בשורשי הבעיות. המסגרת אינה מאתגרת את מבנה הכוח הגלובלי אלא רק מלבישה אותו בשפה "ירוקה".</p>
+        </div>
+
+        <div class="criticism-card" style="border-right-color: #667eea;">
+            <h4>"וולונטריות" = חוסר יעילות</h4>
+            <div class="critic-source">ביקורת פרגמטית</div>
+            <p>מבקרים טוענים שהאופי ה"וולונטרי" של ה-SDGs הופך אותם לחסרי שיניים &mdash; אין עונשים על אי-יישום, אין מנגנון אכיפה, ומדינות יכולות לדווח רק על מה שנוח להן.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>סיכום: שאלות מפתח</h2>
+        <div class="grid-2">
+            <div>
+                <div class="metric alert">
+                    <div class="label">שאלה 1</div>
+                    <div class="value" style="font-size: 1.1em;">מי מחליט?</div>
+                    <div class="note">מי קובע מה ללמד בבתי ספר &mdash; הפרלמנט הנבחר או עצרת האו"ם?</div>
+                </div>
+            </div>
+            <div>
+                <div class="metric alert">
+                    <div class="label">שאלה 2</div>
+                    <div class="value" style="font-size: 1.1em;">מה וולונטרי?</div>
+                    <div class="note">אם ה-SDGs "וולונטריים", מדוע יש מנגנוני ניטור, דירוג ולחץ?</div>
+                </div>
+            </div>
+            <div>
+                <div class="metric warn">
+                    <div class="label">שאלה 3</div>
+                    <div class="value" style="font-size: 1.1em;">פער פרשני</div>
+                    <div class="note">האם "שוויון מגדרי" = CSE מגיל 5? מי קובע?</div>
+                </div>
+            </div>
+            <div>
+                <div class="metric warn">
+                    <div class="label">שאלה 4</div>
+                    <div class="value" style="font-size: 1.1em;">שקיפות</div>
+                    <div class="note">האם הורים יודעים שתכנים מגיעים ממסגרת SDGs?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 5: LINKS ======= -->
+<div id="view-links" class="view">
+
+    <div class="section">
+        <h2>מקורות ראשוניים &mdash; מסמכי האו"ם</h2>
+
+        <a href="https://sdgs.un.org/goals" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">UN Sustainable Development Goals Portal</div>
+                <div class="lc-desc">אתר האו"ם הרשמי ל-17 יעדי הפיתוח בר-הקיימא עם כל היעדים, האינדיקטורים ודו"חות ההתקדמות</div>
+            </div>
+        </a>
+
+        <a href="https://sdgs.un.org/goals/goal4" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">SDG 4: Quality Education &mdash; Full Text</div>
+                <div class="lc-desc">הנוסח המלא של SDG 4 וכל 10 יעדי המשנה שלו, כולל 4.7</div>
+            </div>
+        </a>
+
+        <a href="https://unstats.un.org/sdgs/metadata/?Text=&Goal=4&Target=4.7" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">SDG Indicator 4.7.1 &mdash; Official Metadata</div>
+                <div class="lc-desc">המטא-דאטה הרשמית של UN Statistics Division לאינדיקטור 4.7.1 &mdash; כיצד נמדד שילוב GCED ו-ESD</div>
+            </div>
+        </a>
+
+        <a href="https://sdgs.un.org/goals/goal3" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">SDG 3: Good Health &mdash; Target 3.7</div>
+                <div class="lc-desc">יעד 3.7 &mdash; בריאות מינית ורבייה, כולל "מידע וחינוך"</div>
+            </div>
+        </a>
+
+        <a href="https://sdgs.un.org/goals/goal5" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">SDG 5: Gender Equality &mdash; Full Text</div>
+                <div class="lc-desc">הנוסח המלא של SDG 5 וכל יעדי המשנה בנושא שוויון מגדרי</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>ניטור ומעקב &mdash; UNESCO</h2>
+
+        <a href="https://www.unesco.org/en/education-sustainable-development" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">UNESCO &mdash; Education for Sustainable Development</div>
+                <div class="lc-desc">עמוד UNESCO הראשי בנושא חינוך לפיתוח בר-קיימא, כולל נתוני ניטור SDG 4.7</div>
+            </div>
+        </a>
+
+        <a href="https://www.unesco.org/sdg4education2030/en" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">SDG-Education 2030 Steering Committee</div>
+                <div class="lc-desc">ועדת ההיגוי העליונה לתיאום יישום SDG 4 &mdash; מבנה, חברים, יוזמות אזוריות</div>
+            </div>
+        </a>
+
+        <a href="https://www.unesco.org/gem-report/en" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">Global Education Monitoring Report (GEM)</div>
+                <div class="lc-desc">דו"ח GEM של UNESCO &mdash; הכלי המרכזי לניטור התקדמות SDG 4 בכל העולם</div>
+            </div>
+        </a>
+
+        <a href="https://www.uis.unesco.org/en/data-governance/edsc" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">UNESCO Institute for Statistics &mdash; Education Data</div>
+                <div class="lc-desc">מכון הסטטיסטיקה של UNESCO &mdash; איסוף נתונים ואינדיקטורים ל-SDG 4 כולל 4.7.1</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>ישראל ו-SDGs</h2>
+
+        <a href="https://hlpf.un.org/countries/israel" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">Israel at the HLPF &mdash; Voluntary National Reviews</div>
+                <div class="lc-desc">עמוד ישראל בפורום הפוליטי הגבוה &mdash; דו"חות VNR וסקירות ביצועים</div>
+            </div>
+        </a>
+
+        <a href="https://www.gov.il/en/departments/general/voluntary-national-review-on-the-implementation-of-the-2030-agenda" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">Israel VNR 2019 &mdash; Government Portal</div>
+                <div class="lc-desc">הדו"ח הלאומי הוולונטרי של ישראל לאו"ם על יישום אג'נדה 2030</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>חינוך מיני מקיף (CSE) ומסגרת SDGs</h2>
+
+        <a href="https://www.unfpa.org/comprehensive-sexuality-education" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">UNFPA &mdash; Comprehensive Sexuality Education</div>
+                <div class="lc-desc">עמוד UNFPA על CSE &mdash; החיבור ל-SDGs, יישום גלובלי ונתונים</div>
+            </div>
+        </a>
+
+        <a href="https://www.unesco.org/en/health-education/cse" target="_blank" class="link-card">
+            <div>
+                <div class="lc-title">UNESCO &mdash; Comprehensive Sexuality Education</div>
+                <div class="lc-desc">עמוד UNESCO על CSE &mdash; הנחיות יישום, חיבור ל-SDGs, ומדריך ITGSE</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>מחקרים ייעודיים קשורים</h2>
+
+        <a href="who_gender_sexuality_push.html" class="link-card">
+            <div>
+                <div class="lc-title">WHO ודחיפת מגדר ומיניות</div>
+                <div class="lc-desc">מסמכי WHO בתחום חינוך מיני ומגדר &mdash; ITGSE, BZgA, Gender Mainstreaming</div>
+            </div>
+        </a>
+
+        <a href="unesco_dashboard.html" class="link-card">
+            <div>
+                <div class="lc-title">UNESCO Dashboard</div>
+                <div class="lc-desc">לוח מחוונים על השפעת UNESCO על מערכת החינוך בישראל</div>
+            </div>
+        </a>
+
+        <a href="Gender_sexuality_education_providers.html" class="link-card">
+            <div>
+                <div class="lc-title">ספקי חינוך מגדר ומיניות</div>
+                <div class="lc-desc">מיפוי ארגונים המספקים תוכניות חינוך מגדרי ומיני בישראל</div>
+            </div>
+        </a>
+
+        <a href="Feminist_gender-agenda_orgs.html" class="link-card">
+            <div>
+                <div class="lc-title">ארגוני אג'נדה פמיניסטית-מגדרית</div>
+                <div class="lc-desc">מיפוי ארגונים פמיניסטיים ומגדריים הפועלים בחינוך בישראל</div>
+            </div>
+        </a>
+
+        <a href="Foreign-funded_coexistence_pluralism.html" class="link-card">
+            <div>
+                <div class="lc-title">ארגוני דו-קיום ופלורליזם במימון זר</div>
+                <div class="lc-desc">ארגונים המקבלים מימון בינלאומי לתוכניות חינוך לדו-קיום ופלורליזם</div>
+            </div>
+        </a>
+
+        <a href="parent_rights_transparency.html" class="link-card">
+            <div>
+                <div class="lc-title">זכויות הורים ושקיפות</div>
+                <div class="lc-desc">סוגיות זכויות הורים מול תוכניות חינוך חיצוניות בבתי ספר</div>
+            </div>
+        </a>
+
+        <a href="freire_lineage_israel.html" class="link-card">
+            <div>
+                <div class="lc-title">קו ירושה פריירה בישראל</div>
+                <div class="lc-desc">השפעת הפדגוגיה הביקורתית של פאולו פריירה על מערכת החינוך הישראלית</div>
+            </div>
+        </a>
+
+        <a href="philosophical_frameworks_map.html" class="link-card">
+            <div>
+                <div class="lc-title">מפת מסגרות פילוסופיות</div>
+                <div class="lc-desc">מיפוי המסגרות הפילוסופיות והאידיאולוגיות המשפיעות על החינוך בישראל</div>
+            </div>
+        </a>
+
+        <a href="pipeline_institutional.html" class="link-card">
+            <div>
+                <div class="lc-title">צינור מוסדי</div>
+                <div class="lc-desc">כיצד רעיונות מגיעים מאקדמיה ומארגונים בינלאומיים למערכת החינוך הישראלית</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+</div><!-- end container -->
+
+<footer>
+    <p>מחקר SDG ומסגרת החינוך &mdash; נבנה פברואר 2026</p>
+    <p><a href="index.html">חזרה למאגר המחקר</a> | <a href="methodology.html">מתודולוגיה</a></p>
+    <p style="margin-top: 8px; color: #555;">מקורות: UN SDG Portal, UNESCO Education 2030, UN Statistics Division, UNESCO GEM Report</p>
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

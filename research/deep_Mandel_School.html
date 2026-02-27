@@ -32,16 +32,7 @@ nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
 .hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
 .hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
 .hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
-.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
-.toc {
-  background: #fff; border-radius: 8px; padding: 22px 26px;
-  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-}
-.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
-.toc ol { padding-right: 22px; font-size: 0.93em; }
-.toc li { margin-bottom: 4px; }
-.toc a { color: #2a5a8a; text-decoration: none; }
-.toc a:hover { color: #ff8800; text-decoration: underline; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
 .section {
   background: #fff; border-radius: 8px; padding: 28px 26px;
   margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
@@ -61,6 +52,12 @@ blockquote {
   padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
   font-size: 0.96em; color: #6b4500;
 }
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
 table {
   width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
 }
@@ -90,6 +87,45 @@ strong { color: #1a1a2e; }
   border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
   margin: 2px 3px;
 }
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
 nav .nav-sections { display: contents; }
 @media (max-width: 768px) {
   nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
@@ -101,13 +137,14 @@ nav .nav-sections { display: contents; }
   .container { padding: 16px 12px 50px; }
   .section { padding: 18px 14px; }
   .section h2 { font-size: 1.15em; }
-  .toc { padding: 14px 16px; }
-  .toc ol { font-size: 0.85em; }
   table { font-size: 0.82em; display: block; overflow-x: auto; }
   th { position: static; }
   blockquote { padding: 10px 12px; font-size: 0.88em; }
   .thesis { padding: 10px 12px; font-size: 0.9em; }
   body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
 }
 </style>
 </head>
@@ -117,174 +154,479 @@ nav .nav-sections { display: contents; }
   <span class="brand">דוח מחקר עומק</span>
   <a href="../">&#8592; חזרה לדירוג</a>
   <a href="index.html">כל המחקרים</a>
-  <span class="nav-sections"> <a href="#section-1">דיוקן מוסדי</a> <a href="#section-2">מנגנון ההשפעה</a> <a href="#section-3">הסגל והאידיאולוגיה</a> <a href="#section-4">בוגרים בעמדות מפתח</a> <a href="#section-5">מכון מנדל בצה"ל</a> <a href="#section-6">מבחן אמר-עשה</a> <a href="#section-7">סיכום</a></span>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-alumni')">בוגרים בעמדות מפתח</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
 </nav>
 
 <div class="hero">
   <h1>בית ספר מנדל למנהיגות חינוכית</h1>
-<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
-  <div class="subtitle">בית ספר מנדל למנהיגות חינוכית (ע"ר) | ח"פ 580213627</div>
-  <div class="meta">דוח מחקר עומק | מקור ראשי: מאגר וינברג + אתר קרן מנדל</div>
+  <div><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fde8e8;color:#c0392b;margin-right:10px;">פרוגרסיבי חתרני</span></div>
+  <div class="subtitle">Mandel School for Educational Leadership | ע"ר 580213627 | נוסד 1992</div>
+  <div class="meta">הצינור: 20 עמיתים בשנה &larr; עיצוב השקפת עולם &larr; תפקידי מפתח במערכת החינוך</div>
 </div>
 
 <div class="container">
   <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
-  <div class="toc"><h2>תוכן עניינים</h2><ol>
-<li><a href="#section-1">דיוקן מוסדי: קרן מנדל ובית הספר למנהיגות</a></li>
-<li><a href="#section-2">מנגנון ההשפעה: 20 עמיתים בשנה — אלפי בתי ספר לדורות</a></li>
-<li><a href="#section-3">הסגל והאידיאולוגיה: "ראשי מנדל הינם יהודים רפורמים"</a></li>
-<li><a href="#section-4">בוגרים בעמדות מפתח: רשת ההשפעה</a></li>
-<li><a href="#section-5">מכון מנדל בצה"ל: חדירה למערכת הביטחון</a></li>
-<li><a href="#section-6">מבחן אמר-עשה: "מנהיגות חינוכית" או עיצוב אידיאולוגי</a></li>
-<li><a href="#section-7">סיכום וסיווג</a></li>
-</ol></div>
 
-  <div class="section" id="section-1">
-<h2>דיוקן מוסדי: קרן מנדל ובית הספר למנהיגות</h2>
-<p>בית ספר מנדל למנהיגות חינוכית הוקם בשנת 1992 כחלק ממכון מנדל למנהיגות, עצמו מיסודם של האחים ג'ק, ג'וזף ומורטון מנדל — פילנתרופים יהודים-אמריקאיים. הארגון רשום כעמותה תחת ח"פ 580213627.</p>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-alumni')">בוגרים בעמדות מפתח</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
 
-<div class="thesis">
-<strong>תיאור וינברג (מאגר DB):</strong> "לביה"ס מתקבלים מידי שנה רק כ-20 עמיתים ממשרד החינוך. העמיתים ממשרד החינוך המתקבלים לביה"ס מתברגים לאחר מכן לתפקידי מפתח בכירים במערכת החינוך. <strong>ראשי מנדל הינם יהודים רפורמים. רבים מאנשי הסגל הינם אנשי שמאל קיצוני.</strong> המכון משקיע בעיצוב תפישת העולם והערכים של העמיתים הלומדים בו."
-<br><span class="source-tag">מקור: מאגר וינברג, מס"ד 609</span>
-</div>
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
 
-<table>
-<tr><th>נתון</th><th>פירוט</th></tr>
-<tr><td>שם רשמי</td><td>בית ספר מנדל למנהיגות חינוכית (ע"ר)</td></tr>
-<tr><td>ח"פ</td><td>580213627</td></tr>
-<tr><td>שנת ייסוד</td><td>1992</td></tr>
-<tr><td>מייסדים</td><td>ג'ק, ג'וזף ומורטון מנדל (אמריקה)</td></tr>
-<tr><td>סוג</td><td>מיזם משותף עם משרד החינוך</td></tr>
-<tr><td>עמיתים בשנה</td><td>~20 (בכירי משרד החינוך)</td></tr>
-<tr><td>משך לימודים</td><td>שנתיים במשרה מלאה + מלגת קיום</td></tr>
-<tr><td>רשת בוגרים</td><td>~2,500 (כל תוכניות מנדל)</td></tr>
-<tr><td>אתר</td><td>school.mandelfoundation.org.il</td></tr>
-</table>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="num">1992</span>
+          <span class="label">שנת הקמה</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">~20</span>
+          <span class="label">עמיתים בשנה ממשרד החינוך</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">2</span>
+          <span class="label">שנות תוכנית (מלאות)</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">580213627</span>
+          <span class="label">ח.פ. (HP)</span>
+        </div>
+      </div>
 
-<p>קרן מנדל מתארת את חזונה: "פיתוח חברות צודקות, סובלניות, נדיבות ודמוקרטיות בארצות הברית ובישראל". הסגנון נשמע מיטיב — אך מי מגדיר מה "צודק"? מה "סובלני"? ומה "דמוקרטי"?</p>
-</div>
+      <h3>פרטים רשמיים</h3>
+      <table>
+        <tr>
+          <th>שדה</th>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>שם רשמי</strong></td>
+          <td>בית ספר מנדל למנהיגות חינוכית (ע"ר)</td>
+          <td><span class="source-tag">GuideStar IL &#8212; ח.פ. 580213627</span></td>
+        </tr>
+        <tr>
+          <td><strong>מספר עמותה (HP)</strong></td>
+          <td>580213627</td>
+          <td><span class="source-tag">GuideStar IL &#8212; ח.פ. 580213627</span></td>
+        </tr>
+        <tr>
+          <td><strong>שנת הקמה</strong></td>
+          <td>1992</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>מבנה התוכנית</strong></td>
+          <td>תוכנית דו-שנתית במשרה מלאה, כולל מלגת קיום</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>שותפות</strong></td>
+          <td>מיזם משותף (Joint Venture) עם משרד החינוך</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>אתר</strong></td>
+          <td><a href="https://school.mandelfoundation.org.il/About/Pages/default.aspx" target="_blank">school.mandelfoundation.org.il</a></td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+      </table>
 
-  <div class="section" id="section-2">
-<h2>מנגנון ההשפעה: 20 עמיתים בשנה — אלפי בתי ספר לדורות</h2>
-<p>בית ספר מנדל מקבל רק כ-20 עמיתים בשנה ממשרד החינוך. מספר זעום לכאורה — אך זהו בדיוק הגאוניות של המודל. אלו אינם מורים רגילים. אלו <strong>בכירי משרד החינוך</strong> — מנהלים, מפקחים, קובעי מדיניות.</p>
+      <h3>מיסיון מוצהר</h3>
+      <p>בית הספר מוגדר כמיזם משותף עם משרד החינוך, שמטרתו לפתח מנהיגות חינוכית בכירה. מידי שנה מתקבלים לתוכנית כ-20 עמיתים בלבד ממשרד החינוך, שעוברים תוכנית דו-שנתית אינטנסיבית במשרה מלאה, כולל מלגת קיום.</p>
+      <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
 
-<div class="thesis">
-<strong>מנגנון המנוף:</strong> קחו 20 בכירים בשנה × 30 שנות פעילות = 600 בוגרים בתפקידי מפתח × השפעה על אלפי בתי ספר כל אחד = השפעה מערכתית מסיבית. זהו אינו חינוך — זו הנדסה חברתית דרך "צוואר הבקבוק" של ההנהגה החינוכית.
-</div>
+      <blockquote>
+        "לביה"ס מתקבלים מידי שנה רק כ-20 עמיתים ממשרד החינוך"
+        <br><span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </blockquote>
 
-<h3>מאגר וינברג מאשר:</h3>
-<blockquote>
-"העמיתים ממשרד החינוך המתקבלים לביה"ס מתברגים לאחר מכן לתפקידי מפתח בכירים במערכת החינוך."
-</blockquote>
+      <blockquote>
+        "העמיתים ממשרד החינוך המתקבלים לביה"ס מתברגים לאחר מכן לתפקידי מפתח בכירים במערכת החינוך"
+        <br><span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </blockquote>
 
-<p>אתר קרן מנדל עצמו מאשר: "בוגרי התוכנית ממלאים תפקידי מפתח בשדה החינוך". התוכנית מעניקה מלגת קיום לשנתיים מלאות — כלומר, בכירי משרד החינוך יוצאים לחופשת לימודים בתשלום מלא כדי ללמוד במנדל. זוהי השקעה אישית עצומה שיוצרת נאמנות עמוקה לערכי המוסד.</p>
-</div>
+      <h3>ישות קשורה: מכון מנדל</h3>
+      <p><strong>מכון מנדל</strong> הוא ישות נפרדת שנוסדה אף היא ב-1992, ומוגדרת כגוף ש"פועל ליצירת מנהיגים סוכני שינוי". בית הספר למנהיגות חינוכית פועל תחת הקרן הכוללת של מנדל.</p>
+      <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
 
-  <div class="section" id="section-3">
-<h2>הסגל והאידיאולוגיה: "ראשי מנדל הינם יהודים רפורמים"</h2>
-<p>מאגר וינברג מציין שתי עובדות חמורות:</p>
+      <div class="thesis">
+        <strong>משמעות:</strong> המוסד מתפקד כצינור סינון ועיצוב: מבין כלל עובדי משרד החינוך, נבחרים בקפידה 20 בלבד בכל שנה. הם עוברים תוכנית אינטנסיבית של שנתיים במשרה מלאה &#8212; לא לימודים אקדמיים רגילים אלא "עיצוב תפישת עולם וערכים" &#8212; ומשובצים בחזרה לתפקידי מפתח בכירים. מבנה של אליטה מצומצמת עם השפעה מערכתית רחבה.
+      </div>
+    </div>
+  </div>
 
-<ol>
-<li><strong>"ראשי מנדל הינם יהודים רפורמים"</strong> — היהדות הרפורמית היא זרם אמריקאי שמבטל את מרבית ההלכה, תומך בנישואים חד-מיניים, ובישראל מזוהה עם שמאל פוליטי ומאבק נגד הרבנות</li>
-<li><strong>"רבים מאנשי הסגל הינם אנשי שמאל קיצוני"</strong> — לא "נוטים שמאל", לא "ליברלים" — <strong>שמאל קיצוני</strong></li>
-</ol>
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
 
-<div class="thesis">
-<strong>משמעות:</strong> כאשר ראשי המכון הם יהודים רפורמים ורבים מהסגל הם שמאל קיצוני, ו"המכון משקיע בעיצוב תפישת העולם והערכים של העמיתים" — התוצאה היא ברורה: בוגרי מנדל חוזרים למערכת החינוך עם תפיסת עולם מעוצבת לפי הסגל שלימד אותם.
-</div>
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר:</span> "להעשיר את מערכת החינוך בישראל במנהיגים מונחי חזון" &#8212; המוסד מציג עצמו כמטפח מנהיגות חינוכית מקצועית, חזון-מונחית, למען שיפור מערכת החינוך הציבורית בישראל.</p>
+        <span class="source-tag">school.mandelfoundation.org.il</span>
 
-<h3>יורם הרפז — דוגמה מהסגל</h3>
-<p>פרופ' יורם הרפז (מס"ד 2188, 5376) — "היה מורה, עיתונאי, עמית בביה"ס מנדל למנהיגות חינוכית, מנהל במכון ברנקו וייס [...] היה עורך הביטאון 'הד לחינוך' ומנהל מכון מנדל למנהיגות חינוכית." אדם שניהל את מנדל ועורך את הביטאון המרכזי של עולם החינוך בישראל — שליטה בו-זמנית בצינור ההכשרה ובצינור התקשורת המקצועית.</p>
+        <p style="margin-top:14px;"><span class="done">מה שנעשה בפועל:</span> שיטתית מציב בוגרים בעמדות מפתח כשהמוסד עצמו מנוהל ע"י "יהודים רפורמים" ו"אנשי שמאל קיצוני". התוכנית אינה רק אקדמית &#8212; היא "משקיעה בעיצוב תפישת העולם והערכים של העמיתים הלומדים בו".</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
 
-<h3>ד"ר ורדה שיפר</h3>
-<p>ד"ר ורדה שיפר (מס"ד 4004) — "כיהנה כנשיאת קרן מנדל; מייסדת מרכז מנדל למנהיגות בנגב; כיהנה כמדענית ראשית בנציבות שירות המדינה וכממונה על ביקורת מערכת החינוך במשרד מבקר המדינה." — דוגמה מושלמת לסיבוב הדלתות: מנדל → שירות המדינה → ביקורת מערכת החינוך → בחזרה למנדל.</p>
-</div>
+      <h3>הפער המרכזי: "מנהיגות" מול "עיצוב השקפת עולם"</h3>
+      <p>ההבדל הקריטי הוא בין פיתוח מקצועי לבין עיצוב אידאולוגי. תוכנית שמציגה עצמה כ"מנהיגות חינוכית" אך בפועל מתוארת ככזו ש"משקיעה בעיצוב תפישת העולם והערכים" &#8212; זו אינדוקטרינציה, לא הכשרה מקצועית.</p>
 
-  <div class="section" id="section-4">
-<h2>בוגרים בעמדות מפתח: רשת ההשפעה</h2>
-<p>מאגר וינברג חושף את עומק החדירה של בוגרי מנדל למערכת:</p>
+      <blockquote>
+        "המכון משקיע בעיצוב תפישת העולם והערכים של העמיתים הלומדים בו"
+        <br><span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </blockquote>
 
-<table>
-<tr><th>בוגר/ת</th><th>תפקיד</th><th>מס"ד</th></tr>
-<tr><td>דלית שטאובר</td><td>מנכ"לית משרד החינוך (לשעבר); מנהלת מחוז ת"א; מפקחת חינוך על-יסודי</td><td>1918</td></tr>
-<tr><td>רות קבסה-אברמזון</td><td>מנכ"לית עמותת "שערים"; חוקרת ב-UCLA; ראש תחום מנהיגות וממשל בג'וינט</td><td>920</td></tr>
-<tr><td>חנה דורסמן</td><td>מנכ"לית עמותת חינוך לפסגות; ניהלה מדור מעורבות חברתית באונ' ת"א</td><td>928</td></tr>
-<tr><td>יואב ללום</td><td>עו"ד; ייסד עמותת "נוער כהלכה"; ריכז מאבק באפליה עדתית בחינוך חרדי</td><td>1019</td></tr>
-<tr><td>יונית יעקובוביץ</td><td>מנכ"לית תכנית קרב למעורבות בחינוך — 260,000 ילדים ב-120 רשויות</td><td>2180</td></tr>
-<tr><td>אפרת ארן</td><td>סמנכ"לית תוכן ופיתוח מקצועי, אלומה; דירקטורית ב"רנה קאסן" (תאגיד חינוך ירושלים)</td><td>974</td></tr>
-<tr><td>חנין מג'אדלה</td><td>ד"ר לעבודה סוציאלית; מרצה במכללת אל-קאסמי; ממייסדי עמותה להתנדבות באוכלוסייה הערבית</td><td>11828</td></tr>
-<tr><td>רן מרכוס</td><td>אלומה; 27 שנות שירות קבע בחיל התקשוב</td><td>9177</td></tr>
-</table>
+      <h3>מי מעצב את ה"ערכים"?</h3>
+      <p>השאלה המכרעת היא: אם המוסד "משקיע בעיצוב תפישת עולם וערכים" &#8212; מה הם הערכים, ומי קובע אותם? מסד הנתונים של Weinberg מספק תשובה ישירה:</p>
 
-<p>שימו לב לדפוס: בוגרי מנדל אינם חוזרים רק למשרד החינוך. הם מתפזרים לעמדות מפתח ב<strong>עמותות, תאגידי חינוך עירוניים, אוניברסיטאות, מכללות ערביות, הג'וינט</strong> — ויוצרים רשת השפעה חוצת-מגזרים. יונית יעקובוביץ לבדה משפיעה על 260,000 ילדים דרך תכנית קרב.</p>
-</div>
+      <blockquote>
+        "ראשי מנדל הינם יהודים רפורמים"
+        <br><span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </blockquote>
 
-  <div class="section" id="section-5">
-<h2>מכון מנדל בצה"ל: חדירה למערכת הביטחון</h2>
-<p>מאגר וינברג מגלה עוד ערוץ השפעה:</p>
+      <blockquote>
+        "רבים מאנשי הסגל הינם אנשי שמאל קיצוני"
+        <br><span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </blockquote>
 
-<div class="thesis">
-<strong>תכנית מנדל למנהיגות בצה"ל (מס"ד 4589):</strong> "המכון מפעיל תכנית מנהיגות לקצינים מחיל החינוך ובכירים נוספים, <strong>בהתקשרות מול משרד הביטחון ללא מכרז</strong>. מכון מנדל נכנס לפעילות בצה"ל ב-2005."
-</div>
+      <h3>המנגנון: כיצד הצינור פועל</h3>
+      <div class="model-card">
+        <h4>שלב 1 &#8212; סינון</h4>
+        <p>מתוך כלל עובדי משרד החינוך, נבחרים כ-20 עמיתים בלבד מידי שנה. קריטריוני הבחירה נקבעים על ידי מנדל.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
 
-<p>ההתקשרות ללא מכרז מול משרד הביטחון פירושה שמנדל זכה בגישה ישירה להכשרת קצינים בלי שאף גורם אחר יכל להתחרות בו. הקצינים המוכשרים הם מחיל החינוך — הגוף שקובע מה חיילי צה"ל לומדים, שומעים ומפנימים בנוגע לערכים, זהות ומורשת.</p>
-</div>
+      <div class="model-card">
+        <h4>שלב 2 &#8212; עיצוב</h4>
+        <p>תוכנית דו-שנתית במשרה מלאה, עם מלגת קיום. העמיתים מנותקים מעבודתם הרגילה ועוברים תהליך אינטנסיבי של "עיצוב תפישת עולם וערכים" &#8212; כשהסגל כולל "אנשי שמאל קיצוני" והנהלה של "יהודים רפורמים".</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
 
-  <div class="section" id="section-6">
-<h2>מבחן אמר-עשה: "מנהיגות חינוכית" או עיצוב אידיאולוגי</h2>
+      <div class="model-card">
+        <h4>שלב 3 &#8212; מיקום</h4>
+        <p>העמיתים "מתברגים לאחר מכן לתפקידי מפתח בכירים במערכת החינוך". לא תפקידי הוראה רגילים &#8212; תפקידי מפתח בכירים. מנהלים, מפמ"רים, ראשי אגפים.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
 
-<h3>מה אומרים</h3>
-<ul>
-<li>"ליצור מנהיגים סוכני שינוי" — נשמע כמנהיגות כללית</li>
-<li>"שיפור המציאות החברתית והחינוכית" — מי יחלוק?</li>
-<li>"חברות צודקות, סובלניות, נדיבות ודמוקרטיות" — ערכים שנשמעים אוניברסליים</li>
-</ul>
+      <div class="thesis">
+        <strong>תזה &#8212; הצינור:</strong> זהו לא בית ספר. זהו מנגנון השמה אידאולוגי. השותפות הרשמית עם משרד החינוך מעניקה לגיטימציה ממלכתית לתהליך שבו ארגון פרטי &#8212; מנוהל ע"י יהודים רפורמים עם סגל של אנשי שמאל קיצוני &#8212; בוחר, מעצב ומשבץ אנשים בעמדות המפתח של מערכת החינוך הציבורית. 20 עמיתים בשנה, שנה אחר שנה, מאז 1992 &#8212; מהווים צבר של מאות בוגרים בעמדות השפעה. זהו המנגנון.
+      </div>
+    </div>
+  </div>
 
-<h3>מה עושים</h3>
-<ul>
-<li>מכשירים את בכירי משרד החינוך (20 בשנה) בתוכנית דו-שנתית אינטנסיבית</li>
-<li>הסגל כולל "אנשי שמאל קיצוני" וראשי המכון הם "יהודים רפורמים"</li>
-<li>"המכון משקיע בעיצוב תפישת העולם והערכים" — הודאה מפורשת באינדוקטרינציה</li>
-<li>הבוגרים מתברגים לתפקידי מפתח ומשפיעים על מאות אלפי ילדים</li>
-<li>חדרו גם לצה"ל — התקשרות ללא מכרז עם משרד הביטחון</li>
-</ul>
+  <!-- ==================== TAB 3: ALUMNI IN KEY POSITIONS ==================== -->
+  <div class="tab-panel" id="tab-alumni">
+    <div class="section">
+      <h2>בוגרים בעמדות מפתח</h2>
 
-<div class="thesis">
-<strong>הפער:</strong> מנדל מציג את עצמו כמוסד ל"מנהיגות חינוכית" — אך בפועל הוא מפעל לעיצוב אידיאולוגי של הדור הבא של בכירי מערכת החינוך (והצבא) בישראל. כאשר הסגל הוא "שמאל קיצוני" והמנהיגות היא "יהדות רפורמית", ה"שינוי" שהבוגרים מובילים אינו ניטרלי — הוא פרוגרסיבי-ליברלי. השימוש במלגות קיום נדיבות ובהתקשרויות ללא מכרז מוסיף ממד של כוח כלכלי שקשה לעמוד בפניו.
-</div>
-</div>
+      <p>הרשימה להלן מציגה בוגרי בית ספר מנדל למנהיגות חינוכית שזוהו במסד הנתונים של Weinberg בתפקידים בכירים ובארגונים מרכזיים. זוהי רשימה חלקית &#8212; 20 עמיתים בשנה מאז 1992 פירושם מאות בוגרים.</p>
 
-  <div class="section" id="section-7">
-<h2>סיכום וסיווג</h2>
+      <table>
+        <tr>
+          <th>שם</th>
+          <th>תפקיד נוכחי / עיקרי</th>
+          <th>ארגון</th>
+          <th>פרטים נוספים</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>רות קבסה-אברמזון</strong></td>
+          <td>מנכ"לית עמותת שערים</td>
+          <td>עמותת שערים</td>
+          <td>לשעבר ראש תחום מנהיגות וממשל בג'וינט ישראל; חברה בתנועת "תיקון"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>חנה דורסמן</strong></td>
+          <td>מנכ"ל עמותת חינוך לפסגות</td>
+          <td>עמותת חינוך לפסגות</td>
+          <td>&#8212;</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>אפרת ארן</strong></td>
+          <td>סמנכ"לית תוכן ופיתוח מקצועי</td>
+          <td>אלומה</td>
+          <td>&#8212;</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>יואב ללום</strong></td>
+          <td>מייסד עמותת 'נוער-כהלכה'</td>
+          <td>עמותת נוער-כהלכה</td>
+          <td>נבחר לאביר איכות השלטון 2011; זכה בפרס פועל צדק בחינוך של עמותת קדמה</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>משה אוחיון</strong></td>
+          <td>ממונה על תכנון ופיתוח</td>
+          <td>קרן מנדל ישראל &#8212; מרכז מנדל למנהיגות בצפון</td>
+          <td>חזר למערכת מנדל עצמה בתפקיד מפתח</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+      </table>
 
-<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+      <h3>ניתוח: לאן מתפזרים הבוגרים</h3>
 
-<h3>נימוקים לסיווג:</h3>
-<ol>
-<li><strong>סגל שמאל קיצוני:</strong> וינברג מציין במפורש "רבים מאנשי הסגל הינם אנשי שמאל קיצוני"</li>
-<li><strong>מנהיגות רפורמית:</strong> "ראשי מנדל הינם יהודים רפורמים" — זרם המזוהה עם שמאל פוליטי בישראל</li>
-<li><strong>עיצוב ערכים מכוון:</strong> "המכון משקיע בעיצוב תפישת העולם והערכים" — הודאה מפורשת</li>
-<li><strong>חדירה לתפקידי מפתח:</strong> בוגרים מגיעים לתפקידי מנכ"ל משרד החינוך, מפקחים, מנהלי תאגידי חינוך</li>
-<li><strong>חדירה לצבא:</strong> התקשרות ללא מכרז עם משרד הביטחון מ-2005</li>
-<li><strong>שפת הסוואה:</strong> "מנהיגות", "שינוי", "שיפור" — מונחים ניטרליים שמסתירים כיוון ספציפי</li>
-</ol>
+      <div class="model-card">
+        <h4>עמותות חינוך ושינוי חברתי</h4>
+        <p>רות קבסה-אברמזון (שערים), חנה דורסמן (חינוך לפסגות), יואב ללום (נוער-כהלכה) &#8212; בוגרי מנדל בראש עמותות שעוסקות בחינוך ובהשפעה חברתית. כל אחד מהם מנהל ארגון שמשפיע על אוכלוסיות צעירים.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
 
-<h3>מקורות</h3>
-<ul>
-<li>מאגר וינברג — מס"ד 609 (בית ספר מנדל למנהיגות חינוכית)</li>
-<li>מאגר וינברג — מס"ד 192 (מכון מנדל)</li>
-<li>מאגר וינברג — מס"ד 402 (קרן מנדל)</li>
-<li>מאגר וינברג — מס"ד 4589 (תכנית מנדל בצה"ל)</li>
-<li>מאגר וינברג — מס"ד 1918, 920, 928, 1019, 2180, 974, 11828 (בוגרים)</li>
-<li>אתר קרן מנדל — mandel.org.il</li>
-</ul>
-</div>
+      <div class="model-card">
+        <h4>ארגוני מטה ופילנתרופיה</h4>
+        <p>רות קבסה-אברמזון שימשה גם כראש תחום מנהיגות וממשל בג'וינט ישראל &#8212; אחד הגופים הפילנתרופיים הגדולים בישראל. אפרת ארן בתפקיד בכיר באלומה. משה אוחיון חזר למנדל עצמה כממונה על תכנון ופיתוח &#8212; מה שמעיד על מערכת סגורה.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
+
+      <div class="model-card">
+        <h4>קשרים פוליטיים-אידאולוגיים</h4>
+        <p>רות קבסה-אברמזון מזוהה גם כ"חברה בתנועת 'תיקון'" &#8212; תנועה פרוגרסיבית. יואב ללום זכה בפרס מעמותת קדמה ונבחר לאביר איכות השלטון &#8212; ציוני דרך בזירה הפרוגרסיבית-אזרחית.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
+
+      <div class="thesis">
+        <strong>תמונה מצטברת:</strong> גם מתוך מדגם חלקי של 5 בוגרים בלבד, ניתן לזהות דפוס ברור: בוגרי מנדל מתפזרים לעמדות מפתח בעמותות חינוך, ארגוני פילנתרופיה, וגופי השפעה חברתית &#8212; כשהמכנה המשותף הוא הזירה הפרוגרסיבית. זהו לא מקרה: זהו התוצר של תוכנית שמטרתה המוצהרת היא "יצירת מנהיגים סוכני שינוי".
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <p>בית ספר מנדל למנהיגות חינוכית אינו פועל בחלל ריק. הוא נקודת צומת ברשת רחבה יותר הכוללת את קרן מנדל (הגוף האם), משרד החינוך (שותף רשמי), ורשת בוגרים הפרוסה לאורך מערכת החינוך והמגזר השלישי.</p>
+
+      <h3>מבנה ארגוני</h3>
+      <div class="actor-card">
+        <h3>קרן מנדל (Mandel Foundation)</h3>
+        <span class="role">גוף אם</span>
+        <p>הקרן הבינלאומית שמפעילה את בית הספר למנהיגות חינוכית. מוגדרת בממד האידאולוגי: "ראשי מנדל הינם יהודים רפורמים". הקרן מפעילה מספר ישויות בישראל, ביניהן גם מכון מנדל (נוסד 1992), ש"פועל ליצירת מנהיגים סוכני שינוי".</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
+
+      <div class="actor-card">
+        <h3>משרד החינוך</h3>
+        <span class="role">שותף רשמי &#8212; מיזם משותף (Joint Venture)</span>
+        <p>בית הספר פועל כמיזם משותף עם משרד החינוך. המשמעות: המשרד מפנה עובדים לתוכנית, משחרר אותם מתפקידם לשנתיים, ומשבץ אותם בחזרה לתפקידים בכירים עם סיום התוכנית. זוהי לגיטימציה ממלכתית לתהליך עיצוב אידאולוגי פרטי.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
+
+      <div class="actor-card">
+        <h3>רשת הבוגרים</h3>
+        <span class="role">תוצר &#8212; פריסה מערכתית</span>
+        <p>~20 עמיתים בשנה מאז 1992 = צבר של מאות בוגרים. בוגרים מזוהים בתפקידי מפתח: ג'וינט ישראל, עמותת שערים, חינוך לפסגות, אלומה, נוער-כהלכה, ומנדל עצמה. הבוגרים יוצרים רשת אופקית של בעלי השקפת עולם משותפת בעמדות השפעה.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
+
+      <h3>מפת הקשרים</h3>
+      <table>
+        <tr>
+          <th>גוף</th>
+          <th>סוג הקשר</th>
+          <th>משמעות</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>קרן מנדל (בינלאומי)</strong></td>
+          <td>גוף אם / מימון</td>
+          <td>קובעת את הכיוון האידאולוגי; "ראשי מנדל הינם יהודים רפורמים"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>משרד החינוך</strong></td>
+          <td>שותף רשמי (Joint Venture)</td>
+          <td>מפנה עובדים, משחרר לשנתיים, משבץ חזרה בתפקידי מפתח</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>מכון מנדל</strong></td>
+          <td>ישות אחות (1992)</td>
+          <td>"פועל ליצירת מנהיגים סוכני שינוי"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>מרכז מנדל למנהיגות בצפון</strong></td>
+          <td>סניף אזורי</td>
+          <td>משה אוחיון (בוגר) ממונה על תכנון ופיתוח &#8212; מעגל סגור</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>ג'וינט ישראל</strong></td>
+          <td>ארגון מקלט לבוגרים</td>
+          <td>רות קבסה-אברמזון &#8212; ראש תחום מנהיגות וממשל</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>עמותת שערים</strong></td>
+          <td>ארגון מקלט לבוגרים</td>
+          <td>רות קבסה-אברמזון &#8212; מנכ"לית</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>עמותת חינוך לפסגות</strong></td>
+          <td>ארגון מקלט לבוגרים</td>
+          <td>חנה דורסמן &#8212; מנכ"ל</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>אלומה</strong></td>
+          <td>ארגון מקלט לבוגרים</td>
+          <td>אפרת ארן &#8212; סמנכ"לית תוכן ופיתוח מקצועי</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>עמותת נוער-כהלכה</strong></td>
+          <td>ארגון שהוקם ע"י בוגר</td>
+          <td>יואב ללום &#8212; מייסד</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>תנועת "תיקון"</strong></td>
+          <td>זיקה אידאולוגית</td>
+          <td>רות קבסה-אברמזון &#8212; חברה</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <div class="thesis">
+        <strong>דפוס הרשת:</strong> מנדל פועל כ"רכזת" (hub) &#8212; לא רק מכשיר אנשים אלא יוצר רשת. בוגרים מתפזרים לארגונים שונים אך שומרים על זיקה לערכי הרשת. חלקם (כמו משה אוחיון) חוזרים למנדל עצמה, מה שמעיד על מערכת סגורה ומתחזקת. השותפות עם משרד החינוך מבטיחה זרם קבוע של "חומר גלם" &#8212; אנשי מערכת בכירים שעוברים עיצוב והשמה.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 5: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מקור ראשי</h3>
+      <div class="model-card">
+        <p><strong>מסד הנתונים של Weinberg &#8212; מחקר ליב"ה (LIBA Research)</strong></p>
+        <p>מסד נתונים מחקרי המתעד ארגונים, עמותות ואישים הפועלים בזירה החינוכית-חברתית בישראל. המידע על בית ספר מנדל למנהיגות חינוכית כולל: שם רשמי, מספר עמותה, שנת הקמה, תיאור התוכנית, מאפייני ההנהלה והסגל, רשימת בוגרים ותפקידיהם.</p>
+        <span class="source-tag">Weinberg DB &#8212; LIBA Research</span>
+      </div>
+
+      <h3>מקורות רשמיים</h3>
+      <ul>
+        <li><strong>GuideStar Israel</strong> &#8212; רישום עמותה ח.פ. 580213627: בית ספר מנדל למנהיגות חינוכית (ע"ר). <span class="source-tag">GuideStar IL &#8212; ח.פ. 580213627</span></li>
+        <li><strong>אתר בית הספר למנהיגות חינוכית</strong> &#8212; <a href="https://school.mandelfoundation.org.il/About/Pages/default.aspx" target="_blank">school.mandelfoundation.org.il/About/Pages/default.aspx</a>. <span class="source-tag">school.mandelfoundation.org.il</span></li>
+      </ul>
+
+      <h3>פירוט מקורות לפי נתון</h3>
+      <table>
+        <tr>
+          <th>נתון</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>שם רשמי ומספר עמותה (580213627)</td>
+          <td><span class="source-tag">GuideStar IL &#8212; ח.פ. 580213627</span></td>
+        </tr>
+        <tr>
+          <td>שנת הקמה: 1992</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>~20 עמיתים בשנה ממשרד החינוך</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תוכנית דו-שנתית במשרה מלאה עם מלגת קיום</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מיזם משותף עם משרד החינוך</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"המכון משקיע בעיצוב תפישת העולם והערכים"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"ראשי מנדל הינם יהודים רפורמים"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"רבים מאנשי הסגל הינם אנשי שמאל קיצוני"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מתברגים לתפקידי מפתח בכירים</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>מכון מנדל &#8212; "ליצירת מנהיגים סוכני שינוי"</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>רות קבסה-אברמזון &#8212; תפקידים וזיקות</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>חנה דורסמן &#8212; מנכ"ל חינוך לפסגות</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>אפרת ארן &#8212; סמנכ"לית באלומה</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>יואב ללום &#8212; מייסד נוער-כהלכה, פרסים</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>משה אוחיון &#8212; מרכז מנדל למנהיגות בצפון</td>
+          <td><span class="source-tag">Weinberg DB &#8212; LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על נתוני מסד הנתונים של Weinberg (מחקר ליב"ה), רישומי GuideStar Israel, והאתר הרשמי של בית ספר מנדל למנהיגות חינוכית. כל נתון מסומן במקור הספציפי שלו. רשימת הבוגרים היא חלקית ומשקפת רק את מי שזוהו במסד הנתונים &#8212; בפועל, צבר הבוגרים מאז 1992 גדול משמעותית.</p>
+
+      <p>הסיווג "פרוגרסיבי חתרני" מבוסס על השילוב בין: (א) הצגה עצמית כתוכנית מקצועית של "מנהיגות חינוכית"; (ב) תיאור בפועל של עיצוב אידאולוגי ("עיצוב תפישת עולם וערכים"); (ג) זיהוי הנהלה וסגל כ"יהודים רפורמים" ו"אנשי שמאל קיצוני"; (ד) שותפות ממלכתית עם משרד החינוך שמספקת לגיטימציה וזרם קבוע של משתתפים.</p>
+    </div>
+  </div>
 
 </div>
 
 <footer>
   דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
 </footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      var btns = document.querySelectorAll('.tab-btn');
+      var tabMap = {'tab-profile':0,'tab-gap':1,'tab-alumni':2,'tab-network':3,'tab-sources':4};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
 
 </body>
 </html>

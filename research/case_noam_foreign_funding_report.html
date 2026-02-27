@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דוח נעם: מימון זר של חינוך בישראל</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.metric.giant { padding: 28px 16px; }
+.metric.giant .value { font-size: 2.8em; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f3e8fa; color: #7b2d8e; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.pipeline-step.red { border-right-color: #e74c3c; }
+.pipeline-step.red .step-num { color: #e74c3c; }
+.pipeline-step.orange { border-right-color: #e67e22; }
+.pipeline-step.orange .step-num { color: #e67e22; }
+.pipeline-step.green { border-right-color: #2e7d32; }
+.pipeline-step.green .step-num { color: #2e7d32; }
+.pipeline-step.purple { border-right-color: #7b2d8e; }
+.pipeline-step.purple .step-num { color: #7b2d8e; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.timeline-item {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #e74c3c; margin: 10px 0;
+    display: flex; align-items: flex-start; gap: 12px;
+}
+.timeline-item .t-date {
+    font-weight: 800; color: #e74c3c; min-width: 110px; font-size: 0.88em;
+}
+.timeline-item .t-content { flex: 1; }
+.timeline-item .t-title { font-weight: 700; color: #1a1a2e; }
+.timeline-item .t-desc { font-size: 0.85em; color: #555; }
+
+.timeline-item.blue { border-right-color: #667eea; }
+.timeline-item.blue .t-date { color: #667eea; }
+.timeline-item.orange { border-right-color: #e67e22; }
+.timeline-item.orange .t-date { color: #e67e22; }
+
+.provenance {
+    display: inline-block; font-size: 0.68em; background: #e8edf8;
+    color: #2a5a8a; padding: 1px 6px; border-radius: 3px; font-weight: 600;
+    margin-right: 4px; vertical-align: middle;
+}
+
+.flow-table td:nth-child(4) { font-weight: 700; color: #e74c3c; }
+
+.funding-country {
+    background: #fff; border-radius: 8px; padding: 16px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.funding-country .fc-name { font-weight: 700; font-size: 1.05em; color: #1a1a2e; }
+.funding-country .fc-amount { font-weight: 800; color: #e74c3c; font-size: 1.2em; margin: 4px 0; }
+.funding-country .fc-orgs { font-size: 0.82em; color: #555; }
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        דוח נעם: מימון זר בחינוך
+        <a href="funding_flows_municipal.html">חזרה לסקירת מימון</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('report')">הדוח</button>
+        <button class="nav-tab" onclick="showTab('funding')">הכספים</button>
+        <button class="nav-tab" onclick="showTab('pipeline')">הצינור</button>
+        <button class="nav-tab" onclick="showTab('reactions')">תגובות</button>
+        <button class="nav-tab" onclick="showTab('sources')">קישורים ומקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>דוח מפלגת נעם: מימון זר של מערכת החינוך בישראל</h1>
+    <div class="subtitle">חשיפת זרימות הכספים ממשלות אירופה וקרנות בינלאומיות אל תוכניות חינוכיות בבתי ספר ישראליים</div>
+    <div class="meta">דוח מקורי: 2019 | פרסום מורחב: ינואר 2023 | עדכון מחקרי: פברואר 2026</div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">300M+$</div>
+            <div class="lbl">סה"כ מענקי NIF מאז 1979</div>
+        </div>
+        <div class="stat">
+            <div class="num">14+</div>
+            <div class="lbl">ממשלות אירופיות מממנות</div>
+        </div>
+        <div class="stat">
+            <div class="num">900+</div>
+            <div class="lbl">ארגונים ישראליים נתמכים</div>
+        </div>
+        <div class="stat">
+            <div class="num">36.3M$</div>
+            <div class="lbl">מענקי NIF בשנת 2024</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ==================== TAB 1: THE REPORT ==================== -->
+<div id="tab-report" class="view active">
+
+<div class="section">
+    <h2>רקע: הדוח של מפלגת נעם על מימון זר בחינוך</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    מפלגת נעם, בראשות ח"כ אבי מאוז, פרסמה דוח מקיף (גרסה ראשונית ב-2019, ומורחבת בינואר 2023) שחשף את היקף המימון הזר הזורם למערכת החינוך הישראלית. הדוח תיעד כיצד ממשלות אירופיות, האיחוד האירופי, וקרנות בינלאומיות כמו הקרן החדשה לישראל (NIF) מממנות ארגונים ישראליים המפעילים תוכניות חינוכיות בבתי ספר.</p>
+
+    <p>הדוח הוכן כחלק מן המאבק של מפלגת נעם לחשוף את מה שהם כינו "חדירת אג'נדות זרות למערכת החינוך הישראלית", ופורסם בסמוך להקמת הממשלה ה-37 בה קיבל מאוז אחריות על "זהות יהודית" במשרד ראש הממשלה.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">היקף מימון EU שנתי לעמותות ישראליות</div>
+            <div class="value">4M+</div>
+            <div class="note">יורו -- מענקים ישירים ועקיפים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מימון גרמני שנתי</div>
+            <div class="value">4.5M</div>
+            <div class="note">יורו -- ל-26 ארגונים ישראליים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מימון שוודי לשלום עכשיו</div>
+            <div class="value">62.6M</div>
+            <div class="note">כתר שוודי -- 2019-2026</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ממצאים מרכזיים בדוח</h2>
+
+    <h3>1. היקף המימון</h3>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הדוח חשף כי מעל ל-14 ממשלות אירופיות מעבירות מאות מיליוני שקלים בשנה לארגונים ישראליים. חלק ניכר מארגונים אלה מפעיל תוכניות חינוכיות בבתי ספר ישראליים, לעיתים ללא ידיעה מלאה של ההורים או הנהלת בתי הספר לגבי מקור המימון.</p>
+
+    <h3>2. הארגונים המרכזיים</h3>
+    <p>הדוח זיהה מספר ארגונים הפועלים בחינוך ומקבלים מימון זר:</p>
+    <ul style="margin: 8px 20px 12px; font-size: 0.92em;">
+        <li><strong>שוברים שתיקה</strong> -- מקבלים מימון מהאיחוד האירופי, הולנד, דנמרק, שוויץ ו-NIF לתוכניות "חינוך לשלום" ועדויות בבתי ספר</li>
+        <li><strong>בצלם</strong> -- מימון ממשלתי מנורבגיה, דנמרק, שוויץ, שוודיה, בלגיה ו-NIF לתוכניות מודעות לזכויות אדם</li>
+        <li><strong>עדאלה</strong> -- מימון שוויצרי וגרמני לפעילות חינוכית אודות "זכויות מיעוטים"</li>
+        <li><strong>קו לעובד / רופאים לזכויות אדם</strong> -- מימון אירופי לסדנאות חינוכיות</li>
+        <li><strong>לוחמים לשלום</strong> -- מימון EU בסך 800,000 יורו לתוכניות נוער ישראלי-פלסטיני</li>
+    </ul>
+
+    <h3>3. העדר שקיפות</h3>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הדוח הצביע על כך שלעיתים קרובות ארגונים אלה אינם חושפים את מקורות המימון הזר כאשר הם מגישים בקשות לפעול בבתי ספר. התוכניות מוצגות כ"חינוך לדמוקרטיה", "חינוך לשלום", או "חינוך לזכויות אדם" -- בלי לציין שהמימון מגיע מממשלות זרות בעלות אג'נדה מדינית.</p>
+
+    <div class="quote-box">
+        "מדינות זרות מממנות ארגונים שמלאיים שחודרים לבתי הספר שלנו ומשנים את הנרטיב הלאומי מבלי שהורים יודעים מי עומד מאחורי התוכניות האלה."
+        <div class="q-source">-- מפלגת נעם, מתוך הדוח, ינואר 2023</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הקשר: אבי מאוז ומינוי "זהות יהודית"</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    בדצמבר 2022, עם הקמת הממשלה ה-37, ח"כ אבי מאוז מונה לראש רשות "זהות יהודית" (הלאומית והחרדית) במשרד ראש הממשלה. אחד הצעדים הראשונים שלו היה פרסום מחדש של דוח המימון הזר כבסיס לדרישה לפקח על תוכניות חיצוניות הנכנסות לבתי ספר.</p>
+
+    <p>מאוז דרש שכל תוכנית חיצונית הנכנסת לבית ספר תעבור בדיקה שכוללת חשיפת מקורות מימון. דרישה זו עוררה סערה ציבורית, כאשר מבקרים טענו שמדובר בניסיון לצנזר תכנים פלורליסטיים וליברליים, ואילו תומכים טענו שמדובר בהגנה על ריבונות חינוכית.</p>
+
+    <div class="person-card">
+        <div class="name">אבי מאוז</div>
+        <div class="role">ח"כ, יו"ר מפלגת נעם | ראש רשות "זהות יהודית" (דצמבר 2022 -- יוני 2023)</div>
+        <div class="bio"><span class="provenance">WEB-SEARCH</span> מייסד מפלגת נעם (2019), פעיל שמרני בנושאי זהות יהודית ומגדר. קידם את הדרישה לשקיפות מימון זר בחינוך כנושא מרכזי. פרסם את הדוח על מימון זר כראיה לצורך בפיקוח.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר זמן: מדוח לפעולה פוליטית</h2>
+
+    <div class="timeline-item blue">
+        <div class="t-date">2019</div>
+        <div class="t-content">
+            <div class="t-title">פרסום הדוח המקורי</div>
+            <div class="t-desc">מפלגת נעם, שהוקמה באותה שנה, מפרסמת את הדוח הראשון שחושף זרימות מימון זר לתוכניות חינוכיות בישראל. הדוח מתבסס בין היתר על נתוני רשם העמותות ועל מחקרי NGO Monitor.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item blue">
+        <div class="t-date">2021-2022</div>
+        <div class="t-content">
+            <div class="t-title">מחקר משלים ועדכונים</div>
+            <div class="t-desc">המפלגה מרחיבה את המחקר ומעדכנת את הנתונים בעקבות פרסומי NGO Monitor על מימון ממשלתי אירופי לארגונים ישראליים. מצטבר מידע על מעורבות EU, גרמניה, שוודיה, הולנד, נורבגיה, דנמרק ושוויץ.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-date">דצמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">הקמת ממשלה 37</div>
+            <div class="t-desc">אבי מאוז מונה לראש רשות "זהות יהודית". דורש פיקוח על תוכניות חיצוניות בבתי ספר ושקיפות מלאה של מקורות מימון.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-date">ינואר 2023</div>
+        <div class="t-content">
+            <div class="t-title">פרסום הדוח המורחב</div>
+            <div class="t-desc">הגרסה המעודכנת של הדוח מפורסמת, כוללת נתונים חדשים על היקף המימון האירופי, זיהוי צינורות הכסף, ומיפוי הארגונים הפועלים בבתי ספר. הדוח עורר ויכוח ציבורי נרחב.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item orange">
+        <div class="t-date">2023</div>
+        <div class="t-content">
+            <div class="t-title">הסערה הציבורית</div>
+            <div class="t-desc">דיונים בכנסת, הפגנות, וויכוח ציבורי סוער בנושא: האם מדובר בהגנה על ריבונות חינוכית או בצנזורה? מאוז מפוטר מתפקידו ביוני 2023.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ==================== TAB 2: THE FUNDING ==================== -->
+<div id="tab-funding" class="view">
+
+<div class="section">
+    <h2>מפת המימון הזר: ממשלות, קרנות, וסכומים</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הדוח של מפלגת נעם, יחד עם נתוני NGO Monitor, חושף תמונה מורכבת של מימון ממשלתי זר המגיע לארגונים ישראליים. חלק מארגונים אלה מפעיל תוכניות חינוכיות. להלן פירוט לפי מדינה:</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">האיחוד האירופי -- מענקי EU</div>
+            <div class="value">4M+</div>
+            <div class="note">יורו שנתי -- מענקים ישירים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">גרמניה -- ממשלת פדרלית</div>
+            <div class="value">4.5M</div>
+            <div class="note">יורו -- ל-26 ארגונים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הולנד -- MFA</div>
+            <div class="value">2M</div>
+            <div class="note">יורו שנתי -- ישיר ועקיף</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">דנמרק -- DANIDA</div>
+            <div class="value">13.7M</div>
+            <div class="note">כתר דני -- 2021-2025</div>
+        </div>
+    </div>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">נורבגיה -- שגרירות</div>
+            <div class="value">5.9M</div>
+            <div class="note">ש"ח -- 2023-2024</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שוודיה -- Sida + MFA</div>
+            <div class="value">62.6M</div>
+            <div class="note">כתר שוודי -- שלום עכשיו בלבד</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שוויץ -- FDFA</div>
+            <div class="value">1.2M+</div>
+            <div class="note">פרנק שוויצרי -- 2024</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">בלגיה -- DGD (עקיף)</div>
+            <div class="value">7.3M</div>
+            <div class="note">יורו -- 2022-2026 דרך NGOs</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הקרן החדשה לישראל (NIF) -- המממן המרכזי</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הקרן החדשה לישראל (New Israel Fund) היא השחקן המרכזי שזוהה בדוח נעם. NIF, שמושבה בניו יורק מאז 1979, חילקה מעל 300 מיליון דולר ליותר מ-900 ארגונים ישראליים. בשנת 2024 אישרה הקרן 36.3 מיליון דולר במענקים.</p>
+
+    <div class="grid-3">
+        <div class="metric giant alert">
+            <div class="label">סה"כ מענקי NIF מאז 1979</div>
+            <div class="value">$300M+</div>
+            <div class="note">ליותר מ-900 ארגונים</div>
+        </div>
+        <div class="metric giant alert">
+            <div class="label">הכנסות NIF שנתיות 2024</div>
+            <div class="value">$58.1M</div>
+            <div class="note">הוצאות: 57.3 מיליון דולר</div>
+        </div>
+        <div class="metric giant alert">
+            <div class="label">מענקים שאושרו 2024</div>
+            <div class="value">$36.3M</div>
+            <div class="note">כולל ארגוני חינוך</div>
+        </div>
+    </div>
+
+    <h3>מקבלי מענקים עיקריים של NIF (2019-2024)</h3>
+    <table>
+        <tr><th>ארגון</th><th>סכום (דולר)</th><th>תחום</th><th>קשר לחינוך</th></tr>
+        <tr><td>שוברים שתיקה</td><td style="font-weight:700;color:#e74c3c;">$3,460,781</td><td>עדויות חיילים</td><td>תוכניות נוער בבתי ספר</td></tr>
+        <tr><td>Standing Together</td><td style="font-weight:700;color:#e74c3c;">$2,042,355</td><td>שותפות ערבית-יהודית</td><td>תוכניות חינוכיות קהילתיות</td></tr>
+        <tr><td>רופאים לזכויות אדם</td><td style="font-weight:700;color:#e74c3c;">$1,864,568</td><td>זכויות רפואיות</td><td>סדנאות מודעות</td></tr>
+        <tr><td>בצלם</td><td style="font-weight:700;color:#e74c3c;">$1,811,783</td><td>תיעוד זכויות אדם</td><td>חומרים חינוכיים</td></tr>
+        <tr><td>במקום</td><td style="font-weight:700;color:#e74c3c;">$1,312,232</td><td>תכנון ובנייה</td><td>מחקר מדיניות</td></tr>
+    </table>
+    <p style="font-size:0.82em;color:#666;">* תרומות גדולות נוספות מגיעות מקרן פורד, קרנות החברה הפתוחה (סורוס), וקרן Tides.</p>
+</div>
+
+<div class="section">
+    <h2>מימון אירופי ישיר: טבלת זרימות כספים</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    להלן פירוט חלקי של זרימות כספים מממשלות אירופיות לארגונים ישראליים, לפי נתוני NGO Monitor:</p>
+
+    <table class="flow-table">
+        <tr><th>מדינה תורמת</th><th>ארגון מתווך</th><th>ארגון ישראלי מקבל</th><th>סכום</th><th>שנים</th></tr>
+        <tr><td>EU</td><td>מענק ישיר</td><td>שוברים שתיקה</td><td>410,000 EUR</td><td>2025-2027</td></tr>
+        <tr><td>EU</td><td>מענק ישיר</td><td>לוחמים לשלום</td><td>800,000 EUR</td><td>2025-2027</td></tr>
+        <tr><td>EU</td><td>מענק ישיר</td><td>שלום עכשיו</td><td>724,115 EUR</td><td>2025-2027</td></tr>
+        <tr><td>EU</td><td>מענק ישיר</td><td>סבאל / רבנים לזכויות אדם</td><td>1,000,000 EUR</td><td>2025-2028</td></tr>
+        <tr><td>גרמניה</td><td>Bread for the World</td><td>בצלם, PHR-I</td><td>1.1-2.0M EUR</td><td>2020-2025</td></tr>
+        <tr><td>גרמניה</td><td>קרן רוזה לוקסמבורג</td><td>ארגונים שמאליים שונים</td><td>לא פורסם</td><td>2020-2025</td></tr>
+        <tr><td>גרמניה</td><td>קרן היינריך בל</td><td>ארגוני חברה אזרחית</td><td>לא פורסם</td><td>2020-2025</td></tr>
+        <tr><td>הולנד</td><td>NRO / שגרירות</td><td>שוברים שתיקה, בצלם, גישה</td><td>2M EUR/שנה</td><td>2023-2025</td></tr>
+        <tr><td>דנמרק</td><td>DANIDA/UNDP</td><td>בצלם</td><td>5.8M DKK</td><td>2021-2025</td></tr>
+        <tr><td>דנמרק</td><td>DANIDA/UNDP</td><td>שוברים שתיקה</td><td>3.9M DKK</td><td>2021-2025</td></tr>
+        <tr><td>דנמרק</td><td>DANIDA/UNDP</td><td>PCATI</td><td>2.1M DKK</td><td>2021-2025</td></tr>
+        <tr><td>נורבגיה</td><td>שגרירות / MFA</td><td>עיר עמים</td><td>7.8M NOK</td><td>2024-2027</td></tr>
+        <tr><td>נורבגיה</td><td>שגרירות</td><td>בצלם</td><td>900,000 NOK</td><td>2023</td></tr>
+        <tr><td>שוודיה</td><td>Sida</td><td>שלום עכשיו</td><td>62.6M SEK</td><td>2019-2026</td></tr>
+        <tr><td>שוודיה</td><td>MFA</td><td>עיר עמים</td><td>689,400 NIS</td><td>2024</td></tr>
+        <tr><td>שוויץ</td><td>FDFA / SDC</td><td>המוקד</td><td>311,958 CHF</td><td>2024</td></tr>
+        <tr><td>שוויץ</td><td>FDFA</td><td>עדאלה</td><td>229,435 CHF</td><td>2024</td></tr>
+        <tr><td>שוויץ</td><td>FDFA</td><td>רופאים לזכויות אדם</td><td>221,228 CHF</td><td>2024</td></tr>
+        <tr><td>שוויץ</td><td>FDFA</td><td>שוברים שתיקה</td><td>154,000 CHF</td><td>2024</td></tr>
+        <tr><td>אירלנד</td><td>Irish Aid</td><td>במקום, גישה, יש דין</td><td>300,000 EUR</td><td>2024</td></tr>
+        <tr><td>בלגיה</td><td>Broederlijk Delen</td><td>ארגונים שונים</td><td>1.4M EUR</td><td>2022-2026</td></tr>
+        <tr><td>בלגיה</td><td>Oxfam-Solidarit&eacute;</td><td>ארגוני שטח</td><td>2.9M EUR</td><td>2022-2026</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מימון ייעודי לחינוך: תוכניות שזוהו</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הדוח זיהה מספר תוכניות חינוכיות ספציפיות הממומנות על ידי גורמים זרים:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>תוכניות EU בתחום חינוך</h3>
+            <table>
+                <tr><th>תוכנית</th><th>ארגון</th><th>סכום</th></tr>
+                <tr><td>Educating towards Peace</td><td>שוברים שתיקה</td><td style="font-weight:700;color:#e74c3c;">400,000 EUR</td></tr>
+                <tr><td>Fostering a Culture of Peace through Youth Education</td><td>לוחמים לשלום</td><td style="font-weight:700;color:#e74c3c;">800,000 EUR</td></tr>
+                <tr><td>Religious Leader Accountability</td><td>סבאל / רבנים לזכ"א</td><td style="font-weight:700;color:#e74c3c;">1,000,000 EUR</td></tr>
+            </table>
+        </div>
+        <div>
+            <h3>NIF -- שתיל כזרוע חינוכית</h3>
+            <p><span class="provenance">WEB-SEARCH</span>
+            שתיל, הזרוע הפעילותית של NIF בישראל, "יוצרת ומטפחת קואליציות של ארגונים" ומנהלת סדנאות הכשרה לצוותים של ארגונים הממומנים על ידי NIF. שתיל מהווה למעשה מרכז הדרכה שמאפשר תיאום בין עשרות ארגונים הפועלים בשטח, כולל בתחום החינוך.</p>
+            <p>כ-10% ממענקי NIF (כ-3.6 מיליון דולר בשנה) מופנים ל-34 ארגוני סנגור המעורבים בקמפיינים פוליטיים בתחומי "זכויות אדם", "חברה משותפת", ו"חופש דת".</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ==================== TAB 3: THE PIPELINE ==================== -->
+<div id="tab-pipeline" class="view">
+
+<div class="section">
+    <h2>צינור המימון: מממשלה זרה עד לכיתה</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הדוח של מפלגת נעם מיפה את "צינור המימון" -- הדרך שבה כסף ממשלתי זר עובר דרך שכבות מתווכים עד שהוא מגיע לכיתת הלימוד. להלן המודל שזוהה:</p>
+
+    <div class="pipeline-step red">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">ממשלה זרה / גוף על-לאומי</div>
+            <div class="step-desc">ממשלות אירופיות (גרמניה, הולנד, שוודיה, דנמרק, נורבגיה, שוויץ, בלגיה, אירלנד), האיחוד האירופי, וסוכנויות פיתוח ממשלתיות (Sida, DANIDA, SDC, Irish Aid) מקצות תקציבים ל"קידום זכויות אדם", "בניית שלום", ו"חברה אזרחית" בישראל.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step orange">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">קרן מתווכת / שגרירות / גוף ביניים</div>
+            <div class="step-desc">הכסף מועבר דרך: שגרירויות אירופיות בתל אביב, גופי ביניים כמו UNDP, ארגוני כנסייה (Bread for the World, Misereor, HEKS), קרנות פוליטיות (רוזה לוקסמבורג, היינריך בל), או קרנות אמריקאיות (NIF, Ford Foundation, Open Society Foundations, Tides Foundation).</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">ארגון ישראלי (NGO)</div>
+            <div class="step-desc">הכסף מגיע לארגונים ישראליים רשומים כעמותות: שוברים שתיקה, בצלם, עדאלה, רופאים לזכויות אדם, לוחמים לשלום, שלום עכשיו, במקום, עיר עמים, גישה, יש דין, ועוד. חלק מארגונים אלה מפעיל תוכניות חינוכיות.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step green">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">תוכנית חינוכית / חומר לימודי</div>
+            <div class="step-desc">הארגון מפתח תוכנית חינוכית: סדנאות, הרצאות, סיורים, חומרי לימוד, קורסים אונליין. התוכניות עוטפות את המסרים בשפה חינוכית: "חינוך לדמוקרטיה", "חינוך לזכויות אדם", "חינוך לשלום", "חינוך לגיוון".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step purple">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">בית הספר / כיתת הלימוד</div>
+            <div class="step-desc">התוכנית מגיעה לבית הספר, לעיתים בהזמנת הרשות המקומית או המנהל. התלמידים נחשפים לתכנים שעוצבו על ידי ארגון הממומן מממשלה זרה -- בדרך כלל מבלי שההורים יודעים על מקור המימון.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>דוגמאות מפורטות לצינורות מימון</h2>
+
+    <h3>צינור 1: EU -- שוברים שתיקה -- בתי ספר</h3>
+    <div class="grid-2">
+        <div>
+            <div class="pipeline-step red">
+                <div class="step-num">$</div>
+                <div class="step-content">
+                    <div class="step-title">האיחוד האירופי</div>
+                    <div class="step-desc">מענק 410,000 EUR לתוכנית "Educating towards Peace" ו"Accountability for forcible transfer"</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&#x25BC;</div>
+            <div class="pipeline-step">
+                <div class="step-num">></div>
+                <div class="step-content">
+                    <div class="step-title">שוברים שתיקה</div>
+                    <div class="step-desc">מפעילים את התוכנית: מביאים חיילים לשעבר לספר לנוער על פעולות צבאיות בשטחים</div>
+                </div>
+            </div>
+            <div class="pipeline-arrow">&#x25BC;</div>
+            <div class="pipeline-step green">
+                <div class="step-num">!</div>
+                <div class="step-content">
+                    <div class="step-title">תלמידי תיכון</div>
+                    <div class="step-desc">נחשפים לעדויות חיילים -- "counter misinformation and radicalization"</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="quote-box">
+                "האיחוד האירופי מקצה 400,000 יורו לשוברים שתיקה עבור 'teaching Israeli youth about Palestinian territories to counter misinformation and radicalization' -- זוהי למעשה תוכנית חינוכית שמטרתה לעצב את התפיסה של נוער ישראלי כלפי הסכסוך."
+                <div class="q-source">-- ניתוח הדוח, בהתבסס על נתוני EU ו-NGO Monitor</div>
+            </div>
+        </div>
+    </div>
+
+    <h3>צינור 2: שוודיה -- שלום עכשיו -- מחקר ופעילות חינוכית</h3>
+    <div class="pipeline-step red">
+        <div class="step-num">$</div>
+        <div class="step-content">
+            <div class="step-title">סוכנות הפיתוח השוודית (Sida)</div>
+            <div class="step-desc">מענק של 62.6 מיליון כתר שוודי (2019-2026) -- "Support to the Israeli Peace Movement Peace Now"</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">></div>
+        <div class="step-content">
+            <div class="step-title">שלום עכשיו</div>
+            <div class="step-desc">הארגון מפיק מחקרים, מפות, דוחות ותוכן חינוכי על ההתנחלויות ו"פתרון שתי המדינות"</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step green">
+        <div class="step-num">!</div>
+        <div class="step-content">
+            <div class="step-title">שימוש בחינוך ובתקשורת</div>
+            <div class="step-desc">חומרים מופצים לסטודנטים, עיתונאים, ומעצבי מדיניות -- משפיעים על שיח ציבורי וחינוכי</div>
+        </div>
+    </div>
+
+    <h3>צינור 3: גרמניה -- ארגוני כנסייה -- ארגונים ישראליים</h3>
+    <div class="pipeline-step red">
+        <div class="step-num">$</div>
+        <div class="step-content">
+            <div class="step-title">ממשלת גרמניה (BMZ / MFA-AA)</div>
+            <div class="step-desc">כ-4.5 מיליון יורו שנתי ל-26 ארגונים ישראליים</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step orange">
+        <div class="step-num">></div>
+        <div class="step-content">
+            <div class="step-title">ארגוני ביניים גרמניים</div>
+            <div class="step-desc">Bread for the World (פרוטסטנטי), Misereor (קתולי), Medico International, קרנות פוליטיות (Rosa Luxemburg, Heinrich B&ouml;ll)</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">></div>
+        <div class="step-content">
+            <div class="step-title">ארגונים ישראליים</div>
+            <div class="step-desc">Comet-ME (1.7-4.9M EUR), PHR-I (1.1-2.0M EUR), בצלם (295K-1M EUR), עיר עמים (250-780K EUR), יש דין (189-431K EUR)</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step green">
+        <div class="step-num">!</div>
+        <div class="step-content">
+            <div class="step-title">תוכניות שטח וחינוך</div>
+            <div class="step-desc">סדנאות, דוחות, חומרי הסברה, פעילויות חינוכיות, ותוכן מדיה המופנה לקהל ישראלי</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מודל NIF: מממן אמריקאי -- שתיל -- ארגונים בשטח</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הקרן החדשה לישראל מפעילה מודל ייחודי של "צינור מימון" באמצעות שתיל:</p>
+
+    <div class="pipeline-step red">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">תורמים אמריקאיים ובינלאומיים</div>
+            <div class="step-desc">קרן פורד, Open Society Foundations (סורוס), Tides Foundation, ותורמים פרטיים -- הכנסות של 58.1 מיליון דולר בשנה</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step orange">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">NIF -- הקרן החדשה לישראל (ניו יורק)</div>
+            <div class="step-desc">מחלקת 36.3 מיליון דולר בשנה ליותר מ-900 ארגונים ישראליים. NIF אינה חושפת את כל הנתמכים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">שתיל -- זרוע פעילותית בישראל</div>
+            <div class="step-desc">"יוצרת ומטפחת קואליציות של ארגונים" ומנהלת סדנאות הכשרה לצוותי ארגונים. מרכז תיאום ו"בניית קיבולת" לעשרות ארגונים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step green">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">ארגונים מקומיים בשטח</div>
+            <div class="step-desc">שוברים שתיקה ($3.46M), Standing Together ($2.04M), רופאים לזכויות אדם ($1.86M), בצלם ($1.81M), ועוד עשרות -- מפעילים תוכניות חינוכיות, סדנאות, וקמפיינים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step purple">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">כיתות לימוד, קמפוסים, ומרחב ציבורי</div>
+            <div class="step-desc">תלמידים וסטודנטים נחשפים לתכנים המעוצבים והממומנים על ידי הצינור -- ברוב המקרים ללא ידיעת ההורים על שרשרת המימון.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מנגנוני הסתרת מקור המימון</h2>
+    <p>הדוח של מפלגת נעם זיהה מספר מנגנונים להסתרת מקור המימון הזר:</p>
+
+    <div class="grid-3">
+        <div class="funding-country">
+            <div class="fc-name">מימון עקיף דרך ארגוני כנסייה</div>
+            <div class="fc-orgs">ממשלת גרמניה מעבירה כספים דרך Bread for the World ו-Misereor -- ארגוני כנסייה שמעבירים את הכסף לארגונים ישראליים. המימון הממשלתי מוסווה כתרומות "כנסייתיות".</div>
+        </div>
+        <div class="funding-country">
+            <div class="fc-name">מימון דרך גופי UN</div>
+            <div class="fc-orgs">דנמרק מעבירה מימון דרך UNDP -- הכסף מגיע מ-DANIDA אבל מופיע כתמיכת "או"ם". בצלם קיבלה 5.8 מיליון כתר דני דרך ערוץ זה.</div>
+        </div>
+        <div class="funding-country">
+            <div class="fc-name">קרנות פוליטיות</div>
+            <div class="fc-orgs">קרנות מפלגתיות גרמניות (רוזה לוקסמבורג, היינריך בל, פרידריך אברט) ממומנות על ידי הממשלה אך פועלות כ"עצמאיות" -- מעבירות כספים לארגונים ישראליים.</div>
+        </div>
+    </div>
+
+    <div class="quote-box blue">
+        "בלגיה סירבה לפרסם את 'Joint Strategic Framework on Palestine' לשנים 2022-2026, ובכך הגבילה את הגישה הציבורית למידע מפורט על מימון ארגונים."
+        <div class="q-source">-- NGO Monitor, דוח מימון בלגי</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ==================== TAB 4: REACTIONS ==================== -->
+<div id="tab-reactions" class="view">
+
+<div class="section">
+    <h2>תגובות פוליטיות</h2>
+
+    <h3>תמיכה בדוח ובדרישה לשקיפות</h3>
+
+    <div class="quote-box">
+        "המדינות הזרות משתמשות בארגונים ישראליים כדי לקדם אג'נדות שמדינת ישראל מתנגדת להן. זה חייב להיפסק, ולפחות לעבור פיקוח."
+        <div class="q-source">-- עמדת מפלגת נעם, 2023</div>
+    </div>
+
+    <div class="grid-2">
+        <div>
+            <div class="person-card">
+                <div class="name">ח"כ אבי מאוז (נעם)</div>
+                <div class="role">ראש רשות "זהות יהודית"</div>
+                <div class="bio">דרש פיקוח מלא על תוכניות חיצוניות בבתי ספר, חשיפת מקורות מימון, וזכות וטו של ההורים. טען שמדובר ב"חדירה" של מדינות זרות לחינוך ילדי ישראל.</div>
+            </div>
+
+            <div class="person-card">
+                <div class="name">ח"כ סימחה רוטמן (הציונות הדתית)</div>
+                <div class="role">יו"ר ועדת חוקה, חוק ומשפט</div>
+                <div class="bio">תמך בקריאה לשקיפות מלאה של מקורות מימון זרים לארגונים הפועלים בחינוך. קידם הצעות חוק בנושא שקיפות עמותות.</div>
+            </div>
+        </div>
+        <div>
+            <div class="person-card">
+                <div class="name">ארגון "אם תרצו"</div>
+                <div class="role">תנועה ציונית</div>
+                <div class="bio"><span class="provenance">WEB-SEARCH</span> פרסמה מחקרים עצמאיים על מימון זר לארגונים הפועלים בקמפוסים ובבתי ספר. תמכה בממצאי הדוח ודרשה חקיקה מחמירה יותר בנושא חוק שקיפות עמותות.</div>
+            </div>
+
+            <div class="person-card">
+                <div class="name">NGO Monitor</div>
+                <div class="role">מכון מחקר</div>
+                <div class="bio"><span class="provenance">WEB-SEARCH</span> סיפק את מרבית התשתית הנתונית לדוח. מפרסם באופן שוטף מעקב אחר מימון ממשלתי אירופי לארגונים ישראליים. מנתח את הקשר בין מימון לפעילות פוליטית.</div>
+            </div>
+        </div>
+    </div>
+
+    <h3>התנגדות לדוח ולדרישות הפיקוח</h3>
+
+    <div class="quote-box blue">
+        "הדרישה לשקיפות מימון היא מסווה לצנזורה. ארגוני חברה אזרחית פועלים לקידום דמוקרטיה וזכויות אדם, ונעם רוצה להשתיק אותם."
+        <div class="q-source">-- עמדה נפוצה בקרב ארגוני חברה אזרחית, 2023</div>
+    </div>
+
+    <div class="grid-2">
+        <div>
+            <div class="person-card">
+                <div class="name">הקרן החדשה לישראל (NIF)</div>
+                <div class="role">קרן מממנת</div>
+                <div class="bio">דחתה את הביקורת. טענה שהמימון מיועד לחיזוק דמוקרטיה וזכויות אדם בישראל, ושמדובר בהתקפה על חברה אזרחית.</div>
+            </div>
+
+            <div class="person-card">
+                <div class="name">שוברים שתיקה</div>
+                <div class="role">ארגון עדויות חיילים</div>
+                <div class="bio">הגנו על תוכניות החינוך שלהם: "אנחנו מביאים עדויות אמיתיות של חיילים -- זה חינוך לאחריות, לא לדה-לגיטימציה."</div>
+            </div>
+        </div>
+        <div>
+            <div class="person-card">
+                <div class="name">האיחוד האירופי</div>
+                <div class="role">גוף על-לאומי</div>
+                <div class="bio"><span class="provenance">WEB-SEARCH</span> EU הגן על המימון שלו וטען שמדובר ב"תמיכה בחברה אזרחית ובניית שלום" -- חלק מהמדיניות האירופית ל"two-state solution" ו"peace-building frameworks".</div>
+            </div>
+
+            <div class="person-card">
+                <div class="name">ארגוני זכויות אדם</div>
+                <div class="role">בצלם, עדאלה, רופאים לזכ"א, ועוד</div>
+                <div class="bio">טענו שדרישות השקיפות הן "הרתעה" נגד חברה אזרחית. עתרו לבג"ץ נגד ניסיונות לפקח על תוכניות חיצוניות בבתי ספר.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>כיסוי תקשורתי ודיון ציבורי</h2>
+
+    <div class="timeline-item">
+        <div class="t-date">דצמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">מינוי מאוז וסערה ראשונית</div>
+            <div class="t-desc">מינויו של מאוז לראש רשות "זהות יהודית" עורר ביקורת נרחבת מהאופוזיציה, מארגוני LGBT, ומארגוני חברה אזרחית. הדוח על מימון זר הוצג כהצדקה לתפקיד.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item orange">
+        <div class="t-date">ינואר 2023</div>
+        <div class="t-content">
+            <div class="t-title">פרסום הדוח המורחב -- כיסוי תקשורתי נרחב</div>
+            <div class="t-desc">כלי תקשורת ישראליים דיווחו נרחב על הדוח. הנושא עורר דיון סוער ברשתות החברתיות. ערוצי ימין הדגישו את היקף המימון הזר, בעוד ערוצי שמאל טענו שמדובר בצנזורה.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item blue">
+        <div class="t-date">ראשית 2023</div>
+        <div class="t-content">
+            <div class="t-title">דיונים בכנסת</div>
+            <div class="t-desc">הנושא הגיע לכנסת. נציגי הקואליציה דרשו שקיפות מלאה; האופוזיציה האשימה בניסיון השתקה. חוק שקיפות העמותות הקיים נדון כלא מספיק.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-date">2023</div>
+        <div class="t-content">
+            <div class="t-title">מחאות הרפורמה המשפטית מטשטשות את הדיון</div>
+            <div class="t-desc">מחאות הרפורמה המשפטית הסיטו את תשומת הלב הציבורית. נושא המימון הזר בחינוך ירד מסדר היום התקשורתי.</div>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="t-date">יוני 2023</div>
+        <div class="t-content">
+            <div class="t-title">הדחת מאוז</div>
+            <div class="t-desc">מאוז הודח מתפקידו. רשות "זהות יהודית" פורקה. הפיקוח על תוכניות חיצוניות בבתי ספר לא יושם בפועל.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ההקשר האירופי: מדיניות מוצהרת לעומת מימון בפועל</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הדוח חשף סתירות בין המדיניות המוצהרת של מדינות אירופיות לבין המימון בפועל:</p>
+
+    <div class="grid-2">
+        <div>
+            <div class="quote-box">
+                "השימוש בכספים דנים למטרות פוליטיות, כולל פעילויות BDS, אינו מקובל."
+                <div class="q-source">-- הצהרת ממשלת דנמרק, אוקטובר 2018</div>
+            </div>
+            <p><span class="provenance">WEB-SEARCH</span>
+            למרות הצהרה זו, דנמרק המשיכה לממן ארגונים שפעילותם כוללת שימוש ברטוריקת "אפרטהייד" וקמפיינים בינלאומיים נגד ישראל -- פעילויות שלטענת NGO Monitor סותרות את המדיניות המוצהרת.</p>
+        </div>
+        <div>
+            <div class="quote-box blue">
+                "הולנד סיפקה 2 מיליון יורו במימון ישיר ועקיף לארגונים הפועלים בישראל, הגדה המערבית ועזה בשנת 2024."
+                <div class="q-source">-- דוח משרד החוץ ההולנדי, 2024</div>
+            </div>
+            <p><span class="provenance">WEB-SEARCH</span>
+            הולנד תומכת בארגונים שמטרתם המוצהרת כוללת "increase opposition in the international arena to Israel's prolonged occupation" -- מטרה שבדוח נעם הוצגה כדוגמה למימון זר שמקדם אג'נדה מדינית.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ==================== TAB 5: LINKS & SOURCES ==================== -->
+<div id="tab-sources" class="view">
+
+<div class="section">
+    <h2>קישורים למחקרים קשורים באתר</h2>
+
+    <a href="funding_flows_municipal.html" class="link-card">
+        <div>
+            <div class="lc-title">זרימות מימון לרשויות מקומיות</div>
+            <div class="lc-desc">מיפוי זרימות כספים מקרנות וממשלות זרות לתוכניות חינוכיות ברשויות מקומיות בישראל</div>
+        </div>
+    </a>
+
+    <a href="aish_zara_evidence.html" class="link-card">
+        <div>
+            <div class="lc-title">אש זרה -- ראיות למימון זר בחינוך</div>
+            <div class="lc-desc">מסמך ראיות מפורט על מימון זר הזורם למערכת החינוך הישראלית</div>
+        </div>
+    </a>
+
+    <a href="nif_education_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">לוח מחוונים: NIF ומערכת החינוך</div>
+            <div class="lc-desc">ניתוח מפורט של מעורבות הקרן החדשה לישראל במערכת החינוך -- ארגונים, תוכניות, וסכומים</div>
+        </div>
+    </a>
+
+    <a href="Foreign-funded_coexistence_pluralism.html" class="link-card">
+        <div>
+            <div class="lc-title">ארגוני דו-קיום ופלורליזם ממומנים מחו"ל</div>
+            <div class="lc-desc">סקירת ארגונים המקדמים דו-קיום ופלורליזם בבתי ספר בישראל ומקבלים מימון זר</div>
+        </div>
+    </a>
+
+    <a href="pipeline_institutional.html" class="link-card">
+        <div>
+            <div class="lc-title">צינור מוסדי: ממקור המימון עד הכיתה</div>
+            <div class="lc-desc">מיפוי הצינור המוסדי שבו כספים זרים מגיעים לבתי ספר ישראליים</div>
+        </div>
+    </a>
+
+    <a href="munzenberg_municipal.html" class="link-card">
+        <div>
+            <div class="lc-title">מודל מינצנברג: השפעה עירונית</div>
+            <div class="lc-desc">ניתוח מודל ההשפעה של ארגונים ממומנים ברמה המוניציפלית</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מקורות חיצוניים</h2>
+
+    <h3>NGO Monitor -- מעקב מימון ממשלתי אירופי</h3>
+    <a href="https://www.ngo-monitor.org/funder/european-union/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון EU לארגונים ישראליים</div>
+            <div class="lc-desc">מאגר נתונים על מענקי האיחוד האירופי לארגונים ישראליים -- כולל סכומים, תוכניות, ותקופות</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/germany/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון גרמני</div>
+            <div class="lc-desc">מעקב אחר מימון ממשלת גרמניה -- 4.5 מיליון יורו שנתי דרך BMZ, MFA-AA, וארגוני כנסייה</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/netherlands/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון הולנדי</div>
+            <div class="lc-desc">2 מיליון יורו שנתי -- מימון ישיר ועקיף דרך NRO ושגרירות</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/norway/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון נורבגי</div>
+            <div class="lc-desc">5.9 מיליון ש"ח -- שגרירות נורבגיה 2023-2024</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/sweden/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון שוודי</div>
+            <div class="lc-desc">62.6 מיליון כתר שוודי לשלום עכשיו בלבד (2019-2026) + מענקי MFA</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/denmark/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון דני</div>
+            <div class="lc-desc">DANIDA -- 13.7 מיליון כתר דני דרך UNDP (2021-2025)</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/switzerland/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון שוויצרי</div>
+            <div class="lc-desc">1.2+ מיליון פרנק שוויצרי -- FDFA/SDC 2024</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/belgium/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון בלגי</div>
+            <div class="lc-desc">7.3 מיליון יורו -- מימון עקיף דרך ארגוני DGD (2022-2026)</div>
+        </div>
+    </a>
+
+    <a href="https://www.ngo-monitor.org/funder/ireland/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: מימון אירי</div>
+            <div class="lc-desc">Irish Aid -- 100,000 יורו לכל ארגון (2024)</div>
+        </div>
+    </a>
+
+    <h3>NIF -- הקרן החדשה לישראל</h3>
+    <a href="https://www.ngo-monitor.org/funder/new_israel_fund/" class="link-card" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor: פרופיל NIF</div>
+            <div class="lc-desc">300+ מיליון דולר מאז 1979, 36.3 מיליון בשנה, 900+ ארגונים -- ניתוח מפורט</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>הערות מתודולוגיות</h2>
+    <p><span class="provenance">WEB-SEARCH</span>
+    הנתונים בדוח זה מבוססים על מקורות מרובים:</p>
+    <ul style="margin: 8px 20px 12px; font-size: 0.92em;">
+        <li><strong>דוח מפלגת נעם (2019, ינואר 2023)</strong> -- הדוח המקורי שחשף את היקף המימון הזר בחינוך</li>
+        <li><strong>NGO Monitor</strong> -- מאגר נתונים על מימון ממשלתי אירופי לארגונים ישראליים, מבוסס על דיווחי רשם העמותות, דוחות ממשלתיים, ובקשות חופש מידע</li>
+        <li><strong>רשם העמותות הישראלי</strong> -- נתוני דיווח של עמותות ישראליות על מקורות מימון זרים</li>
+        <li><strong>דיווחי ממשלות אירופיות</strong> -- דוחות סיוע חוץ של דנמרק, הולנד, שוודיה, נורבגיה, שוויץ</li>
+        <li><strong>דוחות שנתיים של NIF</strong> -- נתונים על מענקים, הכנסות, והוצאות</li>
+    </ul>
+    <p style="font-size:0.85em;color:#666;">הסכומים המובאים מבוססים על נתונים שפורסמו ברשומות ציבוריות. חלק מהמימון אינו מדווח בשל העדר חובת שקיפות מלאה, ולכן ההיקף האמיתי עשוי להיות גדול יותר.</p>
+</div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer>
+    דוח מחקר: מימון זר של מערכת החינוך בישראל -- מבוסס על דוח מפלגת נעם (2019/2023), נתוני NGO Monitor, ומקורות ציבוריים | עודכן: פברואר 2026
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    const tabs = ['report','funding','pipeline','reactions','sources'];
+    const idx = tabs.indexOf(id);
+    if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

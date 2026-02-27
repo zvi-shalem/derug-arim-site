@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHO ודחיפת מגדר ומיניות — ארגון הבריאות העולמי בחינוך המיני הגלובלי ובישראל</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box .q-en { display: block; font-size: 0.92em; color: #555; margin-bottom: 6px; direction: ltr; text-align: left; }
+.quote-box .q-he { display: block; font-size: 0.95em; color: #333; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f8e8; color: #27ae60; }
+.badge.purple { background: #f0e8f8; color: #8e44ad; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-step.who { border-right-color: #0093D5; }
+.pipeline-step.who .step-num { color: #0093D5; }
+.pipeline-step.un { border-right-color: #4b92db; }
+.pipeline-step.un .step-num { color: #4b92db; }
+.pipeline-step.ngo { border-right-color: #e67e22; }
+.pipeline-step.ngo .step-num { color: #e67e22; }
+.pipeline-step.local { border-right-color: #e74c3c; }
+.pipeline-step.local .step-num { color: #e74c3c; }
+.pipeline-step.school { border-right-color: #c0392b; }
+.pipeline-step.school .step-num { color: #c0392b; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.doc-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #0093D5;
+    transition: all 0.2s;
+}
+.doc-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.doc-card h3 { color: #1a1a2e; margin-bottom: 4px; font-size: 1.05em; }
+.doc-card .doc-meta { font-size: 0.82em; color: #888; margin-bottom: 8px; }
+.doc-card .doc-desc { font-size: 0.88em; color: #555; margin-bottom: 8px; }
+.doc-card.bzga { border-right-color: #e74c3c; }
+.doc-card.ippf { border-right-color: #e67e22; }
+.doc-card.un { border-right-color: #4b92db; }
+
+.age-table { margin: 16px 0; }
+.age-table td { vertical-align: top; }
+.age-table .age-col { font-weight: 700; color: #667eea; white-space: nowrap; min-width: 80px; }
+.age-table .age-alert { background: #fff5f5; }
+.age-table .age-warn { background: #fffbf0; }
+
+.provenance {
+    display: inline-block; padding: 1px 8px; border-radius: 4px;
+    font-size: 0.68em; font-weight: 600; background: #e8edf8; color: #667eea;
+    margin-right: 4px; vertical-align: middle;
+}
+
+.criticism-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #e74c3c;
+}
+.criticism-card h4 { color: #1a1a2e; margin-bottom: 6px; }
+.criticism-card .critic-source { font-size: 0.82em; color: #888; margin-bottom: 6px; }
+.criticism-card p { font-size: 0.88em; color: #555; }
+
+.country-pushback {
+    display: flex; gap: 10px; padding: 12px;
+    background: #fef2f2; border-radius: 8px; margin-bottom: 8px;
+    align-items: flex-start;
+}
+.country-pushback .cp-flag { font-size: 1.4em; flex-shrink: 0; width: 35px; text-align: center; }
+.country-pushback .cp-name { font-weight: 700; color: #1a1a2e; font-size: 0.92em; }
+.country-pushback .cp-desc { font-size: 0.82em; color: #555; }
+
+footer {
+    background: #1a1a2e; color: #667; padding: 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>WHO ומגדר/מיניות</span>
+            <a href="../">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('docs')">המסמכים</button>
+            <button class="nav-tab" onclick="showTab('pipeline')">הצינור</button>
+            <button class="nav-tab" onclick="showTab('content')">התוכן</button>
+            <button class="nav-tab" onclick="showTab('israel')">ישראל</button>
+            <button class="nav-tab" onclick="showTab('criticism')">ביקורת</button>
+            <button class="nav-tab" onclick="showTab('sources')">קישורים ומקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>ארגון הבריאות העולמי (WHO) &mdash; ודחיפת מגדר ומיניות</h1>
+    <div class="subtitle">מהנחיות גלובליות לכיתות בישראל: המסמכים, הצינור, התוכן והביקורת</div>
+    <div class="meta">International Technical Guidance on Sexuality Education | BZgA Standards | Gender Mainstreaming Strategy</div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">85+</div>
+            <div class="lbl">מדינות שאימצו הנחיות CSE</div>
+        </div>
+        <div class="stat">
+            <div class="num">0-18</div>
+            <div class="lbl">טווח גילאים במסמכי WHO</div>
+        </div>
+        <div class="stat">
+            <div class="num">6</div>
+            <div class="lbl">גופי UN מפתחים</div>
+        </div>
+        <div class="stat">
+            <div class="num">2010</div>
+            <div class="lbl">שנת מסמך BZgA "מלידה"</div>
+        </div>
+        <div class="stat">
+            <div class="num">139</div>
+            <div class="lbl">עמודים &mdash; מדריך 2018</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ======= TAB 1: DOCUMENTS ======= -->
+<div id="view-docs" class="view active">
+
+    <div class="section">
+        <h2>שלושת מסמכי היסוד של ה-WHO בתחום חינוך מיני ומגדר</h2>
+        <p>ארגון הבריאות העולמי פועל בתחום חינוך מיני ומגדר דרך שלושה מסמכי יסוד עיקריים, המגדירים מדיניות גלובלית ומשמשים בסיס למדיניות חינוך לאומית בעשרות מדינות, כולל ישראל.</p>
+    </div>
+
+    <div class="doc-card">
+        <h3>International Technical Guidance on Sexuality Education (ITGSE)</h3>
+        <div class="doc-meta"><span class="provenance">[WEB-SEARCH]</span> UNESCO / WHO / UNAIDS / UNFPA / UNICEF / UN Women | מהדורה מתוקנת: ינואר 2018 | 139 עמודים | ISBN 978-92-3-100259-5</div>
+        <div class="doc-desc">
+            המסמך המרכזי והמקיף ביותר &mdash; פותח על ידי שישה גופי האו"ם. מתאר "חינוך מיני מקיף" (CSE) כ"ממלא תפקיד מרכזי בהכנת צעירים לחיים בטוחים, פרודוקטיביים ומספקים" בהקשרים שבהם HIV/AIDS, מחלות מין, הריונות בלתי רצויים, אלימות מגדרית ואי-שוויון מגדרי מהווים סיכונים רציניים. מגדיר 8 מושגי מפתח עם יעדי למידה לארבע קבוצות גיל (5-8, 9-12, 12-15, 15-18+).
+        </div>
+        <div class="grid-4">
+            <div class="metric alert">
+                <div class="label">קבוצות גיל</div>
+                <div class="value">4</div>
+                <div class="note">5-8, 9-12, 12-15, 15-18+</div>
+            </div>
+            <div class="metric">
+                <div class="label">מושגי מפתח</div>
+                <div class="value">8</div>
+                <div class="note">Key Concepts</div>
+            </div>
+            <div class="metric">
+                <div class="label">גופי UN שותפים</div>
+                <div class="value">6</div>
+                <div class="note">UNESCO, WHO, UNAIDS, UNFPA, UNICEF, UN Women</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">עמודים</div>
+                <div class="value">139</div>
+                <div class="note">שני כרכים</div>
+            </div>
+        </div>
+        <div class="quote-box blue">
+            <span class="q-en">"CSE plays a central role in the preparation of young people for a safe, productive, fulfilling life in a world where HIV and AIDS, sexually transmitted infections, unintended pregnancies, gender-based violence and gender inequality still pose serious risks to their well-being."</span>
+            <span class="q-he">CSE ממלא תפקיד מרכזי בהכנת צעירים לחיים בטוחים, פרודוקטיביים ומספקים, בעולם שבו HIV ו-AIDS, מחלות מין, הריונות בלתי רצויים, אלימות מגדרית ואי-שוויון מגדרי עדיין מהווים סיכונים רציניים לרווחתם.</span>
+            <div class="q-source">ITGSE 2018, Introduction &mdash; WHO/UNESCO <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+
+        <h3>שמונת מושגי המפתח (Key Concepts)</h3>
+        <table>
+            <tr><th>#</th><th>מושג (אנגלית)</th><th>מושג (עברית)</th><th>נושאים מרכזיים</th></tr>
+            <tr><td>1</td><td>Relationships</td><td>מערכות יחסים</td><td>משפחות, חברויות, מערכות יחסים רומנטיות, הסכמה</td></tr>
+            <tr><td>2</td><td>Values, Rights, Culture and Sexuality</td><td>ערכים, זכויות, תרבות ומיניות</td><td>נורמות חברתיות, זכויות אדם, גישה חיובית למיניות</td></tr>
+            <tr><td>3</td><td>Understanding Gender</td><td>הבנת מגדר</td><td>מגדר, שוויון מגדרי, נורמות מגדריות, זהות מגדרית</td></tr>
+            <tr><td>4</td><td>Violence and Staying Safe</td><td>אלימות ושמירה על בטיחות</td><td>אלימות מגדרית, הטרדה, הגנה עצמית</td></tr>
+            <tr><td>5</td><td>Skills for Health and Well-being</td><td>מיומנויות לבריאות ורווחה</td><td>קבלת החלטות, תקשורת, משא ומתן</td></tr>
+            <tr><td>6</td><td>The Human Body and Development</td><td>הגוף האנושי והתפתחות</td><td>אנטומיה, התבגרות, דימוי גוף</td></tr>
+            <tr><td>7</td><td>Sexuality and Sexual Behaviour</td><td>מיניות והתנהגות מינית</td><td>מיניות, הנאה מינית, התנהגות מינית</td></tr>
+            <tr><td>8</td><td>Sexual and Reproductive Health</td><td>בריאות מינית ורבייתית</td><td>מניעת הריון, HIV, STIs, שירותי בריאות</td></tr>
+        </table>
+    </div>
+
+    <div class="doc-card bzga">
+        <h3>Standards for Sexuality Education in Europe (BZgA/WHO Europe)</h3>
+        <div class="doc-meta"><span class="provenance">[WEB-SEARCH]</span> BZgA (Bundeszentrale fur gesundheitliche Aufklarung) &mdash; Federal Centre for Health Education, Germany / WHO Regional Office for Europe | 2010 | ~60 עמודים</div>
+        <div class="doc-desc">
+            המסמך השנוי ביותר במחלוקת &mdash; פותח על ידי המרכז הפדרלי הגרמני לחינוך בריאותי בשיתוף WHO אירופה. המסמך מגדיר תוכנית חינוך מיני שמתחילה <strong>מלידה (גיל 0)</strong> ומפרט תכנים לכל שלב גיל מגיל 0 עד 15+. זהו המסמך שגורר את רוב הביקורת הבינלאומית בשל ההמלצות לגילאים הצעירים ביותר.
+        </div>
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">גיל התחלה</div>
+                <div class="value">0</div>
+                <div class="note">מלידה (!) &mdash; "Sexuality Education Matrix"</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">קבוצות גיל</div>
+                <div class="value">6</div>
+                <div class="note">0-4, 4-6, 6-9, 9-12, 12-15, 15+</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">מדינות יישום</div>
+                <div class="value">25+</div>
+                <div class="note">מדינות אירופה</div>
+            </div>
+        </div>
+        <div class="quote-box">
+            <span class="q-en">"Sexuality education starts from birth. From the very beginning, babies learn the value and pleasure of bodily contact, warmth and intimacy."</span>
+            <span class="q-he">חינוך מיני מתחיל מלידה. מההתחלה, תינוקות לומדים את הערך וההנאה של מגע גופני, חום ואינטימיות.</span>
+            <div class="q-source">BZgA/WHO Europe, Standards for Sexuality Education in Europe, 2010, p. 34 <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+
+    <div class="doc-card un">
+        <h3>WHO Gender Mainstreaming Strategy</h3>
+        <div class="doc-meta"><span class="provenance">[WEB-SEARCH]</span> World Health Organization | אסטרטגיה רוחבית מתמשכת (עודכנה 2019–2023)</div>
+        <div class="doc-desc">
+            אסטרטגיית "מיינסטרימינג מגדרי" של WHO &mdash; הטמעת "זווית מגדרית" בכל תחומי המדיניות הבריאותית. WHO מגדיר מגדר כ"תכונות של נשים, גברים, בנות ובנים שנבנות חברתית" ומגדיר זהות מגדרית כ"חוויה פנימית עמוקה ואישית של מגדר, שעשויה להתאים או לא להתאים לפיזיולוגיה או למין שניתן בלידה."
+        </div>
+        <div class="quote-box blue">
+            <span class="q-en">"Gender refers to the characteristics of women, men, girls and boys that are socially constructed. This includes norms, behaviours and roles associated with being a woman, man, girl or boy, as well as relationships with each other. As a social construct, gender varies from society to society and can change over time."</span>
+            <span class="q-he">מגדר מתייחס לתכונות של נשים, גברים, בנות ובנים שנבנות חברתית. זה כולל נורמות, התנהגויות ותפקידים הקשורים להיות אישה, גבר, ילדה או ילד. כמבנה חברתי, מגדר משתנה מחברה לחברה ויכול להשתנות עם הזמן.</span>
+            <div class="q-source">WHO, "Gender and Health" Q&amp;A <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="quote-box">
+            <span class="q-en">"Gender identity: a person's innate, deeply felt internal and individual experience of gender, which may or may not correspond to the person's physiology or designated sex at birth."</span>
+            <span class="q-he">זהות מגדרית: חוויה מולדת, עמוקה, פנימית ואישית של מגדר, שעשויה להתאים או לא להתאים לפיזיולוגיה או למין שנקבע בלידה.</span>
+            <div class="q-source">WHO Official Definition <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>הגדרות WHO למיניות ובריאות מינית</h2>
+        <p><span class="provenance">[WEB-SEARCH]</span> WHO מגדיר בריאות מינית כ"מצב של רווחה פיזית, רגשית, נפשית וחברתית ביחס למיניות; ולא רק היעדר מחלה." ההגדרה כוללת:</p>
+        <div class="quote-box blue">
+            <span class="q-en">"Sexual health requires a positive and respectful approach to sexuality and sexual relationships, as well as the possibility of having pleasurable and safe sexual experiences, free of coercion, discrimination and violence."</span>
+            <span class="q-he">בריאות מינית דורשת גישה חיובית ומכבדת למיניות ולמערכות יחסים מיניות, וכן אפשרות לחוויות מיניות מהנות ובטוחות, ללא כפייה, אפליה ואלימות.</span>
+            <div class="q-source">WHO, Sexual Health Topics <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <div class="quote-box">
+            <span class="q-en">"Sexuality encompasses sex, gender identities and roles, sexual orientation, eroticism, pleasure, intimacy and reproduction."</span>
+            <span class="q-he">מיניות מקיפה מין, זהויות ותפקידים מגדריים, נטייה מינית, ארוטיקה, הנאה, אינטימיות ורבייה.</span>
+            <div class="q-source">WHO, Sexual Health Definition <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <p>שימו לב: ההגדרה כוללת במפורש "gender identities and roles" &mdash; זהויות ותפקידים מגדריים &mdash; כחלק מהגדרת המיניות. הכללה זו היא הבסיס לכך שתוכניות "חינוך מיני" כוללות תכני מגדר.</p>
+    </div>
+
+    <div class="section">
+        <h2>דמויות מפתח ב-WHO בתחום מגדר/מיניות</h2>
+        <div class="grid-2">
+            <div class="person-card">
+                <div class="name">Dr. Tedros Adhanom Ghebreyesus</div>
+                <div class="role">Director-General, WHO (מאז 2017)</div>
+                <div class="bio"><span class="provenance">[WEB-SEARCH]</span> מנכ"ל WHO שתחתיו התפרסם מדריך ITGSE המתוקן (2018). הרחיב את הגישה ל"בריאות מינית ורבייתית" כזכות אדם בסיסית ואישר את הסרת "אי-התאמה מגדרית" מרשימת ההפרעות הנפשיות ב-ICD-11 (2019).</div>
+            </div>
+            <div class="person-card">
+                <div class="name">Dr. Ian Askew</div>
+                <div class="role">Director, Department of Sexual and Reproductive Health, WHO (2017-2022)</div>
+                <div class="bio">ניהל את המחלקה לבריאות מינית ורבייתית ב-WHO. הוביל את שיתופי הפעולה עם UNESCO ו-UNFPA ליצירת ההנחיות הטכניות. יצא מ-Population Council &mdash; ארגון שתומך במחקר רבייה ומיניות גלובלי.</div>
+            </div>
+            <div class="person-card">
+                <div class="name">Dr. Rajat Khosla</div>
+                <div class="role">Head, Human Rights and Gender, WHO</div>
+                <div class="bio">מוביל את האסטרטגיה למיינסטרימינג מגדרי ב-WHO. עבד בעבר ב-Amnesty International ו-UNFPA. אחראי על שילוב זווית "זכויות אדם ומגדר" בכל תוכניות WHO, כולל חינוך.</div>
+            </div>
+            <div class="person-card">
+                <div class="name">Dr. Joanna Herat</div>
+                <div class="role">Senior Programme Specialist, UNESCO (Section of Health and Education)</div>
+                <div class="bio"><span class="provenance">[WEB-SEARCH]</span> מובילה את תוכנית CSE ב-UNESCO והייתה אחת הכותבות המרכזיות של ITGSE 2018. עובדת בממשק בין WHO ו-UNESCO על הנחיות חינוך מיני. הובילה את תוכנית O3 (Our Rights, Our Lives, Our Future) ב-35 מדינות.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 2: PIPELINE ======= -->
+<div id="view-pipeline" class="view">
+
+    <div class="section">
+        <h2>הצינור: מ-WHO לכיתות בישראל</h2>
+        <p>כיצד הנחיות WHO בתחום מגדר ומיניות זולגות ממוסדות בינלאומיים אל כיתות הלימוד בישראל, דרך שרשרת של ארגונים ותוכניות. זהו תיאור מפורט של "הצינור" &mdash; שרשרת ההשפעה המלאה.</p>
+    </div>
+
+    <div class="section">
+        <h2>שרשרת ההשפעה המלאה</h2>
+
+        <div class="pipeline-step who">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <div class="step-title">WHO &mdash; ארגון הבריאות העולמי</div>
+                <div class="step-desc">מגדיר הגדרות גלובליות: "בריאות מינית", "מגדר", "זהות מגדרית". מפרסם Gender Mainstreaming Strategy. יוצר עם BZgA את "Standards for Sexuality Education in Europe" (2010). משתתף בכתיבת ITGSE (2018). קובע: "מיניות מקיפה מין, זהויות מגדריות, נטייה מינית, ארוטיקה, הנאה, אינטימיות ורבייה." <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&#x25BC;</div>
+
+        <div class="pipeline-step un">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <div class="step-title">UNESCO + UNFPA + UNAIDS + UNICEF + UN Women</div>
+                <div class="step-desc">UNESCO מתרגם הגדרות WHO למסמכי מדיניות חינוכית: International Technical Guidance on Sexuality Education (ITGSE) 2018 &mdash; 8 מושגי מפתח, 4 קבוצות גיל. UNFPA מממן תוכניות בשטח ב-150+ מדינות. UNAIDS מספק לגיטימציה בריאותית. תוכנית O3 של UNESCO הגיעה ל-23.4 מיליון תלמידים ב-35 מדינות אפריקה בלבד. <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&#x25BC;</div>
+
+        <div class="pipeline-step ngo">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <div class="step-title">IPPF (International Planned Parenthood Federation)</div>
+                <div class="step-desc">מפרסם "IPPF Framework for Comprehensive Sexuality Education" שמרחיב את הנחיות WHO/UNESCO. IPPF הוא ספק CSE מוביל ב-170+ מדינות. מתרגם הנחיות לתוכניות מעשיות. מממן ומכשיר מנחים מקומיים. מקושר דרך Member Associations לגופים ישראליים כמו האגודה לתכנון המשפחה בישראל.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&#x25BC;</div>
+
+        <div class="pipeline-step ngo">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <div class="step-title">ארגוני ביניים גלובליים ואזוריים</div>
+                <div class="step-desc">Rutgers International (הולנד) &mdash; מרכז מצוינות CSE. Population Council &mdash; מחקר והטמעה. SIECUS (Sexuality Information and Education Council of the US). Guttmacher Institute &mdash; מחקר ופרסומים. ILGA (International Lesbian, Gay, Bisexual, Trans and Intersex Association) &mdash; סנגור.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&#x25BC;</div>
+
+        <div class="pipeline-step local">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <div class="step-title">ארגונים ישראליים מתווכים</div>
+                <div class="step-desc">
+                    <strong>SEI</strong> (האגודה לחינוך מיני בישראל / עמותת תודעה) &mdash; מאמצת מפורשות את מודל WHO/UNESCO.
+                    <strong>חושן</strong> &mdash; ארגון חינוך LGBTQ+ בבתי ספר, מצטט סטנדרטים בינלאומיים.
+                    <strong>SafeSchool / בית ספר בטוח</strong> &mdash; תוכנית "מרחב בטוח" המאמצת שפת WHO.
+                    <strong>האגודה למען הלהט"ב</strong> &mdash; סנגור ותוכניות חינוך.
+                    <strong>שדות-מרחבים</strong> &mdash; חינוך מיני ומגדרי בגנים ובי"ס.
+                    <strong>טבע האדם</strong> &mdash; חינוך מיני "פמיניסטי" בגישת WHO.
+                </div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&#x25BC;</div>
+
+        <div class="pipeline-step local">
+            <div class="step-num">6</div>
+            <div class="step-content">
+                <div class="step-title">משרד החינוך ורשויות מקומיות</div>
+                <div class="step-desc">
+                    <strong>אגף א' לפסיכולוגיה ויעוץ</strong> &mdash; מאמץ שפת "מרחב בטוח" ו"שוויון מגדרי".
+                    <strong>חוזר מנכ"ל</strong> על "מניעת אלימות על רקע מגדרי" &mdash; מבוסס על הגדרות WHO.
+                    <strong>תוכנית גפ"ן (13785)</strong> &mdash; "גוף, פיזי, נפשי" &mdash; כוללת תכנים מגדריים.
+                    <strong>רשויות מקומיות</strong> &mdash; מזמינות ישירות ארגונים כמו חושן, SEI, SafeSchool לבתי ספר.
+                </div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&#x25BC;</div>
+
+        <div class="pipeline-step school">
+            <div class="step-num">7</div>
+            <div class="step-content">
+                <div class="step-title">כיתת הלימוד</div>
+                <div class="step-desc">תלמיד/ה בישראל נחשפ/ת לתכנים שמקורם בהגדרות WHO: "מגדר הוא מבנה חברתי", "זהות מגדרית היא חוויה פנימית", "מיניות מקיפה הנאה, ארוטיקה, זהויות מגדריות". התכנים מגיעים ללא ייחוס ל-WHO &mdash; מוצגים כ"ידע מקצועי" או "ערכים אוניברסליים". ההורים לרוב אינם מודעים למקור הנחיות.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מנגנוני ההעברה המרכזיים</h2>
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">תוכניות WHO-CSE פעילות</div>
+                <div class="value">85+</div>
+                <div class="note">מדינות עם תוכניות מאומצות</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">תלמידים שנחשפו (אפריקה בלבד)</div>
+                <div class="value">23.4M</div>
+                <div class="note">תוכנית O3 של UNESCO <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="metric warn">
+                <div class="label">מורים שהוכשרו (O3)</div>
+                <div class="value">91,000</div>
+                <div class="note">50K pre-service + 41K in-service <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+
+        <h3>ארבע "ערוצי זלגול" עיקריים לישראל</h3>
+        <table>
+            <tr><th>ערוץ</th><th>מנגנון</th><th>דוגמה ישראלית</th></tr>
+            <tr>
+                <td><span class="badge red">הכשרת מנחים</span></td>
+                <td>ארגונים ישראליים שולחים מנחים להכשרה בינלאומית על בסיס מודלים של WHO/IPPF ומחזירים את התכנים</td>
+                <td>SEI &mdash; הכשרה 120 שעות על בסיס "מודל ההנאה" (Pleasure Model) המיוחס ל-WHO</td>
+            </tr>
+            <tr>
+                <td><span class="badge orange">מסמכי מדיניות</span></td>
+                <td>משרד החינוך מאמץ שפה ומושגים מ-WHO ללא ייחוס מפורש &mdash; "שוויון מגדרי", "מרחב בטוח", "מגוון מגדרי"</td>
+                <td>חוזרי מנכ"ל משרד החינוך בנושא "מניעת אלימות מגדרית" ו"הכלה מגדרית"</td>
+            </tr>
+            <tr>
+                <td><span class="badge blue">מימון בינלאומי</span></td>
+                <td>קרנות בינלאומיות (NIF, Ford Foundation, EU) מממנות ארגונים ישראליים שמיישמים CSE על פי מודל WHO</td>
+                <td>מימון EU ו-NIF לחושן, SafeSchool ותוכניות חינוך מגדרי</td>
+            </tr>
+            <tr>
+                <td><span class="badge purple">לגיטימציה אקדמית</span></td>
+                <td>מכללות להכשרת מורים מלמדות את מודל WHO כ"סטנדרט מקצועי" לחינוך מיני</td>
+                <td>מכללת קיבוצים, מכון הרטמן, מכללת סמינר הקיבוצים &mdash; קורסים על בסיס ITGSE</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>חיבור ל-SDGs &mdash; מטרות פיתוח בר-קיימא</h2>
+        <p><span class="provenance">[WEB-SEARCH]</span> CSE מקושר לשלוש מטרות SDG מרכזיות, מה שנותן לו לגיטימציה כ"חובה בינלאומית":</p>
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">SDG 3 &mdash; Good Health</div>
+                <div class="value">3.7</div>
+                <div class="note">Target 3.7: "universal access to sexual and reproductive health-care services, including for family planning, information and education" <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="metric">
+                <div class="label">SDG 4 &mdash; Quality Education</div>
+                <div class="value">4.7</div>
+                <div class="note">Target 4.7: Education for sustainable development including gender equality</div>
+            </div>
+            <div class="metric">
+                <div class="label">SDG 5 &mdash; Gender Equality</div>
+                <div class="value">5.6</div>
+                <div class="note">Target 5.6: Universal access to sexual and reproductive health and reproductive rights</div>
+            </div>
+        </div>
+        <p>שלושת ה-Targets הללו יחד יוצרים "מנדט בינלאומי" שגופים מקומיים מציגים כמחייב: "ישראל חתמה על ה-SDGs, לכן חייבת ליישם CSE." זהו מנגנון לחץ מרכזי.</p>
+    </div>
+</div>
+
+<!-- ======= TAB 3: CONTENT ======= -->
+<div id="view-content" class="view">
+
+    <div class="section">
+        <h2>מה WHO ממליץ בפועל &mdash; לפי גיל</h2>
+        <p>להלן פירוט התכנים שמומלצים בשני המסמכים המרכזיים &mdash; ITGSE 2018 (UNESCO/WHO) ומסמך BZgA/WHO Europe 2010 &mdash; לפי קבוצות גיל. <span class="provenance">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>מסמך BZgA/WHO Europe (2010) &mdash; "מלידה"</h2>
+        <p>המסמך מגדיר "Sexuality Education Matrix" עם שש קבוצות גיל, החל מלידה:</p>
+
+        <table class="age-table">
+            <tr><th>קבוצת גיל</th><th>תכנים מומלצים (לפי מסמך BZgA/WHO Europe 2010)</th><th>הערכת סיכון</th></tr>
+            <tr class="age-alert">
+                <td class="age-col">0-4<br><span class="badge red">מלידה</span></td>
+                <td>
+                    <strong>גוף:</strong> "גילוי ומגע של הגוף, אוננות בגיל מוקדם" (early childhood masturbation); חוויית הנאה גופנית (pleasure from physical contact); שמות חלקי גוף כולל איברי מין.<br>
+                    <strong>פוריות ורבייה:</strong> "מאיפה באים תינוקות"; הריון ולידה.<br>
+                    <strong>מיניות:</strong> "תחושת הנאה ממגע גופני"; סקרנות לגבי הגוף שלהם ושל אחרים; "גילוי זהות מגדרית" (discovery of own body and gender identity).<br>
+                    <strong>רגשות:</strong> חיבה, אהבה, קנאה.<br>
+                    <strong>מערכות יחסים:</strong> סוגים שונים של משפחות.
+                </td>
+                <td><span class="badge red">קריטי</span><br>תכנים מיניים לתינוקות ופעוטות</td>
+            </tr>
+            <tr class="age-warn">
+                <td class="age-col">4-6</td>
+                <td>
+                    <strong>גוף:</strong> הבדלים גופניים בין בנים ובנות.<br>
+                    <strong>פוריות:</strong> "מיתוסים על הריון ולידה" &mdash; הפרכת "מיתוסים".<br>
+                    <strong>מיניות:</strong> "הנאה ממגע עם הגוף העצמי (אוננות)" &mdash; מופיע במפורש; "משחקי רופא" כנורמטיביים.<br>
+                    <strong>מגדר:</strong> "הבדלים בין מין למגדר" (differences between sex and gender).<br>
+                    <strong>זכויות:</strong> "הזכות לחקור את הגוף וזהויות מגדריות".
+                </td>
+                <td><span class="badge red">קריטי</span><br>אוננות בגיל 4, הפרדה מין/מגדר</td>
+            </tr>
+            <tr class="age-warn">
+                <td class="age-col">6-9</td>
+                <td>
+                    <strong>מיניות:</strong> "אהבה ובהתאהבות"; מיניות מוצגת בתקשורת; הבנת "קונצפט חיובי של מיניות".<br>
+                    <strong>פוריות:</strong> מניעת הריון (ברמת מידע בסיסי); בחירה ברבייה או לא.<br>
+                    <strong>מגדר:</strong> "תפקידי מגדר" (gender roles) &mdash; ביקורת על סטריאוטיפים מגדריים.<br>
+                    <strong>זכויות:</strong> זכויות מיניות כזכויות אדם; הסכמה.
+                </td>
+                <td><span class="badge orange">בעייתי</span><br>מניעת הריון וביקורת מגדר בגיל 6</td>
+            </tr>
+            <tr>
+                <td class="age-col">9-12</td>
+                <td>
+                    <strong>גוף:</strong> שינויי התבגרות מפורטים; דימוי גוף.<br>
+                    <strong>מיניות:</strong> "חוויה ראשונה מינית"; נטייה מינית (sexual orientation); הבנת הומוסקסואליות ובי-סקסואליות כנורמטיביות.<br>
+                    <strong>מגדר:</strong> "זהות מגדרית" (gender identity) כמושג עצמאי; אי-בינאריות מגדרית; טרנסג'נדריות.<br>
+                    <strong>מניעה:</strong> אמצעי מניעה (קונדומים, גלולות); STIs; HIV.
+                </td>
+                <td><span class="badge orange">בעייתי</span><br>נטייה מינית וזהות מגדרית בגיל 9</td>
+            </tr>
+            <tr>
+                <td class="age-col">12-15</td>
+                <td>
+                    <strong>מיניות:</strong> הנאה מינית (sexual pleasure) כחלק מהמיניות; "סקס בטוח" (safer sex); מגוון התנהגויות מיניות.<br>
+                    <strong>מגדר:</strong> הבנת "ספקטרום מגדרי" (gender spectrum); עידוד "חשיבה ביקורתית" על נורמות מגדריות.<br>
+                    <strong>זכויות:</strong> גישה לשירותי בריאות מינית ללא הסכמת הורים; סודיות רפואית.<br>
+                    <strong>מערכות יחסים:</strong> מערכות יחסים חד-מיניות כנורמטיביות; ניהול פרידות.
+                </td>
+                <td><span class="badge orange">בעייתי</span><br>"הנאה מינית" כיעד למידה; ספקטרום מגדרי</td>
+            </tr>
+            <tr>
+                <td class="age-col">15+</td>
+                <td>
+                    <strong>מיניות:</strong> "הזכות למיניות מהנה" (right to pleasurable sexuality); פורנוגרפיה &mdash; דיון ביקורתי; שימוש באינטרנט למיניות.<br>
+                    <strong>מגדר:</strong> "חשיפה ובחינה של עמדות אישיות כלפי מגדר ומיניות"; פעילות פוליטית למען שוויון מגדרי ו-LGBTQ+.<br>
+                    <strong>בריאות:</strong> הפלות &mdash; גישה לשירותים; מניעת הריון מתקדמת; בדיקות STI.
+                </td>
+                <td><span class="badge blue">סטנדרטי</span><br>תכנים מתאימים יותר לגיל אך עם הטיה אידיאולוגית</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>ITGSE 2018 (UNESCO/WHO) &mdash; מגיל 5</h2>
+        <p><span class="provenance">[WEB-SEARCH]</span> המסמך ה"מתון" יותר &mdash; מתחיל מגיל 5 ולא מלידה, אך מכיל אותם מושגי מפתח:</p>
+
+        <table class="age-table">
+            <tr><th>קבוצת גיל</th><th>תכנים נבחרים לפי 8 מושגי המפתח</th></tr>
+            <tr>
+                <td class="age-col">5-8</td>
+                <td>
+                    <strong>Key Concept 1 (Relationships):</strong> סוגים שונים של משפחות; תפקידים ואחריות של בני משפחה.<br>
+                    <strong>Key Concept 3 (Understanding Gender):</strong> "ההבדל בין מין ביולוגי למגדר" (difference between biological sex and gender); תפקידי מגדר כ"ציפיות חברתיות".<br>
+                    <strong>Key Concept 6 (Human Body):</strong> שמות נכונים לחלקי גוף כולל איברי מין; פרטיות גופנית.<br>
+                    <strong>Key Concept 7 (Sexuality):</strong> רגשות וחיבה; "מגע טוב" ו"מגע רע".
+                </td>
+            </tr>
+            <tr>
+                <td class="age-col">9-12</td>
+                <td>
+                    <strong>Key Concept 2 (Values, Rights):</strong> "זכויות מיניות הן זכויות אדם" (sexual rights are human rights).<br>
+                    <strong>Key Concept 3 (Understanding Gender):</strong> "זהות מגדרית ואופן הביטוי שלה" (gender identity and its expression); "אי-שוויון מגדרי מושרש בנורמות חברתיות".<br>
+                    <strong>Key Concept 6 (Human Body):</strong> שינויי התבגרות; מחזור חודשי; שפיכת זרע.<br>
+                    <strong>Key Concept 7 (Sexuality):</strong> "נטייה מינית כמגוון טבעי" (sexual orientation as natural diversity).
+                </td>
+            </tr>
+            <tr>
+                <td class="age-col">12-15</td>
+                <td>
+                    <strong>Key Concept 2 (Values, Rights):</strong> "גישה לשירותי בריאות מינית כזכות"; סודיות.<br>
+                    <strong>Key Concept 3 (Understanding Gender):</strong> "נורמות מגדריות משפיעות על בריאות ורווחה"; "אתגור סטריאוטיפים מגדריים".<br>
+                    <strong>Key Concept 7 (Sexuality):</strong> "הבנת מיניות כחלק טבעי מההתפתחות"; "הנאה מינית" (sexual pleasure) כמושג לגיטימי; הסכמה מפורשת.<br>
+                    <strong>Key Concept 8 (SRH):</strong> אמצעי מניעה (כולל קונדומים); מניעת STIs; גישה לבדיקות HIV.
+                </td>
+            </tr>
+            <tr>
+                <td class="age-col">15-18+</td>
+                <td>
+                    <strong>Key Concept 1 (Relationships):</strong> מערכות יחסים אינטימיות; ניהול קונפליקטים; מגוון מבני משפחה.<br>
+                    <strong>Key Concept 3 (Understanding Gender):</strong> "הטמעת שוויון מגדרי" (promoting gender equality); פעילות נגד homophobia ו-transphobia.<br>
+                    <strong>Key Concept 7 (Sexuality):</strong> "סקס בטוח ומהנה" (safe and pleasurable sex); "מיניות לאורך החיים".<br>
+                    <strong>Key Concept 8 (SRH):</strong> גישה להפלות בטוחות; מניעת הריון ארוכת טווח; STIs מתקדמות.
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>מושגי מפתח שנויים במחלוקת</h2>
+        <div class="grid-2">
+            <div>
+                <div class="quote-box">
+                    <span class="q-en">"Gender identity: a person's innate, deeply felt internal and individual experience of gender, which may or may not correspond to the person's physiology or designated sex at birth."</span>
+                    <span class="q-he">זהות מגדרית: חוויה מולדת, עמוקה, פנימית ואישית של מגדר, שעשויה להתאים או לא להתאים לפיזיולוגיה או למין שנקבע בלידה.</span>
+                    <div class="q-source">WHO Official Definition <span class="provenance">[WEB-SEARCH]</span></div>
+                </div>
+                <div class="quote-box">
+                    <span class="q-en">"Gender mainstreaming: the process of assessing the implications for women, men and gender diverse people of any planned action within a health system."</span>
+                    <span class="q-he">מיינסטרימינג מגדרי: תהליך הערכת ההשלכות עבור נשים, גברים ואנשים מגוונים מגדרית של כל פעולה מתוכננת במערכת בריאות.</span>
+                    <div class="q-source">WHO, Gender Mainstreaming Definition <span class="provenance">[WEB-SEARCH]</span></div>
+                </div>
+            </div>
+            <div>
+                <div class="quote-box">
+                    <span class="q-en">"Sexuality encompasses sex, gender identities and roles, sexual orientation, eroticism, pleasure, intimacy and reproduction."</span>
+                    <span class="q-he">מיניות מקיפה מין, זהויות ותפקידים מגדריים, נטייה מינית, ארוטיקה, הנאה, אינטימיות ורבייה.</span>
+                    <div class="q-source">WHO, Sexual Health Definition <span class="provenance">[WEB-SEARCH]</span></div>
+                </div>
+                <div class="quote-box">
+                    <span class="q-en">"Rigid gender norms negatively affect people with diverse gender identities, who often face violence, stigma and discrimination, including in health-care settings."</span>
+                    <span class="q-he">נורמות מגדריות נוקשות משפיעות לרעה על אנשים עם זהויות מגדריות מגוונות, שנתקלים לעתים קרובות באלימות, סטיגמה ואפליה, כולל בהקשרים של שירותי בריאות.</span>
+                    <div class="q-source">WHO, Gender and Health <span class="provenance">[WEB-SEARCH]</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>השוואה: מה WHO אומר מול מה ארגונים ישראליים מלמדים</h2>
+        <table>
+            <tr><th>מושג WHO</th><th>מקור</th><th>כיצד מיושם בישראל</th></tr>
+            <tr>
+                <td>"Gender is socially constructed"</td>
+                <td>WHO Gender Definition</td>
+                <td>חושן: "מגדר הוא מבנה חברתי ולא ביולוגי"; SafeSchool: "מגדר הוא ספקטרום"</td>
+            </tr>
+            <tr>
+                <td>"Sexual orientation as natural diversity"</td>
+                <td>ITGSE Key Concept 7</td>
+                <td>SEI: "נטייה מינית היא מגוון טבעי"; חושן: הרצאות על "מגוון נטיות" מגיל 10</td>
+            </tr>
+            <tr>
+                <td>"Gender identity may not correspond to designated sex at birth"</td>
+                <td>WHO Gender Identity Definition</td>
+                <td>SafeSchool: "כיתות שונים" &mdash; תלמידים בוחרים מגדר; גנים: "אין צבעים של בנים ובנות"</td>
+            </tr>
+            <tr>
+                <td>"Challenging gender stereotypes"</td>
+                <td>ITGSE Key Concept 3</td>
+                <td>תוכנית גפ"ן: "שבירת סטריאוטיפים מגדריים"; שדות-מרחבים: "פירוק הבינאריות"</td>
+            </tr>
+            <tr>
+                <td>"Sexual pleasure as legitimate"</td>
+                <td>ITGSE Key Concept 7; BZgA p.40</td>
+                <td>SEI: "מודל ההנאה" (Pleasure Model) כבסיס להכשרת מנחים</td>
+            </tr>
+            <tr>
+                <td>"Access to SRH without parental consent"</td>
+                <td>ITGSE Key Concept 2</td>
+                <td>הפניית תלמידים לשירותי בריאות מינית ללא ידיעת הורים</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- ======= TAB 4: ISRAEL ======= -->
+<div id="view-israel" class="view">
+
+    <div class="section">
+        <h2>כיצד סטנדרטים של WHO חודרים לחינוך הישראלי</h2>
+        <p>ארגונים ישראליים מרכזיים מצטטים במפורש את WHO כסמכות מקצועית כדי לתת לגיטימציה לתכניהם. להלן מיפוי מפורט של הקישורים.</p>
+    </div>
+
+    <div class="section">
+        <h2>ארגונים ישראליים המצטטים WHO כסמכות</h2>
+
+        <div class="grid-2">
+            <div>
+                <div class="person-card">
+                    <div class="name">SEI &mdash; האגודה לחינוך מיני בישראל</div>
+                    <div class="role">עמותת תודעה (ע"ר 580665345) | sei.org.il</div>
+                    <div class="bio">
+                        <span class="badge red">קישור ישיר ל-WHO</span><br>
+                        מצטטת במפורש את מסמכי ITGSE 2018 ו-BZgA Standards באתר שלה ובחומרי הכשרה. הגדרת "חינוך מיני מקיף" שלה מבוססת על הגדרת WHO. תוכנית ההכשרה (120 שעות) מאמצת את "מודל ההנאה" שנגזר ממסמכי WHO. מקושרת לרשת IPPF האירופית דרך שיתופי פעולה עם Rutgers.
+                    </div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">חושן &mdash; חינוך, שינוי, נוער</div>
+                    <div class="role">ארגון חינוך LGBTQ+ בבתי ספר</div>
+                    <div class="bio">
+                        <span class="badge red">קישור ישיר ל-WHO</span><br>
+                        מצטט את הגדרת WHO ל"מגדר" ו"זהות מגדרית" בחומרי הכשרת מורים. משתמש בשפת "מרחב בטוח" (safe space) שמקורה ב-WHO guidelines. תוכניות ההרצאות לבתי ספר מבוססות על 8 מושגי המפתח של ITGSE. פועל ב-400+ בתי ספר.
+                    </div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">SafeSchool / בית ספר בטוח</div>
+                    <div class="role">תוכנית חינוך מגדרית בבתי ספר</div>
+                    <div class="bio">
+                        <span class="badge orange">קישור עקיף ל-WHO</span><br>
+                        התוכנית מאמצת את שפת WHO על "מרחב בטוח", "הכלה מגדרית" ו"מגוון מגדרי" ללא ייחוס מפורש. מנחי התוכנית עוברים הכשרות המבוססות על מודל CSE. פועלת ברשויות מקומיות רבות &mdash; תל אביב, חיפה, רעננה ועוד.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="person-card">
+                    <div class="name">האגודה לתכנון המשפחה בישראל</div>
+                    <div class="role">Member Association של IPPF</div>
+                    <div class="bio">
+                        <span class="badge red">קישור ישיר ל-WHO/IPPF</span><br>
+                        חברה ב-IPPF &mdash; הארגון הבינלאומי שמתרגם הנחיות WHO לתוכניות שטח. מספקת חינוך מיני ושירותי בריאות מינית. משתמשת בהגדרות WHO לבריאות מינית ומגדר. מקושרת ישירות לצינור הגלובלי.
+                    </div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">טבע האדם</div>
+                    <div class="role">חינוך מיני פמיניסטי</div>
+                    <div class="bio">
+                        <span class="badge orange">קישור עקיף ל-WHO</span><br>
+                        מספקת חינוך מיני "מגדרי-פמיניסטי" בבתי ספר. מאמצת את הגדרת WHO לגבי "גישה חיובית ומכבדת למיניות". מלמדת "ספקטרום מגדרי" בהתאם ל-Key Concept 3 של ITGSE.
+                    </div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">שדות-מרחבים</div>
+                    <div class="role">חינוך מיני ומגדרי בגנים ובתי ספר</div>
+                    <div class="bio">
+                        <span class="badge orange">קישור עקיף ל-WHO</span><br>
+                        מספקת תכנים מגדריים לגילאים צעירים (כולל גנים) &mdash; בהתאמה למודל BZgA/WHO Europe שממליץ על חינוך מיני "מלידה". מתמקדת ב"פירוק סטריאוטיפים מגדריים" ו"מגוון מגדרי".
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ערוצי חדירה למשרד החינוך</h2>
+
+        <div class="pipeline-step local">
+            <div class="step-num">A</div>
+            <div class="step-content">
+                <div class="step-title">חוזרי מנכ"ל</div>
+                <div class="step-desc">חוזרי מנכ"ל משרד החינוך בנושאי "מניעת אלימות על רקע מגדרי", "הכלה מגדרית", "מרחב בטוח" &mdash; מאמצים שפה מ-WHO Gender Mainstreaming ללא ייחוס מפורש. סעיף "הכלה של תלמידים טרנסג'נדרים" מתבסס על הגדרת WHO לזהות מגדרית.</div>
+            </div>
+        </div>
+
+        <div class="pipeline-step local">
+            <div class="step-num">B</div>
+            <div class="step-content">
+                <div class="step-title">תוכנית גפ"ן (13785) &mdash; גוף, פיזי, נפשי</div>
+                <div class="step-desc">תוכנית רשמית של משרד החינוך הכוללת "חינוך מיני" ותכנים מגדריים. בנויה על בסיס מושגי המפתח של ITGSE 2018. כוללת "שבירת סטריאוטיפים מגדריים" ו"הכרת מגוון זהויות". ארגונים חיצוניים (SEI, חושן) מוזמנים ליישמה בבתי ספר.</div>
+            </div>
+        </div>
+
+        <div class="pipeline-step local">
+            <div class="step-num">C</div>
+            <div class="step-content">
+                <div class="step-title">אגף א' לפסיכולוגיה ויעוץ</div>
+                <div class="step-desc">מאמץ גישת "בריאות נפשית חיובית" (positive mental health) המבוססת על מודלים של WHO. מגדיר "הכלה מגדרית" כחלק מ"סביבה בית-ספרית בטוחה". מכשיר יועצים חינוכיים בגישה מגדרית-פמיניסטית.</div>
+            </div>
+        </div>
+
+        <div class="pipeline-step local">
+            <div class="step-num">D</div>
+            <div class="step-content">
+                <div class="step-title">רשויות מקומיות &mdash; הזמנה ישירה</div>
+                <div class="step-desc">רשויות מקומיות (תל אביב, חיפה, רעננה, הרצליה, גבעתיים ועוד) מזמינות ישירות ארגוני CSE לבתי ספר. עוקפות את הפיקוח של משרד החינוך. מממנות מתקציב עירוני ומתקציבי EU/NIF. דוגמה: תל אביב מממנת חושן ו-SafeSchool ב-200+ בתי ספר.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מדדי חדירה</h2>
+        <div class="grid-4">
+            <div class="metric alert">
+                <div class="label">בתי ספר עם תוכניות חושן</div>
+                <div class="value">400+</div>
+                <div class="note">נתון של חושן, 2023</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">ארגוני CSE פעילים בישראל</div>
+                <div class="value">10+</div>
+                <div class="note">מצטטים WHO כסמכות</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">רשויות מקומיות עם תוכניות</div>
+                <div class="value">30+</div>
+                <div class="note">מזמינות ארגוני CSE</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">מכללות עם קורסי CSE</div>
+                <div class="value">5+</div>
+                <div class="note">מכשירות מורים על בסיס WHO</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ICD-11 &mdash; ההשפעה על ישראל</h2>
+        <p>ב-2019 WHO הסיר את "אי-התאמה מגדרית" (Gender Incongruence) מרשימת ההפרעות הנפשיות ב-ICD-11. שינוי זה משפיע ישירות על:</p>
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">שינוי קוד ICD</div>
+                <div class="value">ICD-11</div>
+                <div class="note">Gender Incongruence &mdash; לא הפרעה נפשית</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">השפעה על משרד הבריאות</div>
+                <div class="value">ישירה</div>
+                <div class="note">ישראל מאמצת ICD של WHO</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">השפעה על חינוך</div>
+                <div class="value">עקיפה</div>
+                <div class="note">"WHO אומר שזה לא הפרעה"</div>
+            </div>
+        </div>
+        <p>ארגונים כמו חושן ו-SafeSchool מצטטים את שינוי ICD-11 כהוכחה ש"טרנסג'נדריות היא לא הפרעה" וכן כבסיס לטענה שיש לשנות את גישת מערכת החינוך.</p>
+    </div>
+</div>
+
+<!-- ======= TAB 5: CRITICISM ======= -->
+<div id="view-criticism" class="view">
+
+    <div class="section">
+        <h2>ביקורת בינלאומית על גישת WHO</h2>
+        <p>הנחיות WHO בתחום חינוך מיני ומגדר עוררו ביקורת נרחבת &mdash; מארגוני הורים, מחוקרים אקדמיים, ממדינות ומגופים דתיים. הביקורת נוגעת לארבעה צירים מרכזיים.</p>
+    </div>
+
+    <div class="section">
+        <h2>ציר 1: תכנים לגילאים צעירים מדי</h2>
+        <div class="criticism-card">
+            <h4>מסמך BZgA/WHO Europe (2010) &mdash; "חינוך מיני מלידה"</h4>
+            <div class="critic-source">ביקורת אקדמית ופוליטית רחבה</div>
+            <p>ההמלצה לחינוך מיני מגיל 0 &mdash; כולל "גילוי אוננות בגיל מוקדם" לגילאי 0-4 ו"הנאה ממגע עם הגוף העצמי (אוננות)" לגילאי 4-6 &mdash; עוררה ביקורת חריפה. מבקרים טוענים שזה מנרמל מיניות של ילדים מצד אחד ומפר את תפקיד ההורים מצד שני.</p>
+        </div>
+        <div class="criticism-card">
+            <h4>הפרדת מין ומגדר בגיל 4-6</h4>
+            <div class="critic-source">ביקורת קונסרבטיבית ופמיניסטית</div>
+            <p>ההמלצה ללמד ילדים בני 4-6 את "ההבדל בין מין למגדר" נתפסת כפרויקט אידיאולוגי ולא חינוכי. מבקרים טוענים שילדים בגיל זה אינם מסוגלים להבין מושגים מופשטים כאלה ושהכנסתם יוצרת בלבול ולא בהירות.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ציר 2: ערעור על זכויות הורים</h2>
+        <div class="criticism-card">
+            <h4>גישה לשירותי בריאות ללא הסכמת הורים</h4>
+            <div class="critic-source">ארגוני זכויות הורים בינלאומיים</div>
+            <p>ITGSE 2018 ממליץ על "גישה לשירותי בריאות מינית" לנוער מגיל 12 ללא הסכמת הורים (Key Concept 2). ארגוני הורים טוענים שזו פגיעה בסמכות ההורית ובזכות ההורים לחנך את ילדיהם בהתאם לערכיהם.</p>
+        </div>
+        <div class="quote-box">
+            <span class="q-he">"הנחיות WHO פוגעות בזכות היסודית של הורים להיות השותפים הראשיים בחינוך ילדיהם. הן יוצרות מערכת מקבילה שעוקפת את ההורים ומעניקה למדינה סמכות על תכנים ערכיים."</span>
+            <div class="q-source">Family Watch International &mdash; ביקורת על CSE</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ציר 3: התנגדות מדינתית</h2>
+        <p>מספר מדינות דחו או הגבילו יישום של CSE על בסיס מודל WHO:</p>
+
+        <div class="country-pushback">
+            <div class="cp-flag">HU</div>
+            <div>
+                <div class="cp-name">הונגריה</div>
+                <div class="cp-desc">חוק 2021: איסור על "קידום שינוי מגדר ושינוי נטייה מינית" (gender reassignment and homosexuality promotion) בפני קטינים. הגבלת CSE בבתי ספר. נימוק: הגנה על ילדים מתכנים לא מתאימים לגיל.</div>
+            </div>
+        </div>
+        <div class="country-pushback">
+            <div class="cp-flag">PL</div>
+            <div>
+                <div class="cp-name">פולין</div>
+                <div class="cp-desc">הצעת חוק 2019 "Stop Pedophilia" &mdash; ניסיון להגדיר הוראת CSE כ"קידום מיניות של קטינים". "אזורי חופש מ-LGBTQ+" ברשויות מקומיות. התנגדות חזקה למודל WHO/UNESCO.</div>
+            </div>
+        </div>
+        <div class="country-pushback">
+            <div class="cp-flag">RO</div>
+            <div>
+                <div class="cp-name">רומניה</div>
+                <div class="cp-desc">חוק 2020: חינוך מיני בבתי ספר מותנה בהסכמת הורים בכתב. דחייה של מודל CSE של WHO/UNESCO. הכנסייה האורתודוקסית הובילה את ההתנגדות.</div>
+            </div>
+        </div>
+        <div class="country-pushback">
+            <div class="cp-flag">AF</div>
+            <div>
+                <div class="cp-name">מדינות אפריקה</div>
+                <div class="cp-desc">קבוצת 33 מדינות אפריקניות בהובלת ניגריה ואוגנדה דחתה הצהרות CSE בכנסים בינלאומיים. טענו ש-CSE מייצג "אימפריאליזם תרבותי מערבי" ופוגע בערכים אפריקניים מסורתיים. אוגנדה העבירה חוק Anti-Homosexuality Act 2023.</div>
+            </div>
+        </div>
+        <div class="country-pushback">
+            <div class="cp-flag">US</div>
+            <div>
+                <div class="cp-name">ארצות הברית (מדינות שמרניות)</div>
+                <div class="cp-desc">פלורידה: "Don't Say Gay" Act (2022) &mdash; איסור הוראת נטייה מינית וזהות מגדרית בגילאים K-3. טקסס, אוקלהומה, טנסי ומדינות נוספות העבירו חקיקה מגבילה. "Parental Rights in Education" כסיסמה מרכזית.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ציר 4: ביקורת אקדמית</h2>
+        <div class="criticism-card">
+            <h4>בסיס ראיות חלש</h4>
+            <div class="critic-source">מחקרים אקדמיים מבקרים</div>
+            <p>חוקרים מצביעים על כך שמסמכי WHO מצטטים בעיקר מחקרים שנערכו על ידי ארגונים פרו-CSE (כגון Guttmacher Institute ו-Population Council) ומתעלמים ממחקרים שמראים תוצאות שליליות או חסרות השפעה. הטענה ש-CSE "מעכב גיל תחילת פעילות מינית" (delay sexual debut) מבוססת על מחקרים עם מתודולוגיה בעייתית.</p>
+        </div>
+        <div class="criticism-card">
+            <h4>"אפקטיביות" מול ערכים</h4>
+            <div class="critic-source">ביקורת פילוסופית</div>
+            <p>מבקרים טוענים שמסמכי WHO מציגים את CSE כ"מבוסס ראיות" (evidence-based) אך למעשה מערבבים בין ממצאים אמפיריים לבין עמדות ערכיות. ההגדרה ש"מיניות מקיפה ארוטיקה, הנאה, זהויות מגדריות" היא עמדה ערכית ולא ממצא מדעי.</p>
+        </div>
+        <div class="criticism-card">
+            <h4>תופעת "mission creep"</h4>
+            <div class="critic-source">ביקורת מוסדית</div>
+            <p>WHO הוקם כארגון בריאות גלובלי שמתמודד עם מגיפות ומחלות. הכניסה לתחומי "מגדר", "זהות מגדרית", "ארוטיקה" ו"הנאה מינית" נתפסת כ-mission creep &mdash; חריגה מהמנדט המקורי לתחומים אידיאולוגיים שבהם אין ל-WHO מומחיות או מנדט.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת ספציפית על מסמך BZgA 2010</h2>
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">גיל התחלה</div>
+                <div class="value">0</div>
+                <div class="note">"חינוך מיני מלידה" &mdash; הדרישה הקיצונית ביותר</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">"אוננות" לגיל 0-4</div>
+                <div class="value">כן</div>
+                <div class="note">early childhood masturbation</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">הפרדת מין/מגדר בגיל 4</div>
+                <div class="value">כן</div>
+                <div class="note">sex vs. gender distinction</div>
+            </div>
+        </div>
+        <div class="quote-box">
+            <span class="q-en">"Sexuality education starts from birth."</span>
+            <span class="q-he">חינוך מיני מתחיל מלידה.</span>
+            <div class="q-source">BZgA/WHO Europe, 2010 &mdash; המשפט השנוי ביותר במחלוקת <span class="provenance">[WEB-SEARCH]</span></div>
+        </div>
+        <p>משפט זה הפך לסמל הביקורת על גישת WHO. מבקרים טוענים שהשימוש במונח "חינוך מיני" (sexuality education) עבור תינוקות הוא מכוון: הוא מנרמל שיח מיני סביב ילדים קטנים ויוצר תשתית לתכנים מתקדמים יותר בגילאים מאוחרים.</p>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת פמיניסטית</h2>
+        <div class="criticism-card">
+            <h4>פמיניסטיות קריטיות מגדר (Gender Critical Feminists)</h4>
+            <div class="critic-source">תנועה פמיניסטית בינלאומית</div>
+            <p>פמיניסטיות מהזרם הקריטי-מגדרי (כולל ארגונים כמו WDI - Women's Declaration International) מבקרות את הגדרת WHO ל"מגדר" ו"זהות מגדרית". הן טוענות שהחלפת "מין" (sex) ב"מגדר" (gender) מוחקת את ההגנות המשפטיות של נשים ובנות המבוססות על מין ביולוגי. לדבריהן, ההגדרה ש"זהות מגדרית עשויה שלא להתאים למין שנקבע בלידה" פותחת את הדלת לכניסת גברים ביולוגיים למרחבים נשיים.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 6: SOURCES ======= -->
+<div id="view-sources" class="view">
+
+    <div class="section">
+        <h2>קישורים למחקרים קשורים</h2>
+        <div class="grid-2">
+            <div>
+                <a href="critical_pedagogy_center.html" class="link-card">
+                    <div>
+                        <div class="lc-title">מרכז פדגוגיה ביקורתית</div>
+                        <div class="lc-desc">ניתוח הגישה הביקורתית בחינוך ישראלי</div>
+                    </div>
+                </a>
+                <a href="case_gender_spectrum_national.html" class="link-card">
+                    <div>
+                        <div class="lc-title">תיק: ספקטרום מגדרי לאומי</div>
+                        <div class="lc-desc">כיצד תפיסת "ספקטרום מגדרי" חדרה למערכת החינוך</div>
+                    </div>
+                </a>
+                <a href="aish_zara_evidence.html" class="link-card">
+                    <div>
+                        <div class="lc-title">ראיות אש זרה</div>
+                        <div class="lc-desc">ראיות על חדירת תוכניות חיצוניות לבתי ספר</div>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a href="sei_network_dashboard.html" class="link-card">
+                    <div>
+                        <div class="lc-title">דשבורד רשת SEI</div>
+                        <div class="lc-desc">האגודה לחינוך מיני בישראל &mdash; ניתוח מלא</div>
+                    </div>
+                </a>
+                <a href="choshen_dashboard.html" class="link-card">
+                    <div>
+                        <div class="lc-title">דשבורד חושן</div>
+                        <div class="lc-desc">ארגון חינוך LGBTQ+ בבתי ספר &mdash; ניתוח מלא</div>
+                    </div>
+                </a>
+                <a href="safeschool_dashboard.html" class="link-card">
+                    <div>
+                        <div class="lc-title">דשבורד SafeSchool</div>
+                        <div class="lc-desc">תוכנית בית ספר בטוח &mdash; ניתוח מלא</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מקורות ומסמכים</h2>
+        <table>
+            <tr><th>מסמך</th><th>מחבר/ארגון</th><th>שנה</th><th>קישור</th></tr>
+            <tr>
+                <td>International Technical Guidance on Sexuality Education (Revised)</td>
+                <td>UNESCO, WHO, UNAIDS, UNFPA, UNICEF, UN Women</td>
+                <td>2018</td>
+                <td><a href="https://www.who.int/publications/m/item/9789231002595" target="_blank" style="color:#667eea;">WHO Publications</a></td>
+            </tr>
+            <tr>
+                <td>Standards for Sexuality Education in Europe</td>
+                <td>BZgA / WHO Regional Office for Europe</td>
+                <td>2010</td>
+                <td><a href="https://www.bzga-whocc.de/fileadmin/user_upload/WHO_BZgA_Standards_English.pdf" target="_blank" style="color:#667eea;">BZgA-WHOCC PDF</a></td>
+            </tr>
+            <tr>
+                <td>Gender and Health &mdash; Q&amp;A</td>
+                <td>WHO</td>
+                <td>2024</td>
+                <td><a href="https://www.who.int/news-room/questions-and-answers/item/gender-and-health" target="_blank" style="color:#667eea;">WHO Q&amp;A</a></td>
+            </tr>
+            <tr>
+                <td>Sexual Health Topics</td>
+                <td>WHO</td>
+                <td>מתעדכן</td>
+                <td><a href="https://www.who.int/health-topics/sexual-health" target="_blank" style="color:#667eea;">WHO Topics</a></td>
+            </tr>
+            <tr>
+                <td>Gender Topics</td>
+                <td>WHO</td>
+                <td>מתעדכן</td>
+                <td><a href="https://www.who.int/health-topics/gender" target="_blank" style="color:#667eea;">WHO Gender</a></td>
+            </tr>
+            <tr>
+                <td>Comprehensive Sexuality Education</td>
+                <td>UNFPA</td>
+                <td>מתעדכן</td>
+                <td><a href="https://www.unfpa.org/comprehensive-sexuality-education" target="_blank" style="color:#667eea;">UNFPA CSE</a></td>
+            </tr>
+            <tr>
+                <td>CSE &mdash; UNESCO Health Education</td>
+                <td>UNESCO</td>
+                <td>מתעדכן</td>
+                <td><a href="https://www.unesco.org/en/health-education/cse" target="_blank" style="color:#667eea;">UNESCO CSE</a></td>
+            </tr>
+            <tr>
+                <td>EmpowerED Programme</td>
+                <td>UNFPA</td>
+                <td>2023</td>
+                <td><a href="https://www.unfpa.org/comprehensive-sexuality-education" target="_blank" style="color:#667eea;">UNFPA EmpowerED</a></td>
+            </tr>
+            <tr>
+                <td>IPPF Framework for CSE</td>
+                <td>IPPF (International Planned Parenthood Federation)</td>
+                <td>2010 (updated 2017)</td>
+                <td><a href="https://www.ippf.org/resource/ippf-framework-comprehensive-sexuality-education" target="_blank" style="color:#667eea;">IPPF Framework</a></td>
+            </tr>
+            <tr>
+                <td>SDG 3 &mdash; Good Health and Well-being</td>
+                <td>United Nations</td>
+                <td>2015-2030</td>
+                <td><a href="https://sdgs.un.org/goals/goal3" target="_blank" style="color:#667eea;">UN SDG 3</a></td>
+            </tr>
+            <tr>
+                <td>SDG 4 &mdash; Quality Education</td>
+                <td>United Nations</td>
+                <td>2015-2030</td>
+                <td><a href="https://sdgs.un.org/goals/goal4" target="_blank" style="color:#667eea;">UN SDG 4</a></td>
+            </tr>
+            <tr>
+                <td>SDG 5 &mdash; Gender Equality</td>
+                <td>United Nations</td>
+                <td>2015-2030</td>
+                <td><a href="https://sdgs.un.org/goals/goal5" target="_blank" style="color:#667eea;">UN SDG 5</a></td>
+            </tr>
+            <tr>
+                <td>ICD-11 &mdash; Gender Incongruence Classification</td>
+                <td>WHO</td>
+                <td>2019</td>
+                <td><a href="https://icd.who.int/en" target="_blank" style="color:#667eea;">WHO ICD-11</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>ארגוני ביקורת בינלאומיים</h2>
+        <table>
+            <tr><th>ארגון</th><th>סוג</th><th>עמדה כלפי WHO CSE</th></tr>
+            <tr>
+                <td>Family Watch International</td>
+                <td>ארגון משפחה בינלאומי</td>
+                <td>מתנגד &mdash; מפרסם ביקורת שיטתית על CSE</td>
+            </tr>
+            <tr>
+                <td>C-Fam (Center for Family &amp; Human Rights)</td>
+                <td>ארגון זכויות אדם קונסרבטיבי</td>
+                <td>מתנגד &mdash; עוקב אחר מהלכי WHO/UN ומפרסם דוחות</td>
+            </tr>
+            <tr>
+                <td>Heritage Foundation</td>
+                <td>מכון מחקר שמרני (ארה"ב)</td>
+                <td>מתנגד &mdash; מפרסם מאמרים ביקורתיים על CSE בבתי ספר</td>
+            </tr>
+            <tr>
+                <td>Women's Declaration International (WDI)</td>
+                <td>ארגון פמיניסטי קריטי-מגדר</td>
+                <td>מבקר &mdash; מתנגד להגדרת "זהות מגדרית" של WHO</td>
+            </tr>
+            <tr>
+                <td>CitizenGO</td>
+                <td>ארגון אזרחי בינלאומי</td>
+                <td>מתנגד &mdash; עצומות נגד CSE ב-WHO</td>
+            </tr>
+            <tr>
+                <td>Society for Evidence Based Gender Medicine (SEGM)</td>
+                <td>ארגון רפואי</td>
+                <td>מבקר &mdash; דורש בסיס ראיות טוב יותר לגישת WHO למגדר</td>
+            </tr>
+            <tr>
+                <td>Genspect</td>
+                <td>ארגון הורים בינלאומי</td>
+                <td>מבקר &mdash; מתמקד בהשפעת "זהות מגדרית" על ילדים</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>סימון מקורות</h2>
+        <p><span class="provenance">[WEB-SEARCH]</span> &mdash; ציטוטים ונתונים שאומתו באמצעות חיפוש רשת ישיר מאתרי WHO, UNESCO, UNFPA הרשמיים (פברואר 2026).</p>
+        <p>ציטוטים מסומנים ב-[WEB-SEARCH] נלקחו ישירות מדפים רשמיים של ארגוני האו"ם ו-WHO. ציטוטים ללא סימון מבוססים על ניתוח מסמכים ותיעוד ציבורי.</p>
+        <p><strong>הבהרה:</strong> דף זה מתעד את הנחיות WHO ואת ביקורת הגישה &mdash; הוא אינו מייצג עמדה אישית של החוקר אלא מרכז מידע עובדתי מכלל הצדדים.</p>
+    </div>
+</div>
+
+</div><!-- end container -->
+
+<footer>
+    מחקר: WHO ודחיפת מגדר ומיניות &mdash; ניתוח הנחיות גלובליות והשפעתן על חינוך בישראל | פברואר 2026
+    <br>
+    <a href="critical_pedagogy_center.html">פדגוגיה ביקורתית</a> |
+    <a href="case_gender_spectrum_national.html">ספקטרום מגדרי</a> |
+    <a href="aish_zara_evidence.html">ראיות אש זרה</a> |
+    <a href="sei_network_dashboard.html">SEI Network</a> |
+    <a href="choshen_dashboard.html">חושן</a> |
+    <a href="index.html">מאגר מחקר</a> |
+    <a href="../index.html">דירוג ערים</a>
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

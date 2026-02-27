@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הקרב על גפ"ן -- מי נכנס ומי יוצא ממערכת החינוך</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.green { border-right: 4px solid #2e7d32; }
+.metric.green .value { color: #2e7d32; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.orange { background: #fef8f0; border-right-color: #ff8800; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f0e8f8; color: #7b2d8e; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.timeline-item {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #e74c3c; margin: 10px 0;
+    display: flex; align-items: flex-start; gap: 12px;
+}
+.timeline-item.green-border { border-right-color: #2e7d32; }
+.timeline-item.orange-border { border-right-color: #ff8800; }
+.timeline-item .t-date {
+    font-weight: 800; color: #e74c3c; min-width: 110px; font-size: 0.88em;
+}
+.timeline-item.green-border .t-date { color: #2e7d32; }
+.timeline-item.orange-border .t-date { color: #ff8800; }
+.timeline-item .t-content { flex: 1; }
+.timeline-item .t-title { font-weight: 700; color: #1a1a2e; }
+.timeline-item .t-desc { font-size: 0.85em; color: #555; }
+
+.provenance {
+    display: inline-block; font-size: 0.68em; background: #e8edf8;
+    color: #2a5a8a; padding: 1px 6px; border-radius: 3px; font-weight: 600;
+    margin-right: 4px; vertical-align: middle;
+}
+
+.comparison-table th.removed { background: #c0392b; }
+.comparison-table th.added { background: #2e7d32; }
+.comparison-table td.removed-cell { background: #fef0f0; }
+.comparison-table td.added-cell { background: #f0fef0; }
+
+.flow-diagram {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap; margin: 20px 0; padding: 20px;
+    background: #f8f9fa; border-radius: 8px;
+}
+.flow-box {
+    background: #fff; border: 2px solid #667eea; border-radius: 8px;
+    padding: 12px 18px; text-align: center; font-weight: 600;
+    font-size: 0.9em; min-width: 140px;
+}
+.flow-box.highlight { background: #667eea; color: #fff; }
+.flow-box.alert-box { border-color: #e74c3c; color: #e74c3c; }
+.flow-box.green-box { border-color: #2e7d32; color: #2e7d32; }
+.flow-arrow { font-size: 1.4em; color: #667eea; font-weight: 800; }
+
+.vs-container {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px;
+    align-items: start; margin: 20px 0;
+}
+.vs-side { padding: 20px; border-radius: 8px; }
+.vs-removed { background: #fef0f0; border: 2px solid #e74c3c; }
+.vs-added { background: #f0fef0; border: 2px solid #2e7d32; }
+.vs-divider {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5em; font-weight: 800; color: #999;
+    padding-top: 30px;
+}
+.vs-side h3 { margin-bottom: 12px; }
+.vs-side ul { list-style: none; padding: 0; }
+.vs-side li { padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 0.9em; }
+@media (max-width: 700px) {
+    .vs-container { grid-template-columns: 1fr; }
+    .vs-divider { padding-top: 0; }
+}
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        הקרב על גפ"ן
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('what')">מהו גפ"ן</button>
+        <button class="nav-tab" onclick="showTab('out')">מי יוצא</button>
+        <button class="nav-tab" onclick="showTab('in')">מי נכנס</button>
+        <button class="nav-tab" onclick="showTab('meaning')">המשמעות</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים ומקורות</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>הקרב על גפ"ן -- מי נכנס ומי יוצא ממערכת החינוך</h1>
+    <div class="subtitle">פלטפורמת התוכניות החיצוניות של משרד החינוך הפכה לזירת מאבק פוליטי</div>
+    <div class="meta">מ-2015 ועד 2025: הדרה שיטתית של ארגונים פרוגרסיביים והכנסת ארגונים ימניים</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">2023</div><div class="lbl">מעגל המשפחות -- הורחק</div></div>
+        <div class="stat"><div class="num">2025</div><div class="lbl">אם תרצו -- אושר</div></div>
+        <div class="stat"><div class="num">3+</div><div class="lbl">ארגוני שלום הורחקו</div></div>
+        <div class="stat"><div class="num">285M</div><div class="lbl">ש"ח -- רשות זהות יהודית</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 1: מהו גפ"ן                            -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="view-what" class="view active">
+
+<div class="section">
+    <h2>מהי מערכת גפ"ן? <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>גפ"ן (גמישות פדגוגית ניהולית) היא מערכת ממוחשבת של משרד החינוך בישראל המשמשת כמאגר מרכזי של תוכניות חינוכיות חיצוניות. באמצעות המערכת, מנהלי בתי ספר יכולים לבחור תוכניות, סדנאות, הרצאות ופעילויות שמסופקות על ידי ארגונים חיצוניים -- ולהזמין אותן לבית הספר.</p>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">מהות המערכת</div>
+            <div class="value" style="font-size: 1.1em;">מאגר תוכניות</div>
+            <div class="note">לבחירת מנהלי בתי ספר</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">היקף תקציבי</div>
+            <div class="value" style="font-size: 1.1em;">מאות מיליונים</div>
+            <div class="note">שקלים בשנה</div>
+        </div>
+        <div class="metric green">
+            <div class="label">חשיפה</div>
+            <div class="value" style="font-size: 1.1em;">מיליוני תלמידים</div>
+            <div class="note">בכל שנת לימודים</div>
+        </div>
+    </div>
+
+    <h3>איך זה עובד? <span class="provenance">[WEB-SEARCH]</span></h3>
+    <p>המערכת מאפשרת לבתי ספר גמישות ניהולית ופדגוגית: בית הספר מקבל הקצאה תקציבית, ובאמצעות מערכת גפ"ן הוא יכול לבחור מתוך רשימת תוכניות מאושרות את אלו המתאימות לצרכיו. הארגונים החיצוניים נרשמים כספקים מאושרים, ותוכניותיהם עוברות תהליך אישור מול משרד החינוך.</p>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">רישום ספק</div>
+            <div class="step-desc">ארגון חיצוני מגיש בקשה להיכלל במאגר גפ"ן כספק מאושר של תוכניות חינוכיות</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x2193;</div>
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">בדיקה ואישור</div>
+            <div class="step-desc">משרד החינוך בודק את התוכנית, תוכנה, ההתאמה לתוכנית הלימודים ואת הארגון המפעיל</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x2193;</div>
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">הכללה במאגר</div>
+            <div class="step-desc">התוכנית מופיעה במאגר גפ"ן ומנהלי בתי ספר יכולים לבחור ולהזמין אותה</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x2193;</div>
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">הזמנה והפעלה</div>
+            <div class="step-desc">בית הספר מזמין את התוכנית, הספק מגיע ומפעיל אותה בכיתות, והתשלום מבוצע דרך המערכת</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>למה זה חשוב? <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>מערכת גפ"ן היא למעשה <strong>השער הראשי</strong> דרכו ארגונים חיצוניים יכולים להיכנס לכיתות הלימוד בישראל. ארגון שאינו רשום בגפ"ן מתקשה מאוד לפעול בבתי ספר -- גם אם מנהל מעוניין בתוכנית שלו. לכן, השליטה על מי נכנס למאגר ומי יוצא ממנו היא שליטה ישירה על תוכן החינוך.</p>
+
+    <div class="flow-diagram">
+        <div class="flow-box highlight">משרד החינוך</div>
+        <div class="flow-arrow">&larr;</div>
+        <div class="flow-box">מאשר / דוחה</div>
+        <div class="flow-arrow">&larr;</div>
+        <div class="flow-box alert-box">מאגר גפ"ן</div>
+        <div class="flow-arrow">&larr;</div>
+        <div class="flow-box green-box">בית הספר בוחר</div>
+    </div>
+
+    <div class="quote-box blue">
+        <p>"מערכת גפ"ן מספקת לבתי ספר כלים לניהול התוכניות החינוכיות שלהם ומאפשרת למנהלים לבחור תוכניות מתוך מאגר מאושר של ספקים חיצוניים."</p>
+        <div class="q-source">תיאור המערכת -- Givat Haviva / ICEI <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+
+    <h3>יחידת התוכניות החיצוניות <span class="provenance">[WEB-SEARCH]</span></h3>
+    <p>יחידת התוכניות החיצוניות במשרד החינוך היא הגורם האחראי על ניהול מאגר גפ"ן. בדצמבר 2022, במסגרת ההסכמים הקואליציוניים, היחידה הועברה ממשרד החינוך ללשכת ראש הממשלה -- ושם הוכפפה לח"כ אבי מאוז מסיעת נועם. מהלך זה הפך את גפ"ן מכלי ניהולי-פדגוגי לכלי פוליטי של ממש.</p>
+</div>
+
+<div class="section">
+    <h2>ציר הזמן: שינויים מבניים <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="timeline-item orange-border">
+        <div class="t-date">דצמבר 2022</div>
+        <div class="t-content">
+            <div class="t-title">יחידת התוכניות החיצוניות מועברת לאבי מאוז</div>
+            <div class="t-desc">הממשלה מעבירה את היחידה מהמשרד ללשכת רה"מ, בשליטת ח"כ מאוז (נועם). הוא מקבל סמכות על תוכניות חיצוניות הנכנסות לבתי ספר.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange-border">
+        <div class="t-date">מאי 2023</div>
+        <div class="t-content">
+            <div class="t-title">מאוז חוזר כסגן שר עם סמכויות פיקוח</div>
+            <div class="t-desc">לאחר התפטרות קצרה, מאוז חוזר לתפקיד סגן שר ומקבל תפקיד פיקוח על תוכניות חינוכיות בבתי ספר, לצד מפקחי המשרד.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange-border">
+        <div class="t-date">מאי 2023</div>
+        <div class="t-content">
+            <div class="t-title">הקמת "רשות לזהות יהודית" -- 285 מיליון ש"ח</div>
+            <div class="t-desc">הממשלה מקצה 285 מיליון ש"ח (76.5 מיליון דולר) להקמת "רשות לזהות יהודית" בראשות מאוז, שתפעל במקביל למערכת החינוך.</div>
+        </div>
+    </div>
+    <div class="timeline-item orange-border">
+        <div class="t-date">מרץ 2025</div>
+        <div class="t-content">
+            <div class="t-title">מאוז מתפטר -- מאשים את ה"מדינה העמוקה"</div>
+            <div class="t-desc">מאוז מתפטר מתפקידו, מאשים את הממשלה בהפרת ההסכמים הקואליציוניים ואת "המדינה העמוקה" בחסימת מהלכיו.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 2: מי יוצא                              -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="view-out" class="view">
+
+<div class="section">
+    <h2>ארגונים שהורחקו מבתי הספר <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>לאורך השנים, מספר ארגונים -- בעיקר כאלו המזוהים עם עמדות שמאל, שלום, וזכויות אדם -- הורחקו מגפ"ן או נחסמו מפעילות בבתי ספר. המגמה התחזקה משמעותית מ-2022 ואילך.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">ארגון מרכזי שהורחק</div>
+            <div class="value" style="font-size: 0.9em;">מעגל המשפחות</div>
+            <div class="note">אוגוסט 2023</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">חסימה בחקיקה</div>
+            <div class="value" style="font-size: 0.9em;">שוברים שתיקה</div>
+            <div class="note">2016 / 2026</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הדרה תקציבית</div>
+            <div class="value" style="font-size: 0.9em;">ארגוני להט"ב</div>
+            <div class="note">קיצוץ 85%</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">ארגוני דו-קיום</div>
+            <div class="value" style="font-size: 0.9em;">מוגבלים</div>
+            <div class="note">2023+</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מעגל המשפחות-פורום המשפחות השכולות <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>מה הארגון?</h3>
+            <p>מעגל המשפחות -- פורום המשפחות השכולות (Parents Circle-Families Forum, PCFF) הוא ארגון ישראלי-פלסטיני משותף שנוסד ב-1995. הארגון מונה למעלה מ-800 חברים -- משפחות ישראליות ופלסטיניות שאיבדו בני משפחה מקרבה ראשונה בסכסוך.</p>
+            <p>הארגון הפעיל <strong>"מפגשי דיאלוג"</strong> בבתי ספר ישראליים, בהם השתתפו בני משפחות שכולים ישראליים ופלסטיניים שסיפרו את סיפוריהם האישיים ועודדו הידברות.</p>
+
+            <h3>מה קרה? <span class="provenance">[WEB-SEARCH]</span></h3>
+            <p>ב-2 באוגוסט 2023, שר החינוך יואב קיש הורה על הרחקת מעגל המשפחות ממערכת החינוך. הארגון הוסר ממאגר גפ"ן ונאסר עליו לפעול בבתי ספר ציבוריים. בנוסף, נחסם מימון ממשלתי לתוכניותיו.</p>
+        </div>
+        <div>
+            <div class="quote-box">
+                <p>"ארגון הכולל בני משפחה של מחבלים לא יוכל עוד לפעול בבתי ספר בישראל. השוואה בין משפחות שכולות ישראליות לפלסטיניות אינה מתקבלת על הדעת, כיוון שהדבר מלגיטם פעולות טרור."</p>
+                <div class="q-source">היועץ המשפטי של משרד החינוך, אוגוסט 2023 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+
+            <div class="quote-box blue">
+                <p>"החינוך הוא כלי רב עוצמה לבניית גשרים בין קהילות. הדיאלוג הוא צעד חיוני לקראת שלום. האיסור שולל מתלמידים ישראליים ומחברים פלסטיניים את ההזדמנות לקחת חלק במפגשים חשובים אלו."</p>
+                <div class="q-source">נאדין קומסייה, מנכ"לית משותפת פלסטינית, PCFF <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+
+    <h3>ציר הזמן -- הרחקת מעגל המשפחות</h3>
+    <div class="timeline-item">
+        <div class="t-date">אוגוסט 2023</div>
+        <div class="t-content">
+            <div class="t-title">שר החינוך יואב קיש מורה על הרחקת הארגון</div>
+            <div class="t-desc">בעקבות לחץ מקבוצות ימניות, משרד החינוך מכריז שמעגל המשפחות לא יורשה עוד לפעול בבתי ספר ציבוריים. <span class="badge red">הרחקה</span></div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">אוגוסט 2023</div>
+        <div class="t-content">
+            <div class="t-title">חסימת מימון ממשלתי</div>
+            <div class="t-desc">בנוסף להרחקה מבתי הספר, נחסם גם מימון ממשלתי לתוכניות הארגון. <span class="badge red">מימון נחסם</span></div>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="t-date">ספטמבר 2024</div>
+        <div class="t-content">
+            <div class="t-title">הרחקה ממאגר גפ"ן למרות פסיקת בג"ץ</div>
+            <div class="t-desc">הארגון הוסר ממאגר גפ"ן למרות החלטת בית משפט, והמשיך להיות מנוע מפעילות בבתי ספר. <span class="badge red">הרחקה מתמשכת</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שוברים שתיקה -- חסימה בחקיקה <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>רקע</h3>
+            <p>שוברים שתיקה הוא ארגון של חיילים ולוחמים לשעבר המתעדים עדויות על שירותם בשטחים. הארגון ביקש לפעול בבתי ספר ולהציג תמונה ביקורתית של השירות הצבאי.</p>
+
+            <h3>הרחקה ראשונה -- 2015</h3>
+            <p>שר החינוך נפתלי בנט (הבית היהודי) הורה בדצמבר 2015 על מניעת כניסת הארגון לבתי ספר. כאשר מנהלי בתי ספר תיכוניים התעלמו מהנחיותיו, קידם חקיקה.</p>
+
+            <h3>חקיקה -- 2016-2026 <span class="provenance">[WEB-SEARCH]</span></h3>
+            <p>בנט יזם חוק שייתן לשר החינוך סמכות לאסור על ארגונים ביקורתיים לפעול בבתי ספר. הצעת החוק עברה קריאה ראשונה ב-2016. בפברואר 2026, "חוק שוברים שתיקה" עבר קריאה שנייה ושלישית בכנסת ברוב של 43-24.</p>
+        </div>
+        <div>
+            <div class="quote-box">
+                <p>"ארגונים שמשוטטים בחו"ל ופוגעים בחיילי צה"ל לא ייכנסו לבתי הספר שלנו."</p>
+                <div class="q-source">נפתלי בנט, שר החינוך, 2016 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="t-date">דצמבר 2015</div>
+                <div class="t-content">
+                    <div class="t-title">בנט מורה על חסימת שוברים שתיקה</div>
+                    <div class="t-desc">שר החינוך מנחה להרחיק את הארגון מבתי ספר <span class="badge red">הנחיה מנהלית</span></div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="t-date">דצמבר 2016</div>
+                <div class="t-content">
+                    <div class="t-title">חוק עובר קריאה ראשונה</div>
+                    <div class="t-desc">חקיקה שמסמיכה את שר החינוך לחסום ארגונים ביקורתיים <span class="badge orange">חקיקה</span></div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="t-date">פברואר 2026</div>
+                <div class="t-content">
+                    <div class="t-title">החוק עובר סופית -- 43-24</div>
+                    <div class="t-desc">הכנסת מאשרת את חוק "שוברים שתיקה" בקריאה שנייה ושלישית <span class="badge red">חוק</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ארגוני להט"ב -- הדרה תקציבית <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>באפריל 2024, משרד החינוך ביצע קיצוץ של 85% בתקציב "תוכנית הסובלנות" להט"ב. מ-3 מיליון ש"ח ל-300,000 ש"ח בלבד. כ-4,200 סדנאות בוטלו ו-145,000 תלמידים לא קיבלו את התוכנית. בנוסף, ביוני 2023, שלוש תוכניות של ארגון "חוסן" שמציעות "טיפול בנטייה מינית להט"בית" נוספו למאגר גפ"ן כקורסי הכשרה למורים.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">קיצוץ תקציב סובלנות להט"ב</div>
+            <div class="value">85%</div>
+            <div class="note">אפריל 2024</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">סדנאות שבוטלו</div>
+            <div class="value">4,200</div>
+            <div class="note">תלמידים שהושפעו: 145,000</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תוכניות "טיפול המרה" שנכנסו</div>
+            <div class="value">3</div>
+            <div class="note">ארגון "חוסן" -- יוני 2023</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 3: מי נכנס                              -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="view-in" class="view">
+
+<div class="section">
+    <h2>ארגונים שאושרו לגפ"ן <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>במקביל להרחקת ארגוני שלום ודו-קיום, מערכת גפ"ן נפתחה לארגונים חדשים -- בעיקר כאלו המזוהים עם עמדות ימין, זהות יהודית-ציונית חזקה, והתנחלויות.</p>
+
+    <div class="grid-3">
+        <div class="metric green">
+            <div class="label">ארגון חדש שאושר</div>
+            <div class="value" style="font-size: 0.9em;">אם תרצו</div>
+            <div class="note">ספטמבר 2025</div>
+        </div>
+        <div class="metric green">
+            <div class="label">תוכניות חדשות שאושרו</div>
+            <div class="value" style="font-size: 0.9em;">טיולי יו"ש</div>
+            <div class="note">ספטמבר 2025</div>
+        </div>
+        <div class="metric green">
+            <div class="label">תוכנית לאומית חדשה</div>
+            <div class="value" style="font-size: 0.9em;">שורשים</div>
+            <div class="note">מאי 2025</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>אם תרצו -- לראשונה בגפ"ן <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>על הארגון <span class="provenance">[WEB-SEARCH]</span></h3>
+            <p>אם תרצו הוא ארגון ימני שנוסד ב-2006 המגדיר עצמו כ"תנועה ציונית". הארגון פועל בקמפוסים אקדמיים ומפעיל מספר פלטפורמות שנויות במחלוקת:</p>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>"דע את המרצה"</strong> -- מאגר מרצים שלטענתם מדכאים דעות מגוונות</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>"דע את הפעיל"</strong> -- חשיפת אנשים המעורבים לטענתם בדה-לגיטימציה של ישראל</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>"אקדמיה"</strong> -- אגף סטודנטים המפעיל סניפים סטודנטיאליים ברחבי הארץ</li>
+            </ul>
+
+            <h3>מה אושר? <span class="provenance">[WEB-SEARCH]</span></h3>
+            <p>ב-4 בספטמבר 2025, לראשונה בתולדות הארגון, משרד החינוך אישר לכלול תוכנית של אם תרצו במאגר גפ"ן. מדובר בפריצת דרך עבור ארגון שעד כה פעל בעיקר באקדמיה, והכניסה שלו למערכת בתי הספר מסמנת שינוי דרמטי בהגדרת מה שנחשב "תוכן חינוכי לגיטימי".</p>
+        </div>
+        <div>
+            <div class="quote-box orange">
+                <p>"לראשונה, משרד החינוך אישר לכלול תוכנית של ארגון הימין הקיצוני אם תרצו במאגר התוכניות של מערכת גפ"ן, המאפשרת למנהלי בתי ספר לבחור תוכניות לפעילויות ולסדנאות לתלמידים."</p>
+                <div class="q-source">הארץ, 4 בספטמבר 2025 <span class="provenance">[WEB-SEARCH]</span></div>
+            </div>
+
+            <div class="person-card">
+                <div class="name">אם תרצו</div>
+                <div class="role">ארגון ימני -- נוסד 2006</div>
+                <div class="bio">תנועה ציונית הפועלת למאבק בדה-לגיטימציה, לחיזוק ערכים ציוניים ולבניית "אליטה אינטלקטואלית ציונית". מפעילה אגף סטודנטים ומאגרי מידע על מרצים ופעילים. אושרה לגפ"ן בספטמבר 2025.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טיולי יהודה ושומרון במימון מלא <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>ב-13 בספטמבר 2025, דווח כי משרד החינוך יממן במלואם טיולי בתי ספר בנושאים תנ"כיים ביהודה ושומרון (הגדה המערבית), באמצעות מערכת גפ"ן. התוכנית מאפשרת למנהלי בתי ספר להזמין טיולים מאורגנים ליעדים בשטחים כחלק מתוכנית הלימודים.</p>
+
+    <div class="quote-box orange">
+        <p>"תוכנית זו היא חלק ממאגר התוכניות והמשאבים החיצוניים (מערכת גפ"ן) שאושרו ותוקצבו על ידי המשרד."</p>
+        <div class="q-source">הארץ, 13 בספטמבר 2025, בנושא טיולי יו"ש <span class="provenance">[WEB-SEARCH]</span></div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תוכנית "שורשים" -- לימודי זהות יהודית וציונית <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>במאי 2025, שר החינוך יואב קיש הכריז על תוכנית חדשה בשם <strong>"שורשים -- התוכנית הלאומית לזהויות יהודיות וציוניות"</strong>. התוכנית הופכת לימודי יהדות וציונות למרכיב חובה בתוכנית הלימודים בבתי ספר ממלכתיים וממלכתיים-דתיים, החל משנת 2026.</p>
+
+    <div class="grid-3">
+        <div class="metric green">
+            <div class="label">הקצאה תקציבית</div>
+            <div class="value">1%-4%</div>
+            <div class="note">עלייה בנתח תקציב לזהות יהודית</div>
+        </div>
+        <div class="metric green">
+            <div class="label">תנ"ך</div>
+            <div class="value" style="font-size: 1em;">מקצוע ליבה</div>
+            <div class="note">הפיכה למקצוע חובה מרכזי</div>
+        </div>
+        <div class="metric green">
+            <div class="label">הכשרת מורים</div>
+            <div class="value" style="font-size: 1em;">חובה</div>
+            <div class="note">הכשרה בנושאי זהות יהודית</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טבלת השוואה: מי יוצא מול מי נכנס <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>שנה</th>
+                <th class="removed">ארגון / תוכנית שהורחקו</th>
+                <th>סיבה</th>
+                <th class="added">ארגון / תוכנית שאושרו</th>
+                <th>סיבה</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2015</td>
+                <td class="removed-cell">שוברים שתיקה <span class="badge red">הנחיה</span></td>
+                <td>"פגיעה בחיילי צה"ל"</td>
+                <td class="added-cell">--</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td>2022</td>
+                <td class="removed-cell">--</td>
+                <td>--</td>
+                <td class="added-cell">העברת יחידת תוכניות חיצוניות למאוז <span class="badge orange">מבני</span></td>
+                <td>הסכם קואליציוני</td>
+            </tr>
+            <tr>
+                <td>יוני 2023</td>
+                <td class="removed-cell">--</td>
+                <td>--</td>
+                <td class="added-cell">ארגון "חוסן" -- 3 תוכניות "טיפול המרה" <span class="badge green">אושר</span></td>
+                <td>הכשרת מורים</td>
+            </tr>
+            <tr>
+                <td>אוגוסט 2023</td>
+                <td class="removed-cell">מעגל המשפחות-פורום השכולים <span class="badge red">הרחקה</span></td>
+                <td>"כולל בני משפחה של מחבלים"</td>
+                <td class="added-cell">--</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td>אפריל 2024</td>
+                <td class="removed-cell">תוכנית סובלנות להט"ב <span class="badge red">קיצוץ 85%</span></td>
+                <td>קיצוץ תקציבי</td>
+                <td class="added-cell">--</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td>ספטמבר 2024</td>
+                <td class="removed-cell">מעגל המשפחות -- הרחקה מתמשכת <span class="badge red">גפ"ן</span></td>
+                <td>למרות פסיקת בי"מ</td>
+                <td class="added-cell">--</td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td>מאי 2025</td>
+                <td class="removed-cell">--</td>
+                <td>--</td>
+                <td class="added-cell">תוכנית "שורשים" -- זהות יהודית <span class="badge green">לאומי</span></td>
+                <td>חובה בתוכנית לימודים</td>
+            </tr>
+            <tr>
+                <td>ספטמבר 2025</td>
+                <td class="removed-cell">--</td>
+                <td>--</td>
+                <td class="added-cell">אם תרצו <span class="badge green">אושר לגפ"ן</span></td>
+                <td>תוכנית ציונית ראשונה</td>
+            </tr>
+            <tr>
+                <td>ספטמבר 2025</td>
+                <td class="removed-cell">--</td>
+                <td>--</td>
+                <td class="added-cell">טיולי יו"ש תנ"כיים <span class="badge green">מימון מלא</span></td>
+                <td>חיבור לארץ ישראל</td>
+            </tr>
+            <tr>
+                <td>פברואר 2026</td>
+                <td class="removed-cell">שוברים שתיקה <span class="badge red">חוק</span></td>
+                <td>חקיקה סופית -- 43-24</td>
+                <td class="added-cell">--</td>
+                <td>--</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 4: המשמעות                              -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="view-meaning" class="view">
+
+<div class="section">
+    <h2>הקרב על השער: מי שולט בגפ"ן שולט בכיתה <span class="provenance">[WEB-SEARCH]</span></h2>
+    <p>מערכת גפ"ן, שנוצרה ככלי ניהולי-פדגוגי שנועד לאפשר לבתי ספר גמישות בבחירת תוכניות חיצוניות, הפכה לאחת הזירות המרכזיות במלחמת התרבות בחינוך הישראלי. הדינמיקה ברורה: ארגונים המקדמים דיאלוג, דו-קיום, זכויות אדם וסובלנות מורחקים באופן שיטתי, ובמקומם נכנסים ארגונים המקדמים זהות יהודית-ציונית חזקה, נאמנות לצה"ל, וחיבור לשטחים.</p>
+
+    <div class="vs-container">
+        <div class="vs-side vs-removed">
+            <h3 style="color: #c0392b;">מה יוצא?</h3>
+            <ul>
+                <li><strong>דיאלוג ישראלי-פלסטיני</strong> -- מעגל המשפחות</li>
+                <li><strong>ביקורת צבאית</strong> -- שוברים שתיקה</li>
+                <li><strong>סובלנות להט"ב</strong> -- קיצוץ 85%</li>
+                <li><strong>חינוך לדו-קיום</strong> -- ארגונים שונים</li>
+                <li><strong>זכויות אדם</strong> -- ארגוני חברה אזרחית</li>
+            </ul>
+        </div>
+        <div class="vs-divider">VS</div>
+        <div class="vs-side vs-added">
+            <h3 style="color: #2e7d32;">מה נכנס?</h3>
+            <ul>
+                <li><strong>ציונות קיצונית</strong> -- אם תרצו</li>
+                <li><strong>זהות יהודית חובה</strong> -- תוכנית שורשים</li>
+                <li><strong>טיולים בשטחים</strong> -- יו"ש תנ"כי</li>
+                <li><strong>"טיפול המרה"</strong> -- ארגון חוסן</li>
+                <li><strong>רשות זהות יהודית</strong> -- 285 מיליון ש"ח</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שחקנים מרכזיים <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="grid-2">
+        <div class="person-card">
+            <div class="name">יואב קיש</div>
+            <div class="role">שר החינוך, ליכוד | דצמבר 2022-</div>
+            <div class="bio">האחראי הישיר על החלטות ההרחקה וההכללה בגפ"ן. הורה על הרחקת מעגל המשפחות (אוגוסט 2023), הכריז על תוכנית "שורשים" (מאי 2025), ואישר את הכניסה של אם תרצו לגפ"ן (ספטמבר 2025). מיקם את לימודי היהדות והציונות ב"לב תוכנית הלימודים".</div>
+        </div>
+
+        <div class="person-card">
+            <div class="name">אבי מאוז</div>
+            <div class="role">ח"כ, סיעת נועם | סגן שר לשעבר</div>
+            <div class="bio">קיבל שליטה על יחידת התוכניות החיצוניות (דצמבר 2022) כחלק מהסכם קואליציוני. עמד בראש "הרשות לזהות יהודית" בתקציב של 285 מיליון ש"ח. ידוע בעמדותיו נגד להט"ב ונגד יהדות לא-אורתודוקסית. התפטר במרץ 2025 מתוך האשמת "המדינה העמוקה".</div>
+        </div>
+
+        <div class="person-card">
+            <div class="name">נפתלי בנט</div>
+            <div class="role">שר החינוך לשעבר, הבית היהודי | 2015-2019</div>
+            <div class="bio">יזם את חסימת שוברים שתיקה מבתי ספר (2015) וקידם חקיקה לאיסור כניסת ארגונים ביקורתיים לצה"ל לבתי ספר (2016). יצר תקדים שהנחה שרי חינוך מאוחרים יותר.</div>
+        </div>
+
+        <div class="person-card">
+            <div class="name">רפי פרץ</div>
+            <div class="role">שר החינוך לשעבר | 2019-2020</div>
+            <div class="bio">הביע תמיכה פומבית ב"טיפולי המרה" להט"ב, וטען שהוא מכיר מניסיון אישי שניתן "להתגבר" על נטייה מינית חד-מינית. גישתו השפיעה על מדיניות ארוכת טווח.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שלושה ממדים של שליטה <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <div class="grid-3">
+        <div style="background: #fef0f0; padding: 20px; border-radius: 8px; border: 2px solid #e74c3c;">
+            <h3 style="color: #c0392b; margin-top: 0;">הדרה</h3>
+            <p style="font-size: 0.9em;">הרחקת ארגונים מגפ"ן, חסימת מימון, חקיקה שמונעת כניסה לבתי ספר. שימוש בעילות "ביטחוניות" או "ערכיות" להרחקת תוכן ביקורתי.</p>
+            <p style="font-size: 0.82em; color: #999;"><strong>דוגמאות:</strong> מעגל המשפחות, שוברים שתיקה, ארגוני להט"ב</p>
+        </div>
+        <div style="background: #f0fef0; padding: 20px; border-radius: 8px; border: 2px solid #2e7d32;">
+            <h3 style="color: #2e7d32; margin-top: 0;">הכללה</h3>
+            <p style="font-size: 0.9em;">אישור ארגונים חדשים לגפ"ן, מימון מלא של תוכניות, הפיכת תוכן לחובה בתוכנית הלימודים. יצירת "צינור" חינוכי ימני-לאומני.</p>
+            <p style="font-size: 0.82em; color: #999;"><strong>דוגמאות:</strong> אם תרצו, טיולי יו"ש, תוכנית שורשים</p>
+        </div>
+        <div style="background: #fef8f0; padding: 20px; border-radius: 8px; border: 2px solid #ff8800;">
+            <h3 style="color: #e67e22; margin-top: 0;">מבנה</h3>
+            <p style="font-size: 0.9em;">שינויים מבניים: העברת סמכויות, הקמת רשויות חדשות, חקיקה. יצירת תשתית מוסדית שמבטיחה המשכיות של המגמה מעבר לכהונת שר ספציפי.</p>
+            <p style="font-size: 0.82em; color: #999;"><strong>דוגמאות:</strong> העברה למאוז, רשות זהות יהודית, חוק שוברים שתיקה</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הקשר רחב: מלחמת התרבות בחינוך <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <p>הקרב על גפ"ן אינו מתרחש בבידוד. הוא חלק ממגמה רחבה יותר של פוליטיזציה של מערכת החינוך הישראלית, שכוללת:</p>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">שליטה בשער הכניסה (גפ"ן)</div>
+            <div class="step-desc">קביעת מי נכנס ומי יוצא מהמאגר המרכזי של תוכניות חיצוניות -- שליטה ישירה בתכנים שמגיעים לכיתה</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x2193;</div>
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">עיצוב תוכנית הלימודים</div>
+            <div class="step-desc">הפיכת לימודי זהות יהודית וציונית לחובה, הגדלת משקל התנ"ך, הכשרת מורים חובה בנושאי זהות</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x2193;</div>
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">חקיקה</div>
+            <div class="step-desc">חוקים שמעגנים את ההדרה בחוק -- חוק שוברים שתיקה, סמכויות שר החינוך לחסום ארגונים</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x2193;</div>
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">הקצאת תקציבים</div>
+            <div class="step-desc">285 מיליון ש"ח לזהות יהודית, מימון מלא לטיולי יו"ש, קיצוץ 85% בסובלנות להט"ב</div>
+        </div>
+    </div>
+
+    <div class="quote-box blue">
+        <p>הדפוס חוזר על עצמו: השליטה על גפ"ן היא רק חלק אחד מפאזל רחב יותר. כשמשלבים את ההרחקה מגפ"ן עם שינויים בתוכנית הלימודים, חקיקה, ותקצוב -- מתקבלת תמונה של שינוי מערכתי במה שתלמידים ישראליים חשופים אליו ומה שנחסם מהם.</p>
+        <div class="q-source">ניתוח מערכתי</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 5: קישורים ומקורות                      -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מקורות עיקריים <span class="provenance">[WEB-SEARCH]</span></h2>
+
+    <h3>הרחקת מעגל המשפחות (אוגוסט 2023)</h3>
+    <a class="link-card" href="https://www.haaretz.com/israel-news/2023-08-02/ty-article/education-ministry-bans-bereaved-families-group" target="_blank">
+        <div>
+            <div class="lc-title">Education Ministry Bans Israeli-Palestinian Bereaved Families Forum From Schools</div>
+            <div class="lc-desc">הארץ, 2 באוגוסט 2023 -- דיווח ראשוני על החלטת שר החינוך קיש להרחיק את PCFF</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.jpost.com/israel-news/article-753434" target="_blank">
+        <div>
+            <div class="lc-title">Education Ministry Bans Israeli-Palestinian Parents Group</div>
+            <div class="lc-desc">ג'רוזלם פוסט, אוגוסט 2023 -- איסור על ארגון הורים שכולים</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.timesofisrael.com/education-ministry-bars-bereaved-families-group-from-schools/" target="_blank">
+        <div>
+            <div class="lc-title">Education Ministry Bars Bereaved Families Group From Schools</div>
+            <div class="lc-desc">טיימס אוף ישראל, אוגוסט 2023 -- יישום כללים חדשים שהרחיקו את PCFF</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.middleeastmonitor.com/20230802-israel-education-ministry-bans-bereaved-families-group/" target="_blank">
+        <div>
+            <div class="lc-title">Israel Education Ministry Bans Grassroots Bereavement Support Group</div>
+            <div class="lc-desc">Middle East Monitor, 2 באוגוסט 2023</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://parentscirclefriends.org/nadine-gefen-expulsion/" target="_blank">
+        <div>
+            <div class="lc-title">Why Banning Programs From Israeli Schools Hurts Palestinians</div>
+            <div class="lc-desc">Parents Circle Friends -- עמדת הארגון על ההרחקה ממערכת גפ"ן</div>
+        </div>
+    </a>
+
+    <h3>אישור אם תרצו לגפ"ן (ספטמבר 2025)</h3>
+    <a class="link-card" href="https://www.haaretz.com/israel-news/2025-09-04/ty-article/in-first-education-ministry-puts-im-tirtzu-program-into-school-database" target="_blank">
+        <div>
+            <div class="lc-title">In First, Education Ministry Puts Im Tirtzu Program Into Proposed School Program Database</div>
+            <div class="lc-desc">הארץ, 4 בספטמבר 2025 -- אישור ראשון של תוכנית אם תרצו במאגר גפ"ן</div>
+        </div>
+    </a>
+
+    <h3>טיולי יו"ש ותוכנית שורשים (2025)</h3>
+    <a class="link-card" href="https://www.haaretz.com/israel-news/2025-09-13/ty-article/education-ministry-funds-biblical-school-trips-west-bank" target="_blank">
+        <div>
+            <div class="lc-title">Israel's Education Ministry to Fully Fund Biblical-Themed School Trips to West Bank</div>
+            <div class="lc-desc">הארץ, 13 בספטמבר 2025 -- מימון מלא לטיולים תנ"כיים ביו"ש</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.jns.org/israeli-education-minister-announces-roots-program/" target="_blank">
+        <div>
+            <div class="lc-title">Education Minister Kisch Announces "Roots" Program for Jewish and Zionist Identity</div>
+            <div class="lc-desc">JNS, מאי 2025 -- תוכנית לאומית להוראת זהות יהודית וציונית כחובה</div>
+        </div>
+    </a>
+
+    <h3>אבי מאוז ויחידת התוכניות החיצוניות</h3>
+    <a class="link-card" href="https://www.jpost.com/israel-news/politics-and-diplomacy/article-728624" target="_blank">
+        <div>
+            <div class="lc-title">Avi Maoz Takes Partial Control of Israeli Education</div>
+            <div class="lc-desc">ג'רוזלם פוסט, דצמבר 2022 -- העברת יחידת התוכניות החיצוניות ללשכת רה"מ</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.timesofisrael.com/deal-gives-far-right-homophobe-maoz-authority-over-outside-programming-in-schools/" target="_blank">
+        <div>
+            <div class="lc-title">Deal Gives Far-Right Homophobe Maoz Authority Over Outside Programming in Schools</div>
+            <div class="lc-desc">טיימס אוף ישראל, דצמבר 2022 -- הסכם קואליציוני שנתן למאוז שליטה</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.haaretz.com/israel-news/2023-05-28/ty-article/far-right-homophobic-mk-avi-maoz-is-back-in-schools" target="_blank">
+        <div>
+            <div class="lc-title">Far-Right Homophobic MK Avi Maoz Is Back in Israel's Schools</div>
+            <div class="lc-desc">הארץ, מאי 2023 -- מאוז חוזר לתפקיד פיקוח על תוכניות חינוכיות</div>
+        </div>
+    </a>
+
+    <h3>שוברים שתיקה -- חקיקה</h3>
+    <a class="link-card" href="https://www.israelnationalnews.com/news/204978" target="_blank">
+        <div>
+            <div class="lc-title">'Breaking the Silence' Banned From Israeli Schools</div>
+            <div class="lc-desc">ערוץ 7, דצמבר 2015 -- בנט מורה על הרחקת הארגון</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.jewishpress.com/news/breaking-news/bennetts-breaking-the-silence-bill/2016/12/27/" target="_blank">
+        <div>
+            <div class="lc-title">Bennett's Breaking the Silence Bill Bars Anti-IDF Groups From Schools</div>
+            <div class="lc-desc">Jewish Press, דצמבר 2016 -- חוק לחסימת ארגונים ביקורתיים</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מקורות נוספים</h2>
+
+    <h3>אתרים רשמיים</h3>
+    <a class="link-card" href="https://www.theparentscircle.org/en/about/" target="_blank">
+        <div>
+            <div class="lc-title">Parents Circle-Families Forum -- האתר הרשמי</div>
+            <div class="lc-desc">ארגון ישראלי-פלסטיני של משפחות שכולות -- נוסד 1995, למעלה מ-800 חברים</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://imti.org.il" target="_blank">
+        <div>
+            <div class="lc-title">אם תרצו -- האתר הרשמי</div>
+            <div class="lc-desc">תנועה ציונית -- נוסדה 2006, פועלת בקמפוסים ובחינוך</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://www.ngo-monitor.org/ngos/parents_circle_families_forum/" target="_blank">
+        <div>
+            <div class="lc-title">NGO Monitor -- Parents Circle Families Forum</div>
+            <div class="lc-desc">ניתוח ביקורתי של הארגון, כולל תוכניות בבתי ספר</div>
+        </div>
+    </a>
+    <a class="link-card" href="https://meida.org.il/activities/gefen" target="_blank">
+        <div>
+            <div class="lc-title">עתירה לחשיפת תוכנית גפ"ן -- תנועת חופש המידע</div>
+            <div class="lc-desc">הליך משפטי לחשיפת רשימת תוכניות חיצוניות לפי בתי ספר</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>קישורים לדוחות קשורים</h2>
+
+    <a class="link-card" href="teacher_training_capture.html">
+        <div>
+            <div class="lc-title">לכידת הכשרת מורים</div>
+            <div class="lc-desc">כיצד מנגנוני הכשרת מורים משמשים להחדרת תוכן אידאולוגי</div>
+        </div>
+    </a>
+    <a class="link-card" href="key_individuals_municipal.html">
+        <div>
+            <div class="lc-title">שחקנים מרכזיים -- רמה מוניציפלית</div>
+            <div class="lc-desc">אנשי מפתח ומקבלי החלטות ברמה המקומית</div>
+        </div>
+    </a>
+    <a class="link-card" href="case_lgbtq_budget_cut_85.html">
+        <div>
+            <div class="lc-title">קיצוץ 85% בתקציב סובלנות להט"ב</div>
+            <div class="lc-desc">ניתוח מקרה: ביטול 4,200 סדנאות -- 145,000 תלמידים הושפעו</div>
+        </div>
+    </a>
+    <a class="link-card" href="pipeline_institutional.html">
+        <div>
+            <div class="lc-title">הצינור המוסדי</div>
+            <div class="lc-desc">כיצד ארגונים חיצוניים חודרים למערכת החינוך -- מיפוי מנגנונים</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer>
+    הקרב על גפ"ן -- מי נכנס ומי יוצא ממערכת החינוך | נבנה לצרכי מחקר | נתונים מבוססים על חיפושי רשת מתועדים
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

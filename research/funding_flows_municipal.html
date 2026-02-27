@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>זרימת כספים — ממימון פילנתרופי לכיתת הלימוד</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* Funding Flow Diagram */
+.flow-diagram {
+    display: flex; flex-direction: column; align-items: center; gap: 0; margin: 24px 0;
+}
+.flow-layer {
+    width: 100%; max-width: 700px; padding: 18px 24px; border-radius: 10px;
+    text-align: center; font-weight: 700; font-size: 1em; position: relative;
+}
+.flow-layer .flow-detail {
+    font-weight: 400; font-size: 0.82em; margin-top: 4px; opacity: 0.85;
+}
+.flow-layer.layer-intl {
+    background: #1a1a2e; color: #fff; border: 2px solid #667eea;
+}
+.flow-layer.layer-ngo {
+    background: #e8edf8; color: #2a5a8a; border: 2px solid #667eea;
+}
+.flow-layer.layer-muni {
+    background: #fef3e0; color: #e67e22; border: 2px solid #e67e22;
+}
+.flow-layer.layer-bypass {
+    background: #fde8e8; color: #c0392b; border: 2px solid #e74c3c;
+}
+.flow-layer.layer-school {
+    background: #f8f9fa; color: #1a1a2e; border: 2px solid #1a1a2e;
+}
+.flow-arrow {
+    text-align: center; font-size: 1.8em; color: #667eea; line-height: 1;
+    margin: 2px 0;
+}
+.flow-arrow.orange { color: #e67e22; }
+.flow-arrow.red { color: #e74c3c; }
+
+/* Case study cards */
+.case-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    border-right: 4px solid #e67e22;
+}
+.case-card .case-city { font-weight: 700; color: #1a1a2e; font-size: 1.1em; margin-bottom: 6px; }
+.case-card ul { margin: 6px 20px 0; font-size: 0.9em; color: #555; }
+.case-card li { margin-bottom: 4px; }
+
+.expand-section summary {
+    cursor: pointer; font-weight: 600; color: #2a5a8a;
+    padding: 8px 0; font-size: 0.95em;
+}
+.expand-section summary:hover { color: #667eea; }
+
+.timeline {
+    border-right: 3px solid #667eea; margin: 16px 12px; padding: 0 16px;
+}
+.timeline-item {
+    position: relative; margin-bottom: 16px; padding-bottom: 8px;
+}
+.timeline-item::before {
+    content: ''; position: absolute; right: -22px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+}
+.timeline-item .t-label { font-weight: 700; color: #667eea; font-size: 0.85em; }
+.timeline-item .t-content { font-size: 0.88em; color: #555; }
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.78em; color: #999;
+    border-top: 1px solid #eee; margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        זרימת כספים
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('funding')">מקורות מימון</button>
+        <button class="nav-tab" onclick="showView('orgs')">ארגונים מתווכים</button>
+        <button class="nav-tab" onclick="showView('bypass')">מנגנוני עקיפה</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>זרימת כספים -- ממימון פילנתרופי לכיתת הלימוד</h1>
+    <div class="subtitle">מיפוי ערוצי המימון המזינים תוכניות חינוך פרוגרסיביות ברשויות מקומיות בישראל</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">6+</div><div class="lbl">ארגוני ביניים</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">מנגנוני עקיפה מזוהים</div></div>
+        <div class="stat"><div class="num">3.7M</div><div class="lbl">ש"ח מחזור חוש"ן (2024)</div></div>
+        <div class="stat"><div class="num">15+</div><div class="lbl">ערים מושפעות</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>תמונת המצב</h2>
+    <p>מערכת המימון הפילנתרופי לתוכניות חינוך פרוגרסיביות בישראל פועלת בשכבות מובנות: <strong>פילנתרופיה בינלאומית</strong> מזרימה כספים לקרנות מקומיות, שמממנות <strong>ארגוני ביניים</strong> (עמותות ישראליות), שמתקשרים ישירות עם <strong>רשויות מקומיות</strong> ומגיעים בסופו של דבר אל <strong>בתי הספר</strong>.</p>
+    <p>הקרן החדשה לישראל (NIF) משמשת כ"קרן אם" מרכזית במערכת זו, מעבירה מענקים למגוון ארגונים ישראליים הפועלים בזירה החינוכית. כאשר משרד החינוך חוסם תוכניות, הארגונים מפעילים <strong>מנגנוני עקיפה</strong> דרך מחלקות רווחה, ועדות בריאות ותקצוב עירוני ישיר.</p>
+</div>
+
+<div class="section">
+    <h2>תרשים זרימת מימון</h2>
+    <div class="flow-diagram">
+        <div class="flow-layer layer-intl">
+            פילנתרופיה בינלאומית
+            <div class="flow-detail">NIF כ"קרן אם" -- תורמים מחו"ל, קרנות פרטיות (ג'ים ג'וזף, פוזן)</div>
+        </div>
+        <div class="flow-arrow">&#x25BC;</div>
+        <div class="flow-layer layer-ngo">
+            <span class="badge blue">ארגוני ביניים</span> עמותות ישראליות
+            <div class="flow-detail">חוש"ן, דרור ישראל, דלת פתוחה, יד ביד, בינ"ה, מכון הרטמן</div>
+        </div>
+        <div class="flow-arrow orange">&#x25BC;</div>
+        <div class="flow-layer layer-muni">
+            <span class="badge orange">תקציבי עירייה</span> רשויות מקומיות
+            <div class="flow-detail">חוזים ישירים, סל חינוך משלים, פטור ממכרז</div>
+        </div>
+        <div class="flow-arrow red">&#x25BC;</div>
+        <div class="flow-layer layer-bypass">
+            <span class="badge red">מנגנוני עקיפה</span> כשמשרד החינוך חוסם
+            <div class="flow-detail">מחלקת רווחה / ועדות בריאות / תקצוב עירוני ישיר</div>
+        </div>
+        <div class="flow-arrow">&#x25BC;</div>
+        <div class="flow-layer layer-school">
+            בית הספר -- הכיתה
+            <div class="flow-detail">סדנאות, תוכניות לימוד, ייעוץ, פעילויות חינוכיות</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מספרים מרכזיים</h2>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">מחזור חוש"ן (2024)</div>
+            <div class="value">3.7M</div>
+            <div class="note">ש"ח -- סדנאות נטייה מינית</div>
+        </div>
+        <div class="metric">
+            <div class="label">חוזה דלת פתוחה -- רמת השרון</div>
+            <div class="value">138K</div>
+            <div class="note">ש"ח -- דרך מרכז קנגורו</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פרויקט מיניות בריאה -- באר שבע</div>
+            <div class="value">8,100</div>
+            <div class="note">תלמידים ב-9 בתי ספר</div>
+        </div>
+        <div class="metric">
+            <div class="label">מענק NIF לוועדת המעקב</div>
+            <div class="value">$65K</div>
+            <div class="note">תוכניות לימוד אלטרנטיביות</div>
+        </div>
+        <div class="metric">
+            <div class="label">מתנדבים -- פרויקט גמלא (דרור ישראל)</div>
+            <div class="value">2,000</div>
+            <div class="note">ב-20 קיבוצי מחנכים עירוניים</div>
+        </div>
+        <div class="metric">
+            <div class="label">ערים מושפעות</div>
+            <div class="value">15+</div>
+            <div class="note">ת"א, הרצליה, חיפה, באר שבע ועוד</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ FUNDING SOURCES TAB ═══ -->
+<div id="view-funding" class="view">
+
+<div class="section">
+    <h2>הקרן החדשה לישראל (NIF) -- "קרן אם"</h2>
+    <p>הקרן החדשה לישראל (New Israel Fund) פועלת כגורם המימון המרכזי במערכת. היא מעבירה מענקים לארגונים ישראליים הפועלים בזירה החינוכית ברשויות מקומיות. להלן מענקים מרכזיים שאותרו (2024-2025):</p>
+
+    <table>
+        <tr>
+            <th>ארגון</th>
+            <th>סכום</th>
+            <th>מטרה</th>
+        </tr>
+        <tr>
+            <td>האגודה לזכויות האזרח (ACRI)</td>
+            <td>$30,200 (~110,000 ש"ח)</td>
+            <td>פעילות משפטית וקו חם נגד "הדתה"</td>
+        </tr>
+        <tr>
+            <td>חוש"ן</td>
+            <td>$15,000 (~55,000 ש"ח/שנה)</td>
+            <td>סדנאות בבתי ספר וברשויות</td>
+        </tr>
+        <tr>
+            <td>ועדת המעקב לחינוך הערבי</td>
+            <td>$65,000</td>
+            <td>תוכניות לימוד אלטרנטיביות</td>
+        </tr>
+        <tr>
+            <td>מנהיגות לעתיד</td>
+            <td>$25,000</td>
+            <td>תוכניות חינוך לבני העדה האתיופית</td>
+        </tr>
+        <tr>
+            <td>יוזמות אברהם</td>
+            <td>משתנה</td>
+            <td>חברה משותפת בערים מעורבות</td>
+        </tr>
+    </table>
+
+    <div class="quote-box blue">
+        המענקים המפורטים לעיל הם רק חלק מהתמונה. NIF פועלת כרשת מימון רחבה שמגיעה למעשה לכל ארגון פרוגרסיבי משמעותי הפועל בזירה החינוכית בישראל.
+        <div class="q-source">על בסיס ניתוח נתוני מענקים פומביים של NIF</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מקורות מימון נוספים</h2>
+    <div class="grid-2">
+        <div>
+            <h3>קרנות בינלאומיות</h3>
+            <p>קרנות פרטיות בינלאומיות מממנות ישירות ארגוני ביניים ישראליים, לעיתים במקביל למימון NIF:</p>
+            <ul style="margin: 8px 20px; font-size: 0.9em; color: #555;">
+                <li><strong>קרן ג'ים ג'וזף</strong> -- מימון מכון הרטמן</li>
+                <li><strong>קרן פוזן</strong> -- מימון תוכנית "בארי" לזהות יהודית ליברלית</li>
+                <li><strong>תרומות חו"ל</strong> -- מימון ישיר לרשת יד ביד</li>
+            </ul>
+        </div>
+        <div>
+            <h3>תקציב עירוני</h3>
+            <p>ערים חזקות (פורום ה-15) מקצות תקציבים ייעודיים:</p>
+            <ul style="margin: 8px 20px; font-size: 0.9em; color: #555;">
+                <li><strong>הרצליה</strong> -- סעיף "זהות יהודית דמוקרטית"</li>
+                <li><strong>תל אביב</strong> -- פטור ממכרז (תקנה 3(8))</li>
+                <li><strong>רמת השרון</strong> -- חוזים ישירים עם עמותות</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ INTERMEDIARY ORGS TAB ═══ -->
+<div id="view-orgs" class="view">
+
+<div class="section">
+    <h2>ארגוני ביניים -- מיפוי</h2>
+    <p>ארגונים אלה משמשים כצינור המקשר בין המימון הפילנתרופי לבין מערכת החינוך ברשויות המקומיות. כל ארגון מתמחה בנישה חינוכית מסוימת ופועל בערים ספציפיות.</p>
+
+    <table>
+        <tr>
+            <th>ארגון</th>
+            <th>ערים</th>
+            <th>תקציבים ופעילות</th>
+        </tr>
+        <tr>
+            <td><strong>חוש"ן</strong> <span class="badge blue">ארגון ביניים</span></td>
+            <td>ת"א, גבעתיים, הרצליה, חיפה</td>
+            <td>סדנאות נטייה מינית. מחזור 2024: 3.7 מיליון ש"ח</td>
+        </tr>
+        <tr>
+            <td><strong>דרור ישראל</strong> <span class="badge blue">ארגון ביניים</span></td>
+            <td>באר שבע, אשבל, מצפה רמון, ראשל"צ</td>
+            <td>20 קיבוצי מחנכים עירוניים. פרויקט גמלא (2,000 מתנדבים)</td>
+        </tr>
+        <tr>
+            <td><strong>דלת פתוחה</strong> <span class="badge blue">ארגון ביניים</span></td>
+            <td>רמת השרון, באר שבע, ת"א, חיפה</td>
+            <td>ייעוץ מיני. רמת השרון: חוזה 138,000 ש"ח (דרך מרכז קנגורו)</td>
+        </tr>
+        <tr>
+            <td><strong>יד ביד</strong> <span class="badge blue">ארגון ביניים</span></td>
+            <td>ירושלים, גליל (משגב), יפו, חיפה, כפר סבא</td>
+            <td>רשת בתי ספר דו-לשוניים. מימון עירוני גבוה + תרומות חו"ל</td>
+        </tr>
+        <tr>
+            <td><strong>בינ"ה</strong> <span class="badge blue">ארגון ביניים</span></td>
+            <td>תל אביב, ירושלים, באר שבע</td>
+            <td>יהדות פלורליסטית. מערכת גפ"ן (43098, 31805)</td>
+        </tr>
+        <tr>
+            <td><strong>מכון הרטמן</strong> <span class="badge blue">ארגון ביניים</span></td>
+            <td>ירושלים, מודיעין, ת"א</td>
+            <td>תוכנית "בארי" לזהות יהודית ליברלית. קרנות ג'ים ג'וזף, פוזן</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>דפוסי פעילות משותפים</h2>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">ממשק עם רשות</div>
+            <div class="value">חוזה ישיר</div>
+            <div class="note">התקשרות ישירה עם אגף חינוך</div>
+        </div>
+        <div class="metric">
+            <div class="label">מקור מימון כפול</div>
+            <div class="value">פילנתרופיה + עירייה</div>
+            <div class="note">NIF + תקציב רשות מקומית</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מעקף רגולטורי</div>
+            <div class="value">רווחה / בריאות</div>
+            <div class="note">כניסה דרך מחלקות שאינן חינוך</div>
+        </div>
+    </div>
+
+    <h3>מאפיינים מבניים</h3>
+    <p>כל ששת ארגוני הביניים חולקים מספר מאפיינים מבניים:</p>
+    <ul style="margin: 8px 20px; font-size: 0.9em; color: #555; line-height: 2;">
+        <li>מימון כפול: פילנתרופיה בינלאומית + תקציב עירוני</li>
+        <li>נוכחות רב-עירונית: פעילות במספר רשויות במקביל</li>
+        <li>התמחות בנישה: כל ארגון מתמחה בתחום ספציפי (מגדר, דו-קיום, יהדות ליברלית)</li>
+        <li>גמישות מוסדית: יכולת לעקוף חסימות רגולטוריות של משרד החינוך</li>
+    </ul>
+</div>
+
+</div>
+
+<!-- ═══ BYPASS MECHANISMS TAB ═══ -->
+<div id="view-bypass" class="view">
+
+<div class="section">
+    <h2>שלושה מנגנוני עקיפה מזוהים</h2>
+    <p>כאשר משרד החינוך חוסם תוכניות או מסיר אותן מסל התוכניות הממשלתי, ארגוני הביניים ורשויות מקומיות מפעילים שלושה מנגנוני עקיפה עיקריים:</p>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">1</div>
+        <div class="step-content">
+            <div class="step-title">מעקף דרך מחלקת הרווחה <span class="badge red">מעקף</span></div>
+            <div class="step-desc">ארגונים נכנסים לבתי הספר דרך אגף שירותים חברתיים / מחלקת רווחה, ולא דרך אגף החינוך. מאחר שמחלקת הרווחה אינה כפופה לאישור פדגוגי של משרד החינוך, תוכניות שנחסמו מצליחות להיכנס בערוץ אחר.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">2</div>
+        <div class="step-content">
+            <div class="step-title">מעקף דרך ועדות בריאות <span class="badge red">מעקף</span></div>
+            <div class="step-desc">ארגונים נכנסים כספקי "בריאות הציבור" או "ייעוץ רפואי". כניסה דרך ועדות בריאות אינה דורשת אישור פדגוגי, ומאפשרת לתכנים חינוכיים להיכנס תחת מסווה של שירותי בריאות.</div>
+        </div>
+    </div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">3</div>
+        <div class="step-content">
+            <div class="step-title">תקצוב עירוני ישיר <span class="badge red">מעקף</span></div>
+            <div class="step-desc">ערים חזקות (פורום ה-15) מממנות "סל חינוך משלים" מתקציב רגיל. זה מאפשר רכישת תוכניות שהוסרו מהסל הממשלתי. העירייה פועלת כ"חומת אש" בין משרד החינוך לבית הספר.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תיאור מקרה: באר שבע</h2>
+    <div class="case-card">
+        <div class="case-city">באר שבע -- פרויקט "שבוע מיניות בריאה" <span class="badge red">מעקף רווחה</span></div>
+        <ul>
+            <li>ארגון מפעיל: <strong>דלת פתוחה</strong></li>
+            <li>היקף: <strong>8,100 תלמידים</strong> ב-<strong>9 בתי ספר</strong></li>
+            <li>מנגנון: ממומן דרך <strong>אגף שירותים חברתיים</strong>, לא אגף חינוך</li>
+            <li>משמעות: עוקף את הפיקוח הפדגוגי של משרד החינוך</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תיאור מקרה: הרצליה</h2>
+    <div class="case-card">
+        <div class="case-city">הרצליה -- סעיף "זהות יהודית דמוקרטית" <span class="badge orange">תקציב עירוני</span></div>
+        <ul>
+            <li>סעיף תקציבי ייעודי: "זהות יהודית דמוקרטית" (2025)</li>
+            <li>קריטריונים: פעילות המקדמת ערכי מגילת העצמאות</li>
+            <li>מנגנון חלוקה: 33% לפי שעות פעילות, 67% לפי משתתפים</li>
+            <li>משמעות: מסגרת תקציבית עצמאית שאינה כפופה לסל הממשלתי</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תיאור מקרה: רמת השרון</h2>
+    <div class="case-card">
+        <div class="case-city">רמת השרון -- חוזה ישיר עם דלת פתוחה <span class="badge orange">תקציב עירוני</span></div>
+        <ul>
+            <li>חוזה ישיר: <strong>138,000 ש"ח</strong> מול "דלת פתוחה"</li>
+            <li>תיווך: דרך <strong>מרכז קנגורו</strong></li>
+            <li>תוכן: ייעוץ להורים ואנשי מקצוע בגיל הרך</li>
+            <li>משמעות: התקשרות ישירה עוקפת את מנגנוני הבקרה הממשלתיים</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תיאור מקרה: תל אביב-יפו</h2>
+    <div class="case-card">
+        <div class="case-city">תל אביב-יפו -- שימוש בפטור ממכרז <span class="badge orange">תקציב עירוני</span></div>
+        <ul>
+            <li>מנגנון: שימוש נרחב ב<strong>פטור ממכרז (תקנה 3(8))</strong> להתקשרויות עם עמותות</li>
+            <li>משמעות: מאפשר התקשרות מהירה וישירה ללא תחרות פתוחה</li>
+            <li>היקף: מתקשרת עם מרבית ארגוני הביניים המפורטים לעיל</li>
+        </ul>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תרשים מנגנון העקיפה</h2>
+    <div class="flow-diagram">
+        <div class="flow-layer layer-intl">
+            משרד החינוך חוסם תוכנית
+            <div class="flow-detail">הסרה מסל תוכניות / סירוב לאשר תוכנית חדשה</div>
+        </div>
+        <div class="flow-arrow red">&#x25BC;</div>
+        <div class="flow-layer layer-bypass" style="max-width: 900px;">
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 180px; background: rgba(255,255,255,0.15); border-radius: 6px; padding: 10px;">
+                    <strong>מעקף 1</strong><br>
+                    <span style="font-size: 0.85em;">מחלקת רווחה</span>
+                </div>
+                <div style="flex: 1; min-width: 180px; background: rgba(255,255,255,0.15); border-radius: 6px; padding: 10px;">
+                    <strong>מעקף 2</strong><br>
+                    <span style="font-size: 0.85em;">ועדות בריאות</span>
+                </div>
+                <div style="flex: 1; min-width: 180px; background: rgba(255,255,255,0.15); border-radius: 6px; padding: 10px;">
+                    <strong>מעקף 3</strong><br>
+                    <span style="font-size: 0.85em;">סל חינוך עירוני</span>
+                </div>
+            </div>
+        </div>
+        <div class="flow-arrow red">&#x25BC;</div>
+        <div class="flow-layer layer-school">
+            התוכנית מגיעה לבית הספר -- ללא אישור פדגוגי ממשלתי
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="key_individuals_municipal.html">
+        <div>
+            <div class="lc-title">דמויות מפתח ברשויות מקומיות</div>
+            <div class="lc-desc">מיפוי אנשי מפתח ברשויות שמקדמים תוכניות חינוך פרוגרסיביות</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי -- דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">23 החלטות מועצה אמיתיות ב-5 ערים, דצמבר 2022 כנקודת מפנה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית -- סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: מהאקדמיה לכיתה. קתדרת UNESCO, הכשרת מורים כ"סוכני שינוי"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים -- חזרה לעמוד הראשי</div>
+            <div class="lc-desc">דירוג 5-מקורי: חינוך 45% + חדשות 20% + פרוטוקולים 20% + דגלים אדומים 15%</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

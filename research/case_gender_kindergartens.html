@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מגדר בגני ילדים — תל אביב ורמת גן, 2021–2022</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+.book-card {
+    background: #fff; border-radius: 8px; padding: 20px;
+    border: 2px solid #e74c3c; margin-bottom: 16px;
+}
+.book-card .book-title {
+    font-weight: 700; font-size: 1.15em; color: #1a1a2e; margin-bottom: 6px;
+}
+.book-card .book-desc { font-size: 0.9em; color: #555; }
+
+.escalation-visual {
+    background: #f8f9fa; border-radius: 8px; padding: 20px;
+    border: 1px solid #e8e8e8; margin: 16px 0;
+}
+.escalation-level {
+    padding: 14px 18px; border-radius: 8px; margin: 8px 0;
+    display: flex; align-items: center; gap: 14px;
+}
+.escalation-level .el-stage {
+    font-weight: 800; font-size: 0.85em; min-width: 120px;
+    padding: 4px 12px; border-radius: 6px; text-align: center;
+}
+.escalation-level .el-content { font-size: 0.9em; color: #333; }
+.escalation-level.level-1 { background: #fef3e0; }
+.escalation-level.level-1 .el-stage { background: #ff8800; color: #fff; }
+.escalation-level.level-2 { background: #fde8e8; }
+.escalation-level.level-2 .el-stage { background: #e74c3c; color: #fff; }
+.escalation-level.level-3 { background: #f0e0f0; }
+.escalation-level.level-3 .el-stage { background: #8e44ad; color: #fff; }
+.escalation-arrow { text-align: center; font-size: 1.4em; color: #e74c3c; margin: 2px 0; }
+
+.content-item {
+    background: #f8f9fa; border-radius: 8px; padding: 16px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    border-right: 4px solid #e74c3c;
+}
+.content-item .ci-title { font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.content-item .ci-desc { font-size: 0.88em; color: #555; }
+
+.protest-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+}
+.protest-item:last-child { border-bottom: none; }
+.protest-bullet {
+    min-width: 8px; min-height: 8px; max-width: 8px; max-height: 8px;
+    background: #e74c3c; border-radius: 50%; margin-top: 8px;
+}
+.protest-text { font-size: 0.92em; color: #333; }
+
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 18px 20px; font-size: 0.82em;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        מגדר בגני ילדים
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('event')">האירוע</button>
+        <button class="nav-tab" onclick="showView('content')">התכנים</button>
+        <button class="nav-tab" onclick="showView('protest')">המחאה</button>
+        <button class="nav-tab" onclick="showView('context')">הקשר רחב</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>מגדר בגני ילדים — תל אביב ורמת גן, 2021–2022</h1>
+    <div class="subtitle">ספרות ילדים ושפה "רב-מגדרית" בגני ילדים ללא ידיעת ההורים</div>
+    <div class="meta">תיעוד אירוע: תכנים מגדריים בגיל הרך ללא הסכמה</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">3–6</div><div class="lbl">גילאי הילדים</div></div>
+        <div class="stat"><div class="num">2021–2022</div><div class="lbl">תקופת האירוע</div></div>
+        <div class="stat"><div class="num">ת"א + ר"ג</div><div class="lbl">מיקום</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">הסכמת הורים</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ EVENT TAB ═══ -->
+<div id="view-event" class="view active">
+
+<div class="section">
+    <h2>תקציר האירוע</h2>
+    <p>בשנים 2021–2022 התגלה כי בגני ילדים בתל אביב וברמת גן הוכנסו תכנים מגדריים לילדים בגילאי 3–6 — <strong>ללא ידיעת ההורים וללא הסכמתם</strong>. הורים שגילו את התכנים הופתעו לגלות שגננות משתמשות בספרות ילדים העוסקת בשינוי מגדר ובשפה "רב-מגדרית" בשיח היומיומי עם פעוטות.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">גילאי ילדים</div>
+            <div class="value">3–6</div>
+            <div class="note">גיל הרך — טרום בית ספר</div>
+        </div>
+        <div class="metric">
+            <div class="label">תקופה</div>
+            <div class="value">2021–2022</div>
+            <div class="note">שנתיים של פעילות</div>
+        </div>
+        <div class="metric">
+            <div class="label">מיקום</div>
+            <div class="value">ת"א + ר"ג</div>
+            <div class="note">גני ילדים עירוניים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הסכמת הורים</div>
+            <div class="value">0</div>
+            <div class="note">ללא שקיפות או ידיעה</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה גילו ההורים</h2>
+    <p>הורים לילדים בגני ילדים בתל אביב ורמת גן גילו שגננות משתמשות בתכנים שלא אושרו ולא הובאו לידיעתם:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>ספרות ילדים מגדרית</h3>
+            <p>בין הספרים שנמצאו בגנים: <strong>"החצאית של אבא"</strong> — ספר ילדים המציג אבא שלובש חצאית, שנועד לאתגר נורמות מגדריות. הספר הוצג לילדים בגילאי 3–6 כחלק מפעילות שגרתית בגן.</p>
+        </div>
+        <div>
+            <h3>שפה "רב-מגדרית"</h3>
+            <p>גננות החלו להשתמש בלשון ניטרלית מגדרית בשיח עם הילדים — הימנעות מחלוקה ל"בנים" ו"בנות", שימוש בלשון כללית, ועידוד ילדים שלא להגדיר עצמם לפי מינם הביולוגי.</p>
+        </div>
+    </div>
+
+    <div class="quote-box">
+        "לא ידענו שהילד שלנו בגיל 4 נחשף לתכנים על שינוי מגדר. גילינו את זה רק כשהילד חזר הביתה ושאל למה אבא לא לובש חצאית כמו האבא בסיפור."
+        <div class="q-source">הורה מתל אביב — מתוך דיון בפורום הורים, 2022</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הטענה המרכזית של ההורים</h2>
+    <p>הטענה המרכזית שעלתה מצד ההורים: <strong>ערעור הזהות המינית של ילדים בגיל הרך ללא הסכמת ההורים</strong>.</p>
+    <p>ההורים טענו כי:</p>
+    <table>
+        <tr><th>הטענה</th><th>הפירוט</th></tr>
+        <tr><td>חוסר שקיפות <span class="badge red">ללא הסכמת הורים</span></td><td>התכנים הוכנסו ללא כל יידוע, אישור או הסכמה של ההורים</td></tr>
+        <tr><td>גיל לא מתאים</td><td>ילדים בגילאי 3–6 אינם בשלים לתכנים על זהות מגדרית ושינוי מגדר</td></tr>
+        <tr><td>ערעור זהות מינית</td><td>התכנים מציגים את המגדר כ"בחירה" ולא כעובדה ביולוגית — מול ילדים שטרם פיתחו חשיבה מופשטת</td></tr>
+        <tr><td>אג'נדה אידיאולוגית</td><td>הגישה מבוססת על "פדגוגיה מגדרית ביקורתית" ולא על צורך חינוכי מוכח</td></tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ CONTENT TAB ═══ -->
+<div id="view-content" class="view">
+
+<div class="section">
+    <h2>התכנים שנמצאו בגנים</h2>
+    <p>להלן פירוט התכנים הספציפיים שהורים גילו בגני הילדים:</p>
+
+    <div class="book-card">
+        <div class="book-title">"החצאית של אבא" <span class="badge red">נמצא בגנים</span></div>
+        <div class="book-desc">
+            <p>ספר ילדים המציג אבא שלובש חצאית. הספר נועד לאתגר נורמות מגדריות מסורתיות ומציג את הלבוש כנפרד ממגדר. הספר הוקרא לילדים בגילאי 3–6 כחלק מפעילות מתוכננת.</p>
+            <p><strong>המסר לילד:</strong> אין קשר בין מין ביולוגי לבין לבוש, התנהגות או תפקיד — אבא יכול ללבוש חצאית וזה "נורמלי".</p>
+            <p><strong>הבעיה:</strong> הספר הוא חלק מרשימת ספרים מומלצת שהגיעה לגננות דרך ערוצים לא-רשמיים — לא דרך משרד החינוך ולא דרך ועדת הורים.</p>
+        </div>
+    </div>
+
+    <div class="content-item">
+        <div class="ci-title">שפה רב-מגדרית</div>
+        <div class="ci-desc">גננות השתמשו בלשון ניטרלית מגדרית: הימנעות מחלוקה ל"בנים/בנות", שימוש בפנייה ניטרלית, עידוד ילדים שלא להגדיר עצמם לפי מינם. לדוגמה — במקום "בנים, בואו לפינת הבנייה" נאמר "ילדים, בואו לפינת הבנייה", כשההקשר הוא מודע ומכוון לטשטוש הבדלים מגדריים.</div>
+    </div>
+
+    <div class="content-item">
+        <div class="ci-title">מערכי פעילות לפירוק סטריאוטיפים</div>
+        <div class="ci-desc">משחקים ופעילויות שנועדו "לפרק סטריאוטיפים מגדריים" — לדוגמה: בנים מתחפשים לבנות ולהיפך, שיחות קבוצתיות על "מה בנים יכולים לעשות ומה בנות יכולות לעשות", משחקי תפקידים שבהם הילדים מתבקשים לשחק תפקידים "לא מסורתיים".</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>התיאוריה שמאחורי התכנים</h2>
+    <div class="grid-2">
+        <div>
+            <h3>פדגוגיה מגדרית ביקורתית</h3>
+            <p>הגישה שעומדת בבסיס התכנים מבוססת על <strong>"פדגוגיה מגדרית ביקורתית"</strong> — הנחה יסודית שמגדר הוא קונסטרוקט חברתי (ולא עובדה ביולוגית) שיש "לפרק" מגיל צעיר.</p>
+            <p>לפי גישה זו:</p>
+            <ul style="margin: 8px 20px; font-size: 0.92em; color: #555;">
+                <li>מגדר הוא "ספקטרום" ולא בינארי</li>
+                <li>החלוקה לבנים ובנות היא "דיכוי חברתי"</li>
+                <li>יש "לשחרר" ילדים מ"כלא המגדר" מגיל צעיר</li>
+                <li>המורה/גננת היא "סוכנת שינוי" שתפקידה לערער מבנים קיימים</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מקורות ההשפעה</h3>
+            <div class="metric alert">
+                <div class="label">הגדרת מגדר</div>
+                <div class="value">קונסטרוקט</div>
+                <div class="note">לא ביולוגיה — "הרגשה פנימית"</div>
+            </div>
+            <div class="metric" style="margin-top: 12px;">
+                <div class="label">גישה</div>
+                <div class="value">פירוק</div>
+                <div class="note">"לפרק סטריאוטיפים מגיל 3"</div>
+            </div>
+            <div class="metric alert" style="margin-top: 12px;">
+                <div class="label">שקיפות להורים</div>
+                <div class="value">אפס</div>
+                <div class="note">התכנים הוכנסו ללא ידיעת ההורים</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>כיצד הגיעו התכנים לגנים?</h2>
+    <p>התכנים לא הגיעו דרך ערוצים רשמיים של משרד החינוך. בדיקה מעלה כי:</p>
+    <table>
+        <tr><th>ערוץ</th><th>תיאור</th></tr>
+        <tr><td>רשימות ספרים מומלצות</td><td>"החצאית של אבא" הגיע דרך רשימות לא-רשמיות שהופצו בין גננות</td></tr>
+        <tr><td>הכשרות גננות</td><td>ארגון חוש"ן מספק הכשרות לגננות בנושא מגדר ונטייה מינית</td></tr>
+        <tr><td>קבוצות מקצועיות</td><td>קבוצות גננות ברשתות חברתיות שבהן משותפו תכנים ומערכי פעילות</td></tr>
+        <tr><td>יוזמה אישית</td><td>גננות שנחשפו לגישה הביקורתית באקדמיה או בהשתלמויות</td></tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ PROTEST TAB ═══ -->
+<div id="view-protest" class="view">
+
+<div class="section">
+    <h2>המחאה של ההורים</h2>
+    <p>מרגע שההורים גילו את התכנים, החלה מחאה שהתרחבה בהדרגה:</p>
+
+    <div class="protest-item">
+        <div class="protest-bullet"></div>
+        <div class="protest-text"><strong>פנייה ישירה לגננות ולמנהלות:</strong> הורים שגילו את התכנים פנו תחילה ישירות לגננות ולמנהלות הגנים בדרישה להפסיק את השימוש בספרים ובשפה "רב-מגדרית".</div>
+    </div>
+    <div class="protest-item">
+        <div class="protest-bullet"></div>
+        <div class="protest-text"><strong>מחאה בפורומים ברשתות חברתיות:</strong> הנושא התפשט במהירות לפורומים של הורים ברשתות חברתיות. הורים שיתפו מידע, תיעוד ועדויות על תכנים שנמצאו בגנים שונים.</div>
+    </div>
+    <div class="protest-item">
+        <div class="protest-bullet"></div>
+        <div class="protest-text"><strong>דרישה להסרת ספרים:</strong> הורים דרשו שהספרים הללו יוסרו מהגנים לאלתר ושתהיה שקיפות מלאה לגבי כל תוכנית הפעילות.</div>
+    </div>
+    <div class="protest-item">
+        <div class="protest-bullet"></div>
+        <div class="protest-text"><strong>דרישה לשקיפות מלאה:</strong> ההורים דרשו לקבל מידע מלא על כל התכנים שמוצגים לילדיהם — כולל ספרים, מערכי פעילות ושיטות שיח.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תגובת המערכת</h2>
+    <div class="grid-2">
+        <div>
+            <h3>עמדת חלק מהגננות</h3>
+            <div class="quote-box blue">
+                "זה חלק מהגישה החינוכית. אנחנו מכשירים את הילדים לעולם מגוון ופתוח."
+                <div class="q-source">עמדה שנשמעה מגננות שהמשיכו בתכנים</div>
+            </div>
+            <p>חלק מהגננות לא הפסיקו, בטענה שהתכנים הם חלק לגיטימי מהגישה החינוכית המודרנית.</p>
+        </div>
+        <div>
+            <h3>עמדת ההורים</h3>
+            <div class="quote-box">
+                "אין לגננת זכות להחליט בשבילנו מה הילד שלנו בגיל 4 ישמע על מגדר. זו החלטה של ההורים."
+                <div class="q-source">הורה מרמת גן — מתוך דיון בפורום הורים, 2022</div>
+            </div>
+            <p>ההורים עמדו על כך שהחלטות חינוכיות בנוגע לזהות מינית ומגדרית הן בסמכות ההורים בלבד.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>קישור לפרשיות דומות ברחבי הארץ</h2>
+    <p>האירוע בתל אביב ורמת גן לא היה מקרה בודד. הוא קושר לפרשיות דומות שנחשפו בערים נוספות ברחבי ישראל, ומצביע על דפוס רחב של הכנסת תכנים מגדריים למערכת החינוך ללא ידיעת ההורים.</p>
+
+    <div class="metric alert" style="max-width: 300px;">
+        <div class="label">סטטוס ארצי</div>
+        <div class="value">דפוס חוזר</div>
+        <div class="note">אירועים דומים בערים נוספות</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ CONTEXT TAB ═══ -->
+<div id="view-context" class="view">
+
+<div class="section">
+    <h2>הקשר רחב: מגן הילדים לתיכון</h2>
+    <p>האירוע בגני הילדים בתל אביב ורמת גן הוא חלק מתופעה רחבה יותר — הסלמה מתועדת של תכנים מגדריים במערכת החינוך הישראלית, מגיל הרך ועד התיכון.</p>
+
+    <div class="escalation-visual">
+        <div class="escalation-level level-1">
+            <div class="el-stage">גן 2021–2022</div>
+            <div class="el-content"><strong>ספרות ילדים + שפה רב-מגדרית</strong> — "החצאית של אבא", שפה ניטרלית, משחקי תפקידים. גילאי 3–6.</div>
+        </div>
+        <div class="escalation-arrow">&#x25BC;</div>
+        <div class="escalation-level level-2">
+            <div class="el-stage">יסודי 2023–2024</div>
+            <div class="el-content"><strong>מערכי שיעור "ספקטרום מגדרי"</strong> — תכנים מובנים על "נזילות מגדרית", הצגת מגדר כ"הרגשה פנימית" ולא כביולוגיה.</div>
+        </div>
+        <div class="escalation-arrow">&#x25BC;</div>
+        <div class="escalation-level level-3">
+            <div class="el-stage">תיכון</div>
+            <div class="el-content"><strong>תוכניות SafeSchool</strong> — מערכי שיעור על "נזילות מגדרית" ופירוק המשפחה הגרעינית. תכנים מלאים מוסתרים מאחורי paywall.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ערוצי ההפצה</h2>
+    <p>כיצד התכנים המגדריים חודרים למערכת החינוך:</p>
+
+    <div class="person-card">
+        <div class="name">ארגון חוש"ן <span class="badge orange">הכשרות</span></div>
+        <div class="role">מספק הכשרות לגננות ולמורים בנושא מגדר ונטייה מינית</div>
+        <div class="bio">
+            <p>ארגון חוש"ן (חינוך, שוויון, נוער) מפעיל תוכניות הכשרה לצוותי חינוך בנושאי מגדר ונטייה מינית. מחזור שנתי: <strong>3.7 מיליון ש"ח</strong>. ההכשרות כוללות הנחיות לשימוש בשפה "רב-מגדרית" וברשימות ספרים מומלצות.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ארגון "בוחרים במשפחה" <span class="badge red">חשיפה</span></div>
+        <div class="role">חשף מערכי שיעור המלמדים מגדר = "הרגשה פנימית"</div>
+        <div class="bio">
+            <p>ארגון "בוחרים במשפחה" חשף מערכי שיעור שנמצאו בבתי ספר ברחבי הארץ, בהם מגדר מוצג כ"הרגשה פנימית" ולא כעובדה ביולוגית. המערכים כוללים הגדרות של "ספקטרום מגדרי" ו"זהות מגדר" כדבר שאינו קשור לגוף.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">SafeSchool <span class="badge red">paywall</span></div>
+        <div class="role">מערכי שיעור על "נזילות מגדרית" ופירוק המשפחה הגרעינית</div>
+        <div class="bio">
+            <p>SafeSchool מפעילה מערכי שיעור בתיכונים הכוללים תכנים על "נזילות מגדרית" ועל פירוק המשפחה הגרעינית כמודל. חלק מהתכנים מוסתרים מהורים — הם נמצאים מאחורי paywall שרק צוותי חינוך יכולים לגשת אליו.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>רשימת ספרים מומלצת — ערוץ לא-רשמי</h2>
+    <p>הספר "החצאית של אבא" הוא חלק מרשימת ספרים מומלצת שהגיעה לגננות דרך ערוצים לא-רשמיים — לא דרך תוכנית לימודים מאושרת של משרד החינוך.</p>
+    <table>
+        <tr><th>מאפיין</th><th>ערוץ רשמי</th><th>ערוץ לא-רשמי</th></tr>
+        <tr><td>אישור</td><td>משרד החינוך</td><td>אין אישור רשמי</td></tr>
+        <tr><td>שקיפות</td><td>תוכנית לימודים פתוחה</td><td>רשימות פנימיות</td></tr>
+        <tr><td>ידיעת הורים</td><td>מעודכנים</td><td>לא מעודכנים</td></tr>
+        <tr><td>פיקוח</td><td>מפקחים ומנהלים</td><td>יוזמה אישית של גננות</td></tr>
+        <tr><td>אחריות</td><td>מוסדית</td><td>אין גורם אחראי</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>תקציב הכשרות מגדריות</h2>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מחזור שנתי — חוש"ן</div>
+            <div class="value">3.7M</div>
+            <div class="note">מיליון ש"ח בשנה</div>
+        </div>
+        <div class="metric">
+            <div class="label">סוג הפעילות</div>
+            <div class="value">הכשרות</div>
+            <div class="note">לגננות ולמורים</div>
+        </div>
+        <div class="metric">
+            <div class="label">תחום</div>
+            <div class="value">מגדר</div>
+            <div class="note">מגדר ונטייה מינית</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים ותיעוד נוסף</h2>
+
+    <a class="link-card" href="case_delet_ptucha_beersheva.html">
+        <div>
+            <div class="lc-title">דלת פתוחה באר שבע — אירוע מתועד</div>
+            <div class="lc-desc">מקרה מתועד נוסף של תכנים שהוכנסו למערכת החינוך ללא ידיעת ההורים</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_gender_spectrum_national.html">
+        <div>
+            <div class="lc-title">ספקטרום מגדרי — תופעה ארצית</div>
+            <div class="lc-desc">מערכי שיעור "ספקטרום מגדרי" בבתי ספר יסודיים ברחבי הארץ, 2023–2024</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="funding_flows_municipal.html">
+        <div>
+            <div class="lc-title">זרימת מימון עירוני</div>
+            <div class="lc-desc">כיצד תקציבי רשויות מקומיות מממנים תכנים מגדריים במערכת החינוך</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — דף ראשי</div>
+            <div class="lc-desc">חזרה לדירוג הערים המלא</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מחקרים קשורים באתר</h2>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית — סמינר הקיבוצים</div>
+            <div class="lc-desc">הגוף המרכזי בישראל להכשרת מורים בגישת "סוכן שינוי"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="safeschool_evidence.html">
+        <div>
+            <div class="lc-title">SafeSchool — עדויות שלוש-שכבתיות</div>
+            <div class="lc-desc">תכנים על "נזילות מגדרית" ופירוק המשפחה הגרעינית מאחורי paywall</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="choshen_dashboard.html">
+        <div>
+            <div class="lc-title">חוש"ן — לוח מחוונים</div>
+            <div class="lc-desc">ארגון חוש"ן: הכשרות מגדריות לצוותי חינוך, מחזור 3.7 מיליון ש"ח</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי — דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">23 החלטות מועצה אמיתיות ב-5 ערים</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

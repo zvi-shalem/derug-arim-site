@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מקרים מתועדים — פרוגרסיביזם רדיקלי בחינוך הישראלי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Expandable sections ── */
+.expand-section { margin: 10px 0; }
+.expand-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; cursor: pointer; background: #f8f9fa;
+    border-radius: 8px; border: 1px solid #e8e8e8;
+    transition: background 0.2s;
+}
+.expand-header:hover { background: #f0f4fa; }
+.expand-header .eh-title { font-weight: 700; color: #1a1a2e; }
+.expand-header .eh-badge { margin-right: auto; }
+.expand-header .eh-arrow { margin-left: auto; color: #999; transition: transform 0.3s; font-size: 0.8em; }
+.expand-section.open .expand-header .eh-arrow { transform: rotate(180deg); }
+.expand-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 16px;
+}
+.expand-section.open .expand-body { max-height: 3000px; padding: 16px; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; margin: 16px 0; }
+.timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 18px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -24px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: #cc0000; border: 2px solid #fff;
+}
+.tl-year { font-weight: 700; color: #cc0000; font-size: 0.88em; }
+.tl-text { font-size: 0.88em; color: #444; margin-top: 2px; }
+.tl-source { font-size: 0.78em; color: #888; }
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.82em; color: #888;
+    border-top: 1px solid #e8e8e8; margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        מקרים מתועדים
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview', this)">סקירה</button>
+        <button class="nav-tab" onclick="showView('cases', this)">מקרי בוחן</button>
+        <button class="nav-tab" onclick="showView('investigations', this)">תחקירים</button>
+        <button class="nav-tab" onclick="showView('testimony', this)">ציטוטים ועדויות</button>
+        <button class="nav-tab" onclick="showView('links', this)">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>מקרים מתועדים -- פרוגרסיביזם רדיקלי בחינוך הישראלי</h1>
+    <div class="subtitle">תיעוד מחאות הורים, חשיפות עיתונאיות ומקרי בוחן של החדרת תכנים שנויים במחלוקת 2018--2025</div>
+    <div class="meta">מחקר Gemini Deep Research | פברואר 2026</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">4</div><div class="lbl">מקרי בוחן מתועדים</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">גופי תחקיר עיתונאיים</div></div>
+        <div class="stat"><div class="num">8,100</div><div class="lbl">תלמידים שהושפעו (באר שבע)</div></div>
+        <div class="stat"><div class="num">2018--2025</div><div class="lbl">טווח תיעוד</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>התמונה המתגלה</h2>
+    <p>התמונה שעולה מתיעוד מקרי הבוחן היא של <strong>מערכת כפולה</strong>: כלפי חוץ מציגה ערכים של "הכלה" ו"מניעת בריונות", בעוד שבפועל מחדירה תכנים שנויים במחלוקת עמוקה בנושאי זהות מגדרית, לאומיות ומבנה המשפחה.</p>
+    <p><strong>הקרב המרכזי כיום הוא על שקיפות</strong> -- דרישת ההורים לדעת בדיוק מה ארגונים חיצוניים מלמדים בבתי הספר תחת חסות עירונית.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">דפוס מרכזי</div>
+            <div class="value">מערכת כפולה</div>
+            <div class="note">פנים לגיטימיות, תוכן רדיקלי</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הבעיה</div>
+            <div class="value">אי-שקיפות</div>
+            <div class="note">תכנים מוסתרים מהורים</div>
+        </div>
+        <div class="metric">
+            <div class="label">הנושא המרכזי</div>
+            <div class="value">Opt-out</div>
+            <div class="note">דרישת הורים לזכות סירוב</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה מציגים כלפי חוץ לעומת מה שקורה בפועל</h2>
+    <div class="grid-2">
+        <div>
+            <h3>מה הם אומרים</h3>
+            <p>"הכלה", "מניעת בריונות", "חוסן רגשי", "למידה חברתית-רגשית (SEL)", "סובלנות", "גיוון משפחתי".</p>
+            <p>התכנים מוצגים כמקצועיים, מבוססי מחקר ונטולי אג'נדה פוליטית.</p>
+        </div>
+        <div>
+            <h3>מה קורה בפועל</h3>
+            <p>החדרת תכנים על "נזילות מגדרית", פירוק המשפחה הגרעינית כמודל אידיאלי, הצגת מגדר כ"הרגשה פנימית" ולא כעובדה ביולוגית, וערעור על זהות לאומית.</p>
+            <p>חלק מהתכנים מוסתרים מאחורי paywall או גישה למורים בלבד.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>SafeSchool -- פלטפורמה דיגיטלית כמקרה בוחן</h2>
+    <p>SafeSchool הוא ספק תוכן דיגיטלי מוביל הפועל בבתי ספר רבים ברחבי הארץ. הפלטפורמה מהווה דוגמה מובהקת לדפוס ה"מערכת הכפולה":</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">תכנים מוסתרים</div>
+            <div class="value">Paywall</div>
+            <div class="note">גישה למורים בלבד</div>
+        </div>
+        <div class="metric">
+            <div class="label">מי חשף</div>
+            <div class="value">פורום חירות</div>
+            <div class="note">פורום חירות בחינוך</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תכנים שנחשפו</div>
+            <div class="value">נזילות מגדרית</div>
+            <div class="note">פירוק המשפחה הגרעינית</div>
+        </div>
+    </div>
+
+    <p>הורים ו"פורום חירות בחינוך" חשפו כי מאחורי הממשק הנקי של SafeSchool מסתתרים מערכי שיעור מהותיים בנושאי מגדר ומיניות -- כולל "נזילות מגדרית" ופירוק המשפחה הגרעינית כמודל אידיאלי -- שאינם נגישים להורים.</p>
+</div>
+
+</div>
+
+<!-- ═══ CASES TAB ═══ -->
+<div id="view-cases" class="view">
+
+<div class="section">
+    <h2>4 מקרי בוחן מתועדים</h2>
+    <p>כל אחד מהמקרים הבאים תועד באופן עצמאי על ידי הורים, עיתונאים או ארגונים. יחד, הם מצביעים על דפוס שיטתי ולא על תקלות בודדות.</p>
+</div>
+
+<!-- Case 1 -->
+<div class="expand-section" onclick="this.classList.toggle('open')">
+    <div class="expand-header">
+        <span class="eh-title">1. פרשת "דלת פתוחה" -- באר שבע (ינואר 2023)</span>
+        <span style="margin-right: auto;">
+            <span class="badge red">באר שבע</span>
+            <span class="badge orange">8,100 תלמידים</span>
+        </span>
+        <span class="eh-arrow">&#x25BC;</span>
+    </div>
+    <div class="expand-body">
+        <div class="section" style="margin: 0; box-shadow: none;">
+            <div class="grid-3">
+                <div class="metric alert">
+                    <div class="label">תלמידים שהושפעו</div>
+                    <div class="value">8,100</div>
+                    <div class="note">ב-9 בתי ספר</div>
+                </div>
+                <div class="metric">
+                    <div class="label">יוזם</div>
+                    <div class="value">עיריית באר שבע</div>
+                    <div class="note">בשיתוף עמותת דלת פתוחה</div>
+                </div>
+                <div class="metric">
+                    <div class="label">תוצאה</div>
+                    <div class="value">הופסקו חלקית</div>
+                    <div class="note">סדנאות הופסקו בעקבות מחאה</div>
+                </div>
+            </div>
+
+            <h3>מה קרה</h3>
+            <p>עיריית באר שבע יזמה "שבוע מיניות בריאה" בשיתוף עמותת דלת פתוחה. התוכנית הופעלה ב-9 בתי ספר והגיעה ל-8,100 תלמידים.</p>
+
+            <h3>תלונות ההורים</h3>
+            <p>הורים שגילו את התכנים התלוננו על שני נושאים מרכזיים:</p>
+            <ul style="padding-right: 20px; margin-bottom: 10px;">
+                <li><strong>עידוד להתנסויות מיניות בגיל צעיר</strong> -- תכנים שהורים ראו כמעודדים התנסות מוקדמת מדי</li>
+                <li><strong>מודלים משפחתיים רדיקליים</strong> -- הצגת מבני משפחה חלופיים כשווי ערך או עדיפים על המשפחה המסורתית</li>
+            </ul>
+
+            <h3>תוצאה</h3>
+            <p>בעקבות מחאת ההורים, <strong>חלק מהסדנאות הופסקו</strong>. המקרה הפך לתקדימי כהוכחה שמחאת הורים מאורגנת יכולה לשנות מדיניות עירונית.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Case 2 -->
+<div class="expand-section" onclick="this.classList.toggle('open')">
+    <div class="expand-header">
+        <span class="eh-title">2. מגדר בגני ילדים -- תל אביב ורמת גן (2021--2022)</span>
+        <span style="margin-right: auto;">
+            <span class="badge blue">תל אביב</span>
+            <span class="badge blue">רמת גן</span>
+        </span>
+        <span class="eh-arrow">&#x25BC;</span>
+    </div>
+    <div class="expand-body">
+        <div class="section" style="margin: 0; box-shadow: none;">
+            <h3>מה קרה</h3>
+            <p>בגני ילדים בתל אביב וברמת גן הוכנסו תכנים מגדריים לגיל הרך, כולל:</p>
+            <ul style="padding-right: 20px; margin-bottom: 10px;">
+                <li><strong>ספרות ילדים על שינוי מגדר</strong> -- כולל הספר "החצאית של אבא" וספרים דומים</li>
+                <li><strong>שפה "רב-מגדרית"</strong> -- גננות שהשתמשו בשפה המבטלת את ההבחנה הבינארית בין בנים לבנות</li>
+            </ul>
+
+            <h3>תלונות ההורים</h3>
+            <p>הורים טענו כי מדובר ב<strong>ערעור זהות מינית בגיל הרך ללא הסכמת ההורים</strong>. ילדים בגילאי 3--6 נחשפו לתכנים על "בחירת מגדר" ו"נזילות מגדרית" בלי שהוריהם ידעו או הסכימו.</p>
+
+            <div class="quote-box blue">
+                הנושא המרכזי אינו האם לדבר על גיוון -- אלא האם להציג לילדים בגיל 4 את הרעיון שמגדר הוא "בחירה" מבלי ליידע את ההורים.
+                <div class="q-source">עמדת הורים מתלוננים</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Case 3 -->
+<div class="expand-section" onclick="this.classList.toggle('open')">
+    <div class="expand-header">
+        <span class="eh-title">3. תכני "ספקטרום מגדרי" -- ארצי (2023--2024)</span>
+        <span style="margin-right: auto;">
+            <span class="badge red">ארצי</span>
+            <span class="badge orange">יסודי</span>
+        </span>
+        <span class="eh-arrow">&#x25BC;</span>
+    </div>
+    <div class="expand-body">
+        <div class="section" style="margin: 0; box-shadow: none;">
+            <h3>מה קרה</h3>
+            <p>בבתי ספר יסודיים ברחבי הארץ הוחדרו מערכי שיעור המציגים את המגדר כ<strong>"הרגשה פנימית" ולא כעובדה ביולוגית</strong>. התכנים כללו "ספקטרום מגדרי" כמסגרת מדעית לכאורה.</p>
+
+            <h3>מי חשף</h3>
+            <p>ארגון <strong>"בוחרים במשפחה"</strong> חשף את מערכי השיעור והפיצם לציבור. הארגון הראה כי התכנים מוצגים לתלמידים כעובדות מדעיות מוסכמות, למרות שמדובר בעמדה אידיאולוגית שנויה במחלוקת.</p>
+
+            <h3>עיקר המחאה</h3>
+            <div class="quote-box">
+                תכנים על "ספקטרום מגדרי" מוצגים לתלמידי יסודי כעובדות מדעיות, בעוד שמדובר בעמדה תאורטית שנויה במחלוקת אף בקרב חוקרים.
+                <div class="q-source">ארגון "בוחרים במשפחה" -- מתוך חשיפת התכנים</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Case 4 -->
+<div class="expand-section" onclick="this.classList.toggle('open')">
+    <div class="expand-header">
+        <span class="eh-title">4. עתירת הורי רחובות (2022)</span>
+        <span style="margin-right: auto;">
+            <span class="badge blue">רחובות</span>
+            <span class="badge orange">משפטי</span>
+        </span>
+        <span class="eh-arrow">&#x25BC;</span>
+    </div>
+    <div class="expand-body">
+        <div class="section" style="margin: 0; box-shadow: none;">
+            <h3>מה קרה</h3>
+            <p>הורים מרחובות הגישו <strong>פנייה משפטית</strong> נגד הכנסת ארגוני להט"ב -- בעיקר <strong>איגי</strong> (האגודה הישראלית לגאווה) ו<strong>חוש"ן</strong> (חינוך, שוויון, נוער) -- לבתי ספר ממלכתיים-דתיים.</p>
+
+            <h3>הדרישה</h3>
+            <p>הדרישה המרכזית הייתה <strong>זכות Opt-out</strong> -- היכולת של הורים להוציא את ילדיהם מתכנים אלו, בדומה למקובל במדינות מערביות רבות.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>טענות ההורים</h3>
+                    <ul style="padding-right: 20px;">
+                        <li>ארגונים חיצוניים נכנסים לבתי ספר ממלכתיים-דתיים ללא הסכמת ההורים</li>
+                        <li>התכנים סותרים את ערכי הקהילה הדתית</li>
+                        <li>אין מנגנון סירוב להורים</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>משמעות תקדימית</h3>
+                    <p>זוהי אחת הפניות המשפטיות הראשונות בישראל בנושא <strong>זכות ההורים לבחור</strong> לאילו תכנים חיצוניים ייחשפו ילדיהם במסגרת החינוך הציבורי.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section" style="margin-top: 20px;">
+    <h2>דפוס משותף: מאי-שקיפות למחאה</h2>
+    <table>
+        <tr>
+            <th>מקרה</th>
+            <th>מקום</th>
+            <th>שנה</th>
+            <th>דפוס</th>
+            <th>תוצאה</th>
+        </tr>
+        <tr>
+            <td>דלת פתוחה</td>
+            <td>באר שבע</td>
+            <td>2023</td>
+            <td>סדנאות מיניות עירוניות</td>
+            <td>הפסקה חלקית</td>
+        </tr>
+        <tr>
+            <td>מגדר בגנים</td>
+            <td>ת"א, רמת גן</td>
+            <td>2021--2022</td>
+            <td>ספרות ושפה מגדרית</td>
+            <td>מחאה ציבורית</td>
+        </tr>
+        <tr>
+            <td>ספקטרום מגדרי</td>
+            <td>ארצי</td>
+            <td>2023--2024</td>
+            <td>מערכי שיעור בבתי ספר יסודיים</td>
+            <td>חשיפה ציבורית</td>
+        </tr>
+        <tr>
+            <td>עתירת רחובות</td>
+            <td>רחובות</td>
+            <td>2022</td>
+            <td>ארגוני להט"ב בבתי ספר דתיים</td>
+            <td>פנייה משפטית</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ INVESTIGATIONS TAB ═══ -->
+<div id="view-investigations" class="view">
+
+<div class="section">
+    <h2>4 גופי תחקיר עיתונאיים</h2>
+    <p>התחקירים העיתונאיים הבאים חשפו דפוסים של החדרת תכנים אידיאולוגיים למערכת החינוך הישראלית. כל אחד מהם מתמקד בזווית אחרת של אותה תמונה.</p>
+</div>
+
+<div class="section">
+    <h2>ציר זמן תחקירי</h2>
+    <div class="timeline">
+
+        <div class="tl-item">
+            <div class="tl-year">תחקיר מתמשך</div>
+            <div class="tl-text"><strong>קלמן ליבסקינד (מעריב)</strong></div>
+            <div class="tl-text">מאמרי תחקיר על חדירת ארגוני שמאל קיצוני לתוכניות לימוד באזרחות ובהיסטוריה דרך המכון הישראלי לדמוקרטיה. ליבסקינד חשף כיצד תכנים אידיאולוגיים עוטפים את עצמם בלבוש אקדמי ונכנסים למערכת החינוך כ"חינוך אזרחי".</div>
+            <div class="tl-source">מעריב -- טורי דעה ותחקיר</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-year">סדרת כתבות</div>
+            <div class="tl-text"><strong>ערוץ 14 (אראל סג"ל)</strong></div>
+            <div class="tl-text">סדרת כתבות על "הנדסת תודעה" בבתי ספר. סג"ל חשף מערכי שיעור של משרד החינוך על "פריווילגיות" של יהודים/גברים -- תכנים שמשתמשים במסגרת של "מדכא/מדוכא" כדי להחדיר תפיסת עולם מפלגת זהויות.</div>
+            <div class="tl-source">ערוץ 14 -- חדשות וסדרות תחקיר</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-year">תחקירי תקציב</div>
+            <div class="tl-text"><strong>אתר "מידה"</strong></div>
+            <div class="tl-text">תחקירים על תקציבי עתק שעיריות (כמו תל אביב) מעבירות לארגונים המקדמים CRT (תורת הגזע הביקורתית) ופוליטיקת זהויות. החשיפה הראתה כי מיליוני שקלים מועברים מכספי משלמי המסים לארגונים אידיאולוגיים.</div>
+            <div class="tl-source">אתר מידה -- עיתונות חוקרת</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-year">מסות אקדמיות</div>
+            <div class="tl-text"><strong>כתב העת "השילוח"</strong></div>
+            <div class="tl-text">מסות של ד"ר אביעד בקשי וגדי טאוב על המעבר של משרד החינוך מחינוך לאומי-ליברלי לפרוגרסיבי-רדיקלי דרך "מינהל חברה ונוער". הניתוח מראה כיצד ביורוקרטיה פנימית במשרד החינוך שימשה כצינור להחלפת הערכים המוסדיים.</div>
+            <div class="tl-source">כתב העת השילוח -- מכון שלם</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="section">
+    <h2>סיכום ממצאי התחקירים</h2>
+    <table>
+        <tr>
+            <th>גוף תחקיר</th>
+            <th>מוקד</th>
+            <th>ממצא מרכזי</th>
+        </tr>
+        <tr>
+            <td>קלמן ליבסקינד (מעריב)</td>
+            <td>ארגונים בתוכניות לימוד</td>
+            <td>חדירת ארגוני שמאל קיצוני לתוכניות אזרחות והיסטוריה</td>
+        </tr>
+        <tr>
+            <td>ערוץ 14 (אראל סג"ל)</td>
+            <td>הנדסת תודעה בכיתה</td>
+            <td>מערכי שיעור על "פריווילגיות" -- מסגרת מדכא/מדוכא</td>
+        </tr>
+        <tr>
+            <td>אתר מידה</td>
+            <td>זרימת כספים עירוניים</td>
+            <td>תקציבי עתק לארגוני CRT ופוליטיקת זהויות</td>
+        </tr>
+        <tr>
+            <td>כתב העת השילוח</td>
+            <td>מדיניות משרד החינוך</td>
+            <td>מעבר מחינוך לאומי-ליברלי לפרוגרסיבי-רדיקלי דרך מינהל חברה ונוער</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ TESTIMONY TAB ═══ -->
+<div id="view-testimony" class="view">
+
+<div class="section">
+    <h2>הציטוט המרכזי</h2>
+
+    <div class="quote-box">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+        <div class="q-source">מיוחס לד"ר ניר מיכאלי (לשעבר רקטור סמינר הקיבוצים ומזכיר המזכירות הפדגוגית), בסרטון מכנס חינוך</div>
+    </div>
+
+    <p>ציטוט זה חושף את הלב של האסטרטגיה: לא מדובר בחופש אקדמי או בדיון פתוח, אלא בתוכנית מכוונת להחדרת תכנים רדיקליים תוך עקיפה מכוונת של ההורים.</p>
+</div>
+
+<div class="section">
+    <h2>ניתוח אסטרטגי -- "חינוך חותר"</h2>
+
+    <div class="quote-box blue">
+        ניתוח האסטרטגיה של מיכאלי חושף את מושג "חינוך חותר" -- היכולת של מורים לפעול כסוכנים פוליטיים בתוך המערכת הממלכתית, תוך שימוש בשפה פדגוגית לגיטימית כדי להחדיר ערכים רדיקליים.
+        <div class="q-source">ניתוח מחקרי -- פרויקט דירוג ערים</div>
+    </div>
+
+    <p>ה"חינוך החותר" מבוסס על עיקרון מרכזי: <strong>שימוש במונחים ניטרליים כמסווה לתכנים אידיאולוגיים</strong>. המורה ה"מוכשר" יודע להשתמש בשפה שלא תעורר חשד, בעוד שהתוכן בפועל מקדם אג'נדה שנויה במחלוקת.</p>
+</div>
+
+<div class="section">
+    <h2>מניפולציה לשונית -- "עטיפה ניטרלית"</h2>
+    <p>שימוש שיטתי במונחים ניטרליים כמו "חוסן רגשי", "למידה חברתית-רגשית (SEL)", "סובלנות" -- כמסווה להחדרת תאוריה קווירית ופרספקטיבות פוסט-קולוניאליות, במטרה למנוע התנגדות הורים שמרנים.</p>
+
+    <table>
+        <tr>
+            <th>המונח הרדיקלי (מקורי)</th>
+            <th>המונח ה"ניטרלי" (כפי שמוצג)</th>
+            <th>מה בפועל</th>
+        </tr>
+        <tr>
+            <td>תאוריה קווירית</td>
+            <td>"חוסן רגשי"</td>
+            <td>ערעור על זהות מגדרית בינארית</td>
+        </tr>
+        <tr>
+            <td>פרספקטיבה פוסט-קולוניאלית</td>
+            <td>"סובלנות"</td>
+            <td>דה-לגיטימציה של הנרטיב הלאומי</td>
+        </tr>
+        <tr>
+            <td>תאוריה ביקורתית של גזע (CRT)</td>
+            <td>"למידה חברתית-רגשית (SEL)"</td>
+            <td>חלוקת התלמידים ל"מדכאים" ו"מדוכאים"</td>
+        </tr>
+        <tr>
+            <td>פירוק המשפחה הגרעינית</td>
+            <td>"גיוון משפחתי"</td>
+            <td>הצגת המשפחה המסורתית כמודל אחד בלבד</td>
+        </tr>
+        <tr>
+            <td>נזילות מגדרית</td>
+            <td>"הכלה"</td>
+            <td>מגדר כ"הרגשה" ולא ביולוגיה</td>
+        </tr>
+        <tr>
+            <td>אקטיביזם בכיתה</td>
+            <td>"אזרחות פעילה"</td>
+            <td>גיוס תלמידים למאבקים פוליטיים</td>
+        </tr>
+        <tr>
+            <td>חינוך חותר</td>
+            <td>"חינוך ערכי"</td>
+            <td>החדרת ערכים רדיקליים תחת כסות לגיטימית</td>
+        </tr>
+    </table>
+    <p><strong>מקור:</strong> ניתוח השוואתי -- פרויקט אבן רוזטה הפרוגרסיבית</p>
+</div>
+
+<div class="section">
+    <h2>עדויות נוספות</h2>
+
+    <h3>גלית זלמנסון-לוי -- "עבודה במישור הסמוי"</h3>
+    <div class="quote-box">
+        "יש עבודה במישור הגלוי ועבודה במישור הסמוי. עבודה חתרנית."
+        <div class="q-source">גלית זלמנסון-לוי -- מתוך סרטון שנחשף</div>
+    </div>
+    <p>ציטוט זה מאשר את מודל ה"חדירה הכפולה": פנים לגיטימיות כלפי חוץ, אג'נדה רדיקלית כלפי פנים.</p>
+
+    <h3>הנרי ז'ירו -- ריכוך טרמינולוגי מכוון</h3>
+    <div class="quote-box blue">
+        "I used the word 'critical' because I knew that if I used 'radical', teachers would reject it."
+        <div class="q-source">Henry Giroux -- ממקור ההשראה של הפדגוגיה הביקורתית. הודאה שהריכוך הטרמינולוגי הוא אסטרטגיה מכוונת.</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="funding_flows_municipal.html">
+        <div>
+            <div class="lc-title">זרימת מימון עירוני -- מעקב כספים</div>
+            <div class="lc-desc">מיפוי זרימת כספים מעיריות לארגונים המפעילים תכנים בבתי ספר</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="key_individuals_municipal.html">
+        <div>
+            <div class="lc-title">דמויות מפתח ברמה המוניציפלית</div>
+            <div class="lc-desc">מיפוי אישי של מקבלי החלטות ומפעילי תכנים ברשויות מקומיות</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית -- סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: מהאקדמיה לכיתה. צינור ההשפעה מ-UNESCO למורה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי -- דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">23 החלטות מועצה אמיתיות ב-5 ערים, דצמבר 2022 כנקודת מפנה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="safeschool_dashboard.html">
+        <div>
+            <div class="lc-title">SafeSchool -- דשבורד מחקרי</div>
+            <div class="lc-desc">ניתוח תכנים שמאחורי ה-Paywall: ספקטרום מגדרי, נזילות מגדרית בבתי ספר</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים -- חזרה לדף הראשי</div>
+            <div class="lc-desc">דירוג 18 ערים על פי מדדי חדירת תכנים אידיאולוגיים למערכת החינוך</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id, btn) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>

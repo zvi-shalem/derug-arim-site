@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תכני "ספקטרום מגדרי" — בתי ספר יסודיים, 2023–2024</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.red { background: #fff0f0; border-right-color: #c0392b; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.rosetta-table th { font-size: 1em; padding: 12px 16px; }
+.rosetta-table td { padding: 10px 16px; font-size: 0.95em; }
+.rosetta-table tr:nth-child(even) { background: #f8f9fb; }
+.rosetta-table tr:hover { background: #eef2fa; }
+.rosetta-table .col-academic { color: #c0392b; font-weight: 600; }
+.rosetta-table .col-marketing { color: #27ae60; font-weight: 600; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.content-card {
+    background: #f8f9fa; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+    border-right: 4px solid #667eea;
+}
+.content-card .cc-title { font-weight: 700; color: #1a1a2e; font-size: 1.05em; margin-bottom: 6px; }
+.content-card .cc-desc { font-size: 0.88em; color: #555; }
+.content-card .cc-source { font-size: 0.78em; color: #999; margin-top: 6px; }
+
+.exposure-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 14px;
+    border-right: 4px solid #ff8800;
+}
+.exposure-card .ec-name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.exposure-card .ec-desc { font-size: 0.88em; color: #555; margin-top: 6px; }
+
+.analysis-highlight {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%);
+    color: #fff; padding: 20px 24px; border-radius: 8px; margin: 18px 0;
+}
+.analysis-highlight .ah-title { font-weight: 700; font-size: 1.1em; color: #ff8800; margin-bottom: 8px; }
+.analysis-highlight p { color: #ddd; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+ul.info-list { list-style: none; padding: 0; margin: 10px 0; }
+ul.info-list li {
+    padding: 8px 14px; margin-bottom: 6px;
+    background: #f8f9fa; border-radius: 6px;
+    border-right: 3px solid #667eea;
+    font-size: 0.92em;
+}
+ul.info-list li strong { color: #1a1a2e; }
+
+footer {
+    text-align: center; padding: 24px 20px; color: #999;
+    font-size: 0.82em; border-top: 1px solid #e8e8e8;
+    background: #fff; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        ספקטרום מגדרי — ארצי
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('event')">האירוע</button>
+        <button class="nav-tab" onclick="showView('content')">התכנים</button>
+        <button class="nav-tab" onclick="showView('exposure')">החשיפה</button>
+        <button class="nav-tab" onclick="showView('language')">ניתוח שפה</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>תכני "ספקטרום מגדרי" — בתי ספר יסודיים, 2023–2024</h1>
+    <div class="subtitle">מערכי שיעור ארציים המלמדים מגדר כ"הרגשה פנימית" — נחשפו על ידי ארגוני הורים</div>
+    <div class="meta">תיעוד תופעה ארצית אחת: מהתוכן לחשיפה לניתוח שפה</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">ארצי</div><div class="lbl">בתי ספר יסודיים</div></div>
+        <div class="stat"><div class="num">2023–2024</div><div class="lbl">תקופת האירועים</div></div>
+        <div class="stat"><div class="num">8</div><div class="lbl">המרות שפה מזוהות</div></div>
+        <div class="stat"><div class="num">SafeSchool + חוש"ן</div><div class="lbl">ספקי התוכן</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ EVENT TAB ═══ -->
+<div id="view-event" class="view active">
+
+<div class="section">
+    <h2>סקירת האירוע</h2>
+    <p>בשנים 2023–2024 נחשפה תופעה ארצית: מערכי שיעור המלמדים תכני "ספקטרום מגדרי" בבתי ספר יסודיים ברחבי הארץ. התכנים שימשו בשימוש רשמי ולא-רשמי ולימדו תלמידים צעירים מושגים מתחום תיאוריית המגדר כאילו היו עובדות מדעיות מבוססות.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">תקופה</div>
+            <div class="value">2023–2024</div>
+            <div class="note">שנתיים של שימוש בתכנים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">היקף</div>
+            <div class="value">ארצי</div>
+            <div class="note">בתי ספר יסודיים ברחבי הארץ</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הצגת התכנים</div>
+            <div class="value">כמדע</div>
+            <div class="note">עמדה אידיאולוגית כ"עובדות"</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מה לימדו את התלמידים?</h2>
+    <p>מערכי השיעור שנחשפו כללו שלושה מסרים מרכזיים שהוצגו לתלמידי יסודי כידע מדעי מוכח:</p>
+
+    <ul class="info-list">
+        <li><strong>מגדר הוא "הרגשה פנימית" ולא ביולוגיה</strong> — מגדר מוגדר כזהות פנימית סובייקטיבית, נפרדת מהמין הביולוגי של הגוף. <span class="badge red">מוצג כמדע</span></li>
+        <li><strong>קיים "ספקטרום מגדרי" ולא שני מינים</strong> — במקום החלוקה הבינארית לזכר ונקבה, מוצג מגדר כרצף רחב של אפשרויות. <span class="badge red">מוצג כמדע</span></li>
+        <li><strong>התכנים מוצגים כעובדות מדעיות</strong> — לא כעמדה אידיאולוגית, לא כתיאוריה, ולא כאחת מכמה גישות — אלא כמדע מוכח שאינו שנוי במחלוקת. <span class="badge red">מוצג כמדע</span></li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>מי חשף את התכנים?</h2>
+    <p>החשיפה הגיעה מלמטה — מארגוני הורים שגילו מה ילדיהם לומדים בבית הספר:</p>
+    <div class="grid-2">
+        <div>
+            <h3>ארגון "בוחרים במשפחה"</h3>
+            <p>חשף בפומבי את מערכי השיעור והפיץ אותם ברשתות החברתיות ובתקשורת. הציג את התכנים המקוריים כפי שנלמדו בכיתות.</p>
+        </div>
+        <div>
+            <h3>פורומי הורים נוספים</h3>
+            <p>פורום "חירות בחינוך" וקבוצות הורים מקומיות ניתחו את התכנים וזיהו את הפער בין מה שהוצג להורים ("חוסן רגשי") לבין מה שנלמד בפועל.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ CONTENT TAB ═══ -->
+<div id="view-content" class="view">
+
+<div class="section">
+    <h2>התכנים שנחשפו — פירוט</h2>
+    <p>להלן פירוט מערכי השיעור והתכנים שנמצאו בשימוש בבתי ספר יסודיים:</p>
+
+    <div class="content-card">
+        <div class="cc-title">מערכי שיעור: מגדר כ"הרגשה פנימית" (Gender Identity)</div>
+        <div class="cc-desc">מגדר מוגדר במערכי השיעור כ"הרגשה פנימית" — זהות מגדרית הנפרדת לחלוטין מהגוף הביולוגי. התלמידים לומדים שהמגדר שלהם נקבע לפי מה שהם "מרגישים מבפנים", ולא לפי המאפיינים הפיזיים שלהם.</div>
+        <div class="cc-source">מערכי שיעור שנחשפו על ידי ארגון "בוחרים במשפחה"</div>
+    </div>
+
+    <div class="content-card">
+        <div class="cc-title">ספקטרום מגדרי — מגדר כרצף, לא כבינארי (זכר/נקבה)</div>
+        <div class="cc-desc">במקום שני מינים ביולוגיים — זכר ונקבה — התכנים מציגים "ספקטרום מגדרי": רצף רחב של זהויות מגדריות שכולל "לא-בינארי", "ג'נדרקוויר", ואפשרויות נוספות. ההצגה היא כעובדה מדעית מוכחת.</div>
+        <div class="cc-source">מערכי שיעור בשימוש רשמי ולא-רשמי</div>
+    </div>
+
+    <div class="content-card">
+        <div class="cc-title">"נזילות מגדרית" (Gender Fluidity) — מגדר יכול להשתנות לאורך החיים</div>
+        <div class="cc-desc">התכנים מלמדים שמגדר אינו קבוע — הוא "נוזלי" ויכול להשתנות לאורך החיים. ילד שהיום מרגיש בן יכול מחר להרגיש בת, ולהיפך. זוהי תפיסה תיאורטית שמוצגת כעובדה.</div>
+        <div class="cc-source">תכני SafeSchool ומערכי שיעור של חוש"ן</div>
+    </div>
+
+    <div class="content-card">
+        <div class="cc-title">הצגה כמדע — עמדה אידיאולוגית כ"עובדות מדעיות" <span class="badge red">מוצג כמדע</span></div>
+        <div class="cc-desc">התכנים אינם מוצגים כגישה אחת מתוך כמה, אלא כידע מדעי מבוסס ומוכח. לא ניתן מקום לדעות חולקות, לביולוגיה מסורתית, או לביקורת אקדמית על תיאוריית המגדר. למעשה, מדובר בהחדרת עמדה אידיאולוגית תחת מסווה מדעי.</div>
+        <div class="cc-source">ניתוח התכנים — פורום "חירות בחינוך"</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מקורות התכנים</h2>
+    <p>מערכי השיעור הגיעו לבתי הספר משני מקורות מרכזיים:</p>
+
+    <div class="grid-2">
+        <div class="content-card" style="border-right-color: #e74c3c;">
+            <div class="cc-title">SafeSchool — ספק תוכן דיגיטלי</div>
+            <div class="cc-desc">פלטפורמה דיגיטלית המספקת תכני חינוך לבתי ספר. חלק מהותי מהתכנים הוסתר מאחורי גישה למורים בלבד (Paywall), כך שהורים לא יכלו לראות מה ילדיהם לומדים. נחשפו מערכי שיעור על נזילות מגדרית ופירוק המשפחה הגרעינית.</div>
+        </div>
+        <div class="content-card" style="border-right-color: #e74c3c;">
+            <div class="cc-title">חוש"ן — החינוך למיניות ולחיי משפחה בריאים</div>
+            <div class="cc-desc">ארגון המפתח מערכי שיעור בנושאי מיניות ומגדר לבתי ספר. חלק ממערכי השיעור שנחשפו פותחו על ידי הארגון והוטמעו בבתי ספר יסודיים ללא ידיעת ההורים על תוכנם המלא.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ EXPOSURE TAB ═══ -->
+<div id="view-exposure" class="view">
+
+<div class="section">
+    <h2>כיצד נחשפו התכנים?</h2>
+    <p>החשיפה הגיעה מארגוני הורים שפעלו באופן עצמאי לגלות מה נלמד בבתי הספר. להלן הגורמים המרכזיים:</p>
+
+    <div class="exposure-card">
+        <div class="ec-name">ארגון "בוחרים במשפחה"</div>
+        <div class="ec-desc">חשף את מערכי השיעור בפומבי. הארגון השיג עותקים של מערכי השיעור שנלמדו בבתי ספר יסודיים והציג אותם בפני הציבור — כולל ציטוטים ישירים מהתכנים, שקפים מהשיעורים, וחומרים שחולקו לתלמידים. החשיפה עוררה סערה ציבורית כאשר הורים גילו את הפער בין מה שנאמר להם לבין מה שילדיהם למדו בפועל.</div>
+    </div>
+
+    <div class="exposure-card">
+        <div class="ec-name">פורום "חירות בחינוך"</div>
+        <div class="ec-desc">ניתח את התכנים לעומק והציג את הניגוד המרכזי: בין הרטוריקה שהוצגה להורים ולמקבלי החלטות — "חוסן רגשי", "חינוך לשוויון", "כיבוד ההבדלים" — לבין התוכן שנלמד בפועל בכיתות: תיאוריית המגדר, ספקטרום מגדרי, ונזילות מגדרית. הניתוח חשף דפוס שיטתי של המרה לשונית.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>SafeSchool — תוכן מוסתר מהורים</h2>
+
+    <div class="metric alert" style="max-width: 400px; margin: 0 auto 20px;">
+        <div class="label">SafeSchool Paywall</div>
+        <div class="value">גישה למורים בלבד</div>
+        <div class="note">הורים לא יכלו לראות מה ילדיהם לומדים</div>
+    </div>
+
+    <p>אחד הממצאים המשמעותיים ביותר של החשיפה היה שתוכן מהותי של SafeSchool הוסתר מאחורי גישה למורים בלבד. הורים לא יכלו לגשת לתכנים שילדיהם למדו בכיתה.</p>
+
+    <h3>מה נחשף מאחורי ה-Paywall:</h3>
+    <ul class="info-list">
+        <li><strong>מערכי שיעור על נזילות מגדרית</strong> — הצגת מגדר כזהות משתנה ונוזלית, גם לתלמידי יסודי</li>
+        <li><strong>פירוק המשפחה הגרעינית כמודל אידיאלי</strong> — הצגת מבני משפחה חלופיים כשווי ערך או עדיפים על המשפחה המסורתית</li>
+        <li><strong>תכנים שלא עברו אישור הורים</strong> — חומרים שנלמדו ללא ידיעת ההורים ובוודאי ללא הסכמתם</li>
+    </ul>
+
+    <p>העובדה שהתכנים הוסתרו באופן מכוון מהורים מחזקת את הטענה שמדובר ב"חינוך חותר" — החדרת ערכים תוך עקיפת הפיקוח ההורי.</p>
+</div>
+
+</div>
+
+<!-- ═══ LANGUAGE ANALYSIS TAB ═══ -->
+<div id="view-language" class="view">
+
+<div class="section">
+    <h2>ניתוח שפה — אבן רוזטה של ההמרה הלשונית</h2>
+    <p>הממצא המרכזי של מחקר זה: קיימת <strong>המרה שיטתית ומכוונת</strong> בין השפה הפנימית/אקדמית שבה מתוארים התכנים לבין השפה השיווקית/ציבורית שמוצגת להורים ולמקבלי החלטות. הטבלה הבאה מציגה 8 המרות מזוהות:</p>
+
+    <table class="rosetta-table">
+        <tr>
+            <th style="width: 50%;">שפה אקדמית/פנימית — מה שכתוב באקדמיה</th>
+            <th style="width: 50%;">שפה שיווקית/ציבורית — מה שמציגים להורים</th>
+        </tr>
+        <tr>
+            <td class="col-academic">תיאוריית המגדר (Gender Theory)</td>
+            <td class="col-marketing">חינוך לשוויון</td>
+        </tr>
+        <tr>
+            <td class="col-academic">ספקטרום מגדרי</td>
+            <td class="col-marketing">גיוון</td>
+        </tr>
+        <tr>
+            <td class="col-academic">נזילות מגדרית</td>
+            <td class="col-marketing">גמישות</td>
+        </tr>
+        <tr>
+            <td class="col-academic">פירוק הבינאריזם</td>
+            <td class="col-marketing">כיבוד ההבדלים</td>
+        </tr>
+        <tr>
+            <td class="col-academic">פדגוגיה ביקורתית</td>
+            <td class="col-marketing">חשיבה ביקורתית</td>
+        </tr>
+        <tr>
+            <td class="col-academic">חינוך אקטיביסטי</td>
+            <td class="col-marketing">חינוך ערכי</td>
+        </tr>
+        <tr>
+            <td class="col-academic">פוסט-קולוניאליזם</td>
+            <td class="col-marketing">רב-תרבותיות</td>
+        </tr>
+        <tr>
+            <td class="col-academic">SEL (כלי להחדרת ערכים)</td>
+            <td class="col-marketing">חוסן רגשי</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>"חינוך חותר" — הציטוט המרכזי</h2>
+
+    <div class="quote-box red">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב."
+        <div class="q-source">ד"ר ניר מיכאלי, לשעבר רקטור סמינר הקיבוצים</div>
+    </div>
+
+    <div class="analysis-highlight">
+        <div class="ah-title">"חינוך חותר" — הגדרה</div>
+        <p>היכולת של המורה לפעול כסוכן פוליטי בתוך המערכת הממלכתית תוך שימוש בשפה פדגוגית לגיטימית כדי להחדיר ערכים רדיקליים.</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>כיצד ההמרה הלשונית עובדת בפועל?</h2>
+    <p>ניתוח הטבלה מגלה דפוס עקבי: בכל מקרה, מושג אקדמי/אידיאולוגי ספציפי מתורגם למילה חיובית וסתמית שאף הורה לא יתנגד לה.</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>המנגנון</h3>
+            <ul class="info-list">
+                <li><strong>שלב 1:</strong> התוכן מפותח בשפה אקדמית מפורשת (תיאוריית המגדר, פירוק הבינאריזם)</li>
+                <li><strong>שלב 2:</strong> כשהתוכן מגיע לבית הספר, השפה "נשטפת" למילים חיוביות (גיוון, כיבוד ההבדלים)</li>
+                <li><strong>שלב 3:</strong> ההורים מקבלים את הגרסה ה"נקייה" ואינם מתנגדים — כי מי יתנגד ל"חוסן רגשי"?</li>
+            </ul>
+        </div>
+        <div>
+            <h3>התוצאה</h3>
+            <ul class="info-list">
+                <li><strong>הורה שומע:</strong> "אנחנו מלמדים גיוון וכיבוד ההבדלים"</li>
+                <li><strong>הילד לומד:</strong> ספקטרום מגדרי ופירוק הבינאריזם</li>
+                <li><strong>הפער:</strong> ההורה לא יודע שה"גיוון" הוא למעשה תיאוריית המגדר</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>8 המרות — סיכום חזותי</h2>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">תיאוריית המגדר</div>
+            <div class="value" style="font-size: 1.1em;">חינוך לשוויון</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">ספקטרום מגדרי</div>
+            <div class="value" style="font-size: 1.1em;">גיוון</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">נזילות מגדרית</div>
+            <div class="value" style="font-size: 1.1em;">גמישות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פירוק הבינאריזם</div>
+            <div class="value" style="font-size: 1.1em;">כיבוד ההבדלים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פדגוגיה ביקורתית</div>
+            <div class="value" style="font-size: 1.1em;">חשיבה ביקורתית</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">חינוך אקטיביסטי</div>
+            <div class="value" style="font-size: 1.1em;">חינוך ערכי</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פוסט-קולוניאליזם</div>
+            <div class="value" style="font-size: 1.1em;">רב-תרבותיות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">SEL (החדרת ערכים)</div>
+            <div class="value" style="font-size: 1.1em;">חוסן רגשי</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="case_gender_kindergartens.html">
+        <div>
+            <div class="lc-title">תכני מגדר בגני ילדים</div>
+            <div class="lc-desc">תיעוד מקרה: תכני ספקטרום מגדרי בגיל הרך</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_delet_ptucha_beersheva.html">
+        <div>
+            <div class="lc-title">דלת פתוחה — באר שבע</div>
+            <div class="lc-desc">תיעוד מקרה עירוני: תכנים שנחשפו בבתי ספר בבאר שבע</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית — סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: מהאקדמיה לכיתה — הכשרת מורים כ"סוכני שינוי"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="safeschool_dashboard.html">
+        <div>
+            <div class="lc-title">SafeSchool — לוח בקרה</div>
+            <div class="lc-desc">ספק התוכן הדיגיטלי: מערכי שיעור מאחורי Paywall, תכנים שהוסתרו מהורים</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — דף ראשי</div>
+            <div class="lc-desc">דירוג 18 ערים לפי מדד חדירה חינוכית</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

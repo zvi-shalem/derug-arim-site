@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עתירת הורי רחובות — 2022</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+ul.claim-list { list-style: none; padding: 0; }
+ul.claim-list li {
+    padding: 12px 16px; margin-bottom: 8px;
+    background: #f8f9fa; border-radius: 6px;
+    border-right: 3px solid #667eea;
+}
+ul.claim-list li strong { color: #1a1a2e; }
+
+.footer {
+    text-align: center; padding: 24px 20px; color: #999;
+    font-size: 0.82em; border-top: 1px solid #e8e8e8;
+    margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        עתירת הורי רחובות
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('event')">האירוע</button>
+        <button class="nav-tab" onclick="showView('claims')">הטענות</button>
+        <button class="nav-tab" onclick="showView('responses')">התגובות</button>
+        <button class="nav-tab" onclick="showView('legal')">משמעות משפטית</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>עתירת הורי רחובות -- 2022</h1>
+    <div class="subtitle">פנייה משפטית נגד הכנסת ארגוני להט"ב לבתי ספר ללא אפשרות Opt-out</div>
+    <div class="meta">מקרה בוחן: זכות ההורים מול תכנים חיצוניים במערכת החינוך</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">2022</div><div class="lbl">רחובות</div></div>
+        <div class="stat"><div class="num">עתירה</div><div class="lbl">משפטית</div></div>
+        <div class="stat"><div class="num">Opt-out</div><div class="lbl">דרישה מרכזית</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">מנגנון קיים</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ══════ TAB 1: THE EVENT ══════ -->
+<div id="view-event" class="view active">
+
+<div class="section">
+    <h2>האירוע: עתירת הורי רחובות, 2022</h2>
+    <p>בשנת 2022, קבוצת הורים מהעיר רחובות הגישה <strong>פנייה משפטית</strong> נגד הכנסת ארגוני להט"ב לבתי ספר ממלכתיים-דתיים בעיר. מדובר באחד האירועים הראשונים בישראל שבהם הורים פנו לערוץ המשפטי כדי לעמוד על זכותם לקבוע אילו תכנים ערכיים ילדיהם נחשפים אליהם.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מיקום</div>
+            <div class="value">רחובות</div>
+            <div class="note">בתי ספר ממלכתיים-דתיים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">נגד</div>
+            <div class="value">ארגוני להט"ב</div>
+            <div class="note">איגי, חוש"ן ואחרים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">דרישה</div>
+            <div class="value">Opt-out</div>
+            <div class="note">אפשרות הורים להוציא ילדים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פירוט האירוע</h2>
+    <p>הפנייה המשפטית כוונה נגד הכנסת ארגונים חיצוניים -- בפרט ארגוני להט"ב כמו <strong>איגי</strong> ו<strong>חוש"ן</strong> (חינוך ושינוי) -- לבתי ספר ממלכתיים-דתיים ברחובות, ללא ידיעת ההורים ובלי לאפשר להם לסרב.</p>
+
+    <h3>הדרישות המרכזיות</h3>
+    <ul class="claim-list">
+        <li><strong>אפשרות Opt-out:</strong> לאפשר להורים להוציא את ילדיהם מתכנים של ארגונים חיצוניים שאינם תואמים את ערכי המשפחה</li>
+        <li><strong>שקיפות מלאה:</strong> חובת דיווח מראש להורים על כל ארגון חיצוני הנכנס לבית הספר ועל התכנים המועברים</li>
+        <li><strong>זכות ההורים:</strong> הכרה בעדיפות ההורים על המדינה בקביעת תכנים ערכיים לילדיהם</li>
+        <li><strong>תקדים משפטי:</strong> הגדרת מסגרת משפטית לזכויות ההורים ביחס לתכנים חיצוניים בבתי הספר</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>ההקשר: בתי ספר ממלכתיים-דתיים</h2>
+    <p>בתי הספר הממלכתיים-דתיים משרתים קהילה עם ציפיות ערכיות מוגדרות. הכנסת ארגוני להט"ב למסגרת זו, ללא התייעצות עם ההורים וללא אפשרות סירוב, נתפסה כפגיעה באוטונומיה של ההורים ובאתוס החינוכי של הקהילה.</p>
+
+    <div class="quote-box blue">
+        עתירת רחובות הגדירה תקדים: לראשונה בישראל, הורים פנו לערוץ המשפטי כדי לדרוש את זכותם לקבוע אילו ארגונים חיצוניים נכנסים לבתי ספר של ילדיהם.
+        <div class="q-source">ניתוח מחקרי -- עתירת רחובות כמקרה בוחן</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 2: THE CLAIMS ══════ -->
+<div id="view-claims" class="view">
+
+<div class="section">
+    <h2>הטענות המשפטיות והערכיות</h2>
+    <p>העתירה ביססה את טענותיה על מספר עקרונות מרכזיים, הנוגעים לזכויות ההורים, לשקיפות ולהתאמת התכנים לאופי בית הספר.</p>
+</div>
+
+<div class="section">
+    <h2>זכות ההורים <span class="badge blue">משפטי</span></h2>
+    <p>חינוך ערכי הוא תחום שבו <strong>להורים עדיפות על המדינה</strong>. זכות ההורים לקבוע את התכנים הערכיים של ילדיהם מוכרת בחוק הבינלאומי ומהווה עיקרון יסודי בדמוקרטיות מערביות רבות.</p>
+    <p>העתירה טענה כי כאשר ארגונים חיצוניים נכנסים לבתי ספר עם תכנים ערכיים ללא ידיעת ההורים -- נפגעת זכות יסודית זו.</p>
+</div>
+
+<div class="section">
+    <h2>בתי ספר ממלכתיים-דתיים</h2>
+    <p>קהילת בתי הספר הממלכתיים-דתיים מאופיינת בציפיות ערכיות מוגדרות. הכנסת ארגוני להט"ב לסביבה זו מתנגשת עם האתוס החינוכי שההורים בחרו עבור ילדיהם.</p>
+    <div class="grid-2">
+        <div>
+            <h3>הציפייה</h3>
+            <p>הורים בוחרים בחינוך ממלכתי-דתי מתוך ציפייה שבית הספר ישקף ערכים מסוימים ויתנהל בהתאם לאתוס דתי-מסורתי.</p>
+        </div>
+        <div>
+            <h3>המציאות</h3>
+            <p>ארגונים חיצוניים נכנסים לבתי הספר עם תכנים שלא בהכרח תואמים את הציפיות הערכיות של הקהילה -- ללא שקיפות וללא אפשרות סירוב.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>כפייה ללא הסכמה <span class="badge red">אין Opt-out</span></h2>
+    <p>אין מנגנון Opt-out במערכת החינוך הישראלית -- ילדים נחשפים לתכנים של ארגונים חיצוניים ללא אפשרות סירוב מצד ההורים. בניגוד למדינות מערביות רבות, בישראל אין הליך פורמלי המאפשר להורים להוציא את ילדיהם מתכנים שאינם תואמים את ערכי המשפחה.</p>
+</div>
+
+<div class="section">
+    <h2>חוסר שקיפות</h2>
+    <p>הורים לא יודעים מראש אילו ארגונים חיצוניים נכנסים לבתי הספר של ילדיהם ומה בדיוק הם מלמדים. אין מנגנון דיווח שיטתי ואין חובת יידוע מקדים.</p>
+
+    <div class="quote-box">
+        הורים גילו בדיעבד שארגונים חיצוניים נכנסו לבתי הספר של ילדיהם. לא הייתה הודעה מראש, לא היה אישור, ולא הייתה אפשרות סירוב.
+        <div class="q-source">מתוך טיעוני ההורים בעתירה</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הארגונים המעורבים</h2>
+    <table>
+        <tr><th>ארגון</th><th>תיאור</th><th>היקף</th></tr>
+        <tr>
+            <td><strong>איגי</strong></td>
+            <td>ארגון להט"ב -- פעילות חינוכית בבתי ספר</td>
+            <td><span class="badge blue">משפטי</span></td>
+        </tr>
+        <tr>
+            <td><strong>חוש"ן</strong> (חינוך ושינוי)</td>
+            <td>סדנאות בנושא נטייה מינית וזהות מגדרית בבתי ספר</td>
+            <td>מחזור 3.7 מיליון ש"ח</td>
+        </tr>
+    </table>
+    <p>שני הארגונים פועלים בבתי ספר ממלכתיים ברחבי הארץ, אולם הכנסתם לבתי ספר ממלכתיים-דתיים עוררה את ההתנגדות שהובילה לעתירה.</p>
+</div>
+
+</div>
+
+<!-- ══════ TAB 3: RESPONSES ══════ -->
+<div id="view-responses" class="view">
+
+<div class="section">
+    <h2>התגובות לעתירה</h2>
+    <p>העתירה עוררה תגובות מגורמים שונים -- העירייה, משרד החינוך, הארגונים עצמם, וקבוצות הורים ברחבי הארץ.</p>
+</div>
+
+<div class="section">
+    <h2>עמדת העירייה ומשרד החינוך</h2>
+    <p>העירייה ומשרד החינוך הציגו עמדה לפיה יש <strong>מחויבות להביא תכנים מגוונים</strong> לבתי הספר, כחלק ממדיניות חינוכית רחבה.</p>
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">עמדה רשמית</div>
+            <div class="step-desc">מחויבות להביא תכנים מגוונים לבתי ספר -- כולל תכנים של ארגונים חיצוניים העוסקים בסובלנות ושוויון.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>עמדת הארגונים</h2>
+    <p>הארגונים טענו כי תכניהם <strong>מאושרים על ידי משרד החינוך</strong> ומתאימים למטרות החינוכיות שהמשרד הגדיר.</p>
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">טענת הארגונים</div>
+            <div class="step-desc">כל התכנים מאושרים על ידי משרד החינוך. הסדנאות מותאמות לתוכנית הלימודים ומטרתן לקדם סובלנות ומניעת אלימות.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טענת נגד של ההורים</h2>
+    <p>ההורים הגיבו כי <strong>האישור ניתן ללא בדיקה מעמיקה</strong> של התכנים בפועל. הם טענו שיש פער בין התיאור הרשמי של התכנים לבין מה שמועבר בפועל בכיתה.</p>
+    <div class="quote-box">
+        האישור של משרד החינוך ניתן לתוכנית כוללנית, אך אין פיקוח על התכנים בפועל -- על מה שנאמר בכיתה, על החומרים שמוצגים, ועל הדיונים שנוצרים.
+        <div class="q-source">מתוך טיעוני ההורים</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השפעה ארצית</h2>
+    <p>המקרה <strong>חיזק את הדרישה הארצית למנגנון Opt-out</strong>. מה שהתחיל כעתירה מקומית ברחובות הפך לסוגיה שנדונה ברמה הלאומית, כאשר הורים מערים נוספות הצטרפו לדרישה לזכות סירוב.</p>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">לפני העתירה</div>
+            <div class="value">מקומי</div>
+            <div class="note">תלונות בודדות ללא מסגרת</div>
+        </div>
+        <div class="metric">
+            <div class="label">אחרי העתירה</div>
+            <div class="value">ארצי</div>
+            <div class="note">דרישה מאורגנת ל-Opt-out</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">סטטוס Opt-out</div>
+            <div class="value">0</div>
+            <div class="note">עדיין אין מנגנון בישראל</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 4: LEGAL SIGNIFICANCE ══════ -->
+<div id="view-legal" class="view">
+
+<div class="section">
+    <h2>משמעות משפטית <span class="badge blue">משפטי</span></h2>
+    <p>עתירת רחובות העלתה לראשונה במישור המשפטי הישראלי שאלות יסודיות בנוגע לזכות ההורים בחינוך, חובת שקיפות, ומנגנון Opt-out מתכנים של ארגונים חיצוניים.</p>
+</div>
+
+<div class="section">
+    <h2>עקרונות משפטיים</h2>
+
+    <div class="person-card">
+        <div class="name">זכות ההורים בחינוך <span class="badge blue">משפטי</span></div>
+        <div class="role">מוכרת בחוק הבינלאומי -- אמנת זכויות הילד, סעיף 18</div>
+        <div class="bio">
+            <p>אמנת זכויות הילד של האו"ם (סעיף 18) קובעת כי <strong>להורים אחריות ראשונית לגידול הילד ולהתפתחותו</strong>. עיקרון זה מוכר בדין הבינלאומי ומשתקף בחקיקה של מדינות רבות.</p>
+            <p>בישראל, למרות ההכרה העקרונית בזכות ההורים, אין מנגנון מעשי המאפשר להם לממש זכות זו ביחס לתכנים של ארגונים חיצוניים בבתי הספר.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">Opt-out כמודל <span class="badge orange">בינלאומי</span></div>
+        <div class="role">קיים במדינות כמו בריטניה, אוסטרליה, ומדינות בארה"ב</div>
+        <div class="bio">
+            <p>מנגנון Opt-out מאפשר להורים להוציא את ילדיהם מתכנים ספציפיים שאינם תואמים את ערכי המשפחה. מודל זה פועל בהצלחה במדינות מערביות רבות ומהווה איזון בין מדיניות חינוכית לבין זכויות ההורים.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">סטטוס בישראל <span class="badge red">אין Opt-out</span></div>
+        <div class="role">אין מנגנון Opt-out פורמלי מתכנים של ארגונים חיצוניים</div>
+        <div class="bio">
+            <p>בישראל לא קיים מנגנון פורמלי המאפשר להורים לסרב לתכנים של ארגונים חיצוניים בבתי הספר. הורים שמתנגדים לתכנים ספציפיים נאלצים לפנות באופן פרטני למנהל בית הספר, ללא מסגרת חוקית ברורה.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">התקדים <span class="badge blue">משפטי</span></div>
+        <div class="role">עתירת רחובות -- הראשונה מסוגה בישראל</div>
+        <div class="bio">
+            <p>עתירת רחובות העלתה לראשונה את סוגיית ה-Opt-out במישור המשפטי הישראלי. היא הגדירה את המסגרת לדיון ציבורי ומשפטי בזכות ההורים לקבוע אילו ארגונים חיצוניים נכנסים לבתי הספר של ילדיהם.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השוואה בינלאומית: מנגנוני Opt-out</h2>
+    <p>הטבלה הבאה ממחישה כיצד מדינות מערביות מטפלות בזכות ההורים לסרב לתכנים חינוכיים -- וכיצד ישראל נעדרת מן הרשימה.</p>
+
+    <table>
+        <tr>
+            <th>מדינה</th>
+            <th>מנגנון Opt-out</th>
+            <th>סטטוס</th>
+        </tr>
+        <tr>
+            <td><strong>בריטניה</strong></td>
+            <td>RSE (Relationships & Sex Education) -- הורים יכולים להוציא ילדים עד גיל 15</td>
+            <td><span class="badge orange">פעיל</span></td>
+        </tr>
+        <tr>
+            <td><strong>אוסטרליה</strong></td>
+            <td>מדינות מסוימות מאפשרות Opt-out מחינוך מיני</td>
+            <td><span class="badge orange">חלקי</span></td>
+        </tr>
+        <tr>
+            <td><strong>ארה"ב</strong> (מדינות שמרניות)</td>
+            <td>Florida, Texas -- חובת הסכמת הורים לתכני מגדר</td>
+            <td><span class="badge blue">חקיקה חדשה</span></td>
+        </tr>
+        <tr>
+            <td><strong>ישראל</strong></td>
+            <td>אין מנגנון Opt-out פורמלי</td>
+            <td><span class="badge red">אין Opt-out</span></td>
+        </tr>
+    </table>
+
+    <div class="quote-box blue">
+        ישראל היא אחת המדינות הדמוקרטיות היחידות שבהן אין להורים שום מנגנון פורמלי לסרב לתכנים של ארגונים חיצוניים בבתי ספר ממלכתיים. מדינות כמו בריטניה, אוסטרליה ומדינות בארה"ב הכירו בצורך הזה ויצרו מסגרות חוקיות מסודרות.
+        <div class="q-source">ניתוח השוואתי -- מודלי Opt-out בעולם</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניתוח: מדוע זה חשוב?</h2>
+    <div class="grid-2">
+        <div>
+            <h3>הפער הישראלי</h3>
+            <p>בעוד מדינות מערביות מפתחות מנגנונים מאוזנים שמכבדים גם את מדיניות המדינה וגם את זכויות ההורים, ישראל מפגרת. אין חקיקה, אין נהלים ברורים, ואין מנגנון ערעור מסודר.</p>
+        </div>
+        <div>
+            <h3>התקדים של רחובות</h3>
+            <p>עתירת רחובות פתחה את הדלת. היא הראתה שהורים יכולים ורוצים להשתמש בכלים משפטיים כדי לעמוד על זכויותיהם. ההשפעה שלה חורגת מעבר לרחובות -- היא יצרה מודעות ארצית לסוגיה.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 5: LINKS ══════ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מקרי בוחן נוספים</h2>
+
+    <a class="link-card" href="case_delet_ptucha_beersheva.html">
+        <div>
+            <div class="lc-title">דלת פתוחה -- באר שבע</div>
+            <div class="lc-desc">מקרה בוחן: ארגון "דלת פתוחה" בבתי ספר בבאר שבע</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_gender_kindergartens.html">
+        <div>
+            <div class="lc-title">תכני מגדר בגני ילדים</div>
+            <div class="lc-desc">מקרה בוחן: הכנסת תכני מגדר למסגרות גיל הרך</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="case_gender_spectrum_national.html">
+        <div>
+            <div class="lc-title">הספקטרום המגדרי -- תוכנית ארצית</div>
+            <div class="lc-desc">מקרה בוחן: תוכנית ארצית להוראת ספקטרום מגדרי בבתי ספר</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מחקרים ומיפויים</h2>
+
+    <a class="link-card" href="funding_flows_municipal.html">
+        <div>
+            <div class="lc-title">זרימת מימון מוניציפלי</div>
+            <div class="lc-desc">מיפוי זרימת המימון מרשויות מקומיות לארגונים חיצוניים בבתי ספר</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים -- דף ראשי</div>
+            <div class="lc-desc">דירוג 18 ערים לפי מידת החשיפה לתכנים של ארגונים חיצוניים</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</div>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

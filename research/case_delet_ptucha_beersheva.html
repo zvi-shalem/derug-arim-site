@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרשת "דלת פתוחה" — באר שבע, ינואר 2023</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ══ Bypass Diagram Styles ══ */
+.bypass-diagram {
+    margin: 24px 0;
+    padding: 30px 20px;
+    background: #fafbfe;
+    border-radius: 12px;
+    border: 2px solid #e0e4f0;
+    overflow-x: auto;
+}
+.bypass-diagram .diagram-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.15em;
+    color: #1a1a2e;
+    margin-bottom: 24px;
+}
+
+/* Blocked path */
+.blocked-path {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.dia-box {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-align: center;
+    min-width: 140px;
+    white-space: nowrap;
+}
+.dia-box.blocked {
+    background: #f8f9fa;
+    border: 2px solid #ccc;
+    color: #999;
+    position: relative;
+}
+.dia-box.blocked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: #e74c3c;
+    transform: rotate(-8deg);
+}
+.dia-arrow-blocked {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    color: #e74c3c;
+    font-size: 1.3em;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.dia-x {
+    color: #e74c3c;
+    font-size: 1.5em;
+    font-weight: 800;
+    padding: 0 4px;
+}
+
+/* Divider */
+.bypass-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0;
+    gap: 10px;
+}
+.bypass-divider .line {
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+}
+.bypass-divider .label {
+    background: #e74c3c;
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.82em;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Bypass path */
+.bypass-path {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+.dia-box.active {
+    background: linear-gradient(135deg, #1a1a2e, #2a1a3e);
+    color: #fff;
+    border: 2px solid #667eea;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.25);
+}
+.dia-box.danger {
+    background: linear-gradient(135deg, #8b0000, #cc0000);
+    color: #fff;
+    border: 2px solid #e74c3c;
+    box-shadow: 0 2px 8px rgba(231,76,60,0.3);
+}
+.dia-box.target {
+    background: #fff;
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+    font-weight: 700;
+}
+.dia-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+.dia-arrow.green { color: #27ae60; }
+.dia-arrow.red { color: #e74c3c; }
+.dia-arrow.orange { color: #ff8800; }
+
+/* Responsive diagram */
+@media (max-width: 800px) {
+    .blocked-path, .bypass-path {
+        flex-direction: column;
+        gap: 0;
+    }
+    .dia-arrow-blocked, .dia-arrow {
+        transform: rotate(90deg);
+        padding: 4px 0;
+    }
+    .dia-box { min-width: 200px; }
+}
+
+.result-box {
+    background: #fff5f5;
+    border: 2px solid #e74c3c;
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+.result-box .result-value {
+    font-size: 1.4em;
+    font-weight: 800;
+    color: #e74c3c;
+}
+.result-box .result-note {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 4px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 0.82em;
+    border-top: 1px solid #e8e8e8;
+    margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        פרשת דלת פתוחה — באר שבע
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('event')">האירוע</button>
+        <button class="nav-tab" onclick="showView('players')">השחקנים</button>
+        <button class="nav-tab" onclick="showView('bypass')">מנגנון העקיפה</button>
+        <button class="nav-tab" onclick="showView('reactions')">תגובות</button>
+        <button class="nav-tab" onclick="showView('context')">הקשר רחב</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>פרשת "דלת פתוחה" — באר שבע, ינואר 2023</h1>
+    <div class="subtitle">8,100 תלמידים נחשפו לתכנים מעוררי מחלוקת בחסות עירונית — דרך מחלקת הרווחה</div>
+    <div class="meta">חקר מקרה: עקיפת מנגנוני פיקוח בחינוך</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">8,100</div><div class="lbl">תלמידים</div></div>
+        <div class="stat"><div class="num">9</div><div class="lbl">בתי ספר</div></div>
+        <div class="stat"><div class="num">01/2023</div><div class="lbl">ינואר 2023</div></div>
+        <div class="stat"><div class="num">0</div><div class="lbl">אישורי הורים</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ══════ TAB 1: THE EVENT ══════ -->
+<div id="view-event" class="view active">
+
+<div class="section">
+    <h2>מה קרה בבאר שבע?</h2>
+    <p><strong>ינואר 2023</strong> — עיריית באר שבע יזמה "שבוע מיניות בריאה" עבור <strong>8,100 תלמידים</strong> ב-<strong>9 בתי ספר</strong> ברחבי העיר. התוכנית הופעלה בשיתוף <strong>עמותת "דלת פתוחה"</strong> — ארגון המספק ייעוץ וחינוך מיני.</p>
+    <p>התוכנית לא עברה דרך מערכת החינוך הרשמית אלא דרך <strong>אגף השירותים החברתיים והמחלקה לעבודה קהילתית</strong> של העירייה — מנגנון שאפשר עקיפה מלאה של אישורים פדגוגיים ואישורי הורים.</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">תלמידים שנחשפו</div>
+            <div class="value">8,100</div>
+            <div class="note">בשבוע אחד</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">בתי ספר</div>
+            <div class="value">9</div>
+            <div class="note">ברחבי באר שבע</div>
+        </div>
+        <div class="metric">
+            <div class="label">מועד</div>
+            <div class="value">01/2023</div>
+            <div class="note">ינואר 2023</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">אישורי הורים</div>
+            <div class="value">0</div>
+            <div class="note">ללא ידיעת ההורים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תלונות ההורים</h2>
+    <p>לאחר שההורים גילו את תכני התוכנית — רק אחרי שהיא כבר החלה — עלו תלונות חמורות:</p>
+
+    <div class="quote-box">
+        עידוד להתנסויות מיניות בגיל צעיר — תכנים שנתפסו כמעודדים ילדים לחקור מיניות באופן שאינו מותאם לגילם.
+        <div class="q-source">תלונת הורים — באר שבע, ינואר 2023</div>
+    </div>
+
+    <div class="quote-box">
+        הצגת מודלים משפחתיים רדיקליים — תכנים שהציגו מבנים משפחתיים חלופיים ללא הקשר ערכי מאוזן.
+        <div class="q-source">תלונת הורים — באר שבע, ינואר 2023</div>
+    </div>
+
+    <div class="quote-box">
+        חוסר שקיפות מוחלט — הורים לא ידעו על התכנים מראש, לא התבקשו לתת הסכמה, ולא קיבלו מידע על הסדנאות עד שילדיהם סיפרו להם.
+        <div class="q-source">תלונת הורים — באר שבע, ינואר 2023</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>התוצאה</h2>
+    <p>בעקבות לחץ ציבורי מצד הורים וארגונים, <strong>הופסקו חלק מהסדנאות</strong>. עם זאת, חלק ניכר מהתלמידים כבר נחשפו לתכנים. עמותת "דלת פתוחה" המשיכה לפעול בערים אחרות ברחבי הארץ.</p>
+</div>
+
+</div>
+
+<!-- ══════ TAB 2: THE PLAYERS ══════ -->
+<div id="view-players" class="view">
+
+<div class="section">
+    <h2>השחקנים המעורבים</h2>
+
+    <div class="person-card">
+        <div class="name">עמותת דלת פתוחה <span class="badge red">ספק התכנים</span></div>
+        <div class="role">ארגון ייעוץ מיני — פריסה ארצית</div>
+        <div class="bio">
+            <p>עמותת "דלת פתוחה" היא ארגון המספק ייעוץ וחינוך מיני, הפועל ברמת השרון, באר שבע, תל אביב וחיפה.</p>
+            <p><strong>מאפיין מפתח:</strong> הארגון נכנס למערכות חינוך כ"ספק בריאות" ולא כארגון חינוכי — מה שמאפשר עקיפת מנגנוני אישור פדגוגיים.</p>
+            <table>
+                <tr><th>עיר</th><th>פרטים</th></tr>
+                <tr><td>רמת השרון</td><td>חוזה ישיר: 138,000 ש"ח דרך מרכז "קנגורו"</td></tr>
+                <tr><td>באר שבע</td><td>הפעלה דרך אגף שירותים חברתיים — 8,100 תלמידים</td></tr>
+                <tr><td>תל אביב</td><td>פעילות מתמשכת</td></tr>
+                <tr><td>חיפה</td><td>פעילות מתמשכת</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">עיריית באר שבע <span class="badge orange">מממנת ומפעילה</span></div>
+        <div class="role">אגף שירותים חברתיים ומחלקת עבודה קהילתית</div>
+        <div class="bio">
+            <p>העירייה יזמה ומימנה את "שבוע מיניות בריאה". המימון הועבר דרך <strong>אגף השירותים החברתיים</strong> ו<strong>המחלקה לעבודה קהילתית</strong> — ולא דרך אגף החינוך.</p>
+            <p><strong>המשמעות:</strong> תכנים חינוכיים הוכנסו לבתי ספר ללא שאגף החינוך העירוני או משרד החינוך אישרו אותם מבחינה פדגוגית.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ועדי הורים <span class="badge blue">נפגעים</span></div>
+        <div class="role">הורי התלמידים בבתי הספר המעורבים</div>
+        <div class="bio">
+            <p>ועדי ההורים <strong>גילו את התכנים רק לאחר שהתוכנית כבר החלה</strong>. הם לא קיבלו הודעה מראש, לא התבקשו לתת הסכמה, ולא הוצגו להם תכני הסדנאות.</p>
+            <p>לאחר הגילוי, הורים ארגנו מחאה שהובילה להפסקה חלקית של הסדנאות.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ארגון "בוחרים במשפחה" <span class="badge blue">חושף</span></div>
+        <div class="role">ארגון שעזר בחשיפת התכנים ובמחאה</div>
+        <div class="bio">
+            <p>ארגון "בוחרים במשפחה" סייע בחשיפת תכני הסדנאות לציבור ובארגון המחאה ההורית. הארגון תיעד את מנגנון העקיפה של אגף הרווחה ופרסם את הממצאים.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 3: BYPASS MECHANISM ══════ -->
+<div id="view-bypass" class="view">
+
+<div class="section">
+    <h2>מנגנון העקיפה — התובנה המרכזית</h2>
+    <p>הפרשה בבאר שבע חושפת מנגנון שיטתי שבו תכנים חינוכיים מוכנסים לבתי ספר תוך עקיפה מלאה של מנגנוני הפיקוח הפדגוגיים. ההבדל בין המסלול הרגיל למסלול העוקף הוא קריטי:</p>
+</div>
+
+<div class="section">
+    <h2>תרשים המנגנון</h2>
+
+    <div class="bypass-diagram">
+        <div class="diagram-title">המסלול הרגיל — חסום</div>
+
+        <div class="blocked-path">
+            <div class="dia-box blocked">משרד החינוך</div>
+            <div class="dia-arrow-blocked"><span class="dia-x">X</span></div>
+            <div class="dia-box blocked">אישור פדגוגי</div>
+            <div class="dia-arrow-blocked"><span class="dia-x">X</span></div>
+            <div class="dia-box blocked">בית ספר</div>
+        </div>
+
+        <div class="bypass-divider">
+            <div class="line"></div>
+            <div class="label">מסלול עקיפה</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="diagram-title">מה קרה בפועל</div>
+
+        <div class="bypass-path">
+            <div class="dia-box active">עירייה</div>
+            <div class="dia-arrow orange">&#x2190;</div>
+            <div class="dia-box active">אגף רווחה</div>
+            <div class="dia-arrow orange">&#x2190;</div>
+            <div class="dia-box active">מחלקה קהילתית</div>
+            <div class="dia-arrow red">&#x2190;</div>
+            <div class="dia-box danger">דלת פתוחה</div>
+            <div class="dia-arrow red">&#x2190;</div>
+            <div class="dia-box target">בית ספר</div>
+        </div>
+
+        <div class="result-box">
+            <div class="result-value">8,100 ילדים נחשפו לתכנים ללא אישור הורי ולא אישור פדגוגי</div>
+            <div class="result-note">תכנים חינוכיים שעקפו את כל מנגנוני הפיקוח המקובלים</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פירוט המנגנון צעד אחר צעד</h2>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">המסלול הרגיל: תוכנית חינוכית</div>
+            <div class="step-desc">תוכנית חינוכית רגילה דורשת אישור משרד החינוך, ביקורת פדגוגית, אישור מנהל בית הספר, ויידוע ההורים. זהו מנגנון הגנה שנועד להבטיח שתכנים המגיעים לתלמידים הם מותאמים ומאושרים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">2</div>
+        <div class="step-content">
+            <div class="step-title">העקיפה: תוכנית דרך אגף הרווחה</div>
+            <div class="step-desc">כאשר התוכנית מועברת דרך אגף הרווחה / שירותים חברתיים, היא עוקפת את אגף החינוך ולא דורשת אישור פדגוגי. האגף החברתי אינו מצויד לבחון תכנים חינוכיים ופדגוגיים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow" style="color: #e74c3c;">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">3</div>
+        <div class="step-content">
+            <div class="step-title">הביצוע בבאר שבע</div>
+            <div class="step-desc">המימון הועבר דרך האגף לשירותים חברתיים והמחלקה לעבודה קהילתית. עמותת "דלת פתוחה" נכנסה כ"ספק בריאות" — לא כארגון חינוכי — ובכך עקפה את הדרישה לאישור פדגוגי.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow" style="color: #e74c3c;">&#x25BC;</div>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">4</div>
+        <div class="step-content">
+            <div class="step-title">התוצאה</div>
+            <div class="step-desc">8,100 ילדים ב-9 בתי ספר נחשפו לתכנים מעוררי מחלוקת ללא אישור הורי, ללא ביקורת פדגוגית, וללא ידיעת מערכת החינוך הרשמית.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>למה המנגנון עובד?</h2>
+    <div class="grid-2">
+        <div>
+            <h3>חינוך לעומת רווחה</h3>
+            <p>מנגנוני הפיקוח בישראל בנויים לפי אגפים: מה שנכנס דרך "חינוך" דורש אישורים מחמירים. מה שנכנס דרך "רווחה" או "בריאות" — לא. הפער הזה מאפשר להחדיר תכנים חינוכיים במעטה של "שירותי בריאות" או "שירותים חברתיים".</p>
+        </div>
+        <div>
+            <h3>"ספק בריאות" ולא "ארגון חינוכי"</h3>
+            <p>עמותת "דלת פתוחה" מוגדרת כספק ייעוץ מיני — תחום "בריאות". הגדרה זו מאפשרת לה לפעול בבתי ספר מבלי לעמוד בדרישות הפדגוגיות של משרד החינוך, למרות שהתכנים שלה הם חינוכיים במהותם.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 4: REACTIONS ══════ -->
+<div id="view-reactions" class="view">
+
+<div class="section">
+    <h2>תגובות והשלכות</h2>
+
+    <h3>מחאת ההורים</h3>
+    <p>הורים מבתי הספר המעורבים ארגנו מחאה לאחר שגילו את תכני הסדנאות. המחאה כללה פניות לעירייה, לבתי הספר ולמשרד החינוך.</p>
+
+    <div class="quote-box">
+        הורים ארגנו מחאה פומבית לאחר שילדיהם סיפרו על תכנים שנחשפו אליהם ללא ידיעת ההורים ואישורם. המחאה הובילה להפסקה חלקית של הסדנאות.
+        <div class="q-source">תיעוד מחאת ההורים — באר שבע, ינואר 2023</div>
+    </div>
+
+    <h3>הפסקת סדנאות</h3>
+    <p>בעקבות הלחץ הציבורי, <strong>הופסקו חלק מהסדנאות</strong>. עם זאת, חלק ניכר מהתלמידים כבר השתתפו בתוכנית לפני שהיא הופסקה.</p>
+
+    <h3>שיח ציבורי</h3>
+    <p>הנושא עלה בדיונים ציבוריים ברשתות חברתיות ועורר ויכוח נרחב על גבולות החינוך המיני בבתי ספר, זכויות ההורים לדעת ולאשר תכנים, ומנגנוני הפיקוח על ארגונים חיצוניים הפועלים בבתי ספר.</p>
+</div>
+
+<div class="section">
+    <h2>גורמים שעסקו בנושא</h2>
+
+    <table>
+        <tr><th>גורם</th><th>פעולה</th></tr>
+        <tr><td>ועדי הורים</td><td>ארגון מחאה, פנייה לעירייה ולמשרד החינוך</td></tr>
+        <tr><td>פורום "חירות בחינוך"</td><td>עסק בנושא, העלה לשיח ציבורי</td></tr>
+        <tr><td>ארגון "בוחרים במשפחה"</td><td>סייע בחשיפת התכנים ובתיעוד המנגנון</td></tr>
+        <tr><td>רשתות חברתיות</td><td>הפצה רחבה של המידע, דיונים ציבוריים</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מה לא השתנה</h2>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">עמותת דלת פתוחה</div>
+            <div class="value">פעילה</div>
+            <div class="note">ממשיכה לפעול בערים אחרות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מנגנון העקיפה</div>
+            <div class="value">פתוח</div>
+            <div class="note">הפער בין חינוך לרווחה לא נסגר</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">אישור הורים</div>
+            <div class="value">לא נדרש</div>
+            <div class="note">אין חובה חוקית חדשה</div>
+        </div>
+    </div>
+
+    <p>למרות שהסדנאות הספציפיות הופסקו חלקית בבאר שבע, <strong>המנגנון המאפשר את העקיפה לא השתנה</strong>. עמותת "דלת פתוחה" ממשיכה לפעול בערים אחרות, ואין רגולציה שמונעת חזרה על אותו תרחיש.</p>
+</div>
+
+</div>
+
+<!-- ══════ TAB 5: BROADER CONTEXT ══════ -->
+<div id="view-context" class="view">
+
+<div class="section">
+    <h2>הקשר רחב: מנגנון שיטתי</h2>
+    <p>מנגנון עקיפת הרווחה שנחשף בבאר שבע <strong>אינו ייחודי לעיר אחת</strong>. מדובר בדפוס שמאפשר לארגונים חיצוניים להיכנס לבתי ספר ברחבי הארץ תוך עקיפת מנגנוני פיקוח.</p>
+</div>
+
+<div class="section">
+    <h2>פריסת עמותת "דלת פתוחה"</h2>
+
+    <table>
+        <tr><th>עיר</th><th>צורת פעילות</th><th>מימון</th></tr>
+        <tr><td>באר שבע</td><td>"שבוע מיניות בריאה" — 8,100 תלמידים</td><td>אגף שירותים חברתיים</td></tr>
+        <tr><td>רמת השרון</td><td>חוזה ישיר דרך מרכז "קנגורו"</td><td>138,000 ש"ח</td></tr>
+        <tr><td>תל אביב</td><td>פעילות מתמשכת</td><td>עירוני</td></tr>
+        <tr><td>חיפה</td><td>פעילות מתמשכת</td><td>עירוני</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>הדפוס הכללי</h2>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">כניסה כ"ספק בריאות ציבור"</div>
+            <div class="step-desc">ארגונים נכנסים לבתי ספר תחת הגדרה של "בריאות" — תחום שאינו דורש אישור פדגוגי ממשרד החינוך. ההגדרה מאפשרת עקיפה מלאה של מנגנוני הפיקוח החינוכיים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">מימון עירוני דרך אגפי רווחה</div>
+            <div class="step-desc">המימון מגיע מתקציבים עירוניים של אגפי רווחה ושירותים חברתיים — לא מתקציב החינוך. זה מאפשר עקיפת מנגנוני אישור חינוכיים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">תכנים חינוכיים ללא פיקוח</div>
+            <div class="step-desc">התכנים שמועברים בפועל הם חינוכיים-ערכיים במהותם, אך מוגשים במעטה של "בריאות" או "רווחה" — ולכן לא עוברים ביקורת פדגוגית.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ספקים נוספים באותו מנגנון</h2>
+
+    <div class="person-card">
+        <div class="name">SafeSchool <span class="badge orange">ספק דיגיטלי</span></div>
+        <div class="role">פלטפורמה דיגיטלית לחינוך מיני בבתי ספר</div>
+        <div class="bio">
+            <p>SafeSchool היא פלטפורמה דיגיטלית שתכנים מהותיים מוסתרים מהורים <strong>מאחורי paywall</strong>. ההורים אינם יכולים לצפות בתכנים שילדיהם נחשפים אליהם מבלי לרכוש גישה.</p>
+            <p>דפוס זה מצטרף למנגנון חוסר השקיפות: גם כאשר ההורים מודעים לקיום התוכנית, הם אינם יכולים לבדוק את התכנים בפועל.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השאלה המרכזית</h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>הפער הרגולטורי</h3>
+            <p>מדוע ארגון שמעביר תכנים חינוכיים בבית ספר פטור מאישור פדגוגי, רק כי המימון שלו מגיע מאגף הרווחה ולא מאגף החינוך? הפער הזה מאפשר כל ארגון — עם כל אג'נדה — להיכנס לכיתה דרך ה"דלת האחורית" של הרווחה.</p>
+        </div>
+        <div>
+            <h3>הפער ביידוע ההורים</h3>
+            <p>מדוע הורים אינם מיודעים על תכנים שילדיהם נחשפים אליהם? האם זכות ההורים לדעת ולאשר תכנים ערכיים וחינוכיים אינה מובנית מאליה? המקרה של באר שבע מוכיח שלא.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ LINKS SECTION (always visible at bottom) ══════ -->
+<div class="section" style="margin-top: 30px;">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="funding_flows_municipal.html">
+        <div>
+            <div class="lc-title">זרימת מימון עירוני — מנגנוני הזנה</div>
+            <div class="lc-desc">כיצד כספי רווחה עירוניים מממנים תכנים חינוכיים ללא פיקוח פדגוגי</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="actual_cases_progressive.html">
+        <div>
+            <div class="lc-title">מקרים בפועל — תוכניות פרוגרסיביות בבתי ספר</div>
+            <div class="lc-desc">תיעוד מקרים נוספים של תכנים שהוכנסו למערכת החינוך</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — דף ראשי</div>
+            <div class="lc-desc">דירוג 18 ערים לפי חשיפה לתכנים פרוגרסיביים במערכת החינוך</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

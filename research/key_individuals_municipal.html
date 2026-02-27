@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יזמים מוסדיים — דמויות מפתח במדיניות חינוך עירונית</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f3e5f5; color: #7b1fa2; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* Expand section */
+.expand-section { margin: 10px 0; }
+.expand-btn {
+    background: #f0f4fa; border: 1px solid #d0d8ea; border-radius: 6px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit;
+    font-size: 0.88em; color: #2a5a8a; font-weight: 600;
+    transition: all 0.2s; width: 100%; text-align: right;
+}
+.expand-btn:hover { background: #e0e8f8; border-color: #667eea; }
+.expand-btn::before { content: "\25C0  "; font-size: 0.7em; }
+.expand-btn.open::before { content: "\25BC  "; }
+.expand-content {
+    display: none; padding: 14px 18px; margin-top: 6px;
+    background: #fafbfc; border-radius: 6px; border: 1px solid #e8e8e8;
+    font-size: 0.9em;
+}
+.expand-content.open { display: block; }
+
+/* Timeline */
+.timeline { position: relative; padding-right: 30px; margin: 20px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 10px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 3px;
+}
+.timeline-item {
+    position: relative; margin-bottom: 20px; padding-right: 30px;
+}
+.timeline-item::before {
+    content: ''; position: absolute; right: -26px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #fff; border: 3px solid #667eea;
+}
+.timeline-item.highlight::before { background: #ff8800; border-color: #ff8800; }
+.timeline-year {
+    font-weight: 800; color: #667eea; font-size: 1.1em; margin-bottom: 2px;
+}
+.timeline-item.highlight .timeline-year { color: #ff8800; }
+.timeline-event {
+    background: #f8f9fa; padding: 10px 14px; border-radius: 6px;
+    border: 1px solid #e8e8e8; font-size: 0.88em;
+}
+.timeline-event strong { color: #1a1a2e; }
+
+/* Network diagram */
+.network-diagram {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 16px; padding: 20px 0;
+}
+.network-row {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    width: 100%;
+}
+.network-node {
+    background: #fff; border: 2px solid #667eea; border-radius: 10px;
+    padding: 12px 18px; text-align: center; min-width: 140px;
+    max-width: 200px; font-size: 0.85em; transition: all 0.2s;
+    position: relative;
+}
+.network-node:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.network-node.org {
+    background: #667eea; color: #fff; border-color: #667eea;
+    font-weight: 700; min-width: 200px;
+}
+.network-node.person { border-color: #ff8800; }
+.network-node .node-name { font-weight: 700; margin-bottom: 2px; }
+.network-node .node-role { font-size: 0.78em; color: #666; }
+.network-node.org .node-role { color: #d4d8ff; }
+.network-connectors {
+    display: flex; justify-content: center; gap: 40px;
+    color: #667eea; font-size: 1.3em;
+    width: 100%; position: relative;
+}
+.connector-line {
+    width: 2px; height: 30px; background: #667eea; margin: 0 auto;
+}
+.connector-group {
+    display: flex; flex-direction: column; align-items: center;
+}
+.connector-h {
+    height: 2px; background: #667eea; width: 100%;
+    max-width: 600px; margin: 0 auto;
+}
+.connector-branches {
+    display: flex; justify-content: space-around; width: 100%;
+    max-width: 700px;
+}
+.connector-branch {
+    width: 2px; height: 20px; background: #667eea;
+}
+
+footer {
+    text-align: center; padding: 20px; font-size: 0.8em; color: #999;
+    border-top: 1px solid #eee; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        יזמים מוסדיים
+        <a href="../index.html">דירוג ערים</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showTab('profiles')">פרופילים</button>
+        <button class="nav-tab" onclick="showTab('networks')">רשתות</button>
+        <button class="nav-tab" onclick="showTab('timeline')">ציר זמן</button>
+        <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>יזמים מוסדיים — דמויות מפתח במדיניות חינוך עירונית</h1>
+    <div class="subtitle">מיפוי אנשים ורשתות המעצבים את החינוך המוניציפלי בישראל 2018--2025</div>
+    <div class="meta">מחקר Gemini Deep Research | פברואר 2026</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">6</div><div class="lbl">דמויות מפתח</div></div>
+        <div class="stat"><div class="num">8+</div><div class="lbl">ערים מושפעות</div></div>
+        <div class="stat"><div class="num">2</div><div class="lbl">ארגוני גג מזוהים</div></div>
+        <div class="stat"><div class="num">2018--2025</div><div class="lbl">טווח פעילות</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>תקציר מנהלים</h2>
+    <p>מסמך זה ממפה את הדמויות המרכזיות הפועלות ברמה המוניציפלית בישראל לקידום מדיניות חינוך פרוגרסיבית. הממצאים חושפים רשת של חברי מועצה, ראשי ערים ופעילים המנצלים את <strong>הביזור החינוכי</strong> כדי להטמיע תוכניות חיצוניות של ארגוני חברה אזרחית (NGOs) בבתי ספר ממלכתיים.</p>
+    <p>המחקר מזהה 6 דמויות מפתח ב-8 ערים ומעלה, עם שני ארגוני גג מרכזיים המתאמים את הפעילות הבין-עירונית.</p>
+
+    <div class="quote-box">
+        "ביזור חינוכי" = ניצול הכוח התקציבי והניהולי של הרשות המקומית כדי לעקוף הנחיות משרד החינוך ולהכניס תוכניות חיצוניות של NGOs
+        <div class="q-source">הגדרת עבודה -- מחקר זה</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ערים מושפעות</h2>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">מרכז השרון</div>
+            <div class="value">3</div>
+            <div class="note">רעננה, כפר סבא, הרצליה</div>
+        </div>
+        <div class="metric">
+            <div class="label">גוש דן</div>
+            <div class="value">3</div>
+            <div class="note">גבעתיים, תל אביב, רמת גן</div>
+        </div>
+        <div class="metric">
+            <div class="label">צפון</div>
+            <div class="value">2+</div>
+            <div class="note">חיפה, רמת השרון</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>דפוסי פעולה מזוהים</h2>
+    <table>
+        <tr><th>דפוס</th><th>תיאור</th><th>דוגמאות</th></tr>
+        <tr>
+            <td><strong>החלטות מועצה</strong></td>
+            <td>שימוש בסמכות המועצה לאשר תוכניות חינוך ספציפיות</td>
+            <td>מאיר (רעננה), קפלן (גבעתיים)</td>
+        </tr>
+        <tr>
+            <td><strong>הקצאות תקציב</strong></td>
+            <td>תקצוב ישיר של תוכניות NGO דרך תקציב הרשות</td>
+            <td>פדלון (הרצליה) -- שפ"ח, SEL</td>
+        </tr>
+        <tr>
+            <td><strong>שיתופי פעולה עם עמותות</strong></td>
+            <td>הכנסת ארגונים חיצוניים לבתי ספר עירוניים</td>
+            <td>קליש-רותם (חיפה) -- יד ביד</td>
+        </tr>
+        <tr>
+            <td><strong>תיאום בין-עירוני</strong></td>
+            <td>פורומים משותפים לגיבוש מדיניות אחידה</td>
+            <td>תל"מ, ארגון המגדלור</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ PROFILES TAB ═══ -->
+<div id="view-profiles" class="view">
+
+<div class="section">
+    <h2>פרופילים -- דמויות מפתח</h2>
+    <p>להלן 6 הדמויות המרכזיות שזוהו במחקר, עם פירוט תפקיד, פעולות ורשתות קשר.</p>
+</div>
+
+<!-- Person 1: Merav Meir -->
+<div class="section">
+    <div class="person-card">
+        <div class="name">מירב מאיר <span class="badge red">מרצ</span> <span class="badge blue">רעננה</span></div>
+        <div class="role">חברת מועצת העיר רעננה | יו"ר ועדה לקידום מעמד האישה</div>
+        <div class="bio">
+            <p>חברת מועצה מטעם מפלגת מרצ ברעננה. מקדמת שוויון מגדרי ומניעת הדרת נשים במערכת החינוך המקומית.</p>
+        </div>
+    </div>
+    <div class="expand-section">
+        <button class="expand-btn" onclick="toggleExpand(this)">פעולות ורשתות קשר</button>
+        <div class="expand-content">
+            <h3>פעולות מרכזיות</h3>
+            <ul>
+                <li>הובלת החלטות מועצה בנושא מניעת הדרת נשים במרחב הציבורי ובמערכת החינוך</li>
+                <li>קידום שוויון מגדרי בבתי ספר ממלכתיים ברעננה</li>
+                <li>יו"ר ועדה לקידום מעמד האישה -- מינוף הסמכות הוועדתית להטמעת תוכניות</li>
+            </ul>
+            <h3>רשתות קשר</h3>
+            <ul>
+                <li>ארגוני נשים ופורומים ליברליים</li>
+                <li>מפלגת מרצ -- רשת תמיכה פוליטית</li>
+                <li>זיקה עקיפה לפורום ערים ליברליות (תל"מ)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Person 2: Ronen Kaplan -->
+<div class="section">
+    <div class="person-card">
+        <div class="name">רונן קפלן <span class="badge blue">גבעתיים</span> <span class="badge purple">ליברלי</span></div>
+        <div class="role">חבר מועצת העיר גבעתיים | בלוק ליברלי</div>
+        <div class="bio">
+            <p>"שומר סף" נגד הדתה בחינוך ממלכתי. מקדם תוכניות חינוך ליברלי וזכויות להט"ב בבתי ספר ממלכתיים.</p>
+        </div>
+    </div>
+    <div class="expand-section">
+        <button class="expand-btn" onclick="toggleExpand(this)">פעולות ורשתות קשר</button>
+        <div class="expand-content">
+            <h3>פעולות מרכזיות</h3>
+            <ul>
+                <li>קידום תוכניות חינוך ליברלי בבתי ספר ממלכתיים בגבעתיים</li>
+                <li>מאבק נגד "הדתה" במערכת החינוך</li>
+                <li>קידום תוכניות זכויות להט"ב בבתי ספר</li>
+            </ul>
+            <h3>רשתות קשר</h3>
+            <ul>
+                <li><strong>ישראל חופשית</strong> -- ארגון לקידום חילוניות</li>
+                <li><strong>פורום ערים ליברליות (תל"מ)</strong> -- חבר פעיל</li>
+                <li>בלוק ליברלי בגבעתיים -- רשת פוליטית מקומית</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Person 3: Moshe Padlon -->
+<div class="section">
+    <div class="person-card">
+        <div class="name">משה פדלון <span class="badge orange">ראש עיר</span> <span class="badge blue">הרצליה</span></div>
+        <div class="role">ראש עיריית הרצליה 2013--2024</div>
+        <div class="bio">
+            <p>הפך את הרצליה למוקד "חינוך לערכים" (SEL). כיהן כראש עיר במשך למעלה מעשור ומינף את הסמכות העירונית לקידום תוכניות חינוך פרוגרסיביות.</p>
+        </div>
+    </div>
+    <div class="expand-section">
+        <button class="expand-btn" onclick="toggleExpand(this)">פעולות ורשתות קשר</button>
+        <div class="expand-content">
+            <h3>פעולות מרכזיות</h3>
+            <ul>
+                <li>אירוח פורום ראשי רשויות ליברליים (מאי 2025)</li>
+                <li>הקצאת דיור בר-השגה לצוותי הוראה (2024) -- תמריץ כלכלי לגיוס מורים בעלי תפיסה מתאימה</li>
+                <li>תקצוב מסיבי של שפ"ח (שירות פסיכולוגי-חינוכי) לחוסן רגשי</li>
+                <li>הטמעת תוכניות SEL (למידה חברתית-רגשית) ברחבי מערכת החינוך ההרצלאית</li>
+            </ul>
+            <h3>רשתות קשר</h3>
+            <ul>
+                <li><strong>ארגון ניצן</strong> -- שיתוף פעולה בתוכניות חינוך</li>
+                <li><strong>קרנות לדמוקרטיה</strong> -- מקורות מימון</li>
+                <li><strong>פורום ערים ליברליות (תל"מ)</strong> -- מארח ויוזם</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Person 4: Naama Lazimi -->
+<div class="section">
+    <div class="person-card">
+        <div class="name">נעמה לזימי <span class="badge red">כנסת</span> <span class="badge blue">חיפה</span></div>
+        <div class="role">חברת כנסת (הדמוקרטים / מפלגת העבודה) | לשעבר חברת מועצת חיפה</div>
+        <div class="bio">
+            <p>עלתה מהרמה המוניציפלית לרמה הלאומית. לשעבר חברת מועצת חיפה ברשימת "חיים בחיפה", כיום חברת כנסת מטעם מפלגת העבודה (הדמוקרטים).</p>
+        </div>
+    </div>
+    <div class="expand-section">
+        <button class="expand-btn" onclick="toggleExpand(this)">פעולות ורשתות קשר</button>
+        <div class="expand-content">
+            <h3>פעולות מרכזיות</h3>
+            <ul>
+                <li>יו"ר דירקטוריון מוזיאוני חיפה -- מינוף מוסדות תרבות ככלי חינוכי</li>
+                <li>קידום מדיניות חינוך פרוגרסיבית ברמת המועצה בחיפה</li>
+                <li>מעבר לכנסת -- העברת הניסיון המוניציפלי לרמה הלאומית</li>
+            </ul>
+            <h3>רשתות קשר</h3>
+            <ul>
+                <li><strong>NIF</strong> (הקרן החדשה לישראל) -- קשרי מימון</li>
+                <li><strong>כוח לעובדים</strong> -- ארגון עובדים</li>
+                <li><strong>ארגוני להט"ב</strong> -- שותפויות חברה אזרחית</li>
+                <li><strong>"חיים בחיפה"</strong> -- רשימה מוניציפלית</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Person 5: Einat Kalish-Rotem -->
+<div class="section">
+    <div class="person-card">
+        <div class="name">עינת קליש-רותם <span class="badge orange">ראש עיר</span> <span class="badge blue">חיפה</span></div>
+        <div class="role">ראש עיריית חיפה 2018--2024</div>
+        <div class="bio">
+            <p>שימשה ראש עיריית חיפה במשך כהונה מלאה. מינפה את הסמכות הביצועית של ראש העיר לקידום חינוך דו-לשוני ופלורליסטי.</p>
+        </div>
+    </div>
+    <div class="expand-section">
+        <button class="expand-btn" onclick="toggleExpand(this)">פעולות ורשתות קשר</button>
+        <div class="expand-content">
+            <h3>פעולות מרכזיות</h3>
+            <ul>
+                <li>הקמת בית ספר דו-לשוני "יד ביד" במבנה קבע (2024) -- הפיכת פרויקט ניסיוני למוסד קבוע</li>
+                <li>שיתוף פעולה הדוק עם עמותת יד ביד</li>
+                <li>עימותים מול ועדי הורים ומשרד החינוך שהתנגדו לצעדים</li>
+            </ul>
+            <h3>מתחים</h3>
+            <ul>
+                <li>התנגדות ועדי הורים לתוכניות דו-לשוניות</li>
+                <li>חיכוך עם משרד החינוך על סמכויות</li>
+                <li>ביקורת ציבורית על מינוף תקציבי עירוני לפרויקטים אידיאולוגיים</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Person 6: Adi Levi Skop -->
+<div class="section">
+    <div class="person-card">
+        <div class="name">עדי לוי סקופ <span class="badge blue">כפר סבא</span></div>
+        <div class="role">חברת מועצת העיר כפר סבא</div>
+        <div class="bio">
+            <p>מקדמת חינוך מגדרי וזכויות נשים בכפר סבא. פעילה בהטמעת תוכניות חיצוניות בבתי ספר ממלכתיים.</p>
+        </div>
+    </div>
+    <div class="expand-section">
+        <button class="expand-btn" onclick="toggleExpand(this)">פעולות ורשתות קשר</button>
+        <div class="expand-content">
+            <h3>פעולות מרכזיות</h3>
+            <ul>
+                <li>הטמעת תוכניות חוש"ן (חינוך, שוויון, נשיות) בבתי ספר בכפר סבא</li>
+                <li>הכנסת ארגוני מגדר לפעילות חינוכית בבתי ספר ממלכתיים</li>
+                <li>קידום חינוך מגדרי כחלק ממדיניות עירונית</li>
+            </ul>
+            <h3>רשתות קשר</h3>
+            <ul>
+                <li>ארגוני מגדר ונשים</li>
+                <li>תוכניות חוש"ן</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>טבלת השוואה</h2>
+    <table>
+        <tr>
+            <th>שם</th>
+            <th>עיר</th>
+            <th>תפקיד</th>
+            <th>תחום מרכזי</th>
+            <th>ארגוני גג</th>
+        </tr>
+        <tr>
+            <td>מירב מאיר</td>
+            <td>רעננה</td>
+            <td>חברת מועצה</td>
+            <td>שוויון מגדרי, מניעת הדרה</td>
+            <td>ארגוני נשים</td>
+        </tr>
+        <tr>
+            <td>רונן קפלן</td>
+            <td>גבעתיים</td>
+            <td>חבר מועצה</td>
+            <td>חינוך ליברלי, זכויות להט"ב</td>
+            <td>ישראל חופשית, תל"מ</td>
+        </tr>
+        <tr>
+            <td>משה פדלון</td>
+            <td>הרצליה</td>
+            <td>ראש עיר</td>
+            <td>SEL, חוסן רגשי, שפ"ח</td>
+            <td>ניצן, תל"מ</td>
+        </tr>
+        <tr>
+            <td>נעמה לזימי</td>
+            <td>חיפה</td>
+            <td>ח"כ (לשעבר מועצה)</td>
+            <td>תרבות כחינוך, להט"ב</td>
+            <td>NIF, כוח לעובדים</td>
+        </tr>
+        <tr>
+            <td>עינת קליש-רותם</td>
+            <td>חיפה</td>
+            <td>ראש עיר</td>
+            <td>חינוך דו-לשוני</td>
+            <td>יד ביד</td>
+        </tr>
+        <tr>
+            <td>עדי לוי סקופ</td>
+            <td>כפר סבא</td>
+            <td>חברת מועצה</td>
+            <td>חינוך מגדרי</td>
+            <td>ארגוני מגדר</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ NETWORKS TAB ═══ -->
+<div id="view-networks" class="view">
+
+<div class="section">
+    <h2>ארגוני גג -- צמתי רשת</h2>
+    <p>שני ארגונים מרכזיים מתפקדים כצמתי תיאום בין הפעילים המוניציפליים השונים:</p>
+
+    <div class="person-card" style="border-right: 4px solid #667eea;">
+        <div class="name">פורום ערים ליברליות (תל"מ)</div>
+        <div class="role">תיאום ליברלי מוניציפלי</div>
+        <div class="bio">
+            <p>מאגד נציגים מתל אביב, הרצליה, רמת גן, גבעתיים וערים נוספות. מטרה מוצהרת: קידום חינוך ממלכתי ליברלי עם בקרה הדוקה על תכנים.</p>
+            <p><strong>דמויות מקושרות:</strong> רונן קפלן (גבעתיים), משה פדלון (הרצליה)</p>
+            <p><strong>ערים חברות:</strong> תל אביב, הרצליה, רמת גן, גבעתיים</p>
+        </div>
+    </div>
+
+    <div class="person-card" style="border-right: 4px solid #667eea;">
+        <div class="name">ארגון המגדלור</div>
+        <div class="role">רשת מנהיגות חינוכית</div>
+        <div class="bio">
+            <p>רשת מנהיגות חינוכית הפועלת בתוך רשויות מקומיות לחיזוק דמוקרטיה ליברלית. פועלת בשיתוף ראשי אגפי חינוך.</p>
+            <p><strong>ערים מעורבות:</strong> רמת השרון, תל אביב</p>
+            <p><strong>אופן פעולה:</strong> עבודה עם ראשי אגפי חינוך ברשויות, הכשרת מנהיגות חינוכית פרוגרסיבית</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תרשים רשת -- קשרים בין דמויות וארגונים</h2>
+    <p>התרשים הבא מציג את הקשרים בין הדמויות המרכזיות, הארגונים והערים:</p>
+
+    <div class="network-diagram">
+        <!-- Top: Umbrella organizations -->
+        <div class="network-row">
+            <div class="network-node org">
+                <div class="node-name">פורום ערים ליברליות (תל"מ)</div>
+                <div class="node-role">תיאום בין-עירוני</div>
+            </div>
+            <div class="network-node org">
+                <div class="node-name">ארגון המגדלור</div>
+                <div class="node-role">מנהיגות חינוכית</div>
+            </div>
+        </div>
+
+        <!-- Connectors -->
+        <div style="display:flex; justify-content:center; gap:0; width:100%; max-width:700px;">
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+                <div class="connector-line"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+                <div class="connector-line"></div>
+            </div>
+        </div>
+
+        <div class="connector-h" style="max-width:700px;"></div>
+
+        <div class="connector-branches" style="max-width:700px;">
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+        </div>
+
+        <!-- Middle: People -->
+        <div class="network-row">
+            <div class="network-node person">
+                <div class="node-name">מירב מאיר</div>
+                <div class="node-role">רעננה</div>
+            </div>
+            <div class="network-node person">
+                <div class="node-name">רונן קפלן</div>
+                <div class="node-role">גבעתיים</div>
+            </div>
+            <div class="network-node person">
+                <div class="node-name">משה פדלון</div>
+                <div class="node-role">הרצליה</div>
+            </div>
+            <div class="network-node person">
+                <div class="node-name">נעמה לזימי</div>
+                <div class="node-role">חיפה</div>
+            </div>
+            <div class="network-node person">
+                <div class="node-name">עינת קליש-רותם</div>
+                <div class="node-role">חיפה</div>
+            </div>
+            <div class="network-node person">
+                <div class="node-name">עדי לוי סקופ</div>
+                <div class="node-role">כפר סבא</div>
+            </div>
+        </div>
+
+        <!-- Connectors to external orgs -->
+        <div class="connector-branches" style="max-width:700px;">
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+            <div class="connector-branch"></div>
+        </div>
+
+        <div class="connector-h" style="max-width:700px;"></div>
+
+        <div style="display:flex; justify-content:center; gap:0; width:100%; max-width:700px;">
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+                <div class="connector-line"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+                <div class="connector-line"></div>
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center;">
+                <div class="connector-line"></div>
+            </div>
+        </div>
+
+        <!-- Bottom: External organizations -->
+        <div class="network-row">
+            <div class="network-node" style="border-color:#e74c3c;">
+                <div class="node-name">NIF / קרנות</div>
+                <div class="node-role">מימון</div>
+            </div>
+            <div class="network-node" style="border-color:#e74c3c;">
+                <div class="node-name">ישראל חופשית</div>
+                <div class="node-role">אג'נדה חילונית</div>
+            </div>
+            <div class="network-node" style="border-color:#e74c3c;">
+                <div class="node-name">עמותת יד ביד</div>
+                <div class="node-role">חינוך דו-לשוני</div>
+            </div>
+            <div class="network-node" style="border-color:#e74c3c;">
+                <div class="node-name">ארגוני מגדר</div>
+                <div class="node-role">תוכניות חוש"ן</div>
+            </div>
+            <div class="network-node" style="border-color:#e74c3c;">
+                <div class="node-name">ניצן</div>
+                <div class="node-role">תוכניות חינוך</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מפת קשרים -- טבלה</h2>
+    <table>
+        <tr>
+            <th>דמות</th>
+            <th>ארגוני גג</th>
+            <th>ארגונים חיצוניים</th>
+            <th>עיר</th>
+        </tr>
+        <tr>
+            <td>מירב מאיר</td>
+            <td>--</td>
+            <td>ארגוני נשים, פורומים ליברליים</td>
+            <td>רעננה</td>
+        </tr>
+        <tr>
+            <td>רונן קפלן</td>
+            <td>תל"מ</td>
+            <td>ישראל חופשית</td>
+            <td>גבעתיים</td>
+        </tr>
+        <tr>
+            <td>משה פדלון</td>
+            <td>תל"מ</td>
+            <td>ניצן, קרנות לדמוקרטיה</td>
+            <td>הרצליה</td>
+        </tr>
+        <tr>
+            <td>נעמה לזימי</td>
+            <td>--</td>
+            <td>NIF, כוח לעובדים, ארגוני להט"ב</td>
+            <td>חיפה</td>
+        </tr>
+        <tr>
+            <td>עינת קליש-רותם</td>
+            <td>--</td>
+            <td>יד ביד</td>
+            <td>חיפה</td>
+        </tr>
+        <tr>
+            <td>עדי לוי סקופ</td>
+            <td>--</td>
+            <td>ארגוני מגדר, תוכניות חוש"ן</td>
+            <td>כפר סבא</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ TIMELINE TAB ═══ -->
+<div id="view-timeline" class="view">
+
+<div class="section">
+    <h2>ציר זמן -- אירועי מפתח 2018--2025</h2>
+    <p>ציר זמן כרונולוגי של הפעולות המרכזיות שביצעו הדמויות המזוהות ברמה המוניציפלית:</p>
+
+    <div class="timeline">
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-event">
+                <strong>עינת קליש-רותם נבחרת לראש עיריית חיפה</strong><br>
+                תחילת כהונתה מסמנת שינוי כיוון במדיניות החינוך העירונית בחיפה. מתחילה לקדם שיתוף פעולה עם עמותת יד ביד.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2019</div>
+            <div class="timeline-event">
+                <strong>הרחבת תוכניות SEL בהרצליה</strong><br>
+                משה פדלון מגביר את תקצוב שפ"ח לתוכניות חוסן רגשי ולמידה חברתית-רגשית בבתי הספר ההרצלאיים.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-event">
+                <strong>פעילות רונן קפלן נגד "הדתה" בגבעתיים</strong><br>
+                קפלן מוביל מאבק ציבורי ומוניציפלי נגד תוכניות שהוגדרו כ"הדתה" בבתי ספר ממלכתיים בגבעתיים. קשר מתהדק עם "ישראל חופשית".
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-event">
+                <strong>הטמעת תוכניות מגדר בכפר סבא</strong><br>
+                עדי לוי סקופ מקדמת הכנסת תוכניות חוש"ן וארגוני מגדר לבתי ספר ממלכתיים בכפר סבא.
+            </div>
+        </div>
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-event">
+                <strong>נקודת מפנה -- דצמבר 2022</strong><br>
+                גל החלטות מועצה בערים מרובות. מירב מאיר מובילה החלטות בנושא מניעת הדרת נשים ברעננה. תיאום בין-עירוני מתעצם.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2023</div>
+            <div class="timeline-event">
+                <strong>נעמה לזימי נבחרת לכנסת</strong><br>
+                המעבר מחברת מועצת חיפה לחברת כנסת מטעם מפלגת העבודה (הדמוקרטים). ניסיון מוניציפלי מתורגם לרמה הלאומית.
+            </div>
+        </div>
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-event">
+                <strong>שנת שיא -- שלוש פעולות מכוננות</strong><br>
+                <ul style="margin-top:6px; margin-right:18px; font-size:0.95em;">
+                    <li>קליש-רותם: הקמת בית ספר דו-לשוני "יד ביד" במבנה קבע בחיפה</li>
+                    <li>פדלון: הקצאת דיור בר-השגה לצוותי הוראה בהרצליה</li>
+                    <li>סיום כהונות: קליש-רותם וקפלן מסיימים תפקידים רשמיים</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item highlight">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-event">
+                <strong>פורום ראשי רשויות ליברליים</strong><br>
+                משה פדלון מארח פורום ראשי רשויות ליברליים (מאי 2025). מוסדון תיאום בין-עירוני לקידום מדיניות חינוך אחידה.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניתוח ציר הזמן</h2>
+    <div class="grid-2">
+        <div>
+            <h3>דפוס 1: הסלמה הדרגתית</h3>
+            <p>הפעילות מתחילה ברמה נמוכה (החלטות מועצה בודדות) ומתרחבת הדרגתית לתיאום בין-עירוני ואף למעבר לרמה הלאומית (לזימי).</p>
+        </div>
+        <div>
+            <h3>דפוס 2: נקודות מפנה</h3>
+            <p>שנת 2022 מסומנת כנקודת מפנה עם גל החלטות מתואמות. שנת 2024 מסמנת "שנת שיא" של הטמעה מוסדית.</p>
+        </div>
+    </div>
+    <div class="grid-2">
+        <div>
+            <h3>דפוס 3: מיסוד</h3>
+            <p>מעבר מפעילות אד-הוק (החלטות מועצה) לפעולות מוסדיות קבועות: בניית מבנים קבועים, הקצאת דיור, הקמת פורומים.</p>
+        </div>
+        <div>
+            <h3>דפוס 4: סיבוב דלתות</h3>
+            <p>נעמה לזימי עוברת מרשות מקומית לכנסת. דפוס "סיבוב הדלתות" בין הרמה המוניציפלית, הפרלמנטרית וארגוני החברה האזרחית.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי -- דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">23 החלטות מועצה אמיתיות ב-5 ערים, דצמבר 2022 כנקודת מפנה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="critical_pedagogy_center.html">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית -- סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: מהאקדמיה לכיתה. קתדרת UNESCO, הכשרת מורים כסוכני שינוי</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים -- מפת השפעה ארצית</div>
+            <div class="lc-desc">דירוג ערים לפי חשיפה למדיניות חינוך פרוגרסיבית</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>פרופילים פרטניים</h2>
+
+    <a class="link-card" href="proposer_meir.html">
+        <div>
+            <div class="lc-title">מירב מאיר -- פרופיל מלא</div>
+            <div class="lc-desc">חברת מועצת רעננה, מרצ. שוויון מגדרי ומניעת הדרה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="proposer_kaplan.html">
+        <div>
+            <div class="lc-title">רונן קפלן -- פרופיל מלא</div>
+            <div class="lc-desc">חבר מועצת גבעתיים, בלוק ליברלי. נגד הדתה, זכויות להט"ב</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="proposer_padlon.html">
+        <div>
+            <div class="lc-title">משה פדלון -- פרופיל מלא</div>
+            <div class="lc-desc">ראש עיריית הרצליה. SEL, חוסן רגשי, פורום ראשי רשויות</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="proposer_lazimi.html">
+        <div>
+            <div class="lc-title">נעמה לזימי -- פרופיל מלא</div>
+            <div class="lc-desc">חברת כנסת, לשעבר מועצת חיפה. NIF, תרבות כחינוך</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר Gemini Deep Research | פברואר 2026
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+function toggleExpand(btn) {
+    var content = btn.nextElementSibling;
+    btn.classList.toggle('open');
+    content.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

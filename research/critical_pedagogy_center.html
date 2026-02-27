@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המרכז לפדגוגיה ביקורתית — סמינר הקיבוצים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        המרכז לפדגוגיה ביקורתית
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה כללית</button>
+        <button class="nav-tab" onclick="showView('people')">דמויות מפתח</button>
+        <button class="nav-tab" onclick="showView('pipeline')">צינור ההשפעה</button>
+        <button class="nav-tab" onclick="showView('evidence')">עדויות וציטוטים</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>המרכז לפדגוגיה ביקורתית</h1>
+    <div class="subtitle">סמינר הקיבוצים — מכללת לוינסקי-וינגייט</div>
+    <div class="meta">מיפוי מוסדי: מהאקדמיה לכיתה</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">1</div><div class="lbl">קתדרת UNESCO</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">דמויות מפתח</div></div>
+        <div class="stat"><div class="num">~1,400</div><div class="lbl">אקדמאים בבתי ספר</div></div>
+        <div class="stat"><div class="num">6</div><div class="lbl">מדינות שחזרו בהן</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>מהו המרכז לפדגוגיה ביקורתית?</h2>
+    <p>המרכז לפדגוגיה ביקורתית בסמינר הקיבוצים (כיום מכללת לוינסקי-וינגייט) הוא הגוף המרכזי בישראל להכשרת מורים בגישה של "פדגוגיה ביקורתית" — גישה חינוכית המבוססת על משנתו של פאולו פריירה, הנרי ז'ירו ותאוריה ביקורתית מרקסיסטית.</p>
+    <p>המרכז משלב בתוכו את <strong>קתדרת UNESCO לחינוך הומניסטי</strong>, בראשות פרופ' נמרוד אלוני, ומהווה צומת מרכזי בצינור ההשפעה: מהאקדמיה הבינלאומית → דרך הכשרת מורים → אל הכיתה.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">הגדרת המורה</div>
+            <div class="value">סוכן שינוי</div>
+            <div class="note">לא מעביר ידע — משנה ערכים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">המסגרת</div>
+            <div class="value">מדכא/מדוכא</div>
+            <div class="note">עדשת כוח על כל מצב חינוכי</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">אסטרטגיה</div>
+            <div class="value">חינוך חותר</div>
+            <div class="note">"מתחת לרדאר" — ניר מיכאלי</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הטענה המרכזית</h2>
+    <p>המרכז לפדגוגיה ביקורתית אינו מוסד אקדמי ניטרלי. הוא מכשיר מורים לראות בחינוך <strong>כלי לשינוי פוליטי</strong> ולחלוקה מחדש של כוח ("צדק חלוקתי"), תוך שימוש בשפה פדגוגית לגיטימית כמסווה.</p>
+
+    <div class="quote-box">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+        <div class="q-source">ד"ר ניר מיכאלי, לשעבר רקטור סמינר הקיבוצים ומזכיר המזכירות הפדגוגית — סרטון מכנס חינוך</div>
+    </div>
+
+    <p>ציטוט זה מגלם את הבעיה: לא מדובר בחופש אקדמי, אלא באסטרטגיה מכוונת של הכנסת תכנים רדיקליים למערכת החינוך תוך הסתרתם מההורים.</p>
+</div>
+
+<div class="section">
+    <h2>למה זה חשוב?</h2>
+    <div class="grid-2">
+        <div>
+            <h3>מה הם אומרים</h3>
+            <p>חינוך לחשיבה ביקורתית, דמוקרטיה, שוויון, קיימות, סובלנות, חוסן רגשי, למידה חברתית-רגשית (SEL).</p>
+        </div>
+        <div>
+            <h3>מה הם עושים</h3>
+            <p>הכשרת מורים כ"סוכני שינוי" שתפקידם לעורר בתלמידים תודעה של "מדכא מול מדוכא", לערער מבנים חברתיים קיימים, ולהחדיר תפיסות פוסט-מודרניות על מגדר, לאומיות ומשפחה.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ PEOPLE TAB ═══ -->
+<div id="view-people" class="view">
+
+<div class="section">
+    <h2>דמויות מפתח</h2>
+
+    <div class="person-card">
+        <div class="name">פרופ' נמרוד אלוני <span class="badge blue">קתדרת UNESCO</span></div>
+        <div class="role">ראש המרכז לפדגוגיה ביקורתית וקתדרת UNESCO לחינוך הומניסטי, סמינר הקיבוצים</div>
+        <div class="bio">
+            <p>אלוני הוא הדמות המרכזית המקשרת בין UNESCO הבינלאומית לבין מערכת הכשרת המורים בישראל. קתדרת UNESCO שלו מעניקה לגיטימציה בינלאומית לפעילות המרכז.</p>
+            <p><strong>משמעות:</strong> UNESCO עצמה מצטטת במפורש את מרקוזה ("האדם החד-ממדי") כ"עסקים לא גמורים" (2022). הקתדרה מהווה את הצומת שבה האידיאולוגיה הבינלאומית מתורגמת למדיניות חינוך ישראלית.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">ד"ר ניר מיכאלי <span class="badge red">ציטוט מפליל</span></div>
+        <div class="role">לשעבר רקטור סמינר הקיבוצים, מזכיר המזכירות הפדגוגית, קרן מנדל</div>
+        <div class="bio">
+            <p>מיכאלי הוא הדמות המבצעית: מי שתרגם את התאוריה הביקורתית לאסטרטגיה מעשית של "חינוך חותר" בתוך מערכת החינוך הממלכתית.</p>
+            <p><strong>ציטוט מרכזי:</strong> "מהפכה קומוניסטית בכיתה מתחת לרדאר, בלי שההורים ישימו לב."</p>
+            <p><strong>אסטרטגיה:</strong> מדבר על היכולת של המורה לפעול כסוכן פוליטי תוך שימוש בשפה פדגוגית לגיטימית כדי להחדיר ערכים רדיקליים.</p>
+        </div>
+    </div>
+
+    <div class="person-card">
+        <div class="name">גלית זלמנסון-לוי <span class="badge orange">אקטיביזם</span></div>
+        <div class="role">אקדמאית ואקטיביסטית, חוקרת פדגוגיה ביקורתית</div>
+        <div class="bio">
+            <p>זלמנסון-לוי מייצגת את הקשר בין האקדמיה לאקטיביזם. ציטוט מפתח שלה:</p>
+            <div class="quote-box">
+                "יש עבודה במישור הגלוי ועבודה במישור הסמוי. עבודה חתרנית."
+                <div class="q-source">גלית זלמנסון-לוי — מתוך סרטון שנחשף</div>
+            </div>
+            <p>ציטוט זה מאשר את מודל ה"חדירה הכפולה": פנים לגיטימיות כלפי חוץ, אג'נדה רדיקלית כלפי פנים.</p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- ═══ PIPELINE TAB ═══ -->
+<div id="view-pipeline" class="view">
+
+<div class="section">
+    <h2>צינור ההשפעה: מ-UNESCO לכיתה</h2>
+    <p>המרכז לפדגוגיה ביקורתית אינו פועל בבידוד. הוא חוליה מרכזית בצינור מוסדי שמתחיל ברמה הבינלאומית ומסתיים בכיתת הלימוד.</p>
+
+    <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">UNESCO / CASEL (רמה בינלאומית)</div>
+            <div class="step-desc">מסגרות בינלאומיות ל"למידה חברתית-רגשית" (SEL), "חינוך לפיתוח בר-קיימא" (SDGs), "חינוך הומניסטי". UNESCO מצטטת במפורש את מרקוזה (2022).</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">קתדרת UNESCO בסמינר הקיבוצים (פרופ' אלוני)</div>
+            <div class="step-desc">מתרגמת את המסגרות הבינלאומיות לשפה ישראלית. מעניקה לגיטימציה אקדמית ובינלאומית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">המרכז לפדגוגיה ביקורתית</div>
+            <div class="step-desc">מפתח תוכניות הכשרה למורים. מכשיר "סוכני שינוי" שיחדירו את הגישה הביקורתית לכיתה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">הכשרת מורים (מכללות)</div>
+            <div class="step-desc">סמינר הקיבוצים, בית ברל, אורנים — מכללות להכשרת מורים שבהן הפדגוגיה הביקורתית מוטמעת בתוכנית הלימודים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">מכון מופ"ת / שפ"י / משרד החינוך</div>
+            <div class="step-desc">הפיתוח המקצועי של מורים (מכון מופ"ת) והשירות הפסיכולוגי-ייעוצי (שפ"י) כצינורות נוספים להטמעת התכנים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+            <div class="step-title">בית הספר — הכיתה</div>
+            <div class="step-desc">המורה ה"מוכשר" מפעיל את הגישה הביקורתית בכיתה. ההורים לא מודעים לתכנים כי הם מוצגים כ"חשיבה ביקורתית" או "חוסן רגשי".</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>המרה טרמינולוגית: כיצד שפה רדיקלית הופכת לגיטימית</h2>
+    <p>ממחקר השוואתי של מסמכי קטקו-עיאלי (2020 לעומת 2024), אותה מתודולוגיה מוצגת בשפה שונה לחלוטין:</p>
+    <table>
+        <tr><th>המונח הרדיקלי (מקורי)</th><th>המונח ה"ניטרלי" (אחרי שטיפה)</th></tr>
+        <tr><td>פדגוגיה רדיקלית</td><td>חשיבה ביקורתית</td></tr>
+        <tr><td>פדגוגיה ביקורתית</td><td>אזרחות פעילה</td></tr>
+        <tr><td>סוכן שינוי</td><td>מורה רפלקטיבי</td></tr>
+        <tr><td>מדכא/מדוכא (פריירה)</td><td>צדק חברתי</td></tr>
+        <tr><td>הנדסת תודעה</td><td>למידה חברתית-רגשית (SEL)</td></tr>
+        <tr><td>חינוך חותר</td><td>חינוך ערכי</td></tr>
+        <tr><td>עבודה חתרנית</td><td>העצמה</td></tr>
+    </table>
+    <p><strong>מקור:</strong> ניתוח השוואתי — פרויקט אבן רוזטה הפרוגרסיבית</p>
+</div>
+
+</div>
+
+<!-- ═══ EVIDENCE TAB ═══ -->
+<div id="view-evidence" class="view">
+
+<div class="section">
+    <h2>עדויות ישירות</h2>
+
+    <h3>1. ניר מיכאלי — "מהפכה קומוניסטית בכיתה"</h3>
+    <div class="quote-box">
+        "אנחנו צריכים לעשות מהפכה קומוניסטית/רדיקלית בכיתה, אבל מתחת לרדאר, בלי שההורים ישימו לב או יקימו קול צעקה."
+        <div class="q-source">ד"ר ניר מיכאלי — סרטון מכנס חינוך, הופץ 2021/2022</div>
+    </div>
+    <p>מיכאלי מדבר על "חינוך חותר": היכולת של המורה לפעול כסוכן פוליטי בתוך המערכת הממלכתית תוך שימוש בשפה פדגוגית לגיטימית.</p>
+
+    <h3>2. גלית זלמנסון-לוי — "עבודה במישור הסמוי"</h3>
+    <div class="quote-box">
+        "יש עבודה במישור הגלוי ועבודה במישור הסמוי. עבודה חתרנית."
+        <div class="q-source">גלית זלמנסון-לוי — סרטון שנחשף</div>
+    </div>
+
+    <h3>3. הנרי ז'ירו — "ביקורתי" במקום "רדיקלי"</h3>
+    <div class="quote-box blue">
+        "I used the word 'critical' because I knew that if I used 'radical', teachers would reject it."
+        <div class="q-source">Henry Giroux — מראיין מוקלט. ז'ירו מודה שהמילה "ביקורתי" נבחרה כי מורים היו דוחים "רדיקלי".</div>
+    </div>
+    <p>ז'ירו הוא אחד ממקורות ההשראה המרכזיים של המרכז לפדגוגיה ביקורתית. ההודאה שלו מאששת את הטענה שה"ריכוך" הטרמינולוגי הוא אסטרטגיה מכוונת.</p>
+
+    <h3>4. UNESCO מצטטת את מרקוזה</h3>
+    <div class="quote-box blue">
+        "[Marcuse's] One-Dimensional Man remains unfinished business."
+        <div class="q-source">UNESCO, 2022 — מסמך רשמי המזכיר במפורש את מרקוזה כ"עסקים לא גמורים"</div>
+    </div>
+
+    <h3>5. Fahs & Karger — "המחקר הנשי כווירוס"</h3>
+    <div class="quote-box">
+        "Women's Studies as a Virus: Institutional Feminism, Affect, and the Projection of Danger"
+        <div class="q-source">Fahs & Karger, 2016 — השוואה עצמית של מחקר נשי לאבולה ו-HIV כמודל חדירה מוסדית</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>6 מדינות שחזרו בהן ממדיניות דומה</h2>
+    <p>ישראל מתעלמת מכך שמדינות מערביות כבר חזרו בהן ממדיניות שהמרכז לפדגוגיה ביקורתית מקדם:</p>
+    <table>
+        <tr><th>מדינה</th><th>מה שונה</th></tr>
+        <tr><td>שוודיה</td><td>סגירת מרפאות מגדר לנוער (Karolinska, 2022)</td></tr>
+        <tr><td>פינלנד</td><td>הגבלת טיפולים הורמונליים לקטינים</td></tr>
+        <tr><td>בריטניה</td><td>דוח Cass (2024) — ביקורת חריפה על מודל "Gender Affirming"</td></tr>
+        <tr><td>צרפת</td><td>דוח סנאט (2024) — אזהרה ממדיניות מגדרית חד-כיוונית</td></tr>
+        <tr><td>אוסטרליה</td><td>הגבלות על טיפולים הורמונליים לקטינים</td></tr>
+        <tr><td>ניו זילנד</td><td>עדכון הנחיות — דרישת הערכה פסיכיאטרית מקיפה</td></tr>
+    </table>
+</div>
+
+</div>
+
+<!-- ═══ LINKS TAB ═══ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>מחקרים וניתוחים קשורים</h2>
+
+    <a class="link-card" href="munzenberg_municipal.html">
+        <div>
+            <div class="lc-title">ניתוח מינצנברגי — דפוסי השפעה מוניציפליים</div>
+            <div class="lc-desc">23 החלטות מועצה אמיתיות ב-5 ערים, דצמבר 2022 כנקודת מפנה</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="safeschool_evidence.html">
+        <div>
+            <div class="lc-title">SafeSchool — עדויות שלוש-שכבתיות</div>
+            <div class="lc-desc">תכנים שמאחורי ה-Paywall: ספקטרום מגדרי בבתי ספר</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="../index.html">
+        <div>
+            <div class="lc-title">דירוג ערים — 18 ערים מדורגות</div>
+            <div class="lc-desc">דירוג 5-מקורי: חינוך 45% + חדשות 20% + פרוטוקולים 20% + דגלים אדומים 15%</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>אתרי מחקר נוספים</h2>
+
+    <a class="link-card" href="https://aosshalem-dev.github.io/progressive-rosetta-stone/" target="_blank">
+        <div>
+            <div class="lc-title">אבן רוזטה הפרוגרסיבית</div>
+            <div class="lc-desc">מיפוי שיטתי של ריכוך טרמינולוגי: "רדיקלי" → "ביקורתי" → "חשיבה ביקורתית"</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://aosshalem-dev.github.io/sel-research/" target="_blank">
+        <div>
+            <div class="lc-title">מחקר SEL</div>
+            <div class="lc-desc">למידה חברתית-רגשית: 136 מסגרות, 1,300+ מיומנויות, ללא הגדרה — כלי ריק</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://aosshalem-dev.github.io/shefi-research/" target="_blank">
+        <div>
+            <div class="lc-title">מחקר שפ"י</div>
+            <div class="lc-desc">ניתוח הנחיות שפ"י: ראיות ברמה "נמוכה עד נמוכה מאוד" (GRADE), תאוריית קווירית מוטמעת</div>
+        </div>
+    </a>
+
+    <a class="link-card" href="https://aosshalem-dev.github.io/education-minisite/" target="_blank">
+        <div>
+            <div class="lc-title">חינוך — מהמדענית הראשית לכיתה</div>
+            <div class="lc-desc">כיצד המדענית הראשית של משרד החינוך מממנת מחקר פדגוגיה ביקורתית</div>
+        </div>
+    </a>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

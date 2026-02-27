@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הפרדוקס — השפעת אונסק"ו על החינוך בישראל לאחר הפרישה</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #1a2a3e 100%);
+    color: #fff; padding: 44px 20px 34px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 18px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+/* -- Layout -- */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+
+/* -- Grids -- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+    .pipeline-flow { flex-direction: column !important; }
+    .pipeline-flow .arrow { transform: rotate(90deg); }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #faf8f5; border-right: 3px solid #cc0000;
+    padding: 14px 18px; margin: 14px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333; font-size: 0.9em; line-height: 1.8;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+.quote-box .q-source a { color: #1565c0; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 3px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600; margin: 2px 4px;
+}
+.badge.red { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+.badge.orange { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+.badge.green { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
+.badge.blue { background: #eff6ff; color: #1e40af; border: 1px solid #93c5fd; }
+.badge.gray { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+
+/* -- Pipeline step -- */
+.pipeline-step {
+    background: #f8f6ff; border-radius: 8px; padding: 16px;
+    border-right: 4px solid #667eea; margin-bottom: 12px;
+}
+.pipeline-step .step-num {
+    display: inline-block; width: 28px; height: 28px; border-radius: 50%;
+    background: #667eea; color: #fff; text-align: center; line-height: 28px;
+    font-weight: 700; font-size: 0.82em; margin-left: 10px;
+}
+.pipeline-step .step-title { font-weight: 700; font-size: 0.95em; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.88em; color: #555; margin-top: 4px; }
+.pipeline-step.active-step { border-right-color: #e74c3c; background: #fef5f5; }
+.pipeline-step.active-step .step-num { background: #e74c3c; }
+
+/* -- Person card -- */
+.person-card {
+    background: #fff; border: 1px solid #e8e8e8; border-radius: 8px;
+    padding: 16px; text-align: center;
+    transition: transform 0.2s;
+}
+.person-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.person-card .p-name { font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.person-card .p-role { font-size: 0.82em; color: #666; margin-bottom: 6px; }
+.person-card .p-detail { font-size: 0.78em; color: #888; }
+
+/* -- Link card -- */
+.link-card {
+    display: block; background: #fff; border: 1px solid #e8e8e8;
+    border-radius: 8px; padding: 18px; text-decoration: none;
+    color: inherit; transition: all 0.2s; border-right: 4px solid #667eea;
+}
+.link-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-right-color: #ff8800; }
+.link-card .lc-title { font-weight: 700; font-size: 1em; color: #1a1a2e; margin-bottom: 4px; }
+.link-card .lc-desc { font-size: 0.82em; color: #666; }
+.link-card .lc-url { font-size: 0.72em; color: #999; margin-top: 6px; display: block; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:hover { background: #f8f9fa; }
+
+/* -- Timeline -- */
+.timeline { position: relative; padding-right: 30px; margin: 20px 0; }
+.timeline::before {
+    content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; padding: 14px 20px 14px 0; margin-bottom: 8px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 18px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #667eea; border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.critical::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-date { font-size: 0.78em; color: #ff8800; font-weight: 700; }
+.tl-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; }
+.tl-desc { font-size: 0.85em; color: #555; margin-top: 2px; }
+.tl-desc a { color: #1565c0; }
+
+/* -- Status indicator -- */
+.status-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.active { background: #22c55e; }
+.status-dot.partial { background: #f59e0b; }
+.status-dot.inactive { background: #ef4444; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-size: 0.9em;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Paradox box -- */
+.paradox-box {
+    background: linear-gradient(135deg, #fef2f2, #fff7ed);
+    border: 2px solid #e74c3c; border-radius: 10px;
+    padding: 20px; margin: 18px 0; position: relative;
+}
+.paradox-box::before {
+    content: 'PARADOX';
+    position: absolute; top: -12px; right: 16px;
+    background: #e74c3c; color: #fff; padding: 2px 14px;
+    border-radius: 10px; font-size: 0.72em; font-weight: 700;
+    letter-spacing: 1px;
+}
+.paradox-box .p-left { font-weight: 700; color: #991b1b; font-size: 0.95em; }
+.paradox-box .p-right { font-weight: 700; color: #166534; font-size: 0.95em; }
+.paradox-box .p-vs { color: #888; font-size: 0.82em; margin: 6px 0; }
+
+/* -- Source tag -- */
+.src { font-size: 0.78em; color: #888; }
+.src a { color: #1565c0; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #aab; padding: 24px 20px;
+    text-align: center; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>הפרדוקס: אונסק"ו-ישראל</span>
+            <a href="unesco_dashboard.html">דשבורד אונסק"ו</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('paradox')">הפרדוקס</button>
+            <button class="nav-tab" onclick="showTab('interfaces')">הממשקים</button>
+            <button class="nav-tab" onclick="showTab('channels')">ערוצי השפעה</button>
+            <button class="nav-tab" onclick="showTab('evidence')">ראיות</button>
+            <button class="nav-tab" onclick="showTab('links')">קישורים</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>הפרדוקס: ישראל עזבה את אונסק"ו -- אונסק"ו לא עזבה את ישראל</h1>
+    <div class="subtitle">מחקר מעמיק: כיצד מסגרות אונסק"ו ממשיכות להשפיע על החינוך הישראלי למרות הפרישה הרשמית</div>
+    <div class="meta">פרישה רשמית: 1.1.2019 | הממשקים המוסדיים: פעילים | עדכון: פברואר 2026</div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">7+</div>
+            <div class="lbl">שנים מאז הפרישה</div>
+        </div>
+        <div class="stat">
+            <div class="num">8</div>
+            <div class="lbl">קתדרות אונסק"ו פעילות</div>
+        </div>
+        <div class="stat">
+            <div class="num">6</div>
+            <div class="lbl">מחזורי ISDG</div>
+        </div>
+        <div class="stat">
+            <div class="num">17</div>
+            <div class="lbl">יעדי SDG בכיתות</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ============================================ -->
+<!-- TAB 1: THE PARADOX                          -->
+<!-- ============================================ -->
+<div id="view-paradox" class="view active">
+
+    <div class="section">
+        <h2>הפרדוקס המרכזי</h2>
+
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">שנים מאז הפרישה</div>
+                <div class="value">7+</div>
+                <div class="note">ישראל עזבה רשמית ב-1.1.2019</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">קתדרות אונסק"ו פעילות</div>
+                <div class="value">8</div>
+                <div class="note">באוניברסיטאות ומכללות ישראליות</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">הוועד הלאומי לאונסק"ו</div>
+                <div class="value">פעיל</div>
+                <div class="note">שר החינוך כנשיא, מנכ"ל כיו"ר</div>
+            </div>
+        </div>
+
+        <div class="paradox-box">
+            <div class="p-left">בדצמבר 2017 ישראל הודיעה על פרישה מאונסק"ו. ב-1 בינואר 2019 הפרישה נכנסה לתוקף. הסיבה הרשמית: החלטות מ-2016 שהתייחסו להר הבית במונחים אסלאמיים בלבד, ללא אזכור הקשר היהודי.</div>
+            <div class="p-vs">-- אולם --</div>
+            <div class="p-right">למרות הפרישה, שמונה קתדרות אונסק"ו ממשיכות לפעול באקדמיה הישראלית. הוועד הלאומי לאונסק"ו פועל תחת משרד החינוך. תוכנית ISDG מיישמת את יעדי ה-SDG של האו"ם בכיתות ז'-י"א. שר החינוך עצמו משמש כנשיא הוועד הישראלי לאונסק"ו.</div>
+        </div>
+
+        <p>
+            הפרישה מאונסק"ו הייתה צעד דיפלומטי-סמלי שלא שינה את המבנה המוסדי. כל הממשקים הפנימיים -- קתדרות באוניברסיטאות, ועד לאומי, תוכניות חינוכיות מבוססות-SDG, הכשרת מורים ברוח מסגרות אונסק"ו -- ממשיכים לפעול כרגיל.
+        </p>
+        <p class="src">
+            [WEB-SEARCH] מקורות: <a href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">אונסקו בישראל -- משרד החינוך (PDF)</a> |
+            <a href="https://ntdtv.co.il/israel/10522" target="_blank">ntdtv.co.il -- אונסק"ו כנחש גנוסטי (2025)</a> |
+            <a href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">פורטל עובדי הוראה -- ISDG</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>ציר הזמן: מהפרישה עד היום</h2>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-date">אוקטובר 2016</div>
+                <div class="tl-title">החלטות אונסק"ו על הר הבית</div>
+                <div class="tl-desc">אונסק"ו מאשרת החלטות המתייחסות להר הבית במונחים אסלאמיים בלבד ("אל-חרם אל-שריף"). ישראל מוחה בחריפות.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">אוקטובר 2017</div>
+                <div class="tl-title">ארה"ב מודיעה על פרישה</div>
+                <div class="tl-desc">ממשל טראמפ מודיע על פרישת ארה"ב מאונסק"ו, בנימוק של "הטיה אנטי-ישראלית".</div>
+            </div>
+            <div class="tl-item critical">
+                <div class="tl-date">דצמבר 2017</div>
+                <div class="tl-title">ישראל מודיעה על פרישה</div>
+                <div class="tl-desc">שר החינוך נפתלי בנט ושגריר ישראל דני דנון מודיעים על פרישת ישראל. דנון: "אונסק"ו הוא הגוף שכותב מחדש את ההיסטוריה, כולל מחיקת הקשר היהודי לירושלים."</div>
+            </div>
+            <div class="tl-item critical">
+                <div class="tl-date">1 בינואר 2019</div>
+                <div class="tl-title">הפרישה נכנסת לתוקף</div>
+                <div class="tl-desc">ישראל וארה"ב מפסיקות באופן רשמי את חברותן באונסק"ו.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2019-2025</div>
+                <div class="tl-title">הממשקים ממשיכים לפעול</div>
+                <div class="tl-desc">קתדרות UNITWIN, הוועד הלאומי, תוכנית ISDG, הכשרת מורים ברוח ESD/GCED -- הכל ממשיך.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">יולי 2023</div>
+                <div class="tl-title">ארה"ב חוזרת לאונסק"ו</div>
+                <div class="tl-desc">ממשל ביידן מחזיר את ארה"ב לאונסק"ו. ישראל נשארת בחוץ -- אך הממשקים הפנימיים שלה אף פעם לא הפסיקו.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2023-2024</div>
+                <div class="tl-title">קתדרת בצלאל מפרסמת דוחות התקדמות</div>
+                <div class="tl-desc">פרופ' מיכאל טרנר מגיש דוחות התקדמות לאונסק"ו ב-2023-2024. יועץ מיוחד למנהל מרכז המורשת העולמית.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">2025-2026</div>
+                <div class="tl-title">ISDG במחזור שישי</div>
+                <div class="tl-desc">תוכנית ISDG נמצאת כבר במחזור השישי. כ-100 פרויקטי תלמידים בכל מחזור. 5 קבוצות זוכות טסות לרומא להציג בסוכנויות האו"ם.</div>
+            </div>
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקורות: <a href="https://heritopolis.org/michael-turner" target="_blank">Heritopolis -- Michael Turner</a> |
+            <a href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">ISDG -- פורטל עובדי הוראה</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>מדוע הפרדוקס אפשרי?</h2>
+        <div class="grid-2">
+            <div>
+                <h3>מבנה משפטי מפריד</h3>
+                <p>
+                    קתדרות UNITWIN/UNESCO Chairs הן הסכמים ישירים בין אונסק"ו לאוניברסיטאות -- לא בין אונסק"ו לממשלות. פרישת מדינה מאונסק"ו אינה מבטלת אוטומטית את ההסכמים האקדמיים. זה מבנה משפטי מכוון שמאפשר המשכיות גם כשמדינות עוזבות.
+                </p>
+                <p>
+                    באופן דומה, רשת ASPnet פועלת ברמת בית-הספר הבודד, לא ברמת ממשלתית. הוועד הלאומי לאונסק"ו הוא גוף פנים-ישראלי הפועל תחת חוק ישראלי.
+                </p>
+            </div>
+            <div>
+                <h3>"שפה, לא פקודה"</h3>
+                <p>
+                    מסגרות אונסק"ו -- Agenda 2030, SDG 4.7, ESD for 2030, GCED -- אינן מחייבות משפטית. הן מספקות שפה מקצועית, יעדים, כלי מדידה ושפה ערכית שמדינות מאמצות מרצון. לא נדרשת חברות באונסק"ו כדי ליישם אותן.
+                </p>
+                <p>
+                    האימוץ מתבצע דרך "רכות" -- קולות-קוראים, חוברות הנחיה, קורסים, כנסים, ומינוח מקצועי שנכנס לשפה החינוכית. אין "פקודה" -- יש אקו-סיסטם.
+                </p>
+            </div>
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקורות: <a href="https://www.unesco.org/en/unitwin" target="_blank">UNESCO UNITWIN Programme</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>השוואה: מה השתנה ומה לא</h2>
+        <table>
+            <tr><th>ממשק</th><th>לפני הפרישה (עד 2018)</th><th>אחרי הפרישה (2019+)</th><th>שינוי בפועל</th></tr>
+            <tr>
+                <td>קתדרות UNITWIN</td>
+                <td>8 קתדרות פעילות</td>
+                <td>8 קתדרות פעילות</td>
+                <td><span class="badge red">ללא שינוי</span></td>
+            </tr>
+            <tr>
+                <td>הוועד הלאומי</td>
+                <td>שר החינוך כנשיא</td>
+                <td>שר החינוך כנשיא</td>
+                <td><span class="badge red">ללא שינוי</span></td>
+            </tr>
+            <tr>
+                <td>תוכנית ISDG</td>
+                <td>הוקמה 2020</td>
+                <td>מחזור 6, ~100 פרויקטים/מחזור</td>
+                <td><span class="badge red">התרחבה דווקא</span></td>
+            </tr>
+            <tr>
+                <td>הצבעה בעצרת הכללית</td>
+                <td>כחברה מלאה</td>
+                <td>אין זכות הצבעה</td>
+                <td><span class="badge green">שינוי</span></td>
+            </tr>
+            <tr>
+                <td>תקציב חברות</td>
+                <td>~2 מיליון דולר/שנה</td>
+                <td>0</td>
+                <td><span class="badge green">שינוי</span></td>
+            </tr>
+            <tr>
+                <td>אתרי מורשת עולמית</td>
+                <td>הגשת מועמדויות</td>
+                <td>אין הגשה חדשה</td>
+                <td><span class="badge orange">שינוי חלקי</span></td>
+            </tr>
+            <tr>
+                <td>הכשרת מורים ברוח ESD</td>
+                <td>פעילה</td>
+                <td>פעילה</td>
+                <td><span class="badge red">ללא שינוי</span></td>
+            </tr>
+            <tr>
+                <td>ASPnet</td>
+                <td>בתי-ספר חברים</td>
+                <td>זיקה מוגבלת</td>
+                <td><span class="badge orange">שינוי חלקי</span></td>
+            </tr>
+        </table>
+        <div class="warning-box">
+            <strong>מסקנה:</strong> מתוך 8 ממשקים מוסדיים מרכזיים, רק 2 השתנו באופן מהותי (הצבעה ותקציב). 4 ממשקים לא השתנו כלל. 2 השתנו חלקית. הפרישה הייתה דיפלומטית -- לא מוסדית.
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 2: THE INTERFACES                       -->
+<!-- ============================================ -->
+<div id="view-interfaces" class="view">
+
+    <div class="section">
+        <h2>8 קתדרות אונסק"ו בישראל</h2>
+        <p>קתדרות UNITWIN/UNESCO Chairs הן הסכמים בין אונסק"ו לאוניברסיטאות. הן ממשיכות לפעול ללא תלות בחברות ממשלתית.</p>
+
+        <div class="grid-2">
+            <div class="person-card">
+                <div class="p-name">סמינר הקיבוצים -- חינוך הומניסטי</div>
+                <div class="p-role">פרופ' נמרוד אלוני</div>
+                <div class="p-detail">
+                    <span class="badge red">רלוונטיות גבוהה ל-SDG 4.7</span><br>
+                    פועלת בצמוד ל"מרכז לפדגוגיה ביקורתית" באותה מכללה. הכנסים השנתיים ממשיכים. עובדת עם הוועד הישראלי לאונסק"ו ועם רשת אונסק"ו הגלובלית.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot active"></span>
+                    <span style="font-size:0.78em;color:#22c55e">פעילה</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">בר-אילן -- Josef Burg: סובלנות ושלום</div>
+                <div class="p-role">פרופ' זהבית גרוס</div>
+                <div class="p-detail">
+                    <span class="badge red">רלוונטיות גבוהה ל-SDG 4.7</span><br>
+                    הוקמה 1995, הוכרה על-ידי אונסק"ו ב-2000. 100 פרסומים, 587 ציטוטים, h-index 13. חינוך לערכים, זכויות אדם, סובלנות ושלום. תואם ישירות SDG 4, 5, 16.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot active"></span>
+                    <span style="font-size:0.78em;color:#22c55e">פעילה</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">בית-ברל -- רב-תרבותיות בהכשרת מורים</div>
+                <div class="p-role">מכללה אקדמית בית ברל</div>
+                <div class="p-detail">
+                    <span class="badge red">רלוונטיות גבוהה ל-SDG 4.7</span><br>
+                    הכשרת מורים ברוח GCED (אזרחות גלובלית). תוכניות רב-תרבותיות. דף אינטרנט עודכן מאי 2024.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot active"></span>
+                    <span style="font-size:0.78em;color:#22c55e">פעילה</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">אוניברסיטת תל אביב -- מורשת מודרנית</div>
+                <div class="p-role">פרופ' משה מרגלית</div>
+                <div class="p-detail">
+                    <span class="badge blue">רלוונטיות בינונית</span><br>
+                    מתמקדת בשימור מורשת מודרנית. קשורה לנושא "העיר הלבנה" -- אתר מורשת עולמית של אונסק"ו.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot active"></span>
+                    <span style="font-size:0.78em;color:#22c55e">פעילה</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">בצלאל -- עיצוב עירוני ושימור (HUL)</div>
+                <div class="p-role">פרופ' מיכאל טרנר</div>
+                <div class="p-detail">
+                    <span class="badge blue">רלוונטיות בינונית</span><br>
+                    דוחות התקדמות 2023-2024. יועץ מיוחד למנהל מרכז המורשת העולמית. שותף ב-ourworldheritage, UN-Habitat, ICRC.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot active"></span>
+                    <span style="font-size:0.78em;color:#22c55e">פעילה -- דוחות 2024</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">טכניון -- הנדסה בת-קיימא</div>
+                <div class="p-role">פרופ' מרק טלסניק</div>
+                <div class="p-detail">
+                    <span class="badge blue">רלוונטיות בינונית</span><br>
+                    הוקמה 2012. הנדסה גלובלית לקהילות מתפתחות.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot active"></span>
+                    <span style="font-size:0.78em;color:#22c55e">פעילה</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">קתדרה נוספת -- לימודי בין-דתיים</div>
+                <div class="p-role">לא מזוהה במלואו</div>
+                <div class="p-detail">
+                    <span class="badge gray">טעון אימות</span><br>
+                    דף אונסק"ו מדווח על 7 קתדרות רשמיות. מסמכי משרד החינוך מציינים 8+.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot partial"></span>
+                    <span style="font-size:0.78em;color:#f59e0b">טעון אימות</span>
+                </div>
+            </div>
+
+            <div class="person-card">
+                <div class="p-name">קתדרה נוספת -- יהדות אתיופיה / טכנולוגיה</div>
+                <div class="p-role">לא מזוהה במלואו</div>
+                <div class="p-detail">
+                    <span class="badge gray">טעון אימות</span><br>
+                    מצוינת במסמכים שונים אך הפרטים המלאים לא מזוהים.
+                </div>
+                <div class="status-row" style="justify-content:center;margin-top:8px">
+                    <span class="status-dot partial"></span>
+                    <span style="font-size:0.78em;color:#f59e0b">טעון אימות</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="src" style="margin-top:16px">
+            [WEB-SEARCH] מקורות: <a href="https://www.unesco.org/en/countries/il" target="_blank">UNESCO Israel country page</a> |
+            <a href="https://cris.biu.ac.il/en/organisations/the-josef-burg-unesco-chair-in-education-for-human-values-toleran/" target="_blank">BIU CRIS -- Josef Burg Chair</a> |
+            <a href="https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/" target="_blank">SMKB -- Institute</a> |
+            <a href="https://heritopolis.org/michael-turner" target="_blank">Heritopolis -- Turner</a> |
+            <a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">Beit Berl UNESCO</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>הוועד הישראלי לאונסק"ו</h2>
+        <div class="grid-2">
+            <div>
+                <h3>מבנה</h3>
+                <table>
+                    <tr><th>תפקיד</th><th>מאייש</th></tr>
+                    <tr><td>נשיא הוועד</td><td>שר החינוך (ex officio)</td></tr>
+                    <tr><td>יו"ר הוועד</td><td>מנכ"ל משרד החינוך</td></tr>
+                    <tr><td>חברים</td><td>נציגי משרדי ממשלה, גופים ציבוריים, אקדמיה</td></tr>
+                    <tr><td>מיקום מוסדי</td><td>משרד החינוך</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>סטטוס</h3>
+                <div class="status-row">
+                    <span class="status-dot active"></span>
+                    <span style="font-weight:700">פעיל</span>
+                </div>
+                <p>
+                    הוועד ממשיך לפעול כזרוע ייעוץ מקצועית של משרד החינוך בנושאי אונסק"ו. הוועדה הלאומית רשומה בדפי אונסק"ו. פרסמה מסמכי מדיניות לאחר הפרישה. עובדת עם קתדרות UNITWIN.
+                </p>
+                <div class="warning-box">
+                    <strong>נקודה קריטית:</strong> העובדה ששר החינוך -- הגורם שהודיע על הפרישה -- ממשיך לשמש כנשיא הוועד הישראלי לאונסק"ו, ממחישה את הפער בין הדיפלומטיה לבין המוסדות.
+                </div>
+            </div>
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקור: <a href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">אונסקו בישראל -- משרד החינוך</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>תוכנית ISDG -- יעדי פיתוח בר-קיימא בכיתות</h2>
+        <div class="grid-3">
+            <div class="metric warn">
+                <div class="label">מחזורים</div>
+                <div class="value">6</div>
+                <div class="note">הוקמה ~2020, מחזור שישי ב-2025/26</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">פרויקטים/מחזור</div>
+                <div class="value">~100</div>
+                <div class="note">2-4 תלמידים בכל פרויקט</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">יעדי SDG</div>
+                <div class="value">17</div>
+                <div class="note">לפחות 3 יעדים בכל פרויקט</div>
+            </div>
+        </div>
+        <p>
+            תלמידי ז'-י"א מפתחים מיזמים המקדמים לפחות 3 מתוך 17 יעדי הפיתוח בר-קיימא (SDGs) של האו"ם. התוכנית פועלת בשיתוף משרד החינוך, משרד החוץ וקק"ל. 5 קבוצות זוכות טסות לרומא להציג בסוכנויות או"ם (FAO, WFP, IFAD).
+        </p>
+        <div class="info-box">
+            <strong>הערה:</strong> תוכנית ISDG הוקמה אחרי הפרישה מאונסק"ו. כלומר, לא רק שממשקים קיימים לא הופסקו -- נוצרו ממשקים חדשים המבוססים על מסגרות אונסק"ו/או"ם.
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקור: <a href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">ISDG -- פורטל עובדי הוראה</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>רשת ASPnet</h2>
+        <div class="grid-2">
+            <div>
+                <h3>סטטוס נוכחי</h3>
+                <div class="status-row">
+                    <span class="status-dot partial"></span>
+                    <span style="font-weight:700">זיקה מוגבלת</span>
+                </div>
+                <p>
+                    רשת בתי-הספר המשויכים לאונסק"ו (ASPnet) פעלה בישראל לפני הפרישה. לאחר הפרישה, הזיקה הפורמלית מוגבלת. עם זאת, בתי-ספר ישראליים ממשיכים ליישם תוכניות ברוח ASPnet -- כישורי חיים, חינוך לסובלנות, אזרחות גלובלית -- גם ללא חברות רשמית ברשת.
+                </p>
+            </div>
+            <div>
+                <h3>רשת ASPnet -- מבנה</h3>
+                <p>
+                    ASPnet (Associated Schools Project Network) הוקמה ב-1953. כ-12,000 בתי-ספר ב-182 מדינות. בתי-הספר מלמדים חינוך לשלום, אזרחות גלובלית, זכויות אדם, קיימות -- בדיוק הנושאים שתוכנית ISDG מקדמת בישראל.
+                </p>
+                <p>
+                    התוכן לא נעלם כשישראל עזבה -- הוא פשוט קיבל שמות חדשים.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 3: INFLUENCE CHANNELS                   -->
+<!-- ============================================ -->
+<div id="view-channels" class="view">
+
+    <div class="section">
+        <h2>ערוצי ההשפעה: איך מסגרות אונסק"ו מגיעות לכיתה הישראלית</h2>
+        <p>
+            ההשפעה אינה "פקודה מלמעלה" אלא אקו-סיסטם של שפה, יעדים, כלי מדידה ומינוח מקצועי. ההעברה מתרחשת דרך ארבעה ערוצים מקבילים:
+        </p>
+
+        <div class="pipeline-step active-step">
+            <span class="step-num">1</span>
+            <span class="step-title">SDG 4.7 -- מדיניות חינוכית</span>
+            <div class="step-desc">
+                יעד-משנה 4.7 של SDG4: "עד 2030, להבטיח שכל הלומדים ירכשו ידע ומיומנויות הנחוצים לקידום פיתוח בר-קיימא, כולל חינוך לפיתוח בר-קיימא, זכויות אדם, שוויון מגדרי, קידום תרבות שלום ואי-אלימות, אזרחות גלובלית, והערכת מגוון תרבותי."
+            </div>
+        </div>
+
+        <div class="pipeline-step active-step">
+            <span class="step-num">2</span>
+            <span class="step-title">מסגרות יישום: Incheon, ESD for 2030, GCED</span>
+            <div class="step-desc">
+                אונסק"ו מפרסמת מסגרות שמתרגמות את SDG 4.7 ליעדים מדידים, שפה מקצועית, וחומרי הדרכה. הכוונה החינוכית בישראל (UNESCO Framework for ESD, GCED Topics and Learning Objectives) -- Incheon Framework for Action,  -- ESD for 2030 -- הכל זמין גם ללא חברות.
+            </div>
+        </div>
+
+        <div class="pipeline-step">
+            <span class="step-num">3</span>
+            <span class="step-title">תיווך מוסדי ישראלי</span>
+            <div class="step-desc">
+                הוועד הלאומי, קתדרות UNITWIN, אגף קשרי חוץ במשרד החינוך, המזכירות הפדגוגית, מטה אזרחות וחיים משותפים, שפ"י -- כולם מתרגמים את המסגרות ליעדים מקומיים, חוזרי מנכ"ל, קולות-קוראים, וקריטריוני מימון.
+            </div>
+        </div>
+
+        <div class="pipeline-step">
+            <span class="step-num">4</span>
+            <span class="step-title">נקודת הקצה: הכיתה</span>
+            <div class="step-desc">
+                תוכנית ISDG, תקנת הסובלנות, שבוע הסובלנות, תוכניות "כישורי חיים", חינוך לקיימות, חינוך מיני מקיף (CSE), סדנאות מגוון, הכשרת מורים -- הכל מגיע לתלמידים. המינוח משתנה; התוכן נשמר.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ערוץ 1: SDG 4.7 למדיניות ישראלית</h2>
+        <div class="grid-2">
+            <div>
+                <h3>אג'נדה 2030</h3>
+                <p>
+                    ישראל אימצה את אג'נדה 2030 בספטמבר 2015, כולל 17 יעדי הפיתוח (SDGs). אונסק"ו מוביל את יעד SDG4 (חינוך), ובפרט יעד-משנה 4.7. האימוץ קדם לפרישה ולא בוטל אחריה.
+                </p>
+                <p>
+                    יעד 4.7 מכיל את כל הנושאים שנוי במחלוקת: שוויון מגדרי, "הערכת מגוון תרבותי", אזרחות גלובלית, "תרבות שלום". אלו אינם מונחים ניטרליים -- הם קודים למסגרות פדגוגיות ספציפיות.
+                </p>
+            </div>
+            <div>
+                <h3>תרגום ישראלי</h3>
+                <table>
+                    <tr><th>מונח SDG 4.7</th><th>תרגום ישראלי</th></tr>
+                    <tr><td>Gender equality</td><td>שוויון מגדרי, תקנת הסובלנות</td></tr>
+                    <tr><td>Culture of peace</td><td>חינוך לשלום, דו-קיום</td></tr>
+                    <tr><td>Global citizenship</td><td>אזרחות פעילה, ISDG</td></tr>
+                    <tr><td>Sustainable development</td><td>חינוך לקיימות</td></tr>
+                    <tr><td>Cultural diversity</td><td>רב-תרבותיות, חיים משותפים</td></tr>
+                    <tr><td>Human rights education</td><td>חינוך לזכויות אדם</td></tr>
+                </table>
+            </div>
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקור: <a href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">ISDG -- פורטל עובדי הוראה</a> |
+            <a href="https://www.gov.il" target="_blank">gov.il -- אג'נדה 2030</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>ערוץ 2: UNESCO CSE -- חינוך מיני מקיף</h2>
+        <div class="grid-2">
+            <div>
+                <h3>המסגרת הגלובלית</h3>
+                <p>
+                    אונסק"ו פרסמה ב-2009 (עודכנה 2018) את "International Technical Guidance on Sexuality Education" -- מדריך לחינוך מיני מקיף (CSE, Comprehensive Sexuality Education). המדריך מכיל הנחיות לפי גיל, החל מגיל 5.
+                </p>
+                <p>
+                    המדריך כולל נושאים כמו: זהות מגדרית, אוריינטציה מינית, נורמות מגדריות, גוף ודימוי גוף -- נושאים שנכנסו למערכת החינוך הישראלית דרך ערוצים שונים.
+                </p>
+            </div>
+            <div>
+                <h3>ערוצי חדירה לישראל</h3>
+                <p>
+                    מסגרת ה-CSE של אונסק"ו/WHO משפיעה על ישראל דרך:
+                </p>
+                <ul style="padding-right:20px;font-size:0.88em;color:#555">
+                    <li>היחידה למיניות ומניעת פגיעה -- משרד החינוך</li>
+                    <li>עמותות כמו חושן, תודעה, תהודה שמיישמות תכנים מבוססי CSE</li>
+                    <li>קתדרת Josef Burg (בר-אילן) -- חינוך ערכי כולל שוויון מגדרי</li>
+                    <li>תקנת הסובלנות 20-46-03-11 -- מאפשרת כניסת ארגוני חוץ לבתי-ספר</li>
+                </ul>
+            </div>
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקורות: ראו <a href="who_gender_sexuality_push.html">WHO ודחיפת מגדר ומיניות</a> (מיניסייט נפרד)
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>ערוץ 3: הכשרת מורים</h2>
+        <p>
+            שלוש מתוך 8 קתדרות אונסק"ו בישראל ממוקמות במכללות להכשרת מורים (סמינר הקיבוצים, בית-ברל) או עוסקות ישירות בהכשרת מורים (בר-אילן). ההשפעה מגיעה לכיתה דרך המורים עצמם:
+        </p>
+        <div class="grid-3">
+            <div class="person-card">
+                <div class="p-name">סמינר הקיבוצים</div>
+                <div class="p-role">קתדרת חינוך הומניסטי + מרכז לפדגוגיה ביקורתית</div>
+                <div class="p-detail">מכשירה מורים עתידיים ברוח ESD/GCED. "עבודה גלויה וסמויה -- עבודה חתרנית כחלק משינוי חברתי."</div>
+            </div>
+            <div class="person-card">
+                <div class="p-name">בית-ברל</div>
+                <div class="p-role">קתדרת רב-תרבותיות בהכשרת מורים</div>
+                <div class="p-detail">הכשרת מורים ברוח GCED. מתמקדת ברב-תרבותיות כערך מוביל.</div>
+            </div>
+            <div class="person-card">
+                <div class="p-name">בר-אילן</div>
+                <div class="p-role">Josef Burg -- סובלנות ושלום</div>
+                <div class="p-detail">סדנאות הכשרת מורים. 100 פרסומים. חינוך לערכים, סובלנות, שלום.</div>
+            </div>
+        </div>
+
+        <div class="quote-box">
+            "אונסק"ו שומרת על קשרים דרך פיתוח מדיניות, שיתופי פעולה עם מכללות להכשרת מורים, פיתוח תוכניות, ושותפויות ישירות עם בתי-ספר המקושרים אליה."
+            <div class="q-source">[WEB-SEARCH] <a href="https://ntdtv.co.il/israel/10522" target="_blank">ntdtv.co.il -- אונסק"ו כנחש גנוסטי (2025)</a></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ערוץ 4: CASEL -- SEL -- אונסק"ו</h2>
+        <p>
+            CASEL (Collaborative for Academic, Social, and Emotional Learning) מקדם למידה רגשית-חברתית (SEL). אונסק"ו מאמצת ומפיצה מסגרות SEL כחלק מ-SDG 4.7. בישראל, ארגוני SEL מקומיים מיישמים את המסגרות -- לפעמים מציינים את אונסק"ו, לפעמים לא.
+        </p>
+        <div class="grid-2">
+            <div>
+                <h3>שרשרת ההשפעה</h3>
+                <div class="pipeline-step">
+                    <span class="step-num">1</span>
+                    <span class="step-title">CASEL (ארה"ב)</span>
+                    <div class="step-desc">מפתחת מסגרת SEL, 5 כישורי ליבה</div>
+                </div>
+                <div class="pipeline-step">
+                    <span class="step-num">2</span>
+                    <span class="step-title">אונסק"ו / WHO</span>
+                    <div class="step-desc">מאמצות ומפיצות SEL כחלק מ-SDG 4.7 ו-Life Skills</div>
+                </div>
+                <div class="pipeline-step">
+                    <span class="step-num">3</span>
+                    <span class="step-title">ארגונים ישראליים</span>
+                    <div class="step-desc">מצמיחים, מטמיע, אל"ף-בי"ת, שפ"י -- מיישמים SEL בשמות מקומיים</div>
+                </div>
+                <div class="pipeline-step">
+                    <span class="step-num">4</span>
+                    <span class="step-title">הכיתה</span>
+                    <div class="step-desc">"כישורי חיים", "למידה רגשית", "כישורים חברתיים"</div>
+                </div>
+            </div>
+            <div>
+                <h3>נקודה מפתח</h3>
+                <div class="warning-box">
+                    <strong>עקבות אונסק"ו ב-CASEL:</strong> אף ש-CASEL אינה מציינת את אונסק"ו ישירות באתר הנוכחי שלה, שתי המסגרות חולקות שפה, יעדים ומודלים זהים. אונסק"ו מצדה מזכירה SEL כחלק ממסגרת SDG 4.7. ארגוני SEL ישראליים מצטטים את שניהם -- או את אף אחד מהם.
+                </div>
+                <p>
+                    ה"עבודה ברכות" של אונסק"ו: לא צריך לצטט את אונסק"ו כדי ליישם את מסגרות אונסק"ו. מספיק לאמץ את השפה, את היעדים, ואת כלי המדידה. השפעה ללא ייחוס.
+                </p>
+            </div>
+        </div>
+        <p class="src">
+            [WEB-SEARCH] מקורות: ראו <a href="casel_israel_connection.html">CASEL לישראל -- מחקר מעמיק</a> |
+            <a href="casel_dashboard.html">CASEL -- דשבורד</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>מנגנון "Education 2030" -- השפעת Back-Channel</h2>
+        <p>
+            מסגרת "Education 2030" של אונסק"ו אינה דורשת חברות רשמית. היא פועלת דרך:
+        </p>
+        <table>
+            <tr><th>מנגנון</th><th>תיאור</th><th>סטטוס בישראל</th></tr>
+            <tr>
+                <td>מסמכי מדיניות</td>
+                <td>מסמכים זמינים לכל מדינה. אינם מחייבים אך מגדירים סטנדרטים.</td>
+                <td><span class="badge red">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>שפה מקצועית</td>
+                <td>מונחים כמו ESD, GCED, Life Skills נכנסים לסילבוסים ולקולות-קוראים</td>
+                <td><span class="badge red">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>כנסים בינלאומיים</td>
+                <td>חוקרים ישראליים ממשיכים להשתתף ולהציג בכנסי אונסק"ו</td>
+                <td><span class="badge red">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>דוחות VNR</td>
+                <td>ישראל הגישה Voluntary National Review לאו"ם על יישום SDGs</td>
+                <td><span class="badge orange">לא עודכן</span></td>
+            </tr>
+            <tr>
+                <td>קריטריוני מימון</td>
+                <td>קולות-קוראים מותנים בהתאמה ליעדי SDG / ערכי ESD</td>
+                <td><span class="badge red">פעיל</span></td>
+            </tr>
+            <tr>
+                <td>רשתות אקדמיות</td>
+                <td>8 קתדרות UNITWIN שומרות על קשר ישיר עם אונסק"ו פריז</td>
+                <td><span class="badge red">פעיל</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 4: EVIDENCE                             -->
+<!-- ============================================ -->
+<div id="view-evidence" class="view">
+
+    <div class="section">
+        <h2>ראיות מתועדות: השפעה לאחר הפרישה</h2>
+        <p>הסעיפים הבאים מתעדים מקרים ספציפיים שבהם מסגרות אונסק"ו ממשיכות להשפיע על החינוך בישראל, שנים אחרי הפרישה הרשמית.</p>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 1: קתדרת בצלאל -- דוחות התקדמות 2023-2024</h2>
+        <p>
+            פרופ' מיכאל טרנר, מנהל קתדרת אונסק"ו לעיצוב עירוני ושימור בבצלאל, הגיש דוחות התקדמות לאונסק"ו ב-2023 ו-2024. הוא משמש כיועץ מיוחד למנהל מרכז המורשת העולמית של אונסק"ו, כשותף ב-ourworldheritage, וכמומחה בוועדת ICRC להגנה על רכוש תרבותי.
+        </p>
+        <div class="quote-box">
+            "Turner holds the UNESCO Chairholder position in Urban Design and Conservation Studies at Bezalel Academy of Arts and Design in Jerusalem, where he serves as an active faculty member... Special advisor to the UNESCO World Heritage Centre Director."
+            <div class="q-source">[WEB-SEARCH] <a href="https://heritopolis.org/michael-turner" target="_blank">Heritopolis -- Michael Turner profile</a></div>
+        </div>
+        <div class="info-box">
+            <strong>משמעות:</strong> אקדמאי ישראלי משמש כיועץ מיוחד לאונסק"ו פריז, מגיש דוחות שנתיים, ומשתתף בפרויקטים בינלאומיים -- 5-6 שנים אחרי שישראל "עזבה" את אונסק"ו.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 2: קתדרת בר-אילן -- 100 פרסומים, 587 ציטוטים</h2>
+        <p>
+            קתדרת Josef Burg באוניברסיטת בר-אילן, בניהול פרופ' זהבית גרוס, פרסמה 100 פרסומים אקדמיים עם 587 ציטוטים ו-h-index של 13. תחומי המחקר: "חינוך לערכים, זכויות אדם, סובלנות ושלום" -- בדיוק SDG 4.7.
+        </p>
+        <div class="quote-box">
+            "The Chair directly supports SDG 4 (Quality Education) alongside SDG 3, 5, and 16. Its mission emphasizes practical guidance for educators addressing values, tolerance, and peace in building democratic societies."
+            <div class="q-source">[WEB-SEARCH] <a href="https://cris.biu.ac.il/en/organisations/the-josef-burg-unesco-chair-in-education-for-human-values-toleran/" target="_blank">Bar-Ilan University CRIS</a></div>
+        </div>
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">פרסומים</div>
+                <div class="value">100</div>
+                <div class="note">45 מאמרים, 36 פרקי ספר, 8 ספרים</div>
+            </div>
+            <div class="metric">
+                <div class="label">ציטוטים</div>
+                <div class="value">587</div>
+                <div class="note">h-index: 13</div>
+            </div>
+            <div class="metric">
+                <div class="label">SDGs</div>
+                <div class="value">4</div>
+                <div class="note">SDG 3, 4, 5, 16</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 3: ISDG -- 6 מחזורים אחרי הפרישה</h2>
+        <p>
+            תוכנית ISDG (Israel Sustainable Development Goals) מעבירה את יעדי ה-SDG של האו"ם ישירות לכיתות ישראליות. התוכנית הוקמה אחרי הפרישה -- כלומר, ממשלת ישראל יצרה תוכנית חינוכית חדשה המבוססת על מסגרת אונסק"ו, לאחר שעזבה את אונסק"ו.
+        </p>
+        <div class="quote-box">
+            "תלמידי ז'-י"א מפתחים מיזמים המקדמים לפחות 3 מתוך 17 יעדי הפיתוח בר-קיימא (SDGs). 5 קבוצות זוכות טסות לרומא להציג בסוכנויות או"ם (FAO, WFP, IFAD)."
+            <div class="q-source">[WEB-SEARCH] <a href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">ISDG -- פורטל עובדי הוראה</a></div>
+        </div>
+        <div class="warning-box">
+            <strong>הפרדוקס בפעולה:</strong> ישראל עזבה את אונסק"ו ב-2019, ואז יצרה תוכנית שמכניסה תלמידים ישראליים להציג בפני סוכנויות או"ם ברומא. בתי-הספר מיישמים 17 יעדי SDG -- שנקבעו על-ידי אונסק"ו -- בכיתות הישראליות.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 4: סמינר הקיבוצים -- "עבודה חתרנית"</h2>
+        <p>
+            קתדרת אונסק"ו לחינוך הומניסטי בסמינר הקיבוצים פועלת בצמוד ל"מרכז לפדגוגיה ביקורתית" באותה מכללה. מרצים מתארים את עבודתם:
+        </p>
+        <div class="quote-box">
+            "עבודה גלויה וסמויה -- עבודה חתרנית כחלק משינוי חברתי."
+            <div class="q-source">[WEB-SEARCH] <a href="https://ntdtv.co.il/israel/10522" target="_blank">ntdtv.co.il -- אונסק"ו כנחש גנוסטי</a></div>
+        </div>
+        <p>
+            הקתדרה ממשיכה לעבוד עם הוועד הישראלי לאונסק"ו ועם רשת אונסק"ו הגלובלית. "המכון ללימודים מתקדמים בחינוך" בסמינר מקיים כנסים שנתיים, מפרסם כתב-עת אקדמי ("גילוי דעת"), ומפעיל "יחידה לשיתופי פעולה בין-לאומיים".
+        </p>
+        <p class="src">
+            [WEB-SEARCH] מקור: <a href="https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/" target="_blank">SMKB -- Institute for Advanced Education</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 5: קתדרת בית-ברל -- עודכנה מאי 2024</h2>
+        <p>
+            דף האינטרנט של קתדרת אונסק"ו לרב-תרבותיות בהכשרת מורים במכללת בית-ברל עודכן לאחרונה במאי 2024. המכללה ממשיכה לקיים את הקתדרה כחלק מתשתית המחקר שלה.
+        </p>
+        <p class="src">
+            [WEB-SEARCH] מקור: <a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">Beit Berl -- UNESCO Chair</a>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 6: שר החינוך כנשיא הוועד לאונסק"ו</h2>
+        <p>
+            המבנה המוסדי של הוועד הישראלי לאונסק"ו קובע ששר החינוך משמש כנשיא הוועד ומנכ"ל המשרד כיו"ר. מבנה זה לא השתנה אחרי הפרישה. שר החינוך שהודיע על הפרישה (בנט) ושרי החינוך שבאו אחריו -- כולם שימשו כנשיאי הוועד הישראלי לאונסק"ו.
+        </p>
+        <div class="paradox-box">
+            <div class="p-left">שר החינוך מודיע: "ישראל עוזבת את אונסק"ו"</div>
+            <div class="p-vs">-- בו-זמנית --</div>
+            <div class="p-right">אותו שר חינוך ממשיך לשמש כנשיא הוועד הישראלי לאונסק"ו</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ראיה 7: תקנת הסובלנות -- מסגרת אונסק"ו בפעולה</h2>
+        <p>
+            תקנת הסובלנות 20-46-03-11 אומצה ב-2016. הצהרת עקרונות הסובלנות של אונסק"ו (1995) היא המסגרת הגלובלית שמאחוריה. יום הסובלנות הבין-לאומי (16 בנובמבר) הוא יום אונסק"ו. "שבוע הסובלנות" בבתי-הספר -- זו תקנה ישראלית שמיישמת מסגרת של אונסק"ו.
+        </p>
+        <table>
+            <tr><th>שנה</th><th>אירוע</th></tr>
+            <tr><td>1995</td><td>אונסק"ו: הצהרת עקרונות הסובלנות -- "חינוך הוא האמצעי היעיל ביותר למניעת אי-סובלנות"</td></tr>
+            <tr><td>1996</td><td>אונסק"ו: יום הסובלנות הבין-לאומי (16 בנובמבר)</td></tr>
+            <tr><td>2006</td><td>אונסק"ו: Guidelines on Intercultural Education</td></tr>
+            <tr><td>2015</td><td>אונסק"ו: GCED Topics and Learning Objectives</td></tr>
+            <tr><td>2016</td><td>ישראל: תקנת הסובלנות 20-46-03-11</td></tr>
+            <tr><td>2019</td><td>ישראל עוזבת את אונסק"ו. תקנת הסובלנות: ממשיכה.</td></tr>
+            <tr><td>2023</td><td>אונסק"ו: Recommendation on Education for Peace (עדכון). ישראל: ממשיכה ליישם.</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>סיכום ראיות</h2>
+        <div class="grid-4">
+            <div class="metric alert">
+                <div class="label">קתדרות פעילות</div>
+                <div class="value">8</div>
+                <div class="note">דוחות 2023-2024 מאושרים</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">שנים מאז הפרישה</div>
+                <div class="value">7+</div>
+                <div class="note">1.1.2019 - 2026</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">ממשקים שלא השתנו</div>
+                <div class="value">6/8</div>
+                <div class="note">מתוך 8 ממשקים מרכזיים</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">תוכניות חדשות שנוצרו</div>
+                <div class="value">ISDG</div>
+                <div class="note">הוקמה אחרי הפרישה</div>
+            </div>
+        </div>
+        <div class="warning-box">
+            <strong>מסקנה מצטברת:</strong> הפרישה מאונסק"ו הייתה צעד סמלי-דיפלומטי. היא הסירה את זכות ההצבעה ואת חיוב התשלום. היא לא הסירה את ההשפעה המוסדית, האקדמית והפדגוגית. המסגרות של אונסק"ו ממשיכות לפעול בישראל דרך קתדרות, ועד לאומי, תוכניות SDG, הכשרת מורים ותקנות חינוכיות. ישראל עזבה את אונסק"ו. אונסק"ו לא עזבה את ישראל.
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 5: LINKS                                -->
+<!-- ============================================ -->
+<div id="view-links" class="view">
+
+    <div class="section">
+        <h2>קישורים למיניסייטים קשורים</h2>
+        <div class="grid-2">
+            <a href="unesco_dashboard.html" class="link-card">
+                <div class="lc-title">אונסק"ו ומערכת החינוך בישראל -- דשבורד מוסדי</div>
+                <div class="lc-desc">מיפוי מלא: קתדרות, ועד לאומי, צנרת השפעה, שרשרת פדגוגית, תקנת הסובלנות. 6 טאבים.</div>
+                <span class="lc-url">unesco_dashboard.html</span>
+            </a>
+
+            <a href="who_gender_sexuality_push.html" class="link-card">
+                <div class="lc-title">WHO ודחיפת מגדר ומיניות</div>
+                <div class="lc-desc">ארגון הבריאות העולמי בחינוך המיני הגלובלי ובישראל. CSE, Standards for Sexuality Education, ההשפעה על ישראל.</div>
+                <span class="lc-url">who_gender_sexuality_push.html</span>
+            </a>
+
+            <a href="casel_israel_connection.html" class="link-card">
+                <div class="lc-title">CASEL לישראל -- הצינור המלא</div>
+                <div class="lc-desc">כיצד למידה רגשית-חברתית (SEL) של CASEL מגיעה לכיתות הישראליות. הקשר לאונסק"ו ול-SDG 4.7.</div>
+                <span class="lc-url">casel_israel_connection.html</span>
+            </a>
+
+            <a href="pipeline_institutional.html" class="link-card">
+                <div class="lc-title">הצינור המוסדי -- מאונסק"ו לכיתה</div>
+                <div class="lc-desc">מיפוי מלא של הצינור: ממסגרות גלובליות דרך מתווכים מוסדיים לכיתה הישראלית. ארבע טבעות השפעה.</div>
+                <span class="lc-url">pipeline_institutional.html</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מיניסייטים נוספים בפרויקט</h2>
+        <div class="grid-2">
+            <a href="casel_dashboard.html" class="link-card">
+                <div class="lc-title">CASEL -- דשבורד ניתוח ביקורתי</div>
+                <div class="lc-desc">ניתוח ביקורתי מלא של מסגרת CASEL/SEL, מימון, מפת השפעה.</div>
+                <span class="lc-url">casel_dashboard.html</span>
+            </a>
+
+            <a href="kibbutzim_pedagogy_dashboard.html" class="link-card">
+                <div class="lc-title">סמינר הקיבוצים -- פדגוגיה</div>
+                <div class="lc-desc">ניתוח המכללה שמארחת קתדרת אונסק"ו לחינוך הומניסטי והמרכז לפדגוגיה ביקורתית.</div>
+                <span class="lc-url">kibbutzim_pedagogy_dashboard.html</span>
+            </a>
+
+            <a href="safeschool_dashboard.html" class="link-card">
+                <div class="lc-title">בית ספר בטוח -- דשבורד</div>
+                <div class="lc-desc">תוכנית "בית ספר בטוח" שמיישמת מסגרות בנוגע לסובלנות, מגוון וזהות.</div>
+                <span class="lc-url">safeschool_dashboard.html</span>
+            </a>
+
+            <a href="sei_network_dashboard.html" class="link-card">
+                <div class="lc-title">רשת SEI -- דשבורד</div>
+                <div class="lc-desc">רשת החינוך הרגשי-חברתי בישראל.</div>
+                <span class="lc-url">sei_network_dashboard.html</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מקורות חיצוניים</h2>
+        <h3>מסמכי אונסק"ו</h3>
+        <table>
+            <tr><th>מסמך</th><th>קישור</th></tr>
+            <tr>
+                <td>UNESCO Israel country page</td>
+                <td><a href="https://www.unesco.org/en/countries/il" target="_blank">unesco.org/en/countries/il</a></td>
+            </tr>
+            <tr>
+                <td>UNITWIN/Chairs Programme</td>
+                <td><a href="https://www.unesco.org/en/unitwin" target="_blank">unesco.org/en/unitwin</a></td>
+            </tr>
+            <tr>
+                <td>SDG 4 -- Education 2030</td>
+                <td><a href="https://www.unesco.org/en/education/education2030-sdg4" target="_blank">unesco.org -- Education 2030</a></td>
+            </tr>
+            <tr>
+                <td>International Technical Guidance on Sexuality Education (CSE)</td>
+                <td><a href="https://unesdoc.unesco.org/ark:/48223/pf0000260770" target="_blank">UNESDOC</a></td>
+            </tr>
+            <tr>
+                <td>GCED: Topics and Learning Objectives (2015)</td>
+                <td><a href="https://unesdoc.unesco.org/ark:/48223/pf0000232993" target="_blank">UNESDOC</a></td>
+            </tr>
+            <tr>
+                <td>Declaration of Principles on Tolerance (1995)</td>
+                <td><a href="https://www.unesco.org/en/legal-affairs/declaration-principles-tolerance" target="_blank">unesco.org</a></td>
+            </tr>
+        </table>
+
+        <h3>מסמכי משרד החינוך</h3>
+        <table>
+            <tr><th>מסמך</th><th>קישור</th></tr>
+            <tr>
+                <td>אונסקו בישראל -- מסמך משרד החינוך (PDF)</td>
+                <td><a href="https://meyda.education.gov.il/files/Unesco/new-24/meydaunesco.pdf" target="_blank">meyda.education.gov.il</a></td>
+            </tr>
+            <tr>
+                <td>ISDG -- פורטל עובדי הוראה</td>
+                <td><a href="https://pop.education.gov.il/sustainability-education/sustainability-education-programs/isdg-program/" target="_blank">pop.education.gov.il</a></td>
+            </tr>
+        </table>
+
+        <h3>קתדרות אונסק"ו בישראל</h3>
+        <table>
+            <tr><th>מוסד</th><th>קישור</th></tr>
+            <tr>
+                <td>סמינר הקיבוצים -- UNESCO Chair for Humanistic Education</td>
+                <td><a href="https://en.smkb.ac.il/units-and-departments/institute-for-advanced-education/" target="_blank">en.smkb.ac.il</a></td>
+            </tr>
+            <tr>
+                <td>בר-אילן -- Josef Burg UNESCO Chair</td>
+                <td><a href="https://cris.biu.ac.il/en/organisations/the-josef-burg-unesco-chair-in-education-for-human-values-toleran/" target="_blank">cris.biu.ac.il</a></td>
+            </tr>
+            <tr>
+                <td>בית-ברל -- UNESCO Chair for Multiculturalism</td>
+                <td><a href="https://www.beitberl.ac.il/research/unesco/?lang=en" target="_blank">beitberl.ac.il</a></td>
+            </tr>
+            <tr>
+                <td>בצלאל -- UNESCO Chair Urban Design (Michael Turner)</td>
+                <td><a href="https://heritopolis.org/michael-turner" target="_blank">heritopolis.org</a></td>
+            </tr>
+            <tr>
+                <td>Technion -- Global Engineering</td>
+                <td><a href="https://globalengineering.technion.ac.il/about/" target="_blank">technion.ac.il</a></td>
+            </tr>
+            <tr>
+                <td>TAU -- Modern Heritage Chair</td>
+                <td><a href="https://en-arts.tau.ac.il/Chairs" target="_blank">tau.ac.il</a></td>
+            </tr>
+        </table>
+
+        <h3>מאמרים וניתוח</h3>
+        <table>
+            <tr><th>מסמך</th><th>קישור</th></tr>
+            <tr>
+                <td>אונסק"ו כנחש גנוסטי -- ntdtv (2025)</td>
+                <td><a href="https://ntdtv.co.il/israel/10522" target="_blank">ntdtv.co.il</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</div><!-- /container -->
+
+<footer>
+    הפרדוקס: אונסק"ו-ישראל -- מחקר מעמיק | עדכון: פברואר 2026<br>
+    <a href="unesco_dashboard.html">דשבורד אונסק"ו</a> |
+    <a href="pipeline_institutional.html">הצינור המוסדי</a> |
+    <a href="casel_israel_connection.html">CASEL-ישראל</a> |
+    <a href="../index_v2.html">דירוג ערים</a>
+</footer>
+
+<script>
+function showTab(tab) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    var view = document.getElementById('view-' + tab);
+    if (view) {
+        view.classList.add('active');
+        var tabNames = ['paradox','interfaces','channels','evidence','links'];
+        var tabs = document.querySelectorAll('.nav-tab');
+        var idx = tabNames.indexOf(tab);
+        if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
+    }
+    window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

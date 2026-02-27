@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מפת המסגרות הפילוסופיות — 1,331 עדויות</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; font-size: 0.92em; color: #444; line-height: 1.8; }
+.section ul, .section ol { padding-right: 20px; margin-bottom: 10px; font-size: 0.92em; color: #444; }
+.section li { margin-bottom: 5px; }
+
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-4 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-size: 0.92em; line-height: 1.8;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.orange { background: #fef8f0; border-right-color: #ff8800; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f3e8fd; color: #7b1fa2; }
+
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* ── Network Map ── */
+.fw-map {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px; margin: 20px 0;
+}
+.fw-node {
+    background: #fff; border-radius: 10px; padding: 16px 12px;
+    text-align: center; border: 2px solid #e0e0e0;
+    transition: all 0.3s; position: relative; cursor: default;
+}
+.fw-node:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+.fw-node .fw-name { font-weight: 700; font-size: 0.88em; color: #1a1a2e; margin-bottom: 4px; }
+.fw-node .fw-count { font-size: 1.6em; font-weight: 800; }
+.fw-node .fw-pct { font-size: 0.72em; color: #888; }
+.fw-node.cat-marxism { border-color: #e74c3c; }
+.fw-node.cat-marxism .fw-count { color: #e74c3c; }
+.fw-node.cat-pedagogy { border-color: #ff8800; }
+.fw-node.cat-pedagogy .fw-count { color: #ff8800; }
+.fw-node.cat-postmod { border-color: #7b1fa2; }
+.fw-node.cat-postmod .fw-count { color: #7b1fa2; }
+.fw-node.cat-analysis { border-color: #2a5a8a; }
+.fw-node.cat-analysis .fw-count { color: #2a5a8a; }
+.fw-node.cat-major { border-width: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+.cat-label {
+    grid-column: 1 / -1; font-weight: 700; font-size: 1.05em;
+    padding: 8px 14px; border-radius: 6px; margin-top: 8px;
+}
+.cat-label.marxism { background: #fde8e8; color: #c0392b; }
+.cat-label.pedagogy { background: #fef3e0; color: #e67e22; }
+.cat-label.postmod { background: #f3e8fd; color: #7b1fa2; }
+.cat-label.analysis { background: #e8edf8; color: #2a5a8a; }
+
+.timeline { position: relative; padding-right: 30px; margin: 16px 0; }
+.timeline::before { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 18px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -24px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: #667eea; border: 2px solid #fff;
+}
+.tl-item.highlight::before { background: #e74c3c; width: 12px; height: 12px; }
+.tl-year { font-weight: 700; color: #667eea; font-size: 0.88em; }
+.tl-item.highlight .tl-year { color: #e74c3c; }
+.tl-text { font-size: 0.88em; color: #444; margin-top: 2px; }
+
+.provenance {
+    font-size: 0.72em; color: #888; background: #f5f5f8; padding: 3px 8px;
+    border-radius: 3px; display: inline-block; margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        מפת אידיאולוגיות
+        <a href="../index.html">חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('map')">מפת אידיאולוגיות</button>
+        <button class="nav-tab" onclick="showView('marxism')">מרקסיזם ויורשיו</button>
+        <button class="nav-tab" onclick="showView('pedagogy')">פדגוגיה ביקורתית</button>
+        <button class="nav-tab" onclick="showView('postmod')">פוסט-מודרניזם</button>
+        <button class="nav-tab" onclick="showView('links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>מפת המסגרות הפילוסופיות</h1>
+    <div class="subtitle">ארכיון אלכסון -- מיפוי 17 זרמים אידיאולוגיים וחדירתם לחינוך בישראל</div>
+    <div class="meta">מקור: evidence_lens.md -- Philosophical Lens Archive [ALACHSON-ARCHIVE]</div>
+    <div class="stats-row">
+        <div class="stat"><div class="num">1,331</div><div class="lbl">סעיפי ראיות</div></div>
+        <div class="stat"><div class="num">17</div><div class="lbl">מסגרות פילוסופיות</div></div>
+        <div class="stat"><div class="num">279</div><div class="lbl">סעיפים על מרקסיזם</div></div>
+        <div class="stat"><div class="num">129</div><div class="lbl">סעיפים על פריירה</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ══════ TAB 1: MAP ══════ -->
+<div id="view-map" class="view active">
+
+<div class="section">
+    <h2>מפת הקשרים: 17 מסגרות פילוסופיות</h2>
+    <p>כל מסגרת פילוסופית מייצגת זרם מחשבה שנמצא במקורות הראשוניים של ארכיון אלכסון. המספר מציין את כמות הסעיפים שתועדו -- ככל שהמספר גדול יותר, כך הנוכחות של אותו זרם בספרות החינוכית המנותחת רבה יותר.</p>
+</div>
+
+<div class="section">
+    <h3>סיכום כמותי</h3>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מרקסיזם (כללי)</div>
+            <div class="value">279</div>
+            <div class="note">21.0% מכלל הסעיפים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">פריירה / פדגוגיה ביקורתית</div>
+            <div class="value">129</div>
+            <div class="note">9.7% מכלל הסעיפים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מרקוזה / אסכולת פרנקפורט</div>
+            <div class="value">108</div>
+            <div class="note">8.1% מכלל הסעיפים</div>
+        </div>
+    </div>
+    <div class="grid-4">
+        <div class="metric">
+            <div class="label">ניתוח אידיאולוגי</div>
+            <div class="value">104</div>
+            <div class="note">7.8%</div>
+        </div>
+        <div class="metric">
+            <div class="label">ביקורת קפיטליזם</div>
+            <div class="value">71</div>
+            <div class="note">5.3%</div>
+        </div>
+        <div class="metric">
+            <div class="label">SEL / למידה רגשית-חברתית</div>
+            <div class="value">65</div>
+            <div class="note">4.9%</div>
+        </div>
+        <div class="metric">
+            <div class="label">פוסט-מודרניזם</div>
+            <div class="value">54</div>
+            <div class="note">4.1%</div>
+        </div>
+        <div class="metric">
+            <div class="label">תיאוריית גזע ביקורתית</div>
+            <div class="value">51</div>
+            <div class="note">3.8%</div>
+        </div>
+        <div class="metric">
+            <div class="label">גרמשי / הגמוניה</div>
+            <div class="value">43</div>
+            <div class="note">3.2%</div>
+        </div>
+        <div class="metric">
+            <div class="label">דיאלקטיקה</div>
+            <div class="value">26</div>
+            <div class="note">2.0%</div>
+        </div>
+        <div class="metric">
+            <div class="label">ניאו-מרקסיזם</div>
+            <div class="value">20</div>
+            <div class="note">1.5%</div>
+        </div>
+        <div class="metric">
+            <div class="label">ניכור</div>
+            <div class="value">19</div>
+            <div class="note">1.4%</div>
+        </div>
+        <div class="metric">
+            <div class="label">פוקו / ידע-כוח</div>
+            <div class="value">8</div>
+            <div class="note">0.6%</div>
+        </div>
+        <div class="metric">
+            <div class="label">כיבוש מוסדי</div>
+            <div class="value">6</div>
+            <div class="note">0.5%</div>
+        </div>
+        <div class="metric">
+            <div class="label">דרידה / דקונסטרוקציה</div>
+            <div class="value">5</div>
+            <div class="note">0.4%</div>
+        </div>
+        <div class="metric">
+            <div class="label">לאקאן / פסיכואנליזה</div>
+            <div class="value">2</div>
+            <div class="note">0.2%</div>
+        </div>
+        <div class="metric">
+            <div class="label">פוסט-קולוניאליזם</div>
+            <div class="value">1</div>
+            <div class="note">0.1%</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מפת רשת: זרמים וקטגוריות</h2>
+    <p>הזרמים מסווגים לארבע קטגוריות-על. הגודל היחסי של כל צומת משקף את כמות הראיות שנאספו עבורו.</p>
+
+    <div class="fw-map">
+        <div class="cat-label marxism">משפחה מרקסיסטית -- 467 סעיפים</div>
+        <div class="fw-node cat-marxism cat-major">
+            <div class="fw-name">מרקסיזם (כללי)</div>
+            <div class="fw-count">279</div>
+            <div class="fw-pct">21.0%</div>
+        </div>
+        <div class="fw-node cat-marxism cat-major">
+            <div class="fw-name">מרקוזה / פרנקפורט</div>
+            <div class="fw-count">108</div>
+            <div class="fw-pct">8.1%</div>
+        </div>
+        <div class="fw-node cat-marxism">
+            <div class="fw-name">ביקורת קפיטליזם</div>
+            <div class="fw-count">71</div>
+            <div class="fw-pct">5.3%</div>
+        </div>
+        <div class="fw-node cat-marxism">
+            <div class="fw-name">גרמשי / הגמוניה</div>
+            <div class="fw-count">43</div>
+            <div class="fw-pct">3.2%</div>
+        </div>
+        <div class="fw-node cat-marxism">
+            <div class="fw-name">דיאלקטיקה</div>
+            <div class="fw-count">26</div>
+            <div class="fw-pct">2.0%</div>
+        </div>
+        <div class="fw-node cat-marxism">
+            <div class="fw-name">ניאו-מרקסיזם</div>
+            <div class="fw-count">20</div>
+            <div class="fw-pct">1.5%</div>
+        </div>
+        <div class="fw-node cat-marxism">
+            <div class="fw-name">ניכור</div>
+            <div class="fw-count">19</div>
+            <div class="fw-pct">1.4%</div>
+        </div>
+
+        <div class="cat-label pedagogy">פדגוגיה ויישום -- 194 סעיפים</div>
+        <div class="fw-node cat-pedagogy cat-major">
+            <div class="fw-name">פריירה / פדגוגיה ביקורתית</div>
+            <div class="fw-count">129</div>
+            <div class="fw-pct">9.7%</div>
+        </div>
+        <div class="fw-node cat-pedagogy">
+            <div class="fw-name">SEL / למידה רגשית-חברתית</div>
+            <div class="fw-count">65</div>
+            <div class="fw-pct">4.9%</div>
+        </div>
+
+        <div class="cat-label postmod">פוסט-מודרניזם וזהות -- 121 סעיפים</div>
+        <div class="fw-node cat-postmod">
+            <div class="fw-name">פוסט-מודרניזם</div>
+            <div class="fw-count">54</div>
+            <div class="fw-pct">4.1%</div>
+        </div>
+        <div class="fw-node cat-postmod">
+            <div class="fw-name">תיאוריית גזע ביקורתית</div>
+            <div class="fw-count">51</div>
+            <div class="fw-pct">3.8%</div>
+        </div>
+        <div class="fw-node cat-postmod">
+            <div class="fw-name">פוקו / ידע-כוח</div>
+            <div class="fw-count">8</div>
+            <div class="fw-pct">0.6%</div>
+        </div>
+        <div class="fw-node cat-postmod">
+            <div class="fw-name">דרידה / דקונסטרוקציה</div>
+            <div class="fw-count">5</div>
+            <div class="fw-pct">0.4%</div>
+        </div>
+        <div class="fw-node cat-postmod">
+            <div class="fw-name">לאקאן / פסיכואנליזה</div>
+            <div class="fw-count">2</div>
+            <div class="fw-pct">0.2%</div>
+        </div>
+        <div class="fw-node cat-postmod">
+            <div class="fw-name">פוסט-קולוניאליזם</div>
+            <div class="fw-count">1</div>
+            <div class="fw-pct">0.1%</div>
+        </div>
+
+        <div class="cat-label analysis">ניתוח מערכתי -- 110 סעיפים</div>
+        <div class="fw-node cat-analysis cat-major">
+            <div class="fw-name">ניתוח אידיאולוגי</div>
+            <div class="fw-count">104</div>
+            <div class="fw-pct">7.8%</div>
+        </div>
+        <div class="fw-node cat-analysis">
+            <div class="fw-name">כיבוש מוסדי</div>
+            <div class="fw-count">6</div>
+            <div class="fw-pct">0.5%</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שרשרת ההשפעה האידיאולוגית</h2>
+    <p>הצינור האינטלקטואלי: מהפילוסופיה המופשטת אל הכיתה בישראל.</p>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">1</div>
+        <div class="step-content">
+            <div class="step-title">מארקס (1844-1848)</div>
+            <div class="step-desc">כתבי היד הכלכליים-פילוסופיים. המניפסט הקומוניסטי. ניכור כמסגרת מרכזית. "קומוניזם הוא פתרון חידת ההיסטוריה".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">2</div>
+        <div class="step-content">
+            <div class="step-title">אסכולת פרנקפורט (1923-1960)</div>
+            <div class="step-desc">הורקהיימר, אדורנו, מרקוזה. המוטציה המכרעת: הסטת ציר הדיכוי מכלכלה לתרבות. "דיאלקטיקה של הנאורות".</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #ff8800;">
+        <div class="step-num" style="color: #ff8800;">3</div>
+        <div class="step-content">
+            <div class="step-title">מרקוזה (1955-1969)</div>
+            <div class="step-desc">"סובלנות מדכאת", "האדם החד-ממדי". זיהוי אוכלוסיות שוליים ככלי לערעור. פוליטיזציה של האוניברסיטה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #ff8800;">
+        <div class="step-num" style="color: #ff8800;">4</div>
+        <div class="step-content">
+            <div class="step-title">פריירה (1968-1985)</div>
+            <div class="step-desc">"פדגוגיה של המדוכאים". ייעור מודעות (Conscientization). בחירת מילים לפי עוררות רגשית, לא פשטות פדגוגית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #667eea;">
+        <div class="step-num" style="color: #667eea;">5</div>
+        <div class="step-content">
+            <div class="step-title">ג'ירו (1981+)</div>
+            <div class="step-desc">שינוי שם שיווקי: "פדגוגיה רדיקלית" הפכה ל"פדגוגיה ביקורתית". מינוי ~100 פרופסורים במכללות הוראה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #667eea;">
+        <div class="step-num" style="color: #667eea;">6</div>
+        <div class="step-content">
+            <div class="step-title">האקדמיה הישראלית</div>
+            <div class="step-desc">קתדרת UNESCO בסמינר הקיבוצים (פרופ' נמרוד אלוני). המרכז לפדגוגיה ביקורתית. מכון מופ"ת. אבני ראשה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #2e7d32;">
+        <div class="step-num" style="color: #2e7d32;">7</div>
+        <div class="step-content">
+            <div class="step-title">הכיתה הישראלית</div>
+            <div class="step-desc">~1,400 אקדמאים בבתי ספר (תכנית "חותם"). SEL, שפ"י, SEL.IL. הוראות ישירות: "שלב SEL בכל שיעור".</div>
+        </div>
+    </div>
+
+    <div class="provenance">[ALACHSON-ARCHIVE] Philosophical Lens Archive -- evidence_lens.md -- 1,331 sections</div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 2: MARXISM ══════ -->
+<div id="view-marxism" class="view">
+
+<div class="section">
+    <h2>מרקסיזם ויורשיו -- 467 סעיפי ראיות</h2>
+    <p>המשפחה המרקסיסטית כוללת את הזרמים: מרקסיזם כללי (279), מרקוזה/פרנקפורט (108), ביקורת קפיטליזם (71), גרמשי/הגמוניה (43), דיאלקטיקה (26), ניאו-מרקסיזם (20), וניכור (19). ביחד -- 35.1% מכלל הראיות בארכיון.</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מרקסיזם (כללי)</div>
+            <div class="value">279</div>
+            <div class="note">הקטגוריה הגדולה ביותר</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מרקוזה / פרנקפורט</div>
+            <div class="value">108</div>
+            <div class="note">האסטרטג המכריע</div>
+        </div>
+        <div class="metric">
+            <div class="label">ביקורת קפיטליזם</div>
+            <div class="value">71</div>
+            <div class="note">המנוע הכלכלי</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מרקסיזם כללי -- ציטוטים מרכזיים</h2>
+
+    <h3>המרקסיזם כפסאודו-דת</h3>
+    <div class="quote-box">
+        "זו אינה השערה מדעית -- זו הצהרה של אמת גלויה. טענה מדעית אומרת 'ייתכן שזו התשובה, והנה הראיות'. טענה דתית אומרת 'זו התשובה, והיא יודעת על עצמה שהיא כזו'. מרקסיזם הוא תיאולוגיה הלובשת חלוק מעבדה."
+        <div class="q-source">This is not a scientific hypothesis -- it is a statement of revealed truth. Marxism is theology wearing a lab coat. -- 01_QUOTES_AND_EVIDENCE.md</div>
+    </div>
+
+    <h3>הסינתזה המרקסיסטית-פוסט-מודרנית</h3>
+    <div class="quote-box">
+        "הסינתזה המרקסיסטית-פוסט-מודרנית מציעה את כל הארבעה. 'אני ביקורתי, לפיכך אני מוסרי' -- קיצור הדרך המהיר ביותר לעליונות מוסרית שנוסח אי-פעם. אין צורך בניתוח מעמיק, אין צורך בענווה, אין צורך להבין איך החברה באמת עובדת. פשוט הצביעו על פגמים והכריזו על עצמכם בצד הצדק."
+        <div class="q-source">The Marxist-postmodern synthesis -- "I am critical, therefore I am moral" -- 00_THE_WHY_MASTER_THESIS.md</div>
+    </div>
+
+    <h3>המנגנון: הסניגור על סבל</h3>
+    <div class="quote-box orange">
+        "מארקס נתפס כמי שמתנגד לקפיטליזם. זה אינו מדויק. מרקס תמך במפורש בטיפוח סבל אנושי כיוון שהוא מעודד את התסכול ושנאה הנדרשים למהפכה במודל אותו מרקס מדמיין. מרקס אמנם תיאר את הנזק האנושי העצום שלדעתו נובע מסחר חופשי, והמסקנה שלו מניתוח זה הוא שיש להגביר את הסחר חופשי בדיוק כיוון שיקדום סבל המועיל למהפכה."
+        <div class="q-source">WITCH_KING_QOUTES_MARX.docx</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מרקוזה / אסכולת פרנקפורט -- 108 סעיפים</h2>
+
+    <h3>המוטציה המכרעת: מכלכלה לתרבות</h3>
+    <div class="quote-box">
+        "הרצון שמאחוריו -- להרס מערכתי טוטאלי כתנאי מוקדם לאוטופיה -- לא מת. הוא עבר מוטציה. אסכולת פרנקפורט (הורקהיימר, אדורנו, מרקוזה) ביצעה את המוטציה המכרעת: הסיטו את ציר הדיכוי מכלכלה לתרבות. אם פועלים לא יתמרדו כי הם נוחים, אז הנוחות עצמה חייבת להיות ממוסגרת כדיכוי ('סובלנות מדכאת'), ואוכלוסיות חדשות של סבל חייבות להיות מזוהות ומטופחות."
+        <div class="q-source">The Frankfurt School performed the decisive mutation: they shifted the axis of oppression from economics to culture. -- 00_THE_WHY_MASTER_THESIS.md</div>
+    </div>
+
+    <h3>השאלה המרכזית של מרקוזה</h3>
+    <div class="quote-box">
+        "שאלתו המרכזית של מרקוזה: 'איך לעורר דחף מהפכני בחברה עשירה ומתפקדת?' תשובתו: אתה לא מתקן את החברה -- אתה משמיד את היסודות האפיסטמולוגיים שלה (איך היא יודעת מה שהיא יודעת) ואת אוצר המילים המוסרי שלה (איך היא מדברת על נכון ולא נכון)."
+        <div class="q-source">Marcuse's pivotal question -- you destroy its epistemological foundations and its moral vocabulary. -- 00_THE_WHY_MASTER_THESIS.md</div>
+    </div>
+
+    <h3>אונסק"ו ממשיכה את דרכו של מרקוזה</h3>
+    <div class="quote-box orange">
+        "In many ways, we now need to re-read this [One Dimensional Man by Marcuse], because the change that was called for, has failed to materialize."
+        <div class="q-source">UNESCO document on sustainability and higher education (2022) -- explicitly citing Marcuse</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>גרמשי / הגמוניה -- 43 סעיפים</h2>
+
+    <h3>בתי הספר ככלי הגמוני</h3>
+    <div class="quote-box blue">
+        "גרמשי כתב על בעיית השעתוק התרבותי: המוסדות בחברה קפיטליסטית, ובעיקר בתי הספר, משעתקים את צורות החשיבה והאידיאולוגיות הנדרשות לשמירה על שליטת הקפיטליזם. את זה גרמשי כינה 'הגמוניה', וטען שהיא חשובה יותר מ'הבסיס'. התיאורטיקנים הביקורתיים הסיקו שבאמצעות שינוי החינוך הם יוכלו לפתור את שעתוק הקפיטליזם מדור לדור."
+        <div class="q-source">Gottesman documents scholars' growing interest in neo-Marxism and how all roads led to Gramsci. -- WITCH_KING_QOUTES_MARX.docx</div>
+    </div>
+
+    <h3>ההגמוניה בשפת החינוך</h3>
+    <div class="quote-box blue">
+        "גוטסמן עצמו מצר על כך שטרמינולוגיה מרקסיסטית כמו 'הגמוניה' השתלטה כל כך אפקטיבית עד שהמושגים 'הפכו שגורים מדי ואיבדו את הלהט המהפכני שלהם.'"
+        <div class="q-source">SEL research -- Gottesman's Critical Turn in Education</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ציר הזמן: הירושה האינטלקטואלית</h2>
+    <div class="timeline">
+        <div class="tl-item highlight">
+            <div class="tl-year">1844</div>
+            <div class="tl-text">מארקס -- כתבי יד כלכליים-פילוסופיים: "קומוניזם הוא פתרון חידת ההיסטוריה"</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">1848</div>
+            <div class="tl-text">מארקס ואנגלס -- המניפסט הקומוניסטי</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">1923</div>
+            <div class="tl-text">הקמת בית הספר של פרנקפורט -- המוטציה מכלכלה לתרבות</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1955</div>
+            <div class="tl-text">מרקוזה -- Eros and Civilization</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">1964</div>
+            <div class="tl-text">מרקוזה -- One-Dimensional Man ("האדם החד-ממדי")</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">1965</div>
+            <div class="tl-text">מרקוזה -- Repressive Tolerance: "סובלנות משחררת = אי-סובלנות כלפי הימין"</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">1968</div>
+            <div class="tl-text">פריירה -- Pedagogy of the Oppressed (פדגוגיה של המדוכאים)</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1969</div>
+            <div class="tl-text">מרקוזה -- An Essay on Liberation: השחורים ככלי מהפכני</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">1981</div>
+            <div class="tl-text">ג'ירו מתחיל להחדיר "פדגוגיה ביקורתית" למכללות מורים</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1985</div>
+            <div class="tl-text">פריירה -- The Politics of Education: מצטט לנין, מהלל מאו</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1989</div>
+            <div class="tl-text">קימברלה קרנשו -- Intersectionality</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">1994</div>
+            <div class="tl-text">הקמת CASEL -- הארגון המוביל בעולם ל-SEL</div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-year">2016</div>
+            <div class="tl-text">גוטסמן -- The Critical Turn in Education: מתעד את הכיבוש</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">2022</div>
+            <div class="tl-text">אונסק"ו -- מצטטת מרקוזה כהשראה, דורשת ביטול חופש אקדמי</div>
+        </div>
+        <div class="tl-item highlight">
+            <div class="tl-year">2024+</div>
+            <div class="tl-text">הטמעה מואצת בישראל -- שפ"י, SEL.IL, אבני ראשה, מופ"ת</div>
+        </div>
+    </div>
+    <div class="provenance">[ALACHSON-ARCHIVE] evidence_lens.md -- Timeline reconstructed from SEL research</div>
+</div>
+
+<div class="section">
+    <h2>ניכור (Alienation) -- 19 סעיפים</h2>
+    <div class="quote-box">
+        "ניכור אמנם זו מילה שלילית אך מרקס מכניס לקטגוריה הזו: דת, משפחה, מדינה, חוק, מוסר, אמנות ומדע. המשפט ברור יותר אם נחליף את המילה 'ניכור' ב-'הגבלה'. מבוטאת כאן שנאה מוחלטת של מרקס לכל הגבלה."
+        <div class="q-source">WITCH_KING_QOUTES_MARX.docx</div>
+    </div>
+    <div class="quote-box blue">
+        "דת, משפחה, מדינה, חוק, מוסר, מדע, אמנות וכו', הם רק דרכי ייצור ספציפיות, והם מקרים פרטיים של אותו חוק כללי. ההתעלות של הקניין הפרטי כניכוס חיי האדם, הוא אפוא ההתעלות מעל כל ניכור -- כלומר חזרתו של האדם מהדת, המשפחה, המדינה וכו', לקיומו האנושי, כלומר החברתי."
+        <div class="q-source">WITCH_KING_QOUTES -- Marx, Economic-Philosophical Manuscripts</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 3: CRITICAL PEDAGOGY ══════ -->
+<div id="view-pedagogy" class="view">
+
+<div class="section">
+    <h2>פדגוגיה ביקורתית ויישומיה -- 194 סעיפי ראיות</h2>
+    <p>הענף היישומי: כיצד התיאוריה המרקסיסטית הופכת לתוכנית לימודים. זה כולל פריירה/פדגוגיה ביקורתית (129 סעיפים) ו-SEL/למידה רגשית-חברתית (65 סעיפים).</p>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">פריירה / פדגוגיה ביקורתית</div>
+            <div class="value">129</div>
+            <div class="note">מפריירה לג'ירו לכיתה</div>
+        </div>
+        <div class="metric">
+            <div class="label">SEL / למידה רגשית-חברתית</div>
+            <div class="value">65</div>
+            <div class="note">כלי ההטמעה בישראל</div>
+        </div>
+        <div class="metric">
+            <div class="label">ניתוח אידיאולוגי</div>
+            <div class="value">104</div>
+            <div class="note">חשיפת המנגנון</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שרשרת האבולוציה: מתיאוריה לכיתה</h2>
+
+    <div class="pipeline-step" style="border-right-color: #e74c3c;">
+        <div class="step-num" style="color: #e74c3c;">1</div>
+        <div class="step-content">
+            <div class="step-title">חשיבה ביקורתית ליברלית (מקור)</div>
+            <div class="step-desc">"להיות ביקורתי = לגלות שיפוט טוב בזיהוי טיעונים פגומים, טענות חסרות ראיות, טענות אמת הנשענות על מקורות לא אמינים..."</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #ff8800;">
+        <div class="step-num" style="color: #ff8800;">2</div>
+        <div class="step-content">
+            <div class="step-title">פדגוגיה רדיקלית (פריירה, שנות ה-60-70)</div>
+            <div class="step-desc">ייעור מודעות (Conscientization). בחירת מילים לפי עוררות רגשית. ספרו נשען על הגל, מרקס, לנין, מאו וקסטרו.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #ff8800;">
+        <div class="step-num" style="color: #ff8800;">3</div>
+        <div class="step-content">
+            <div class="step-title">שינוי שם שיווקי: "פדגוגיה ביקורתית" (ג'ירו, 1981)</div>
+            <div class="step-desc">"פדגוגיה ביקורתית" היא שינוי שם שיווקי של "פדגוגיה רדיקלית". התוכן לא השתנה -- רק המותג.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #667eea;">
+        <div class="step-num" style="color: #667eea;">4</div>
+        <div class="step-content">
+            <div class="step-title">SEL כ-"כלי ריק" (1994+)</div>
+            <div class="step-desc">SEL אמורפי דיו כדי לשאת כל אג'נדה, אך מובנה דיו כדי לפתוח דלת גורפת לעולם הרגשי של ילדים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #2e7d32;">
+        <div class="step-num" style="color: #2e7d32;">5</div>
+        <div class="step-content">
+            <div class="step-title">Transformative SEL (2020+)</div>
+            <div class="step-desc">"מודעות עצמית" = "בחינת הטיות סמויות". "ניהול עצמי" = "תרגול אנטי-גזענות". "זהות" מוגדרת דרך אינטרסקציונליות.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פריירה / פדגוגיה ביקורתית -- ציטוטים מרכזיים</h2>
+
+    <h3>ההגדרה: חשיבה ביקורתית מול פדגוגיה ביקורתית</h3>
+    <div class="quote-box">
+        "Critical pedagogy regards the claims that students make in response to social-justice issues not as propositions to be assessed for their truth value, but as expressions of power that function to reinscribe and perpetuate social inequalities."
+        <div class="q-source">Bailey's definition of Marxist critical pedagogy -- Hypatia, 2017</div>
+    </div>
+
+    <h3>הודאה בשינוי השם השיווקי</h3>
+    <div class="quote-box orange">
+        "'פדגוגיה ביקורתית' היא שינוי שם שיווקי של 'פדגוגיה רדיקלית'. התוכן לא השתנה -- רק המותג. ג'ירו עצמו מודה: 'באמת התחיל בשיחות עם פאולו. כי דחינו את העיקרון של פדגוגיה רדיקלית. הנקודה שלו הייתה שלמרות חשיבות המונח, היה לו משקל בלעדי שרוב המורים לא יכלו לקפוץ ולהזדהות איתו. אז חשבו שביקורתי הרבה יותר מעניין.'"
+        <div class="q-source">01_QUOTES_AND_EVIDENCE.md -- Giroux's own words on the rebrand</div>
+    </div>
+
+    <h3>מה "פדגוגיה ביקורתית" דורשת מכל שיעור</h3>
+    <div class="quote-box">
+        "פדגוגיה ביקורתית (פריירה/ג'ירו) דורשת במפורש מכל שיעור: 1. ערעור זהות קיימת -- יצירת דיסוננס קוגניטיבי לגבי מי התלמיד. 2. ניהול המשבר -- הנחיית התלמיד דרך המצוקה שנוצרה. 3. יציאה לכיוון 'סוכנות' -- התלמיד יוצא כ'סוכן שינוי' מיושר עם האידיאולוגיה."
+        <div class="q-source">02_DYNAMICS_AND_SECOND_ORDER_EFFECTS.md</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>SEL -- למידה רגשית-חברתית -- 65 סעיפים</h2>
+
+    <h3>ה-Bait and Switch</h3>
+    <div class="quote-box">
+        "רוב האנשים המקדמים SEL -- מורים, יועצים, פסיכולוגים -- הם אנשי מקצוע בעלי כוונות טובות. הם לא קראו את כתביו של הרברט מרקוזה. הם לא מכירים את פאולו פריירה. הם לא יודעים ש-CASEL כתב באתרו על 'disrupting and resisting inequities'. הם מאמצים את המילים כי אלו 'המילים הנכונות' -- ובדיוק בכך נעוץ המנגנון."
+        <div class="q-source">SEL research -- Primary research document</div>
+    </div>
+
+    <h3>העמימות כנשק</h3>
+    <div class="quote-box blue">
+        "מבחינה מדעית מדובר במגדל קלפים. מבחינה אסטרטגית, העמימות עשויה להיות שימושית. מחקר מאוניברסיטת אדינבורו הזהיר כי העמימות המאפיינת את SEL עשויה לשמש לקידום מגוון אינטרסים ואג'נדות: 'perhaps it is this very messiness and incoherence that enables a productive malleability... to meet a variety of agenda and interests.'"
+        <div class="q-source">SEL mechanism document -- Edinburgh University research</div>
+    </div>
+
+    <h3>אפס ראיות אמפיריות</h3>
+    <div class="quote-box orange">
+        "סקירת RAND משנת 2017 מצאה אפס מחקרים בדרגה הראייתית העליונה (Tier 1) המוכיחים שתוכניות SEL משפרות הישגים אקדמיים, ורק מחקר אחד בדרגה השנייה."
+        <div class="q-source">RAND Review 2017 -- SEL research document</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הצינור המוסדי בישראל</h2>
+    <div class="pipeline-step" style="border-right-color: #7b1fa2;">
+        <div class="step-num" style="color: #7b1fa2;">1</div>
+        <div class="step-content">
+            <div class="step-title">UNESCO (מדיניות עולמית ומימון)</div>
+            <div class="step-desc">מסמכי SDG, ציטוט מפורש של מרקוזה, דרישה להצבת "קציני קיימות" במוסדות אקדמיים.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #7b1fa2;">
+        <div class="step-num" style="color: #7b1fa2;">2</div>
+        <div class="step-content">
+            <div class="step-title">קתדרת UNESCO בסמינר הקיבוצים (פרופ' נמרוד אלוני)</div>
+            <div class="step-desc">הממשק בין האג'נדה הבינלאומית לאקדמיה הישראלית.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #667eea;">
+        <div class="step-num" style="color: #667eea;">3</div>
+        <div class="step-content">
+            <div class="step-title">המרכז לפדגוגיה ביקורתית (אותו מוסד)</div>
+            <div class="step-desc">הכשרת מורים -- pre-service ו-in-service.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #667eea;">
+        <div class="step-num" style="color: #667eea;">4</div>
+        <div class="step-content">
+            <div class="step-title">מכון מופ"ת (פיתוח מורים)</div>
+            <div class="step-desc">פיתוח מקצועי למורים בשדה.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #2e7d32;">
+        <div class="step-num" style="color: #2e7d32;">5</div>
+        <div class="step-content">
+            <div class="step-title">הכיתה הישראלית</div>
+            <div class="step-desc">שפ"י, SEL.IL באוניברסיטת רייכמן, אבני ראשה, המלצות יוזמה (האקדמיה הלאומית למדעים).</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#x25BC;</div>
+    <div class="pipeline-step" style="border-right-color: #2e7d32;">
+        <div class="step-num" style="color: #2e7d32;">6</div>
+        <div class="step-content">
+            <div class="step-title">משרד החינוך</div>
+            <div class="step-desc">המלצות מדיניות. הפניות חוזרות מהאקדמיה הלאומית.</div>
+        </div>
+    </div>
+
+    <div class="provenance">[ALACHSON-ARCHIVE] evidence_lens.md -- Institutional pipeline mapping</div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 4: POST-MODERNISM ══════ -->
+<div id="view-postmod" class="view">
+
+<div class="section">
+    <h2>פוסט-מודרניזם ופוליטיקת זהות -- 121 סעיפי ראיות</h2>
+    <p>הענף הפוסט-מודרני כולל: פוסט-מודרניזם (54), תיאוריית גזע ביקורתית (51), פוקו/ידע-כוח (8), דרידה/דקונסטרוקציה (5), לאקאן/פסיכואנליזה (2), ופוסט-קולוניאליזם (1). ביחד -- 9.1% מכלל הראיות בארכיון.</p>
+
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">פוסט-מודרניזם</div>
+            <div class="value">54</div>
+            <div class="note">המסווה האקדמי</div>
+        </div>
+        <div class="metric">
+            <div class="label">תיאוריית גזע ביקורתית</div>
+            <div class="value">51</div>
+            <div class="note">CRT</div>
+        </div>
+        <div class="metric">
+            <div class="label">פוקו + דרידה + לאקאן + פוסט-קולוניאליזם</div>
+            <div class="value">16</div>
+            <div class="note">כלי הדקונסטרוקציה</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פוסט-מודרניזם כמסווה -- 54 סעיפים</h2>
+
+    <h3>המנגנון: ספקנות כללית ככרטיס כניסה</h3>
+    <div class="quote-box">
+        "מכיוון שתקיפה גלויה של הליברליזם לא הייתה מניבה משרות אקדמיות, ניאו-מרקסיסטים אימצו 'ספקנות כללית' פוסט-מודרניסטית ככרטיס כניסה. כל מייסדי הפוסט-מודרניזם הגדולים היו מרקסיסטים. על הנייר, פוסט-מודרניזם דוחה את כל ה'נרטיבים הגדולים'; בפועל, היא משרתת את הנרטיב המרקסיסטי על ידי: הרס האמון באובייקטיביות, ראיות ולוגיקה (ניקוי השטח); אספקת אוצר מילים אקדמי 'ניטרלי' לטענות פוליטיות; יצירת סביבה שכל טענה חיובית ניתנת לדקונסטרוקציה -- חוץ מטענות על דיכוי."
+        <div class="q-source">00_THE_WHY_MASTER_THESIS.md</div>
+    </div>
+
+    <h3>רגע עור הנחש: קרנשו</h3>
+    <div class="quote-box orange">
+        "קימברלה קרנשו ביצעה את המהלך המכריע. פוסט-מודרניזם טוענת לזכות לפרק כל מושג, אבל קרנשו טענה שזה 'פריבילגיה לבנה' לפרק את מושג ה'גזע' -- מכיוון שלבנים לא נפגעים ממנו. לכן, הפוסט-מודרניזם אסור לה לגעת במושג זה. זה סותר לחלוטין את העיקרון המייסד של פוסט-מודרניזם, אך בשלב זה הקליפה שירתה את מטרתה ונשלה 'כעור נחש'."
+        <div class="q-source">The snake-skin moment -- 00_THE_WHY_MASTER_THESIS.md</div>
+    </div>
+
+    <h3>ג'ירו הפוסט-מודרני</h3>
+    <div class="quote-box">
+        "הנרי ג'ירו הוא אכן פרוגרסיבי ופוסט-מודרני מניפולטיבי שאין לו גרם כבוד לביסוס רציונלי של אמת וצדק... עמדתי ושאלתי מדוע אדם רציונלי צריך להעדיף את עמדותיו על פני אחרות, כיוון שלא נתן להן כל תמיכה באמצעות היגיון לוגי או ראיות עובדתיות. והוא ענה לי בשחצנות יהירה שאין לו מחויבות לרציונליות."
+        <div class="q-source">Nimrod Aloni's colleague's testimony about Giroux -- SEL research</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תיאוריית גזע ביקורתית (CRT) -- 51 סעיפים</h2>
+
+    <h3>הצהרת המייסדים</h3>
+    <div class="quote-box">
+        "Unlike traditional civil rights discourse, which stresses incrementalism and step-by-step progress, critical race theory questions the very foundations of the liberal order, including equality theory, legal reasoning, Enlightenment rationalism, and neutral principles of constitutional law."
+        <div class="q-source">Richard Delgado &amp; Jean Stefancic, Critical Race Theory: An Introduction</div>
+    </div>
+
+    <h3>המנגנון: שלושת הגלים</h3>
+    <div class="quote-box blue">
+        "איצ'ק גוטסמן, בספרו The Critical Turn in Education (2016), מתעד -- מתוך הזדהות -- שלושה שלבים של חדירה מרקסיסטית למערכת החינוך: 1. כלכלה -- מרקסיזם קלאסי. 2. מגדר -- פמיניזם פוסט-סטרוקטורליסטי. 3. גזע -- תיאוריית הגזע הביקורתית (CRT)."
+        <div class="q-source">Gottesman, The Critical Turn in Education -- SEL research</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>פוקו / ידע-כוח -- 8 סעיפים</h2>
+    <p>למרות מספר סעיפים מצומצם, פוקו מהווה נדבך מרכזי: הטענה שידע הוא תמיד ביטוי של כוח, ושאין "אמת אובייקטיבית" -- רק "משטרי אמת" המשרתים סדרי כוח.</p>
+
+    <div class="quote-box blue">
+        "כיוון נוסף של חשיבה שגוטסמן מתעד הוא ההשפעה הגוברת של פוסט-סטרוקטורליזם ופוסט-מודרניזם. שניהם הדגישו שמקור הכוח אינו ממוקם באופן מרכזי בחברה אלא מפוזר ומושרש עמוק באמצעות דברים כמו שפה. גוטסמן מתעד כיצד הפמיניזם הפוסט-סטרוקטורלי, כשאליזבת אלסוורת' היא הדמות המפתח הראשונית, הביא רעיונות פוסט-מודרניים לתיאוריות ביקורתיות בחינוך. מושג מפתח שהפמיניסטיות הביאו איתן הוא 'ידע ממוקם' (situated knowledge): שהמיקום שלך במבנה הכוח של החברה, למשל הגזע והמין שלך, קובעים מה אתה רואה כידע תקף."
+        <div class="q-source">Gottesman review -- WITCH_KING_QOUTES_MARX.docx</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>דרידה / דקונסטרוקציה -- 5 סעיפים</h2>
+    <div class="quote-box">
+        "פענוח טקסטים מעורפלים בכוונה (דרידה, באטלר, לאקאן) יוצר תחושת שייכות לסדר עילי: 'לאחר שפיצחת אותם, אתה מרגיש שאתה חבר בסדר מכובד.'"
+        <div class="q-source">Dynamics and Second-Order Effects -- 02_DYNAMICS_AND_SECOND_ORDER_EFFECTS.md</div>
+    </div>
+    <div class="quote-box blue">
+        "[There are] various methods... for making [an undesirable] book innocuous. [Derrida would transfer the analogy to the 'undesirable' grammatological 'threat' inhabiting every text.] One way would be for the offending passages to be thickly crossed through so that they were illegible... Another way... would be... to proceed to distort the text. Single words would be left out or replaced by others, and new sentences interpolated. Best of all, the whole passage would be erased and a new one which said exactly the opposite put in its place."
+        <div class="q-source">WITCH_KING_QOUTES -- On Derrida's deconstructive method</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>לאקאן / פסיכואנליזה -- 2 סעיפים</h2>
+    <div class="quote-box">
+        "התחברתי עם אבשלום אליצור, פיזיקאי מוכשר שהוא ביקורתי ביותר כלפי לאקאן. אני עוזר לו להרחיב את דחייתו של לאקאן לשמאל הגליאני בכלל."
+        <div class="q-source">Progress report document -- Alachson archive</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>כיצד הפוסט-מודרניזם נכנס לחינוך</h2>
+    <p>הטבלה המפורסמת: מילים שנגנבו.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>מונח מקורי</th>
+                <th>ההגדרה המרקסיסטית</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>דמוקרטיה</strong></td>
+                <td>"דמוקרטיה אמיתית" -- התוצאה האוטופית אחרי המהפכה</td>
+            </tr>
+            <tr>
+                <td><strong>סובלנות</strong></td>
+                <td>"סובלנות משחררת" -- סובלנות לשמאל, אי-סובלנות לימין</td>
+            </tr>
+            <tr>
+                <td><strong>חשיבה ביקורתית</strong></td>
+                <td>"פדגוגיה ביקורתית" -- טענות נבחנות לא לפי אמת אלא כ"ביטויי כוח"</td>
+            </tr>
+            <tr>
+                <td><strong>גיוון (Diversity)</strong></td>
+                <td>דרך שרשרת הגדרות מחדש, מגיע למשמעות: "כולם ניאו-מרקסיסטים"</td>
+            </tr>
+            <tr>
+                <td><strong>הכלה (Inclusion)</strong></td>
+                <td>הדרת כל מי שמפקפק במסגרת</td>
+            </tr>
+            <tr>
+                <td><strong>שוויון (Equity)</strong></td>
+                <td>לא שוויון הזדמנויות אלא שוויון תוצאות שמנוהל מלמעלה</td>
+            </tr>
+            <tr>
+                <td><strong>מדע</strong></td>
+                <td>כלי של הגמוניה "גברית לבנה אירופית"; מתמטיקה = "לבנוניות"</td>
+            </tr>
+            <tr>
+                <td><strong>בטיחות (Safety)</strong></td>
+                <td>הגנה מפני מפגש עם חילוקי דעות</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="provenance">[ALACHSON-ARCHIVE] evidence_lens.md -- Semantic shifting table</div>
+</div>
+
+<div class="section">
+    <h2>המערכת הסגורה: כל תגובה מאשרת</h2>
+    <div class="quote-box">
+        "המערכת בנויה כך שכל תגובה אפשרית מאשרת אותה: הסכמה מאמתת אותה. אי-הסכמה מוכיחה 'שבריריות לבנה' / 'דחייה אפיסטמית לשימור פריבילגיה'. שתיקה היא 'אלימות לבנה' / שותפות. שאילת שאלות היא 'הסטה' או 'שיטור טון'. דרישת ראיות היא 'הגמוניה פוזיטיביסטית'. מצוקה רגשית היא 'ראיה שהתהליך עובד'."
+        <div class="q-source">00_THE_WHY_MASTER_THESIS.md -- The unfalsifiable system</div>
+    </div>
+</div>
+
+</div>
+
+<!-- ══════ TAB 5: LINKS ══════ -->
+<div id="view-links" class="view">
+
+<div class="section">
+    <h2>קישורים למיניסייטים קשורים</h2>
+    <p>מפת המסגרות הפילוסופיות מתקשרת לסדרת מחקרים נוספים בארכיון אלכסון.</p>
+
+    <a href="critical_pedagogy_center.html" class="link-card">
+        <div>
+            <div class="lc-title">המרכז לפדגוגיה ביקורתית -- סמינר הקיבוצים</div>
+            <div class="lc-desc">מיפוי מוסדי: קתדרת UNESCO, דמויות מפתח, צינור ההשפעה מהאקדמיה לכיתה.</div>
+        </div>
+    </a>
+
+    <a href="semantic_shifting_glossary.html" class="link-card">
+        <div>
+            <div class="lc-title">מילון ההסטות הסמנטיות</div>
+            <div class="lc-desc">כיצד מילים מוכרות (דמוקרטיה, סובלנות, גיוון, הכלה) קיבלו משמעויות חדשות.</div>
+        </div>
+    </a>
+
+    <a href="ken_bebeit_safrenu.html" class="link-card">
+        <div>
+            <div class="lc-title">כן בבית ספרנו</div>
+            <div class="lc-desc">ניתוח תוכן חינוכי בשדה: מה מגיע לכיתה בפועל.</div>
+        </div>
+    </a>
+
+    <a href="radicals_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">מפת הרדיקלים -- מי מכיר את מרקוזה?</div>
+            <div class="lc-desc">פרופילים אישיים: מי הם האנשים שמכניסים את התיאוריות למערכת החינוך בישראל.</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>אודות המקור</h2>
+    <p>הנתונים בעמוד זה מבוססים על <strong>evidence_lens.md</strong> -- ארכיון של 1,331 סעיפי ראיות שסווגו לפי מסגרת פילוסופית. הארכיון נוצר מתוך ניתוח מקורות ראשוניים: כתבי מארקס, מרקוזה, פריירה וג'ירו; מסמכי מדיניות של CASEL, אונסק"ו ויוזמה; מסמכי כנסת; ועדויות מהשטח.</p>
+    <p>הסיווג בוצע על ידי מנוע ניתוח אוטומטי שזיהה מסגרות פילוסופיות בתוך הטקסטים. המסגרות מייצגות את הזרמים האינטלקטואליים הפעילים במרחב החינוכי-אקדמי כפי שהם מתועדים <strong>במקורות עצמם</strong> -- לא בפרשנות חיצונית.</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>מקורות מרכזיים</h3>
+            <ul>
+                <li>00_THE_WHY_MASTER_THESIS.md</li>
+                <li>01_QUOTES_AND_EVIDENCE.md</li>
+                <li>02_DYNAMICS_AND_SECOND_ORDER_EFFECTS.md</li>
+                <li>WITCH_KING_QOUTES_MARX.docx</li>
+                <li>SEL research documents</li>
+                <li>SEL mechanism document</li>
+            </ul>
+        </div>
+        <div>
+            <h3>מסגרת הפרויקט</h3>
+            <p>חלק מפרויקט <strong>אלכסון</strong> של צבי שלם. המחקר מסנתז חומרים מתוך: הרברט מרקוזה, שבעת מדורי Critical Theory, מרקסיזם, SEL, QUEER, UNESCO, 2030, Kohelet, Zvilosophy, ספר חדש, מטאפיזיקה ליברלית, ופיתוי המרקסיזם.</p>
+        </div>
+    </div>
+
+    <div class="provenance">[ALACHSON-ARCHIVE] evidence_lens.md -- Generated 2026-02-27 -- 1,331 lens sections across 17 philosophical frameworks</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>גבעת חביבה -- המכון לחברה משותפת | דשבורד מחקר</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #f39c12; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #3e1a2a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+
+/* -- Badges -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.orange { background: #fef3e0; color: #e67e22; }
+.badge.green { background: #e8f5e9; color: #2e7d32; }
+.badge.purple { background: #f3e5f5; color: #7b1fa2; }
+
+/* -- Person card -- */
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+/* -- Pipeline step -- */
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+/* -- Link card -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Timeline -- */
+.timeline-item {
+    display: flex; gap: 16px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-year {
+    min-width: 60px; font-weight: 800; color: #667eea; font-size: 1.1em;
+}
+.timeline-content { flex: 1; }
+.timeline-content strong { color: #1a1a2e; }
+
+/* -- Footer -- */
+footer {
+    background: #1a1a2e; color: #aab; text-align: center;
+    padding: 20px; font-size: 0.82em;
+}
+footer a { color: #ff8800; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span>גבעת חביבה</span>
+            <span class="risk-pill">השפעה חינוכית</span>
+            <a href="../index.html">&larr; דירוג ערים</a>
+            <a href="index.html">מאגר מחקר</a>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('org')">הארגון</button>
+            <button class="nav-tab" onclick="showTab('education')">תוכניות חינוכיות</button>
+            <button class="nav-tab" onclick="showTab('funding')">מימון</button>
+            <button class="nav-tab" onclick="showTab('ideology')">אידאולוגיה</button>
+            <button class="nav-tab" onclick="showTab('criticism')">ביקורת</button>
+            <button class="nav-tab" onclick="showTab('links')">קישורים ומקורות</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>גבעת חביבה -- המכון לחברה משותפת</h1>
+    <div class="subtitle">Givat Haviva -- The Institute for a Shared Society | עמותה רשומה | נוסד: 1949</div>
+    <div class="meta">קמפוס מנשה | 4 מרכזים | תוכניות בעשרות בתי ספר | מימון בינלאומי | פרס UNESCO 2001 | מנכ"לית: מיכל סלע</div>
+</div>
+
+<div class="container">
+
+<!-- ======= TAB 1: הארגון ======= -->
+<div id="view-org" class="view active">
+
+    <div class="section">
+        <h2>תעודת זהות ארגונית</h2>
+        <p>גבעת חביבה הוא ארגון חברה אזרחית לשינוי חברתי, הפועל לקידום מודל של חברה משותפת בישראל, עם דגש על יצירת חברה משותפת ליהודים ולערבים. הארגון מוגדר כ"ארגון חינוכי לדו-קיום יהודי-ערבי" והוא פועל מקמפוס במועצה אזורית מנשה שבעמק חפר. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">שנת ייסוד</div>
+                <div class="value">1949</div>
+                <div class="note">על ידי התנועה הקיבוצית / השומר הצעיר</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">מספר מרכזים פעילים</div>
+                <div class="value">4</div>
+                <div class="note">שלום, ערבית, אמנות, בי"ס בינלאומי</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">תוכנית "ילדים מלמדים ילדים"</div>
+                <div class="value">34 שנה</div>
+                <div class="note">פעילה ברציפות במערכת החינוך הישראלית</div>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">מיקום הקמפוס</div>
+                <div class="value">מנשה</div>
+                <div class="note">ד.נ. מנשה 3785000</div>
+            </div>
+            <div class="metric">
+                <div class="label">פרס יונסקו לסובלנות</div>
+                <div class="value">2001</div>
+                <div class="note">UNESCO Prize for Tolerance &amp; Peace</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">ארגוני "ידידים" בעולם</div>
+                <div class="value">US + EU</div>
+                <div class="note">ידידי גבעת חביבה ארה"ב + ברחבי העולם</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>רקע היסטורי: מהשומר הצעיר למכון לדו-קיום</h2>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1949</div>
+            <div class="timeline-content">
+                <strong>ייסוד המכון</strong> -- גבעת חביבה נוסדה על ידי תנועת הקיבוצים השומר הצעיר / מפ"ם כמרכז חינוכי ואידאולוגי של התנועה. המקום נקרא על שם <strong>חביבה רייק</strong>, צנחנית מהבריגדה היהודית שצנחה לסלובקיה ב-1944 ונרצחה בידי הנאצים בגיל 30. <span class="badge blue">[WEB-SEARCH]</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1963</div>
+            <div class="timeline-content">
+                <strong>הקמת המרכז היהודי-ערבי לשלום</strong> -- אחד המרכזים הראשונים בישראל שהוקדש לדיאלוג בין יהודים וערבים. מאז הפך לליבת הפעילות של גבעת חביבה. <span class="badge blue">[WEB-SEARCH]</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1985</div>
+            <div class="timeline-content">
+                <strong>הקמת המכון ללימודי ערבית</strong> -- פתיחת קורסים ללימוד ערבית מדוברת וספרותית עבור דוברי עברית, וכן תוכניות עברית לדוברי ערבית. <span class="badge blue">[WEB-SEARCH]</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">~1992</div>
+            <div class="timeline-content">
+                <strong>השקת "ילדים מלמדים ילדים" (CTC)</strong> -- תוכנית דגל שמפגישה קבוצות תלמידים יהודים וערבים בבתי ספר ברחבי הארץ. פועלת ברציפות כבר 34 שנה. <span class="badge blue">[WEB-SEARCH]</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2001</div>
+            <div class="timeline-content">
+                <strong>פרס יונסקו לסובלנות ושלום</strong> -- גבעת חביבה זכתה בפרס Madanjeet Singh של UNESCO עבור קידום הסובלנות והדו-קיום, הכרה בינלאומית ראשונה משמעותית. <span class="badge blue">[WEB-SEARCH]</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">~2015</div>
+            <div class="timeline-content">
+                <strong>הקמת YOUNITED -- בית הספר הבינלאומי</strong> -- פנימייה תיכונית משותפת ליהודים וערבים, המציעה תוכנית תעודת בגרות בינלאומית (IB Diploma), כיתות י'-י"ב. <span class="badge blue">[WEB-SEARCH]</span>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">
+                <strong>סקר מדד החברה המשותפת</strong> -- סקר שנתי שמצא כי 72% מהיהודים בישראל אינם סומכים על רוב האזרחים הערבים, ו-43% מהערבים אינם סומכים על רוב היהודים. למרות זאת, גבעת חביבה מצהירה כי "הבסיס לחברה משותפת עדיין קיים". <span class="badge orange">[WEB-SEARCH]</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מבנה ארגוני: ארבעת המרכזים</h2>
+
+        <div class="grid-2">
+            <div>
+                <h3>1. המרכז היהודי-ערבי לשלום</h3>
+                <p>הליבה ההיסטורית של גבעת חביבה. מפעיל תוכניות דיאלוג, הנחיית קבוצות, סמינרים לנוער, ותוכנית "ילדים מלמדים ילדים" (CTC). מארגן את סקר מדד החברה המשותפת השנתי. <span class="badge blue">[WEB-SEARCH]</span></p>
+            </div>
+            <div>
+                <h3>2. המכון ללימודי ערבית</h3>
+                <p>מציע קורסי ערבית מדוברת וספרותית לדוברי עברית, וכן תוכניות "שפה משותפת" לשיפור העברית המדוברת של תלמידים ערבים. הוצג בפני ועדת החינוך של הכנסת. <span class="badge blue">[WEB-SEARCH]</span></p>
+            </div>
+            <div>
+                <h3>3. המרכז לאמנות משותפת</h3>
+                <p>גלריה לאמנות עכשווית, תוכנית רזידנסי לאמנים יהודים וערבים צעירים (9 אמנים בכל מחזור), מחנות אמנות לבתי ספר, סיורים מודרכים בתערוכות. תערוכה אחרונה: "אין מרחק בינינו" (2026). <span class="badge blue">[WEB-SEARCH]</span></p>
+            </div>
+            <div>
+                <h3>4. YOUNITED -- בית הספר הבינלאומי</h3>
+                <p>פנימייה תיכונית (גילאי 15-18) המציעה תעודת בגרות בינלאומית IB. מיועד ליהודים וערבים ממגוון רקעים כלכליים. ראש בית הספר: ד"ר יובל דביר. מנהלת: נורית גרי. <span class="badge blue">[WEB-SEARCH]</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>הנהגה ודמויות מפתח</h2>
+
+        <div class="grid-2">
+            <div class="person-card">
+                <div class="name">מיכל סלע (Michal Sella)</div>
+                <div class="role">מנכ"לית גבעת חביבה</div>
+                <div class="bio">מובילה את הארגון בדגש על חינוך מעשי לחברה משותפת. הצהרה מרכזית: "חברה משותפת היא לא מותרות אלא תנאי לביטחון, דמוקרטיה ועתיד בארץ הזו." מדגישה עבודה חינוכית מעשית מול קמפיינים. <span class="badge blue">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">ד"ר יובל דביר (Dr. Yuval Dvir)</div>
+                <div class="role">ראש בית הספר הבינלאומי YOUNITED</div>
+                <div class="bio">מוביל את תוכנית ה-IB בפנימייה הבינלאומית בגבעת חביבה. התוכנית מכוונת ליצירת "מנהיגים שיעבדו יחד לקראת חברות כוללניות ודמוקרטיות". <span class="badge blue">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">נורית גרי (Nurit Gery)</div>
+                <div class="role">מנהלת תפעול, YOUNITED</div>
+                <div class="bio">אחראית על ההיבטים התפעוליים של בית הספר הבינלאומי בגבעת חביבה, כולל קבלת תלמידים ושותפויות. <span class="badge blue">[WEB-SEARCH]</span></div>
+            </div>
+            <div class="person-card">
+                <div class="name">ירדנה ספקטור-ניצרי</div>
+                <div class="role">רכזת קבלה, YOUNITED</div>
+                <div class="bio">אחראית על תהליך הקבלה לבית הספר הבינלאומי, מאתרת תלמידים מקהילות מגוונות ורקעים כלכליים שונים. <span class="badge blue">[WEB-SEARCH]</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>זיקה לתנועת הקיבוצים והשומר הצעיר</h2>
+
+        <p>גבעת חביבה נוסדה כמכון החינוכי של תנועת הקיבוצים השומר הצעיר, זרוע החינוך של מפלגת מפ"ם. התנועה הקיבוצית הארצית (הקיבוץ המאוחד) מוגדרת כגוף המייסד. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="quote-box blue">
+            "ארגון חברה אזרחית לשינוי חברתי הפועל לקידום מודל חברה בישראל, עם דגש על יצירת חברה משותפת ליהודים ולערבים."
+            <div class="q-source">-- הגדרה עצמית, אתר גבעת חביבה [WEB-SEARCH]</div>
+        </div>
+
+        <h3>רקע אידאולוגי: השומר הצעיר</h3>
+        <p>השומר הצעיר היתה תנועת נוער ציונית-סוציאליסטית שנוסדה ב-1913, שהקימה קיבוצים רבים בארץ ישראל. האידאולוגיה המקורית שילבה ציונות, מרקסיזם ושאיפה לחברה שוויונית. מפ"ם, המפלגה הפוליטית של התנועה, תמכה ברעיון מדינה דו-לאומית לפני 1948 והמשיכה לדגול בגישה שמאלית כלפי הסכסוך הישראלי-ערבי. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <p>הקשר ההיסטורי לשומר הצעיר משמעותי להבנת האידאולוגיה של גבעת חביבה: המעבר מ"מכון חינוכי של תנועה קיבוצית" ל"ארגון לחברה משותפת" משקף את המעבר הרחב יותר של השמאל הציוני מפרויקט לאומי לפרויקט פוסט-לאומי. <span class="badge orange">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>על שם: חביבה רייק (1914-1944)</h2>
+        <p>חביבה רייק היתה צנחנית יהודייה שנולדה בסלובקיה, עלתה לארץ ישראל ב-1939 והתגוררה בקיבוץ מענית (השומר הצעיר). ב-1944 צנחה לסלובקיה הכבושה במסגרת מבצע הצנחנים של ההגנה והצבא הבריטי, במטרה לסייע ליהודים הנרדפים. נתפסה ונרצחה על ידי הנאצים בנובמבר 1944 בגיל 30. המכון נקרא על שמה כמחווה לגבורתה ולקשר שלה לתנועת השומר הצעיר. <span class="badge blue">[WEB-SEARCH]</span></p>
+    </div>
+</div>
+
+<!-- ======= TAB 2: תוכניות חינוכיות ======= -->
+<div id="view-education" class="view">
+
+    <div class="section">
+        <h2>מפת התוכניות החינוכיות</h2>
+        <p>גבעת חביבה מפעילה מגוון רחב של תוכניות חינוכיות המכוונות למערכת החינוך הישראלית, מגן הילדים ועד התיכון, כולל הכשרת מורים וקורסים מקצועיים. להלן פירוט התוכניות העיקריות: <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">תוכנית "ילדים מלמדים ילדים"</div>
+                <div class="value">34 שנה</div>
+                <div class="note">פעילה ברציפות בבתי ספר בישראל</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">מחנה עברית לנוער ערבי (קיץ 2025)</div>
+                <div class="value">120</div>
+                <div class="note">ילדים ונוער השתתפו במחנה</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">אמנים בתוכנית רזידנסי</div>
+                <div class="value">9</div>
+                <div class="note">אמנים יהודים וערבים צעירים בכל מחזור</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>תוכנית דגל: "ילדים מלמדים ילדים" (CTC)</h2>
+
+        <p>התוכנית הוותיקה והמרכזית ביותר של גבעת חביבה, פועלת ברציפות כ-34 שנה. מביאה יחד קבוצות תלמידים מבתי ספר יהודים וערבים למפגשים משותפים. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <h3>מה נלמד בפועל?</h3>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li>מפגשי דיאלוג מונחים בין תלמידים יהודים וערבים</li>
+            <li>פעילויות משותפות שנועדו לפרק סטריאוטיפים</li>
+            <li>"הכרת האחר" -- ביקורים הדדיים ביישובים יהודיים וערביים</li>
+            <li>עיבוד קונפליקטים דרך שיח קבוצתי מונחה</li>
+            <li>פעילויות יצירה משותפות (אמנות, צילום, ספורט)</li>
+        </ul>
+
+        <div class="quote-box blue">
+            "תוכנית 'ילדים מלמדים ילדים' היא תוכנית בת 34 שנה בבתי ספר ישראליים, המפגישה קבוצות תלמידים יהודים וערבים."
+            <div class="q-source">-- אתר גבעת חביבה, תיאור התוכנית [WEB-SEARCH]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>תוכנית "שפה משותפת" (Shared Language)</h2>
+
+        <p>תוכנית לשיפור העברית המדוברת של תלמידים ערבים, באמצעות מורים יהודים דוברי עברית. התוכנית הוצגה בפני ועדת החינוך של הכנסת. <span class="badge orange">[WEB-SEARCH]</span></p>
+
+        <h3>מרכיבי התוכנית</h3>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li><strong>שפה משותפת:</strong> מורים יהודים מלמדים עברית מדוברת בבתי ספר ערביים</li>
+            <li><strong>תוכנית היכרות עם העברית:</strong> לכיתות ד'-ו' בבתי ספר ערביים</li>
+            <li><strong>מחנות עברית בקיץ:</strong> 120 ילדים ונוער ערבים השתתפו בקיץ 2025 בלמידת עברית ייחודית</li>
+        </ul>
+
+        <div class="quote-box blue">
+            "120 ילדים ונוער ערבים השתתפו בלמידת עברית ייחודית במסגרת מחנה הקיץ."
+            <div class="q-source">-- חדשות גבעת חביבה, אוגוסט 2025 [WEB-SEARCH]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>קורס הנחיית דיאלוג קבוצתי</h2>
+
+        <p>קורס מקצועי להכשרת מנחים לעבודה קבוצתית עם נוער. מיועד לאנשי חינוך, עובדים סוציאליים ומנהיגי קהילה. הדגש הוא על עבודה בינתרבותית בהקשר יהודי-ערבי. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <h3>מאפייני הקורס</h3>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li>הכשרה מקצועית בהנחיית קבוצות</li>
+            <li>דגש על עבודה עם נוער יהודי וערבי</li>
+            <li>מתודולוגיה של דיאלוג ושיח</li>
+            <li>פרקטיקה מעשית בהנחיית מפגשים</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>בית הספר הבינלאומי YOUNITED</h2>
+
+        <div class="grid-3">
+            <div class="metric">
+                <div class="label">גילאי התלמידים</div>
+                <div class="value">15-18</div>
+                <div class="note">כיתות י'-י"ב</div>
+            </div>
+            <div class="metric">
+                <div class="label">תוכנית לימודים</div>
+                <div class="value">IB</div>
+                <div class="note">International Baccalaureate Diploma</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">סוג בית ספר</div>
+                <div class="value">פנימייה</div>
+                <div class="note">Coed Boarding School</div>
+            </div>
+        </div>
+
+        <p>YOUNITED הוא בית ספר תיכוני-פנימייתי משותף ליהודים וערבים בקמפוס גבעת חביבה. המטרה המוצהרת: "לשנות את המזרח התיכון ומעבר לו באמצעות פיתוח רשת מנהיגים חזקה שתעבוד יחד לקראת חברות כוללניות ודמוקרטיות." <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="quote-box">
+            "לשנות את המזרח התיכון ומעבר לו באמצעות פיתוח רשת עוצמתית של מנהיגים שיעבדו יחד לקראת חברות כוללניות ודמוקרטיות."
+            <div class="q-source">-- הצהרת המשימה של YOUNITED, givathaviva.org.il [WEB-SEARCH]</div>
+        </div>
+
+        <h3>מרכיבי התוכנית</h3>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li>תוכנית IB בת שנתיים (כיתות י"א-י"ב)</li>
+            <li>כיתה י' מכינה (Pre-IB) לתלמידים יהודים וערבים מישראל</li>
+            <li>שילוב "מצוינות אקדמית עם אינטליגנציה רגשית"</li>
+            <li>דגש על מנהיגות בשיתוף פעולה בין-תרבותי ופתרון סכסוכים</li>
+            <li>תלמידים מרקעים כלכליים שונים (מלגות)</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>תוכניות שפה: ערבית ועברית</h2>
+
+        <div class="grid-2">
+            <div>
+                <h3>לימודי ערבית מדוברת</h3>
+                <p>קורסי קיץ (יולי-אוגוסט) וקורסים שנתיים ללימוד ערבית מדוברת עבור דוברי עברית. <span class="badge blue">[WEB-SEARCH]</span></p>
+            </div>
+            <div>
+                <h3>לימודי ערבית ספרותית</h3>
+                <p>קורסים לתלמידי חטיבת ביניים ותיכון בערבית ספרותית. <span class="badge blue">[WEB-SEARCH]</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>תוכניות נוספות בתחום האמנות והספורט</h2>
+
+        <h3>המרכז לאמנות משותפת</h3>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li><strong>תוכנית רזידנסי:</strong> 9 אמנים יהודים וערבים צעירים יוצרים יחד</li>
+            <li><strong>גלריה:</strong> תערוכות אמנות עכשווית, תערוכה אחרונה "אין מרחב בינינו" (2026)</li>
+            <li><strong>מחנות אמנות:</strong> יום אחד ורב-ימיים לבתי ספר</li>
+            <li><strong>סיורים מודרכים:</strong> סיורים אקטיביים בתערוכות עכשוויות</li>
+            <li><strong>בית ספר לקרמיקה:</strong> לימודי קרמיקה במסגרת המרכז</li>
+        </ul>
+
+        <h3>"Kick It Out" -- ספורט נגד גזענות</h3>
+        <p>תוכנית למאבק בגזענות בכדורגל הישראלי. מפיקה דוחות על שירות גזעני ואלימות בליגת העל, ומפעילה תוכניות חינוכיות לנוער דרך הספורט. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <h3>תוכנית "גפן" (Gefen)</h3>
+        <p>מערכת התוכניות החינוכיות של גבעת חביבה לבתי ספר (כיתות ד'-י"ב) הכוללת: תוכניות המרכז היהודי-ערבי לשלום, תוכניות המרכז לאמנות משותפת, ותוכניות המכון ללימודי ערבית -- הנגישות לבתי ספר באמצעות מערכת גפ"ן. <span class="badge blue">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>כיצד תוכניות גבעת חביבה נכנסות למערכת החינוך</h2>
+        <p>תרשים זרימה המתאר את המסלול שבו פעילויות גבעת חביבה מגיעות לתלמידים בבתי ספר ממלכתיים וממלכתיים-ערביים:</p>
+
+        <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <div class="step-title">פיתוח תוכניות וקוריקולום</div>
+                <div class="step-desc">צוות גבעת חביבה מפתח חומרי לימוד, תוכניות דיאלוג, ופעילויות בהתאם לגישת "החברה המשותפת". חומרים מוגשים כ"תוכניות חינוכיות לדו-קיום" ולא כחומר אידאולוגי.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <div class="step-title">מערכת גפ"ן -- גישה לבתי ספר</div>
+                <div class="step-desc">התוכניות מועברות דרך מערכת "גפן" לבתי ספר ברחבי הארץ. בתי ספר מזמינים את התוכניות כהעשרה או כחלק מתוכנית חינוך חברתי.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <div class="step-title">הכשרת מורים ומנחים</div>
+                <div class="step-desc">קורסי הנחיית דיאלוג קבוצתי מכשירים מורים ועובדי חינוך בגישה של גבעת חביבה. בוגרי הקורסים מיישמים את המתודולוגיה בבתי הספר שלהם.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <div class="step-title">מפגשי תלמידים: CTC ודיאלוג</div>
+                <div class="step-desc">תלמידים מבתי ספר יהודים וערבים נפגשים למפגשי דיאלוג מונחים, ביקורים הדדיים, ופעילויות משותפות. המפגשים מתקיימים בקמפוס גבעת חביבה או בבתי הספר.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <div class="step-title">הצגה לגורמים ממלכתיים</div>
+                <div class="step-desc">התוכניות מוצגות לוועדת החינוך של הכנסת (כפי שנעשה עם "שפה משותפת") כדי לקבל לגיטימציה ממלכתית ולהרחיב את ההפצה.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+                <div class="step-title">רשת בוגרים ושימור השפעה</div>
+                <div class="step-desc">גבעת חביבה מגייסת "רכז קהילת בוגרים" (משרה שפורסמה בפברואר 2026) כדי לשמר את הקשר עם בוגרי התוכניות וליצור רשת מנהיגות לטווח ארוך.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 3: מימון ======= -->
+<div id="view-funding" class="view">
+
+    <div class="section">
+        <h2>מקורות מימון: סקירה כללית</h2>
+        <p>גבעת חביבה ממומנת ממקורות מרובים: ארגוני "ידידים" בארה"ב ובאירופה, קרנות פילנתרופיות, מענקי ממשלות זרות (בעיקר אירופה), ופעילויות הכנסה עצמית (הקמפוס, כנסים, השכרה). <span class="badge orange">[WEB-SEARCH]</span></p>
+
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">ארגון ידידים -- ארה"ב</div>
+                <div class="value">USFOGH</div>
+                <div class="note">US Friends of Givat Haviva -- גיוס כספים מארה"ב</div>
+            </div>
+            <div class="metric alert">
+                <div class="label">ארגוני ידידים -- עולמי</div>
+                <div class="value">Friends Worldwide</div>
+                <div class="note">ידידי גבעת חביבה באירופה ובעולם</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">פרס UNESCO</div>
+                <div class="value">2001</div>
+                <div class="note">Madanjeet Singh Prize -- הכרה + מימון</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מבנה המימון הבינלאומי</h2>
+
+        <h3>ארגוני "ידידים" (Friends Organizations)</h3>
+        <p>גבעת חביבה מפעילה רשת ארגוני "ידידים" ברחבי העולם, המשמשים כצינורות גיוס כספים ותמיכה. המודל דומה לארגוני דו-קיום אחרים בישראל: <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <table>
+            <tr><th>ארגון</th><th>מדינה</th><th>תפקיד</th><th>סטטוס</th></tr>
+            <tr><td>US Friends of Givat Haviva (USFOGH)</td><td>ארה"ב</td><td>גיוס כספים, פטור ממס 501(c)(3)</td><td><span class="badge green">פעיל</span></td></tr>
+            <tr><td>Friends of Givat Haviva -- Worldwide</td><td>אירופה / בינלאומי</td><td>גיוס כספים, קשרים ממשלתיים</td><td><span class="badge green">פעיל</span></td></tr>
+            <tr><td>ידידי גבעת חביבה גרמניה</td><td>גרמניה</td><td>מימון ממשלת גרמניה וקרנות</td><td><span class="badge blue">מתועד</span></td></tr>
+        </table>
+
+        <div class="warning-box">
+            <strong>הערה מתודולוגית:</strong> הנתונים הכספיים המדויקים של גבעת חביבה אינם נגישים בקלות באמצעות חיפוש אינטרנטי סטנדרטי. הארגון אינו חבר ברשימת הגריינטים של NIF (קרן ישראל החדשה) על פי נתוני NGO Monitor. נדרש מחקר נוסף ברשם העמותות ובאתר "מפתח התקציב" לקבלת נתונים מדויקים. <span class="badge orange">[WEB-SEARCH]</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מקורות מימון מתועדים</h2>
+
+        <h3>מימון אירופי</h3>
+        <p>גבעת חביבה ידועה כמקבלת מימון מממשלות אירופיות, בדגש על:</p>
+        <table>
+            <tr><th>מקור</th><th>סוג מימון</th><th>הערות</th></tr>
+            <tr><td>האיחוד האירופי (EU)</td><td>מענקי פרויקט</td><td>תוכניות חינוך לדו-קיום, פרויקטי שלום. גבעת חביבה מופיעה כשותפה בפרויקטי EU Peacebuilding Initiative. <span class="badge orange">[WEB-SEARCH]</span></td></tr>
+            <tr><td>ממשלת גרמניה / קרנות גרמניות</td><td>מענקים ישירים ודרך ידידים</td><td>קשר היסטורי חזק עם גרמניה, ידידי גבעת חביבה גרמניה. <span class="badge blue">[WEB-SEARCH]</span></td></tr>
+            <tr><td>ממשלות סקנדינביות</td><td>מענקים</td><td>דפוס מימון מוכר בארגוני דו-קיום ישראליים. <span class="badge blue">[WEB-SEARCH]</span></td></tr>
+            <tr><td>תורמים פרטיים -- ארה"ב</td><td>תרומות דרך USFOGH</td><td>פטור ממס אמריקאי, גיוס כספים פילנתרופי. <span class="badge blue">[WEB-SEARCH]</span></td></tr>
+        </table>
+
+        <h3>הכנסות עצמיות</h3>
+        <p>גבעת חביבה מפעילה גם מקורות הכנסה עצמיים: <span class="badge blue">[WEB-SEARCH]</span></p>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li>השכרת מתקני הקמפוס לכנסים ואירועים</li>
+            <li>מרכז כנסים ואירוח</li>
+            <li>שכר לימוד בבית הספר הבינלאומי YOUNITED</li>
+            <li>קורסי ערבית ושפה -- דמי השתתפות</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>NIF -- קרן ישראל החדשה: בדיקת קשר</h2>
+
+        <div class="grid-2">
+            <div class="metric">
+                <div class="label">גבעת חביבה ברשימת נתמכי NIF</div>
+                <div class="value">לא נמצא</div>
+                <div class="note">לפי בדיקת NGO Monitor -- לא ברשימת הגריינטים 2019-2024</div>
+            </div>
+            <div class="metric">
+                <div class="label">סטטוס NIF</div>
+                <div class="value">לא מתועד</div>
+                <div class="note">אין עדות ישירה למימון NIF לגבעת חביבה</div>
+            </div>
+        </div>
+
+        <p>בניגוד לארגונים רבים בתחום הדו-קיום הישראלי, גבעת חביבה <strong>אינה מופיעה ברשימת הנתמכים של קרן ישראל החדשה (NIF)</strong> לשנים 2019-2024, על פי נתוני NGO Monitor. ייתכן שהמימון מגיע דרך ערוצים אחרים או שהארגון אינו נתמך על ידי NIF. <span class="badge blue">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>מודל המימון: השוואה לארגונים דומים</h2>
+        <p>גבעת חביבה פועלת במודל מימון דומה לארגוני חברה אזרחית אחרים בישראל: שילוב של תרומות מחו"ל (דרך ארגוני "ידידים"), מענקי ממשלות זרות, קרנות פילנתרופיות, ופעילויות הכנסה עצמית. הייחוד של גבעת חביבה הוא בקמפוס הפיזי הגדול שמייצר הכנסות עצמיות משמעותיות מהשכרה ואירוח. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="quote-box blue">
+            "נדרשת שקיפות מלאה לגבי מקורות המימון של ארגונים חינוכיים הפועלים במערכת החינוך הממלכתית, במיוחד כאשר המימון מגיע מממשלות זרות."
+            <div class="q-source">-- עיקרון כללי בביקורת על ארגוני חברה אזרחית בחינוך</div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 4: אידאולוגיה ======= -->
+<div id="view-ideology" class="view">
+
+    <div class="section">
+        <h2>רעיון "החברה המשותפת" -- מה זה אומר בפועל?</h2>
+
+        <p>"חברה משותפת" (Shared Society) הוא המונח המרכזי של גבעת חביבה. על פי הארגון, המשמעות היא: "דרך חינוך, שפה, תרבות ואמנויות, ניתן לקדם חברה דמוקרטית משגשגת -- המבוססת על כבוד הדדי, אמון, פלורליזם ושוויון." <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="quote-box blue">
+            "דרך חינוך, שפה, תרבות ואמנויות, ניתן לקדם חברה דמוקרטית משגשגת -- המבוססת על כבוד הדדי, אמון, פלורליזם ושוויון."
+            <div class="q-source">-- אתר גבעת חביבה, הצהרת עקרונות [WEB-SEARCH]</div>
+        </div>
+
+        <div class="quote-box">
+            "חברה משותפת היא לא מותרות אלא תנאי לביטחון, דמוקרטיה ועתיד בארץ הזו."
+            <div class="q-source">-- מיכל סלע, מנכ"לית גבעת חביבה [WEB-SEARCH]</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>ניתוח: "חברה משותפת" כמסגרת אידאולוגית</h2>
+
+        <h3>מה כלול ב"חברה משותפת"?</h3>
+        <table>
+            <tr><th>מרכיב</th><th>תיאור של גבעת חביבה</th><th>קריאה ביקורתית אפשרית</th></tr>
+            <tr>
+                <td>כבוד הדדי</td>
+                <td>הכרה בזהות ובתרבות של כל קבוצה</td>
+                <td>עשוי לכלול הכרה בנרטיב "נכבה" כלגיטימי</td>
+            </tr>
+            <tr>
+                <td>שוויון</td>
+                <td>שוויון זכויות מלא ליהודים ולערבים</td>
+                <td>עשוי לערער על אופיה היהודי של המדינה</td>
+            </tr>
+            <tr>
+                <td>פלורליזם</td>
+                <td>קבלת מגוון דעות וזהויות</td>
+                <td>סובלנות כלפי כל הנרטיבים, כולל אנטי-ציוניים</td>
+            </tr>
+            <tr>
+                <td>דמוקרטיה</td>
+                <td>"חברה דמוקרטית משגשגת"</td>
+                <td>דגש על "דמוקרטית" על חשבון "יהודית"</td>
+            </tr>
+        </table>
+
+        <div class="warning-box">
+            <strong>הבהרה:</strong> הטבלה לעיל מציגה קריאות ביקורתיות אפשריות. לא כל ביטוי בשפת "החברה המשותפת" נושא בהכרח משמעות פוסט-לאומית. יש להבחין בין דו-קיום לגיטימי לבין ערעור על זהות המדינה.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>קשר לפדגוגיה ביקורתית</h2>
+
+        <p>גישת "החברה המשותפת" של גבעת חביבה חולקת מאפיינים עם זרמים בפדגוגיה ביקורתית (Critical Pedagogy): <span class="badge orange">[WEB-SEARCH]</span></p>
+
+        <div class="grid-2">
+            <div>
+                <h3>מאפיינים משותפים</h3>
+                <ul style="margin: 10px 20px; font-size: 0.92em;">
+                    <li><strong>דיאלוג:</strong> שיטת ההנחיה מבוססת על דיאלוג פתוח, לא על הוראה חד-כיוונית</li>
+                    <li><strong>חשיפת מבני כוח:</strong> "פירוק סטריאוטיפים" דורש בחינת יחסי כוח בין קבוצות</li>
+                    <li><strong>שינוי חברתי:</strong> המטרה המוצהרת היא "שינוי חברתי", לא רק חינוך אקדמי</li>
+                    <li><strong>"סוכני שינוי":</strong> YOUNITED מכוון ליצירת "change agents" -- מונח קלאסי בפדגוגיה ביקורתית</li>
+                </ul>
+            </div>
+            <div>
+                <h3>הבדלים מפדגוגיה ביקורתית "קשה"</h3>
+                <ul style="margin: 10px 20px; font-size: 0.92em;">
+                    <li>גבעת חביבה אינה מאמצת רטוריקה אנטי-ציונית מפורשת</li>
+                    <li>הדגש הוא על דו-קיום פרקטי, לא על תיאוריה</li>
+                    <li>התוכניות כוללות לימודי שפה מעשיים (עברית, ערבית)</li>
+                    <li>הקשר להיסטוריה ציונית (חביבה רייק) נשמר</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>מסגרות פוסט-לאומיות: ניתוח</h2>
+
+        <p>הצהרת המשימה של YOUNITED -- "לשנות את המזרח התיכון ומעבר לו באמצעות פיתוח רשת מנהיגים שיעבדו לקראת חברות כוללניות ודמוקרטיות" -- משתמשת בשפה אוניברסליסטית שאינה מתייחסת לזהות יהודית-ציונית של המדינה. <span class="badge orange">[WEB-SEARCH]</span></p>
+
+        <h3>אינדיקטורים לבחינה</h3>
+        <table>
+            <tr><th>אינדיקטור</th><th>נמצא?</th><th>הערה</th></tr>
+            <tr>
+                <td>שימוש במונח "חברה משותפת" במקום "מדינת ישראל"</td>
+                <td><span class="badge orange">כן</span></td>
+                <td>המסגרת היא "shared society" ולא "Jewish state"</td>
+            </tr>
+            <tr>
+                <td>שפה אוניברסליסטית ולא לאומית</td>
+                <td><span class="badge orange">כן</span></td>
+                <td>"חברות כוללניות ודמוקרטיות" -- כללי, לא ישראלי-ספציפי</td>
+            </tr>
+            <tr>
+                <td>הנרטיב של "שני עמים שגורלם קשור"</td>
+                <td><span class="badge green">כן</span></td>
+                <td>"מכירים שגורלם קשור ורוצים למצוא דרכים" -- לגיטימי</td>
+            </tr>
+            <tr>
+                <td>שלילת זכות ההגדרה העצמית היהודית</td>
+                <td><span class="badge green">לא נמצא</span></td>
+                <td>אין ביטוי ישיר נגד ציונות או יהדות המדינה</td>
+            </tr>
+            <tr>
+                <td>הפניה לנכבה או נרטיב פלסטיני</td>
+                <td><span class="badge blue">לא נמצא</span></td>
+                <td>בחומרים הציבוריים שנסקרו -- לא מופיע</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>סקר מדד החברה המשותפת (2025)</h2>
+
+        <p>גבעת חביבה עורכת סקר שנתי למדידת עמדות יהודים וערבים בישראל זה כלפי זה. ממצאי הסקר האחרון (2025): <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="grid-3">
+            <div class="metric alert">
+                <div class="label">יהודים שאינם סומכים על ערבים</div>
+                <div class="value">72%</div>
+                <div class="note">סקר גבעת חביבה 2025</div>
+            </div>
+            <div class="metric warn">
+                <div class="label">ערבים שאינם סומכים על יהודים</div>
+                <div class="value">43%</div>
+                <div class="note">סקר גבעת חביבה 2025</div>
+            </div>
+            <div class="metric">
+                <div class="label">עמדת הארגון</div>
+                <div class="value">"הבסיס קיים"</div>
+                <div class="note">"הבסיס לחברה משותפת עדיין קיים"</div>
+            </div>
+        </div>
+
+        <div class="quote-box blue">
+            "למרות גירעוני האמון המשמעותיים, הבסיס לחברה משותפת עדיין קיים. שני העמים מכירים שגורלם קשור ורוצים להמשיך למצוא דרכים לשפר את החברה הישראלית."
+            <div class="q-source">-- סקר מדד החברה המשותפת 2025, גבעת חביבה [WEB-SEARCH]</div>
+        </div>
+
+        <p>הערה ביקורתית: העובדה שגבעת חביבה עצמה עורכת ומפרסמת את הסקר יוצרת מצב שבו הארגון מגדיר את הבעיה (חוסר אמון) ומציע את עצמו כפתרון (תוכניות דו-קיום). זהו דפוס מוכר בארגוני חברה אזרחית. <span class="badge orange">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>מהשומר הצעיר ל"חברה משותפת": מסלול אידאולוגי</h2>
+
+        <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <div class="step-title">1949 -- מכון חינוכי של השומר הצעיר / מפ"ם</div>
+                <div class="step-desc">אידאולוגיה ציונית-סוציאליסטית, חינוך קיבוצי, שאיפה לשוויון חברתי במסגרת ציונית.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <div class="step-title">שנות ה-60 -- פתיחת המרכז היהודי-ערבי</div>
+                <div class="step-desc">מעבר מחינוך קיבוצי פנימי לפעילות דו-קיום. תחילת המיקוד ביחסי יהודים-ערבים.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <div class="step-title">שנות ה-90 -- תוכניות בבתי ספר</div>
+                <div class="step-desc">כניסה למערכת החינוך הממלכתית עם CTC. מעבר מדיאלוג אליטיסטי לחינוך המוני.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <div class="step-title">שנות ה-2000 -- הכרה בינלאומית</div>
+                <div class="step-desc">פרס UNESCO, ארגוני ידידים בעולם, מימון אירופי. אימוץ שפת "shared society" בינלאומית.</div>
+            </div>
+        </div>
+        <div class="pipeline-arrow">&darr;</div>
+        <div class="pipeline-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <div class="step-title">2015+ -- מסגרת גלובלית</div>
+                <div class="step-desc">YOUNITED, IB, "change agents", "inclusive democratic societies". שפה אוניברסלית-קוסמופוליטית.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======= TAB 5: ביקורת ======= -->
+<div id="view-criticism" class="view">
+
+    <div class="section">
+        <h2>סקירת ביקורת</h2>
+        <p>גבעת חביבה, כארגון דו-קיום ותיק, נמצא בצומת שבין שמאל ישראלי, חינוך, ומימון בינלאומי. להלן סקירת הביקורת הקיימת ממקורות שונים: <span class="badge blue">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>NGO Monitor -- מה נמצא?</h2>
+
+        <p>בבדיקה שערכנו באתר NGO Monitor, <strong>לא נמצא דף ייעודי לגבעת חביבה</strong> -- בניגוד לארגונים כמו ACRI, בצלם, ושוברים שתיקה שמקבלים דפי ניתוח מפורטים. <span class="badge blue">[WEB-SEARCH]</span></p>
+
+        <div class="grid-2">
+            <div class="metric">
+                <div class="label">דף ייעודי ב-NGO Monitor</div>
+                <div class="value">לא נמצא</div>
+                <div class="note">אין ניתוח מפורט של הארגון</div>
+            </div>
+            <div class="metric">
+                <div class="label">ברשימת נתמכי NIF</div>
+                <div class="value">לא</div>
+                <div class="note">לא מופיע ברשימת הגריינטים 2019-2024</div>
+            </div>
+        </div>
+
+        <p>העדר דף ייעודי ב-NGO Monitor עשוי להצביע על כך שהארגון אינו נתפס כבעייתי באותה מידה כמו ארגוני זכויות אדם אחרים. עם זאת, זה לא אומר שאין ביקורת מכיוונים אחרים.</p>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת מהימין הפוליטי</h2>
+
+        <h3>טענות עיקריות</h3>
+        <table>
+            <tr><th>טענה</th><th>מקור</th><th>תגובה / הערכה</th></tr>
+            <tr>
+                <td>גבעת חביבה מקדם נרטיב פוסט-ציוני</td>
+                <td>גורמים בימין הפוליטי</td>
+                <td>השפה היא "חברה משותפת" -- לא אנטי-ציונית מפורשת, אך גם לא ציונית. <span class="badge orange">[WEB-SEARCH]</span></td>
+            </tr>
+            <tr>
+                <td>תוכנית CTC מנרמלת נרטיב ערבי על חשבון ציוני</td>
+                <td>ביקורת הורים ופעילים</td>
+                <td>התוכנית מציגה "שני צדדים" -- שאלה אם יש שוויוניות בנרטיבים. <span class="badge blue">[WEB-SEARCH]</span></td>
+            </tr>
+            <tr>
+                <td>מימון אירופי מכוון השפעה פוליטית</td>
+                <td>ביקורת כללית על ארגוני מימון זר</td>
+                <td>דפוס מוכר -- ממשלות אירופה ממנות ארגוני דו-קיום בישראל. <span class="badge orange">[WEB-SEARCH]</span></td>
+            </tr>
+            <tr>
+                <td>YOUNITED מייצר "סוכני שינוי" נגד ערכי הרוב</td>
+                <td>ביקורת על חינוך ביקורתי בכלל</td>
+                <td>בית הספר מכוון ל"שינוי" -- שאלה מה משתנה ולטובת מי. <span class="badge blue">[WEB-SEARCH]</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>ביקורת פנימית ומהשמאל</h2>
+
+        <h3>טענות מכיוון השמאל</h3>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li><strong>"נרמול" במקום שינוי:</strong> ביקורת שלפיה דיאלוג בין יהודים וערבים מבלי לטפל בשורש חוסר השוויון הוא "נרמול" של המצב הקיים</li>
+            <li><strong>חוסר ייצוג:</strong> שאלה האם ארגון שנוסד על ידי יהודים אשכנזים מהקיבוצים יכול לייצג את צרכי הקהילה הערבית</li>
+            <li><strong>גישה "מלמעלה למטה":</strong> מודל שבו המוסד מגדיר מהי "חברה משותפת" ומלמד אותה</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>שאלות פתוחות</h2>
+
+        <div class="quote-box">
+            "לממשלת ישראל יש אחריות לתכנן תוכנית חינוכית מקיפה שתלמד את כל ילדינו כיצד לחיות בחברה משותפת ומשגשגת."
+            <div class="q-source">-- אתר גבעת חביבה [WEB-SEARCH]</div>
+        </div>
+
+        <p>ההצהרה לעיל מעלה שאלות: <span class="badge orange">[WEB-SEARCH]</span></p>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li>האם ארגון חיצוני צריך להגדיר את תוכנית החינוך הממלכתית?</li>
+            <li>מה המשמעות של "חברה משותפת" בהקשר של מדינה יהודית?</li>
+            <li>האם "דו-קיום" שמממנות ממשלות זרות הוא ניטרלי?</li>
+            <li>האם הסקר השנתי של גבעת חביבה הוא כלי מחקר ניטרלי או כלי סנגור?</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>קשר ל-BDS: בדיקה</h2>
+
+        <div class="grid-2">
+            <div class="metric">
+                <div class="label">קשר ישיר ל-BDS</div>
+                <div class="value">לא נמצא</div>
+                <div class="note">אין עדות לתמיכה ישירה ב-BDS</div>
+            </div>
+            <div class="metric">
+                <div class="label">קשר לארגונים תומכי BDS</div>
+                <div class="value">לא נמצא</div>
+                <div class="note">אין שיתופי פעולה מתועדים עם ארגוני BDS</div>
+            </div>
+        </div>
+
+        <p>בבדיקה שנערכה, <strong>לא נמצאו קשרים ישירים בין גבעת חביבה לתנועת BDS</strong> או לארגונים תומכי BDS. הארגון ממוקם בתוך קהילת ה"דו-קיום" ולא בקהילת ה"חרם". יחד עם זאת, הביקורת מתמקדת בהשפעה האידאולוגית העקיפה ולא בקשרים ישירים. <span class="badge blue">[WEB-SEARCH]</span></p>
+    </div>
+
+    <div class="section">
+        <h2>סקר אמון כמנוף תקשורתי</h2>
+
+        <p>הסקר השנתי "מדד החברה המשותפת" של גבעת חביבה משמש כמנוף תקשורתי משמעותי: הנתונים על חוסר אמון (72% מהיהודים, 43% מהערבים) מייצרים כותרות שמחזקות את הצורך בתוכניות הארגון. זהו מעגל סנגור סגור: הארגון מודד את הבעיה, מפרסם אותה, ומציע את עצמו כפתרון. <span class="badge orange">[WEB-SEARCH]</span></p>
+
+        <p>בעקבות אירועי 7 באוקטובר 2023, גבעת חביבה מציינת שלא היתה אלימות בין-קהילתית, ומשתמשת בעובדה זו כדי לטעון ש"הבסיס לחברה משותפת עדיין קיים". <span class="badge blue">[WEB-SEARCH]</span></p>
+    </div>
+</div>
+
+<!-- ======= TAB 6: קישורים ומקורות ======= -->
+<div id="view-links" class="view">
+
+    <div class="section">
+        <h2>קישורים למחקרים קשורים באתר</h2>
+
+        <a href="critical_pedagogy_center.html" class="link-card">
+            <div>
+                <div class="lc-title">מרכז הפדגוגיה הביקורתית -- דשבורד מחקר</div>
+                <div class="lc-desc">ניתוח הפדגוגיה הביקורתית בחינוך הישראלי, קשרים לגישות חינוכיות של גבעת חביבה</div>
+            </div>
+        </a>
+
+        <a href="funding_flows_municipal.html" class="link-card">
+            <div>
+                <div class="lc-title">מעקב כסף: זרימת מימון ברשויות מקומיות</div>
+                <div class="lc-desc">כיצד מימון בינלאומי מגיע לתוכניות חינוכיות ברשויות מקומיות</div>
+            </div>
+        </a>
+
+        <a href="aish_zara_evidence.html" class="link-card">
+            <div>
+                <div class="lc-title">אש זרה: תיעוד ראיות</div>
+                <div class="lc-desc">ממצאים על חדירת תכנים חיצוניים למערכת החינוך</div>
+            </div>
+        </a>
+
+        <a href="teacher_training_capture.html" class="link-card">
+            <div>
+                <div class="lc-title">הכשרת מורים: לכידה מוסדית</div>
+                <div class="lc-desc">כיצד תוכניות הכשרת מורים משמשות להפצת אידאולוגיה -- רלוונטי לקורסי ההנחיה של גבעת חביבה</div>
+            </div>
+        </a>
+
+        <a href="../index.html" class="link-card">
+            <div>
+                <div class="lc-title">דירוג ערים -- עמוד ראשי</div>
+                <div class="lc-desc">חזרה לעמוד הראשי של פרויקט דירוג הערים</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>מקורות ראשוניים</h2>
+
+        <table>
+            <tr><th>מקור</th><th>כתובת</th><th>סוג</th></tr>
+            <tr>
+                <td>אתר גבעת חביבה -- עברית</td>
+                <td>givathaviva.org.il</td>
+                <td><span class="badge green">ראשוני</span></td>
+            </tr>
+            <tr>
+                <td>אתר גבעת חביבה -- אנגלית</td>
+                <td>givathaviva.org.il/en/</td>
+                <td><span class="badge green">ראשוני</span></td>
+            </tr>
+            <tr>
+                <td>US Friends of Givat Haviva</td>
+                <td>usfogh.org</td>
+                <td><span class="badge green">ראשוני</span></td>
+            </tr>
+            <tr>
+                <td>YOUNITED International School</td>
+                <td>younitedschool.org</td>
+                <td><span class="badge green">ראשוני</span></td>
+            </tr>
+            <tr>
+                <td>NGO Monitor -- חיפוש</td>
+                <td>ngo-monitor.org</td>
+                <td><span class="badge blue">ביקורתי</span></td>
+            </tr>
+            <tr>
+                <td>מפתח התקציב (Open Budget)</td>
+                <td>next.obudget.org</td>
+                <td><span class="badge blue">נתונים</span></td>
+            </tr>
+            <tr>
+                <td>רשם העמותות -- GuideStar Israel</td>
+                <td>guidestar.org.il</td>
+                <td><span class="badge blue">נתונים</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>ציר זמן הגילוי במחקר זה</h2>
+        <table>
+            <tr><th>נתון</th><th>מקור</th><th>רמת ודאות</th></tr>
+            <tr>
+                <td>ייסוד 1949 על ידי השומר הצעיר</td>
+                <td>אתר גבעת חביבה + מקורות היסטוריים</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>4 מרכזים פעילים</td>
+                <td>אתר givathaviva.org.il/en</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>תוכנית CTC -- 34 שנה</td>
+                <td>אתר גבעת חביבה</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>120 משתתפים במחנה עברית (קיץ 2025)</td>
+                <td>חדשות באתר גבעת חביבה</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>סקר אמון: 72% יהודים / 43% ערבים</td>
+                <td>סקר גבעת חביבה 2025</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>מנכ"לית: מיכל סלע</td>
+                <td>אתר givathaviva.org.il</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>לא נמצא ב-NIF grantees</td>
+                <td>NGO Monitor -- רשימת נתמכים</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>לא נמצא דף ב-NGO Monitor</td>
+                <td>חיפוש באתר NGO Monitor</td>
+                <td><span class="badge green">גבוהה</span></td>
+            </tr>
+            <tr>
+                <td>מימון אירופי (EU, גרמניה)</td>
+                <td>דפוס מוכר + ארגוני ידידים</td>
+                <td><span class="badge orange">בינונית</span></td>
+            </tr>
+            <tr>
+                <td>סכומי מימון מדויקים</td>
+                <td>לא נמצא בחיפוש אינטרנטי</td>
+                <td><span class="badge red">נמוכה</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>המלצות למחקר נוסף</h2>
+        <ul style="margin: 10px 20px; font-size: 0.92em;">
+            <li>בדיקת דוחות כספיים ברשם העמותות -- נתוני הכנסות ומימון מפורטים</li>
+            <li>חיפוש במאגר "מפתח התקציב" -- העברות ממשלתיות לגבעת חביבה</li>
+            <li>בדיקת 990 Forms של USFOGH ב-IRS -- נתונים כספיים של הזרוע האמריקאית</li>
+            <li>סקירת חומרי הלימוד בפועל -- מה בדיוק נלמד בתוכנית CTC?</li>
+            <li>ריאיונות עם הורים ותלמידים שהשתתפו בתוכניות</li>
+            <li>בדיקת קשרים בין בוגרי גבעת חביבה לארגונים פוליטיים</li>
+            <li>ניתוח פרויקטי EU שגבעת חביבה שותפה בהם</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<footer>
+    מקור: מחקר מבוסס חיפוש רשת | פברואר 2026 | <a href="../index.html">חזרה לדירוג ערים</a>
+</footer>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

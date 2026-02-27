@@ -23,13 +23,13 @@
         "description": "Insufficient data to classify clearly. May have flags but no systematic pattern proven."
       }
     },
-    "total_organizations": 67,
+    "total_organizations": 72,
     "counts": {
-      "radical_subversive": 28,
-      "honest_leftist": 21,
+      "radical_subversive": 31,
+      "honest_leftist": 23,
       "unresolved": 18
     },
-    "last_updated": "2026-02-27"
+    "last_updated": "2026-02-28"
   },
   "classifications": [
     {
@@ -938,6 +938,87 @@
       ],
       "networks": [],
       "confidence": "low"
+    },
+    {
+      "name_he": "מכון מרחבים",
+      "name_en": "Merchavim Institute",
+      "category": "radical_subversive",
+      "research_page": "deep_Merchavim.html",
+      "stated_mission": "אזרחות משותפת",
+      "actual_behavior": "אג'נדת שמאל מובהקת, ריבוי זהויות, מימון ממשלות זרות",
+      "key_evidence": [
+        "Weinberg: \"אג'נדת שמאל מובהקת\"",
+        "Name says 'shared citizenship' but pushes identity fragmentation",
+        "Tens of thousands of students via MOE partnership",
+        "Foreign government funding"
+      ],
+      "networks": ["Shatil/NIF", "Bina"],
+      "confidence": "high"
+    },
+    {
+      "name_he": "בית ספר מנדל למנהיגות חינוכית",
+      "name_en": "Mandel School for Educational Leadership",
+      "category": "radical_subversive",
+      "research_page": "deep_Mandel_School.html",
+      "stated_mission": "מנהיגות חינוכית",
+      "actual_behavior": "עיצוב תפישת עולם, בוגרים בעמדות מפתח, שמאל קיצוני",
+      "key_evidence": [
+        "Weinberg: \"ראשי מנדל הינם יהודים רפורמים\"",
+        "Weinberg: \"רבים מאנשי הסגל הינם אנשי שמאל קיצוני\"",
+        "Weinberg: \"המכון משקיע בעיצוב תפישת העולם והערכים\"",
+        "Graduates in key MOE positions (Dalit Stauber)",
+        "IDF Education Corps no-bid contract since 2005"
+      ],
+      "networks": ["MOE senior positions", "IDF Education Corps"],
+      "confidence": "high"
+    },
+    {
+      "name_he": "גבעת חביבה",
+      "name_en": "Givat Haviva",
+      "category": "honest_leftist",
+      "research_page": "deep_Givat_Haviva.html",
+      "stated_mission": "חברה משותפת",
+      "actual_behavior": "ארגון שמאל של השומר הצעיר — שקוף",
+      "key_evidence": [
+        "Weinberg: \"ארגון שמאל\"",
+        "Formal name reveals ideology: חבצלת מוסדות תרבות וחנוך של השומר הצעיר",
+        "Founded 1949 by HaShomer HaTzair",
+        "UNESCO Peace Education Prize 2001"
+      ],
+      "networks": ["HaShomer HaTzair", "NIF"],
+      "confidence": "high"
+    },
+    {
+      "name_he": "קרן יוזמות אברהם",
+      "name_en": "Abraham Fund Initiatives",
+      "category": "radical_subversive",
+      "research_page": "deep_Abraham_Fund.html",
+      "stated_mission": "דו-קיום יהודי-ערבי",
+      "actual_behavior": "קידום מדינה פלסטינית, מימון ממשלות זרות, הכשרת מורים",
+      "key_evidence": [
+        "Weinberg: \"ארגון שמאל יהודי-ערבי\"",
+        "Weinberg: promotes Palestinian state",
+        "Multi-entity structure: funder (#295) + operator (#366)",
+        "Foreign government funding, Slifka Foundation connection"
+      ],
+      "networks": ["Slifka Foundation", "American progressive Jewish philanthropy"],
+      "confidence": "high"
+    },
+    {
+      "name_he": "מרכז תמורה",
+      "name_en": "Tmura Center for Equality",
+      "category": "honest_leftist",
+      "research_page": "deep_Tmura.html",
+      "stated_mission": "קידום שוויון",
+      "actual_behavior": "שמאל שקוף — שוויון מגדרי, מיניות, אתניות",
+      "key_evidence": [
+        "Name and mission transparently declare equality agenda",
+        "Legal tools: litigation, aid, legislative advocacy",
+        "Triple keyword: מגדר, מיניות, אתניות",
+        "Prof. Yifat Biton co-founded Noga Center + Itach + Tmura"
+      ],
+      "networks": ["Noga Center", "Itach-Maaki"],
+      "confidence": "high"
     }
   ]
 }

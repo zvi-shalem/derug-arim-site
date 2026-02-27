@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רעננה — דיכוי מוסדי של מוסדות דת וחינוך יהודי</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ── Navigation ── */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 14px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* ── Hero ── */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #4a2a2a 50%, #2a2a1a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero .stats-row {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px; flex-wrap: wrap;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero .stat .lbl { font-size: 0.75em; color: #b0b0b0; }
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── Sections ── */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+/* ── Grids ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .nav-tabs { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ── Metric cards ── */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.ok { border-right: 4px solid #27ae60; }
+.metric.ok .value { color: #27ae60; }
+
+/* ── Quote boxes ── */
+.quote-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-style: italic;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.82em; color: #999; margin-top: 6px; }
+.quote-box.blue { background: #f0f4fa; border-right-color: #667eea; }
+.quote-box.blue .q-source { color: #667eea; }
+.quote-box.green { background: #f0faf0; border-right-color: #27ae60; }
+.quote-box.green .q-source { color: #27ae60; }
+
+/* ── Evidence table ── */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr:hover { background: #f8f9fa; }
+tr.highlight { background: #fff5f5; }
+td a { color: #2a5a8a; }
+td a:hover { color: #ff8800; }
+
+/* ── Badge / tag ── */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+}
+.badge.red { background: #fde8e8; color: #c0392b; }
+.badge.orange { background: #fef3e2; color: #e67e22; }
+.badge.green { background: #e8fde8; color: #27ae60; }
+.badge.blue { background: #e8edf8; color: #2a5a8a; }
+.badge.gray { background: #f0f0f0; color: #666; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-right: 30px; }
+.timeline::before {
+    content: ''; position: absolute; right: 10px; top: 0; bottom: 0;
+    width: 3px; background: #667eea; border-radius: 2px;
+}
+.tl-item { position: relative; margin-bottom: 20px; padding-right: 30px; }
+.tl-item::before {
+    content: ''; position: absolute; right: -26px; top: 6px;
+    width: 14px; height: 14px; background: #667eea; border-radius: 50%;
+    border: 3px solid #fff; box-shadow: 0 0 0 2px #667eea;
+}
+.tl-item.alert::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+.tl-item .tl-date { font-weight: 800; color: #667eea; font-size: 0.88em; }
+.tl-item.alert .tl-date { color: #e74c3c; }
+.tl-item .tl-title { font-weight: 600; color: #1a1a2e; }
+.tl-item .tl-desc { font-size: 0.88em; color: #555; }
+
+/* ── Actor cards ── */
+.actor-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; transition: all 0.2s;
+}
+.actor-card:hover { border-color: #667eea; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.actor-card .actor-name { font-weight: 700; color: #1a1a2e; font-size: 1.05em; margin-bottom: 4px; }
+.actor-card .actor-role { font-size: 0.82em; color: #667eea; margin-bottom: 8px; }
+.actor-card .actor-desc { font-size: 0.88em; color: #555; }
+
+/* ── Expand/collapse ── */
+.expand-section { cursor: pointer; user-select: none; }
+.expand-section::after { content: ' ▸'; font-size: 0.8em; }
+.expand-section.open::after { content: ' ▾'; }
+.expand-content { display: none; margin-top: 10px; }
+.expand-content.open { display: block; }
+
+/* ── Footer ── */
+footer {
+    background: #1a1a2e; color: #aab; padding: 20px; text-align: center;
+    font-size: 0.82em; margin-top: 40px;
+}
+footer a { color: #ff8800; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        רעננה — דיכוי דתי מוסדי
+        <a href="../index.html">← חזרה לדירוג</a>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showView('overview')">סקירה</button>
+        <button class="nav-tab" onclick="showView('evidence')">ראיות</button>
+        <button class="nav-tab" onclick="showView('coalition')">הסכם קואליציוני</button>
+        <button class="nav-tab" onclick="showView('actors')">שחקנים</button>
+        <button class="nav-tab" onclick="showView('timeline')">ציר זמן</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>דיכוי מוסדי של מוסדות דת וחינוך יהודי ברעננה</h1>
+    <div class="subtitle">חסימת בתי ספר, הצקה לבתי כנסת, גישה סלקטיבית לעמותות חיצוניות</div>
+    <div class="meta">מקור: תיעוד שטח של פעילים ברעננה | ינואר 2026</div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">120</div>
+            <div class="lbl">ילדי חב"ד ללא מסגרת</div>
+        </div>
+        <div class="stat">
+            <div class="num">3</div>
+            <div class="lbl">חברי מועצה חותמים על חסימה</div>
+        </div>
+        <div class="stat">
+            <div class="num">34</div>
+            <div class="lbl">סעיפי הסכם קואליציוני</div>
+        </div>
+        <div class="stat">
+            <div class="num">2</div>
+            <div class="lbl">עמותות פרוגרסיביות בגיבוי עירוני</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ TAB: OVERVIEW ═══════════════ -->
+<div id="view-overview" class="view active">
+
+<div class="section">
+    <h2>תמונת מצב</h2>
+    <p>ברעננה מתקיים דפוס שיטתי של דיכוי מוסדות דת וחינוך יהודי, תוך מתן גיבוי עירוני מלא לעמותות פרוגרסיביות. הדפוס כולל:</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">חסימת בית ספר חב"ד</div>
+            <div class="value">120 ילדים</div>
+            <div class="note">ללא מסגרת בית ספרית</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">הצקה לבתי כנסת</div>
+            <div class="value">פקחים</div>
+            <div class="note">מחפשים לתת קנסות</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">חסימת עמותות יהודיות</div>
+            <div class="value">סלקטיבי</div>
+            <div class="note">עמותות דת נחסמות, פרוגרסיביות מתקבלות</div>
+        </div>
+        <div class="metric ok">
+            <div class="label">עמותות פרוגרסיביות</div>
+            <div class="value">גיבוי מלא</div>
+            <div class="note">"חושבים רחוק" + "הפורום הליברלי"</div>
+        </div>
+    </div>
+</div>
+
+<div class="section" style="border-top: 4px solid #667eea;">
+    <h2>סיווג: רדיקלי חתרני / שמאל גלוי / לא מוכרע</h2>
+    <p>הבעיה אינה להיות שמאלני. הבעיה היא <strong>השקר</strong>. "חתרני" = נגד זהות מסורתית <strong>ומשקר לגבי זה</strong>. מי שאומר בגלוי "אני נגד חינוך דתי" — הוא שמאלני גלוי. מי שאומר "אנחנו בעד דמוקרטיה ושוויון" ובפועל חוסם בתי ספר דתיים — הוא <strong>חתרני</strong>.</p>
+
+    <div class="grid-3">
+        <div class="metric alert" style="text-align: right;">
+            <div class="value" style="font-size: 1.2em; margin-bottom: 8px;">🔴 רדיקלי חתרני</div>
+            <div style="font-size: 0.85em; color: #555;">
+                <strong>עמותת "חושבים רחוק"</strong> — מציגה "דמוקרטיה, שוויון, ציונות" אך בפועל: מלחמה נגד מוסדות דת, הרצאות אידיאולוגיות לגיל 5 תחת כסות "סיפור ויצירה"<br><br>
+                <strong>"הרוב הדמוקרטי"</strong> — מציגים "מקום לכולם" אך בפועל: דרישה רשמית לחסימת בית ספר, נימוקים תכנוניים שמסתירים מניע אידיאולוגי<br><br>
+                <strong>הפורום הליברלי</strong> — מציג "ליברליזם" אך בפועל: מגייס תלונות נגד בתי כנסת, מפיץ נוסחי התנגדות מוכנים, מצביעות: "שוויון" בכותרת + "לא בני ברק" בגוף הטקסט
+            </div>
+        </div>
+        <div class="metric" style="text-align: right; border-right: 4px solid #ff8800;">
+            <div class="value" style="font-size: 1.2em; color: #ff8800; margin-bottom: 8px;">🟠 שמאל גלוי</div>
+            <div style="font-size: 0.85em; color: #555;">
+                <strong>גיא פלג</strong> — עיתונאי שמאלני מוצהר. מקבל במה, אבל לא מסתיר את עמדותיו. אפשר לא להסכים, אך הוא שקוף<br><br>
+                <strong>כותבי נוסח הפניה</strong> (החלק הגלוי) — מי שכותב "ברצוננו לגור ברעננה ולא בבני ברק" לפחות אומר את האמת. הבעיה: הנוסח מתחיל ב"תחבורה" ורק בסוף חושף את המניע
+            </div>
+        </div>
+        <div class="metric" style="text-align: right; border-right: 4px solid #999;">
+            <div class="value" style="font-size: 1.2em; color: #999; margin-bottom: 8px;">⚪ לא מוכרע</div>
+            <div style="font-size: 0.85em; color: #555;">
+                <strong>חיים ברוידא</strong> — ראש העיר. תמך באישור בית ספר חב"ד בוועדה, אבל חתם על ההסכם הקואליציוני שמאפשר את הדיכוי. שותף למנגנון אך לא ברור אם פועל מאידיאולוגיה או מאילוצים פוליטיים<br><br>
+                <strong>אבי יוסף</strong> — תמך באישור. מעט מידע
+            </div>
+        </div>
+    </div>
+
+    <div class="quote-box green">
+        <strong>מבחן החתרנות:</strong> השווה בין מה שהארגון/אדם אומר על עצמו לבין מה שהוא עושה בפועל. אם יש פער — זו חתרנות. "חושבים רחוק" אומרים "דמוקרטיה ושוויון" אך חוסמים בית ספר. "הרוב הדמוקרטי" אומרים "מקום לכולם" אך חותמים על דרישה לחסימה. הנימוק הרשמי — "תחבורה". הנימוק האמיתי — "לא בני ברק".
+        <div class="q-source">עקרון מתודולוגי: חתרני = אנטי-זהות מסורתית + הסתרת המניע</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>הממצא המרכזי: כלל אחד לחילונים, כלל אחר לדתיים</h2>
+    <p>ההסכם הקואליציוני בין סיעת "חיים ברעננה" (חיים ברוידא) לסיעת "הרוב הדמוקרטי" קובע שלא תורשה שום פעילות של עמותות חיצוניות בבתי הספר אלא בהסכמה ישירה של ראש העיר (סעיף 5). בפועל, הכלל מופעל לכיוון אחד בלבד:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3 style="color: #e74c3c;">נחסמים:</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">❌ בית ספר חב"ד — 120 ילדים ללא מבנה</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">❌ גני ילדים חב"ד — בקשה לא אושרה</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">❌ הכולל הוותיק במרכז גולן — תלונות שהובילו למשפט</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">❌ חל"ד (חב"ד מפעלים חינוכיים) — סליחות, ידע יהודי</li>
+                <li style="padding: 6px 0;">❌ עמותת אח"י — העמקת זהות יהודית-ישראלית</li>
+            </ul>
+        </div>
+        <div>
+            <h3 style="color: #27ae60;">מתקבלים בגיבוי עירוני:</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">✅ "חושבים רחוק" — הרצאות "דמוקרטיה" לגיל 5–8, בבית הנוער העירוני</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">✅ גיא פלג — במה בהיכל התרבות, שבח מראש העיר</li>
+                <li style="padding: 6px 0; border-bottom: 1px solid #eee;">✅ "שבוע הדמוקרטיה הישראלית" — אירועים עירוניים</li>
+                <li style="padding: 6px 0;">✅ "הפורום הליברלי" — מגייס תלונות נגד מוסדות דת</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="quote-box">
+        "אותם אלו שמדברים על שוויון דואגים להדיר את רגליהם של עמותות עם מסרים של יהדות מילדי רעננה, וביד השנייה דרך תיק התרבות הנשלט ע"י הרוב הדמוקרטי הם הולכים ומארגנים שטיפת מוחות לילדי הקט של רעננה (גילאי 5!) על ידי העמותות הקיצוניות ביותר."
+        <div class="q-source">פוסט שהופץ בקבוצות תושבי רעננה, ינואר 2026</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מנגנון הדיכוי — 4 ערוצים</h2>
+    <div class="grid-2">
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">1. חסימה תכנונית</div>
+            <div class="actor-desc">חסימת אישורי תכנון ובנייה למוסדות חינוך וגני ילדים דתיים. שימוש בנימוקי תחבורה וצפיפות כ"כסות עיניים" (לפי הפעילים המקומיים) לחסימה מכוונת. הרוב הדמוקרטי פונה לערכאות ולמועצת העיר לביטול אישורים שניתנו.</div>
+        </div>
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">2. אכיפה סלקטיבית</div>
+            <div class="actor-desc">דיווחים על פקחים עירוניים המסתובבים סביב בתי כנסת ומחפשים סיבות לתת קנסות. אכיפה אגרסיבית על שימוש במקרקעין ליד מוסדות דת, תוך הימנעות מאכיפה דומה כלפי מוסדות חילוניים.</div>
+        </div>
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">3. גישה סלקטיבית לעמותות</div>
+            <div class="actor-desc">ההסכם הקואליציוני (סעיף 5) חוסם "עמותות חיצוניות" מבתי הספר ללא אישור ראש העיר. בפועל, עמותות פרוגרסיביות ("חושבים רחוק") מקבלות שיתוף פעולה מלא עם העירייה כולל אירועים במוסדות עירוניים. עמותות יהודיות (חל"ד, אח"י) מקבלות התנגדות.</div>
+        </div>
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">4. לחץ ציבורי מאורגן</div>
+            <div class="actor-desc">הפורום הליברלי (עדי כספי) מגייס תושבים דרך קבוצות וואטסאפ להגשת תלונות נגד מוסדות דת. נוסח פניות מוכן נשלח לתושבים לחתימה. הפורום פועל הן ברמה המוניציפלית (התנגדויות בוועדות) והן ברמת השטח (מעקב אחר מוסדות דת).</div>
+        </div>
+    </div>
+</div>
+
+</div><!-- /overview -->
+
+<!-- ═══════════════ TAB: EVIDENCE ═══════════════ -->
+<div id="view-evidence" class="view">
+
+<div class="section">
+    <h2>ממצא 1: חסימת בית ספר חב"ד — 120 ילדים ללא מסגרת</h2>
+    <p>חב"ד ביקש לפתוח בית ספר ברחוב אחוזה 23 (גוש 6587, חלקה 92). ועדת התכנון והבנייה אישרה את הבקשה, <strong>בתמיכת ראש העיר חיים ברוידא ואבי יוסף</strong>. סיעת "הרוב הדמוקרטי" ניסתה לחסום את האישור דרך מועצת העיר.</p>
+
+    <h3>מסמך רשמי: דרישה לדיון במליאת הוועדה המקומית</h3>
+    <p>ביום 21.12.2025, חברי מועצת העיר מסיעת "הרוב הדמוקרטי" הגישו דרישה רשמית לחסימת בית הספר:</p>
+
+    <div class="quote-box">
+        "אנו, החתומים מטה, חברי מועצת העיר רעננה וחברי הוועדה המקומית לתכנון ובניה מטעם סיעת 'הרוב הדמוקרטי', פונים בזאת מתוקף סמכותנו לפי סעיף 18(ז') לחוק התכנון והבניה... אנו מבקשים לקיים דיון חוזר במליאת הוועדה המקומית בנוגע להחלטת ועדת המשנה... בקשה מס' 20250963."
+        <div class="q-source">דרישה לדיון, חתומה ע"י שמואל ווגמן, רונית וינטראוב, חגי פרנקל — סיעת הרוב הדמוקרטי, 21.12.2025</div>
+    </div>
+
+    <h3>נימוקי הדרישה (מתוך המסמך הרשמי):</h3>
+    <table>
+        <tr>
+            <th>נימוק</th>
+            <th>ציטוט מהמסמך</th>
+        </tr>
+        <tr class="highlight">
+            <td><span class="badge red">איכות חיים</span></td>
+            <td>"חשש לפגיעה באיכות חיי השכונה. הן המבקשים והן חברי הוועדה מכירים בעובדה שתשתית הרחובות בשכונה אינה מאפשרת שימוש בעציימות גבוהה בנכס זה למטרת בית ספר"</td>
+        </tr>
+        <tr class="highlight">
+            <td><span class="badge red">תחבורה</span></td>
+            <td>"חשש לסכנה בטיחותית, ופגיעה בזרימת התנועה ברחוב אחוזה, בעקבות הניסיון לתת פיתרון באמצעות מפרץ חנייה/תפעול על הרחוב הראשי"</td>
+        </tr>
+        <tr>
+            <td><span class="badge orange">אכיפה</span></td>
+            <td>"אין ביידי הרשות המקומית... יכולת לאכוף שימוש במפרץ... הדבר לא יעמוד במבחן המציאות"</td>
+        </tr>
+    </table>
+
+    <h3>הפנים האמיתיות — מה כותבים תומכי "הדמוקרטים" בינם לבין עצמם:</h3>
+
+    <div class="quote-box">
+        "בעוד אני מתנגד/ת להקמת כל בית ספר במיקום זה באופן כללי, הרי שפתיחת בית ספר חב"ד היא כיריקה בעיני התושבים אשר רוצים לחיות בעיר פתוחה ושוויונית, אזכיר שחב"ד מתייחסים לתרבות החילונית, לא כתרבות, אלא כ'בארות נשברים' אשר יש לתקן."
+        <div class="q-source">נוסח פניה מוכן שהופץ לתושבים בקבוצות הוואטסאפ של "הפורום הליברלי" (ינואר 2026)</div>
+    </div>
+
+    <div class="quote-box">
+        "ברצוננו לגור ברעננה ולא בבני ברק. בשנים האחרונות העיר משנה את צביונה... הפסיקו את ההשתלטות החד צדדית בעירנו."
+        <div class="q-source">מתוך אותו נוסח פניה מוכן — כותרת: "התנגדות דחופה להקמת בית ספר בשכונת אחוזה 23"</div>
+    </div>
+
+    <p><strong>המבחן:</strong> הנימוק הרשמי הוא "תחבורה ובטיחות". אבל נוסח הפניות שמפיצים לתושבים חושף את המניע האמיתי: התנגדות לצביון דתי, השוואה ל"בני ברק", סלידה מהאידיאולוגיה של חב"ד.</p>
+</div>
+
+<div class="section">
+    <h2>ממצא 2: הפורום הליברלי ועמותת "חושבים רחוק"</h2>
+
+    <p><strong>עדי כספי</strong> מנהלת את "הפורום הליברלי ברעננה" ומשמשת יו"ר עמותת "חושבים רחוק". בפועל, מדובר בפעילות דו-כיוונית:</p>
+
+    <div class="grid-2">
+        <div>
+            <h3 style="color: #e74c3c;">פעילות נגד מוסדות דת:</h3>
+            <ul>
+                <li>הנעת תושבים להתלונן על הכולל הוותיק במרכז גולן — הובילה למצב שהרב הורוויץ עומד למשפט</li>
+                <li>רדיפת חב"ד "ללא הרף"</li>
+                <li>התנגדות לבית ספר חב"ד באחוזה 23</li>
+                <li>התנגדות לגן ילדים ברחוב ההסתדרות</li>
+                <li>מעקב אחר "סניפי" חב"ד — "לפי חב"דפדיה מאז 2021 חב"ד פתחו בעירנו 5 סניפים!"</li>
+            </ul>
+        </div>
+        <div>
+            <h3 style="color: #27ae60;">פעילות בגיבוי עירוני:</h3>
+            <ul>
+                <li><strong>14.1.2026</strong>: "שעת סיפור ויצירה בנושא שוויון" — פעילות לגילאי 5–8 בבית הנוער העירוני (אחוזה 157), בשיתוף עיריית רעננה ועמותת "חושבים רחוק", בהשראת רוזה פארקס</li>
+                <li><strong>19.12.2025</strong>: "חושבים רחוק — פעילות יצירה ומדע לחנוכה" — במשכן למוסיקה ואמנויות העירוני (tickets.raanana.muni.il)</li>
+                <li>"שבוע הדמוקרטיה הישראלית" — אירועי העמותה תחת חסות העירייה</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="quote-box blue">
+        "מטרות [עמותת חושבים רחוק]: דמוקרטיה, שוויון, ציונות... אבל בפועל אין בעמותה הזו דמוקרטיה אלא בעיקר דיקטטורה נגד מי שחושב אחרת מהם וגם פה מקדשים מלחמה נגד 'ההדתה בחינוך ובמרחב הציבורי'."
+        <div class="q-source">תיעוד שטח, ינואר 2026</div>
+    </div>
+
+    <h3>הפורום הליברלי — פעילות מאורגנת:</h3>
+    <p>הפורום מפעיל 4 קבוצות וואטסאפ (עברית, אנגלית, צרפתית + "קבוצה שקטה"), מפיץ נוסחי התנגדות מוכנים, ומנהל מעקב שיטתי אחר בקשות תכנון של מוסדות דת. הפורום ביקש מתושבים להתנגד ב-12.05.2025 לדיון בוועדה המקומית לתכנון ובנייה בנוגע להפיכת מרכז גולן לבית מדרש.</p>
+
+    <div class="quote-box">
+        "זוכרים את ההתנגדויות שהגשנו נגד הפיכת מרכז גולן לבית מדרש? אז הדיון נקבע למחר... מי מכם שיכול להגיע הרי זה מבורך!"
+        <div class="q-source">הפורום הליברלי ברעננה 2, הזמנה לדיון בוועדת תכנון, מאי 2025</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ממצא 3: הצקה לבתי כנסת</h2>
+
+    <div class="quote-box">
+        "לאחרונה המטה מקבל מידע על כך שפקחים מסתובבים סביב בתי כנסת ומחפשים לתת קנסות. מי שנתקל בתופעה שיפנה אלי. דיסקרטיות מובטחת."
+        <div class="q-source">עדכון שבועי מרעננה, ינואר 2026</div>
+    </div>
+
+    <p>הדיווח מצטרף לתמונה כוללת: בעוד שבתי כנסת מקבלים אכיפה אגרסיבית, מוסדות תרבות חילוניים מקבלים גיבוי מלא מראש העיר.</p>
+</div>
+
+<div class="section">
+    <h2>ממצא 4: גיא פלג — במה עירונית רשמית</h2>
+
+    <div class="quote-box blue">
+        "גיא פלג התארח ביום שני בבית יד לבנים, התקבל בגיבוי מלא של ראש העיר והדמוקרטים. ראש העיר פירגן לו על היושרה והמקצועיות."
+        <div class="q-source">סיכום שבוע ברעננה, ינואר 2026. צילום מפייסבוק: Doron Bacher, "גיא פלג — יד לבנים, ינואר 2026"</div>
+    </div>
+
+    <p>גיא פלג, עיתונאי שנוי במחלוקת, קיבל במה מכובדת בהיכל התרבות רעננה (בית יד לבנים), כשראש העיר חיים ברוידא מדבר בשבחו בפני הקהל. באותה תקופה — 120 ילדי חב"ד עדיין ללא מסגרת בית ספרית.</p>
+</div>
+
+<div class="section">
+    <h2>ממצא 5: נוסח ההתנגדות חושף את המניע האמיתי</h2>
+    <p>הפורום הליברלי הפיץ נוסח פניה מוכן לשליחה לראש העיר ולאבי יוסף. הנוסח מתחיל בנימוקים תכנוניים (תחבורה, צפיפות) אך מגיע מהר מאוד לגרעין:</p>
+
+    <div class="quote-box">
+        "בבקשה הפסיקו את ההשתלטות החד צדדית בעירנו. ברצוננו לגור ברעננה ולא בבני ברק."
+        <div class="q-source">נוסח פניה מוכן, הופץ בקבוצות הפורום הליברלי</div>
+    </div>
+
+    <div class="quote-box">
+        "פתיחת בית ספר חב"ד היא כיריקה בעיני התושבים אשר רוצים לחיות בעיר פתוחה ושוויונית, אזכיר שחב"ד מתייחסים לתרבות החילונית, לא כתרבות, אלא כ'בארות נשברים' אשר יש לתקן."
+        <div class="q-source">אותו נוסח פניה — חושף שהנימוק אינו תכנוני אלא אידיאולוגי</div>
+    </div>
+
+    <div class="quote-box">
+        "יש קושי מסויים לומר אמת זו בגלוי. עלול לנדוף ממנה ריח של התנשאות וביטול הזולת. אבל גם אם האמת כואבת וצורבת, אין היא חדלה מלהיות אמת... לא שתי תרבויות לפנינו, אלא 'מקור מים חיים' מול 'בארות נשברים'."
+        <div class="q-source">ציטוט מחב"ד שהובא בנוסח הפניה כדי להצדיק התנגדות — "ראו מה הם חושבים עלינו"</div>
+    </div>
+
+    <p><strong>ניתוח:</strong> נוסח ההתנגדות עצמו הוא הראיה החזקה ביותר. הוא מתחיל בשפה תכנונית-משפטית ומסיים בחשיפה בוטה של המניע: סלידה מצביון דתי, הזדהות תרבותית עם "חילוניות", והשוואה ל"בני ברק" כאיום.</p>
+</div>
+
+</div><!-- /evidence -->
+
+<!-- ═══════════════ TAB: COALITION ═══════════════ -->
+<div id="view-coalition" class="view">
+
+<div class="section">
+    <h2>ההסכם הקואליציוני — הרוב הדמוקרטי + חיים ברעננה</h2>
+    <p>הסכם שנחתם ביום 8 למאי 2024, בין סיעת "חיים ברעננה" (חיים ברוידא, ראש העיר) לסיעת "הרוב הדמוקרטי" (שמואל ווגמן). 34 סעיפים, 10 עמודים. חתימות: שמואל ווגמן (יו"ר "הרוב הדמוקרטי") וחיים ברוידא.</p>
+
+    <h3>סעיפים מרכזיים:</h3>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>סעיף</th>
+            <th>משמעות</th>
+        </tr>
+        <tr class="highlight">
+            <td>4</td>
+            <td>ראש העיר, סיעת "חיים ברעננה", וסיעת "הרוב הדמוקרטי" מתחייבים לפעול בשיתוף פעולה להכרעות קואליציוניות ולהקמת קואליציה רחבה</td>
+            <td>שיתוף פעולה מלא — הרוב הדמוקרטי שותף מלא בהחלטות</td>
+        </tr>
+        <tr class="highlight">
+            <td>5</td>
+            <td><strong>סיעת "חיים ברעננה" בראשות של ראש העיר חיים ברוידא, שואפת לפעול בשותפות עם הסכמי אשר התחתמו ונבחרו למועצת העיר</strong>. שותפות ייצירת בסיס הסכמה רחבה בין המרכיבים החברתיים והארגוניים השונים בעיר</td>
+            <td>מנגנון הסכמה שבפועל נותן וטו לכל סיעה קואליציונית</td>
+        </tr>
+        <tr class="highlight">
+            <td>6</td>
+            <td>"חיים ברוידא וסיעת 'חיים ברעננה' בראשות, וסיעת 'הרוב הדמוקרטי' מציגים בראש מטעיניהם את הצורך לשמור על המרקם היחודי והחיבור המחוד בין הקהילות בעיר"</td>
+            <td>שמירה על "מרקם ייחודי" = מניעת שינוי צביון = חסימת מוסדות חב"ד</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>הצדדים מתחייבים להדדית לשותפות וללוויליות במסגרת הקואליציה</td>
+            <td>מחויבות הדדית — ברוידא לא יעבוד נגד "הרוב הדמוקרטי"</td>
+        </tr>
+    </table>
+
+    <h3>חלוקת תיקים (נספח ב'):</h3>
+    <p>לסיעת הרוב הדמוקרטי הוענקו:</p>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">תיק התרבות</div>
+            <div class="value" style="font-size: 1.2em;">יו"ר ועדה</div>
+            <div class="note">שליטה על מה נכנס למוסדות תרבות</div>
+        </div>
+        <div class="metric">
+            <div class="label">תיק השירותים החברתיים</div>
+            <div class="value" style="font-size: 1.2em;">יו"ר ועדה</div>
+            <div class="note">שליטה על מענקים ותמיכות</div>
+        </div>
+        <div class="metric">
+            <div class="label">תיק הבריאות</div>
+            <div class="value" style="font-size: 1.2em;">יו"ר ועדה</div>
+            <div class="note">ועדת בריאות</div>
+        </div>
+    </div>
+
+    <p>בנוסף, "הרוב הדמוקרטי" קיבל:</p>
+    <ul>
+        <li>ייצוג במועצת הנשיא, מועצת הנוער, והחינוך הבלתי פורמלי</li>
+        <li>יו"ר ועדת הקצאות (סעיף 17 של נספח ב') — שליטה על הקצאת מבנים, שטחים ומשאבים ציבוריים</li>
+        <li>יו"ר ועדת טכנולוגיה, חדשנות, ועידן כמה (סעיפים 8–9)</li>
+        <li>חבר בוועדת הנחות (סעיף 10) — דירקטוריון בתאגיד מי רעננה</li>
+        <li>ועדת משנה לתכנון: שני חברים (מתוך 9 חברים סה"כ) + ועדת תמיכות: ארבעה חברים (מתוך 9) + ועדת כספים: שלושה חברים (מתוך 7) + ועדת מכרזים: שני חברים (מתוך 7)</li>
+    </ul>
+
+    <div class="quote-box blue">
+        "זוכרים את הסעיף בהסכם הקואליציוני של הרוב הדמוקרטי שלא תורשה שום פעילות של עמותות חיצוניות בבתי הספר אלא בהסכמה ישירה של ראש העיר? אז מסתבר שהכול עובד רק לכיוון אחד."
+        <div class="q-source">תיעוד שטח, ינואר 2026</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>ניתוח: מנגנון הקואליציה כמנגנון דיכוי</h2>
+
+    <p>הדפוס ברעננה שונה מדפוס ה"מינצנברג" (עמותות חיצוניות שחודרות דרך תכניות חינוך). כאן מדובר <strong>בדיכוי ישיר מתוך המועצה</strong>:</p>
+
+    <ol style="padding-right: 20px;">
+        <li><strong>שליטה תקציבית:</strong> "הרוב הדמוקרטי" שולט בוועדות הקצאות, תמיכות וכספים — מה שמאפשר חסימת מימון למוסדות דתיים</li>
+        <li><strong>שליטה תכנונית:</strong> שני חברים בוועדת המשנה לתכנון + זכות לכנס דיון במליאה — מה שמאפשר חסימת אישורי בנייה</li>
+        <li><strong>שליטה תרבותית:</strong> יו"ר ועדת תרבות — מה שמאפשר לשלוט מי מקבל במה ומי לא</li>
+        <li><strong>סעיף הסכמה:</strong> מנגנון "שותפות" שבפועל נותן וטו — אם הרוב הדמוקרטי מתנגד, ראש העיר לא מקדם</li>
+    </ol>
+</div>
+
+</div><!-- /coalition -->
+
+<!-- ═══════════════ TAB: ACTORS ═══════════════ -->
+<div id="view-actors" class="view">
+
+<div class="section" style="border-top: 4px solid #667eea;">
+    <h2>מפתח סיווג</h2>
+    <p style="font-size: 0.92em; margin-bottom: 16px;">
+        <span class="badge red" style="font-size: 0.85em;">רדיקלי חתרני</span> = נגד זהות מסורתית + משקר לגבי זה &nbsp;
+        <span class="badge orange" style="font-size: 0.85em;">שמאל גלוי</span> = שמאלני מוצהר, שקוף &nbsp;
+        <span class="badge gray" style="font-size: 0.85em;">לא מוכרע</span> = אין מספיק מידע
+    </p>
+</div>
+
+<div class="section">
+    <h2>שחקנים מרכזיים</h2>
+
+    <div class="grid-2">
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">עדי כספי <span class="badge red">רדיקלי חתרני</span></div>
+            <div class="actor-role">יו"ר עמותת "חושבים רחוק" + מנהלת "הפורום הליברלי ברעננה"</div>
+            <div class="actor-desc">
+                <ul>
+                    <li>מגייסת תושבים דרך וואטסאפ להתלונן על מוסדות דת</li>
+                    <li>הובילה להגשת תלונות נגד הכולל הוותיק במרכז גולן — הרב הורוויץ עומד למשפט</li>
+                    <li>"רודפת את חב"ד ללא הרף"</li>
+                    <li>עמותת "חושבים רחוק" מקבלת שיתוף פעולה מלא מהעירייה — אירועים במוסדות עירוניים</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">שמואל ווגמן <span class="badge red">רדיקלי חתרני</span></div>
+            <div class="actor-role">חבר מועצת העיר, סיעת "הרוב הדמוקרטי" — יו"ר הסיעה</div>
+            <div class="actor-desc">
+                <ul>
+                    <li>חתם על ההסכם הקואליציוני (מאי 2024)</li>
+                    <li>ביקש לכנס דיון במועצת העיר לפסול את אישור בית ספר חב"ד</li>
+                    <li>חתום על הדרישה הרשמית לדיון חוזר בוועדה המקומית (21.12.2025)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">חגי פרנקל <span class="badge red">רדיקלי חתרני</span></div>
+            <div class="actor-role">חבר מועצת העיר, סיעת "הרוב הדמוקרטי"</div>
+            <div class="actor-desc">
+                <ul>
+                    <li>חתום על דרישת חסימת בית ספר חב"ד (21.12.2025)</li>
+                    <li>קיבל שבח מתומכי הפורום הליברלי כמי ש"נלחם עבור הציבור הליברלי"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="actor-card" style="border-right: 4px solid #e74c3c;">
+            <div class="actor-name">רונית וינטראוב <span class="badge red">רדיקלי חתרני</span></div>
+            <div class="actor-role">חברת מועצת העיר, סיעת "הרוב הדמוקרטי"</div>
+            <div class="actor-desc">
+                <ul>
+                    <li>חתומה על דרישת חסימת בית ספר חב"ד (21.12.2025)</li>
+                    <li>קיבלה שבח מתומכי הפורום הליברלי</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="actor-card" style="border-right: 4px solid #999;">
+            <div class="actor-name">חיים ברוידא <span class="badge gray">לא מוכרע</span></div>
+            <div class="actor-role">ראש העיר רעננה</div>
+            <div class="actor-desc">
+                <ul>
+                    <li>חתם על ההסכם הקואליציוני עם "הרוב הדמוקרטי" (מאי 2024)</li>
+                    <li>תמך באישור בית ספר חב"ד בוועדת תכנון — אך כפוף להסכם קואליציוני</li>
+                    <li>דיבר בשבח גיא פלג בהיכל התרבות (ינואר 2026)</li>
+                    <li>שותף למנגנון שמאפשר את הדיכוי דרך ההסכם הקואליציוני</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="actor-card" style="border-right: 4px solid #999;">
+            <div class="actor-name">ענבר הוכברג <span class="badge gray">לא מוכרע</span></div>
+            <div class="actor-role">נציגה בוועדת תכנון ובנייה</div>
+            <div class="actor-desc">
+                <ul>
+                    <li>הצביעה נגד אישור בית ספר חב"ד</li>
+                    <li>קיבלה שבח מתומכי "הציבור הליברלי"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div><!-- /actors -->
+
+<!-- ═══════════════ TAB: TIMELINE ═══════════════ -->
+<div id="view-timeline" class="view">
+
+<div class="section">
+    <h2>ציר זמן — הדיכוי המוסדי ברעננה</h2>
+
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-date">מאי 2024</div>
+            <div class="tl-title">חתימת ההסכם הקואליציוני</div>
+            <div class="tl-desc">חיים ברוידא חותם עם "הרוב הדמוקרטי" (שמואל ווגמן). 34 סעיפים. הרוב הדמוקרטי מקבל: תיק תרבות, שירותים חברתיים, בריאות, הקצאות, ונציגות בוועדות תכנון, כספים, מכרזים ותמיכות.</div>
+        </div>
+
+        <div class="tl-item alert">
+            <div class="tl-date">מאי 2025</div>
+            <div class="tl-title">התנגדות להפיכת מרכז גולן לבית מדרש</div>
+            <div class="tl-desc">הפורום הליברלי מגייס תושבים לדיון בוועדת תכנון ובנייה בהתנגדות לשימוש בנכס כבית מדרש (בקשה 2025009). "זוכרים את ההתנגדויות שהגשנו?"</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-date">דצמבר 2025</div>
+            <div class="tl-title">ועדת תכנון מאשרת בית ספר חב"ד</div>
+            <div class="tl-desc">ועדת המשנה לתכנון ובנייה מאשרת את בקשה 20250963 — בית ספר חב"ד באחוזה 23. בתמיכת ראש העיר חיים ברוידא ואבי יוסף. "הרוב הדמוקרטי" מתנגד.</div>
+        </div>
+
+        <div class="tl-item alert">
+            <div class="tl-date">17.12.2025</div>
+            <div class="tl-title">ועדת המשנה מאשרת — הרוב הדמוקרטי דורש דיון חוזר</div>
+            <div class="tl-desc">ההחלטה התקבלה. סיעת הרוב הדמוקרטי פונה לדיון חוזר במליאת הוועדה המקומית.</div>
+        </div>
+
+        <div class="tl-item alert">
+            <div class="tl-date">21.12.2025</div>
+            <div class="tl-title">דרישה רשמית לחסימת בית ספר חב"ד</div>
+            <div class="tl-desc">מסמך רשמי חתום ע"י שמואל ווגמן, רונית וינטראוב וחגי פרנקל (סיעת "הרוב הדמוקרטי"). דורשים דיון חוזר, עיכוב מתן היתר, ושמיעת טיעונים. נימוקים: "תחבורה ובטיחות" — אך נוסח הפניה שהופץ לתושבים חושף מניע אידיאולוגי.</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-date">19.12.2025</div>
+            <div class="tl-title">"חושבים רחוק" — אירוע חנוכה עירוני</div>
+            <div class="tl-desc">עמותת "חושבים רחוק" מקיימת פעילות יצירה ומדע לחנוכה במשכן למוסיקה ואמנויות העירוני. באתר הכרטיסים של העירייה (tickets.raanana.muni.il). בזמן שבית ספר חב"ד נחסם — העמותה מקבלת אירועים במוסדות עירוניים.</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-date">ינואר 2026</div>
+            <div class="tl-title">גיא פלג — במה בהיכל התרבות</div>
+            <div class="tl-desc">גיא פלג מתארח בבית יד לבנים בגיבוי מלא של ראש העיר. ברוידא "דיבר בפני הקהל בשבחו של גיא על יושרתו ומקצועיותו".</div>
+        </div>
+
+        <div class="tl-item alert">
+            <div class="tl-date">ינואר 2026</div>
+            <div class="tl-title">דיווח על הצקת פקחים לבתי כנסת</div>
+            <div class="tl-desc">"פקחים מסתובבים סביב בתי כנסת ומחפשים לתת קנסות"</div>
+        </div>
+
+        <div class="tl-item">
+            <div class="tl-date">14.1.2026</div>
+            <div class="tl-title">"שעת סיפור בנושא שוויון" — "חושבים רחוק" + עיריית רעננה</div>
+            <div class="tl-desc">פעילות לגילאי 5–8 בבית הנוער העירוני (אחוזה 157), בשיתוף עיריית רעננה ועמותת "חושבים רחוק". נושא: "שוויון" בהשראת רוזה פארקס. שבוע הדמוקרטיה הישראלית.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מקורות</h2>
+    <table>
+        <tr>
+            <th>מסמך</th>
+            <th>סוג</th>
+            <th>תאריך</th>
+        </tr>
+        <tr>
+            <td>הסכם קואליציוני בין סיעת "חיים ברעננה" לסיעת "הרוב הדמוקרטי"</td>
+            <td><span class="badge blue">מסמך חתום</span></td>
+            <td>8.5.2024</td>
+        </tr>
+        <tr>
+            <td>דרישה לדיון במליאת הוועדה המקומית — בקשה 20250963 (בית ספר חב"ד)</td>
+            <td><span class="badge blue">מסמך רשמי</span></td>
+            <td>21.12.2025</td>
+        </tr>
+        <tr>
+            <td>נוסח פניה מוכן נגד בית ספר חב"ד (הופץ בקבוצות וואטסאפ)</td>
+            <td><span class="badge orange">תיעוד שטח</span></td>
+            <td>ינואר 2026</td>
+        </tr>
+        <tr>
+            <td>פוסט על עדי כספי והפורום הליברלי</td>
+            <td><span class="badge orange">תיעוד שטח</span></td>
+            <td>ינואר 2026</td>
+        </tr>
+        <tr>
+            <td>כרזת אירוע "שעת סיפור ויצירה בנושא שוויון" — חושבים רחוק + עיריית רעננה</td>
+            <td><span class="badge green">פרסום רשמי</span></td>
+            <td>14.1.2026</td>
+        </tr>
+        <tr>
+            <td>כרזת אירוע חנוכה — חושבים רחוק + tickets.raanana.muni.il</td>
+            <td><span class="badge green">אתר עירייה</span></td>
+            <td>19.12.2025</td>
+        </tr>
+        <tr>
+            <td>פוסט פייסבוק Doron Bacher — גיא פלג בהיכל התרבות</td>
+            <td><span class="badge gray">רשתות חברתיות</span></td>
+            <td>ינואר 2026</td>
+        </tr>
+        <tr>
+            <td>הזמנת הפורום הליברלי לדיון בוועדת תכנון — מרכז גולן</td>
+            <td><span class="badge orange">תיעוד שטח</span></td>
+            <td>מאי 2025</td>
+        </tr>
+        <tr>
+            <td>סיכום שבוע ברעננה — דיווחים על פקחים, חב"ד, גיא פלג</td>
+            <td><span class="badge orange">תיעוד שטח</span></td>
+            <td>ינואר 2026</td>
+        </tr>
+        <tr>
+            <td>צ'אט וואטסאפ עם שני נינה רעננה</td>
+            <td><span class="badge gray">מקור ראשוני</span></td>
+            <td>19.1.2026 – 8.2.2026</td>
+        </tr>
+    </table>
+</div>
+
+</div><!-- /timeline -->
+
+</div><!-- /container -->
+
+<footer>
+    <div>דירוג ערים — דיכוי דתי מוסדי ברעננה | <a href="../index.html">חזרה לדירוג</a> | <a href="munzenberg_municipal.html">ניתוח מינצנברגי</a></div>
+    <div style="margin-top: 8px;">מקורות: מסמכים רשמיים, תיעוד שטח, צ'אט וואטסאפ | פברואר 2026</div>
+</footer>
+
+<script>
+function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+// Expand/collapse sections
+document.querySelectorAll('.expand-section').forEach(el => {
+    el.addEventListener('click', () => {
+        el.classList.toggle('open');
+        const content = el.nextElementSibling;
+        if (content && content.classList.contains('expand-content')) {
+            content.classList.toggle('open');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

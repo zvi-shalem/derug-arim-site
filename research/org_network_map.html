@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מפת רשת ארגונים | דירוג ערים</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f0f1a; color: #e0e0e0; min-height: 100vh; }
+
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 24px 32px;
+  border-bottom: 2px solid #ff8800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h1 { font-size: 1.6rem; color: #fff; }
+.header h1 span { color: #ff8800; }
+.back-link { color: #667eea; text-decoration: none; font-size: 0.9rem; }
+.back-link:hover { text-decoration: underline; }
+
+.controls {
+  display: flex;
+  gap: 12px;
+  padding: 16px 32px;
+  background: #1a1a2e;
+  border-bottom: 1px solid #2a2a4a;
+  flex-wrap: wrap;
+}
+.controls button {
+  background: #2a2a4a;
+  color: #e0e0e0;
+  border: 1px solid #3a3a5a;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.controls button:hover { background: #3a3a5a; }
+.controls button.active { background: #ff8800; color: #000; border-color: #ff8800; }
+
+.map-container {
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Tree layout */
+.tree { position: relative; }
+.tree ul { list-style: none; padding-right: 28px; position: relative; }
+.tree > ul { padding-right: 0; }
+
+.tree li {
+  position: relative;
+  padding: 6px 0;
+}
+
+/* Connector lines */
+.tree ul li::before {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 0;
+  width: 16px;
+  height: 50%;
+  border-left: 2px solid #3a3a5a;
+  border-bottom: 2px solid #3a3a5a;
+  border-radius: 0 0 0 6px;
+}
+.tree ul li::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  width: 16px;
+  height: 50%;
+  border-left: 2px solid #3a3a5a;
+}
+.tree ul li:last-child::after { display: none; }
+
+.node {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  max-width: 320px;
+}
+
+/* Root */
+.node.level-0 {
+  background: linear-gradient(135deg, #ff8800, #e67700);
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 16px 24px;
+  border-radius: 12px;
+}
+
+/* Branch */
+.node.level-1 {
+  background: #1e3a5f;
+  border: 2px solid #667eea;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.node.level-1:hover { background: #264a7f; }
+
+/* Org */
+.node.level-2 {
+  background: #2a2a4a;
+  border: 1px solid #4a4a6a;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+.node.level-2:hover { background: #3a3a5a; border-color: #ff8800; }
+
+/* Detail */
+.node.level-3 {
+  background: transparent;
+  border: 1px solid #3a3a5a;
+  color: #aaa;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+}
+
+/* Collapse/expand */
+.node.has-children::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  margin-right: 8px;
+  transition: transform 0.2s;
+}
+.node.collapsed::after { transform: rotate(135deg); }
+li.collapsed > ul { display: none; }
+
+/* Category colors */
+.cat-lgbtq .node.level-1 { border-color: #e91e63; background: #3a1a2a; }
+.cat-leadership .node.level-1 { border-color: #ff8800; background: #3a2a1a; }
+.cat-social .node.level-1 { border-color: #4caf50; background: #1a3a2a; }
+.cat-support .node.level-1 { border-color: #9c27b0; background: #2a1a3a; }
+.cat-municipal .node.level-1 { border-color: #f44336; background: #3a1a1a; }
+
+/* Stats bar */
+.stats {
+  display: flex;
+  gap: 24px;
+  padding: 16px 32px;
+  background: #1a1a2e;
+  border-top: 1px solid #2a2a4a;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat .value { font-size: 1.4rem; font-weight: bold; color: #ff8800; }
+.stat .label { font-size: 0.75rem; color: #888; margin-top: 2px; }
+
+/* Tooltip */
+.tooltip {
+  display: none;
+  position: absolute;
+  background: #1a1a2e;
+  border: 1px solid #ff8800;
+  border-radius: 8px;
+  padding: 12px;
+  z-index: 100;
+  max-width: 300px;
+  font-size: 0.8rem;
+  color: #ccc;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.node:hover .tooltip { display: block; }
+
+@media (max-width: 768px) {
+  .map-container { padding: 16px; overflow-x: auto; }
+  .node { max-width: 200px; font-size: 0.8rem !important; padding: 6px 10px; }
+  .header h1 { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1><span>מפת רשת ארגונים</span> — דירוג ערים</h1>
+  <a href="../" class="back-link">חזרה לדירוג</a>
+</div>
+
+<div class="controls">
+  <button onclick="expandAll()">פתח הכל</button>
+  <button onclick="collapseToLevel(1)">ענפים ראשיים</button>
+  <button onclick="collapseToLevel(2)">עד ארגונים</button>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="value">22</div><div class="label">מקורות מחקר</div></div>
+  <div class="stat"><div class="value">5</div><div class="label">קטגוריות</div></div>
+  <div class="stat"><div class="value">15</div><div class="label">ארגונים</div></div>
+  <div class="stat"><div class="value">18</div><div class="label">ערים</div></div>
+</div>
+
+<div class="map-container">
+  <div class="tree" id="mindmap"></div>
+</div>
+
+<script>
+const MIND_MAP = {
+  "name": "מפת ארגוני חינוך ושינוי חברתי בישראל",
+  "children": [
+    {
+      "name": "ארגוני להט\"ב וחינוך מיני",
+      "cat": "lgbtq",
+      "children": [
+        {
+          "name": "חוש\"ן - חינוך ושינוי",
+          "tip": "מרכז ההסברה של הקהילה הגאה. 6 תוכניות גפ\"ן, 0 פריסות בפועל. קיצוץ 85% במימון משרד החינוך. רעננה הציעה מימון עירוני ישיר.",
+          "children": [
+            {"name": "מרכז ההסברה של הקהילה"},
+            {"name": "תוכניות גפ\"ן ומערכי שיעור"},
+            {"name": "סיפור אישי כמתודולוגיה"}
+          ]
+        },
+        {
+          "name": "דלת פתוחה",
+          "tip": "פועלת ב-3 ערים בערוצי חדירה שונים: חיפה (הכשרת צוות), באר שבע (ועדת בריאות), רמת השרון (חוזה 138K ש\"ח).",
+          "children": [
+            {"name": "חינוך מיני מקיף (CSE)"},
+            {"name": "סטנדרטים בינלאומיים IPPF"},
+            {"name": "חדירה דרך ועדות בריאות"}
+          ]
+        },
+        {
+          "name": "חינוך למיניות בריאה",
+          "tip": "שלומית הברון. פירוק מושג הצניעות והמשפחה המסורתית. שיטת הטפטוף — חשיפה הדרגתית מגיל הרך.",
+          "children": [
+            {"name": "שלומית הברון — עוסק מורשה"},
+            {"name": "פירוק מושג הצניעות והמשפחה"},
+            {"name": "שיטת הטפטוף בגיל הרך"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "רשתות מנהיגות והשפעה מוסדית",
+      "cat": "leadership",
+      "children": [
+        {
+          "name": "מעוז (Maoz)",
+          "tip": "הכשרת עתודה ניהולית. בוגרים בתפקידים סטטוטוריים ברשויות. מימון קרן יד הנדיב.",
+          "children": [
+            {"name": "הכשרת עתודה ניהולית"},
+            {"name": "בוגרים בתפקידים סטטוטוריים"},
+            {"name": "מימון קרן יד הנדיב"}
+          ]
+        },
+        {
+          "name": "המכון הדמוקרטי",
+          "tip": "חלוץ חינוכי — הכשרת מנהלים. דמוקרטיה מוניציפלית. הנהגה פנימית שיתופית.",
+          "children": [
+            {"name": "חלוץ חינוכי — הכשרת מנהלים"},
+            {"name": "דמוקרטיה מוניציפלית"},
+            {"name": "הנהגה פנימית שיתופית"}
+          ]
+        },
+        {
+          "name": "SafeSchool (סייף סקול)",
+          "tip": "דלת מסתובבת של בכירי משרד החינוך. ג'מיני דירג 1/10 סיכון, אבל וידאו מראה הוראת ספקטרום מגדרי מאחורי חומת תשלום.",
+          "children": [
+            {"name": "דלת מסתובבת של בכירי משרד החינוך"},
+            {"name": "ניתוח אקלים חברתי-רגשי"},
+            {"name": "מודל Netflix למורים"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "תנועות חברתיות ואידיאולוגיה",
+      "cat": "social",
+      "children": [
+        {
+          "name": "דרור ישראל / יסודות לצמיחה",
+          "tip": "196K ש\"ח מהרצליה (3 שנים). קיבוצי מחנכים עירוניים. פדגוגיה חברתית (פאולו פריירה). רשת בתי חינוך חברתיים.",
+          "children": [
+            {"name": "קיבוצי מחנכים עירוניים"},
+            {"name": "פדגוגיה חברתית (פאולו פריירה)"},
+            {"name": "רשת בתי חינוך חברתיים"}
+          ]
+        },
+        {
+          "name": "מכון שלום הרטמן",
+          "tip": "יהדות פלורליסטית וליברלית. תוכנית בארי לזהות יהודית. השפעה על צמרת הפיקוד בצה\"ל.",
+          "children": [
+            {"name": "תוכנית בארי לזהות יהודית"},
+            {"name": "יהדות פלורליסטית וליברלית"},
+            {"name": "השפעה על צמרת הפיקוד בצה\"ל"}
+          ]
+        },
+        {
+          "name": "גבעת חביבה",
+          "tip": "שורשי השומר הצעיר. המרכז היהודי-ערבי לשלום. שותפות יהודית-ערבית.",
+          "children": [
+            {"name": "המרכז היהודי-ערבי לשלום"},
+            {"name": "שותפות יהודית-ערבית"},
+            {"name": "שורשי השומר הצעיר"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ארגוני סיוע ודיאלוג",
+      "cat": "support",
+      "children": [
+        {
+          "name": "מרכז סיוע חיפה והצפון",
+          "tip": "פרויקט ביחד בהסכמה. שינוי מדיניות וחקיקה מגדרית. ליווי נפגעי תקיפה מינית.",
+          "children": [
+            {"name": "פרויקט ביחד בהסכמה"},
+            {"name": "שינוי מדיניות וחקיקה מגדרית"},
+            {"name": "ליווי נפגעי תקיפה מינית"}
+          ]
+        },
+        {
+          "name": "מרכז רוסינג",
+          "tip": "דיאלוג בין-דתי. מחנכים לשינוי — מניעת גזענות. מימון כנסיות אירופיות.",
+          "children": [
+            {"name": "דיאלוג יהודי-נוצרי"},
+            {"name": "מחנכים לשינוי — מניעת גזענות"},
+            {"name": "מימון כנסיות אירופיות"}
+          ]
+        },
+        {
+          "name": "גשר — מפעלים חינוכיים",
+          "tip": "חיבור דתיים-חילוניים. מנהיגות וזהות יהודית. קרן גשר לקולנוע.",
+          "children": [
+            {"name": "חיבור דתיים-חילוניים"},
+            {"name": "מנהיגות וזהות יהודית"},
+            {"name": "קרן גשר לקולנוע"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "מנגנוני עבודה מוניציפליים",
+      "cat": "municipal",
+      "children": [
+        {
+          "name": "טקטיקת הסלמי והסלמה הדרגתית",
+          "tip": "יועץ > ועדה > הצהרת מדיניות > מדיניות מחייבת > הקצאת תקציב. חיפה בשלב הבוגר ביותר.",
+          "children": []
+        },
+        {
+          "name": "מערכת גפ\"ן כערוץ חדירה",
+          "tip": "6,064 תוכניות מדורגות. ערוץ הפצה ממוסד דרך משרד החינוך.",
+          "children": []
+        },
+        {
+          "name": "לכידה מוסדית ושימוש בשפה",
+          "tip": "שימוש בשפה ניטרלית (הכלה, מגוון, קיימות) להסוואת תכנים. 60-100% false positive בסריקת מילות מפתח.",
+          "children": []
+        },
+        {
+          "name": "אשכול דצמבר 2022",
+          "tip": "הרצליה, רעננה, גבעתיים — ביצור מוניציפלי מונע לקראת ממשלת נתניהו-בן גביר.",
+          "children": []
+        }
+      ]
+    }
+  ]
+};
+
+function buildTree(node, level = 0) {
+  const li = document.createElement('li');
+  if (node.cat) li.className = 'cat-' + node.cat;
+
+  const span = document.createElement('span');
+  span.className = 'node level-' + Math.min(level, 3);
+  span.textContent = node.name;
+
+  if (node.children && node.children.length > 0) {
+    span.classList.add('has-children');
+    span.addEventListener('click', function(e) {
+      e.stopPropagation();
+      li.classList.toggle('collapsed');
+      span.classList.toggle('collapsed');
+    });
+  }
+
+  if (node.tip) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.textContent = node.tip;
+    span.appendChild(tooltip);
+  }
+
+  li.appendChild(span);
+
+  if (node.children && node.children.length > 0) {
+    const ul = document.createElement('ul');
+    node.children.forEach(child => ul.appendChild(buildTree(child, level + 1)));
+    li.appendChild(ul);
+  }
+
+  return li;
+}
+
+function expandAll() {
+  document.querySelectorAll('.collapsed').forEach(el => el.classList.remove('collapsed'));
+}
+
+function collapseToLevel(maxLevel) {
+  expandAll();
+  document.querySelectorAll('.tree li').forEach(li => {
+    const node = li.querySelector(':scope > .node');
+    if (!node) return;
+    const level = parseInt(node.className.match(/level-(\d)/)?.[1] || '0');
+    if (level >= maxLevel && node.classList.contains('has-children')) {
+      li.classList.add('collapsed');
+      node.classList.add('collapsed');
+    }
+  });
+}
+
+// Build
+const container = document.getElementById('mindmap');
+const rootUl = document.createElement('ul');
+rootUl.appendChild(buildTree(MIND_MAP));
+container.appendChild(rootUl);
+</script>
+</body>
+</html>

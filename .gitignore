@@ -5,3 +5,29 @@ qa_linkage.js
 search_protocols*.py
 protocol_search_results*.json
 research_input/
+
+# Screenshots
+*.png
+*.ps1
+*.vbs
+
+# Python scripts (dev tools, not site content)
+gemini_*.py
+integrate_*.py
+build_*.py
+click_*.py
+
+# Database files
+*.db
+*.db.bak*
+db_backups/
+research_backups/
+research_db_manifest.json
+
+# Data files (not served)
+data/program_ratings.json
+data/funding_sources.json
+data/*.xlsx
+
+# Other dev artifacts
+orgs_database.js

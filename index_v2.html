@@ -67,6 +67,10 @@
         .city-card .level-label { font-size: 0.82em; font-weight: 600; padding: 3px 10px; border-radius: 12px; display: inline-block; color: #fff; }
         .city-card .justification { font-size: 0.82em; color: #666; margin-top: 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .city-card .meta-row { display: flex; gap: 12px; margin-top: 8px; font-size: 0.78em; color: #888; flex-wrap: wrap; }
+        .cls-pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600; margin-right: 6px; }
+        .cls-subversive { background: #fff5f5; color: #cc0000; border: 1px solid #cc0000; }
+        .cls-leans_left { background: #fffaf0; color: #e68a00; border: 1px solid #e68a00; }
+        .cls-insufficient { background: #f8f8f8; color: #888; border: 1px solid #ccc; }
 
         /* Back button */
         .back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #f0f0f5; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 0.9em; color: #555; margin-bottom: 16px; transition: all 0.2s; }
@@ -243,71 +247,73 @@ const LEVELS = [
     { id: 7, name: "מוסדי שלם", color: "#8b0000", desc: "<b>לכידה מוסדית מלאה</b>: ועדות + תקציב + מדיניות + <b>אכיפה</b>" },
 ];
 
+// Classification: "subversive" = documented capture mechanism, "leans_left" = programs present but no mechanism, "insufficient" = not enough data
 const CITY_LEVELS = [
-    { name: "חיפה", key: "HAIFA", level: 7, findings: 5, dec22: false,
+    { name: "חיפה", key: "HAIFA", level: 7, findings: 5, dec22: false, cls: "subversive",
       justification: "ועדה סטטוטורית ל\"שוויון מגדרי\" עם סמכות מדיניות, קריטריוני מימון הדורשים קידום \"שוויון מגדרי\" (כולל להט\"ב), יועצת ראש עיר ל\"שוויון מגדרי\", הסכם קואליציוני עם מרצ, תוכנית עיר רגישה מגדרית שאושרה בהצבעה. ההסלמה השלמה ביותר בארץ.",
       key_actors: ["נעמה לזימי (חיים בחיפה)", "ביאטריס כץ-רוזן (יועצת מגדרית)", "הרב דב חיון (מרצ)"],
       munzenberg_url: "research/munzenberg_municipal.html" },
-    { name: "הרצליה", key: "HERZLIYA", level: 6, findings: 7, dec22: true,
+    { name: "הרצליה", key: "HERZLIYA", level: 6, findings: 7, dec22: true, cls: "subversive",
       justification: "קטגוריית תקציב סטטוטורית 'זהות יהודית דמוקרטית' מאז 2022. רק 2 ארגונים מקבלים מימון: יסודות לצמיחה דרור (196K ₪) והמחנות העולים (60K ₪). 33% מהתקציב עקבי בלתי מחולק — קטגוריה נבנתה עבור ארגונים ספציפיים. ביצור דצמבר 2022.",
       key_actors: ["ראש העיר משה פדלון", "נציגי סיעת הגנה"],
       munzenberg_url: "research/munzenberg_municipal.html" },
-    { name: "גבעתיים", key: "GIVATAYIM", level: 5, findings: 5, dec22: true,
+    { name: "גבעתיים", key: "GIVATAYIM", level: 5, findings: 5, dec22: true, cls: "subversive",
       justification: "5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022 — ביצור מוסדי מונע-הגנה לפני ממשלת נתניהו-בן גביר. ועדת קהילה להט\"בית, שינויים מבניים מחייבים.",
       key_actors: ["רונן קפלן (3 ממצאים)"],
       munzenberg_url: "research/munzenberg_municipal.html" },
-    { name: "רעננה", key: "RAANANA", level: 5, findings: 5, dec22: true,
+    { name: "רעננה", key: "RAANANA", level: 5, findings: 5, dec22: true, cls: "subversive",
       justification: "5 ממצאי פרוטוקולים כולל אשכול דצמבר 2022. מימון עירוני ישיר לארגון חושן — עוקף קיצוץ 85% של משרד החינוך. מרצ בראש יוזמות: מירב מאיר (3 ממצאים). קשר הקרן החדשה→חושן→עירייה.",
       key_actors: ["מירב מאיר (מרצ, 3 ממצאים)"],
       munzenberg_url: "research/munzenberg_municipal.html" },
-    { name: "כרמיאל", key: "KARMIEL", level: 4, findings: 0, dec22: false,
+    { name: "כרמיאל", key: "KARMIEL", level: 4, findings: 0, dec22: false, cls: "leans_left",
       justification: "ציון חשיפה חינוכית גבוה ביותר (48.7) — 44 פריסות תוכניות מסומנות מתוך 250, יחס תקציב מסומן 22%. אפס ממצאים בפרוטוקולים. נוכחות תוכניתית ללא ביצור מבני.",
       key_actors: [], munzenberg_url: null },
-    { name: "באר שבע", key: "BEER_SHEVA", level: 4, findings: 0, dec22: false,
+    { name: "באר שבע", key: "BEER_SHEVA", level: 4, findings: 0, dec22: false, cls: "leans_left",
       justification: "ארגון דלת פתוחה הוצג בועדת בריאות (לא חינוך) לצד משרד הבריאות ואוניברסיטת בן-גוריון. כניסה דרך ערוץ רפואי-אקדמי. חשיפה חינוכית 34.5.",
       key_actors: [], munzenberg_url: "research/munzenberg_municipal.html" },
-    { name: "הוד השרון", key: "HOD_HASHARON", level: 4, findings: 1, dec22: false,
+    { name: "הוד השרון", key: "HOD_HASHARON", level: 4, findings: 1, dec22: false, cls: "leans_left",
       justification: "ממצא פרוטוקולי אחד + ציון חשיפה חינוכית גבוה (32.8). 42 פריסות תוכניות מסומנות מתוך 329, יחס תקציב מסומן 9.5%.",
       key_actors: [], munzenberg_url: null },
-    { name: "רמת השרון", key: "RAMAT_HASHARON", level: 4, findings: 0, dec22: false,
+    { name: "רמת השרון", key: "RAMAT_HASHARON", level: 4, findings: 0, dec22: false, cls: "leans_left",
       justification: "חוזה ישיר 138,000 ₪ עם דלת פתוחה (שורת תקציב 16648). ציון חשיפה חינוכית גבוה ביותר (60.3) — 54 פריסות מסומנות מתוך 318. נתוני חינוך בלבד, ללא פרוטוקולים מנותחים.",
       key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true },
-    { name: "תל אביב-יפו", key: "TEL_AVIV", level: 4, findings: 0, dec22: false,
-      justification: "ועדת פלורליזם עירונית + ארגון בינה כנותן שירותים. 171 פריסות מסומנות מ-1,411 כוללות. חשיפה חינוכית 52.7. נתוני חינוך בלבד.",
-      key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true },
-    { name: "רמת גן", key: "RAMAT_GAN", level: 4, findings: 0, dec22: false,
+    { name: "תל אביב-יפו", key: "TEL_AVIV", level: 4, findings: 0, dec22: false, cls: "subversive",
+      justification: "ועדת פלורליזם עירונית + ארגון בינה כנותן שירותים. 171 פריסות מסומנות מ-1,411 כוללות. חשיפה חינוכית 52.7. בנוסף: העירייה רכשה את תיאטרון הבימה (2021) — ממנה דירקטוריון, צינור מימון דרך קרן רבינוביץ', צינור אקדמי מסמינר הקיבוצים.",
+      key_actors: [], munzenberg_url: "research/munzenberg_municipal.html", partial: true,
+      culture_evidence: [{name: "תיאטרון הבימה", url: "research/habima_dashboard.html", desc: "התיאטרון הלאומי הפך לחברה עירונית בת (2021). 13 חברי דירקטוריון ממונים ע\"י העירייה."}] },
+    { name: "רמת גן", key: "RAMAT_GAN", level: 4, findings: 0, dec22: false, cls: "subversive",
       justification: "תוכניות עירוניות פעילות בגני ילדים: 'גנים מודעי מגדר' — הכשרת גננות לחינוך המאתגר 'משטרת גבריות' ומעודד 'אקטיביזם' בגיל הרך. 'משפחה מגוונת' — חלוקת ספר 'בתים בכל מיני צבעים' לכל הגנים. שיתוף עם 'המכון לחינוך דמוקרטי'.",
       key_actors: [], munzenberg_url: null,
       source_url: "https://www.ramat-gan.muni.il/education-kinder-gardens/content-pages/urban-plans-and-initiatives", partial: true },
-    { name: "גבעת שמואל", key: "GIVAT_SHMUEL", level: 3, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית בינונית (19.4), 14 פריסות מסומנות מתוך 149. אפס ממצאים בפרוטוקולים, אפס דגלים אדומים.",
-      key_actors: [], munzenberg_url: null },
-    { name: "אריאל", key: "ariel", level: 3, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית בינונית (17.1), 8 פריסות מסומנות מתוך 91. אפס ממצאים בפרוטוקולים.",
-      key_actors: [], munzenberg_url: null },
-    { name: "קרית אונו", key: "KIRYAT_ONO", level: 3, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית בינונית (16.4), 18 פריסות מסומנות מתוך 241. אפס ממצאים בפרוטוקולים.",
-      key_actors: [], munzenberg_url: null },
-    { name: "ראש העין", key: "ROSH_HAAYIN", level: 3, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית בינונית (14.7), 19 פריסות מסומנות מתוך 362. אפס ממצאים בפרוטוקולים.",
-      key_actors: [], munzenberg_url: null },
-    { name: "קרית שמונה", key: "KIRYAT_SHMONA", level: 3, findings: 0, dec22: false,
-      justification: "חשיפה חינוכית גבוהה (41.6) אך רק 4 פריסות מסומנות מתוך 87 — עיר קטנה, מדגם מוגבל.",
-      key_actors: [], munzenberg_url: null, partial: true },
-    { name: "ירושלים", key: "JERUSALEM", level: 4, findings: 0, dec22: false,
+    { name: "ירושלים", key: "JERUSALEM", level: 4, findings: 0, dec22: false, cls: "subversive",
       justification: "העיר היחידה עם שני בתי ספר שפדגוגיה ביקורתית מובנית בתוכם. ליד\"ה: תוכנית 'עתודה הומניסטית' — מטרה מוצהרת 'ערעור זהות', מורה הודה שמצוקה היא 'עדות להצלחה', תלמיד מבקר הותקף. קדמה (הקטמונים): נוסד 1994 על עקרונות פריירה — 'מודל ייחודי ליישום פדגוגיה ביקורתית'. ניר מיכאלי (יו\"ר המזכירות הפדגוגית לשעבר) הרצה בקדמה: 'אני יכול לארגן הפיכה קומוניסטית בכיתה ואף אחד לא ירגיש'. חלק מרשת ASPnet של אונסק\"ו. 89% מהפרוטוקולים סרוקים ללא OCR.",
       key_actors: [], munzenberg_url: null, partial: true,
       source_url: "https://ntdtv.co.il/israel/10522" },
-    { name: "קרית גת", key: "KIRYAT_GAT", level: 2, findings: 0, dec22: false,
+    { name: "גבעת שמואל", key: "GIVAT_SHMUEL", level: 3, findings: 0, dec22: false, cls: "leans_left",
+      justification: "חשיפה חינוכית בינונית (19.4), 14 פריסות מסומנות מתוך 149. אפס ממצאים בפרוטוקולים, אפס דגלים אדומים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "אריאל", key: "ariel", level: 3, findings: 0, dec22: false, cls: "insufficient",
+      justification: "חשיפה חינוכית בינונית (17.1), 8 פריסות מסומנות מתוך 91. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "קרית אונו", key: "KIRYAT_ONO", level: 3, findings: 0, dec22: false, cls: "insufficient",
+      justification: "חשיפה חינוכית בינונית (16.4), 18 פריסות מסומנות מתוך 241. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "ראש העין", key: "ROSH_HAAYIN", level: 3, findings: 0, dec22: false, cls: "insufficient",
+      justification: "חשיפה חינוכית בינונית (14.7), 19 פריסות מסומנות מתוך 362. אפס ממצאים בפרוטוקולים.",
+      key_actors: [], munzenberg_url: null },
+    { name: "קרית שמונה", key: "KIRYAT_SHMONA", level: 3, findings: 0, dec22: false, cls: "insufficient",
+      justification: "חשיפה חינוכית גבוהה (41.6) אך רק 4 פריסות מסומנות מתוך 87 — עיר קטנה, מדגם מוגבל.",
+      key_actors: [], munzenberg_url: null, partial: true },
+    { name: "קרית גת", key: "KIRYAT_GAT", level: 2, findings: 0, dec22: false, cls: "insufficient",
       justification: "חשיפה חינוכית נמוכה (13.9), 29 פריסות מסומנות מתוך 484. אפס ממצאים בפרוטוקולים.",
       key_actors: [], munzenberg_url: null },
-    { name: "אפרת", key: "EFRAT", level: 2, findings: 0, dec22: false,
+    { name: "אפרת", key: "EFRAT", level: 2, findings: 0, dec22: false, cls: "insufficient",
       justification: "חשיפה חינוכית נמוכה מאוד (6.3), אפס פריסות מסומנות, אפס תקציב מסומן.",
       key_actors: [], munzenberg_url: null },
-    { name: "עמנואל", key: "EMANUEL", level: 1, findings: 0, dec22: false,
+    { name: "עמנואל", key: "EMANUEL", level: 1, findings: 0, dec22: false, cls: "insufficient",
       justification: "חשיפה חינוכית מינימלית (3.7), אפס פריסות מסומנות. אין ראיות לנוכחות אידיאולוגית.",
       key_actors: [], munzenberg_url: null },
-    { name: "נתיבות", key: "NETIVOT", level: 1, findings: 0, dec22: false,
+    { name: "נתיבות", key: "NETIVOT", level: 1, findings: 0, dec22: false, cls: "insufficient",
       justification: "חשיפה חינוכית מינימלית (2.8), 3 פריסות מסומנות מתוך 165 — רעש סטטיסטי.",
       key_actors: [], munzenberg_url: null },
 ];
@@ -350,6 +356,12 @@ function renderStars(level) {
     }
     return html;
 }
+
+const CLS_LABELS = {
+    subversive: { he: "חתרני", color: "#cc0000", bg: "#fff5f5", desc: "מנגנון לכידה מוסדית מתועד — ועדות, תקציבים, צינורות ארגוניים" },
+    leans_left: { he: "נוטה שמאלה", color: "#e68a00", bg: "#fffaf0", desc: "תוכניות קיימות, אין מנגנון לכידה מתועד" },
+    insufficient: { he: "אין מספיק נתונים", color: "#888", bg: "#f8f8f8", desc: "נתונים חלקיים — לא ניתן לקבוע" }
+};
 
 function getLevel(id) { return LEVELS.find(l => l.id === id); }
 
@@ -439,6 +451,8 @@ const PROGRAM_DASHBOARD = {
     'בינה': 'research/hartman_dashboard.html',
     'CASEL': 'research/casel_dashboard.html',
     'אונסק"ו': 'research/unesco_dashboard.html',
+    'הבימה': 'research/habima_dashboard.html',
+    'תיאטרון הבימה': 'research/habima_dashboard.html',
 };
 
 function getProgramDashboard(program) {
@@ -775,6 +789,16 @@ function renderMainGrid() {
         </div>
     </div>
 
+    <!-- Classification Legend -->
+    <div style="display:flex; gap:16px; justify-content:center; margin:0 auto 12px; max-width:960px; flex-wrap:wrap;">
+        ${Object.entries(CLS_LABELS).map(([k,v]) => `<span class="cls-pill cls-${k}">${v.he}</span>`).join('')}
+    </div>
+    <p style="font-size:0.82em; color:#666; margin:0 auto 8px; text-align:center; max-width:960px;">
+        <strong>חתרני</strong> = מנגנון לכידה מתועד (ועדות, תקציבים, צינורות) &nbsp;|&nbsp;
+        <strong>נוטה שמאלה</strong> = תוכניות קיימות, אין מנגנון &nbsp;|&nbsp;
+        <strong>אין מספיק נתונים</strong> = לא ניתן לקבוע
+    </p>
+
     <!-- Star Legend -->
     <p style="font-size:0.92em; color:#555; margin:0 auto 16px; text-align:center; max-width:960px;">
         ${svgStarDavid()} = קונצנזוס ציוני &nbsp;&nbsp;&nbsp; ${svgStarRed()} = חדירה חתרנית
@@ -793,6 +817,7 @@ function renderMainGrid() {
                 <div class="city-name">${escHtml(city.name)}</div>
                 <div class="stars">${renderStars(city.level)}</div>
                 <span class="level-label" style="background:${lv.color}">רמה ${city.level} — ${lv.name}</span>
+                ${city.cls ? `<span class="cls-pill cls-${city.cls}">${CLS_LABELS[city.cls].he}</span>` : ''}
                 <div class="justification">${escHtml(city.justification)}</div>
                 <div class="meta-row">
                     ${city.findings > 0 ? `<span>${city.findings} החלטות מועצה</span>` : ''}
@@ -904,6 +929,8 @@ function renderCityDetail(key) {
             <h1>${escHtml(city.name)}</h1>
             <div class="stars">${renderStars(city.level)}</div>
             <span class="level-badge" style="background:${lv.color}">רמה ${city.level} — ${lv.name}</span>
+            ${city.cls ? `<span class="cls-pill cls-${city.cls}" style="margin-right:8px;font-size:0.85em">${CLS_LABELS[city.cls].he}</span>` : ''}
+            ${city.cls ? `<div style="font-size:0.82em;color:${CLS_LABELS[city.cls].color};margin-top:4px">${CLS_LABELS[city.cls].desc}</div>` : ''}
             <div class="justification-full">${escHtml(city.justification)}</div>
             ${city.key_actors.length ? `<div class="actors">שחקני מפתח: ${city.key_actors.map(a => escHtml(a)).join(' | ')}</div>` : ''}
             ${city.source_url ? `<div class="source-link">מקור: <a href="${city.source_url}" target="_blank" rel="noopener">${city.source_url}</a></div>` : ''}
@@ -957,6 +984,20 @@ function renderCityDetail(key) {
                     <span>${n.published || ''}</span>
                     <span>${escHtml(n.evidence || '')}</span>
                 </div>
+            </div>
+        `).join('')}
+        ` : ''}
+
+        <!-- Culture Evidence Section -->
+        ${(city.culture_evidence || []).length > 0 ? `
+        <h2 class="section-title">ראיות תרבות <span class="count">${city.culture_evidence.length}</span></h2>
+        ${city.culture_evidence.map(ce => `
+            <div class="protocol-card" style="border-right-color:#667eea; cursor:pointer" onclick="window.open('${ce.url}', '_blank')">
+                <div class="pc-header">
+                    <span class="pc-category" style="background:#e8eaf6;color:#283593">תרבות</span>
+                </div>
+                <div class="pc-summary"><strong>${escHtml(ce.name)}</strong> — ${escHtml(ce.desc)}</div>
+                <div style="font-size:0.82em; color:#1565c0; margin-top:6px; font-weight:600;">&#8599; דשבורד מחקר מלא</div>
             </div>
         `).join('')}
         ` : ''}

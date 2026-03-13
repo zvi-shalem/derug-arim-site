@@ -4,7 +4,6 @@
 
 // CRITICAL: Define createSummary IMMEDIATELY at global scope
 window.createSummary = async function(id) {
-    console.log('=== createSummary CALLED ===', id);
     
     if (!id) {
         alert('שגיאה: מזהה רשומה לא תקין');
@@ -20,7 +19,6 @@ window.createSummary = async function(id) {
     }
     
     try {
-        console.log('Sending request to api/create_summary.php', { id: id });
         
         const response = await fetch('api/create_summary.php', {
             method: 'POST',
@@ -29,17 +27,9 @@ window.createSummary = async function(id) {
             },
             body: JSON.stringify({ id: id })
         });
-        
-        console.log('Response received', {
-            status: response.status,
-            statusText: response.statusText,
-            ok: response.ok
-        });
-        
         let data;
         try {
             const responseText = await response.text();
-            console.log('Response text:', responseText.substring(0, 500));
             data = JSON.parse(responseText);
         } catch (parseError) {
             console.error('Failed to parse response as JSON:', parseError);
@@ -80,7 +70,6 @@ window.createSummary = async function(id) {
         }
         
         if (data.success) {
-            console.log('Summary created successfully:', data.summary);
             loadRecords();
             alert('סיכום נוצר בהצלחה!\n\n' + (data.summary ? data.summary.substring(0, 200) : ''));
         } else {
@@ -120,9 +109,6 @@ window.createSummary = async function(id) {
 };
 
 // Verify function is accessible
-console.log('=== SCRIPT LOADED ===');
-console.log('window.createSummary type:', typeof window.createSummary);
-console.log('window.createSummary:', window.createSummary);
 
 // Global state
 // Pagination removed - all records loaded at once
@@ -131,19 +117,16 @@ let currentFilters = {};
 // Initialize app
 if (document.readyState === 'loading') {
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== DOM CONTENT LOADED ===');
     initInlineCategoryEditing();
     loadRecords();
 });
 } else {
-    console.log('=== DOM ALREADY LOADED ===');
     initInlineCategoryEditing();
     loadRecords();
 }
 
 // Load records with current filters
 async function loadRecords() {
-    console.log('=== LOAD RECORDS CALLED ===');
     
     const sortBy = document.getElementById('sortBy').value;
     const sortOrder = document.getElementById('sortOrder').value;
@@ -185,8 +168,6 @@ async function loadRecords() {
 
 // Display records in table
 function displayRecords(records) {
-    console.log('=== DISPLAY RECORDS CALLED ===');
-    console.log('Records count:', records.length);
     
     const tbody = document.getElementById('tableBody');
     
@@ -209,7 +190,6 @@ function displayRecords(records) {
         
         // Debug: log organization_name
         if (index === 0) {
-            console.log('First record organization_name:', record.organization_name);
         }
         
         return `
@@ -300,8 +280,6 @@ function displayRecords(records) {
     const htmlContent = rows.join('');
     tbody.innerHTML = htmlContent;
     
-    console.log('=== DISPLAY RECORDS COMPLETED ===');
-    console.log('Total records:', records.length);
     
     // Re-initialize inline editing for newly created elements
     // (event delegation should handle it, but just to be safe)
@@ -664,8 +642,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             try {
-                console.log('=== SAVE RECORD REQUEST START ===');
-                console.log('Form data:', formData);
                 
                 const response = await fetch('api/save_record.php', {
                     method: 'POST',
@@ -674,18 +650,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify(formData)
                 });
-                
-                console.log('Response received:', {
-                    status: response.status,
-                    statusText: response.statusText,
-                    ok: response.ok,
-                    headers: Object.fromEntries(response.headers.entries())
-                });
-                
                 // Get response as text first
                 const text = await response.text();
-                console.log('Response text length:', text.length);
-                console.log('Response text preview:', text.substring(0, 500));
                 
                 // Check if response is empty
                 if (!text || text.trim().length === 0) {
@@ -715,7 +681,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 let data;
                 try {
                     data = JSON.parse(text);
-                    console.log('✓ JSON parsed successfully:', data);
                 } catch (e) {
                     console.error('✗ JSON parse error:', e);
                     console.error('Response text:', text);
@@ -733,7 +698,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 if (data.success) {
-                    console.log('✓ Save successful:', data);
                     closeModal();
                     loadRecords();
                     showSuccess(data.message);
@@ -1022,22 +986,13 @@ function resetAIRatingUI() {
 let inlineEditingInitialized = false;
 function initInlineCategoryEditing() {
     if (inlineEditingInitialized) {
-        console.log('initInlineCategoryEditing: Already initialized, skipping');
         return;
     }
     inlineEditingInitialized = true;
-    console.log('initInlineCategoryEditing: Initializing inline editing event listeners');
     
     // Use event delegation for dynamically created elements
     // Use capture phase (true) to ensure this runs before other event listeners
     document.addEventListener('click', function(e) {
-        console.log('=== CLICK EVENT DETECTED (CAPTURE PHASE) ===', {
-            target: e.target,
-            targetTag: e.target.tagName,
-            targetClass: e.target.className,
-            targetId: e.target.id
-        });
-        
         // Handle category editing - check if click is on the cell or its contents
         // First, check if clicking directly on the cell
         let categoryCell = e.target.closest('.editable-category');
@@ -1047,14 +1002,12 @@ function initInlineCategoryEditing() {
             const displaySpan = e.target.closest('.category-display');
             if (displaySpan) {
                 categoryCell = displaySpan.closest('.editable-category');
-                console.log('Found category cell via display span');
             }
         }
         
         // If still not found, check if target itself is the display span
         if (!categoryCell && e.target.classList && e.target.classList.contains('category-display')) {
             categoryCell = e.target.closest('.editable-category');
-            console.log('Found category cell via target class check');
         }
         
         // Additional fallback: check parent elements
@@ -1062,37 +1015,20 @@ function initInlineCategoryEditing() {
             let parent = e.target.parentElement;
             if (parent && parent.classList && parent.classList.contains('editable-category')) {
                 categoryCell = parent;
-                console.log('Found category cell via parentElement');
             } else if (parent && parent.parentElement && parent.parentElement.classList && parent.parentElement.classList.contains('editable-category')) {
                 categoryCell = parent.parentElement;
-                console.log('Found category cell via parentElement.parentElement');
             }
         }
         
         if (categoryCell) {
-            console.log('Category cell found:', {
-                recordId: categoryCell.getAttribute('data-record-id'),
-                currentValue: categoryCell.getAttribute('data-current-value')
-            });
-            
             // Don't activate if clicking on the select dropdown itself or its options
             if (e.target.closest('.category-edit') || e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') {
-                console.log('Skipping category edit - clicking on select/option');
                 return;
             }
             
             const edit = categoryCell.querySelector('.category-edit');
             const display = categoryCell.querySelector('.category-display');
-            
-            console.log('Category cell elements:', {
-                hasEdit: !!edit,
-                hasDisplay: !!display,
-                editDisplay: edit ? edit.style.display : 'N/A',
-                displayDisplay: display ? display.style.display : 'N/A'
-            });
-            
             if (edit && display && (edit.style.display === 'none' || !edit.style.display || edit.style.display === '')) {
-                console.log('✓ Activating category edit for record:', categoryCell.getAttribute('data-record-id'));
                 display.style.display = 'none';
                 edit.style.display = 'block';
                 edit.focus();
@@ -1111,14 +1047,12 @@ function initInlineCategoryEditing() {
             const displaySpan = e.target.closest('.org-type-display');
             if (displaySpan) {
                 orgTypeCell = displaySpan.closest('.editable-organization-type');
-                console.log('Found org type cell via display span');
             }
         }
         
         // If still not found, check if target itself is the display span
         if (!orgTypeCell && e.target.classList && e.target.classList.contains('org-type-display')) {
             orgTypeCell = e.target.closest('.editable-organization-type');
-            console.log('Found org type cell via target class check');
         }
         
         // Additional fallback: check parent elements
@@ -1126,37 +1060,20 @@ function initInlineCategoryEditing() {
             let parent = e.target.parentElement;
             if (parent && parent.classList && parent.classList.contains('editable-organization-type')) {
                 orgTypeCell = parent;
-                console.log('Found org type cell via parentElement');
             } else if (parent && parent.parentElement && parent.parentElement.classList && parent.parentElement.classList.contains('editable-organization-type')) {
                 orgTypeCell = parent.parentElement;
-                console.log('Found org type cell via parentElement.parentElement');
             }
         }
         
         if (orgTypeCell) {
-            console.log('Organization type cell found:', {
-                recordId: orgTypeCell.getAttribute('data-record-id'),
-                currentValue: orgTypeCell.getAttribute('data-current-value')
-            });
-            
             // Don't activate if clicking on the select dropdown itself or its options
             if (e.target.closest('.org-type-edit') || e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') {
-                console.log('Skipping org type edit - clicking on select/option');
                 return;
             }
             
             const edit = orgTypeCell.querySelector('.org-type-edit');
             const display = orgTypeCell.querySelector('.org-type-display');
-            
-            console.log('Org type cell elements:', {
-                hasEdit: !!edit,
-                hasDisplay: !!display,
-                editDisplay: edit ? edit.style.display : 'N/A',
-                displayDisplay: display ? display.style.display : 'N/A'
-            });
-            
             if (edit && display && (edit.style.display === 'none' || !edit.style.display || edit.style.display === '')) {
-                console.log('✓ Activating organization type edit for record:', orgTypeCell.getAttribute('data-record-id'));
                 display.style.display = 'none';
                 edit.style.display = 'block';
                 edit.focus();

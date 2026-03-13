@@ -187,11 +187,7 @@ function displayRecords(records) {
         const summaryText = hasSummary ? String(record.short_summary).trim() : '';
         const hasManualSummary = record.manual_summary && String(record.manual_summary).trim().length > 0;
         const manualSummaryText = hasManualSummary ? String(record.manual_summary).trim() : '';
-        
-        // Debug: log organization_name
-        if (index === 0) {
-        }
-        
+
         return `
         <tr>
             <td>${record.id}</td>

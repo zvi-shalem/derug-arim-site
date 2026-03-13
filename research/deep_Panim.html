@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פנים — איגוד ארגוני יהדות ישראלית — דוח ארגון מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.hero .type-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85em; font-weight: 600; margin-top: 10px;
+  background: #e74c3c; color: #fff;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 4px solid #ff8800;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.95em;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+}
+tr:hover td { background: #f0f4fa; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.red-flag {
+  background: #fde8e8; border-right: 4px solid #e74c3c;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+}
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר מעמיק</span>
+  <a href="../">חזרה לדירוג</a>
+  <a href="./">כל הדוחות</a>
+  <a href="#summary">תמצית</a>
+  <a href="#structure">מבנה</a>
+  <a href="#funding">מימון</a>
+  <a href="#network">רשת</a>
+  <a href="#controversy">פרשיות</a>
+  <a href="#ideology">אידיאולוגיה</a>
+  <a href="#sources">מקורות</a>
+</nav>
+
+<div class="hero">
+  <h1>פנים — איגוד ארגוני יהדות ישראלית</h1>
+  <div class="subtitle">Panim: The Israeli Judaism Network</div>
+  <div class="meta">מחקר מעמיק | מרץ 2026</div>
+  <span class="type-badge">ארגון גג — 60+ ארגוני חבר</span>
+</div>
+
+<div class="container">
+
+  <div class="section" id="summary">
+    <h2>תמצית</h2>
+    <div class="thesis">
+      <strong>תזה:</strong> פנים הוא ארגון הגג המרכזי של תנועת "ההתחדשות היהודית" בישראל — רשת של 60+ ארגונים שפועלים לקידום יהדות פלורליסטית (רפורמית, קונסרבטיבית, חילונית) במערכת החינוך, בקהילות ובשלטון המקומי. ב-2022 הפך לשותף ממשלתי במנהלת להתחדשות יהודית עם תקציב של 60 מיליון ש"ח — על אף שהיה ארגון של שני עובדים עם מחזור שנתי של 600,000 ש"ח בלבד. העברת התקציב בוצעה ללא מכרז, עם מעורבות של ח"כ גלעד קריב שישב בוועד המנהל — ניגוד עניינים שנחשף בתקשורת.
+    </div>
+    <p>פנים הוקם ב-1998, הוקם מחדש ב-2011 בגיבוי קרן אב"י חי. הארגון מאגד תחתיו מעל 60 ארגונים מכל הזרמים — מהתנועה הרפורמית והתנועה הקונסרבטיבית ועד ארגוני חינוך חילוניים, בתי מדרש פלורליסטיים וארגוני נשים. משרדיו ברחוב המלך דוד 13, ירושלים.</p>
+  </div>
+
+  <div class="section" id="structure">
+    <h2>מבנה ארגוני ומידע בסיסי</h2>
+    <table>
+      <tr><th>שדה</th><th>ערך</th></tr>
+      <tr><td>שם רשום</td><td>פנים להתחדשות יהודית בישראל (ע"ר)</td></tr>
+      <tr><td>מספר עמותה</td><td>580306934</td></tr>
+      <tr><td>שנת הקמה</td><td>1998 (הוקם מחדש 2011)</td></tr>
+      <tr><td>סוג ישות</td><td>עמותה — ארגון גג</td></tr>
+      <tr><td>מנכ"ל</td><td>יותם ברום (חבר מפלגת העבודה)</td></tr>
+      <tr><td>יו"ר ועד מנהל</td><td>ערן ירקוני</td></tr>
+      <tr><td>עובדים</td><td>~2 (נכון ל-2022)</td></tr>
+      <tr><td>מחזור שנתי (לפני 2022)</td><td>~600,000-700,000 ש"ח</td></tr>
+      <tr><td>כתובת</td><td>רחוב המלך דוד 13, ירושלים 9108601</td></tr>
+      <tr><td>ארגוני חבר</td><td>60+</td></tr>
+    </table>
+
+    <h3>מטרות מוצהרות</h3>
+    <p>קידום יצירת זהות יהודית משמעותית בחברה הישראלית. עידוד וייזום שיתופי פעולה בין ארגוני "יהדות ישראלית" באמצעות שולחנות עגולים, כנסים מקצועיים, השתלמויות, בתי מדרש ותוכניות לימוד לבתי ספר.</p>
+  </div>
+
+  <div class="section" id="funding">
+    <h2>מימון ותקציבים</h2>
+
+    <h3>קרן אב"י חי (AVI CHAI)</h3>
+    <p>הקרן תמכה בפנים כחלק מפעילותה ב"פיתוח שדה ההתחדשות היהודית". הקרן סיימה את פעילות המענקים הכללית ב-31.12.2019 (spend-down). פנים הוקם מחדש ב-2011, ככל הנראה בעקבות מענק ייעודי של אב"י חי.</p>
+
+    <h3>מנהלת להתחדשות יהודית (2022)</h3>
+    <div class="red-flag">
+      <strong>דגל אדום:</strong> ב-2022 הוקמה "מנהלת להתחדשות יהודית" — מיזם משותף של משרד התפוצות ופנים, בתקציב של <strong>60 מיליון ש"ח</strong> (30 מ' מהמדינה, 30 מ' מפנים). זאת עבור ארגון שמחזורו השנתי היה 600,000 ש"ח ומעסיק שני עובדים בלבד.
+    </div>
+
+    <table>
+      <tr><th>מקור</th><th>סכום</th><th>מועד</th></tr>
+      <tr><td>משרד התפוצות</td><td>30,000,000 ש"ח</td><td>אושר 2.8.2021, הוקם 2022</td></tr>
+      <tr><td>גיוס עצמי (פנים)</td><td>30,000,000 ש"ח</td><td>2022</td></tr>
+      <tr><td>קרן אב"י חי</td><td>לא ידוע (הסתיים 2019)</td><td>2011-2019</td></tr>
+    </table>
+
+    <h3>שר התפוצות</h3>
+    <p>השר נחמן שי (מפלגת העבודה) יזם את הקמת המנהלת. מנכ"לית המשרד עו"ד ציונה קניג-יאיר הובילה את הביצוע. שי מיסגר את המהלך כהכרה ב"יוזמות יהודיות ליברליות חדשות" וציין כי המנהלת תעסוק ב"סוגיות מורכבות כולל גיור, כשרות ונישואים אזרחיים".</p>
+  </div>
+
+  <div class="section" id="controversy">
+    <h2>פרשת ניגוד העניינים — גלעד קריב</h2>
+
+    <div class="red-flag">
+      <strong>ממצא מרכזי:</strong> ח"כ גלעד קריב (עבודה, לשעבר ראש התנועה הרפורמית) ישב בוועד המנהל של פנים בזמן שסייע להעברת התקציב מהכנסת.
+    </div>
+
+    <h3>ציר הזמן</h3>
+    <ul>
+      <li><strong>עד 2021:</strong> קריב משמש חבר ועד מנהל של פנים</li>
+      <li><strong>מרץ 2021:</strong> קריב נכנס לכנסת (רשימת העבודה)</li>
+      <li><strong>טענתו:</strong> עזב את פנים עם כניסתו לפוליטיקה</li>
+      <li><strong>בפועל:</strong> נשאר חבר ועד עד סוף 2021 — חודשים לאחר בחירתו</li>
+      <li><strong>2.8.2021:</strong> אושר תקציב המדינה ל-2022 הכולל תקציב למנהלת התחדשות יהודית — פנים חוגג</li>
+      <li><strong>2022:</strong> המנהלת מוקמת. ליבסקינד חושף את ניגוד העניינים</li>
+    </ul>
+
+    <h3>ממצאים עיתונאיים (קלמן ליבסקינד, מעריב)</h3>
+    <ul>
+      <li>קריב <strong>סייע לפנים לקבל את המענק</strong> והזמין את מנכ"ל הארגון לדבר בוועדת הכנסת שבראשותו</li>
+      <li>קריב ישב <strong>בראש לובי בכנסת</strong> לחופש דת והתחדשות יהודית — במקביל לחברותו בוועד פנים</li>
+      <li>העברת התקציב בוצעה <strong>ללא מכרז</strong></li>
+      <li>המשרד טען שפנים הוא "הארגון היחידי" שעומד בקריטריונים — אך הקריטריונים היו עמומים ("היכרות עמוקה", "יכולות מתאימות") וללא דרישות מדידות</li>
+      <li>ח"כ משה ארבל (ש"ס) ביקש מהיועמ"שית גלי בהרב-מיארה <strong>לבחון את הממצאים ולעצור את התקצוב</strong></li>
+    </ul>
+
+    <h3>עמדת היועמ"ש</h3>
+    <p>היועמ"שית הביעה "קושי ניכר" עם מנגנון ההקצאה. מבקרים כינו את ההסדר "חוזה בלתי תקין" הכולל "כספי קואליציה" שהועברו ל"גופים מקורבים תוך ניגוד עניינים".</p>
+  </div>
+
+  <div class="section" id="network">
+    <h2>רשת ארגוני החבר (58 שותפויות מתועדות)</h2>
+    <p>פנים מאגד תחתיו מגוון רחב של ארגונים. הסיווג מבוסס על מיפוי שותפויות ממסד הנתונים (מקור: Evyatar org mapping).</p>
+
+    <h3>זרמים דתיים ליברליים</h3>
+    <ul>
+      <li><strong>התנועה ליהדות מתקדמת</strong> (התנועה הרפורמית בישראל)</li>
+      <li><strong>מכון שכטר</strong> / נווה שכטר (תנועה קונסרבטיבית)</li>
+      <li><strong>היברו יוניון קולג'</strong></li>
+      <li><strong>נאמני תורה ועבודה</strong></li>
+      <li><strong>התנועה המסורתית</strong></li>
+    </ul>
+
+    <h3>חינוך ובתי מדרש</h3>
+    <ul>
+      <li><strong>בינ"ה</strong> — יהדות פלורליסטית בבתי ספר ובעיריות</li>
+      <li><strong>המדרשה באורנים</strong></li>
+      <li><strong>מכון כרם</strong></li>
+      <li><strong>אלול</strong></li>
+      <li><strong>עלמא</strong> — מרכז לתרבות עברית</li>
+      <li><strong>מכון שיטים</strong></li>
+      <li><strong>מדרשת השילוב נטור</strong></li>
+      <li><strong>ישיבת תלפיות</strong></li>
+      <li><strong>929</strong> — תנ"ך יחד</li>
+      <li><strong>בית אבי חי</strong></li>
+    </ul>
+
+    <h3>ארגונים חברתיים ופעילות קהילתית</h3>
+    <ul>
+      <li><strong>גשר</strong> — מפעלים חינוכיים</li>
+      <li><strong>תבל בצדק</strong></li>
+      <li><strong>תיקון — לשינוי פני החברה והתרבות בישראל</strong></li>
+      <li><strong>צו פיוס</strong></li>
+      <li><strong>טבע עברי</strong></li>
+      <li><strong>משיב הרוח</strong></li>
+      <li><strong>חיברותא</strong></li>
+    </ul>
+
+    <h3>ארגוני נשים וקולות מזרח</h3>
+    <ul>
+      <li><strong>קולך</strong> — נשים דתיות</li>
+      <li><strong>נשות הכותל</strong></li>
+      <li><strong>קולות</strong> / קולות בנגב</li>
+      <li><strong>ממזרח שמש</strong></li>
+    </ul>
+
+    <h3>קרנות ומוסדות</h3>
+    <ul>
+      <li><strong>קרן תל"י</strong></li>
+      <li><strong>מכון הרטמן</strong></li>
+      <li><strong>מרכז יעקב הרצוג</strong></li>
+      <li><strong>עמיתי ברונפמן</strong></li>
+      <li><strong>מרכזי דניאל ליהדות מתקדמת</strong></li>
+    </ul>
+
+    <h3>ארגונים נוספים</h3>
+    <ul>
+      <li>המעורר, מט"ח, מרק"ם, קהילות שרות, מכון שטיינברג (אורט)</li>
+      <li>חל"ד, יהלו"ם, מסע ח"י, פותח שערים, שינשינוי</li>
+      <li>בית ישראל, בית מדרש עין פרת, בית תפילה ישראלי</li>
+      <li>השגחה פרטית, הויה — טקס חתונה ישראלי</li>
+      <li>זי"ת, ניצנים, נשימה AMI, עתיד במדבר, צל התמר</li>
+      <li>המרכז היהודי חנתון, מכון תמורה</li>
+      <li>החברה למתנ"סים (שותפות)</li>
+    </ul>
+
+    <h3>מה מקשר את הרשת</h3>
+    <p>למרות המגוון המוצהר ("כל הזרמים"), הנטייה הדומיננטית ברשת היא <strong>יהדות ליברלית-פלורליסטית</strong>. ארגוני הליבה הם רפורמיים וקונסרבטיביים, ארגוני חינוך פלורליסטי, וגופים לקידום שוויון מגדרי בהקשר דתי. אין בין חברי הרשת ארגונים ציוניים-דתיים מסורתיים, ישיבות הסדר, או ארגוני זהות יהודית שמרנית.</p>
+  </div>
+
+  <div class="section" id="ideology">
+    <h2>ניתוח אידיאולוגי</h2>
+
+    <h3>הנרטיב: "כל הזרמים"</h3>
+    <p>פנים מציג עצמו כגוף פלורליסטי שמקדם "יהדות ישראלית" ללא הבחנה בין זרמים. בפועל, ההרכב הארגוני מגלה דומיננטיות מובהקת של התנועה הרפורמית והקונסרבטיבית. מנכ"ל הארגון חבר מפלגת העבודה, וחברי ועד מנהל כללו את ראש התנועה הרפורמית.</p>
+
+    <h3>הקמת "מנהלת להתחדשות יהודית"</h3>
+    <p>השלב המשמעותי ביותר הוא הפיכת פנים ל<strong>שותף ממשלתי</strong> — ארגון גג פרטי שמנהל יחד עם משרד ממשלתי תקציב של 60 מיליון ש"ח. המנהלת אחראית על "פיתוח והרחבת שדה ההתחדשות היהודית" דרך סמינרים, תוכניות לימוד, אירועים, הרצאות ואירועי תרבות קהילתיים. יעד: כ-700,000 משתתפים.</p>
+
+    <h3>הקשר למערכת החינוך</h3>
+    <p>פנים מפתח "תוכניות לימוד לבתי ספר" ומקיים השתלמויות למורים. ארגוני החבר פועלים ישירות בבתי ספר — בינ"ה מפעילה תוכניות יהדות פלורליסטית, גשר מפעילה תוכניות חינוך, מכון הרטמן מכשיר מורים. פנים מהווה את ה"תשתית הרשתית" שמאפשרת לארגונים בודדים לפעול כמערכת מתואמת.</p>
+
+    <div class="thesis">
+      <strong>שאלת המפתח:</strong> האם ארגון גג פרטי שמייצג בעיקר זרמים ליברליים צריך לנהל תקציב ממשלתי של 60 מיליון ש"ח ל"התחדשות יהודית"? תגובת סיעת נועם: "מנהלת ליהדות רפורמית". המשרד: "כל הזרמים".
+    </div>
+  </div>
+
+  <div class="section" id="connections">
+    <h2>קשרים פוליטיים</h2>
+
+    <table>
+      <tr><th>אדם</th><th>תפקיד</th><th>קשר לפנים</th></tr>
+      <tr><td>נחמן שי</td><td>שר התפוצות (עבודה)</td><td>יזם את המנהלת המשותפת</td></tr>
+      <tr><td>גלעד קריב</td><td>ח"כ (עבודה), לשעבר ראש התנועה הרפורמית</td><td>ועד מנהל, סייע בהעברת תקציב</td></tr>
+      <tr><td>יותם ברום</td><td>מנכ"ל פנים</td><td>חבר מפלגת העבודה</td></tr>
+      <tr><td>ערן ירקוני</td><td>יו"ר ועד מנהל</td><td>—</td></tr>
+      <tr><td>ציונה קניג-יאיר</td><td>מנכ"לית משרד התפוצות</td><td>הובילה ביצוע המנהלת</td></tr>
+      <tr><td>אבי מעוז</td><td>ראש סיעת נועם</td><td>מבקר — "תקיפה על הזהות היהודית"</td></tr>
+      <tr><td>משה ארבל</td><td>ח"כ (ש"ס)</td><td>דרש מהיועמ"שית לבחון ולעצור</td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="assessment">
+    <h2>הערכת סיכון — חדירה למערכת החינוך</h2>
+
+    <div class="thesis">
+      <p>פנים אינו ארגון חינוך ישיר — הוא <strong>ארגון הגג</strong> שמתאם בין 60+ ארגוני חינוך. המשמעות: הוא נקודת המנוף המקסימלית לתיאום בין ארגונים שפועלים בבתי ספר ברחבי הארץ. היכולת ליצור "סינרגיה" (המילה שלהם) בין ארגוני חבר שכל אחד מהם פועל בעיר אחרת, ביעד אחר, עם קהל אחר — היא כוח מכפיל.</p>
+    </div>
+
+    <p><strong>סיווג:</strong> ארגון גג פרוגרסיבי עם דומיננטיות רפורמית-ליברלית. לא חתרני ישירות (אינו מפעיל תוכניות בבתי ספר), אלא <strong>מתאם ומתקצב</strong> ארגונים שכן פועלים. זהו מודל של <strong>לכידה תשתיתית</strong> — שליטה ברשת ולא בנקודות ספציפיות.</p>
+  </div>
+
+  <div class="section" id="gaps">
+    <h2>פערי מידע — דורשים מחקר נוסף</h2>
+    <ul>
+      <li>נתונים כספיים מפורטים של פנים (לפני ואחרי 2022)</li>
+      <li>תיעוד מלא של חברי הוועד המנהל לאורך השנים</li>
+      <li>מה קרה למנהלת ההתחדשות היהודית אחרי החלפת הממשלה (2023)?</li>
+      <li>"רשות הרבים" — הארגון שיצא מתוך פנים, תפקידו ויחסיו עם הרשת</li>
+      <li>גיוס ה-30 מיליון ש"ח מצד פנים — ממי? (קרנות אמריקאיות?)</li>
+      <li>פעילות ספציפית בבתי ספר דרך ארגוני החבר — מיפוי לפי ערים</li>
+    </ul>
+  </div>
+
+  <div class="section" id="sources">
+    <h2>מקורות</h2>
+    <ol>
+      <li>ויקיפדיה — <a href="https://he.wikipedia.org/wiki/%D7%A4%D7%A0%D7%99%D7%9D_-_%D7%90%D7%99%D7%92%D7%95%D7%93_%D7%90%D7%A8%D7%92%D7%95%D7%A0%D7%99_%D7%99%D7%94%D7%93%D7%95%D7%AA_%D7%99%D7%A9%D7%A8%D7%90%D7%9C%D7%99%D7%AA">פנים — איגוד ארגוני יהדות ישראלית</a></li>
+      <li>גיידסטאר — <a href="https://www.guidestar.org.il/organization/580306934">פנים להתחדשות יהודית בישראל, ע"ר 580306934</a></li>
+      <li>AVI CHAI Israel — <a href="https://avichai.org.il/en/node/135">Panim: The Association of Israeli Judaism Organizations</a></li>
+      <li>Israel Hayom — <a href="https://www.israelhayom.com/2022/07/06/administration-for-jewish-renewal-to-educate-israelis-on-all-jewish-streams/">"Administration for Jewish Renewal" to educate Israelis on all Jewish streams (6.7.2022)</a></li>
+      <li>Jerusalem Post — <a href="https://www.jpost.com/diaspora/article-711316">Diaspora Affairs Ministry to invest NIS 60 million in "Jewish renewal" (2022)</a></li>
+      <li>Jerusalem Post — <a href="https://www.jpost.com/israel-news/article-714764">Diaspora minister invested NIS 30m. in Jewish org. without A-G approval (2022)</a></li>
+      <li>מעריב, קלמן ליבסקינד — <a href="https://www.maariv.co.il/journalists/article-938324">המשרד והשר הלכו רחוק כדי להעביר תקציבים לרפורמים ולקונסרבטיבים</a></li>
+      <li>וואלה חדשות — <a href="https://news.walla.co.il/item/3523959">קופה משותפת: מה מסתתר מאחורי המיזם התמוה של ח"כ גלעד קריב (13.8.2022)</a></li>
+      <li>מסד נתונים — Evyatar org mapping (58 שותפויות מתועדות)</li>
+    </ol>
+  </div>
+
+</div>
+
+<footer>
+  פרויקט זהות ציונית — דוח ארגון מעמיק | <a href="../">דירוג ערים</a> | <a href="./">כל הדוחות</a>
+</footer>
+
+</body>
+</html>

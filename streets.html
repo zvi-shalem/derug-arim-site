@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שמות רחובות — דירוג ערים</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #fff; color: #222; direction: rtl; line-height: 1.6;
+        }
+        .top-bar {
+            background: #1a1a2e; color: #fff; padding: 14px 20px;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .top-bar-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .top-bar h1 { font-size: 1.2em; font-weight: 700; }
+        .top-bar a { color: #ff8800; text-decoration: none; font-size: 0.85em; }
+        .tabs {
+            display: flex; gap: 0; background: #f0f0f5; border-bottom: 2px solid #ddd;
+            position: sticky; top: 50px; z-index: 99;
+        }
+        .tab {
+            padding: 12px 20px; cursor: pointer; font-size: 0.9em;
+            border-bottom: 3px solid transparent; transition: all 0.2s;
+            color: #666; white-space: nowrap;
+        }
+        .tab:hover { color: #222; background: #e8e8f0; }
+        .tab.active { color: #1a1a2e; border-bottom-color: #ff8800; font-weight: 600; background: #fff; }
+        .main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* Gender ratio cards */
+        .ratio-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px; margin: 20px 0;
+        }
+        .ratio-card {
+            background: #fafafa; border: 1px solid #e0e0e0; border-radius: 10px;
+            padding: 16px; position: relative; overflow: hidden;
+        }
+        .ratio-card .city-name { font-size: 1.1em; font-weight: 700; margin-bottom: 6px; }
+        .ratio-card .ratio-num { font-size: 2em; font-weight: 800; color: #c0392b; }
+        .ratio-card .ratio-label { font-size: 0.8em; color: #888; }
+        .ratio-card .notes { font-size: 0.8em; color: #666; margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; }
+        .ratio-bar {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(to left, #c0392b, #e74c3c);
+        }
+        .ratio-card.good .ratio-num { color: #27ae60; }
+        .ratio-card.good .ratio-bar { background: linear-gradient(to left, #27ae60, #2ecc71); }
+        .ratio-card.missing { opacity: 0.6; border-style: dashed; }
+        .ratio-card.missing .ratio-num { color: #999; font-size: 1.2em; }
+
+        /* Street table */
+        .street-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9em; }
+        .street-table th {
+            background: #1a1a2e; color: #fff; padding: 10px 12px;
+            text-align: right; font-weight: 600; position: sticky; top: 98px;
+        }
+        .street-table td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+        .street-table tr:hover td { background: #f5f5ff; }
+        .street-table .cat-tag {
+            display: inline-block; background: #eef; color: #336; padding: 2px 8px;
+            border-radius: 10px; font-size: 0.8em; white-space: nowrap;
+        }
+        .street-table .year-tag {
+            display: inline-block; background: #ffe8cc; color: #854; padding: 2px 8px;
+            border-radius: 10px; font-size: 0.8em;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0;
+            align-items: center;
+        }
+        .filter-bar input, .filter-bar select {
+            padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;
+            font-size: 0.9em; font-family: inherit;
+        }
+        .filter-bar input { flex: 1; min-width: 200px; }
+
+        /* Stats summary */
+        .stats-row {
+            display: flex; gap: 16px; flex-wrap: wrap; margin: 20px 0;
+        }
+        .stat-box {
+            background: #f0f0f5; border-radius: 10px; padding: 16px 24px;
+            text-align: center; flex: 1; min-width: 140px;
+        }
+        .stat-box .num { font-size: 2em; font-weight: 800; color: #1a1a2e; }
+        .stat-box .label { font-size: 0.8em; color: #666; }
+
+        h2 { margin: 24px 0 12px; color: #1a1a2e; font-size: 1.3em; }
+        p.desc { color: #555; margin-bottom: 16px; }
+        .source { font-size: 0.75em; color: #999; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="top-bar-inner">
+        <h1>🏙️ שמות רחובות — דירוג ערים</h1>
+        <a href="index.html">← חזרה לדירוג</a>
+    </div>
+</div>
+
+<div class="tabs" id="tabs">
+    <div class="tab active" data-tab="overview">סקירה כללית</div>
+    <div class="tab" data-tab="tel_aviv">תל אביב-יפו</div>
+    <div class="tab" data-tab="givatayim">גבעתיים</div>
+    <div class="tab" data-tab="gender">יחסי מגדר</div>
+</div>
+
+<div class="main">
+
+<!-- ===== OVERVIEW ===== -->
+<div class="section active" id="sec-overview">
+    <h2>סקירת נתוני שמות רחובות</h2>
+    <p class="desc">ריכוז נתונים ממסמכי מחקר (ת"א, גבעתיים) ומאתר FairStreets על יחסי מגדר בשמות רחובות ב-20 הערים הנבדקות.</p>
+
+    <div class="stats-row">
+        <div class="stat-box"><div class="num">91</div><div class="label">רחובות חולצו מהמסמכים</div></div>
+        <div class="stat-box"><div class="num">46</div><div class="label">תל אביב-יפו</div></div>
+        <div class="stat-box"><div class="num">45</div><div class="label">גבעתיים</div></div>
+        <div class="stat-box"><div class="num">13</div><div class="label">ערים עם נתוני FairStreets</div></div>
+        <div class="stat-box"><div class="num">7</div><div class="label">ערים חסרות</div></div>
+    </div>
+
+    <h2>נתונים מרכזיים — תל אביב</h2>
+    <div class="stats-row">
+        <div class="stat-box"><div class="num">~2,760</div><div class="label">סה"כ רחובות</div></div>
+        <div class="stat-box"><div class="num">~1,240</div><div class="label">על שם גברים</div></div>
+        <div class="stat-box"><div class="num">~70</div><div class="label">על שם נשים</div></div>
+        <div class="stat-box"><div class="num">19:1</div><div class="label">יחס גברים:נשים</div></div>
+        <div class="stat-box"><div class="num">~400</div><div class="label">רחובות שונו ביפו (1950)</div></div>
+    </div>
+
+    <h2>נתונים מרכזיים — גבעתיים</h2>
+    <div class="stats-row">
+        <div class="stat-box"><div class="num">10</div><div class="label">רחובות שונו ברפורמת 2025</div></div>
+        <div class="stat-box"><div class="num">5/10</div><div class="label">מתוכם על שם נשים</div></div>
+        <div class="stat-box"><div class="num">14:1</div><div class="label">יחס מגדרי (FairStreets)</div></div>
+    </div>
+
+    <p class="source">מקורות: מסמכי מחקר (docx), FairStreets.net (ינואר 2026), ויקיפדיה</p>
+</div>
+
+<!-- ===== TEL AVIV ===== -->
+<div class="section" id="sec-tel_aviv">
+    <h2>שמות רחובות — תל אביב-יפו</h2>
+    <p class="desc">46 רחובות שחולצו מהמסמך "שמות רחובות תל אביב: אידיאולוגיות בעיר"</p>
+
+    <div class="filter-bar">
+        <input type="text" id="filter-ta" placeholder="חיפוש שם רחוב, אדם, קטגוריה..." oninput="filterTable('ta')">
+        <select id="cat-ta" onchange="filterTable('ta')">
+            <option value="">כל הקטגוריות</option>
+        </select>
+    </div>
+
+    <table class="street-table" id="table-ta">
+        <thead>
+            <tr><th>רחוב</th><th>נקרא על שם</th><th>שנה</th><th>קטגוריה</th><th>הערות</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!-- ===== GIVATAYIM ===== -->
+<div class="section" id="sec-givatayim">
+    <h2>שמות רחובות — גבעתיים</h2>
+    <p class="desc">45 רחובות שחולצו מהמסמך "גבעתיים: שמות רחובות וזהות עירונית"</p>
+
+    <div class="filter-bar">
+        <input type="text" id="filter-gv" placeholder="חיפוש שם רחוב, אדם, קטגוריה..." oninput="filterTable('gv')">
+        <select id="cat-gv" onchange="filterTable('gv')">
+            <option value="">כל הקטגוריות</option>
+        </select>
+    </div>
+
+    <table class="street-table" id="table-gv">
+        <thead>
+            <tr><th>רחוב</th><th>נקרא על שם</th><th>שנה</th><th>קטגוריה</th><th>הערות</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!-- ===== GENDER RATIOS ===== -->
+<div class="section" id="sec-gender">
+    <h2>יחסי מגדר בשמות רחובות — 20 הערים</h2>
+    <p class="desc">נתונים מאתר FairStreets (מבוסס על מיפוי מגדרי של נתוני משרד הפנים, ינואר 2026). היחס מציג כמה רחובות על שם גברים לכל רחוב אחד על שם אישה.</p>
+
+    <div class="ratio-grid" id="ratio-grid"></div>
+
+    <p class="source">מקור: fairstreets.net — "הנתונים הם פרי מיפוי מגדרי שעשו מתנדבות ומתנדבי המיזם, על בסיס נתוני משרד הפנים מינואר 2026"</p>
+</div>
+
+</div>
+
+<script>
+// ===== DATA =====
+const streetData = {
+  tel_aviv: [
+    {street:"רחוב הרצל",named:"בנימין זאב הרצל — אבי הציונות המדינית",year:"1909+",cat:"ציונות מדינית",notes:"הציר המרכזי המוביל לגימנסיה הרצליה"},
+    {street:"שדרות רוטשילד",named:"הברון אדמונד דה רוטשילד",year:"",cat:"פילנתרופיה יהודית",notes:"שם מקורי: רחוב העם"},
+    {street:"רחוב אחד העם",named:"אשר צבי גינצברג — ציונות רוחנית",year:"",cat:"ציונות רוחנית",notes:""},
+    {street:"רחוב שינקין",named:"מנחם שינקין — ממייסדי העיר",year:"",cat:"ציונות מעשית",notes:"סמל תרבות אלטרנטיבית"},
+    {street:"רחוב בוגרשוב",named:"חיים בוגר (בוגרשוב) — מחנך",year:"",cat:"חינוך עברי",notes:"התנגד לקריאה על שמו"},
+    {street:"רחוב מונטיפיורי",named:"משה מונטיפיורי — פילנתרופ",year:"",cat:"פילנתרופיה טרום-ציונית",notes:""},
+    {street:"רחוב אלנבי",named:"גנרל אדמונד אלנבי",year:"",cat:"מנדט בריטי",notes:""},
+    {street:"רחוב המלך ג'ורג'",named:"המלך ג'ורג' החמישי",year:"1935",cat:"מנדט בריטי",notes:"יובל הכסף למלכותו"},
+    {street:"רחוב בלפור",named:"לורד ארתור ג'יימס בלפור",year:"1917",cat:"הכרה בינלאומית",notes:""},
+    {street:"רחוב ז'בוטינסקי",named:"זאב ז'בוטינסקי — ציונות רוויזיוניסטית",year:"",cat:"ציונות רוויזיוניסטית",notes:"~60 אתרים על שמו בישראל"},
+    {street:"רחוב יצחק שדה",named:"יצחק שדה — מייסד הפלמ\"ח",year:"",cat:"הגנה",notes:""},
+    {street:"רחוב אברהם שטרן (יאיר)",named:"אברהם שטרן — מפקד הלח\"י",year:"",cat:"מאבק רדיקלי",notes:"שנוי במחלוקת ביפו"},
+    {street:"רחוב טרומפלדור",named:"יוסף טרומפלדור — גיבור תל חי",year:"",cat:"גבורה לאומית",notes:""},
+    {street:"רחוב שרה אהרונסון",named:"שרה אהרונסון — גיבורת ניל\"י",year:"",cat:"התנגדות",notes:""},
+    {street:"שדרות לוי אשכול",named:"לוי אשכול — ראש ממשלה",year:"",cat:"הנהגת מדינה",notes:"מלחמת ששת הימים"},
+    {street:"שדרות בן גוריון",named:"דוד בן-גוריון",year:"",cat:"הנהגת מדינה",notes:""},
+    {street:"רחוב יצחק רבין",named:"יצחק רבין — ראש ממשלה",year:"",cat:"הנהגת מדינה",notes:""},
+    {street:"רחוב ארלוזורוב",named:"חיים ארלוזורוב — מנהיג שנרצח",year:"",cat:"מאבק פנימי ציוני",notes:"נרצח סמוך לחוף ת\"א"},
+    {street:"רחוב חנה סנש",named:"חנה סנש — צנחנית ולוחמת",year:"",cat:"גבורה / הקרבה",notes:""},
+    {street:"רחוב חביבה רייק",named:"חביבה רייק — צנחנית ולוחמת",year:"",cat:"גבורה / הקרבה",notes:""},
+    {street:"שדרות ירושלים (יפו)",named:"ירושלים",year:"1948/1950",cat:"שינוי שם / ייהוד יפו",notes:"שם מקורי: ג'מאל פאשה"},
+    {street:"רחוב מנדס פרנס (יפו)",named:"מנדס פרנס",year:"1948/1950",cat:"שינוי שם / ייהוד יפו",notes:"שם מקורי: רחוב עג'מי"},
+    {street:"רחוב טאג'יר (יפו)",named:"זוג טאג'יר — ממייסדי ת\"א",year:"1948/1950",cat:"שינוי שם / ייהוד יפו",notes:"שם מקורי: שיח' באסם אבו זייד"},
+    {street:"כיכר יוסי כרמל (יפו)",named:"יוסי כרמל — איש הגנה",year:"",cat:"שינוי שם / ייהוד יפו",notes:"תוכנן כ-כיכר השלום"},
+    {street:"רחוב אבן סינא",named:"אבן סינא — חכם ערבי",year:"",cat:"הנצחה ערבית (נשמר)",notes:""},
+    {street:"רחוב אבן רושד",named:"אבן רושד — פילוסוף ערבי",year:"",cat:"הנצחה ערבית (נשמר)",notes:""},
+    {street:"רחוב אריק איינשטיין",named:"אריק איינשטיין — זמר ויוצר",year:"",cat:"תרבות",notes:""},
+    {street:"רחוב נעמי שמר",named:"נעמי שמר — פזמונאית לאומית",year:"",cat:"תרבות",notes:""},
+    {street:"רחוב שושנה דמארי",named:"שושנה דמארי — מלכת הזמר העברי",year:"",cat:"תרבות",notes:""},
+    {street:"רחוב אלברט איינשטיין",named:"אלברט איינשטיין — פיזיקאי",year:"",cat:"אוניברסליזם",notes:"מדע והומניזם"},
+    {street:"רחוב אמיל זולא",named:"אמיל זולא — סופר צרפתי",year:"",cat:"אוניברסליזם / צדק חברתי",notes:"לוחם באנטישמיות"},
+    {street:"רחוב ג'ורג' אליוט",named:"ג'ורג' אליוט — סופרת בריטית",year:"",cat:"אוניברסליזם",notes:""},
+    {street:"רחוב אנדרסן",named:"הנס כריסטיאן אנדרסן — סופר דני",year:"",cat:"אוניברסליזם / תרבות הילד",notes:""},
+    {street:"רחוב רמב\"ם",named:"רבי משה בן מימון",year:"",cat:"מורשת יהודית",notes:""},
+    {street:"רחוב אבן גבירול",named:"שלמה אבן גבירול — משורר ופילוסוף",year:"",cat:"מורשת יהודית / תור הזהב",notes:""},
+    {street:"רחוב אפלטון",named:"אפלטון — פילוסוף יווני",year:"",cat:"אוניברסליזם / פילוסופיה",notes:"סינתזה ירושלים-אתונה"},
+    {street:"רחוב אריסטו",named:"אריסטו — פילוסוף יווני",year:"",cat:"אוניברסליזם / פילוסופיה",notes:""},
+    {street:"רחוב ביאליק",named:"חיים נחמן ביאליק — המשורר הלאומי",year:"",cat:"תרבות / שפה עברית",notes:""},
+    {street:"שדרות ח\"ן",named:"חיים נחמן ביאליק (ראשי תיבות)",year:"",cat:"תרבות / שפה עברית",notes:""},
+    {street:"רחוב אהובה עוזרי",named:"אהובה עוזרי — חלוצת הזמר המזרחי",year:"2021",cat:"תיקון מגדרי",notes:"החלטת דצמבר 2021"},
+    {street:"רחוב חנה מרון",named:"חנה מרון — שחקנית ופעילת שלום",year:"2021",cat:"תיקון מגדרי",notes:""},
+    {street:"רחוב רונית אלקבץ",named:"רונית אלקבץ — במאית ושחקנית",year:"2021",cat:"תיקון מגדרי",notes:""},
+    {street:"הנצחה — רחל המשוררת",named:"רחל — משוררת",year:"2000+",cat:"הנצחת אמנים בבתים",notes:"250+ אמנים הונצחו על בתיהם"},
+    {street:"הנצחה — נתן אלתרמן",named:"נתן אלתרמן — משורר",year:"2000+",cat:"הנצחת אמנים בבתים",notes:""},
+    {street:"הנצחה — חנה מרון",named:"חנה מרון — שחקנית",year:"2000+",cat:"הנצחת אמנים בבתים",notes:"גם רחוב חדש (2021)"},
+    {street:"הנצחה — מאיר אריאל",named:"מאיר אריאל — זמר ויוצר",year:"2000+",cat:"הנצחת אמנים בבתים",notes:""},
+  ],
+  givatayim: [
+    {street:"רחוב/שכונת בורוכוב",named:"דב בר בורוכוב — ציוני-סוציאליסטי",year:"1922",cat:"ציונות סוציאליסטית",notes:"רחוב + שם שכונה + בית ספר"},
+    {street:"בית שניידרמן",named:"דוד שניידרמן — מייסד שכונת בורוכוב",year:"",cat:"שכבה מייסדת",notes:"מרכז תרבות, לא רחוב"},
+    {street:"רחוב אהרון גולדשטיין",named:"ממייסדי השכונה ואיש ציבור",year:"",cat:"שכבה מייסדת",notes:""},
+    {street:"תיכון קלעי",named:"דוד קלעי — תנועת העבודה",year:"1938",cat:"תנועת העבודה / חינוך",notes:"תיכון ממלכתי ראשון"},
+    {street:"רחוב עמל",named:"ערך העמל / עבודת כפיים",year:"שונה 2025",cat:"ציונות סוציאליסטית",notes:"אוחד עם בראשית → א.ב. יהושע"},
+    {street:"רחוב אבן עזרא",named:"ראב\"ע — מלומד ומשורר מספרד",year:"",cat:"מורשת יהודית / תור הזהב",notes:""},
+    {street:"רחוב אבן חביב",named:"רבי משה בן שם טוב — מדקדק",year:"",cat:"מורשת יהודית",notes:""},
+    {street:"רחוב אלישיב",named:"כהן גדול בימי נחמיה",year:"",cat:"מקראי / שיבת ציון",notes:""},
+    {street:"רחוב אבנר",named:"אבנר בן נר — שר צבאו של שאול",year:"",cat:"מקראי / גבורה",notes:""},
+    {street:"רחוב אלישע",named:"אלישע — נביא",year:"",cat:"מקראי / נבואה",notes:""},
+    {street:"רחוב אבישאי",named:"אבישאי בן צרויה — נאמן דוד",year:"",cat:"מקראי / גבורה",notes:""},
+    {street:"סליק אלדמע",named:"אברהם אלדמע — הסתיר נשק",year:"",cat:"מחתרת ההגנה",notes:"אתר הנצחה"},
+    {street:"רחוב הצנחנים",named:"יחידת הצנחנים",year:"",cat:"ביטחון / צבא",notes:""},
+    {street:"רחוב הנגבה",named:"קיבוץ/קרב נגבה",year:"",cat:"מלחמת העצמאות",notes:""},
+    {street:"רחוב יד מרדכי",named:"מרדכי אנילביץ'",year:"",cat:"שואה וגבורה",notes:""},
+    {street:"רחוב חביבה רייך",named:"חביבה רייך — צנחנית",year:"",cat:"שואה וגבורה",notes:""},
+    {street:"רחוב סוגיהארה",named:"צ'יונה סוגיהארה — חסיד אומות העולם",year:"",cat:"חסידי אומות העולם",notes:""},
+    {street:"רחוב אהוד מנור",named:"אהוד מנור — פזמונאי",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: המורד"},
+    {street:"רחוב חנה רובינא",named:"חנה רובינא — תיאטרון עברי",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: המעיין"},
+    {street:"רחוב נעמי פולני",named:"נעמי פולני — במאית",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: המעלות"},
+    {street:"רחוב עפרה חזה",named:"עפרה חזה — זמרת",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: כלנית"},
+    {street:"רחוב סמי מיכאל",named:"סמי מיכאל — סופר",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: נרקיס"},
+    {street:"רחוב א.ב. יהושע",named:"א.ב. יהושע — סופר",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: עמל+בראשית"},
+    {street:"רחוב עוזי חיטמן",named:"עוזי חיטמן — יוצר",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: קרן היסוד"},
+    {street:"רחוב שושנה דמארי",named:"שושנה דמארי — זמרת",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: רותם"},
+    {street:"רחוב יוסף שילוח",named:"יוסף שילוח — שחקן",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: רקפת"},
+    {street:"רחוב נעמי שמר",named:"נעמי שמר — פזמונאית",year:"2025",cat:"רפורמת קוניק 2025",notes:"שם ישן: שילוב"},
+    {street:"רחוב שמעון בן צבי",named:"שמעון בן צבי",year:"",cat:"תנועת העבודה",notes:""},
+    {street:"רחוב בן גוריון",named:"דוד בן-גוריון",year:"",cat:"הנהגת מדינה",notes:""},
+    {street:"רחוב ההסתדרות",named:"ההסתדרות הכללית",year:"",cat:"תנועת העבודה / מוסדות",notes:""},
+    {street:"רחוב רמב\"ם",named:"רמב\"ם",year:"",cat:"מורשת יהודית",notes:""},
+    {street:"רחוב תלמה ילין",named:"תלמה ילין — רקדנית",year:"",cat:"הנצחת נשים",notes:""},
+    {street:"רחוב ליא קניג",named:"ליא קניג — שחקנית, סופרת",year:"2020",cat:"הנצחת נשים / תרבות",notes:"ליד תיאטרון גבעתיים"},
+  ]
+};
+
+const genderRatios = {
+  "כרמיאל": {ratio:"14:0",notes:"אפס נשים. תשובה מלגלגת מהמועצה"},
+  "רמת השרון": {ratio:"18:1",notes:"שכונות חדשות על שם נשים, לא מחליפים ניטרלים"},
+  "תל אביב-יפו": {ratio:"18:1",notes:"החליטה דצמבר 2021 לבחון, לא קידמה"},
+  "קרית שמונה": {ratio:"28:1",notes:"עדיפות לחדשים בלבד, לא מחליפים ניטרלים"},
+  "חיפה": {ratio:"8:1",notes:"נחושה שלא לקדם"},
+  "רמת גן": {ratio:"14:1",notes:"אין כוונה להחליף"},
+  "גבעתיים": {ratio:"14:1",notes:"רפורמת קוניק 2025 שינתה 10 רחובות"},
+  "רעננה": {ratio:"6:1",notes:"החליטה פה אחד דצמבר 2022, לא ביצעה"},
+  "קרית אונו": {ratio:"5:1",notes:"אין מענה"},
+  "באר שבע": {ratio:"6:1",notes:"החליטה שלא לקדם"},
+  "הוד השרון": {ratio:"11:1",notes:"שיח חיובי, לא מקדמת בפועל"},
+  "הרצליה": {ratio:"7:1",notes:"הנושא עלה לבחינה"},
+  "אפרת": {ratio:"3:1",notes:"אין מענה"},
+  "גבעת שמואל": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+  "קרית גת": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+  "אריאל": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+  "ראש העין": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+  "ירושלים": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+  "נתיבות": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+  "עמנואל": {ratio:"—",notes:"אין נתונים ב-FairStreets"},
+};
+
+// ===== RENDER =====
+function renderTable(cityKey, tableId) {
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  const data = streetData[cityKey];
+  const cats = new Set();
+  data.forEach(s => { if(s.cat) cats.add(s.cat); });
+
+  // Populate category filter
+  const selectId = tableId === 'table-ta' ? 'cat-ta' : 'cat-gv';
+  const sel = document.getElementById(selectId);
+  [...cats].sort().forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    sel.appendChild(opt);
+  });
+
+  data.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${s.street}</strong></td>
+      <td>${s.named}</td>
+      <td>${s.year ? `<span class="year-tag">${s.year}</span>` : '—'}</td>
+      <td><span class="cat-tag">${s.cat}</span></td>
+      <td>${s.notes || '—'}</td>
+    `;
+    tr.dataset.text = `${s.street} ${s.named} ${s.cat} ${s.notes}`.toLowerCase();
+    tr.dataset.cat = s.cat;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderRatios() {
+  const grid = document.getElementById('ratio-grid');
+  // Sort: highest ratio first, missing last
+  const entries = Object.entries(genderRatios).sort((a, b) => {
+    const ra = parseInt(a[1].ratio) || 0;
+    const rb = parseInt(b[1].ratio) || 0;
+    if (a[1].ratio === '—' && b[1].ratio !== '—') return 1;
+    if (b[1].ratio === '—' && a[1].ratio !== '—') return -1;
+    return rb - ra;
+  });
+
+  entries.forEach(([city, data]) => {
+    const missing = data.ratio === '—';
+    const ratioNum = parseInt(data.ratio) || 0;
+    const card = document.createElement('div');
+    card.className = `ratio-card${missing ? ' missing' : ''}${ratioNum <= 3 && !missing ? ' good' : ''}`;
+    card.innerHTML = `
+      <div class="city-name">${city}</div>
+      <div class="ratio-num">${data.ratio}</div>
+      <div class="ratio-label">${missing ? 'אין נתונים' : 'גברים : נשים'}</div>
+      <div class="notes">${data.notes}</div>
+      ${missing ? '' : '<div class="ratio-bar"></div>'}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterTable(prefix) {
+  const input = document.getElementById(`filter-${prefix}`).value.toLowerCase();
+  const catVal = document.getElementById(`cat-${prefix}`).value;
+  const tableId = prefix === 'ta' ? 'table-ta' : 'table-gv';
+  const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+  rows.forEach(tr => {
+    const matchText = !input || tr.dataset.text.includes(input);
+    const matchCat = !catVal || tr.dataset.cat === catVal;
+    tr.style.display = (matchText && matchCat) ? '' : 'none';
+  });
+}
+
+// ===== TABS =====
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(`sec-${tab.dataset.tab}`).classList.add('active');
+  });
+});
+
+// ===== INIT =====
+renderTable('tel_aviv', 'table-ta');
+renderTable('givatayim', 'table-gv');
+renderRatios();
+</script>
+</body>
+</html>

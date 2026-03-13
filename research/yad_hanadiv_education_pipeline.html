@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יד הנדיב (רוטשילד) — צינור השפעה פילנתרופי על החינוך הציבורי | דשבורד מחקר</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #f5f5f8;
+    color: #1a1a2e;
+    direction: rtl;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -- Navigation -- */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e; color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 1.05em; padding: 12px 0;
+    white-space: nowrap; display: flex; align-items: center; gap: 10px;
+}
+.nav-brand a { color: #aab; text-decoration: none; font-size: 0.82em; font-weight: 400; }
+.nav-brand a:hover { color: #ff8800; }
+.risk-pill {
+    display: inline-block; padding: 2px 12px; border-radius: 12px;
+    font-size: 0.72em; font-weight: 600;
+    background: #e74c3c; color: #fff; margin-right: 8px;
+}
+.nav-tabs { display: flex; gap: 0; }
+.nav-tab {
+    padding: 14px 16px; cursor: pointer; font-size: 0.82em;
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    color: #aab; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    font-family: inherit;
+}
+.nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-tab.active { color: #fff; border-bottom-color: #ff8800; font-weight: 600; }
+
+/* -- Hero -- */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+    color: #fff; padding: 40px 20px 30px; text-align: center;
+}
+.hero h1 { font-size: 1.7em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: #d4b896; font-size: 1em; margin-bottom: 4px; }
+.hero .meta { color: #ff8800; font-size: 0.88em; margin-top: 8px; }
+.hero-stats {
+    display: flex; justify-content: center; gap: 32px; margin-top: 18px; flex-wrap: wrap;
+}
+.hero-stat .hs-val { font-size: 1.8em; font-weight: 800; color: #ff8800; }
+.hero-stat .hs-lbl { font-size: 0.78em; color: #b0c4de; }
+
+/* -- Layout -- */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* -- Cards & Sections -- */
+.section {
+    background: #fff; border-radius: 8px; padding: 26px;
+    margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.3em; color: #1a1a2e; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.05em; color: #2a5a8a; margin: 16px 0 8px; }
+.section p { margin-bottom: 10px; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .nav-tabs { overflow-x: auto; }
+}
+
+/* -- Metric cards -- */
+.metric {
+    background: #f8f9fa; padding: 16px; border-radius: 8px;
+    text-align: center; border: 1px solid #e8e8e8;
+    transition: transform 0.2s;
+}
+.metric:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.metric .label { font-size: 0.82em; color: #666; margin-bottom: 4px; }
+.metric .value { font-size: 1.8em; font-weight: 800; color: #2a5a8a; }
+.metric .note { font-size: 0.75em; color: #999; margin-top: 2px; }
+.metric.alert { border-right: 4px solid #e74c3c; }
+.metric.alert .value { color: #e74c3c; }
+.metric.warn { border-right: 4px solid #f39c12; }
+.metric.warn .value { color: #f39c12; }
+
+/* -- Quote box -- */
+.quote-box {
+    background: #fff; border-right: 3px solid #cc0000;
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: #333; font-size: 0.9em;
+}
+.quote-box .q-source { font-style: normal; font-size: 0.78em; color: #888; margin-top: 6px; }
+
+/* -- Warning box -- */
+.warning-box {
+    background: #fff5f5; border-right: 4px solid #cc0000;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+
+/* -- Info box -- */
+.info-box {
+    background: #f0f4fa; border-right: 4px solid #667eea;
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+
+/* -- Badge -- */
+.badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 0.72em; font-weight: 600; margin-left: 6px;
+}
+.badge.red { background: #fef2f2; color: #dc2626; }
+.badge.orange { background: #fff7ed; color: #ea580c; }
+.badge.blue { background: #eff6ff; color: #2563eb; }
+.badge.green { background: #f0fdf4; color: #16a34a; }
+.badge.gray { background: #f5f5f5; color: #666; }
+
+/* -- Pipeline step -- */
+.pipeline-step {
+    background: #f8f9fa; padding: 14px 18px; border-radius: 8px;
+    border-right: 4px solid #667eea; margin: 10px 0;
+    display: flex; align-items: center; gap: 12px;
+}
+.pipeline-step .step-num {
+    font-size: 1.5em; font-weight: 800; color: #667eea; opacity: 0.4;
+    min-width: 40px; text-align: center;
+}
+.pipeline-step .step-content { flex: 1; }
+.pipeline-step .step-title { font-weight: 700; color: #1a1a2e; }
+.pipeline-step .step-desc { font-size: 0.85em; color: #555; }
+.pipeline-step.critical { border-right-color: #e74c3c; }
+.pipeline-step.critical .step-num { color: #e74c3c; }
+.pipeline-step.funded { border-right-color: #ff8800; }
+.pipeline-step.funded .step-num { color: #ff8800; }
+.pipeline-arrow { text-align: center; color: #667eea; font-size: 1.5em; margin: 4px 0; }
+
+/* -- Person card -- */
+.person-card {
+    background: #fff; border-radius: 8px; padding: 18px;
+    border: 1px solid #e8e8e8; margin-bottom: 12px;
+}
+.person-card .name { font-weight: 700; color: #1a1a2e; font-size: 1.1em; }
+.person-card .role { font-size: 0.85em; color: #667eea; margin-bottom: 8px; }
+.person-card .bio { font-size: 0.88em; color: #555; }
+
+/* -- Link card -- */
+.link-card {
+    display: flex; gap: 10px; padding: 10px 14px;
+    background: #f8f9fa; border-radius: 6px; border: 1px solid #e8e8e8;
+    text-decoration: none; color: inherit; transition: all 0.2s;
+    margin-bottom: 8px;
+}
+.link-card:hover { border-color: #667eea; background: #f0f4fa; }
+.link-card .lc-icon { font-size: 1.3em; }
+.link-card .lc-title { font-weight: 600; color: #2a5a8a; font-size: 0.9em; }
+.link-card .lc-desc { font-size: 0.78em; color: #666; }
+
+/* -- Table -- */
+table { width: 100%; border-collapse: collapse; font-size: 0.88em; margin: 14px 0; }
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+tr.highlight { background: #fff5f5; }
+tr.highlight td { font-weight: 500; }
+
+/* -- Finding cards -- */
+.finding {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.finding:last-child { border-bottom: none; }
+.finding h4 { font-weight: 700; color: #1a1a2e; margin-bottom: 2px; font-size: 0.95em; }
+.finding p { font-size: 0.88em; color: #555; }
+
+/* -- Source tag -- */
+.src { font-size: 0.7em; color: #999; display: inline-block; margin-top: 2px; }
+
+/* -- Pipeline visual -- */
+.pipe-flow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin: 24px 0; flex-wrap: wrap;
+}
+.pipe-node {
+    padding: 14px 20px; border-radius: 10px;
+    text-align: center; font-weight: 700; font-size: 0.88em;
+    min-width: 140px; position: relative;
+}
+.pipe-node.funder { background: #1a1a2e; color: #fff; }
+.pipe-node.org { background: #667eea; color: #fff; }
+.pipe-node.target { background: #ff8800; color: #fff; }
+.pipe-node.outcome { background: #e74c3c; color: #fff; }
+.pipe-node .pn-sub { font-weight: 400; font-size: 0.82em; opacity: 0.85; display: block; margin-top: 2px; }
+.pipe-connector {
+    width: 40px; height: 3px; background: #ccc; position: relative;
+    display: flex; align-items: center; justify-content: center;
+}
+.pipe-connector::after {
+    content: ''; position: absolute; left: -6px;
+    border: 6px solid transparent;
+    border-right-color: #ccc;
+}
+@media (max-width: 768px) {
+    .pipe-flow { flex-direction: column; gap: 8px; }
+    .pipe-connector { width: 3px; height: 30px; }
+    .pipe-connector::after { border-right-color: transparent; border-bottom-color: #ccc; left: 50%; transform: translateX(-50%); top: -6px; }
+}
+
+/* -- Timeline -- */
+.timeline-item {
+    padding: 12px 18px; border-right: 3px solid #667eea;
+    margin-bottom: 12px; background: #f8f9fa; border-radius: 0 8px 8px 0;
+}
+.timeline-item .tl-year { font-weight: 800; color: #ff8800; font-size: 0.9em; }
+.timeline-item .tl-title { font-weight: 700; color: #1a1a2e; font-size: 0.95em; }
+.timeline-item .tl-desc { font-size: 0.85em; color: #555; margin-top: 2px; }
+
+/* -- Footer -- */
+.footer-note {
+    text-align: center; padding: 20px; font-size: 0.75em;
+    color: #999; border-top: 1px solid #eee; margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+    <div class="nav-brand">
+        יד הנדיב | צינור חינוכי
+        <span class="risk-pill">השפעה מערכתית</span>
+    </div>
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('tab-foundation')">הקרן</button>
+        <button class="nav-tab" onclick="showTab('tab-programs')">תוכניות חינוך</button>
+        <button class="nav-tab" onclick="showTab('tab-pipeline')">הצינור</button>
+        <button class="nav-tab" onclick="showTab('tab-critique')">ביקורת</button>
+        <button class="nav-tab" onclick="showTab('tab-links')">קישורים</button>
+    </div>
+</div>
+</nav>
+
+<div class="hero">
+    <h1>יד הנדיב (קרן רוטשילד ישראל)</h1>
+    <div class="subtitle">כיצד פילנתרופיה אסטרטגית של משפחה אחת מעצבת את החינוך הציבורי בישראל</div>
+    <div class="meta">דשבורד מחקר | פברואר 2026</div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hs-val">140+</div>
+            <div class="hs-lbl">שנות מעורבות רוטשילד בישראל</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hs-val">1,600</div>
+            <div class="hs-lbl">מנהלים בהכשרה פעילה</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hs-val">98</div>
+            <div class="hs-lbl">בתי ספר מחוזקים (מיישרים)</div>
+        </div>
+        <div class="hero-stat">
+            <div class="hs-val">50,000+</div>
+            <div class="hs-lbl">מורים מובילים שהשתתפו</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ============ TAB 1: THE FOUNDATION ============ -->
+<div id="tab-foundation" class="view active">
+
+<div class="section">
+    <h2>מהי יד הנדיב?</h2>
+    <p>יד הנדיב היא קרן הפילנתרופיה של משפחת רוטשילד בישראל, הממשיכה מסורת של למעלה מ-140 שנה של מעורבות המשפחה בארץ ישראל. הקרן מנוהלת על ידי מועצת נאמנים המורכבת בעיקרה מבני המשפחה, והמנהיגות הנוכחית מייצגת את הדור החמישי של המשפחה.</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/about-page</span>
+
+    <div class="info-box">
+        <strong>חזון:</strong> "לקדם את החברה, המוסדות והסביבה בישראל, לטובת כלל תושביה" -- הקרן פועלת על בסיס עקרונות של דמוקרטיה, שוויון, הכלה, מצוינות ואחריות משותפת.
+        <span class="src">[WEB-SEARCH] yadhanadiv.org.il/about-page</span>
+    </div>
+
+    <h3>ציר ההיסטוריה</h3>
+    <div class="timeline-item">
+        <span class="tl-year">1889</span>
+        <div class="tl-title">ברון אדמונד דה רוטשילד</div>
+        <div class="tl-desc">ביקורו הראשון בארץ ישראל. תחילת מעורבות המשפחה ביישוב ובפיתוח הארץ.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">1917</span>
+        <div class="tl-title">ג'יימס דה רוטשילד</div>
+        <div class="tl-desc">נינו של הברון, הגיע לפלסטינה כקצין בגדוד היהודי. המשיך את מעורבות המשפחה.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">שנות ה-50-60</span>
+        <div class="tl-title">מפעלי יסוד</div>
+        <div class="tl-desc">רמת הנדיב (1954), מוזיאון ישראל, בניין הכנסת -- דורותי דה רוטשילד הובילה לאחר מות ג'יימס ב-1957.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">שנות ה-70-80</span>
+        <div class="tl-title">חינוך והשכלה</div>
+        <div class="tl-desc">הטלוויזיה החינוכית, מרכז המוזיקה בירושלים, המכון למחקרים מתקדמים, האוניברסיטה הפתוחה.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">2007</span>
+        <div class="tl-title">הקמת אבני ראשה</div>
+        <div class="tl-desc">הקמת המכון הישראלי למנהיגות בית-ספרית כיוזמה משותפת של משרד החינוך ויד הנדיב.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">2016</span>
+        <div class="tl-title">תוכנית מורים מובילים</div>
+        <div class="tl-desc">השקת תוכנית לאומית בשותפות עם משרד החינוך -- 42,000 מורים השתתפו מאז.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">2019</span>
+        <div class="tl-title">מיישרים -- בתי ספר מתמודדים</div>
+        <div class="tl-desc">יוזמה משותפת עם משרד החינוך, משרד האוצר וקרן מתן -- 36 בתי ספר בשלב ראשון.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">2021</span>
+        <div class="tl-title">SEL -- למידה רגשית-חברתית (אורחה)</div>
+        <div class="tl-desc">השקת תוכנית "אורחה" ב-6 רשויות מקומיות ברחבי הארץ.</div>
+    </div>
+    <div class="timeline-item">
+        <span class="tl-year">2023</span>
+        <div class="tl-title">הספרייה הלאומית</div>
+        <div class="tl-desc">פתיחת הספרייה הלאומית המחודשת -- מיזם דגל של הקרן. מיישרים 2.0 עם קרן DELL ל-72 בתי ספר.</div>
+    </div>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/our-legacy</span>
+</div>
+
+<div class="section">
+    <h2>ממשל ומנהיגות</h2>
+    <p>מועצת הנאמנים מורכבת בעיקרה מבני משפחת רוטשילד. הנשיאות עברה מלורד רוטשילד (שכיהן עד פטירתו ב-2024) להנה רוטשילד, שמכהנת כיו"ר מאז 2018.</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/our-legacy</span>
+
+    <h3>הנהלה בכירה</h3>
+    <div class="grid-3">
+        <div class="person-card">
+            <div class="name">פרופ' יגאל מרזל</div>
+            <div class="role">מנכ"ל</div>
+            <div class="bio">ראש ההנהלה הביצועית של הקרן, אחראי על כלל הפעילות האסטרטגית.</div>
+        </div>
+        <div class="person-card">
+            <div class="name">גל פישר</div>
+            <div class="role">ראש תוכניות ויישום</div>
+            <div class="bio">אחראי על תכנון וביצוע התוכניות ברמה הלאומית.</div>
+        </div>
+        <div class="person-card">
+            <div class="name">מיכל בן דוד</div>
+            <div class="role">סמנכ"לית תפעול</div>
+            <div class="bio">ניהול תפעולי של מערך הקרן.</div>
+        </div>
+    </div>
+    <div class="grid-3">
+        <div class="person-card">
+            <div class="name">מוטי טאובין</div>
+            <div class="role">מנהל תחום חינוך</div>
+            <div class="bio">אחראי על כלל תוכניות החינוך של יד הנדיב, כולל הממשק עם אבני ראשה ומיישרים.</div>
+        </div>
+        <div class="person-card">
+            <div class="name">ד"ר סאפא אבו-רביעה</div>
+            <div class="role">מנהלת תחום החברה הערבית</div>
+            <div class="bio">מומחית באנתרופולוגיה, מגדר ופיתוח מנהיגות קהילתית.</div>
+        </div>
+        <div class="person-card">
+            <div class="name">ד"ר סיגל ריינדרס-כפרי</div>
+            <div class="role">מנהלת הערכה ומדידה</div>
+            <div class="bio">אחראית על מנגנוני מדידה ואפקטיביות התוכניות.</div>
+        </div>
+    </div>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/our-team-page</span>
+</div>
+
+<div class="section">
+    <h2>תקציב ותחומי פעילות</h2>
+    <p>הקרן אינה מפרסמת נתוני תקציב מפורטים באתר האינטרנט שלה. היא פועלת בחמישה תחומים אסטרטגיים עם מעל 100 שותפים:</p>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">תחומי פעילות</div>
+            <div class="value">5</div>
+            <div class="note">חינוך, מצוינות אקדמית, חברה ערבית, גיל רך, סביבה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">שותפויות פעילות</div>
+            <div class="value">100+</div>
+            <div class="note">ממשלה, אקדמיה, מגזר שלישי</div>
+        </div>
+        <div class="metric warn">
+            <div class="label">מוסדות לאומיים שנבנו</div>
+            <div class="value">3</div>
+            <div class="note">כנסת, ביהמ"ש העליון, ספריה לאומית</div>
+        </div>
+        <div class="metric">
+            <div class="label">דורות משפחתיים</div>
+            <div class="value">5</div>
+            <div class="note">מהברון דה רוטשילד ועד הנה רוטשילד</div>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>שקיפות תקציבית:</strong> יד הנדיב אינה מפרסמת דוחות כספיים שנתיים לציבור. גודל התקציב השנתי המדויק אינו ידוע לציבור, אולם על פי הערכות ומקורות שונים, מדובר בעשרות מיליוני שקלים בשנה לתחום החינוך לבדו. עובדה זו מעלה שאלות בנוגע לאחריותיות ציבורית של גוף המשפיע באופן מערכתי על החינוך הממלכתי.
+        <span class="src">[WEB-SEARCH] yadhanadiv.org.il -- אין דוחות כספיים פומביים</span>
+    </div>
+</div>
+
+</div>
+
+<!-- ============ TAB 2: EDUCATION PROGRAMS ============ -->
+<div id="tab-programs" class="view">
+
+<div class="section">
+    <h2>מפת תוכניות החינוך של יד הנדיב</h2>
+    <p>יד הנדיב מפעילה מערך חינוכי רחב היקף שמכסה מהכשרת מנהלים ועד למידה רגשית-חברתית, עם דגש על אוכלוסיות מרקע סוציו-אקונומי נמוך. מטרת הקרן המוצהרת: "למזער את השפעת הגורמים הסוציו-אקונומיים על ההישגים החינוכיים."</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/education</span>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">בתי ספר מחוזקים</div>
+            <div class="value">98</div>
+            <div class="note">מיישרים 1.0 + 2.0</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מורים מובילים</div>
+            <div class="value">50,000+</div>
+            <div class="note">מ-2016 ועד היום</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">תלמידים ב-SEL</div>
+            <div class="value">10,000+</div>
+            <div class="note">תוכנית אורחה</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מנהלים בהכשרה</div>
+            <div class="value">1,600</div>
+            <div class="note">אבני ראשה -- נתון שוטף</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>אבני ראשה -- המכון הישראלי למנהיגות בית-ספרית <span class="badge red">ליבת ההשפעה</span></h2>
+    <p>אבני ראשה הוקם ב-2007 כיוזמה משותפת של משרד החינוך ויד הנדיב. שם המכון "משקף את ההבנה של התפקיד המרכזי של מנהיגות חינוכית -- מנהלי בתי ספר ומפקחים -- בשינוי ובשיפור מערכת החינוך בישראל."</p>
+    <span class="src">[WEB-SEARCH] avneyrosha.org.il/about</span>
+
+    <div class="grid-4">
+        <div class="metric alert">
+            <div class="label">מנהלים בהכשרה ופיתוח</div>
+            <div class="value">1,600</div>
+            <div class="note">נתון עדכני</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מפקחים בהכשרה</div>
+            <div class="value">270</div>
+            <div class="note">פיתוח מקצועי שוטף</div>
+        </div>
+        <div class="metric">
+            <div class="label">מאמרים וכלים</div>
+            <div class="value">433</div>
+            <div class="note">מרכז ידע</div>
+        </div>
+        <div class="metric">
+            <div class="label">אירועים וימי עיון</div>
+            <div class="value">151</div>
+            <div class="note">כנסים והשתלמויות</div>
+        </div>
+    </div>
+    <span class="src">[WEB-SEARCH] avneyrosha.org.il</span>
+
+    <h3>תחומי פעילות מרכזיים</h3>
+    <div class="grid-2">
+        <div>
+            <div class="pipeline-step funded">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">עתודה ניהולית</div>
+                    <div class="step-desc">בניית רזרבה של מנהלים עתידיים עם דגש על חינוך ולמידה -- יצירת "צינור" (pipeline) של מנהיגות.</div>
+                </div>
+            </div>
+            <div class="pipeline-step funded">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">הכשרת מנהלים חדשים</div>
+                    <div class="step-desc">תוכנית הכשרה למנהלים חדשים ופיתוח מקצועי למנהלים מכהנים.</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="pipeline-step funded">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">פיתוח מפקחים</div>
+                    <div class="step-desc">קידום מפקחים כוללניים כמנהיגים פדגוגיים -- שכבת הממשק בין המשרד לבתי הספר.</div>
+                </div>
+            </div>
+            <div class="pipeline-step funded">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">מחקר ופיתוח</div>
+                    <div class="step-desc">חקירת אתגרי מנהיגות פדגוגית דרך עבודת שדה ישירה.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>ממשל:</strong> יו"ר הדירקטוריון של אבני ראשה הוא שר/ת החינוך. עובדה זו מבטיחה תיאום ברמה הגבוהה ביותר עם המדיניות הממשלתית, אך גם מטשטשת את הגבול בין פילנתרופיה פרטית למדיניות ציבורית.
+        <span class="src">[WEB-SEARCH] avneyrosha.org.il/about</span>
+    </div>
+</div>
+
+<div class="section">
+    <h2>מיישרים -- בתי ספר מתמודדים <span class="badge orange">2019-נוכחי</span></h2>
+    <p>יוזמה משותפת של משרד החינוך, משרד האוצר, יד הנדיב וקרן מתן שהושקה ב-2019. התוכנית מתמקדת ב"הדגמה כיצד ניתן להשיג שיפור יציב ומתמשך בבתי ספר יסודיים חלשים המשרתים תלמידים מרקע סוציו-אקונומי נמוך."</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/education/meisharim</span>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מיישרים 1.0</div>
+            <div class="value">36</div>
+            <div class="note">בתי ספר יסודיים, 5 שנים</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מיישרים 2.0 (עם DELL)</div>
+            <div class="value">72</div>
+            <div class="note">בתי ספר חלשים נוספים</div>
+        </div>
+        <div class="metric">
+            <div class="label">סה"כ בתי ספר</div>
+            <div class="value">98+</div>
+            <div class="note">מכלל המגזרים</div>
+        </div>
+    </div>
+
+    <div class="quote-box">
+        "התוצאות מראות שיפור ניכר ביכולת הקריאה והתקדמות מהותית במדדי ההערכה הארציים שנערכו על ידי ראמ"ה."
+        <div class="q-source">-- אתר יד הנדיב, תיאור תוצאות מיישרים</div>
+    </div>
+
+    <h3>מרכיבי ההתערבות</h3>
+    <table>
+        <tr><th>תחום</th><th>פירוט</th></tr>
+        <tr><td>פיתוח מנהיגות</td><td>הכשרת מנהלים וצוותי ניהול בכירים</td></tr>
+        <tr><td>תרבות ארגונית</td><td>שינוי אקלים בית-ספרי ודפוסי עבודה</td></tr>
+        <tr><td>חיזוק סגל</td><td>פיתוח מקצועי מתמשך לצוותי הוראה</td></tr>
+        <tr><td>הוראה ולמידה</td><td>דגש על אוריינות שפתית, חשיבה מבוססת נתונים</td></tr>
+        <tr><td>למידה מתמדת</td><td>עבודה מונחית תוצאות עם מדידה שוטפת</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>מורים מובילים <span class="badge blue">תוכנית לאומית</span></h2>
+    <p>תוכנית לאומית של משרד החינוך, בשותפות יד הנדיב, שהושקה ב-2016. מתמקדת בפיתוח מקצועי באמצעות קהילות למידה בית-ספריות שבהן מורים משתפים פעולה בשאלות פדגוגיות.</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/teacher-leaders</span>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מורים שהשתתפו</div>
+            <div class="value">42,000</div>
+            <div class="note">מ-2016 ועד היום</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">כיסוי בתי ספר</div>
+            <div class="value">~50%</div>
+            <div class="note">ממחצית בתי הספר בישראל</div>
+        </div>
+        <div class="metric">
+            <div class="label">שותפים</div>
+            <div class="value">3</div>
+            <div class="note">אגף פיתוח מקצועי, רשות ההוראה, מכון מופ"ת</div>
+        </div>
+    </div>
+
+    <div class="quote-box">
+        "מורים שהשתתפו חיזקו מיומנויות פדגוגיות, הרחיבו מגוון גישות הוראה, הפגינו רגישות רבה יותר לתלמידים וגמישות קוגניטיבית מוגברת."
+        <div class="q-source">-- ממצאי מחקר הערכה, אתר יד הנדיב</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>למידה רגשית-חברתית (SEL) -- "אורחה" <span class="badge red">CASEL</span></h2>
+    <p>תוכנית "אורחה" הושקה ב-2021 במטרה לחזק כישורים רגשיים-חברתיים בקרב ילדים ונוער בישראל. התוכנית מבוססת על מחקר המראה כי "היכולת לנהל רגשות, מחשבות והתנהגויות היא גורם מפתח להצלחה בבית הספר, בסביבה חברתית ובתעסוקה."</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/sel</span>
+
+    <h3>רשויות מקומיות שותפות</h3>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">נהריה</div>
+            <div class="value">--</div>
+            <div class="note">צפון</div>
+        </div>
+        <div class="metric">
+            <div class="label">מגאר</div>
+            <div class="value">--</div>
+            <div class="note">מגזר דרוזי</div>
+        </div>
+        <div class="metric">
+            <div class="label">באקה אל-גרבייה</div>
+            <div class="value">--</div>
+            <div class="note">מגזר ערבי</div>
+        </div>
+    </div>
+    <div class="grid-3">
+        <div class="metric">
+            <div class="label">בני ברק</div>
+            <div class="value">--</div>
+            <div class="note">מגזר חרדי</div>
+        </div>
+        <div class="metric">
+            <div class="label">גני תקווה</div>
+            <div class="value">--</div>
+            <div class="note">מרכז</div>
+        </div>
+        <div class="metric">
+            <div class="label">מועצה אזורית אשכול</div>
+            <div class="value">--</div>
+            <div class="note">דרום / עוטף עזה</div>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>חיבור ל-CASEL:</strong> תוכנית ה-SEL של יד הנדיב מבוססת על מודל הלמידה הרגשית-חברתית שפותח על ידי CASEL (Collaborative for Academic, Social, and Emotional Learning) בארה"ב. הפעלת מודלים אמריקאיים בהקשר הישראלי -- ללא דיון ציבורי מספק -- מעלה שאלות לגבי התאמה תרבותית וערכית.
+    </div>
+</div>
+
+<div class="section">
+    <h2>טכנולוגיה וחינוך <span class="badge blue">בינה מלאכותית</span></h2>
+    <p>הקרן מתמקדת ב"מינוף חדשנות טכנולוגית לצמצום פערים, קידום שוויון הזדמנויות בחינוך והכנת תלמידים בפריפריה החברתית לעידן הבינה המלאכותית." לקרן היסטוריה ארוכה בנושא, כולל הקמת מט"ח (המרכז לטכנולוגיה חינוכית) והטלוויזיה החינוכית.</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/technology-education</span>
+
+    <div class="quote-box">
+        "בינה מלאכותית היא יותר מכלי; היא אמצעי רב-עוצמה לקידום למידה עצמאית, הוראה מותאמת אישית, חשיבה ביקורתית ויצירתית, ומיומנויות פתרון בעיות."
+        <div class="q-source">-- אתר יד הנדיב, תחום טכנולוגיה וחינוך</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>תוכניות לחברה הערבית <span class="badge green">גילאי 13-23</span></h2>
+    <p>יד הנדיב מפעילה תוכנית נרחבת לשילוב נוער ערבי בחברה ובכלכלה הישראלית, בהנהלת ד"ר סאפא אבו-רביעה.</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/arab-community</span>
+
+    <div class="grid-4">
+        <div class="metric">
+            <div class="label">שנות פעילות</div>
+            <div class="value">15</div>
+            <div class="note">רצף פעילות</div>
+        </div>
+        <div class="metric">
+            <div class="label">בוגרי תוכניות</div>
+            <div class="value">650+</div>
+            <div class="note">מנהיגות וקהילה</div>
+        </div>
+        <div class="metric">
+            <div class="label">משתתפי שנת שירות</div>
+            <div class="value">390+</div>
+            <div class="note">שנת גאפ</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">נהנים מתמיכה תעסוקתית</div>
+            <div class="value">500,000+</div>
+            <div class="note">תעסוקה וכלכלה</div>
+        </div>
+    </div>
+
+    <h3>תת-תוכניות</h3>
+    <table>
+        <tr><th>תוכנית</th><th>מיקוד</th></tr>
+        <tr><td>תעסוקה לצעירים מצטיינים</td><td>שילוב בוגרים מצטיינים בכלכלת הידע</td></tr>
+        <tr><td>צעירים NEET</td><td>פיתוח מסלולי תעסוקה לצעירים מחוץ לחינוך ותעסוקה</td></tr>
+        <tr><td>חינוך בלתי-פורמלי</td><td>מסגרות למידה קהילתיות מחוץ לבית הספר</td></tr>
+        <tr><td>מרחבים משותפים</td><td>קידום הכלה באקדמיה ובסביבת העבודה</td></tr>
+        <tr><td>מדיניות מבוססת ראיות</td><td>מחקר לעיצוב מדיניות שילוב</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>פרס רוטשילד בחינוך <span class="badge orange">מאז 2015</span></h2>
+    <p>הפרס מוענק למחנכים ישראליים ש"מקדמים מצוינות, יוזמה וחדשנות, ומקדמים את תלמידיהם בדרכים יוצאות דופן ומשבחות." הפרס נקרא על שם מקס רואו, שהוביל את יד הנדיב עד 1982 ודגל באמונה ש"חינוך איכותי צריך להיות נגיש לכולם."</p>
+    <span class="src">[WEB-SEARCH] yadhanadiv.org.il/rothschild-prize-education</span>
+</div>
+
+</div>
+
+<!-- ============ TAB 3: THE PIPELINE ============ -->
+<div id="tab-pipeline" class="view">
+
+<div class="section">
+    <h2>הצינור: כיצד כסף פרטי מעצב חינוך ציבורי</h2>
+    <p>הניתוח הבא ממפה את "צינור ההשפעה" (pipeline) שדרכו פילנתרופיה של משפחה אחת -- רוטשילד, דרך יד הנדיב -- חודרת לכל רבדי מערכת החינוך הציבורית בישראל: מהכשרת המנהלים, דרך תרבות בית הספר, ועד לכיתה עצמה.</p>
+</div>
+
+<div class="section">
+    <h2>התרשים: מהכסף לכיתה</h2>
+
+    <div class="pipe-flow">
+        <div class="pipe-node funder">
+            משפחת רוטשילד
+            <span class="pn-sub">דור חמישי | מועצת נאמנים</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-node org">
+            יד הנדיב
+            <span class="pn-sub">קרן מבצעת | עשרות מלש"ח/שנה</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-node target">
+            אבני ראשה + תוכניות
+            <span class="pn-sub">1,600 מנהלים | 270 מפקחים</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-node outcome">
+            בתי ספר ציבוריים
+            <span class="pn-sub">~50% מבתי הספר בישראל</span>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שלבי הצינור בפירוט</h2>
+
+    <div class="pipeline-step critical">
+        <div class="step-num">1</div>
+        <div class="step-content">
+            <div class="step-title">מקור המימון: משפחת רוטשילד</div>
+            <div class="step-desc">משפחת רוטשילד מממנת את יד הנדיב דרך מועצת נאמנים משפחתית. הנה רוטשילד מכהנת כיו"ר מ-2018. ההחלטות האסטרטגיות על תחומי ההשקעה -- כולל חינוך -- מתקבלות במועצה המשפחתית. אין לציבור הישראלי ייצוג בהחלטות אלו.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#8595;</div>
+
+    <div class="pipeline-step critical">
+        <div class="step-num">2</div>
+        <div class="step-content">
+            <div class="step-title">הגוף המבצע: יד הנדיב</div>
+            <div class="step-desc">הקרן מתרגמת את החזון המשפחתי לתוכניות פעולה. צוות מקצועי (פרופ' יגאל מרזל כמנכ"ל, מוטי טאובין כמנהל חינוך) מפתח אסטרטגיות חינוכיות, בוחר שותפים ומקצה משאבים. הגישה המוצהרת: "מבוססת מחקר ונתונים" עם כוונה "ליידע ולקדם מדיניות."</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#8595;</div>
+
+    <div class="pipeline-step funded">
+        <div class="step-num">3</div>
+        <div class="step-content">
+            <div class="step-title">מכון ההכשרה: אבני ראשה</div>
+            <div class="step-desc">הוקם ב-2007 כיוזמה משותפת של יד הנדיב ומשרד החינוך. מכשיר 1,600 מנהלים ו-270 מפקחים. יוצר "עתודה ניהולית" -- כלומר, כל מנהל חדש במערכת עובר דרך מוסד שנוסד ומומן על ידי פילנתרופיה פרטית. שר/ת החינוך מכהן/ת כיו"ר -- שילוב מבני של כסף פרטי ושלטון ציבורי.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#8595;</div>
+
+    <div class="pipeline-step funded">
+        <div class="step-num">4</div>
+        <div class="step-content">
+            <div class="step-title">תוכניות מקבילות: מורים מובילים, מיישרים, SEL</div>
+            <div class="step-desc">42,000 מורים עברו תוכנית "מורים מובילים" (~50% מבתי הספר). 98 בתי ספר בתוכנית "מיישרים". 10,000+ תלמידים ב-SEL/אורחה. תוכנית AI לפריפריה. כל אלה -- ממומנים או מובלים על ידי יד הנדיב.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#8595;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+            <div class="step-title">תרבות בית הספר</div>
+            <div class="step-desc">המנהלים שהוכשרו באבני ראשה מיישמים את הגישות שלמדו: מנהיגות פדגוגית, עבודה מבוססת נתונים, למידה רגשית-חברתית, שיח על "שוויון הזדמנויות". התרבות הארגונית משתנה בהתאם לחזון שעוצב על ידי הקרן.</div>
+        </div>
+    </div>
+    <div class="pipeline-arrow">&#8595;</div>
+
+    <div class="pipeline-step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+            <div class="step-title">הכיתה: הילד הישראלי</div>
+            <div class="step-desc">בסופו של התהליך, ילדים ישראליים בבתי ספר ציבוריים לומדים בסביבה שעוצבה -- במישרין או בעקיפין -- על פי חזון חינוכי שנקבע במועצת נאמנים משפחתית פרטית, ללא מנדט דמוקרטי.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>נקודות ממשק עם המדינה</h2>
+    <p>אחד המאפיינים הייחודיים של מודל יד הנדיב הוא השילוב המבני עם מוסדות המדינה:</p>
+
+    <table>
+        <tr><th>נקודת ממשק</th><th>פירוט</th><th>משמעות</th></tr>
+        <tr class="highlight">
+            <td>שר/ת החינוך כיו"ר אבני ראשה</td>
+            <td>שר החינוך מכהן כיו"ר הדירקטוריון של מכון שמומן פילנתרופית</td>
+            <td>טשטוש הגבול בין ממשלה לפילנתרופיה</td>
+        </tr>
+        <tr class="highlight">
+            <td>מורים מובילים כתוכנית לאומית</td>
+            <td>תוכנית שפותחה בשותפות יד הנדיב הפכה לתוכנית רשמית של המשרד</td>
+            <td>פילנתרופיה מעצבת מדיניות לאומית</td>
+        </tr>
+        <tr class="highlight">
+            <td>מיישרים -- 4 שותפים</td>
+            <td>משרד חינוך + משרד אוצר + יד הנדיב + מתן</td>
+            <td>תקציב ציבורי מעורב עם כסף פרטי</td>
+        </tr>
+        <tr>
+            <td>SEL ברשויות מקומיות</td>
+            <td>הטמעת מודל CASEL ב-6 רשויות עם אוניברסיטאות ומגזר שלישי</td>
+            <td>ייבוא מודלים זרים למערכת ציבורית</td>
+        </tr>
+        <tr>
+            <td>פרס רוטשילד בחינוך</td>
+            <td>ועדת בחירה עם נציגי משרד החינוך</td>
+            <td>תמריצים פרטיים למחנכים ציבוריים</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>היקף ההשפעה במספרים</h2>
+
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מנהלים שהוכשרו (אבני ראשה)</div>
+            <div class="value">1,600+</div>
+            <div class="note">הכשרה שוטפת</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">מורים שעברו תוכניות</div>
+            <div class="value">42,000+</div>
+            <div class="note">~50% מבתי הספר</div>
+        </div>
+        <div class="metric alert">
+            <div class="label">בתי ספר בהתערבות ישירה</div>
+            <div class="value">98+</div>
+            <div class="note">מיישרים 1.0 + 2.0</div>
+        </div>
+    </div>
+    <div class="grid-3">
+        <div class="metric alert">
+            <div class="label">מפקחים בפיתוח</div>
+            <div class="value">270</div>
+            <div class="note">שכבת הפיקוח הממלכתית</div>
+        </div>
+        <div class="metric warn">
+            <div class="label">תלמידים ב-SEL</div>
+            <div class="value">10,000+</div>
+            <div class="note">תוכנית אורחה</div>
+        </div>
+        <div class="metric warn">
+            <div class="label">מוסדות לאומיים שנבנו</div>
+            <div class="value">3+</div>
+            <div class="note">כנסת, ביהמ"ש, ספריה לאומית</div>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>נקודה מרכזית:</strong> כאשר קרן פרטית אחת מכשירה את רוב מנהלי בתי הספר בישראל (דרך אבני ראשה), מממנת תוכנית פיתוח מקצועי שמגיעה ל-50% מבתי הספר (מורים מובילים), ומפעילה התערבויות ישירות ב-98 בתי ספר (מיישרים) -- ההשפעה המצטברת היא מערכתית. זוהי אינה פעילות צדקה שולית; זהו עיצוב מחדש של מערכת החינוך הציבורי.
+    </div>
+</div>
+
+</div>
+
+<!-- ============ TAB 4: CRITIQUE ============ -->
+<div id="tab-critique" class="view">
+
+<div class="section">
+    <h2>השאלה הדמוקרטית: האם השפעה פילנתרופית על חינוך ציבורי היא לגיטימית?</h2>
+    <p>יד הנדיב מהווה מקרה מבחן קלאסי בסוגיית היחסים בין פילנתרופיה פרטית למערכת ציבורית. להלן ניתוח ביקורתי של ההשפעה.</p>
+</div>
+
+<div class="section">
+    <h2>טענות בעד ונגד</h2>
+
+    <div class="grid-2">
+        <div>
+            <h3>טענות בעד הפילנתרופיה</h3>
+
+            <div class="pipeline-step">
+                <div class="step-num">+</div>
+                <div class="step-content">
+                    <div class="step-title">שותפות ולא השתלטות</div>
+                    <div class="step-desc">יד הנדיב פועלת תמיד בשיתוף עם משרד החינוך. שר החינוך מכהן כיו"ר אבני ראשה. אין עקיפה של מוסדות המדינה.</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="step-num">+</div>
+                <div class="step-content">
+                    <div class="step-title">מבוסס מחקר</div>
+                    <div class="step-desc">הקרן מדגישה גישה "מבוססת מחקר ונתונים" עם הערכה שוטפת (ד"ר סיגל ריינדרס-כפרי). התוצאות של מיישרים אומתו על ידי ראמ"ה.</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="step-num">+</div>
+                <div class="step-content">
+                    <div class="step-title">מיקוד בפריפריה</div>
+                    <div class="step-desc">התוכניות מתמקדות באוכלוסיות מרקע סוציו-אקונומי נמוך, כולל מגזר ערבי ובדואי -- אוכלוסיות שהמדינה לא תמיד מצליחה לשרת.</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="step-num">+</div>
+                <div class="step-content">
+                    <div class="step-title">מסורת ארוכת שנים</div>
+                    <div class="step-desc">140+ שנות מעורבות בישראל, כולל בניית מוסדות יסוד (כנסת, ביהמ"ש העליון, ספריה לאומית). לא מדובר בשחקן חדש.</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>טענות נגד: שאלות דמוקרטיות</h3>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">!</div>
+                <div class="step-content">
+                    <div class="step-title">אין מנדט דמוקרטי</div>
+                    <div class="step-desc">מועצת הנאמנים של יד הנדיב "מורכבת בעיקרה מבני המשפחה." אף אחד מהם לא נבחר על ידי הציבור הישראלי, אבל ההחלטות שלהם משפיעות על מיליוני ילדים.</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">!</div>
+                <div class="step-content">
+                    <div class="step-title">חוסר שקיפות תקציבית</div>
+                    <div class="step-desc">הקרן אינה מפרסמת דוחות כספיים שנתיים לציבור. כמה כסף מושקע בחינוך? מהם יחסי העלות-תועלת? אין מידע ציבורי.</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">!</div>
+                <div class="step-content">
+                    <div class="step-title">ייבוא מודלים זרים</div>
+                    <div class="step-desc">תוכנית ה-SEL מבוססת על מודל CASEL האמריקאי. ההחלטה ליישם מודל אמריקאי במערכת הישראלית התקבלה ללא דיון ציבורי.</div>
+                </div>
+            </div>
+
+            <div class="pipeline-step critical">
+                <div class="step-num">!</div>
+                <div class="step-content">
+                    <div class="step-title">תלות מבנית</div>
+                    <div class="step-desc">כאשר מוסד מרכזי כמו אבני ראשה תלוי במימון פרטי -- מה קורה אם הקרן תשנה כיוון? מערכת ציבורית שנשענת על נדבנות פרטית היא מערכת פגיעה.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>שאלות פתוחות לדיון ציבורי</h2>
+
+    <div class="finding">
+        <div>
+            <h4>1. אחריותיות: למי הקרן מדווחת?</h4>
+            <p>יד הנדיב מדווחת למועצת הנאמנים המשפחתית. לא לכנסת, לא לציבור. כאשר פילנתרופיה משפיעה על מדיניות ציבורית -- האם לא נדרש מנגנון אחריותיות ציבורי?</p>
+        </div>
+    </div>
+
+    <div class="finding">
+        <div>
+            <h4>2. "שותפות" או תלות?</h4>
+            <p>הקרן מתארת את עצמה כ"שותפה" של משרד החינוך. אולם כאשר השותף הפרטי מספק את המימון, את המודל ואת ההכשרה -- האם זו שותפות שוויונית? או שהמדינה הפכה לתלויה?</p>
+        </div>
+    </div>
+
+    <div class="finding">
+        <div>
+            <h4>3. עיצוב מדיניות ללא בחירה</h4>
+            <p>כאשר תוכנית "מורים מובילים" שפותחה בשותפות יד הנדיב הופכת ל"תוכנית לאומית של משרד החינוך" -- האם זו הצלחה של שיתוף פעולה, או חדירה של חזון פרטי למערכת ציבורית?</p>
+        </div>
+    </div>
+
+    <div class="finding">
+        <div>
+            <h4>4. מי מחליט מה ילמדו ילדים ישראליים?</h4>
+            <p>בדמוקרטיה, תוכניות הלימודים צריכות להיקבע על ידי נבחרי ציבור. כאשר קרן פרטית מממנת הכשרת מנהלים, SEL, טכנולוגיה חינוכית ותוכניות שיוויון -- היא למעשה מעצבת את ה"מה" וה"איך" של החינוך.</p>
+        </div>
+    </div>
+
+    <div class="finding">
+        <div>
+            <h4>5. ריכוז כוח אצל שחקן יחיד</h4>
+            <p>יד הנדיב נוגעת בו-זמנית ב: הכשרת מנהלים (אבני ראשה), פיתוח מורים (מורים מובילים), בתי ספר חלשים (מיישרים), למידה רגשית (SEL), טכנולוגיה חינוכית, והחברה הערבית. ריכוז כזה של השפעה אצל גורם אחד -- גם אם כוונותיו טובות -- מעורר חשש.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>השוואה בינלאומית</h2>
+    <p>הסוגיה של השפעה פילנתרופית על חינוך ציבורי אינה ייחודית לישראל:</p>
+
+    <table>
+        <tr><th>מדינה</th><th>גורם פילנתרופי</th><th>סוגיות דומות</th></tr>
+        <tr><td>ארה"ב</td><td>קרן גייטס, קרן וולטון</td><td>מימון רפורמות חינוך, Charter Schools, Common Core</td></tr>
+        <tr><td>בריטניה</td><td>Ark Foundation, Teach First</td><td>אקדמיות ורשתות בתי ספר ממומנות פרטית</td></tr>
+        <tr><td>ישראל</td><td>יד הנדיב</td><td>הכשרת מנהלים, SEL, טכנולוגיה, מיישרים</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>ההבדל הישראלי:</strong> בשונה מארה"ב ובריטניה, שבהן פועלות מספר קרנות מתחרות, בישראל יד הנדיב היא השחקן הפילנתרופי הדומיננטי בתחום החינוך. ריכוזיות זו מעצימה הן את הפוטנציאל החיובי והן את הסיכונים.
+    </div>
+</div>
+
+<div class="section">
+    <h2>סיכום ביקורתי</h2>
+    <div class="warning-box">
+        <strong>המסקנה:</strong> יד הנדיב אינה גוף "רע" או "טוב" -- היא גוף רב-עוצמה שפועל בחלל שבין הפרטי לציבורי. השאלה אינה האם יד הנדיב עושה עבודה טובה (לפי מדדים רבים -- כן), אלא האם מערכת דמוקרטית צריכה לאפשר לגוף פרטי, לא-נבחר, להשפיע באופן כה מערכתי על החינוך הציבורי -- ואם כן, באילו תנאים של שקיפות ואחריותיות.
+    </div>
+</div>
+
+</div>
+
+<!-- ============ TAB 5: LINKS ============ -->
+<div id="tab-links" class="view">
+
+<div class="section">
+    <h2>דשבורדים ומחקרים קשורים</h2>
+    <p>דפי מחקר נוספים ברשת הדשבורדים שמתחברים לנושא יד הנדיב וצינור ההשפעה הפילנתרופי:</p>
+
+    <h3>דשבורדים ישירים</h3>
+    <a href="avney_rosha_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">אבני ראשה -- דשבורד</div>
+            <div class="lc-desc">ניתוח מקיף של המכון הישראלי למנהיגות בית-ספרית: תוכניות, מנהלים שהוכשרו, חיבור ל-CASEL וליד הנדיב.</div>
+        </div>
+    </a>
+
+    <a href="casel_israel_connection.html" class="link-card">
+        <div>
+            <div class="lc-title">CASEL -- החיבור הישראלי</div>
+            <div class="lc-desc">כיצד מודל הלמידה הרגשית-חברתית האמריקאי חדר למערכת החינוך הישראלית, כולל דרך תוכנית "אורחה" של יד הנדיב.</div>
+        </div>
+    </a>
+
+    <a href="funding_flows_municipal.html" class="link-card">
+        <div>
+            <div class="lc-title">זרימות מימון עירוניות</div>
+            <div class="lc-desc">מיפוי זרימת כספים מקרנות פילנתרופיות (כולל יד הנדיב) דרך רשויות מקומיות אל בתי ספר ציבוריים.</div>
+        </div>
+    </a>
+
+    <h3>דשבורדים משלימים</h3>
+
+    <a href="casel_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">CASEL -- דשבורד מלא</div>
+            <div class="lc-desc">ניתוח מודל CASEL: מקורות, מימון, יישום בישראל, ביקורת אקדמית.</div>
+        </div>
+    </a>
+
+    <a href="sei_network_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">רשת SEI -- למידה רגשית חברתית</div>
+            <div class="lc-desc">מיפוי רשת הארגונים העוסקים בלמידה רגשית-חברתית בישראל.</div>
+        </div>
+    </a>
+
+    <a href="pipeline_institutional.html" class="link-card">
+        <div>
+            <div class="lc-title">צינור מוסדי</div>
+            <div class="lc-desc">ניתוח הצינור המוסדי: כיצד ארגונים ותוכניות חודרים למערכת החינוך.</div>
+        </div>
+    </a>
+
+    <a href="nif_education_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">NIF -- הקרן החדשה לישראל וחינוך</div>
+            <div class="lc-desc">דשבורד על קרן פילנתרופית נוספת הפועלת בחינוך הישראלי -- לצורך השוואה.</div>
+        </div>
+    </a>
+
+    <a href="dror_israel_dashboard.html" class="link-card">
+        <div>
+            <div class="lc-title">דרור ישראל -- רשת</div>
+            <div class="lc-desc">דוגמה לגוף חינוכי אידיאולוגי שפועל במערכת הציבורית.</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>מקורות חיצוניים</h2>
+
+    <a href="https://www.yadhanadiv.org.il/" target="_blank" class="link-card">
+        <div>
+            <div class="lc-title">אתר יד הנדיב (רשמי)</div>
+            <div class="lc-desc">yadhanadiv.org.il -- אתר הקרן עם מידע על כלל התוכניות, ההנהלה וההיסטוריה.</div>
+        </div>
+    </a>
+
+    <a href="https://avneyrosha.org.il/" target="_blank" class="link-card">
+        <div>
+            <div class="lc-title">אתר אבני ראשה (רשמי)</div>
+            <div class="lc-desc">avneyrosha.org.il -- המכון הישראלי למנהיגות בית-ספרית, מרכז ידע ותוכניות הכשרה.</div>
+        </div>
+    </a>
+
+    <a href="https://www.yadhanadiv.org.il/education/" target="_blank" class="link-card">
+        <div>
+            <div class="lc-title">תחום חינוך -- יד הנדיב</div>
+            <div class="lc-desc">עמוד תוכניות החינוך של הקרן: מיישרים, מורים מובילים, SEL, אבני ראשה, טכנולוגיה.</div>
+        </div>
+    </a>
+
+    <a href="https://www.yadhanadiv.org.il/our-legacy/" target="_blank" class="link-card">
+        <div>
+            <div class="lc-title">המורשת -- היסטוריה של הקרן</div>
+            <div class="lc-desc">ציר זמן של 140+ שנות מעורבות רוטשילד בישראל.</div>
+        </div>
+    </a>
+
+    <a href="https://www.yadhanadiv.org.il/sel/" target="_blank" class="link-card">
+        <div>
+            <div class="lc-title">תוכנית אורחה (SEL)</div>
+            <div class="lc-desc">פרטי תוכנית הלמידה הרגשית-חברתית ב-6 רשויות מקומיות.</div>
+        </div>
+    </a>
+</div>
+
+<div class="section">
+    <h2>סימוני מקור (Provenance)</h2>
+    <div class="info-box">
+        <strong>שיטת מחקר:</strong> כל הנתונים בדשבורד זה נאספו ממקורות ציבוריים באינטרנט, בעיקר מאתרי יד הנדיב (yadhanadiv.org.il) ואבני ראשה (avneyrosha.org.il). נתוני תקציב מדויקים אינם זמינים מכיוון שהקרן אינה מפרסמת דוחות כספיים פומביים. כל מקור מסומן ב-[WEB-SEARCH]. תאריך איסוף: פברואר 2026.
+    </div>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<div class="footer-note">
+    דשבורד מחקר | יד הנדיב -- צינור חינוכי | פברואר 2026<br>
+    מקורות: yadhanadiv.org.il, avneyrosha.org.il | כל הנתונים ממקורות ציבוריים [WEB-SEARCH]
+</div>
+
+<script>
+function showTab(tabId) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.getElementById(tabId).classList.add('active');
+    var tabs = document.querySelectorAll('.nav-tab');
+    var tabMap = ['tab-foundation','tab-programs','tab-pipeline','tab-critique','tab-links'];
+    for (var i = 0; i < tabMap.length; i++) {
+        if (tabMap[i] === tabId) { tabs[i].classList.add('active'); break; }
+    }
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר אדוה ברקוביץ'-רומנו — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זהות ארגונית</a> <a href="#section-2">רקע אקדמי</a> <a href="#section-3">מקורות מימון</a> <a href="#section-4">תוכן בפועל</a> <a href="#section-5">קשרים אידיאולוגיים</a> <a href="#section-6">מסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>ד"ר אדוה ברקוביץ'-רומנו</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 22604 — יזמות מגדר ומיניות בריאה</div>
+  <div class="meta">דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם</td><td>ד"ר אדוה ברקוביץ'-רומנו</td></tr>
+      <tr><td>סוג</td><td>ספק עצמאי (לא עמותה)</td></tr>
+      <tr><td>תוכנית גפ"ן</td><td>22604 — יזמות מגדר ומיניות בריאה</td></tr>
+      <tr><td>קהל יעד</td><td>תלמידי חטיבת ביניים ותיכון (ז'-י"ב)</td></tr>
+      <tr><td>מחיר</td><td>1,200 ש"ח לשעת פעילות</td></tr>
+      <tr><td>זיקה ארגונית</td><td>SEI — האגודה הישראלית לחינוך מיני (חברת ועד מנהל)</td></tr>
+      <tr><td>סיווג</td><td>פרוגרסיבי חתרני — הפער בין המוצהר למעשה</td></tr>
+    </table>
+  </div>
+
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זהות ארגונית</a></li>
+<li><a href="#section-2">רקע אקדמי</a></li>
+<li><a href="#section-3">מקורות מימון</a></li>
+<li><a href="#section-4">תוכן בפועל — מה מלמדים בכיתות</a></li>
+<li><a href="#section-5">קשרים אידיאולוגיים</a></li>
+<li><a href="#section-6">מסקנות</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זהות ארגונית</h2>
+<p>התוכנית "יזמות מגדר ומיניות בריאה" (מספר גפ"ן 22604) מופעלת על ידי <strong>ד"ר אדוה ברקוביץ'-רומנו</strong> באופן עצמאי, ולא על ידי ארגון בעל מבנה דירקטוריון או חברי הנהלה נפרדים. היא מופיעה כ"ספק" יחיד במערכת הגפ"ן.</p>
+<p>אתר אישי: <a href="https://www.advaberko.com/" target="_blank">advaberko.com</a></p>
+
+<table>
+<tr><th>נתון</th><th>פרטים</th></tr>
+<tr><td>שם מפעיל</td><td>ד"ר אדוה ברקוביץ'-רומנו</td></tr>
+<tr><td>מספר תוכנית גפ"ן</td><td>22604</td></tr>
+<tr><td>שם התוכנית</td><td>יזמות מגדר ומיניות בריאה</td></tr>
+<tr><td>קהל יעד</td><td>תלמידי חטיבת ביניים ותיכון (ז'-י"ב)</td></tr>
+<tr><td>סוג ישות</td><td>ספק עצמאי (לא עמותה)</td></tr>
+</table>
+</div>
+
+  <div class="section" id="section-2">
+<h2>רקע אקדמי</h2>
+<p>על פי אתרה האישי, ד"ר ברקוביץ'-רומנו מחזיקה ברקע אקדמי נרחב בתחומי המגדר והמיניות:</p>
+<ul>
+<li><strong>דוקטורט (Ph.D.)</strong> במגדר וחינוך מיני — אוניברסיטת חיפה</li>
+<li><strong>תואר שני (M.A.)</strong> בחינוך מיני — אוניברסיטת ניו יורק (NYU)</li>
+<li><strong>תואר ראשון (B.A.)</strong> בפסיכולוגיה וחינוך — אוניברסיטת חיפה</li>
+</ul>
+<blockquote>"ד"ר אדוה ברקוביץ'-רומנו היא חוקרת ומרצה בתחומי מגדר ומיניות, בעלת תואר דוקטור במגדר וחינוך מיני מאוניברסיטת חיפה."<br><span class="source-tag">אתר אישי, "אודות"</span></blockquote>
+
+<h3>תפקידים אקדמיים</h3>
+<ul>
+<li><strong>מרצה</strong> באוניברסיטת חיפה ובמכללת אורנים</li>
+<li><strong>עמיתת מחקר</strong> במרכז לחקר מיניות, מגדר ותרבות באוניברסיטת חיפה</li>
+</ul>
+</div>
+
+  <div class="section" id="section-3">
+<h2>מקורות מימון</h2>
+<p>התוכנית מאושרת במערכת הגפ"ן של משרד החינוך, מה שמאפשר לבתי ספר לממן אותה מתקציבם הציבורי המוקצה להם.</p>
+
+<table>
+<tr><th>מקור</th><th>פרטים</th></tr>
+<tr><td>תקציב גפ"ן</td><td>1,200 ש"ח לשעת פעילות</td></tr>
+<tr><td>קרנות זרות (NIF, EU)</td><td>לא נמצא מימון ישיר מקרנות זרות עבור התוכנית בבתי ספר</td></tr>
+<tr><td>מימון עיקרי</td><td>תקציבי הגפ"ן של בתי הספר עצמם</td></tr>
+</table>
+
+<blockquote>"עלות: 1,200 ש"ח לשעת פעילות"<br><span class="source-tag">קטלוג גפ"ן, תוכנית 22604</span></blockquote>
+</div>
+
+  <div class="section" id="section-4">
+<h2>תוכן בפועל — מה מלמדים בכיתות</h2>
+<p>התוכנית מיועדת לתלמידי חטיבת ביניים ותיכון (ז'-י"ב) ומשלבת "חינוך למיניות בריאה" ו"יזמות חברתית".</p>
+
+<blockquote>"התוכנית 'יזמות מגדר ומיניות בריאה' מיועדת לתלמידי חטיבת ביניים ותיכון (ז'-י"ב). התוכנית משלבת חינוך למיניות בריאה ויזמות חברתית. מטרת התוכנית היא להעניק לתלמידים ידע, כלים ומיומנויות בתחומי מגדר ומיניות, תוך פיתוח חשיבה ביקורתית, מודעות אישית ואחריות חברתית."<br><span class="source-tag">קטלוג גפ"ן, תוכנית 22604</span></blockquote>
+
+<h3>נושאי הליבה</h3>
+<ul>
+<li><strong>"הבנייה חברתית של מגדר ומיניות"</strong> — "התוכנית עוסקת בהבנייה החברתית של מגדר ומיניות, בסטריאוטיפים מגדריים, באלימות מגדרית, ובזכויות מיניות."</li>
+<li><strong>"זהות מינית ומגדרית"</strong> — "התוכנית מעודדת את התלמידים/ות לחקור את זהותם/ן המינית והמגדרית, ולפתח הבנה וקבלה כלפי מגוון זהויות."</li>
+<li><strong>"תקשורת בריאה ויחסים"</strong> — "התוכנית מקנה כלים לתקשורת בריאה ביחסים, להסכמה מינית, ולמניעת אלימות."</li>
+<li><strong>"יזמות חברתית"</strong> — "התוכנית מעודדת את התלמידים/ות לזהות סוגיות חברתיות הקשורות למגדר ומיניות בסביבתם/ן, ולפתח פרויקטים יזמיים לקידום שינוי חיובי."</li>
+</ul>
+
+<h3>"חשיבה ביקורתית ומודעות אישית" — על מה?</h3>
+<ul>
+<li><strong>ניתוח סטריאוטיפים מגדריים</strong> — "התוכנית מפתחת חשיבה ביקורתית כלפי סטריאוטיפים מגדריים ותפקידי מגדר מסורתיים."</li>
+<li><strong>הבנת הבנייה חברתית של מיניות</strong> — "הבנת האופן שבו החברה מעצבת תפיסות מיניות."</li>
+<li><strong>מודעות לזכויות מיניות</strong> — "הכרת הזכויות המיניות של כל אדם."</li>
+<li><strong>פיתוח מיומנויות תקשורת</strong> — "כלים לשיח פתוח וכנה על מיניות, גבולות והסכמה."</li>
+</ul>
+
+<div class="thesis">
+<strong>הערת מחקר:</strong> המושג "הבנייה חברתית של מגדר ומיניות" משמעו שמגדר ומיניות אינם ביולוגיים בלבד אלא "מעוצבים על ידי החברה". בהקשר של בית ספר ציבורי, גישה זו מציגה תפקידי מגדר מסורתיים כ"סטריאוטיפים" שיש לפרק, ולא כמסגרת ערכית לגיטימית. ההורים עשויים לצפות ל"חינוך מיני" בהגדרה צרה יותר — ביולוגיה, בריאות, מניעת פגיעה — ולא בהכרח לתוכנית המעודדת "חקירה" של זהות מגדרית ומינית.
+</div>
+</div>
+
+  <div class="section" id="section-5">
+<h2>קשרים אידיאולוגיים</h2>
+<p>ד"ר ברקוביץ'-רומנו פעילה ומוכרת בתחום החינוך המיני בישראל, וקשריה האידיאולוגיים ניכרים דרך שותפויות מקצועיות, הצהרות ציבוריות והשתתפות בכנסים.</p>
+
+<h3>קשר ל-SEI (האגודה הישראלית לחינוך מיני)</h3>
+<p>ד"ר ברקוביץ'-רומנו היא <strong>חברת ועד מנהל</strong> ב-SEI — האגודה הישראלית לחינוך מיני.</p>
+
+<div class="thesis">
+<strong>חשוב:</strong> SEI = "Sexuality Education Israel" (האגודה הישראלית לחינוך מיני). ארגון זה קשור באופן הדוק ל"עמותת תודעה" / "מהפך תודעתי" (ע"ר 580665345 — ראו <a href="deep_Mahapach_Todaati.html">דוח מחקר עומק: מהפך תודעתי</a>). הקשר של ד"ר ברקוביץ'-רומנו ל-SEI ממקם אותה במרכז הרשת הארגונית של חינוך מיני מקיף (CSE) בישראל.
+</div>
+
+<h3>רשת הקשרים</h3>
+<table>
+<tr><th>ארגון / גוף</th><th>אופי הקשר</th></tr>
+<tr><td>SEI — האגודה הישראלית לחינוך מיני</td><td>חברת ועד מנהל</td></tr>
+<tr><td>אוניברסיטת חיפה</td><td>מרצה ועמיתת מחקר</td></tr>
+<tr><td>מכללת אורנים</td><td>מרצה</td></tr>
+<tr><td>המרכז לחקר מיניות, מגדר ותרבות</td><td>עמיתת מחקר</td></tr>
+</table>
+</div>
+
+  <div class="section" id="section-6">
+<h2>מסקנות</h2>
+<p>ד"ר אדוה ברקוביץ'-רומנו מפעילה תוכנית חינוך מיני בבתי ספר ציבוריים דרך מערכת הגפ"ן, תחת הכותרת "יזמות מגדר ומיניות בריאה". התוכנית מתוקצבת מכספי ציבור (1,200 ש"ח לשעה) ומיועדת לתלמידים מגיל חטיבת ביניים.</p>
+
+<p>בעוד שהכותרת "מיניות בריאה" מרמזת על תוכן הגנתי-בריאותי, התוכן בפועל כולל עיסוק ב"הבנייה חברתית של מגדר ומיניות", עידוד "חקירת" זהות מינית ומגדרית, ו"חשיבה ביקורתית כלפי סטריאוטיפים מגדריים ותפקידי מגדר מסורתיים".</p>
+
+<p>הקשר הארגוני המרכזי הוא חברותה של ד"ר ברקוביץ'-רומנו בוועד המנהל של SEI — האגודה הישראלית לחינוך מיני, המקדמת את מודל ה-CSE (חינוך מיני מקיף) כפי שהוגדר על ידי ארגון הבריאות העולמי.</p>
+
+<div class="thesis">
+<strong>שאלות פתוחות:</strong> 1) באילו בתי ספר וערים פועלת התוכנית בפועל? 2) מהם חומרי הלימוד המדויקים שנמסרים לתלמידים? 3) האם ההורים מקבלים מידע מפורט על התכנים (כולל "הבנייה חברתית של מגדר" ו"חקירת זהות מינית") לפני אישור השתתפות ילדיהם?
+</div>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | מקורות: קטלוג גפ"ן (תוכנית 22604), אתר אישי advaberko.com | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

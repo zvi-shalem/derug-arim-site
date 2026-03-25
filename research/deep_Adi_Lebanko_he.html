@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עדי לבנקו — לומדים אחרת — דוח מחקר מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.risk-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85em; font-weight: 600; margin-top: 10px;
+}
+.risk-high { background: #e74c3c; color: #fff; }
+.risk-medium { background: #f39c12; color: #fff; }
+.risk-low { background: #27ae60; color: #fff; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section h4 { font-size: 1em; color: #444; margin: 14px 0 6px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+code {
+  background: #f0f0f0; padding: 1px 5px; border-radius: 3px;
+  font-size: 0.9em;
+}
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px; text-decoration: none;
+}
+.source-tag:hover { background: #d0dff0; }
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav {
+    padding: 8px 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero {
+    padding: 24px 14px 20px;
+  }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר מעמיק</span>
+  <a href="../">חזרה לדירוג</a>
+  <a href="../research/">כל הדוחות</a>
+  <span class="nav-sections"><a href="#section-1">1. מי הוא עדי לבנקו?</a> <a href="#section-2">2. מבנה עסקי</a> <a href="#section-3">3. ניתוח תוכן התוכנית</a> <a href="#section-4">4. רשת והיקף פעילות</a> <a href="#section-5">5. סטטוס בקטלוג גפ"ן</a> <a href="#section-6">6. הערכת תוכן ערכי/אידיאולוגי</a> <a href="#section-7">7. הערכת סיכון</a> <a href="#section-8">8. שאלות פתוחות</a> <a href="#section-9">9. סיכום מקורות</a> <a href="#section-10">10. שורה תחתונה</a></span>
+</nav>
+
+<div class="hero">
+  <h1>עדי לבנקו — לומדים אחרת</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+  <div class="subtitle">תוכנית: "לומדים איך ללמוד ולהצליח! (אסטרטגיות למידה המאה ה-21)"</div>
+  <div class="meta">תאריך מחקר: 17.02.2026</div>
+
+</div>
+
+<div class="container">
+  <a href="../research/" class="back-link">← כל דוחות המחקר</a>
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>עדי לבנקו — לומדים אחרת</td></tr>
+      <tr><td>שם באנגלית</td><td>Adi Levenko — Learning Differently</td></tr>
+      <tr><td>סוג</td><td>ספק עצמאי (עוסק)</td></tr>
+      <tr><td>תקציב גפ"ן</td><td>85,645 ש"ח (52 בתי ספר, 10 ערים)</td></tr>
+      <tr><td>תוכניות גפ"ן</td><td>3 תוכניות (מספרים 7646, 33088, 33140)</td></tr>
+      <tr><td>רמת סיכון</td><td>1/5 — סיכון נמוך מאוד</td></tr>
+    </table>
+  </div>
+  <div class="toc"><h2>תוכן עניינים</h2><ol><li><a href="#section-1">1. מי הוא עדי לבנקו?</a></li><li><a href="#section-2">2. מבנה עסקי</a></li><li><a href="#section-3">3. ניתוח תוכן התוכנית: "אסטרטגיות למידה של המאה ה-21"</a></li><li><a href="#section-4">4. רשת והיקף פעילות</a></li><li><a href="#section-5">5. סטטוס בקטלוג גפ"ן</a></li><li><a href="#section-6">6. הערכת תוכן ערכי/אידיאולוגי</a></li><li><a href="#section-7">7. הערכת סיכון</a></li><li><a href="#section-8">8. שאלות פתוחות</a></li><li><a href="#section-9">9. סיכום מקורות</a></li><li><a href="#section-10">10. שורה תחתונה</a></li></ol></div>
+  <div class="section" id="section-1">
+<h2>1. מי הוא עדי לבנקו?</h2>
+<h3>פרופיל אישי</h3>
+<ul>
+<li><strong>שם מלא:</strong> עדי לבנקו (Adi Levenko/Lebanko)</li>
+<li><strong>מגדר:</strong> גבר (מופיע בלשון זכר בכל המקורות)</li>
+<li><strong>בסיס פעילות:</strong> רחובות (מרכז למידה); בעבר רשום בגבעתיים (שיעורים פרטיים)</li>
+<li><strong>אתר אינטרנט:</strong> <a href="https://www.levenko.co.il/" target="_blank" rel="noopener">levenko.co.il</a> (מבוסס Wix, "קשב וריכוז | עדי לבנקו לומדים אחרת")</li>
+<li><strong>יצירת קשר:</strong> וואטסאפ: 972-52-830-8144 | דוא"ל: 345mail@gmail.com</li>
+<li><strong>נוכחות דיגיטלית:</strong> חשבון מפרסם ב-Calameo (מזהה 4921855), לוחות Padlet לשימוש כיתתי</li>
+</ul>
+<h3>השכלה</h3>
+<table>
+<tr><th>תואר</th><th>מוסד</th><th>הערות</th></tr>
+<tr><td><strong>תואר שני (M.A.) בחינוך</strong></td><td>האוניברסיטה הפתוחה</td><td>בהצטיינות</td></tr>
+<tr><td><strong>תואר ראשון (B.A.) בפסיכולוגיה וסוציולוגיה</strong></td><td>אוניברסיטת תל אביב</td><td>בהצטיינות</td></tr>
+<tr><td><strong>הסמכת אימון (קואצ׳ינג)</strong></td><td>תוכנית הכשרת מאמנים, אוניברסיטת תל אביב</td><td>אימון אישי/ניהולי</td></tr>
+</table>
+<h3>רקע מקצועי</h3>
+<ul>
+<li><strong>תחילת הקריירה:</strong> מורה לעברית — לימד אלפי תלמידים שנערכו לבגרויות, במיוחד תלמידים עם לקויות למידה והפרעות קשב (ADHD)</li>
+<li><strong>התמחויות:</strong> אסטרטגיות למידה, אימון ADHD, קשב וריכוז, אבחונים דידקטיים ופסיכו-דידקטיים</li>
+<li><strong>מגדיר את עצמו כ:</strong> "מומחה לאסטרטגיות למידה, מאמן אישי ומנחה סדנות והשתלמויות למורים, הורים, תלמידים וסטודנטים"</li>
+</ul>
+<h3>שיוך מוסדי (הרצאות/הכשרות)</h3>
+<ul>
+<li><strong>מכללת אורנים</strong> — מרצה</li>
+<li><strong>מכללת הרצוג</strong> — מרצה</li>
+<li><strong>מכללת לוינסקי-וינגייט</strong> — מרצה</li>
+<li><strong>אגודת ניצן</strong> — עבודה עם תלמידים עם לקויות למידה</li>
+<li><strong>סמינר שעין</strong> — מוביל קורס פיתוח מקצועי למורים "המורה כמאמן — למידה אפקטיבית", קוד 92790, 30 שעות, למורי תוכנית הילה</li>
+<li><strong>תיכון אנקורי</strong> — ניסיון הוראה</li>
+<li><strong>המכללה לניהול</strong> — ניסיון הוראה</li>
+<li><strong>קמפוס רמלה-השפלה</strong> — רכז פדגוגי להוראת עברית ומתמטיקה; עבד עם ילדים ממוצא אתיופי ותלמידים עולים מחבר העמים</li>
+<li><strong>מרכזי פסג"ה</strong> — הרצאות ברחבי הארץ</li>
+</ul>
+<h3>הערכה</h3>
+<p>ללבנקו <strong>רקע מקצועי לגיטימי ומתועד היטב</strong> בתחום החינוך המיינסטרימי. התואר השני שלו בחינוך והתואר הראשון בפסיכולוגיה ממוסדות ישראליים מוכרים, בשילוב עם עשרות שנות ניסיון הוראה מעשי, מסמיכים אותו כאיש חינוך סטנדרטי. הסמכת הקואצ׳ינג מאוניברסיטת תל אביב מוסיפה ממד של פיתוח מקצועי אך נשארת במסגרות חינוך סטנדרטיות.</p>
+
+</div>
+<div class="section" id="section-2">
+<h2>2. מבנה עסקי</h2>
+<h3>סוג ישות: עוסק</h3>
+<ul>
+<li><strong>שם מותג:</strong> "לומדים אחרת" (Learning Differently)</li>
+<li><strong>סטטוס בקטלוג גפ"ן:</strong> ספק רשום במערכת הרכש גפ"ן של משרד החינוך</li>
+<li><strong>סיווג ישות (לפי 2school):</strong> "חיצוני — מגזר עסקי", "לא משויך למשרד"</li>
+<li><strong>לא רשומה עמותה</strong> — לא נמצא רישום ב-GuideStar Israel</li>
+<li><strong>לא נמצאה חברה בע"מ</strong> בשם זה</li>
+</ul>
+<h3>תוכניות רשומות בגפ"ן (3 תוכניות)</h3>
+<table>
+<tr><th>#</th><th>שם התוכנית</th><th>מזהה תוכנית</th><th>תיאור</th></tr>
+<tr><td>1</td><td><strong>לומדים איך ללמוד ולהצליח! (אסטרטגיות למידה המאה ה-21)</strong></td><td>7646</td><td>התוכנית הנבדקת — אסטרטגיות למידה</td></tr>
+<tr><td>2</td><td><strong>בינה מלאכותית — זה העתיד! (פיתוח מיומנויות חשיבה גבוהות)</strong></td><td>33088</td><td>כלי בינה מלאכותית לפיתוח מיומנויות חשיבה מסדר גבוה</td></tr>
+<tr><td>3</td><td><strong>חיזוק מהליבה</strong></td><td>33140</td><td>"חיזוק מהליבה" — פרטים לא אוחזרו</td></tr>
+</table>
+<h3>ניתוח פיננסי</h3>
+<ul>
+<li><strong>תקציב בנתונים:</strong> 85,645 ₪ ב-52 בתי ספר ב-10 ערים</li>
+<li><strong>ממוצע לבית ספר:</strong> 1,647 ₪</li>
+<li><strong>ממוצע לעיר:</strong> 8,565 ₪</li>
+<li><strong>הערכה:</strong> מדובר ב<strong>תקציב צנוע ביותר</strong>. בכ-1,647 ₪ לבית ספר, סביר שמדובר ב-1-2 מפגשי סדנה לכל היותר לכל בית ספר. להשוואה, הקצאת גפ"ן לתלמיד היא 11,500 ₪ — כלומר כל תקציב 52 בתי הספר של ספק זה שווה ערך למה שמביאים לערך 7-8 תלמידים למערכת.</li>
+<li><strong>השלכה על הכנסות:</strong> 85 אלף ₪ אינם מספיקים לקיום עסק במשרה מלאה. מדובר בבירור בהכנסה משלימה לצד פרקטיקת השיעורים הפרטיים שלו (levenko.co.il), הרצאות במכללות ועבודת הכשרת מורים. זה עולה בקנה אחד עם מודל של עוסק עצמאי.</li>
+</ul>
+<h3>הערת השוואה</h3>
+<p>חברה אחרת, <strong>"איזי ווי בע"מ" (Eazy Way Ltd., ח.פ. 512907122)</strong>, מציעה תוכנית בשם דומה (הקניית אסטרטגיות למידה — "הקניית אסטרטגיות למידה", תוכנית מס' 8844) בגפ"ן. מדובר ב<strong>ישות שונה</strong> — חברה בע"מ המציעה סדנות מתחרות בתחום אסטרטגיות למידה. דבר זה מאשר שבתחום פועלים מספר ספקים, ולבנקו אינו ייחודי במרחב הזה.</p>
+
+</div>
+<div class="section" id="section-3">
+<h2>3. ניתוח תוכן התוכנית: "אסטרטגיות למידה של המאה ה-21"</h2>
+<h3>מה התוכנית מלמדת בפועל</h3>
+<p>על סמך כל העדויות הזמינות, התוכנית מכסה <strong>מיומנויות לימודיות/אקדמיות בלבד</strong>:</p>
+<ul>
+<li><strong>תפקוד ומנגנוני זיכרון</strong> — כיצד פועלים קידוד, אחסון ושליפת מידע</li>
+<li><strong>ארגון מידע</strong> — שיטות לסיכום, רישום הערות ועיבוד חומר</li>
+<li><strong>זיהוי סגנון למידה</strong> — הכרת העדפות הלמידה האישיות</li>
+<li><strong>ניהול זמן</strong> — תכנון לוח זמנים, הימנעות מדחיינות, תעדוף משימות</li>
+<li><strong>טכניקות למידה</strong> — הכנה למבחנים, הרגלי למידה שוטפת מול שינון של הרגע האחרון</li>
+<li><strong>הבנת הנקרא וכישורי כתיבה</strong> — אוריינות אקדמית בסיסית</li>
+<li><strong>מטא-קוגניציה</strong> — הוראת תלמידים לחשוב על איך הם חושבים ולומדים</li>
+<li><strong>למידה מווסתת עצמית</strong> — לקיחת אחריות על תהליך הלמידה האישי</li>
+</ul>
+<h3>מה התוכנית אינה מכילה (לא נמצאו עדויות)</h3>
+<ul>
+<li><strong>אין תוכן ערכי/אידיאולוגי</strong> — אפס התייחסויות לדמוקרטיה, שוויון, צדק חברתי, ערכים יהודיים, זהות או נושאים פוליטיים כלשהם</li>
+<li><strong>אין למידה חברתית-רגשית (SEL)</strong> — אין אזכור של ויסות רגשי, אמפתיה, מיומנויות חברתיות, בניית מערכות יחסים</li>
+<li><strong>אין תוכן מגדרי/מיני</strong></li>
+<li><strong>אין תוכן אזרחי</strong></li>
+<li><strong>אין תוכן של שלום/דו-קיום</strong></li>
+<li><strong>אין תוכן דתי או אנטי-דתי</strong></li>
+<li><strong>אין מסרים סביבתיים/קיימות</strong></li>
+</ul>
+<h3>המיתוג "המאה ה-21" — ניתוח</h3>
+<p>הביטוי "אסטרטגיות למידה המאה ה-21" בשם התוכנית מצריך בחינה, כיוון ש"מיומנויות המאה ה-21" הוא מונח טעון בשיח החינוכי הישראלי. עם זאת:</p>
+<p><strong>המונח כפי שלבנקו משתמש בו</strong> נראה כ<strong>שפה שיווקית</strong> ולא הזדהות אידיאולוגית. התוכן בפועל מתמקד במיומנויות למידה מסורתיות (זיכרון, ניהול זמן, הכנה לבחינות) שנארזו מחדש במסגרת עכשווית. זה נפוץ בקרב ספקי גפ"ן שצריכים להתאים את שמות התוכניות שלהם למילות באזז של משרד החינוך כדי למשוך רכישות של בתי ספר.</p>
+<p><strong>הנוף הרחב של "מיומנויות המאה ה-21" בישראל:</strong></p>
+<ul>
+<li>משרד החינוך הישראלי אימץ מסגרות מיומנויות המאה ה-21 מבוססות על P21 (שותפות ללמידת המאה ה-21) ומודלים של ה-OECD</li>
+<li>מסגרת ה-4Cs של P21: חשיבה ביקורתית (Critical thinking), יצירתיות (Creativity), שיתוף פעולה (Collaboration), תקשורת (Communication)</li>
+<li>"דמות הבוגר" של משרד החינוך 2020-2030 משלבת מיומנויות אלו לצד ערכים כמו "מחויבות לערכי מדינת ישראל כמדינה יהודית ודמוקרטית"</li>
+<li>למידה חברתית-רגשית (SEL) הפכה משולבת יותר ויותר במדיניות משרד החינוך (שפ"י — השירות הפסיכולוגי-ייעוצי)</li>
+<li>מחקר אקדמי (למשל, "Adapting the Education System to 21st Century Skills: The Case of Israel," EU-JER) מציין <strong>פער בין המדיניות ההצהרתית ליישום בפועל</strong></li>
+</ul>
+<p><strong>הבחנה מרכזית:</strong> מסגרת "המאה ה-21" הרחבה של משרד החינוך <em>כן</em> כוללת מרכיבי ערכים ו-SEL ברמת המדיניות. אך התוכנית הספציפית של לבנקו מתמקדת רק ב<strong>תת-הקבוצה הקוגניטיבית/מטא-קוגניטיבית</strong> — טכניקות למידה, אסטרטגיות זיכרון, ניהול זמן. הוא אינו פועל במרחב ה-SEL או הערכים.</p>
+<h3>קשר למסגרות OECD/UNESCO</h3>
+<ul>
+<li><strong>OECD Education 2030 / מצפן הלמידה</strong> — ישראל משתתפת במסגרת זו, המדגישה כשירויות לתלמידים "לנווט לעבר רווחה"</li>
+<li><strong>UNESCO Education 2030 / יעד פיתוח בר-קיימא 4</strong> — חינוך איכותי לכולם</li>
+<li><strong>מסגרת P21</strong> — המודל הדומיננטי במסמכי מדיניות של משרד החינוך הישראלי</li>
+<li><strong>הקשר של לבנקו:</strong> שטחי/מיתוגי בלבד. תוכן התוכנית שלו הוא הכשרת מיומנויות למידה רגילה שיכלה להתקיים ללא שינוי ב-1995. התווית "המאה ה-21" היא אריזה עכשווית.</li>
+</ul>
+
+</div>
+<div class="section" id="section-4">
+<h2>4. רשת והיקף פעילות</h2>
+<h3>כיצד אדם בודד בנה רשת של 10 ערים?</h3>
+<p>זה בעצם <strong>לא יוצא דופן</strong> עבור ספק גפ"ן. המנגנון פשוט:</p>
+<ol>
+<li><strong>הכללה בקטלוג גפ"ן</strong> — ברגע שאושרת כספק גפ"ן, כל בית ספר בישראל יכול לבחור את התוכנית שלך באמצעות תקציב הגפ"ן המוקצה לו. בתי ספר גולשים בקטלוג ובוחרים.</li>
+<li><strong>עלות יחידה נמוכה</strong> — בכ-1,647 ₪ לבית ספר, מדובר ככל הנראה ביום סדנה בודד. בתי הספר מסתכנים מעט מאוד בניסיון.</li>
+<li><strong>רשת הרצאות במכללות</strong> — לבנקו מרצה באורנים, הרצוג, לוינסקי-וינגייט ומרכזי פסג"ה ברחבי הארץ. אלה בדיוק המקומות שבהם מנהלי בתי ספר ומורים נחשפים לספקי גפ"ן חדשים. זה יוצר שיווק מפה לאוזן אורגני.</li>
+<li><strong>קשר לאגודת ניצן</strong> — עבודה עם אגודת לקויות הלמידה הגדולה בישראל מעניקה גישה לרשת ארצית של בתי ספר המשרתים תלמידים עם לקויות למידה.</li>
+<li><strong>נוכחות דיגיטלית באמצעות Padlet</strong> — עדויות לשימוש בכלים דיגיטליים (לוחות Padlet, פרסומי Calameo) לשיתוף חומרים עם משתתפי סדנאות, ליצירת מעורבות מתמשכת.</li>
+</ol>
+<p><strong>הערכה:</strong> 52 בתי ספר ב-10 ערים הם <strong>היקף פעילות צנוע</strong> עבור ספק גפ"ן. הספקים הגדולים ביותר פועלים במאות בתי ספר. זה עולה בקנה אחד עם מודל פעולה של עוסק עצמאי.</p>
+
+</div>
+<div class="section" id="section-5">
+<h2>5. סטטוס בקטלוג גפ"ן</h2>
+<h3>מאושר: ספק פעיל במערכת גפ"ן</h3>
+<ul>
+<li><strong>תוכניות בקטלוג:</strong> לפחות 3 (מזהים 7646, 33088, 33140)</li>
+<li><strong>מסלול רכש:</strong> מסלול מאגר (רכש מקטלוג)</li>
+<li><strong>שיוך למשרד:</strong> אין — מסווג כספק חיצוני, מגזר עסקי</li>
+<li><strong>מדדי איכות:</strong> הימצאות בקטלוג גפ"ן מחייבת אישור משרד החינוך לתוכן התוכנית ולכישורי הספק. זהו רף איכות בסיסי, לא אישור ברמה גבוהה.</li>
+</ul>
+<h3>הקשר מערכת גפ"ן</h3>
+<ul>
+<li><strong>סה"כ תוכניות גפ"ן:</strong> למעלה מ-30,000 מלמעלה מ-6,200 ספקים</li>
+<li><strong>בתי ספר משתתפים:</strong> כ-5,600</li>
+<li><strong>תקציב לתלמיד:</strong> 11,500 ₪ מוקצים לבתי ספר לרכישות גפ"ן</li>
+<li><strong>משמעויות:</strong> הכללה בגפ"ן פירושה שמשרד החינוך בחן ואישר את תוכן התוכנית כמתאים חינוכית. זה לא אומר שמשרד החינוך מאמץ את הפדגוגיה הספציפית, מבטיח תוצאות, או מפעיל פיקוח שוטף על ההעברה.</li>
+</ul>
+
+</div>
+<div class="section" id="section-6">
+<h2>6. הערכת תוכן ערכי/אידיאולוגי</h2>
+<h3>פסק דין: לא זוהה תוכן ערכי</h3>
+<p>לאחר חיפוש ממצה ב:</p>
+<ul>
+<li>תוכן האתר הרשמי</li>
+<li>תיאורים בקטלוג גפ"ן</li>
+<li>תיאורי קורס הכשרת מורים (סמינר שעין, קוד 92790)</li>
+<li>חומרי campus.gov.il</li>
+<li>פוסטים בבלוג</li>
+<li>לוחות Padlet</li>
+<li>התייחסויות וציטוטים ציבוריים</li>
+</ul>
+<p><strong>לא נמצא תוכן אידיאולוגי, פוליטי, דתי, מגדרי, זהותי או ערכי.</strong> התוכנית היא פדגוגית בלבד — ממוקדת במיומנויות למידה, מטא-קוגניציה והישגים אקדמיים.</p>
+<h3>השוואה עם תוכניות SEL/ערכים</h3>
+<p>בניגוד לתוכניות גפ"ן רבות המשלבות תוכן ערכי (חינוך דמוקרטי, צדק חברתי, זהות, שוויון מגדרי, מודעות סביבתית), התוכנית של לבנקו עוסקת <strong>באופן מפורש ובלעדי בטכניקות למידה</strong>. הפילוסופיה המוצהרת שלו:</p>
+<blockquote>"אסטרטגיות למידה אפקטיביות הן המפתח להישגים אקדמיים גבוהים, עצמאות ותחושת מסוגלות"</blockquote>
+<p>זוהי מסגרת <strong>תועלתנית, ממוקדת תוצאות</strong> — לא מסגרת מונעת ערכים.</p>
+
+</div>
+<div class="section" id="section-7">
+<h2>7. הערכת סיכון</h2>
+<h3>דירוג מקורי: 3/5 — נראה גבוה מדי</h3>
+<table>
+<tr><th>ממד סיכון</th><th>הערכה</th><th>ציון</th></tr>
+<tr><td><strong>תוכן אידיאולוגי</strong></td><td>לא זוהה</td><td>0/5</td></tr>
+<tr><td><strong>אטימות ארגונית</strong></td><td>נמוכה — עוסק, ללא מבנה ישותי מורכב</td><td>1/5</td></tr>
+<tr><td><strong>חששות פיננסיים</strong></td><td>אין — תקציב צנוע, שירות פשוט תמורת תשלום</td><td>0/5</td></tr>
+<tr><td><strong>קשרי ממשל</strong></td><td>ספק גפ"ן סטנדרטי — ללא גישה מיוחדת</td><td>1/5</td></tr>
+<tr><td><strong>סיכון איכות תוכן</strong></td><td>בינוני — לתוכניות מיומנויות למידה בסיס ראייתי מעורב, אך אין תוכן מזיק</td><td>2/5</td></tr>
+<tr><td><strong>חשש מרשת/היקף</strong></td><td>52 בתי ספר — היקף צנוע</td><td>1/5</td></tr>
+<tr><td><strong>סיכון ממסגור "המאה ה-21"</strong></td><td>שפה שיווקית בלבד; התוכן הוא מיומנויות למידה רגילות</td><td>1/5</td></tr>
+</table>
+<h3>דירוג סיכון מומלץ: 1/5</h3>
+<p><strong>נימוק:</strong> מדובר באיש חינוך בודד המציע סדנאות מיומנויות למידה לבתי ספר דרך מנגנון גפ"ן הסטנדרטי. התוכן הוא אקדמי בלבד, התקציב מינימלי, אין מורכבות ארגונית, ואין תוכן ערכי/אידיאולוגי. הדאגה הפוטנציאלית היחידה היא האופי הגנרי של תוכניות "אסטרטגיות למידה" (ראיות מעורבות ליעילות), אך זהו חשש איכותי, לא חשש סיכוני.</p>
+
+</div>
+<div class="section" id="section-8">
+<h2>8. שאלות פתוחות</h2>
+<ol>
+<li><strong>גודל צוות:</strong> באתר יש עמוד "צוות" (levenko.co.il/staff) אך לא ניתן היה לרנדר אותו (רינדור JS של Wix). האם יש לו עובדים או רק קבלני משנה? בתקציב כולל של 85 אלף ₪, סביר שהוא מעביר את התוכניות באופן אישי.</li>
+<li><strong>תוכנית מס' 33140 ("חיזוק מהליבה"):</strong> פרטים לא אוחזרו. שווה לבדוק אם לתוכנית זו מוקד תוכן שונה.</li>
+<li><strong>פרסומי Calameo:</strong> חשבון ה-Calameo קיים אך לא ניתן היה לחלץ את התוכן. עשוי להכיל חומרים נוספים שכדאי לסקור.</li>
+<li><strong>ערים מדויקות:</strong> 10 הערים שבהן פועל לא מזוהות בנתונים הזמינים. אלה ככל הנראה מתואמות עם ערים שבהן הוא מרצה במכללות/מרכזי פסג"ה.</li>
+<li><strong>חפיפה בין פרקטיקה פרטית לגפ"ן:</strong> האם אותו תוכן מועבר באופן פרטי (בתעריפים גבוהים יותר) ודרך גפ"ן? דפוס נפוץ, לא בעייתי.</li>
+</ol>
+
+</div>
+<div class="section" id="section-9">
+<h2>9. סיכום מקורות</h2>
+<h3>מקורות ראשוניים</h3>
+<ul>
+<li><a href="https://www.levenko.co.il/" target="_blank" rel="noopener">levenko.co.il</a> — אתר רשמי</li>
+<li><a href="https://www.2school.co.il/InterData/iihnn/" target="_blank" rel="noopener">2school.co.il — תוכנית AI מס' 33088</a> — רישום בקטלוג גפ"ן</li>
+<li><a href="https://padlet.com/adilevenko/v996s6tis8ocm2iq" target="_blank" rel="noopener">לוח Padlet</a> — חומרי כיתה</li>
+<li><a href="https://www.calameo.com/accounts/4921855" target="_blank" rel="noopener">פרופיל Calameo</a> — פרסומים</li>
+<li><a href="https://campus.gov.il/en/course/v1labor-gov-learningstrategies-he/" target="_blank" rel="noopener">Campus.gov.il — קורס אסטרטגיות למידה</a> — קשור (ספק אחר, אותו תחום)</li>
+</ul>
+<h3>מקורות הקשר</h3>
+<ul>
+<li><a href="https://meyda.education.gov.il/files/Scientist/21cskills040515.pdf" target="_blank" rel="noopener">המדען הראשי של משרד החינוך — סקירת מחקר מיומנויות המאה ה-21 (PDF)</a></li>
+<li><a href="https://meyda.education.gov.il/files/Planning/dmuthabogeravneiderech.pdf" target="_blank" rel="noopener">דמות הבוגר של משרד החינוך 2020-2030 (PDF)</a></li>
+<li><a href="https://www.eu-jer.com/adapting-the-education-system-to-21st-century-skills-the-case-of-israel" target="_blank" rel="noopener">EU-JER — התאמת מערכת החינוך הישראלית למיומנויות המאה ה-21</a></li>
+<li><a href="https://www.oecd.org/en/publications/21st-century-skills-and-competences-for-new-millennium-learners-in-oecd-countries_218525261154.html" target="_blank" rel="noopener">OECD — מיומנויות וכשירויות המאה ה-21</a></li>
+<li><a href="https://shefi.education.gov.il/top-topics/sel/" target="_blank" rel="noopener">שפ"י משרד החינוך — למידה חברתית-רגשית</a></li>
+<li><a href="https://meyda.education.gov.il/files/PortalBaaluyot/POB/guide-gefen-sapakim.pdf" target="_blank" rel="noopener">מדריך ספקי גפ"ן (PDF)</a></li>
+<li><a href="https://mygefen.co.il/" target="_blank" rel="noopener">mygefen.co.il — קהילת ספקי גפ"ן</a></li>
+</ul>
+
+</div>
+<div class="section" id="section-10">
+<h2>10. שורה תחתונה</h2>
+<p>עדי לבנקו — לומדים אחרת הוא <strong>דוגמה מובהקת לספק גפ"ן קטן, לגיטימי ובעל סיכון נמוך</strong>: איש מקצוע אחד עם הסמכות אמיתיות, המלמד מיומנויות למידה מעשיות, הפועל דרך ערוצי הרכש הסטנדרטיים של משרד החינוך, בעלות מינימלית. המיתוג "המאה ה-21" הוא שיווקי, לא אידיאולוגי. לא זוהו דגלים אדומים. אם בכלל, דירוג הסיכון 3/5 במאגר הנתונים המקורי מנפח את הדאגה — צריך להיות 1/5.</p>
+<p><em>מחקר בוצע ב-17.02.2026 באמצעות חיפוש אינטרנט במקורות בעברית ובאנגלית. רינדור האתר הוגבל על ידי מסגרת JS של Wix.</em></p>
+
+</div>
+</div>
+
+<footer>
+  פרויקט זהות ציונית — דוח מחקר מעמיק | <a href="../">דירוג ערים</a> | <a href="../research/">כל הדוחות</a>
+</footer>
+
+</body>
+</html>

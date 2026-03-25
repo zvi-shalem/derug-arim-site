@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>קרן יוזמות אברהם — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">דיוקן מוסדי</a> <a href="#section-2">פעילות חינוכית</a> <a href="#section-3">מימון וקשרים</a> <a href="#section-4">הזיקה ל-Slifka</a> <a href="#section-5">מבחן אמר-עשה</a> <a href="#section-6">סיכום</a></span>
+</nav>
+
+<div class="hero">
+  <h1>קרן יוזמות אברהם</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">יוזמות אברהם (ע"ר) | Abraham Fund Initiatives | ח"פ 580165256</div>
+  <div class="meta">דוח מחקר עומק | מקור ראשי: מאגר וינברג</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>קרן יוזמות אברהם</td></tr>
+      <tr><td>שם באנגלית</td><td>Abraham Fund Initiatives</td></tr>
+      <tr><td>סוג</td><td>עמותה (ע"ר)</td></tr>
+      <tr><td>ח"פ</td><td>580165256</td></tr>
+      <tr><td>שנת הקמה</td><td>1989</td></tr>
+      <tr><td>מימון</td><td>ממשלות זרות, פילנתרופיה אמריקאית (קרן סליפקא)</td></tr>
+      <tr><td>סיווג</td><td>פרוגרסיבי חתרני — הפער בין המוצהר למעשה</td></tr>
+    </table>
+  </div>
+
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">דיוקן מוסדי: "קרן" שהיא למעשה ארגון פעיל</a></li>
+<li><a href="#section-2">פעילות חינוכית: הכשרת מורים ותוכניות בתי ספר</a></li>
+<li><a href="#section-3">מימון ממשלות זרות ורשת הקשרים הבינלאומית</a></li>
+<li><a href="#section-4">הזיקה ל-Slifka Foundation וליהדות הפרוגרסיבית</a></li>
+<li><a href="#section-5">מבחן אמר-עשה: "דו-קיום" או חתירה תחת ריבונות</a></li>
+<li><a href="#section-6">סיכום וסיווג</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>דיוקן מוסדי: "קרן" שהיא למעשה ארגון פעיל</h2>
+<p>קרן יוזמות אברהם (Abraham Fund Initiatives) הוקמה בשנת 1989 ורשומה כעמותה (ע"ר) תחת ח"פ 580165256. למרות השם "קרן" — שמרמז על גוף מממן פסיבי — זהו ארגון פעיל המפעיל תוכניות חינוכיות ישירות.</p>
+
+<div class="thesis">
+<strong>תיאור וינברג (מאגר DB):</strong> "ארגון שמאל יהודי-ערבי אשר הוקם במטרה לקדם את זכויות הערבים במדינת ישראל, 'זאת לצד מדינה פלסטינית שתתקיים בשלום לצד מדינת ישראל' לדידו של הארגון. הארגון פועל באופן נרחב במערכת החינוך. הארגון פועל במערכת החינוך בהכשרות מורים. <strong>ממומן ע"י ממשלות זרות.</strong>"
+<br><span class="source-tag">מקור: מאגר וינברג, מס"ד 366</span>
+</div>
+
+<table>
+<tr><th>נתון</th><th>פירוט</th></tr>
+<tr><td>שם רשמי</td><td>יוזמות אברהם (ע"ר)</td></tr>
+<tr><td>שם באנגלית</td><td>Abraham Fund Initiatives</td></tr>
+<tr><td>ח"פ</td><td>580165256</td></tr>
+<tr><td>שנת ייסוד</td><td>1989</td></tr>
+<tr><td>סוג ישות</td><td>עמותה</td></tr>
+<tr><td>אתר</td><td>abrahamfund.org</td></tr>
+<tr><td>סיווג וינברג</td><td>"ארגון שמאל יהודי-ערבי"</td></tr>
+<tr><td>מימון חיצוני</td><td>"ממומן ע"י ממשלות זרות"</td></tr>
+</table>
+
+<p>שימו לב לפרט הקריטי: מאגר וינברג מבחין בין "קרן אברהם" (מס"ד 295) — שהיא קרן מממנת, לבין "קרן יוזמות אברהם" (מס"ד 366) — שהיא הארגון הפעיל. זהו הבדל חשוב: הקרן מממנת, הארגון פועל בשטח. שני הגופים נושאים שם דומה, מה שיוצר עמימות מבנית.</p>
+</div>
+
+  <div class="section" id="section-2">
+<h2>פעילות חינוכית: הכשרת מורים ותוכניות בתי ספר</h2>
+<p>מאגר וינברג מציין שני ערוצי חדירה למערכת החינוך:</p>
+
+<h3>1. פעילות נרחבת במערכת החינוך</h3>
+<p>"הארגון פועל באופן נרחב במערכת החינוך" — זו אינה פעילות שולית. הארגון פועל בממשק ישיר עם בתי ספר, מורים ותלמידים ברחבי הארץ.</p>
+<span class="source-tag">מקור: מאגר וינברג, מס"ד 366</span>
+
+<h3>2. הכשרות מורים</h3>
+<p>"הארגון פועל במערכת החינוך בהכשרות מורים" — הכשרת מורים היא הצורה האפקטיבית ביותר של חדירה למערכת: מורה אחד שעבר הכשרה משפיע על מאות תלמידים לאורך הקריירה שלו. אם המורה מקבל "הכשרה" מארגון בעל אג'נדה — כל תלמידיו חשופים לאותה אג'נדה, מבלי שההורים יודעים בהכרח על כך.</p>
+<span class="source-tag">מקור: מאגר וינברג, מס"ד 366</span>
+
+<div class="thesis">
+<strong>המודל:</strong> בדומה למנדל (שמכשיר בכירי משרד החינוך) ולמרחבים (שפועל בקרב עשרות אלפי תלמידים), יוזמות אברהם בוחרת את "צוואר הבקבוק" של הכשרת מורים. מורה שמוכשר על ידי הארגון חוזר לכיתה עם "כלים" ו"מתודולוגיות" שלמעשה מהווים מסגרת ערכית מכוונת.
+</div>
+
+<h3>מטרת הארגון לפי וינברג</h3>
+<blockquote>
+"הוקם במטרה לקדם את זכויות הערבים במדינת ישראל, 'זאת לצד מדינה פלסטינית שתתקיים בשלום לצד מדינת ישראל'."
+<br><span class="source-tag">מקור: מאגר וינברג, מס"ד 366</span>
+</blockquote>
+<p>כלומר: הארגון לא רק עוסק בדו-קיום — הוא מקדם עמדה פוליטית ספציפית (מדינה פלסטינית) דרך מערכת החינוך.</p>
+</div>
+
+  <div class="section" id="section-3">
+<h2>מימון ממשלות זרות ורשת הקשרים הבינלאומית</h2>
+<p>כמו מרחבים, גם יוזמות אברהם <strong>"ממומן ע"י ממשלות זרות"</strong> — ציון מפורש במאגר וינברג.</p>
+
+<h3>מימון ממשלתי זר + הכשרת מורים = השפעה זרה על חינוך</h3>
+<p>כאשר ממשלת זרה מממנת ארגון שמכשיר מורים ישראלים — התוצאה היא שמדיניות חוץ של מדינה אחרת מתורגמת לתוכני חינוך בכיתה הישראלית:</p>
+<ul>
+<li>ממשלת זרה מממנת את הארגון</li>
+<li>הארגון מכשיר מורים ישראלים</li>
+<li>המורים מלמדים תלמידים ישראלים</li>
+<li>התלמידים מפנימים את ה"ערכים" שהארגון הטמיע במורה</li>
+</ul>
+<span class="source-tag">מקור: מאגר וינברג, מס"ד 366</span>
+
+<h3>מבנה דו-שכבתי</h3>
+<p>מאגר וינברג מזהה שלושה גופים הנושאים את שם "אברהם":</p>
+<table>
+<tr><th>ישות</th><th>סוג</th><th>מס"ד</th></tr>
+<tr><td>קרן אברהם (Abraham Fund)</td><td>קרן מממנת</td><td>295</td></tr>
+<tr><td>קרן יוזמות אברהם (Abraham Fund Initiatives)</td><td>ארגון ביצועי</td><td>366</td></tr>
+<tr><td>קרן אברהם גרצמן</td><td>קרן נלווית</td><td>297</td></tr>
+</table>
+<p>כלומר, יש כאן מבנה רב-שכבתי: קרנות מממנות + ארגון ביצועי, הנושאים את אותו שם ופועלים באותו כיוון.</p>
+</div>
+
+  <div class="section" id="section-4">
+<h2>הזיקה ל-Slifka Foundation וליהדות הפרוגרסיבית</h2>
+<p>קרן יוזמות אברהם נוסדה בניו יורק ומקיימת פעילות דואלית בארה"ב ובישראל. קרן סליפקא (Slifka Foundation) היא אחד הגורמים המממנים המשמעותיים ברשת הארגונים היהודית-פרוגרסיבית בארה"ב.</p>
+
+<h3>קרן סליפקא — הרקע</h3>
+<ul>
+<li><strong>אלן סליפקא:</strong> פילנתרופ יהודי-אמריקאי, ממייסדי CLAL (National Jewish Center for Learning and Leadership)</li>
+<li><strong>כיוון המימון:</strong> קרנות סליפקא מממנות ארגונים בתחום "זהות יהודית פלורליסטית", דו-קיום, וחינוך ליברלי</li>
+<li><strong>רשת הקשרים:</strong> CLAL, UJA-Federation, ארגוני "Jewish Pluralism" — כולם בציר הפרוגרסיבי של היהדות האמריקאית</li>
+</ul>
+
+<div class="thesis">
+<strong>הדפוס:</strong> פילנתרופיה יהודית-אמריקאית פרוגרסיבית (סליפקא ודומיה) מממנת ארגון ישראלי (יוזמות אברהם), הארגון מכשיר מורים ומפעיל תוכניות בבתי ספר, והתפיסה הפרוגרסיבית-אמריקאית של "יהדות", "דו-קיום" ו"זכויות מיעוטים" חודרת למערכת החינוך הישראלית. זהו ייצוא ערכים מהתפוצות למערכת החינוך הישראלית.
+</div>
+</div>
+
+  <div class="section" id="section-5">
+<h2>מבחן אמר-עשה: "דו-קיום" או עמדה פוליטית מוסווית</h2>
+
+<h3>מה אומרים</h3>
+<ul>
+<li>"יוזמות אברהם" — נשמע כקרן עם "יוזמות" חיוביות</li>
+<li>"קידום זכויות ערבים" — נשמע כזכויות אזרח לגיטימיות</li>
+<li>"דו-קיום" — ערך שנראה אוניברסלי</li>
+</ul>
+
+<h3>מה עושים</h3>
+<ul>
+<li>מקדמים עמדה פוליטית ספציפית ("מדינה פלסטינית") דרך מערכת החינוך</li>
+<li>מכשירים מורים — הערוץ האפקטיבי ביותר להשפעה ארוכת טווח</li>
+<li>ממומנים על ידי ממשלות זרות</li>
+<li>מבנה דו-שכבתי (קרן + ארגון ביצועי) שמסתיר את שרשרת המימון</li>
+<li>זיקה לפילנתרופיה אמריקאית פרוגרסיבית (Slifka ודומיה)</li>
+</ul>
+
+<div class="thesis">
+<strong>הפער:</strong> יוזמות אברהם מציגה את עצמה כארגון "דו-קיום" ניטרלי. אך בפועל, היא ארגון שמאל (כהגדרת וינברג) שמקדם עמדה פוליטית ספציפית (מדינה פלסטינית), ממומן בידי ממשלות זרות ופילנתרופיה אמריקאית, ומשתמש בהכשרת מורים כדי להחדיר את תפיסת העולם שלו לכיתות ישראליות. השם "קרן" והאריזה של "יוזמות" יוצרים תדמית ניטרלית.
+</div>
+</div>
+
+  <div class="section" id="section-6">
+<h2>סיכום וסיווג</h2>
+
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+
+<h3>נימוקים לסיווג:</h3>
+<ol>
+<li><strong>הגדרת וינברג:</strong> "ארגון שמאל יהודי-ערבי" — סיווג ישיר</li>
+<li><strong>מימון ממשלות זרות:</strong> מימון חיצוני לארגון שמכשיר מורים — השפעה זרה ישירה על חינוך</li>
+<li><strong>חדירה דרך הכשרת מורים:</strong> הערוץ האפקטיבי ביותר להשפעה ארוכת טווח</li>
+<li><strong>עמדה פוליטית עטופה בשפה ניטרלית:</strong> "דו-קיום" כעטיפה, "מדינה פלסטינית" כתוכן</li>
+<li><strong>מבנה מטעה:</strong> השם "קרן" מרמז על גוף מממן, אך זהו ארגון פעיל בשטח</li>
+<li><strong>רשת מימון בינלאומית:</strong> זיקה לפילנתרופיה אמריקאית פרוגרסיבית (Slifka) וממשלות זרות</li>
+</ol>
+
+<h3>מקורות</h3>
+<ul>
+<li>מאגר וינברג — מס"ד 366 (קרן יוזמות אברהם)</li>
+<li>מאגר וינברג — מס"ד 295 (קרן אברהם)</li>
+<li>מאגר וינברג — מס"ד 297 (קרן אברהם גרצמן)</li>
+</ul>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

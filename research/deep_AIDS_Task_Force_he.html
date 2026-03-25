@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הוועד למלחמה באיידס (Israel AIDS Task Force) — דוח מחקר מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.risk-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85em; font-weight: 600; margin-top: 10px;
+}
+.risk-high { background: #e74c3c; color: #fff; }
+.risk-medium { background: #f39c12; color: #fff; }
+.risk-low { background: #27ae60; color: #fff; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section h4 { font-size: 1em; color: #444; margin: 14px 0 6px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+code {
+  background: #f0f0f0; padding: 1px 5px; border-radius: 3px;
+  font-size: 0.9em;
+}
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px; text-decoration: none;
+}
+.source-tag:hover { background: #d0dff0; }
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav {
+    padding: 8px 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero {
+    padding: 24px 14px 20px;
+  }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר מעמיק</span>
+  <a href="../">חזרה לדירוג</a>
+  <a href="../research/">כל הדוחות</a>
+  <span class="nav-sections"><a href="#section-1">1. רישום וזהות משפטית</a> <a href="#section-2">2. כספים ומימון</a> <a href="#section-3">3. הנהגה ומנהיגות</a> <a href="#section-4">4. תוכניות ופעילויות</a> <a href="#section-5">5. אידיאולוגיה</a> <a href="#section-6">6. מימון זר</a> <a href="#section-7">7. מחלוקות ופרשיות</a> <a href="#section-8">8. קשרי ממשל</a> <a href="#section-9">טבלת התאמה ערכית</a> <a href="#section-10">סיכום סיכונים</a> <a href="#section-11">אינדקס מקורות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>הוועד למלחמה באיידס (Israel AIDS Task Force)</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">תוכנית גפן מס' 1102: "התנהגות מינית אחראית"</div>
+  <div class="meta"></div>
+
+</div>
+
+<div class="container">
+  <a href="../research/" class="back-link">← כל דוחות המחקר</a>
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>הוועד למלחמה באיידס</td></tr>
+      <tr><td>שם באנגלית</td><td>Israel AIDS Task Force (IATF)</td></tr>
+      <tr><td>סוג</td><td>עמותה רשומה</td></tr>
+      <tr><td>שנת הקמה</td><td>1985</td></tr>
+      <tr><td>תקציב שנתי</td><td>כ-3.8 מיליון ש"ח (2024)</td></tr>
+      <tr><td>מימון עיקרי</td><td>תרומות ציבוריות (55%), קרנות (12%), הכנסות עצמיות (16%)</td></tr>
+      <tr><td>מימון זר</td><td>הקרן החדשה לישראל (NIF), Gilead Sciences</td></tr>
+      <tr><td>ח"פ</td><td>580104545</td></tr>
+    </table>
+  </div>
+  <div class="toc"><h2>תוכן עניינים</h2><ol><li><a href="#section-1">1. רישום וזהות משפטית</a></li><li><a href="#section-2">2. כספים ומימון</a></li><li><a href="#section-3">3. הנהגה ומנהיגות</a></li><li><a href="#section-4">4. תוכניות ופעילויות</a></li><li><a href="#section-5">5. אידיאולוגיה: ארגון בריאות או כלי סנגור?</a></li><li><a href="#section-6">6. מימון זר</a></li><li><a href="#section-7">7. מחלוקות ופרשיות</a></li><li><a href="#section-8">8. קשרי ממשל</a></li><li><a href="#section-9">טבלת התאמה ערכית</a></li><li><a href="#section-10">סיכום סיכונים ושאלות פתוחות</a></li><li><a href="#section-11">אינדקס מקורות</a></li></ol></div>
+  <div class="section" id="section-1">
+<h2>1. רישום וזהות משפטית</h2>
+<table>
+<tr><th>שדה</th><th>ערך</th></tr>
+<tr><td><strong>שם רשמי (עברית)</strong></td><td>הוועד למלחמה באיידס (ע"ר)</td></tr>
+<tr><td><strong>שם באנגלית</strong></td><td>Israel AIDS Task Force (IATF)</td></tr>
+<tr><td><strong>מספר גיידסטאר ישראל</strong></td><td>580104545</td></tr>
+<tr><td><strong>סוג ישות</strong></td><td>עמותה רשומה</td></tr>
+<tr><td><strong>שנת הקמה</strong></td><td>1985 (פעילות); רישום רשמי 1987 לפי חלק מהמקורות</td></tr>
+<tr><td><strong>כתובת</strong></td><td>הנציב 29א (או הנציב 18 לפי חלק מהמקורות), תל אביב 6701808</td></tr>
+<tr><td><strong>טלפון</strong></td><td>03-5613000</td></tr>
+<tr><td><strong>קו חם</strong></td><td>03-5613300 (א'-ה' 18:00-20:00)</td></tr>
+<tr><td><strong>אתר</strong></td><td>https://www.aidsisrael.org.il/</td></tr>
+<tr><td><strong>דוא"ל</strong></td><td>iatf@aidsisrael.org.il</td></tr>
+<tr><td><strong>תו אפקטיביות מידות</strong></td><td>בתוקף עד יוני 2027</td></tr>
+<tr><td><strong>ציון שקיפות גיידסטאר</strong></td><td>67% (3/5 כוכבים)</td></tr>
+<tr><td><strong>ניתן לניכוי מס ב-</strong></td><td>ישראל, ארה"ב, בריטניה, צרפת</td></tr>
+</table>
+<p><strong>מקורות:</strong></p>
+<ul>
+<li>גיידסטאר ישראל: https://www.guidestar.org.il/organization/580104545</li>
+<li>ישראל גיבס: https://www.israelgives.org/amuta/580104545</li>
+<li>בנביטי: https://causes.benevity.org/causes/376-580104545</li>
+<li>מידות: https://midot.org.il/association/aidsisrael-2</li>
+<li>כל זכות: https://www.kolzchut.org.il/he/הוועד_למלחמה_באיידס</li>
+</ul>
+<h3>היסטוריית הקמה</h3>
+<p>הארגון הוקם בשנת 1985 על ידי קבוצת נשאי HIV ופעילים חברתיים, בתקופה שבה אבחנת HIV נחשבה לגזר דין מוות. בין המייסדים:</p>
+<ul>
+<li><strong>ד"ר חן קוגל</strong> — אחד הרופאים המתנדבים שאייש את מרכז הבדיקות הראשון של הוועד</li>
+<li><strong>שלומי פתיה</strong></li>
+<li><strong>פרופ' צבי בנטוויץ'</strong> (קשור לארגון; ראש מרפאת האיידס בבית החולים קפלן, רחובות)</li>
+<li><strong>מיכה ואן דייק</strong></li>
+<li><strong>ד"ר אבי האסנר</strong></li>
+<li><strong>דן לכמן</strong> — מיוחס לו בנאדר באנגלית שהשיק את בדיקת ה-HIV הראשונה ב"מועדון התיאטרון", אז המועדון הגאה הגדול בתל אביב</li>
+</ul>
+<p><strong>מקור:</strong> המכלול (אנציקלופדיה עברית): https://www.hamichlol.org.il/הוועד_למלחמה_באיידס</p>
+
+</div>
+<div class="section" id="section-2">
+<h2>2. כספים ומימון</h2>
+<h3>מחזור שנתי</h3>
+<table>
+<tr><th>שנה</th><th>מחזור (ש"ח)</th><th>מקור</th></tr>
+<tr><td>~2001</td><td>3,000,000</td><td>גלובס (תקופת רמי הסמן; גידול פי 8)</td></tr>
+<tr><td>~2006</td><td>2,477,000</td><td>סקר עמותות בריאות ynet</td></tr>
+<tr><td>2024</td><td>3,816,413</td><td>obudget.org</td></tr>
+</table>
+<p><strong>חציון מגזרי (בריאות והצלת חיים):</strong> 687,351 ש"ח — הוועד למלחמה באיידס גדול פי <strong>5.5 מהחציון המגזרי</strong>.</p>
+<h3>פירוט הכנסות (נתוני ~2006-2007, המפורטים ביותר הזמינים)</h3>
+<table>
+<tr><th>מקור</th><th>אחוז</th></tr>
+<tr><td>תרומות ציבוריות (אירועי גיוס)</td><td>55%</td></tr>
+<tr><td>מענקי קרנות</td><td>12%</td></tr>
+<tr><td>הכנסות עצמיות</td><td>16%</td></tr>
+<tr><td>תרומות תאגידים/פרטיים</td><td>8%</td></tr>
+<tr><td>תמיכה ממשלתית ומוניציפלית</td><td>8%</td></tr>
+</table>
+<p>פירוט נפרד משנת דיווח אחרת מראה:</p>
+<ul>
+<li>67% תרומות ציבוריות</li>
+<li>22% השתתפות ציבורית בעלויות שירותים</li>
+<li>8% תשלומים מוסדיים/חוזיים</li>
+<li>3% תמיכה/מענקים ממשלתיים</li>
+</ul>
+<h3>מימון ממשלתי (מ-obudget.org)</h3>
+<p><strong>סך העברות ממשלתיות (סכום 3 שנים):</strong> 176,612 ש"ח</p>
+<ul>
+<li>התקשרויות: 87,806 ש"ח</li>
+<li>תמיכות: 88,806 ש"ח</li>
+</ul>
+<p><strong>לפי משרד:</strong></p>
+<table>
+<tr><th>משרד</th><th>סכום (ש"ח)</th><th>פרטים</th></tr>
+<tr><td>משרד הבריאות</td><td>2,489,194</td><td>תמיכה בארגוני בריאות (1.5 מ' לאורך 19 תשלומים), תשלום רטרואקטיבי לוועד האיידס (174 א'), יוזמה משותפת לבדיקות HIV (167 א'), קידום קונדומים/גילוי (161 א'), התקשרויות נוספות (482 א')</td></tr>
+<tr><td>משרד האוצר</td><td>88,806</td><td>קרן פיצויים לעמותות (2 תשלומים)</td></tr>
+<tr><td>שירות בתי הסוהר</td><td>8,000</td><td>פעילויות מודעות לאיידס (3 חוזים)</td></tr>
+<tr><td>מנהלת עליית הנוער</td><td>5,400</td><td>שירותי מודעות לאיידס</td></tr>
+</table>
+<p><strong>תובנה מרכזית:</strong> המימון הממשלתי מהווה <strong>חלק זעיר</strong> מסך הכנסות הארגון. סכום ה-2.49 מ' ממשרד הבריאות נראה כנתון מצטבר רב-שנתי. הארגון הוא במהותו <strong>תלוי תרומות</strong>, ולא ממומן ממשלתית.</p>
+<h3>כוח אדם (2024)</h3>
+<ul>
+<li><strong>עובדים:</strong> 14</li>
+<li><strong>מתנדבים:</strong> 68 (בשנים קודמות דווח על ~100-150)</li>
+</ul>
+<h3>תורמים תאגידיים ידועים</h3>
+<ul>
+<li><strong>Gilead Sciences</strong> — חברת תרופות גדולה; ממנה את תוכנית "100% חיבור 0% הידבקות" ותמיכת CARES בקורונה. גלעד שיתפה פעולה עם הוועד ב-2019 במיוחד סביב קידום בדיקות HIV לנשים בהריון.</li>
+<li>מקור: https://www.gileadzeroingin.com/global-programs/israel.html</li>
+<li>מקור: https://www.gilead.com/en-il/responsibility/partnership-and-community</li>
+<li><strong>בנק הפועלים</strong> — תורם גדול בעבר; לפי הדיווחים המימון ירד (מוזכר בכתבת ha-makom 2019)</li>
+<li><strong>מקדונלד'ס ישראל</strong> — תרם בעבר; לפי הדיווחים המימון ירד</li>
+<li><strong>Y&R ישראל</strong> (חברת פרסום) — מספקת שירותי פרסום בהתנדבות; אחד הקמפיינים זכה להכרה מהאו"ם</li>
+<li><strong>רני רהב</strong> (איש יח"צ) — מארגן מכירת אמנות שנתית עם ~500 אמנים התורמים יצירות</li>
+<li><strong>עיגול לטובה</strong> — פלטפורמת מיקרו-תרומות; 1,604 משתתפים פעילים, ממוצע ~6 ש"ח/חודש</li>
+</ul>
+<h3>משברים כספיים</h3>
+<ul>
+<li><strong>~2003:</strong> הארגון היה "כמעט חדל לתפקד" עם גירעון תקציבי כאשר ד"ר גדעון הירש נכנס לתפקיד מנכ"ל</li>
+<li><strong>ינואר 2019:</strong> המנכ"ל חן שמוליו שלח מכתב אזהרה לסגן שר הבריאות יעקב ליצמן כי הארגון עומד בפני <strong>סגירה</strong> בשל גירעון של ~מיליון ש"ח. משרד הבריאות קיצץ את המימון ב-~70,000 ש"ח מרמות 2017 ולא העביר תשלומים עבור פרויקטים משותפים. תוכניות לעולי אתיופיה ולמשתמשי סמים הוקפאו.</li>
+<li>מקור: https://www.ynet.co.il/articles/0,7340,L-5452053,00.html</li>
+</ul>
+<p><strong>מקורות:</strong></p>
+<ul>
+<li>obudget.org: https://next.obudget.org/i/org/association/580104545</li>
+<li>כתבת תקציב ynet: https://www.ynet.co.il/articles/0,7340,L-3223698,00.html</li>
+<li>עיגול לטובה: https://www.igul.org.il/amutot/aids/</li>
+</ul>
+
+</div>
+<div class="section" id="section-3">
+<h2>3. הנהגה ומנהיגות</h2>
+<h3>ציר זמן מנכ"לים</h3>
+<table>
+<tr><th>תקופה</th><th>שם</th><th>הערות</th></tr>
+<tr><td>1985-?</td><td>מייסדים שונים</td><td>תקופת הקמה</td></tr>
+<tr><td>~2003-דצמבר 2008</td><td><strong>ד"ר גדעון הירש</strong></td><td>דוקטורט בפסיכולוגיה מסטנפורד; סטודנט הרפואה הראשון בישראל שחשף בגלוי את נשאותו ל-HIV. שיקם את הארגון שהיה על סף קריסה, השיק אתר, החל בחינוך ציבורי. <strong>התאבד (מנת יתר של כדורים) ב-19 בדצמבר 2008, בגיל 47.</strong> אמו ואביו גם הם התאבדו.</td></tr>
+<tr><td>2009-?</td><td><strong>יונתן קרני</strong></td><td>בן 30 בעת מינויו; מדעי ההתנהגות ומנהל עסקים מאוניברסיטת בן-גוריון; היה "יד ימינו" של הירש</td></tr>
+<tr><td>דצמבר 2012-?</td><td><strong>ד"ר יובל לבנט (לבנת)</strong></td><td>המכלול מציין אותו כמנכ"ל מדצמבר 2012</td></tr>
+<tr><td>~2018-2019</td><td><strong>חן שמוליו</strong></td><td>מנכ"ל ששלח את מכתב האזהרה על סגירה ב-2019 לליצמן</td></tr>
+<tr><td>~2019-היום</td><td><strong>עידן ברק</strong></td><td>מנכ"ל לפי סיפורי Gilead (2022); הוביל את הסנגור לבדיקות HIV לנשים בהריון</td></tr>
+<tr><td>2023-2024</td><td><strong>ג'ורג' אבני</strong></td><td>מופיע כמנכ"ל בתקשורת 2023; הופיע בראיונות בדצמבר 2024</td></tr>
+</table>
+<p><strong>הערה:</strong> התחלופה התכופה של מנכ"לים בולטת. מקורות רבים סותרים זה את זה בתאריכים מדויקים, מה שמצביע על חפיפה או בלבול בין תארי "מנהל כללי" ו"מנכ"ל", או תקופות ביניים.</p>
+<h3>יושבי ראש הדירקטוריון</h3>
+<table>
+<tr><th>תקופה</th><th>שם</th><th>הערות</th></tr>
+<tr><td>1998-2001</td><td><strong>רמי הסמן</strong></td><td>מנהל פרסום לשעבר (ראש אסטרטגיה בסוכנות גיתם). הגדיל תקציב פי 8 ל-3 מ' ש"ח, הרחיב ל-4 סניפים, 3 מרפאות, 250 עובדים/מתנדבים. הוביל שביתת רעב בבית ראש הממשלה. השיג 150 מ' ש"ח לתרופות איידס בסל הבריאות.</td></tr>
+<tr><td>?</td><td><strong>שולמית נוימן</strong></td><td>נבחרה כיושבת ראש (התקופה לא ברורה)</td></tr>
+<tr><td>2019</td><td><strong>נוגה ארונית</strong></td><td>שלחה מיילים לטיפול בנזקים לאחר מחלוקת המהפך האסטרטגי</td></tr>
+<tr><td>?</td><td><strong>מרגלית לורברבאום</strong></td><td>חברת דירקטוריון שהוזכרה במחלוקת ha-makom 2019</td></tr>
+</table>
+<h3>קשרים פוליטיים</h3>
+<ul>
+<li><strong>נאוה ברק</strong> (רעייתו של ראש הממשלה אהוד ברק) — סייעה למסע שביתת הרעב של רמי הסמן</li>
+<li><strong>רוני מילוא</strong> (ראש עיריית תל אביב לשעבר, ליכוד) — גם סייע לשביתת הרעב</li>
+<li><strong>אבינועם פרומר</strong> — מנהיג בתמיכת הקרן החדשה שהוביל את המסע בן 70 הימים ב-1998 להכללת קוקטייל האיידס בסל הבריאות. הפעיל לחץ ישיר על הכנסת.</li>
+<li><strong>יעקב ליצמן</strong> (יהדות התורה, סגן שר הבריאות) — קיבל את מכתב האזהרה על סגירה ב-2019 מחן שמוליו</li>
+<li><strong>שלמה בניזרי</strong> (ש"ס, שר הבריאות 1999) — אסר את כרזות קמפיין הקונדומים ליום האיידס העולמי, והורה על השמדת חומרים שהציגו דימויי קונדומים</li>
+</ul>
+<p><strong>מקורות:</strong></p>
+<ul>
+<li>ג'רוזלם פוסט: https://www.jpost.com/Health-and-Sci-Tech/Health/AIDS-group-creating-fund-in-memory-of-courageous-director-who-committed-suicide</li>
+<li>הארץ: https://www.haaretz.com/2008-12-21/ty-article/israel-aids-task-force-head-dead-in-apparent-suicide/0000017f-db42-d856-a37f-ffc2ccfd0000</li>
+<li>גלובס: https://www.globes.co.il/news/m/article.aspx?did=487449</li>
+<li>הקרן החדשה: https://www.nif.org/stories/social-and-economic-justice/watch-avinof-frumer-the-trailblazer-who-made-sure-aids-patients-would-be-cared-for/</li>
+</ul>
+
+</div>
+<div class="section" id="section-4">
+<h2>4. תוכניות ופעילויות</h2>
+<h3>4א. מחלקת חינוך ("שיחת נוער" / "התנהגות מינית אחראית")</h3>
+<ul>
+<li><strong>פועלת מאז:</strong> 1994</li>
+<li><strong>היקף:</strong> מעל 25,000 תלמידים בשנה</li>
+<li><strong>תוכנית גפן מס' 1102:</strong> "התנהגות מינית אחראית"</li>
+<li>דירוג: 5/5 (סקירה אנושית)</li>
+<li>פריסה ב-: 5 ערים (באר שבע, הרצליה, חיפה, ירושלים, תל אביב)</li>
+<li>בתי ספר: 6</li>
+<li>תקציב: 37,100 ש"ח</li>
+<li><strong>מטרה מוצהרת:</strong> "לספק חינוך מיני מהימן ועדכני, מותאם ומקיף לאוכלוסיות מגוונות, כך שיוכלו ליהנות מרווחה נפשית, מערכות יחסים חברתיות ומיניות מיטביות, ולשמור על חיי מין בריאים ובטוחים."</li>
+<li><strong>תחומי תוכן:</strong> מיניות בריאה, אמצעי מניעה, מחלות מין, מיניות מתבגרים, נוער בסיכון</li>
+<li><strong>קהלי יעד:</strong> בני נוער, מתגייסים לצבא, סטודנטים, צעירים (20-30), מבוגרים (30-65), קשישים, הורים, צוותי חינוך, גופים ממשלתיים</li>
+<li><strong>אופן העברה:</strong> מנחים מנוסים בהנחיית יועצת החינוך של הארגון</li>
+</ul>
+<p><strong>תובנה קריטית:</strong> תקציב תוכנית גפן של 37,100 ש"ח הוא <strong>זניח</strong> לעומת מחזור של 3.8 מ' ש"ח של הוועד. נראה שמדובר ב<strong>תוכנית דריסת רגל</strong> — הרישום בקטלוג גפן מעניק לגיטימציה מוסדית וגישה לבתי ספר, אך ההשפעה התקציבית מינימלית. השאלה האמיתית היא מה התוכן שמועבר באותם 6 בתי ספר ב-5 ערים.</p>
+<h3>4ב. "בלה דואגת" — חטיבת הלהט"ב</h3>
+<ul>
+<li><strong>מקור:</strong> במקור ארגון נפרד; מוזג עם הוועד ב-2002 בהצבעת חברים</li>
+<li><strong>תפקוד:</strong> מידע, מודעות ומניעה בקהילת הלהט"ב+</li>
+<li><strong>אתר:</strong> https://www.beladoeget.org/</li>
+<li><strong>פעילויות:</strong> הסברה בבריאות מינית, מרפאות קהילתיות, קמפייני מודעות</li>
+</ul>
+<h3>4ג. שירותי בדיקות HIV</h3>
+<ul>
+<li><strong>בדיקות מהירות אנונימיות</strong> עם יחידות ניידות</li>
+<li><strong>מרכזי בדיקות</strong> בתל אביב, חיפה, באר שבע</li>
+<li><strong>ייעוץ</strong> על ידי מתנדבים מוכשרים</li>
+</ul>
+<h3>4ד. תוכניות נוספות</h3>
+<ul>
+<li><strong>קהילת עולי אתיופיה</strong> — מודעות ומניעת HIV ייעודית (לפי הדיווחים הוקפאה ב-2019 בשל קיצוצי תקציב)</li>
+<li><strong>מבקשי מקלט ופליטים</strong> — פרסום אקדמי: "ASSAF/Israel AIDS Task Force: קידום זכויות שוות לפליטים מבקשי מקלט נשאי HIV בישראל" (פורסם על ידי Taylor & Francis)</li>
+<li><strong>משתמשי סמים</strong> — תוכניות הפחתת נזקים (שנויות במחלוקת היסטורית; ב-1987 ניסו לחלק מזרקים בניגוד למדיניות משרד הבריאות)</li>
+<li><strong>חינוך בבתי כלא</strong> — פעילויות מודעות במסגרת חוזים עם שירות בתי הסוהר</li>
+<li><strong>גישה ל-IVF לנשאי HIV</strong> — גדעון הירש לחץ על הכנסת לדון בזכויות IVF לנשים</li>
+<li><strong>סנגור ל-PrEP</strong> — אושר בישראל 2017; הוועד דחף לגישה רחבה יותר לפי הנחיות ארגון הבריאות העולמי</li>
+<li><strong>בדיקת HIV אוניברסלית לנשים בהריון</strong> — הוביל סנגור בן עשור; השיג שינוי מדיניות בספטמבר 2022</li>
+</ul>
+<p><strong>מקורות:</strong></p>
+<ul>
+<li>האגודה לחינוך מיני: https://sei.org.il/הוועד-למלחמה-באיידס/</li>
+<li>בנביטי: https://causes.benevity.org/causes/376-580104545</li>
+<li>Gilead: https://www.gilead.com/stories/decades-long-effort-to-enact-universal-hiv-screening-for-pregnant-women-in-israel</li>
+</ul>
+
+</div>
+<div class="section" id="section-5">
+<h2>5. אידיאולוגיה: ארגון בריאות או כלי סנגור?</h2>
+<h3>המהפך האסטרטגי של 2019</h3>
+<p>השינוי האידיאולוגי המשמעותי ביותר התרחש ב<strong>יולי 2019</strong>, כאשר המנכ"ל חן שמוליו הכריז על מהפך אסטרטגי מעבודת HIV/איידס טהורה לכיוון <strong>"מיניות בריאה"</strong>. הדבר הותאם לדגם של מרכזי בריאות מינית בינלאומיים.</p>
+<p><strong>מה שקרה:</strong></p>
+<ul>
+<li>המהפך הוכרז באמצעות ראיון תקשורתי, לא בתקשורת פנים-ארגונית</li>
+<li>חלק מחברי הדירקטוריון טוענים שלא <strong>הוזמנו</strong> לאסיפה שאישרה את השינוי</li>
+<li>על פי חוק העמותות, ההזמנות היו צריכות להישלח 10 ימים לפני הישיבה; חלק מהחברים טוענים שלא כך נעשה</li>
+<li>לא-חברים לכאורה קיבלו הזמנות בעוד חברים רשומים לא קיבלו</li>
+<li>פרוטוקולים לא פורסמו למרות בקשות</li>
+<li>חברת הדירקטוריון <strong>מרגלית לורברבאום</strong> ואחרים העלו התנגדויות</li>
+</ul>
+<p><strong>למה זה חשוב:</strong></p>
+<p>המעבר מ"מלחמה באיידס" ל"מיניות בריאה" הוא בדיוק הדפוס שנצפה בארגונים אחרים שבהם מנדט בריאות ציבורית ספציפי הופך לפלטפורמה חברתית/אידיאולוגית רחבה יותר. מבקרים בתוך הארגון הזהירו במפורש שעבודת ה-HIV תידחק לשוליים למרות עליית שיעורי ההדבקה (400 מקרים חדשים ב-2018, שנה שנייה ברציפות של עלייה).</p>
+<p><strong>מוטיבציה כלכלית:</strong> תורמים גדולים (בנק הפועלים, מקדונלד'ס) נסוגו מהמימון. הרחבת המשימה נתפסה כדרך למשוך תורמים חדשים.</p>
+<p><strong>מקור:</strong> https://www.ha-makom.co.il/post-tomer-change-vaad-shmilo/</p>
+<h3>מסרים בעברית מול אנגלית</h3>
+<ul>
+<li><strong>אתר בעברית:</strong> מתמקד בבדיקות HIV, סנגור לטיפול, זכויות נשאי HIV. עמוד "מי אנחנו" מדגיש שמדובר בארגון האיידס הלאומי הוותיק ביותר.</li>
+<li><strong>אתר באנגלית:</strong> דגש רב יותר על מסגור "בניית קהילה בריאה"; שפת בריאות מינית רחבה יותר.</li>
+<li><strong>בלה דואגת (זרוע להט"ב):</strong> יש לה אתר עצמאי (beladoeget.org) המתמקד ספציפית בבריאות מינית להט"בית — זו הזרוע המוצהרת ביותר כמתמקדת בלהט"ב.</li>
+</ul>
+<h3>שילוב להט"ב</h3>
+<p>הממד הלהט"בי <strong>מוטמע מבנית</strong> בארגון מאז מיזוג בלה דואגת ב-2002. זה לא מקרי — גברים המקיימים יחסי מין עם גברים (MSM) הם אוכלוסיית סיכון עיקרית ל-HIV בישראל. עם זאת, המיזוג פירושו שסנגור להט"בי הוא כעת <strong>פונקציה מוסדית</strong> של הארגון, ולא רק תוכנית הסברה בריאותית.</p>
+<h3>קשר לאגודה לחינוך מיני</h3>
+<p>הוועד למלחמה באיידס מופיע באתר האגודה לחינוך מיני (sei.org.il), גוף גג לארגוני חינוך מיני בישראל. הדבר ממקם את הוועד בתוך המערכת המוסדית הרחבה יותר של חינוך מיני.</p>
+<h3>מה באמת מלמדים בבתי הספר?</h3>
+<p>על סמך הראיות הזמינות, תכני תוכנית בתי הספר מתמקדים ב:</p>
+<ol>
+<li>מניעת מחלות מין (HIV ואחרות)</li>
+<li>שימוש בקונדום ואמצעי מניעה</li>
+<li>"מיניות בריאה" ויחסים מיניים בטוחים</li>
+<li>רווחה נפשית הקשורה למיניות</li>
+</ol>
+<p><strong>מה לא נמצא:</strong> לא נמצאו מסמכי תוכנית לימודים, תכניות שיעור או תוכן ספציפי על זהות מגדרית, חינוך לנטייה מינית או תוכן להט"בי ספציפי בתוכנית בתי הספר. תיאור תוכנית גפן מתמקד ב"התנהגות מינית אחראית" — השאלה היא האם זה כולל תוכן של אידיאולוגיית מגדר או מוגבל למניעת מחלות מין/הריון.</p>
+<p><strong>הערכה:</strong> תוכנית בתי הספר של הארגון ככל הנראה מתמקדת במניעת מחלות מין ומין בטוח ולא באידיאולוגיית מגדר כשלעצמה. עם זאת, לאחר 2019, מסגור "המיניות הבריאה" פותח את הדלת לתוכן רחב יותר. היעדר מסמכי תוכנית לימודים זמינים לציבור הוא פער.</p>
+
+</div>
+<div class="section" id="section-6">
+<h2>6. מימון זר</h2>
+<h3>מקורות מימון זר מאושרים</h3>
+<table>
+<tr><th>מקור</th><th>סוג</th><th>ראיות</th></tr>
+<tr><td><strong>הקרן החדשה לישראל (NIF)</strong></td><td>מענקים</td><td>הקרן החדשה מייחסת לעצמה במפורש תמיכה בוועד מאז הקמתו. אבינועם פרומר מתואר כמייסד "הוועד למלחמה באיידס בתמיכת הקרן החדשה." עמוד הקרן: https://www.nif.org/stories/social-and-economic-justice/watch-avinof-frumer-the-trailblazer-who-made-sure-aids-patients-would-be-cared-for/</td></tr>
+<tr><td><strong>Gilead Sciences (חברת תרופות אמריקאית)</strong></td><td>מענקים תאגידיים</td><td>תוכנית Zeroing In, קרן CARES לקורונה. מקור: https://www.gileadzeroingin.com/global-programs/israel.html</td></tr>
+</table>
+<h3>לא אושר</h3>
+<table>
+<tr><th>מקור</th><th>סטטוס</th></tr>
+<tr><td><strong>קרן פורד</strong></td><td>לא נמצאו ראיות למימון ישיר לוועד. קרן פורד ממנה את הקרן החדשה, שממנה את הוועד — צינור עקיף אפשרי אך לא מאומת.</td></tr>
+<tr><td><strong>האיחוד האירופי</strong></td><td>לא נמצאו ראיות</td></tr>
+<tr><td><strong>ישות 501(c)(3) אמריקאית</strong></td><td>לא נמצאה ישות "ידידי הוועד למלחמה באיידס" בארה"ב. עם זאת, הארגון טוען למעמד של ניכוי מס בארה"ב, בריטניה וצרפת — סביר שהתרומות מנותבות דרך חסות פיסקלית (כגון IsraelGives, PEF Israel Endowment Fund או דומים).</td></tr>
+</table>
+<h3>ממצא מרכזי: הקשר לקרן החדשה</h3>
+<p>הקשר לקרן החדשה <strong>מתועד על ידי הקרן עצמה</strong>. הדבר ממקם את הוועד בתוך המערכת הרחבה של ארגוני חברה אזרחית של הקרן החדשה. הקרן סיפקה מעל 350 מיליון דולר ל-950+ ארגונים מאז 1979. הוועד נראה כאחד מנהני המענקים המוקדמים.</p>
+<p><strong>מקורות:</strong></p>
+<ul>
+<li>הקרן החדשה בריטניה: https://newisraelfund.org.uk/issue/watch-the-trailblazer-who-made-sure-aids-patients-would-be-cared-for-2/</li>
+<li>ישראל גיבס: https://www.israelgives.org/amuta/580104545</li>
+</ul>
+
+</div>
+<div class="section" id="section-7">
+<h2>7. מחלוקות ופרשיות</h2>
+<h3>7א. עימות חלוקת המזרקים (1987)</h3>
+<p>במאי 1987, הוועד הכריז על כוונתו להתחיל לחלק מזרקים נקיים למשתמשי סמים, בהתרסה ישירה כנגד מדיניות משרד הבריאות. שרת הבריאות <strong>שושנה ארבלי-אלמוזלינו</strong> איימה בתביעה. הוועד נסוג, אך לחץ תקשורתי בסופו של דבר אילץ את משרד הבריאות לשנות את מדיניותו.</p>
+<h3>7ב. איסור כרזת הקונדום (1999)</h3>
+<p>שר הבריאות <strong>שלמה בניזרי</strong> (ש"ס, חרדי) הורה על <strong>השמדת</strong> כרזות ועלוני יום האיידס העולמי שהציגו קונדומים. הוא כינה את הדימויים "מביכים" ועלולים "לחלל" את רחובות ירושלים. פרופ' צבי בנטוויץ' הגיב: "כנראה שדחפיו הדתיים גברו על חושיו."</p>
+<p><strong>מקור:</strong> BMJ: https://pmc.ncbi.nlm.nih.gov/articles/PMC1117198/</p>
+<h3>7ג. התאבדות המנכ"ל (דצמבר 2008)</h3>
+<p><strong>ד"ר גדעון הירש</strong>, בן 47, נמצא ללא רוח חיים בדירתו ביפו ממנת יתר של כדורים. הוא היה נשא HIV במשך 20 שנה (אובחן בסטנפורד), היה סטודנט הרפואה הראשון בישראל שחשף את נשאותו בגלוי, ושיקם את הוועד מכמעט-קריסה. שני הוריו גם התאבדו. זו הייתה טראומה ארגונית משמעותית.</p>
+<p><strong>מקורות:</strong></p>
+<ul>
+<li>הארץ: https://www.haaretz.com/2008-12-21/ty-article/israel-aids-task-force-head-dead-in-apparent-suicide/</li>
+<li>ג'רוזלם פוסט: https://www.jpost.com/Health-and-Sci-Tech/Health/AIDS-group-creating-fund-in-memory-of-courageous-director-who-committed-suicide</li>
+</ul>
+<h3>7ד. משבר כספי קרוב-לסגירה (2019)</h3>
+<p>המנכ"ל חן שמוליו הזהיר את סגן שר הבריאות ליצמן כי הארגון עומד בפני סגירה בשל גירעון של ~מיליון ש"ח. משרד הבריאות קיצץ מימון ולא העביר תשלומים עבור פרויקטים שהושלמו. תוכניות לעולי אתיופיה ולמשתמשי סמים הוקפאו.</p>
+<p><strong>מקור:</strong> Ynet: https://www.ynet.co.il/articles/0,7340,L-5452053,00.html</p>
+<h3>7ה. מחלוקת המהפך האסטרטגי (2019)</h3>
+<p>משבר ממשלי פנימי כאשר הארגון עבר מ"איידס" ל"מיניות בריאה". חברי דירקטוריון האשימו את ההנהגה ב:</p>
+<ul>
+<li>עקיפת נהלי אסיפה תקינים</li>
+<li>אי-הזמנת כל החברים להצבעה</li>
+<li>פרסום שינויים בתקשורת לפני הודעה פנימית</li>
+<li>דחיקת עבודת HIV לשוליים למרות עליית שיעורי ההדבקה</li>
+</ul>
+<p><strong>מקור:</strong> המקום: https://www.ha-makom.co.il/post-tomer-change-vaad-shmilo/</p>
+<h3>7ו. עליית שיעורי HIV למרות קיום הארגון</h3>
+<ul>
+<li>~8,700 אנשים חיים עם HIV בישראל (2017)</li>
+<li>405 מקרי HIV חדשים ב-2017 (עלייה לעומת השנה הקודמת)</li>
+<li>400 מקרים חדשים ב-2018 (שנה שנייה ברציפות של עלייה)</li>
+<li>עם זאת: <strong>ירידה של 22% במקרים חדשים דווחה ב-2024</strong> (Times of Israel, דוח יום האיידס העולמי)</li>
+</ul>
+<p><strong>מקור:</strong> https://www.timesofisrael.com/on-world-aids-day-health-ministry-reports-22-decrease-of-new-hiv-cases-in-2024/</p>
+
+</div>
+<div class="section" id="section-8">
+<h2>8. קשרי ממשל</h2>
+<h3>משרד הבריאות</h3>
+<ul>
+<li><strong>הגורם הממשלתי הממן העיקרי</strong> (2.49 מ' ש"ח מצטבר דרך obudget)</li>
+<li>הוועד ביצע <strong>פרויקטים משותפים</strong> עם משרד הבריאות לקידום בדיקות HIV</li>
+<li>הוועד פעל להשגת (והשיג) בדיקת HIV אוניברסלית לנשים בהריון (2022)</li>
+<li>מערכת יחסים עוינת היסטורית: משרד הבריאות איים בתביעה בגין חלוקת מזרקים (1987), חסם קמפייני קונדומים (1999) וקיצץ מימון שגרם לקרבת סגירה (2019)</li>
+</ul>
+<h3>משרד החינוך</h3>
+<ul>
+<li><strong>תוכנית גפן מס' 1102</strong> — "התנהגות מינית אחראית"</li>
+<li>רשום כשותף ממשלתי בכל זכות</li>
+<li>טביעת רגל קטנה: 6 בתי ספר, 5 ערים, תקציב 37,100 ש"ח</li>
+</ul>
+<h3>הכנסת</h3>
+<ul>
+<li><strong>מסע 70 הימים של אבינועם פרומר</strong> (1998) הביא את חולי האיידס הראשונים להעיד בפני הכנסת</li>
+<li><strong>רמי הסמן</strong> ארגן נוכחות יומית של 3 נציגים בכנסת</li>
+<li><strong>גדעון הירש</strong> לחץ על הכנסת לדון בזכויות IVF לנשים נשאיות HIV</li>
+<li>ועדת הבריאות של הכנסת דנה בנושאי הוועד</li>
+</ul>
+<h3>שירות בתי הסוהר</h3>
+<ul>
+<li>חוזים לפעילויות מודעות לאיידס (8,000 ש"ח, 3 חוזים)</li>
+</ul>
+<h3>מנהלת עליית הנוער</h3>
+<ul>
+<li>חוזה יחיד לשירותי מודעות (5,400 ש"ח)</li>
+</ul>
+
+</div>
+<div class="section" id="section-9">
+<h2>טבלת התאמה ערכית</h2>
+<table>
+<tr><th>ערך</th><th>ציון (1-5)</th><th>הערכה</th></tr>
+<tr><td><strong>השפעה על בריאות הציבור</strong></td><td>4</td><td>מדיד: ירידה של 22% ב-HIV ב-2024; הושגה בדיקה אוניברסלית לנשים בהריון; 25,000+ תלמידים/שנה בחינוך</td></tr>
+<tr><td><strong>שקיפות כספית</strong></td><td>3</td><td>ציון 67% בגיידסטאר; הגיב לשאלונים במהירות אך נתונים כספיים ציבוריים מוגבלים</td></tr>
+<tr><td><strong>איכות ממשל תאגידי</strong></td><td>2</td><td>מחלוקת המהפך האסטרטגי של 2019 חשפה כשלים פרוצדורליים; תחלופת מנכ"לים תכופה; מחלוקות הצבעה באסיפה</td></tr>
+<tr><td><strong>נאמנות למשימה</strong></td><td>2</td><td>המשימה המקורית של HIV/איידס הורחבה משמעותית; מבקרים פנימיים הזהירו מסטיית משימה</td></tr>
+<tr><td><strong>ניטרליות פוליטית</strong></td><td>2</td><td>ממומן על ידי הקרן החדשה מאז הקמתו; מימון Gilead מעלה שאלות ניגוד עניינים; זרוע סנגור להט"ב חורגת ממנדט בריאותי</td></tr>
+<tr><td><strong>שקיפות תוכן (בתי ספר)</strong></td><td>1</td><td>אין תוכנית לימודים זמינה לציבור עבור תוכנית גפן; אי אפשר לאמת מה באמת מלמדים בכיתות</td></tr>
+<tr><td><strong>שקיפות מימון זר</strong></td><td>2</td><td>מימון הקרן החדשה מאושר על ידי הקרן עצמה אך סכומים לא ברורים; מימון Gilead מאושר אך סכומים לא ברורים; ניכוי מס ב-4 מדינות אך המנגנון אטום</td></tr>
+</table>
+
+</div>
+<div class="section" id="section-10">
+<h2>סיכום סיכונים ושאלות פתוחות</h2>
+<h3>סיכונים עיקריים</h3>
+<ol>
+<li><strong>מעמד מונופוליסטי:</strong> כ"עמותה לאומית יחידה" בתחום האיידס, אין לו אחריותיות תחרותית</li>
+<li><strong>סטיית משימה:</strong> המהפך של 2019 מ"איידס" ל"מיניות בריאה" הוא סטיית משימה קלאסית, שעלולה להשתמש במנדט ה-HIV ככיסוי לאידיאולוגיית חינוך מיני רחבה יותר</li>
+<li><strong>צינור מימון הקרן החדשה:</strong> נהנה מענקי הקרן מאז הקמתו. סכומים ותנאים אינם ידועים.</li>
+<li><strong>ניגודי עניינים תרופתיים:</strong> Gilead (יצרנית תרופות HIV כולל PrEP) היא ממנה גדולה. זה יוצר ניגוד עניינים מובנה — הארגון דוגל בגישה רחבה יותר ל-PrEP בזמן שהוא ממומן על ידי יצרנית ה-PrEP.</li>
+<li><strong>אטימות תוכנית בתי הספר:</strong> תוכנית גפן מגיעה לתלמידים אך תוכן תוכנית הלימודים אינו מתועד בפומבי</li>
+</ol>
+<h3>שאלות פתוחות לבירור נוסף</h3>
+<ol>
+<li><strong>מה בדיוק מלמדים ב-6 בתי הספר במסגרת תוכנית מס' 1102?</strong> אין מסמכי תוכנית לימודים זמינים לציבור. הורה או חבר מועצת בית ספר יצטרכו לבקש את תכניות השיעור בפועל.</li>
+<li><strong>מהי רמת המימון הנוכחית מהקרן החדשה?</strong> הקרן מציינת את הוועד כנהנה היסטורי אך הסכומים הנוכחיים אינם ברורים.</li>
+<li><strong>מיהם חברי הדירקטוריון הנוכחיים?</strong> עמוד האנשים בגיידסטאר מרונדר באמצעות JavaScript ולא ניתן היה לגרד. יש צורך בבדיקה ידנית.</li>
+<li><strong>מהו סכום המימון של Gilead?</strong> קובץ PDF של רשימת נהני המענקים של Gilead קיים אך סכומים ספציפיים לארגון כנראה אינם מפורסמים.</li>
+<li><strong>מה קרה לאחר המהפך האסטרטגי של 2019?</strong> האם הארגון באמת עבר מיתוג מחדש? האתר עדיין משתמש ב"הוועד למלחמה באיידס" אך המסרים באנגלית השתנו.</li>
+<li><strong>האם תוכנית בתי הספר כוללת תוכן להט"בי?</strong> זרוע בלה דואגת מתמקדת בקהילות להט"ב, אך לא ברור אם תוכן זה נכנס לתוכנית גפן בבתי הספר.</li>
+<li><strong>האם קיימת חסות פיסקלית אמריקאית או ישות "ידידי"?</strong> הארגון טוען לניכוי מס בארה"ב אך לא נמצאה ישות 501(c)(3) ייעודית.</li>
+</ol>
+
+</div>
+<div class="section" id="section-11">
+<h2>אינדקס מקורות</h2>
+<table>
+<tr><th>#</th><th>מקור</th><th>כתובת</th></tr>
+<tr><td>1</td><td>גיידסטאר ישראל (עמוד ראשי)</td><td>https://www.guidestar.org.il/organization/580104545</td></tr>
+<tr><td>2</td><td>גיידסטאר ישראל (שירותי ממשלה)</td><td>https://www.guidestar.org.il/organization/580104545/govservices</td></tr>
+<tr><td>3</td><td>גיידסטאר ישראל (אנשים)</td><td>https://www.guidestar.org.il/organization/580104545/people</td></tr>
+<tr><td>4</td><td>obudget.org</td><td>https://next.obudget.org/i/org/association/580104545</td></tr>
+<tr><td>5</td><td>ישראל גיבס</td><td>https://www.israelgives.org/amuta/580104545</td></tr>
+<tr><td>6</td><td>בנביטי</td><td>https://causes.benevity.org/causes/376-580104545</td></tr>
+<tr><td>7</td><td>מידות (אפקטיביות)</td><td>https://midot.org.il/association/aidsisrael-2</td></tr>
+<tr><td>8</td><td>כל זכות</td><td>https://www.kolzchut.org.il/he/הוועד_למלחמה_באיידס</td></tr>
+<tr><td>9</td><td>אתר רשמי (עברית)</td><td>https://www.aidsisrael.org.il/</td></tr>
+<tr><td>10</td><td>אתר רשמי (אנגלית)</td><td>https://www.aidsisrael.org.il/english?lang=en</td></tr>
+<tr><td>11</td><td>האגודה לחינוך מיני</td><td>https://sei.org.il/הוועד-למלחמה-באיידס/</td></tr>
+<tr><td>12</td><td>אינפומד</td><td>https://www.infomed.co.il/definitions/aids-israel/</td></tr>
+<tr><td>13</td><td>המכלול</td><td>https://www.hamichlol.org.il/הוועד_למלחמה_באיידס</td></tr>
+<tr><td>14</td><td>עיגול לטובה</td><td>https://www.igul.org.il/amutot/aids/</td></tr>
+<tr><td>15</td><td>הקרן החדשה (סיפור אבינועם פרומר)</td><td>https://www.nif.org/stories/social-and-economic-justice/watch-avinof-frumer-the-trailblazer-who-made-sure-aids-patients-would-be-cared-for/</td></tr>
+<tr><td>16</td><td>Gilead Zeroing In</td><td>https://www.gileadzeroingin.com/global-programs/israel.html</td></tr>
+<tr><td>17</td><td>Gilead (נשים בהריון)</td><td>https://www.gilead.com/stories/decades-long-effort-to-enact-universal-hiv-screening-for-pregnant-women-in-israel</td></tr>
+<tr><td>18</td><td>המקום (מחלוקת 2019)</td><td>https://www.ha-makom.co.il/post-tomer-change-vaad-shmilo/</td></tr>
+<tr><td>19</td><td>Ynet (משבר סגירה 2019)</td><td>https://www.ynet.co.il/articles/0,7340,L-5452053,00.html</td></tr>
+<tr><td>20</td><td>גלובס (רמי הסמן)</td><td>https://www.globes.co.il/news/m/article.aspx?did=487449</td></tr>
+<tr><td>21</td><td>BMJ (איסור קונדום בניזרי)</td><td>https://pmc.ncbi.nlm.nih.gov/articles/PMC1117198/</td></tr>
+<tr><td>22</td><td>הארץ (התאבדות הירש)</td><td>https://www.haaretz.com/2008-12-21/ty-article/israel-aids-task-force-head-dead-in-apparent-suicide/</td></tr>
+<tr><td>23</td><td>ג'רוזלם פוסט (הנצחת הירש)</td><td>https://www.jpost.com/Health-and-Sci-Tech/Health/AIDS-group-creating-fund-in-memory-of-courageous-director-who-committed-suicide</td></tr>
+<tr><td>24</td><td>Times of Israel (ירידת 22% ב-HIV 2024)</td><td>https://www.timesofisrael.com/on-world-aids-day-health-ministry-reports-22-decrease-of-new-hiv-cases-in-2024/</td></tr>
+<tr><td>25</td><td>בלה דואגת</td><td>https://www.beladoeget.org/</td></tr>
+<tr><td>26</td><td>מעריב (חינוך מיני לנוער)</td><td>https://www.maariv.co.il/lifestyle/health/Article-601436</td></tr>
+<tr><td>27</td><td>עמותת זכויות החולה</td><td>https://www.patients-rights.org/הוועד-למלחמה-באיידס</td></tr>
+<tr><td>28</td><td>קשר</td><td>https://www.kesher.org.il/knowledge_item/הוועד-למלחמה-באיידס-ער/</td></tr>
+</table>
+<p><em>דוח שנוצר על ידי מחקר עומק אוטומטי. כל הטענות כוללות כתובות מקור. נתונים כספיים מ-obudget.org ודיווחים ציבוריים. נתוני הנהגה הוצלבו ממקורות מרובים. פערים צוינו במפורש כאשר לא ניתן היה לאמת מידע.</em></p>
+
+</div>
+</div>
+
+<footer>
+  פרויקט זהות ציונית — דוח מחקר מעמיק | <a href="../">דירוג ערים</a> | <a href="../research/">כל הדוחות</a>
+</footer>
+
+</body>
+</html>

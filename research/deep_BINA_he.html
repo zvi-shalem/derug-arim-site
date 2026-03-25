@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בינ"ה — התנועה ליהדות חברתית — דוח ארגון מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.hero .type-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85em; font-weight: 600; margin-top: 10px;
+  background: #667eea; color: #fff;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 4px solid #ff8800;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.95em;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th { background: #667eea; color: #fff; padding: 8px 12px; text-align: right; }
+td { padding: 7px 12px; border-bottom: 1px solid #e8e8e8; }
+tr:hover td { background: #f0f4fa; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.red-flag {
+  background: #fde8e8; border-right: 4px solid #e74c3c;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+}
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר מעמיק</span>
+  <a href="../">חזרה לדירוג</a>
+  <a href="./">כל הדוחות</a>
+  <a href="#summary">תמצית</a>
+  <a href="#structure">מבנה</a>
+  <a href="#education">חינוך</a>
+  <a href="#yeshivas">ישיבות חילוניות</a>
+  <a href="#network">רשת</a>
+  <a href="#sources">מקורות</a>
+</nav>
+
+<div class="hero">
+  <h1>בינ"ה — התנועה ליהדות חברתית</h1>
+  <div class="subtitle">BINA: The Jewish Movement for Social Change</div>
+  <div class="meta">מחקר מעמיק | מרץ 2026</div>
+  <span class="type-badge">חינוך פלורליסטי — 30,000+ תלמידים ומורים בשנה</span>
+</div>
+
+<div class="container">
+
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>בינ"ה — תנועה ליהדות חברתית</td></tr>
+      <tr><td>שם באנגלית</td><td>BINA — The Jewish Movement for Social Change</td></tr>
+      <tr><td>סוג</td><td>עמותה</td></tr>
+      <tr><td>תחום</td><td>יהדות חברתית, חינוך פלורליסטי</td></tr>
+    </table>
+  </div>
+  <div class="section" id="summary">
+    <h2>תמצית</h2>
+    <div class="thesis">
+      <strong>תזה:</strong> בינ"ה הוא ארגון החינוך היהודי-פלורליסטי הגדול ביותר בישראל. מגיע ליותר מ-30,000 תלמידים ומורים בשנה בעשרות בתי ספר ממלכתיים, ו-80,000+ ישראלים בסך הכל. מציג עצמו כ"חלופה לפרספקטיבה האורתודוקסית" בחינוך הממלכתי. הוקם ב-1996 על ידי אנשי התנועה הקיבוצית לאחר רצח רבין. מפעיל 4 "ישיבות חילוניות" ופעיל ב-4 ערים. חבר ברשת "פנים" (ארגון הגג ל-60+ ארגוני "התחדשות יהודית").
+    </div>
+  </div>
+
+  <div class="section" id="structure">
+    <h2>מבנה ארגוני</h2>
+    <table>
+      <tr><th>שדה</th><th>ערך</th></tr>
+      <tr><td>שם רשום</td><td>בינ"ה — מרכז ליהדות חברתית (ע"ר)</td></tr>
+      <tr><td>מספר עמותה</td><td>580652378</td></tr>
+      <tr><td>שנת הקמה</td><td>1996</td></tr>
+      <tr><td>מנכ"ל</td><td>ניר בראודו (Nir Braudo)</td></tr>
+      <tr><td>סמנכ"לית פיתוח ואסטרטגיה</td><td>אורלי דבוש ניצן</td></tr>
+      <tr><td>סמנכ"לית כספים</td><td>מלכי בן אוליאל</td></tr>
+      <tr><td>מנהלת חינוך</td><td>אביטל סויסה מויאל</td></tr>
+      <tr><td>ערים פעילות</td><td>תל אביב-יפו, ירושלים, באר שבע, חיפה</td></tr>
+      <tr><td>היקף שנתי</td><td>80,000+ משתתפים (30,000+ תלמידים ומורים)</td></tr>
+    </table>
+
+    <h3>מייסדים ורקע</h3>
+    <p>הוקם ב-1996 על ידי "קבוצה מגוונת של מחנכים ואינטלקטואלים מהתנועה הקיבוצית" בתגובה לרצח ראש הממשלה יצחק רבין. המטרה המוצהרת: לגבש תפיסות של "יהדות הומניסטית" וליצור "שפה משותפת שתגשר בין ציבורים".</p>
+
+    <h3>ערכי ליבה מוצהרים</h3>
+    <ul>
+      <li>פלורליזם</li>
+      <li>צדק חברתי</li>
+      <li>סולידריות חברתית</li>
+      <li>דמוקרטיה</li>
+      <li>שלום</li>
+      <li>תיקון עולם</li>
+    </ul>
+  </div>
+
+  <div class="section" id="education">
+    <h2>פעילות בבתי ספר</h2>
+
+    <div class="thesis">
+      <strong>היקף:</strong> מחלקת החינוך של בינ"ה מגיעה לעשרות בתי ספר ממלכתיים, מעל 30,000 תלמידים ומורים בשנה. פעילה מ-2001.
+    </div>
+
+    <h3>מה עושים בבתי ספר</h3>
+    <ul>
+      <li>סמינרים אינטראקטיביים על "פלורליזם יהודי וצדק חברתי"</li>
+      <li>מופעים מוזיקליים לחגים</li>
+      <li>סיורים חברתיים</li>
+      <li>ימי עיון וסדנאות</li>
+      <li>הכשרות והשתלמויות מורים</li>
+      <li>פעילויות "המשלבות את ארון הספרים היהודי והחברה הישראלית"</li>
+    </ul>
+
+    <h3>הפוזיציה המרכזית</h3>
+    <blockquote>
+      "BINA's programs offer an alternative to the Orthodox perspective, which is the prominent perspective in Israeli Jewish public schools as it is highly subsidized by the Israeli government."
+      <br><small>— מאתר בינ"ה באנגלית</small>
+    </blockquote>
+    <p>בינ"ה מציגה את עצמה במפורש כ<strong>חלופה לגישה האורתודוקסית</strong> בחינוך הממלכתי. זוהי פוזיציה אידיאולוגית ברורה — לא "השלמה" אלא "חלופה". המשמעות: תוכניות בינ"ה נועדו לספק אלטרנטיבה לתכנים שמועברים על ידי גופים אורתודוקסיים במערכת החינוך.</p>
+
+    <h3>מטרות מוצהרות בתקנון</h3>
+    <ul>
+      <li>העמקת הזהות והחינוך היהודי</li>
+      <li>חיזוק ההיכרות עם מורשת ישראל</li>
+      <li>הקניית ערכי יסוד של המורשת היהודית לילדים ובני נוער ממערכת החינוך הממלכתי</li>
+      <li>הפעלת מדרשה</li>
+    </ul>
+  </div>
+
+  <div class="section" id="yeshivas">
+    <h2>ישיבות חילוניות</h2>
+    <p>בינ"ה הקימה את <strong>הישיבה החילונית הראשונה בעולם</strong> (2006) בדרום תל אביב — אחד השכונות המוחלשות ביותר. מאז הקימה 3 נוספות:</p>
+    <table>
+      <tr><th>עיר</th><th>שנת הקמה</th></tr>
+      <tr><td>תל אביב-יפו (דרום ת"א)</td><td>2006</td></tr>
+      <tr><td>ירושלים</td><td>2011</td></tr>
+      <tr><td>באר שבע</td><td>2015</td></tr>
+      <tr><td>חיפה</td><td>2018</td></tr>
+    </table>
+    <p>הישיבות החילוניות הן "מרכזי תרבות וחינוך יהודי שבהם צעירים לומדים ומפרשים טקסטים ותרבות יהודית". שירותי חגים פתוחים לציבור.</p>
+
+    <h3>BINA Bashchuna — מנהיגות צעירה</h3>
+    <p>תוכנית "בינ"ה בשכונה" (מ-2001) — צעירים חיים בשכונות מוחלשות ומשלבים לימוד עם פעולה חברתית. כוללת שנת שירות / גרעין.</p>
+
+    <h3>תוכנית MASA לדיאספורה</h3>
+    <p>"תיקון עולם בתל אביב-יפו" (מ-2005) — תוכנית לצעירים יהודים מחו"ל המשלבת לימוד יהדות ופעולה חברתית בישראל.</p>
+  </div>
+
+  <div class="section" id="network">
+    <h2>רשת וקשרים</h2>
+
+    <h3>חברות ברשת פנים</h3>
+    <p>בינ"ה היא חברה ברשת <strong>פנים — איגוד ארגוני יהדות ישראלית</strong> (60+ ארגונים). פנים הוא ארגון הגג שמתאם בין ארגוני "התחדשות יהודית" ומנהל יחד עם משרד התפוצות מנהלת בתקציב 60M ש"ח.</p>
+
+    <h3>מממנים ושותפים</h3>
+    <ul>
+      <li><strong>קרן אב"י חי</strong> — תרמה לשדה ההתחדשות היהודית (סיימה מענקים 2019)</li>
+      <li><strong>קרן פוזן (Posen Foundation)</strong> — נתמכת (ראו אתר פוזן)</li>
+      <li><strong>Jewish Foundation of Los Angeles</strong> — מענק לתוכנית BINA Youth Core</li>
+      <li><strong>Israel Innovation Fund (TIIF)</strong></li>
+      <li><strong>Anna Lindh Foundation</strong> — שותפות דיאלוג בין-תרבותי</li>
+      <li><strong>Reconstructing Judaism</strong> — שותפות "שותפות" (Shutafut)</li>
+    </ul>
+
+    <h3>קשרים עירוניים</h3>
+    <p>בינ"ה פעילה ב-4 ערים עם ישיבות חילוניות קבועות. בדירוג הערים: באר שבע (רמה 4), חיפה (רמה 7), תל אביב ותרושלים (אין עדיין דירוג). הנוכחות הפיזית הקבועה (בניין, צוות) מבדילה את בינ"ה מארגונים שנכנסים לעיר רק לפעילות חד-פעמית.</p>
+  </div>
+
+  <div class="section" id="assessment">
+    <h2>הערכה</h2>
+    <div class="thesis">
+      <p>בינ"ה הוא ארגון חינוך ממוסד עם נוכחות רחבה במערכת הממלכתית. הוא אינו "חתרני" במובן הצר — אינו מסתיר את האג'נדה שלו, ומציג בגלוי את עצמו כ"חלופה לאורתודוקסיה". הסיכון המרכזי הוא <strong>היקף החשיפה</strong>: 30,000+ תלמידים בשנה שמקבלים תכנים יהודיים עם נטייה פלורליסטית-פרוגרסיבית, בעוד שההורים לא בהכרח מודעים לפוזיציה האידיאולוגית של הארגון.</p>
+    </div>
+    <p><strong>סיווג:</strong> חינוך יהודי פלורליסטי. לא חתרני, אך פרוגרסיבי מובהק. חלק מרשת פנים. היקף חדירה גבוה (30,000+/שנה). מממנים בינלאומיים מגוונים.</p>
+  </div>
+
+  <div class="section" id="sources">
+    <h2>מקורות</h2>
+    <ol>
+      <li>בינ"ה — <a href="https://www.bina.org.il/en/about_en/">About BINA (EN)</a></li>
+      <li>בינ"ה — <a href="https://www.bina.org.il/about/">אודות בינ"ה (HE)</a></li>
+      <li>בינ"ה — <a href="https://www.bina.org.il/en/education_en/">Jewish Education programs</a></li>
+      <li>Wikipedia — <a href="https://en.wikipedia.org/wiki/BINA:_The_Jewish_Movement_for_Social_Change">BINA: The Jewish Movement for Social Change</a></li>
+      <li>גיידסטאר — <a href="https://www.guidestar.org.il/organization/580652378">בינ"ה, ע"ר 580652378</a></li>
+      <li>המכלול — <a href="https://www.hamichlol.org.il/%D7%91%D7%99%D7%A0%D7%94_-_%D7%94%D7%AA%D7%A0%D7%95%D7%A2%D7%94_%D7%9C%D7%99%D7%94%D7%93%D7%95%D7%AA_%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA">בינה — התנועה ליהדות חברתית</a></li>
+      <li>Posen Foundation — <a href="https://www.posenfoundation.co.il/en/our_grants/%D7%91%D7%99%D7%A0%D7%94-%D7%94%D7%AA%D7%A0%D7%95%D7%A2%D7%94-%D7%9C%D7%99%D7%94%D7%93%D7%95%D7%AA-%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%AA/">Bina grant</a></li>
+    </ol>
+  </div>
+
+</div>
+
+<footer>
+  פרויקט זהות ציונית — דוח ארגון מעמיק | <a href="../">דירוג ערים</a> | <a href="./">כל הדוחות</a>
+</footer>
+
+</body>
+</html>

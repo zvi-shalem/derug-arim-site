@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מכון אלכא למנהיגות וממשל — ג'וינט ישראל | דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>מכון אלכא למנהיגות וממשל — ג'וינט ישראל</h1>
+  <div><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fde8e8;color:#c0392b;margin-right:10px;">פרוגרסיבי חתרני</span></div>
+  <div class="subtitle">ח.פ. 510681414 | שותפות ג'וינט ישראל</div>
+  <div class="meta">מכשירים בכירי ממשלה ובו-זמנית משתפים פעולה עם שתי"ל/הקרן החדשה ומייעצים לארגוני להט"ב</div>
+</div>
+
+<div class="container">
+  <a href="../index_v2.html" class="back-link">&#8592; חזרה לדירוג</a>
+
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>אלכ"א-ג'וינט ישראל</td></tr>
+      <tr><td>שם באנגלית</td><td>ELKA-JDC Israel</td></tr>
+      <tr><td>סוג</td><td>עמותה</td></tr>
+      <tr><td>מימון</td><td>JDC (American Jewish Joint Distribution Committee)</td></tr>
+    </table>
+  </div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num" style="font-size:1.2em;">510681414</span><span class="label">ח.פ. (HP) <br><span class="source-tag">GuideStar IL</span></span></div>
+        <div class="stat-card"><span class="num" style="font-size:1.2em;">JDC</span><span class="label">ארגון אם: ג'וינט ישראל <br><span class="source-tag">Weinberg DB — LIBA Research</span></span></div>
+        <div class="stat-card"><span class="num" style="font-size:1.2em;">שותפות</span><span class="label">צורה משפטית <br><span class="source-tag">Weinberg DB — LIBA Research</span></span></div>
+      </div>
+
+      <h3>מהות הארגון</h3>
+      <p>מכון אלכא למנהיגות וממשל הינו <strong>שותפות</strong> הפועלת במסגרת ג'וינט ישראל (JDC Israel). המכון ממוקם בצומת שבין המגזר הציבורי, המגזר השלישי וארגוני הסברה — ומשמש כמוסד הכשרה לבכירי המנהל הציבורי ומשרדי הממשלה.
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </p>
+
+      <blockquote>
+        "המכון בעל תפקיד מרכזי בהכשרת בכירי המגזר הציבורי ומשרדי הממשלה. פועל בשיתוף פעולה נרחב עם הקרן החדשה לישראל (באמצעות ארגון 'שתי"ל' של הקרן) במגזר השלישי. בעל תפקיד מרכזי בסיוע וייעוץ אסטרטגי לארגוני הלהט"ב בישראל. מכון אלכא למנהיגות וממשל הינו שותפות"
+        <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+      </blockquote>
+
+      <h3>שלושה זרועות פעילות</h3>
+      <ol>
+        <li><strong>הכשרת בכירי ממשלה</strong> — תפקיד מרכזי בהכשרת בכירי המגזר הציבורי ומשרדי הממשלה.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </li>
+        <li><strong>שיתוף פעולה עם שתי"ל/הקרן החדשה</strong> — שיתוף פעולה נרחב עם הקרן החדשה לישראל באמצעות ארגון "שתי"ל" של הקרן, במגזר השלישי.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </li>
+        <li><strong>ייעוץ אסטרטגי לארגוני להט"ב</strong> — תפקיד מרכזי בסיוע וייעוץ אסטרטגי לארגוני הלהט"ב בישראל.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </li>
+      </ol>
+
+      <h3>נתוני רישום</h3>
+      <table>
+        <tr>
+          <th>שדה</th>
+          <th>ערך</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>מספר ח.פ.</td>
+          <td>510681414</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 510681414</span></td>
+        </tr>
+        <tr>
+          <td>צורה משפטית</td>
+          <td>שותפות</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>ארגון אם</td>
+          <td>ג'וינט ישראל (JDC Israel)</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>תחום פעילות ראשי</td>
+          <td>הכשרת בכירי מגזר ציבורי וממשלה</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>שותפי פעולה מרכזיים</td>
+          <td>הקרן החדשה לישראל / שתי"ל</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <div class="thesis">
+        <strong>סיווג:</strong> פרוגרסיבי חתרני — מכון שמכשיר בכירי ממשלה (נראה ניטרלי/מקצועי) ובו-זמנית משתף פעולה עם שתי"ל של הקרן החדשה ומייעץ אסטרטגית לארגוני להט"ב. השילוב אומר שאותו מוסד מעצב הן את השקפת עולמם של פקידי ממשלה והן את האסטרטגיה של ארגוני הסברה פרוגרסיביים — הם מכשירים את שני הצדדים.
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים vs מה עושים</h2>
+
+      <h3>הפער המרכזי</h3>
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר (SAID):</span> "הכשרת בכירי המגזר הציבורי ומשרדי הממשלה" — הכשרה מקצועית לשירות הציבורי, מכון למנהיגות וממשל.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+        <p><span class="done">מה שנעשה בפועל (DONE):</span> מכשירים בכירי ממשלה בו-זמנית עם שיתוף פעולה עם שתי"ל של הקרן החדשה וייעוץ אסטרטגי לארגוני להט"ב — אותו מוסד מעצב גם את פקידי הממשלה וגם את ארגוני ההסברה.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <h3>ניתוח הפער</h3>
+      <p>השם "מכון למנהיגות וממשל" מרמז על הכשרה ניטרלית-מקצועית של עובדי מדינה. זהו מיצוב מוסדי של מוסד אקדמי-ממשלתי. אולם בפועל, אותו מוסד בדיוק פועל בשלושה מישורים בו-זמנית:
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </p>
+
+      <div class="model-card" style="border-right-color:#e74c3c;">
+        <h4>מישור 1: הכשרת בכירי ממשלה</h4>
+        <p>המכון בעל "תפקיד מרכזי" בהכשרת בכירי המגזר הציבורי ומשרדי הממשלה. כלומר, הוא מעצב את ההשקפה המקצועית והערכית של מקבלי ההחלטות במדינה.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <div class="model-card" style="border-right-color:#e67e22;">
+        <h4>מישור 2: שיתוף פעולה עם שתי"ל/הקרן החדשה</h4>
+        <p>שיתוף פעולה "נרחב" עם הקרן החדשה לישראל (NIF), באמצעות ארגון "שתי"ל" של הקרן, במגזר השלישי. שתי"ל הוא זרוע הייעוץ והחיזוק של הקרן החדשה לארגוני חברה אזרחית — רבים מהם בעלי אג'נדה פרוגרסיבית מובהקת.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <div class="model-card" style="border-right-color:#8e44ad;">
+        <h4>מישור 3: ייעוץ אסטרטגי לארגוני להט"ב</h4>
+        <p>המכון בעל "תפקיד מרכזי" בסיוע וייעוץ אסטרטגי לארגוני הלהט"ב בישראל. לא מדובר בתמיכה שולית אלא בתפקיד מרכזי — עיצוב האסטרטגיה של ארגוני הסברה.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <h3>מדוע זה חתרני</h3>
+      <div class="thesis">
+        <strong>מנגנון הצינור (Pipeline):</strong> כאשר אותו מוסד בדיוק מכשיר את בכירי הממשלה <strong>וגם</strong> מייעץ לארגוני הסברה, נוצר מצב שבו:
+        <ul style="margin-top:8px;">
+          <li>בכירי הממשלה שעברו הכשרה באלכא כבר "מכירים" את השפה, המושגים, והערכים של ארגוני המגזר השלישי שאלכא משתפת עמם פעולה.
+            <span class="source-tag">Weinberg DB — LIBA Research</span>
+          </li>
+          <li>ארגוני ההסברה (להט"ב, מגזר שלישי דרך שתי"ל) מקבלים ייעוץ אסטרטגי מאותו מוסד שמכשיר את מי שהם צריכים לשכנע.
+            <span class="source-tag">Weinberg DB — LIBA Research</span>
+          </li>
+          <li>התוצאה: צינור (pipeline) שמייצר הן את "הביקוש" (פקידי ממשלה עם השקפה מתאימה) והן את "ההיצע" (ארגוני הסברה עם אסטרטגיה מותאמת).
+            <span class="source-tag">ניתוח מבוסס על Weinberg DB — LIBA Research</span>
+          </li>
+        </ul>
+      </div>
+
+      <h3>השוואה: מוצהר מול בפועל</h3>
+      <table>
+        <tr>
+          <th>היבט</th>
+          <th>המוצהר</th>
+          <th>בפועל</th>
+        </tr>
+        <tr>
+          <td>מהות</td>
+          <td>מכון למנהיגות וממשל</td>
+          <td>צומת בין ממשלה, מגזר שלישי וארגוני הסברה</td>
+        </tr>
+        <tr>
+          <td>קהל יעד</td>
+          <td>בכירי מגזר ציבורי</td>
+          <td>בכירי ממשלה + ארגוני שתי"ל/NIF + ארגוני להט"ב</td>
+        </tr>
+        <tr>
+          <td>אופי</td>
+          <td>הכשרה מקצועית ניטרלית</td>
+          <td>שלוש זרועות במקביל עם כיוון אידאולוגי</td>
+        </tr>
+        <tr>
+          <td>ניטרליות</td>
+          <td>מכון ממשלתי-אקדמי</td>
+          <td>שותפות ג'וינט עם קשרי NIF/שתי"ל</td>
+        </tr>
+      </table>
+      <p style="font-size:0.85em;color:#888;">כל הנתונים בטבלה מבוססים על: <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <p>מכון אלכא פועל כצומת (hub) המחבר בין ארבעה מעגלים מרכזיים: ארגון האם (ג'וינט), שותפי פעולה במגזר השלישי (NIF/שתי"ל), הלקוחות הממשלתיים, וארגוני ההסברה שהמכון מייעץ להם.
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </p>
+
+      <div class="actor-card">
+        <h3>ג'וינט ישראל (JDC Israel)</h3>
+        <span class="role">ארגון אם</span>
+        <p>מכון אלכא למנהיגות וממשל הינו שותפות הפועלת במסגרת ג'וינט ישראל. הג'וינט (American Jewish Joint Distribution Committee) הוא ארגון הסיוע היהודי-אמריקאי הגדול בעולם, הפועל בישראל מאז תקופת המנדט.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <div class="actor-card">
+        <h3>הקרן החדשה לישראל (NIF) / שתי"ל</h3>
+        <span class="role">שותף פעולה נרחב</span>
+        <p>המכון פועל בשיתוף פעולה "נרחב" עם הקרן החדשה לישראל, באמצעות ארגון "שתי"ל" של הקרן, במגזר השלישי. שתי"ל (שירותי תמיכה ייעוץ לארגונים — השם הרשמי) הוא זרוע הסיוע הארגוני של NIF, המספק הכשרות, ייעוץ אסטרטגי וחיזוק לארגוני חברה אזרחית.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <div class="actor-card">
+        <h3>משרדי ממשלה — המגזר הציבורי</h3>
+        <span class="role">לקוח — קהל יעד להכשרה</span>
+        <p>בכירי המגזר הציבורי ומשרדי הממשלה הם קהל היעד המרכזי של המכון. המכון בעל "תפקיד מרכזי" בהכשרתם — כלומר, הוא מעצב את האופן שבו פקידי בכירים בממשלה מבינים מנהיגות, ממשל ומדיניות ציבורית.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <div class="actor-card">
+        <h3>ארגוני להט"ב בישראל</h3>
+        <span class="role">מקבלי ייעוץ אסטרטגי</span>
+        <p>המכון בעל "תפקיד מרכזי" בסיוע וייעוץ אסטרטגי לארגוני הלהט"ב בישראל. לא ליווי שולי אלא תפקיד מרכזי — המשמעות היא שאלכא מסייע בעיצוב האסטרטגיה הארגונית, הציבורית והפוליטית של ארגונים אלו.
+          <span class="source-tag">Weinberg DB — LIBA Research</span>
+        </p>
+      </div>
+
+      <h3>מפת רשת — סיכום</h3>
+      <table>
+        <tr>
+          <th>שחקן</th>
+          <th>סוג קשר</th>
+          <th>אופי היחסים</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td><strong>ג'וינט ישראל (JDC)</strong></td>
+          <td>ארגון אם</td>
+          <td>אלכא הוא שותפות במסגרת הג'וינט</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>הקרן החדשה לישראל (NIF)</strong></td>
+          <td>שותף פעולה</td>
+          <td>שיתוף פעולה נרחב במגזר השלישי</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>שתי"ל</strong></td>
+          <td>שותף פעולה (זרוע NIF)</td>
+          <td>הערוץ המעשי לשיתוף עם NIF</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>משרדי ממשלה</strong></td>
+          <td>לקוח / קהל יעד</td>
+          <td>הכשרת בכירים</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td><strong>ארגוני להט"ב</strong></td>
+          <td>מקבלי ייעוץ</td>
+          <td>סיוע וייעוץ אסטרטגי</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <div class="thesis">
+        <strong>מבנה הרשת:</strong> אלכא יושב בליבה של רשת מעגלית — הג'וינט מספק את התשתית המוסדית, NIF/שתי"ל מספקים את הגישה למגזר השלישי, משרדי הממשלה מספקים את הלגיטימציה הציבורית, וארגוני הלהט"ב מספקים את זירת ההסברה. כל זה תחת קורת גג אחת.
+        <span class="source-tag">ניתוח מבוסס על Weinberg DB — LIBA Research</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מקור ראשי</h3>
+      <div class="model-card">
+        <h4>מאגר ויינברג — מחקר ליב"א</h4>
+        <p><strong>Weinberg DB — LIBA Research</strong></p>
+        <p>מאגר מידע מחקרי על ארגונים בישראל. התיאור המלא של מכון אלכא במאגר:</p>
+        <blockquote>
+          "המכון בעל תפקיד מרכזי בהכשרת בכירי המגזר הציבורי ומשרדי הממשלה. פועל בשיתוף פעולה נרחב עם הקרן החדשה לישראל (באמצעות ארגון 'שתי"ל' של הקרן) במגזר השלישי. בעל תפקיד מרכזי בסיוע וייעוץ אסטרטגי לארגוני הלהט"ב בישראל. מכון אלכא למנהיגות וממשל הינו שותפות"
+          <br><span class="source-tag">Weinberg DB — LIBA Research</span>
+        </blockquote>
+      </div>
+
+      <div class="model-card">
+        <h4>GuideStar Israel — רשם העמותות</h4>
+        <p><strong>ח.פ. 510681414</strong></p>
+        <p>מספר החברה/שותפות כפי שרשום ב-GuideStar IL (גיידסטאר ישראל), המאגר הרשמי של עמותות וחברות לתועלת הציבור.</p>
+        <p><span class="source-tag">GuideStar IL — ח.פ. 510681414</span></p>
+      </div>
+
+      <h3>פירוט ציטוטים ומקורותיהם</h3>
+      <table>
+        <tr>
+          <th>נתון / ציטוט</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>מספר ח.פ.: 510681414</td>
+          <td><span class="source-tag">GuideStar IL — ח.פ. 510681414</span></td>
+        </tr>
+        <tr>
+          <td>"תפקיד מרכזי בהכשרת בכירי המגזר הציבורי ומשרדי הממשלה"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"פועל בשיתוף פעולה נרחב עם הקרן החדשה לישראל"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"באמצעות ארגון 'שתי"ל' של הקרן"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"במגזר השלישי"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"בעל תפקיד מרכזי בסיוע וייעוץ אסטרטגי לארגוני הלהט"ב בישראל"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>"מכון אלכא למנהיגות וממשל הינו שותפות"</td>
+          <td><span class="source-tag">Weinberg DB — LIBA Research</span></td>
+        </tr>
+        <tr>
+          <td>הסיווג "פרוגרסיבי חתרני"</td>
+          <td><span class="source-tag">ניתוח מבוסס על Weinberg DB — LIBA Research</span></td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על שני מקורות בלבד: מאגר ויינברג (Weinberg DB) של מחקר ליב"א (LIBA Research), ומאגר גיידסטאר ישראל (GuideStar IL) לנתוני רישום. כל טענה בדוח מצוטטת ישירות ממקורות אלו ומסומנת בתגית מקור. ניתוח הפער ("מה אומרים vs מה עושים") וניתוח הרשת מבוססים על שילוב הנתונים ממקורות אלו, ומסומנים כ"ניתוח מבוסס על".</p>
+      <p>לא נעשה שימוש במקורות שאינם מוזכרים לעיל. כל נתון שאינו מופיע במקורות — לא נכלל בדוח.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

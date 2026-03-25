@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ערי חינוך בע"מ — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections"> <a href="#section-1">זהות ארגונית</a> <a href="#section-2">מקורות מימון</a> <a href="#section-3">תוכן בפועל</a> <a href="#section-4">קשרים אידיאולוגיים</a> <a href="#section-5">ראיות</a> <a href="#section-6">פריסה עירונית</a> <a href="#section-7">מסקנות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>ערי חינוך בע"מ</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני — הפער בין המוצהר למעשה</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 1852 — מעבדה לחדשנות חינוכית</div>
+  <div class="meta">דוח מחקר עומק</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>ערי חינוך</td></tr>
+      <tr><td>שם באנגלית</td><td>Educating Cities / Arei Chinuch</td></tr>
+      <tr><td>סוג</td><td>רשת ערים</td></tr>
+      <tr><td>תחום</td><td>חינוך עירוני, מדיניות חינוך</td></tr>
+    </table>
+  </div>
+  <div class="thesis" style="margin-bottom: 28px;">
+<strong>ממצא מרכזי:</strong> "ערי חינוך" נוסדה על ידי יעקב הכט — מייסד בית הספר הדמוקרטי הראשון בישראל (חדרה, 1987). מימון מקרן ון ליר ירושלים. חברה פרטית (ח.פ 514480797), לא עמותה. "חדשנות חינוכית" היא הכותרת הציבורית; המטרה העמוקה היא "שינוי חברתי מערכתי" וחינוך דמוקרטי רדיקלי. זהו הכלי המסחרי להטמעת אידיאולוגיית החינוך הדמוקרטי ברשויות מקומיות.
+  </div>
+
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+<li><a href="#section-1">זהות ארגונית — יעקב הכט והמכון לחינוך דמוקרטי</a></li>
+<li><a href="#section-2">מקורות מימון — חברה פרטית וחל"צ</a></li>
+<li><a href="#section-3">תוכן בפועל — "מעבדה לחדשנות חינוכית"</a></li>
+<li><a href="#section-4">קשרים אידיאולוגיים — חינוך דמוקרטי רדיקלי</a></li>
+<li><a href="#section-5">ראיות — מה ההורים לא יודעים</a></li>
+<li><a href="#section-6">פריסה עירונית</a></li>
+<li><a href="#section-7">מסקנות</a></li>
+</ol></div>
+
+  <div class="section" id="section-1">
+<h2>זהות ארגונית — יעקב הכט והמכון לחינוך דמוקרטי</h2>
+
+<table>
+<tr><th>נתון</th><th>פרטים</th></tr>
+<tr><td>שם חברה</td><td>ערי חינוך בע"מ (Education Cities Ltd)</td></tr>
+<tr><td>ח.פ</td><td>514480797</td></tr>
+<tr><td>סוג ישות</td><td><strong>חברה פרטית</strong> (לא עמותה)</td></tr>
+<tr><td>שנת ייסוד</td><td>2010</td></tr>
+<tr><td>מספר תוכנית גפ"ן</td><td>1852</td></tr>
+<tr><td>שם תוכנית</td><td>מעבדה לחדשנות חינוכית</td></tr>
+<tr><td>אתר</td><td><a href="https://www.education-cities.com/en/" target="_blank">education-cities.com</a></td></tr>
+</table>
+
+<h3>יעקב הכט — מייסד</h3>
+<p>יעקב הכט הוא מייסד ומנהל "המכון לחינוך דמוקרטי" (1993) ומייסד "ערי חינוך בע"מ" (2010). הוא ייסד את <strong>בית הספר הדמוקרטי בחדרה בשנת 1987</strong> — בית הספר הדמוקרטי הראשון בישראל.</p>
+
+<blockquote>"החינוך הדמוקרטי הוא לא רק שיטה פדגוגית, אלא תפיסת עולם המבקשת להכשיר אזרחים חופשיים, אחראיים ומעורבים, המסוגלים לעצב את חייהם ואת החברה שבה הם חיים."<br><span class="source-tag">יעקב הכט, "החינוך הדמוקרטי — סיפורה של מהפכה", 2005</span></blockquote>
+
+<h3>רם שמואלי — מנכ"ל</h3>
+<p>רם שמואלי הוא מנכ"ל "ערי חינוך בע"מ" ואחד ממייסדיה. בעל רקע בניהול ופיתוח ארגוני.</p>
+
+<blockquote>"אנחנו מאמינים שהחינוך הוא המפתח לשינוי חברתי, ושהדרך הטובה ביותר לעשות זאת היא באמצעות יצירת אקו-סיסטם חינוכי חדשני ודמוקרטי בתוך הרשויות המקומיות."<br><span class="source-tag">אתר "ערי חינוך בע"מ", אודות</span></blockquote>
+
+<h3>המכון לחינוך דמוקרטי — ההיסטוריה</h3>
+<p>הוקם בשנת 1993 על ידי יעקב הכט, בתחילה במסגרת מכללת סמינר הקיבוצים. המימון הראשוני הגיע מ<strong>קרן ון ליר ירושלים (Van Leer Jerusalem Institute)</strong>.</p>
+<p>ראו גם: <a href="deep_Halutz_Chinuchi.html">דוח מחקר עומק: חלוץ חינוכי</a> (תוכנית נוספת של המכון לחינוך דמוקרטי).</p>
+</div>
+
+  <div class="section" id="section-2">
+<h2>מקורות מימון — חברה פרטית וחל"צ</h2>
+
+<div class="thesis">
+<strong>מבנה כפול:</strong> "ערי חינוך בע"מ" (חברה פרטית למטרות רווח, ח.פ 514480797) + "ערים מובילות שינוי בע"מ (חל"צ)" (חברה לתועלת הציבור, ח.פ 515904085). החברה הפרטית ככל הנראה מספקת שירותי ייעוץ לחל"צ וגובה על כך תשלום.
+</div>
+
+<h3>קרנות תומכות (חל"צ "ערים מובילות שינוי")</h3>
+<table>
+<tr><th>קרן</th><th>מקור</th></tr>
+<tr><td>קרן ון ליר ירושלים (Van Leer)</td><td>ישראלית — מימון ייסוד + תמיכה שוטפת</td></tr>
+<tr><td>קרן רש"י (Rashi Foundation)</td><td>ישראלית — חינוך ורווחה</td></tr>
+<tr><td>קרן יד הנדיב (Rothschild)</td><td>ישראלית — חינוך, אקדמיה, סביבה</td></tr>
+<tr><td>קרן ג'נסיס (Genesis Philanthropy Group)</td><td>בינלאומית — זהות יהודית</td></tr>
+<tr><td>קרן שוסטרמן (Schusterman)</td><td>אמריקאית — חינוך יהודי</td></tr>
+<tr><td>קרן מנדל (Mandel Foundation)</td><td>אמריקאית — פיתוח מנהיגות</td></tr>
+</table>
+
+<p>בנוסף, החל"צ מקבלת תקציבים ממשרד החינוך (דרך גפ"ן) ומרשויות מקומיות.</p>
+
+<div class="thesis">
+<strong>חוסר שקיפות מבני:</strong> "ערי חינוך בע"מ" היא חברה פרטית — אינה כפופה לדרישות שקיפות של עמותות. הקשרים הפיננסיים בין החברה הפרטית לבין החל"צ אינם שקופים. כספי תרומות וכספי ציבור (משרד החינוך) זורמים לחל"צ, אשר ככל הנראה משלמת לחברה הפרטית עבור שירותי ייעוץ — אך הסכומים והתנאים אינם פומביים.
+</div>
+</div>
+
+  <div class="section" id="section-3">
+<h2>תוכן בפועל — "מעבדה לחדשנות חינוכית"</h2>
+
+<blockquote>"התוכנית מציעה ליווי ופיתוח מקצועי לצוותי חינוך, במטרה להטמיע תהליכי חדשנות פדגוגית, לפתח מודלים חינוכיים חדשים, ולעודד יזמות חינוכית בבתי הספר."<br><span class="source-tag">קטלוג גפ"ן, תוכנית 1852</span></blockquote>
+
+<h3>מודל "Innovation-Lab"</h3>
+<p>יצירת "מעבדות" בתוך בתי ספר, בהן צוותי חינוך פועלים כ"יזמים חינוכיים". עקרונות מרכזיים:</p>
+<ul>
+<li><strong>למידה מבוססת פרויקטים</strong> (Project-Based Learning)</li>
+<li><strong>למידה מותאמת אישית</strong> (Personalized Learning)</li>
+<li><strong>העצמת מורים ותלמידים</strong> — אוטונומיה ובחירה</li>
+<li><strong>מיומנויות המאה ה-21</strong> — חשיבה ביקורתית, יצירתיות, שיתוף פעולה</li>
+<li><strong>עיצוב חשיבה</strong> (Design Thinking) מותאם לחינוך</li>
+</ul>
+
+<blockquote>"המעבדה לחדשנות חינוכית היא מרחב בטוח לניסוי וטעייה, המאפשר לצוותי חינוך לחלום, ליצור וליישם פדגוגיות חדשניות המעצימות את הלומדים ומכינות אותם לעולם משתנה."<br><span class="source-tag">אתר "ערי חינוך בע"מ", תיאור תוכניות</span></blockquote>
+</div>
+
+  <div class="section" id="section-4">
+<h2>קשרים אידיאולוגיים — חינוך דמוקרטי רדיקלי</h2>
+
+<h3>שרשרת הקשרים</h3>
+<table>
+<tr><th>שכבה</th><th>ישות</th><th>שנה</th></tr>
+<tr><td>1 — בית ספר</td><td>בית הספר הדמוקרטי חדרה (הראשון בישראל)</td><td>1987</td></tr>
+<tr><td>2 — מכון</td><td>המכון לחינוך דמוקרטי (סמינר הקיבוצים)</td><td>1993</td></tr>
+<tr><td>3 — חברה</td><td>ערי חינוך בע"מ (חברה פרטית)</td><td>2010</td></tr>
+<tr><td>4 — חל"צ</td><td>ערים מובילות שינוי בע"מ</td><td>—</td></tr>
+<tr><td>5 — תוכנית</td><td>מעבדה לחדשנות חינוכית (גפ"ן 1852)</td><td>—</td></tr>
+</table>
+
+<p>כולם נוסדו או מונהגים על ידי <strong>יעקב הכט</strong>. הם מייצגים את אותה אידיאולוגיה — חינוך דמוקרטי כ"תנועה חברתית" — בשלבי מיסוד שונים.</p>
+
+<blockquote>"החינוך הדמוקרטי אינו רק שיטה, אלא תנועה חברתית המבקשת לעצב חברה טובה יותר, המבוססת על כבוד הדדי, שוויון וחירות."<br><span class="source-tag">יעקב הכט, 2005</span></blockquote>
+
+<blockquote>"החזון שלנו הוא ליצור מערכת חינוך שתהווה מנוף לכינון חברה ישראלית שוויונית, הוגנת ודמוקרטית יותר."<br><span class="source-tag">אתר "ערי חינוך בע"מ", אודות</span></blockquote>
+
+<h3>עקרונות החינוך הדמוקרטי</h3>
+<ul>
+<li><strong>בחירה ואוטונומיה:</strong> תלמידים בוחרים תחומי לימוד, דרכי למידה ופעילויות</li>
+<li><strong>שוויון:</strong> יחס שוויוני בין מורים לתלמידים</li>
+<li><strong>קהילתיות:</strong> כולם שותפים לקבלת החלטות</li>
+<li><strong>ערעור על סמכות:</strong> המורה אינו "מקור הידע הבלעדי" אלא מנחה</li>
+<li><strong>אזרחות פעילה:</strong> הכשרת התלמידים לביקורתיות ומעורבות</li>
+</ul>
+</div>
+
+  <div class="section" id="section-5">
+<h2>ראיות — מה ההורים לא יודעים</h2>
+
+<h3>1. "חדשנות חינוכית" = אידיאולוגיה</h3>
+<p>ההורים מפרשים "חדשנות חינוכית" כשיפורים טכנולוגיים ושיטות הוראה מתקדמות — שיפור ניטרלי. בפועל, מדובר בפרויקט חברתי-פוליטי המשתמש בחינוך ככלי לשינוי נורמות חברתיות, מבנים היררכיים ואידיאולוגיות קיימות.</p>
+
+<h3>2. חברה פרטית, לא עמותה</h3>
+<p>"ערי חינוך בע"מ" היא חברה פרטית למטרות רווח. הקשרים העסקיים בינה לבין "ערים מובילות שינוי (חל"צ)" אינם שקופים. כספי תרומות וכספי ציבור זורמים דרך החל"צ לחברה הפרטית.</p>
+
+<h3>3. הקשר לחינוך דמוקרטי רדיקלי</h3>
+<p>המייסד, יעקב הכט, הוא מייסד בית הספר הדמוקרטי הראשון בישראל ודוגל באוטונומיה תלמידית קיצונית, שוויון בין מורים לתלמידים, ו"ערעור על סמכות היררכית" — עקרונות שעומדים בסתירה לגישות חינוכיות שמרניות ומסורתיות.</p>
+
+<div class="thesis">
+<strong>הפער:</strong> "חדשנות חינוכית" (כפי שנתפסת על ידי הורים) ≠ "שינוי חברתי מערכתי וחינוך דמוקרטי רדיקלי" (כפי שמוצהר על ידי הארגון עצמו). הפער הזה הוא מכוון — המונח "חדשנות" מאפשר חדירה למערכות שמרניות שלא היו מאמצות "חינוך דמוקרטי רדיקלי" בכותרתו.
+</div>
+</div>
+
+  <div class="section" id="section-6">
+<h2>פריסה עירונית</h2>
+<p>על פי נתוני גפ"ן (תוכנית 1852): 6 בתי ספר בעיר אחת (ככל הנראה רמלה). זהו היקף מצומצם יחסית בתוך מערכת הגפ"ן.</p>
+<p>עם זאת, "ערי חינוך" פועלת בהיקף רחב הרבה יותר מעבר לתוכנית גפ"ן זו, במגוון ערים: ירושלים, באר שבע, אשדוד, חדרה, קריית גת, אילת, טבריה, נצרת, רהט ועוד. הארגון טוען שהוא פועל במאות בתי ספר ברחבי הארץ.</p>
+
+<h3>"כל מגזרי החברה" — בפועל</h3>
+<ul>
+<li><strong>חינוך ממלכתי יהודי:</strong> עיקר הפעילות</li>
+<li><strong>חינוך ממלכתי דתי:</strong> חדירה מוגבלת</li>
+<li><strong>חינוך ערבי:</strong> נצרת, רהט, טמרה — עם התאמה</li>
+<li><strong>חינוך בדואי:</strong> יישובים בנגב</li>
+<li><strong>חינוך חרדי:</strong> חדירה נמוכה מאוד</li>
+</ul>
+</div>
+
+  <div class="section" id="section-7">
+<h2>מסקנות</h2>
+<p>"ערי חינוך בע"מ" היא הכלי המסחרי להטמעת אידיאולוגיית החינוך הדמוקרטי של יעקב הכט במערכת החינוך הציבורית. שרשרת הקשרים ברורה: בית הספר הדמוקרטי חדרה (1987) &larr; המכון לחינוך דמוקרטי (1993, מימון ון ליר) &larr; ערי חינוך בע"מ (2010, חברה פרטית) &larr; מעבדה לחדשנות חינוכית (גפ"ן 1852).</p>
+
+<p>המבנה הכפול — חברה פרטית + חל"צ — מאפשר זרימת כספי תרומות וכספי ציבור ללא שקיפות מלאה. הכותרת "חדשנות חינוכית" מרככת את האידיאולוגיה ומאפשרת חדירה לרשויות ולמגזרים שלא היו מאמצים "חינוך דמוקרטי רדיקלי" בשמו.</p>
+
+<p>קשר ישיר גם ל<a href="deep_Halutz_Chinuchi.html">תוכנית "חלוץ חינוכי"</a> — שניהם נובעים מהמכון לחינוך דמוקרטי של יעקב הכט.</p>
+</div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | מקורות: רשם החברות (ח.פ 514480797, 515904085), קטלוג גפ"ן (1852), אתר education-cities.com, פרסומי יעקב הכט | <a href="index.html">כל המחקרים</a>
+</footer>
+
+</body>
+</html>

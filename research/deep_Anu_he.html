@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אנו — זרוע הגיוס ההמוני של הקרן החדשה | דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.gap-box {
+  background: #fde8e8; border-right: 4px solid #c0392b;
+  padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0;
+}
+.gap-box .said { color: #27ae60; font-weight: 600; }
+.gap-box .done { color: #c0392b; font-weight: 600; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.stat-card {
+  background: #f8f9fc; border-radius: 8px; padding: 16px; text-align: center;
+  border: 1px solid #e0e4ef;
+}
+.stat-card .num { font-size: 2em; font-weight: 700; color: #c0392b; display: block; }
+.stat-card .label { font-size: 0.82em; color: #666; margin-top: 4px; }
+.model-card {
+  background: #f8f9fc; border-radius: 8px; padding: 18px 20px;
+  margin: 14px 0; border-right: 4px solid #667eea;
+}
+.model-card h4 { color: #2a5a8a; margin-bottom: 8px; font-size: 1.08em; }
+.tabs {
+  display: flex; gap: 0; border-bottom: 2px solid #667eea; margin-bottom: 24px;
+  overflow-x: auto; white-space: nowrap;
+}
+.tab-btn {
+  padding: 10px 20px; cursor: pointer; border: none;
+  background: #e8eef6; color: #2a5a8a; font-weight: 600;
+  font-size: 0.92em; border-radius: 6px 6px 0 0;
+  transition: all 0.2s; font-family: inherit; white-space: nowrap;
+}
+.tab-btn:hover { background: #d0d8f0; }
+.tab-btn.active { background: #667eea; color: #fff; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.missing-item {
+  background: #fff5f5; padding: 12px 16px; margin: 8px 0;
+  border-radius: 6px; border-right: 3px solid #e74c3c;
+}
+.missing-item strong { color: #c0392b; }
+.actor-card {
+  background: #f8f9fc; padding: 14px 18px; margin: 10px 0;
+  border-radius: 8px; border-right: 3px solid #ff8800;
+}
+.actor-card .role { font-size: 0.82em; color: #888; }
+nav .nav-sections { display: contents; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tabs { gap: 0; }
+  .tab-btn { padding: 8px 12px; font-size: 0.82em; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../index_v2.html">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</a>
+    <a href="#" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</a>
+    <a href="#" onclick="openTab(event,'tab-network')">רשת קשרים</a>
+    <a href="#" onclick="openTab(event,'tab-sources')">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>אנו — זרוע הגיוס ההמוני של הקרן החדשה וקרן פורד</h1>
+  <div><span style="display:inline-block;padding:4px 14px;border-radius:12px;font-size:0.85em;font-weight:600;background:#fde8e8;color:#c0392b;margin-right:10px;">פרוגרסיבי חתרני</span></div>
+  <div class="subtitle">חל"צ 513446625 | איחוד ארגונים: אג'נדה + עורו + נוספים</div>
+  <div class="meta">מציגה עצמה כמעורבות אזרחית — בפועל זרוע גיוס המונים ומניפולציה תקשורתית של הקרן החדשה</div>
+</div>
+
+<div class="container">
+  <a href="../index_v2.html" class="back-link">&#8592; חזרה לדירוג</a>
+
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>אנו — מוזיאון העם היהודי</td></tr>
+      <tr><td>שם באנגלית</td><td>ANU — Museum of the Jewish People</td></tr>
+      <tr><td>סוג</td><td>מוסד תרבות</td></tr>
+      <tr><td>מיקום</td><td>תל אביב, אוניברסיטת תל אביב</td></tr>
+    </table>
+  </div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'tab-profile')">פרופיל מוסדי</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-gap')">מה אומרים vs מה עושים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-network')">רשת קשרים</button>
+    <button class="tab-btn" onclick="openTab(event,'tab-sources')">מקורות</button>
+  </div>
+
+  <!-- ==================== TAB 1: INSTITUTIONAL PROFILE ==================== -->
+  <div class="tab-panel active" id="tab-profile">
+    <div class="section">
+      <h2>פרופיל מוסדי: אנו</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="num">513446625</span><span class="label">ח.פ. (חברה לתועלת הציבור)</span></div>
+        <div class="stat-card"><span class="num">160,000+</span><span class="label">איש שפעלו עם הארגון (לטענתם)</span></div>
+        <div class="stat-card"><span class="num">3+</span><span class="label">ארגונים שאוחדו</span></div>
+      </div>
+
+      <h3>מהות הארגון</h3>
+      <p>"אנו" היא חברה לתועלת הציבור (חל"צ) שנוצרה מאיחוד של מספר ארגונים חברתיים. על פי אתר הארגון עצמו: <strong>"יותר מ-160,000 איש כבר פעלו איתנו בשנים האחרונות"</strong>.</p>
+      <span class="source-tag">Weinberg DB — LIBA Research</span>
+      <span class="source-tag">GuideStar IL — ח.פ. 513446625</span>
+
+      <h3>הארגונים שאוחדו ב"אנו"</h3>
+      <p>על פי מסד הנתונים של ויינברג (מחקר ליב"ה), "אנו" מורכבת מאיחוד הארגונים החברתיים הבאים:</p>
+
+      <div class="model-card" style="border-right-color:#e74c3c;">
+        <h4>1. אג'נדה — מרכז ישראלי לאסטרטגיה תקשורתית</h4>
+        <p>עוסק בקידום נושאים חברתיים שונים בכלי התקשורת. <strong>הוקם על ידי הקרן החדשה בתמיכת קרן פורד.</strong></p>
+        <p>תיאור נוסף ממסד הנתונים: "מרכז ישראלי לאסטרטגיה תקשורתית. כיום חלק מארגון 'אנו'. פעל ל'שינוי חברתי ומחשבתי בכלי התקשורת בישראל'. פעל לקידום נושאים הנבחרים ע"י [הקרן החדשה] בכלי התקשורת. עוסק בשינוי דעת קהל בתחום החברתי. <strong>נראה כי מדובר בגוף של הקרן שהוקם במטרה להשפיע על התקשורת.</strong>"</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אג'נדה)</span>
+      </div>
+
+      <div class="model-card" style="border-right-color:#e67e22;">
+        <h4>2. עורו</h4>
+        <p>פועלת בתחום החברתי — זרוע הפעלה והנעה קהילתית.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אנו)</span>
+      </div>
+
+      <div class="thesis">
+        <strong>תזה מרכזית:</strong> "אנו" אינה ארגון עצמאי שצמח מהשטח. זוהי תוצאה של איחוד ארגונים שנוצרו על ידי הקרן החדשה לישראל (NIF) בשיתוף קרן פורד. הרכיב המרכזי — אג'נדה — הוקם במפורש כדי להשפיע על התקשורת ולעצב דעת קהל. האיחוד ב"אנו" יוצר מבנה אחד המשלב גיוס המוני (160,000+ איש), מניפולציה תקשורתית (אג'נדה), ואקטיביזם חברתי (עורו) — הכל תחת מטריית הקרן החדשה.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 2: SAID vs DONE ==================== -->
+  <div class="tab-panel" id="tab-gap">
+    <div class="section">
+      <h2>מה אומרים מול מה עושים</h2>
+
+      <h3>הפער המרכזי</h3>
+      <div class="gap-box">
+        <p><span class="said">מה שנאמר (SAID):</span> "יותר מ-160,000 איש כבר פעלו איתנו בשנים האחרונות" — מעורבות אזרחית, השתתפות ציבורית, פעולה חברתית מלמטה.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ציטוט מאתר הארגון)</span>
+
+        <p style="margin-top:14px;"><span class="done">מה שנעשה בפועל (DONE):</span> איחוד ארגונים שהוקמו על ידי הקרן החדשה לישראל וקרן פורד, כולל <strong>אג'נדה</strong> — גוף שהוקם במפורש כדי להשפיע על התקשורת הישראלית ולעצב דעת קהל בנושאים שנבחרו על ידי הקרן החדשה.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערכים: אנו + אג'נדה)</span>
+      </div>
+
+      <h3>פירוק המרכיבים</h3>
+
+      <div class="missing-item">
+        <strong>אג'נדה — "שינוי חברתי ומחשבתי בכלי התקשורת"</strong>
+        <p>לא מדובר בפעולה חברתית טבעית. אג'נדה "פעל לקידום נושאים הנבחרים ע"י [הקרן החדשה] בכלי התקשורת". כלומר: הקרן החדשה בוחרת את הנושאים, אג'נדה דואגת לדחוף אותם לתקשורת. זוהי אסטרטגיה תקשורתית מתוכננת, לא תנועה עממית.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אג'נדה)</span>
+      </div>
+
+      <div class="missing-item">
+        <strong>מימון חיצוני — קרן פורד + הקרן החדשה</strong>
+        <p>אג'נדה "הוקם ע"י הקרן החדשה בתמיכת קרן פורד". שני גופים זרים/חיצוניים יצרו את מנגנון ההשפעה התקשורתית. קרן פורד (Ford Foundation) היא קרן אמריקאית; הקרן החדשה לישראל (NIF) ממומנת בעיקר מתרומות מחו"ל.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אנו)</span>
+      </div>
+
+      <div class="missing-item">
+        <strong>"גוף של הקרן שהוקם במטרה להשפיע על התקשורת"</strong>
+        <p>מסד הנתונים של ויינברג קובע במפורש כי אג'נדה "נראה כי מדובר בגוף של הקרן שהוקם במטרה להשפיע על התקשורת". זוהי לא פרשנות — זהו תיאור ישיר מתוך המחקר.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אג'נדה)</span>
+      </div>
+
+      <h3>הדפוס: מלמטה או מלמעלה?</h3>
+      <table>
+        <tr>
+          <th>מאפיין</th>
+          <th>מה שמוצג</th>
+          <th>מה שקורה בפועל</th>
+        </tr>
+        <tr>
+          <td><strong>מקור הפעולה</strong></td>
+          <td>"160,000 איש פעלו איתנו" — תנועה מלמטה</td>
+          <td>ארגונים שהוקמו מלמעלה ע"י NIF + Ford Foundation</td>
+        </tr>
+        <tr>
+          <td><strong>תקשורת</strong></td>
+          <td>"קידום נושאים חברתיים"</td>
+          <td>אסטרטגיה תקשורתית ממוקדת לעיצוב דעת קהל</td>
+        </tr>
+        <tr>
+          <td><strong>בחירת נושאים</strong></td>
+          <td>נושאים חברתיים</td>
+          <td>נושאים "הנבחרים ע"י" הקרן החדשה</td>
+        </tr>
+        <tr>
+          <td><strong>מבנה ארגוני</strong></td>
+          <td>חל"צ עצמאית</td>
+          <td>איחוד ארגוני NIF תחת גג אחד</td>
+        </tr>
+        <tr>
+          <td><strong>מטרה מוצהרת</strong></td>
+          <td>מעורבות אזרחית</td>
+          <td>"שינוי חברתי ומחשבתי בכלי התקשורת"</td>
+        </tr>
+      </table>
+      <p style="font-size:0.85em;color:#888;">כל הנתונים בטבלה מבוססים על: <span class="source-tag">Weinberg DB — LIBA Research</span></p>
+
+      <div class="thesis">
+        <strong>סיווג: פרוגרסיבי חתרני</strong> — הארגון מציג עצמו כפלטפורמה למעורבות אזרחית ("160,000 איש פעלו איתנו"), אך בפועל מדובר בזרוע הגיוס ההמוני המאוחדת של הקרן החדשה וקרן פורד, הכוללת רכיב ייעודי למניפולציה תקשורתית (אג'נדה) שהוקם במפורש "במטרה להשפיע על התקשורת" ולקדם נושאים שנבחרים על ידי הקרן.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: NETWORK ==================== -->
+  <div class="tab-panel" id="tab-network">
+    <div class="section">
+      <h2>רשת קשרים</h2>
+
+      <p>מפת הגורמים המרכזיים הקשורים ל"אנו", כפי שעולה ממסד הנתונים של ויינברג (מחקר ליב"ה):</p>
+
+      <div class="actor-card">
+        <h3>הקרן החדשה לישראל (NIF)</h3>
+        <span class="role">מייסד ומממן</span>
+        <p>הקרן החדשה הקימה את אג'נדה — הרכיב המרכזי של "אנו" — וממנה את הארגון. אג'נדה "הוקם ע"י הקרן החדשה". הקרן בוחרת את הנושאים שאג'נדה מקדמת בתקשורת: "פעל לקידום נושאים הנבחרים ע"י [הקרן] בכלי התקשורת".</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערכים: אנו + אג'נדה)</span>
+      </div>
+
+      <div class="actor-card">
+        <h3>קרן פורד (Ford Foundation)</h3>
+        <span class="role">מממן-שותף מייסד</span>
+        <p>קרן פורד האמריקאית תמכה בהקמת אג'נדה יחד עם הקרן החדשה. אג'נדה "הוקם ע"י הקרן החדשה <strong>בתמיכת קרן פורד</strong>". קרן פורד היא אחת הקרנות הגדולות בעולם, עם היסטוריה של מימון ארגוני חברה אזרחית פרוגרסיביים ברחבי העולם.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אנו)</span>
+      </div>
+
+      <div class="actor-card">
+        <h3>אג'נדה — מרכז ישראלי לאסטרטגיה תקשורתית</h3>
+        <span class="role">רכיב מניפולציה תקשורתית (כיום חלק מ"אנו")</span>
+        <p>"מרכז ישראלי לאסטרטגיה תקשורתית. כיום חלק מארגון 'אנו'." פעל ל"שינוי חברתי ומחשבתי בכלי התקשורת בישראל". עסק ב"שינוי דעת קהל בתחום החברתי". מסד הנתונים קובע: "נראה כי מדובר בגוף של הקרן שהוקם במטרה להשפיע על התקשורת."</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אג'נדה)</span>
+      </div>
+
+      <div class="actor-card">
+        <h3>עורו</h3>
+        <span class="role">רכיב אקטיביזם חברתי (כיום חלק מ"אנו")</span>
+        <p>"פועלת בתחום החברתי" — זרוע הפעלה קהילתית שאוחדה ב"אנו". מהווה את הרכיב השטחי-פעולתי של המבנה.</p>
+        <span class="source-tag">Weinberg DB — LIBA Research (ערך: אנו)</span>
+      </div>
+
+      <h3>מפת הקשרים — סיכום</h3>
+      <table>
+        <tr>
+          <th>גורם</th>
+          <th>תפקיד ביחס ל"אנו"</th>
+          <th>סוג הקשר</th>
+          <th>מקור</th>
+        </tr>
+        <tr>
+          <td>הקרן החדשה לישראל (NIF)</td>
+          <td>מייסד ומממן</td>
+          <td>הקמה + מימון + בחירת נושאים</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td>קרן פורד (Ford Foundation)</td>
+          <td>מממן-שותף מייסד</td>
+          <td>תמיכה בהקמת אג'נדה</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td>אג'נדה</td>
+          <td>רכיב אסטרטגיה תקשורתית</td>
+          <td>מאוחד ב"אנו"</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+        <tr>
+          <td>עורו</td>
+          <td>רכיב אקטיביזם חברתי</td>
+          <td>מאוחד ב"אנו"</td>
+          <td><span class="source-tag">Weinberg DB</span></td>
+        </tr>
+      </table>
+
+      <div class="thesis">
+        <strong>המבנה:</strong> הקרן החדשה (בתמיכת קרן פורד) הקימה ארגונים נפרדים — כל אחד עם תפקיד ממוקד: אג'נדה לתקשורת, עורו לאקטיביזם. האיחוד ב"אנו" מייצר מבנה יעיל שמשלב גיוס המוני, הנעה שטחית, ואסטרטגיה תקשורתית — הכל תחת גג אחד, הכל בשליטת אותו מממן.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: SOURCES ==================== -->
+  <div class="tab-panel" id="tab-sources">
+    <div class="section">
+      <h2>מקורות</h2>
+
+      <h3>מקור ראשי: מסד הנתונים של ויינברג (מחקר ליב"ה)</h3>
+      <div class="model-card">
+        <p><strong>Weinberg DB — LIBA Research</strong></p>
+        <p>מסד נתונים מקיף על ארגוני חברה אזרחית בישראל, שנאסף במסגרת מחקר ליב"ה (LIBA). כולל מידע על מקורות מימון, קשרים ארגוניים, ומטרות מוצהרות.</p>
+        <ul>
+          <li><strong>ערך: אנו</strong> — ח.פ. 513446625. תיאור הארגון, הרכב (איחוד אג'נדה, עורו ונוספים), ציטוט מאתר הארגון על 160,000 פעילים, זיהוי הקמה ע"י הקרן החדשה בתמיכת קרן פורד.</li>
+          <li><strong>ערך: אג'נדה</strong> — "מרכז ישראלי לאסטרטגיה תקשורתית. כיום חלק מארגון 'אנו'. פעל ל'שינוי חברתי ומחשבתי בכלי התקשורת בישראל'. פעל לקידום נושאים הנבחרים ע"י [הקרן] בכלי התקשורת. עוסק בשינוי דעת קהל בתחום החברתי. נראה כי מדובר בגוף של הקרן שהוקם במטרה להשפיע על התקשורת."</li>
+        </ul>
+        <span class="source-tag">Weinberg DB — LIBA Research</span>
+      </div>
+
+      <h3>מקור משלים: רשם החברות / GuideStar IL</h3>
+      <div class="model-card">
+        <p><strong>GuideStar IL — ח.פ. 513446625</strong></p>
+        <p>רישום רשמי של "אנו" כחברה לתועלת הציבור (חל"צ) במאגר GuideStar ישראל / רשם החברות.</p>
+        <span class="source-tag">GuideStar IL — ח.פ. 513446625</span>
+      </div>
+
+      <h3>ציטוטים מרכזיים ששימשו בדוח זה</h3>
+      <table>
+        <tr>
+          <th>ציטוט</th>
+          <th>מקור</th>
+          <th>שימוש בדוח</th>
+        </tr>
+        <tr>
+          <td>"יותר מ-160,000 איש כבר פעלו איתנו בשנים האחרונות"</td>
+          <td><span class="source-tag">Weinberg DB</span> (ציטוט מאתר אנו)</td>
+          <td>פרופיל מוסדי, פער מה אומרים/עושים</td>
+        </tr>
+        <tr>
+          <td>"הוקם ע"י הקרן החדשה בתמיכת קרן פורד"</td>
+          <td><span class="source-tag">Weinberg DB</span> (ערך: אנו)</td>
+          <td>פרופיל מוסדי, רשת קשרים</td>
+        </tr>
+        <tr>
+          <td>"פעל ל'שינוי חברתי ומחשבתי בכלי התקשורת בישראל'"</td>
+          <td><span class="source-tag">Weinberg DB</span> (ערך: אג'נדה)</td>
+          <td>פרופיל מוסדי, פער מה אומרים/עושים</td>
+        </tr>
+        <tr>
+          <td>"פעל לקידום נושאים הנבחרים ע"י [הקרן] בכלי התקשורת"</td>
+          <td><span class="source-tag">Weinberg DB</span> (ערך: אג'נדה)</td>
+          <td>פער מה אומרים/עושים, רשת קשרים</td>
+        </tr>
+        <tr>
+          <td>"עוסק בשינוי דעת קהל בתחום החברתי"</td>
+          <td><span class="source-tag">Weinberg DB</span> (ערך: אג'נדה)</td>
+          <td>פער מה אומרים/עושים</td>
+        </tr>
+        <tr>
+          <td>"נראה כי מדובר בגוף של הקרן שהוקם במטרה להשפיע על התקשורת"</td>
+          <td><span class="source-tag">Weinberg DB</span> (ערך: אג'נדה)</td>
+          <td>פרופיל מוסדי, פער מה אומרים/עושים</td>
+        </tr>
+      </table>
+
+      <h3>הערות מתודולוגיות</h3>
+      <p>דוח זה מבוסס על שני מקורות עיקריים: (1) מסד הנתונים של ויינברג (מחקר ליב"ה), הכולל מידע שנאסף באופן שיטתי על ארגוני חברה אזרחית בישראל; (2) רישום רשמי ברשם החברות / GuideStar IL. כל נקודת נתונים בדוח מלווה בציון מקור מפורש. הציטוטים הם ציטוטים ישירים ממסד הנתונים של ויינברג.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק | <a href="../index_v2.html">דירוג ערים</a> | <a href="index.html">כל המחקרים</a>
+</footer>
+
+<script>
+function openTab(evt, tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  if (evt && evt.target) {
+    if (evt.target.classList.contains('tab-btn')) {
+      evt.target.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('.tab-btn');
+      const tabMap = {'tab-profile':0,'tab-gap':1,'tab-network':2,'tab-sources':3};
+      if (tabMap[tabId] !== undefined) btns[tabMap[tabId]].classList.add('active');
+    }
+  }
+  if (evt) evt.preventDefault();
+}
+</script>
+
+</body>
+</html>

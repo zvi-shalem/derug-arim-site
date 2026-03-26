@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עמדות מוניציפליות — 20 ערים</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f5f5f5; color: #1a1a2e; padding: 16px; line-height: 1.5; }
+h1 { text-align: center; color: #1a1a2e; margin-bottom: 6px; font-size: 1.6em; }
+.subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 0.9em; }
+.stats { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; padding: 14px; background: white; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.stat { text-align: center; }
+.stat-num { font-size: 1.8em; font-weight: 700; color: #667eea; }
+.stat-label { font-size: 0.8em; color: #666; }
+.filter-bar { text-align: center; margin-bottom: 16px; }
+.filter-btn { padding: 5px 12px; margin: 3px; border: 1px solid #667eea; border-radius: 16px; background: white; color: #667eea; cursor: pointer; font-size: 0.82em; }
+.filter-btn.active { background: #667eea; color: white; }
+.city-card { background: white; border-radius: 10px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.city-name { font-size: 1.2em; font-weight: 700; color: #667eea; margin-bottom: 10px; border-bottom: 2px solid #667eea; padding-bottom: 4px; }
+.pos { padding: 8px 10px; margin-bottom: 6px; background: #f8f9fa; border-radius: 6px; border-right: 3px solid #667eea; }
+.pos-title { font-size: 0.78em; color: #888; font-weight: 600; margin-bottom: 2px; }
+.pos-detail { font-size: 0.9em; color: #1a1a2e; }
+.badge { padding: 1px 6px; border-radius: 10px; font-size: 0.72em; margin-right: 4px; color: white; }
+.badge-maoz { background: #ff8800; }
+.badge-avnei { background: #e74c3c; }
+.badge-mandel { background: #9b59b6; }
+.badge-gender { background: #e91e90; }
+</style>
+</head>
+<body>
+<h1>עמדות מוניציפליות — 20 ערים</h1>
+<div class="subtitle">כל המידע מ-research_unified.db/city_grid | מרץ 2026</div>
+
+<div class="stats">
+<div class="stat"><div class="stat-num">20</div><div class="stat-label">ערים</div></div>
+<div class="stat"><div class="stat-num">121</div><div class="stat-label">תפקידים</div></div>
+<div class="stat"><div class="stat-num">6</div><div class="stat-label">בוגרי מעוז</div></div>
+<div class="stat"><div class="stat-num">4</div><div class="stat-label">בוגרי אבני ראשה</div></div>
+</div>
+
+<div class="filter-bar">
+<button class="filter-btn active" onclick="filterAll()">הכל (20)</button>
+<button class="filter-btn" onclick="filterByText('מעוז')">מעוז (6)</button>
+<button class="filter-btn" onclick="filterByText('אבני ראשה')">אבני ראשה (4)</button>
+<button class="filter-btn" onclick="filterByText('מגדר')">מגדר</button>
+</div>
+
+<div id="cities">
+<div class="city-card" data-text="עודד רביבי אמיר בן גל רויטל קולין (גם סגנית גזבר) יפה שטרית שרון הורביץ">
+<div class="city-name">אפרת</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">עודד רביבי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">אמיר בן גל</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">רויטל קולין (גם סגנית גזבר)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">יפה שטרית</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">שרון הורביץ</div>
+</div>
+</div>
+<div class="city-card" data-text="יאיר שטבון ד"ר איתמר רוזנפלד (חינוך מבוסס מקום) ציפי ערמי (יועצת ראש העיר למעמד האישה) דודו ג׳מו זהבית דרויש אולגה בס לינצ׳וק (מנהלת מדור קליני) ינה גונן-רוזן (מנהלת היכל התרבות — גוונים)">
+<div class="city-name">אריאל</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">יאיר שטבון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">ד"ר איתמר רוזנפלד (חינוך מבוסס מקום)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">ציפי ערמי (יועצת ראש העיר למעמד האישה)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">דודו ג׳מו</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">זהבית דרויש</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">אולגה בס לינצ׳וק (מנהלת מדור קליני)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">ינה גונן-רוזן (מנהלת היכל התרבות — גוונים)</div>
+</div>
+</div>
+<div class="city-card" data-text="רוביק דנילוביץ׳ אבי אוחיון (מנהל מינהל החינוך, החליף את זהבה הראל) — MA מינהל חינוכי, דוקטורנט לחינוך. מודלים להעלאת הישגים וצמצום פערים בנגב. קשרים עם קרן רש״י ועמותת יחדיו ורד ששון אמנון יוסף תמי מריאנו נתי מסינג (מנהל תרבות וקהילה — כיוונים)">
+<div class="city-name">באר שבע</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">רוביק דנילוביץ׳</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">אבי אוחיון (מנהל מינהל החינוך, החליף את זהבה הראל) — MA מינהל חינוכי, דוקטורנט לחינוך. מודלים להעלאת הישגים וצמצום פערים בנגב. קשרים עם קרן רש״י ועמותת יחדיו</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">ורד ששון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">אמנון יוסף</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">תמי מריאנו</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">נתי מסינג (מנהל תרבות וקהילה — כיוונים)</div>
+</div>
+</div>
+<div class="city-card" data-text="יוסי ברודני מוטי סגל (מנהל אגף חינוך) — מצוינות אקדמית, חינוך ערכי וטכנולוגי. קשרים עם אונ׳ בר-אילן. אוכלוסייה דתית-לאומית ואקדמית נירית מוסיוף גבי חדד צחי פרץ ג׳ודי וינקלר שלי שמש-בורי (מנהלת מתנ"ס מרחב)">
+<div class="city-name">גבעת שמואל</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">יוסי ברודני</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">מוטי סגל (מנהל אגף חינוך) — מצוינות אקדמית, חינוך ערכי וטכנולוגי. קשרים עם אונ׳ בר-אילן. אוכלוסייה דתית-לאומית ואקדמית</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">נירית מוסיוף</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">גבי חדד</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">צחי פרץ</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">ג׳ודי וינקלר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">שלי שמש-בורי (מנהלת מתנ"ס מרחב)</div>
+</div>
+</div>
+<div class="city-card" data-text="רן קוניק אורית גור-כהן (ראש מנהל חינוך, נוער וצעירים) אור-לי ניב (סגנית ראש עיר, אחראית להט"ב) אבי מוטולה (מ-2024, לשעבר: יאיר אונפסונק) שרון אבן-טוב (מנכ"ל קהילתיים — חברה עירונית לתרבות)">
+<div class="city-name">גבעתיים</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">רן קוניק</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">אורית גור-כהן (ראש מנהל חינוך, נוער וצעירים)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">אור-לי ניב (סגנית ראש עיר, אחראית להט"ב)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">אבי מוטולה (מ-2024, לשעבר: יאיר אונפסונק)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">שרון אבן-טוב (מנכ"ל קהילתיים — חברה עירונית לתרבות)</div>
+</div>
+</div>
+<div class="city-card" data-text="אמיר כוכבי מיכל אפרתי (מנהלת אגף חינוך) — קידום נשים במדעים וטכנולוגיה, בחינה ביקורתית של חומרי לימוד מגדריים רועי תומר (מ-2024) בני זיני אלון אדלמן רון שבת">
+<div class="city-name">הוד השרון</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">אמיר כוכבי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-gender">מגדר</span></div>
+  <div class="pos-detail">מיכל אפרתי (מנהלת אגף חינוך) — קידום נשים במדעים וטכנולוגיה, בחינה ביקורתית של חומרי לימוד מגדריים</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">רועי תומר (מ-2024)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">בני זיני</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">אלון אדלמן</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">רון שבת</div>
+</div>
+</div>
+<div class="city-card" data-text="משה פדלון אדר ארד (ראש מינהל חינוך וערכים מ-2025, בוגר אבני ראשה, דגש על חינוך ערכי ודמוקרטי) / לימור מילר (מנהלת אגף חינוך על-יסודי, לשעבר ת״א, חדשנות דיגיטלית) אריאל פיכמן (מנהל מחלקת שוויון מגדרי) אלכס גולדשטיין רוני חדד שושי קנובל רן שלהבי (מנהל אגף תרבות, נוער וקהילה, מ-10/2024)">
+<div class="city-name">הרצליה</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">משה פדלון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-avnei">אבני ראשה</span></div>
+  <div class="pos-detail">אדר ארד (ראש מינהל חינוך וערכים מ-2025, בוגר אבני ראשה, דגש על חינוך ערכי ודמוקרטי) / לימור מילר (מנהלת אגף חינוך על-יסודי, לשעבר ת״א, חדשנות דיגיטלית)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון <span class="badge badge-gender">מגדר</span></div>
+  <div class="pos-detail">אריאל פיכמן (מנהל מחלקת שוויון מגדרי)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">אלכס גולדשטיין</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">רוני חדד</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">שושי קנובל</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">רן שלהבי (מנהל אגף תרבות, נוער וקהילה, מ-10/2024)</div>
+</div>
+</div>
+<div class="city-card" data-text="יונה יהב (מ-2024) אילנה טורק (ראש מינהל חינוך תרבות ופנאי) — בוגרת מעוז. מקדמת רב-תרבותיות וקיום משותף, מודל חינוך לאורך כל היום. קשרים עם ארגוני חברה אזרחית בחיפה אלונה סולאד גדי מרגלית (מ-2024) שרון פילובסקי בתיה ברנטל (מ-2024)">
+<div class="city-name">חיפה</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">יונה יהב (מ-2024)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
+  <div class="pos-detail">אילנה טורק (ראש מינהל חינוך תרבות ופנאי) — בוגרת מעוז. מקדמת רב-תרבותיות וקיום משותף, מודל חינוך לאורך כל היום. קשרים עם ארגוני חברה אזרחית בחיפה</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">אלונה סולאד</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">גדי מרגלית (מ-2024)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">שרון פילובסקי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">בתיה ברנטל (מ-2024)</div>
+</div>
+</div>
+<div class="city-card" data-text="משה ליאון אריק וירצבורגר (ראש מנח"י, מ-10/2024, החליף את יואב זימרן) — ניהול חינוך ממלכתי, ממ״ד, חרדי וערבי. בניית מוסדות חדשים וצמצום פערים מזרח-מערב אורלי בן אהרון אריאלה רג'ואן (מנכ"לית, מ-2024, ראשונה בתפקיד) אלי זיטוק (מ-2020) ד"ר זהבה רוזנטל אורית דולב (ראש מינהל תרבות, חברה וספורט)">
+<div class="city-name">ירושלים</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">משה ליאון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">אריק וירצבורגר (ראש מנח"י, מ-10/2024, החליף את יואב זימרן) — ניהול חינוך ממלכתי, ממ״ד, חרדי וערבי. בניית מוסדות חדשים וצמצום פערים מזרח-מערב</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">אורלי בן אהרון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">אריאלה רג'ואן (מנכ"לית, מ-2024, ראשונה בתפקיד)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">אלי זיטוק (מ-2020)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">ד"ר זהבה רוזנטל</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">אורית דולב (ראש מינהל תרבות, חברה וספורט)</div>
+</div>
+</div>
+<div class="city-card" data-text="משה קונינסקי אודי איזק (ראש מינהל חינוך) — בוגר מעוז. לשעבר מנהל מחלקת חינוך מועצה אזורית מגילות ים המלח, תפקידי הדרכה בהנוער העובד והלומד, יועץ ארגוני למוסדות חינוך. פיתוח חוסן קהילתי יפה רז ד"ר שולה מנחם לילך וקסמן-רנה (ראשת מינהלת התרבות + פסטיבל המחולות)">
+<div class="city-name">כרמיאל</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">משה קונינסקי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
+  <div class="pos-detail">אודי איזק (ראש מינהל חינוך) — בוגר מעוז. לשעבר מנהל מחלקת חינוך מועצה אזורית מגילות ים המלח, תפקידי הדרכה בהנוער העובד והלומד, יועץ ארגוני למוסדות חינוך. פיתוח חוסן קהילתי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">יפה רז</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">ד"ר שולה מנחם</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">לילך וקסמן-רנה (ראשת מינהלת התרבות + פסטיבל המחולות)</div>
+</div>
+</div>
+<div class="city-card" data-text="יחיאל זוהר ציפי הרפנס (מנהלת אגף חינוך) — בוגרת מעוז. צמצום פערים דיגיטליים וחברתיים, קידום הייטק ומצוינות בפריפריה הדרומית. קשרים עם קרן רש״י דבי נגר ראובן פיניש (מ"מ) ברק ישראל דבי ציטמן נטלי זוהר">
+<div class="city-name">נתיבות</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">יחיאל זוהר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
+  <div class="pos-detail">ציפי הרפנס (מנהלת אגף חינוך) — בוגרת מעוז. צמצום פערים דיגיטליים וחברתיים, קידום הייטק ומצוינות בפריפריה הדרומית. קשרים עם קרן רש״י</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">דבי נגר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">ראובן פיניש (מ"מ)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">ברק ישראל</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">דבי ציטמן</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">נטלי זוהר</div>
+</div>
+</div>
+<div class="city-card" data-text="אליהו גפני משה חזקיה (מנהל מחלקת חינוך) — ניהול הסעות, חינוך מיוחד, תוכנית ניצנים. עבודה עם משה״ח על בטיחות וביטחון במוסדות תורניים. מיומנות פוליטית בין-מגזרית יצחק חלה גיטי וינשטוק (רכזת תרבות)">
+<div class="city-name">עמנואל</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">אליהו גפני</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">משה חזקיה (מנהל מחלקת חינוך) — ניהול הסעות, חינוך מיוחד, תוכנית ניצנים. עבודה עם משה״ח על בטיחות וביטחון במוסדות תורניים. מיומנות פוליטית בין-מגזרית</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">יצחק חלה</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">גיטי וינשטוק (רכזת תרבות)</div>
+</div>
+</div>
+<div class="city-card" data-text="מיכל רוזנשיין (בוגרת אבני ראשה, מ-2024) ד"ר בלה באסן (מנהלת אגף חינוך + יועצת ראש העיר למעמד האישה) — חינוך מודע מגדר (Gender-informed education), קידום שוויון הזדמנויות ונשים במדע וטכנולוגיה ד"ר בלה באסן (תפקיד כפול) שרון קרן (מ-1.9.2024, החליף את חיים סופר) רו"ח יבגני ורניק אירנה בוכמן דרור קוממי (תרבות הדיור)">
+<div class="city-name">קריית אונו</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר <span class="badge badge-avnei">אבני ראשה</span></div>
+  <div class="pos-detail">מיכל רוזנשיין (בוגרת אבני ראשה, מ-2024)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-gender">מגדר</span></div>
+  <div class="pos-detail">ד"ר בלה באסן (מנהלת אגף חינוך + יועצת ראש העיר למעמד האישה) — חינוך מודע מגדר (Gender-informed education), קידום שוויון הזדמנויות ונשים במדע וטכנולוגיה</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">ד"ר בלה באסן (תפקיד כפול)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">שרון קרן (מ-1.9.2024, החליף את חיים סופר)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">רו"ח יבגני ורניק</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">אירנה בוכמן</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">דרור קוממי (תרבות הדיור)</div>
+</div>
+</div>
+<div class="city-card" data-text="כפיר סויסה זהבה גור (שותפויות אסטרטגיות, עבודה עם אורט) אוריה אריס נורית עזרד (מנהלת תרבות)">
+<div class="city-name">קריית גת</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">כפיר סויסה</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">זהבה גור (שותפויות אסטרטגיות, עבודה עם אורט)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">אוריה אריס</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">נורית עזרד (מנהלת תרבות)</div>
+</div>
+</div>
+<div class="city-card" data-text="אביחי שטרן אסנת רון רסקי (מנהלת אגף חינוך) — MA טכנולוגיות חדשניות בחינוך, BA ביולוגיה והוראת מדעים. לשעבר מתאמת מחוז צפון במשה״ח, מנהלת בי״ס בראש פינה. למידה מרחוק ורצף חינוכי בתנאי חירום אמירה אברהם יורם ביטון מיכאל יעקבי הילה לוי (מנהלת מחלקת התרבות)">
+<div class="city-name">קריית שמונה</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">אביחי שטרן</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">אסנת רון רסקי (מנהלת אגף חינוך) — MA טכנולוגיות חדשניות בחינוך, BA ביולוגיה והוראת מדעים. לשעבר מתאמת מחוז צפון במשה״ח, מנהלת בי״ס בראש פינה. למידה מרחוק ורצף חינוכי בתנאי חירום</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">אמירה אברהם</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">יורם ביטון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">מיכאל יעקבי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">הילה לוי (מנהלת מחלקת התרבות)</div>
+</div>
+</div>
+<div class="city-card" data-text="רז שגיא גלית בר-אל (ראש מינהל חינוך מ-9/2024, החליפה את שפרה סטרוסקי) — בוגרת אבני ראשה. MA מינהל חינוך, BA מדעי החברה. פדגוגיה דיגיטלית חדשנית ושיפור הישגים מיכל סופרין דיסטניק חיים רחבעם אבי עזר חגית נגר (תרבות + מורשת ישראל)">
+<div class="city-name">ראש העין</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">רז שגיא</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-avnei">אבני ראשה</span></div>
+  <div class="pos-detail">גלית בר-אל (ראש מינהל חינוך מ-9/2024, החליפה את שפרה סטרוסקי) — בוגרת אבני ראשה. MA מינהל חינוך, BA מדעי החברה. פדגוגיה דיגיטלית חדשנית ושיפור הישגים</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">מיכל סופרין דיסטניק</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">חיים רחבעם</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">אבי עזר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">חגית נגר (תרבות + מורשת ישראל)</div>
+</div>
+</div>
+<div class="city-card" data-text="כרמל שאמה-הכהן לימור מרקנזון סגל אודם אלג׳ם דוד בנימין גלית שניידר מימרן (בוגרת מעוז) טובה פלר פיני ביתן (תרבות תורנית)">
+<div class="city-name">רמת גן</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">כרמל שאמה-הכהן</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">לימור מרקנזון סגל</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">אודם אלג׳ם</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">דוד בנימין</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית <span class="badge badge-maoz">מעוז</span></div>
+  <div class="pos-detail">גלית שניידר מימרן (בוגרת מעוז)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">טובה פלר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">פיני ביתן (תרבות תורנית)</div>
+</div>
+</div>
+<div class="city-card" data-text="יצחק רוכברגר (מ-2024) שלומית שפיגלבלט פזית הק קרין גל-מיכלזון מיכאל אוריון (ראש אגף תרבות ואמנות)">
+<div class="city-name">רמת השרון</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">יצחק רוכברגר (מ-2024)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך </div>
+  <div class="pos-detail">שלומית שפיגלבלט</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">פזית הק</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">קרין גל-מיכלזון</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">מיכאל אוריון (ראש אגף תרבות ואמנות)</div>
+</div>
+</div>
+<div class="city-card" data-text="חיים ברוידא מיקי אדלר (מ-2024, החליפה את רויטל שפירא שקודמה למחוז ת״א) — קורס מנהלי אגפי חינוך (אבני ראשה). MA משפט ו-BA חינוך מבר-אילן, B.Ed מכללת תלפיות. לשעבר מנהלת בי״ס ביל״ו 10 שנים. מודל פליאה וסקרנות, חינוך חברתי-רגשי (SEL) ענבר קציר-ארליך אריאל הילדסהיימר אורית מופז תמר ורשבסקי (מנהלת אגף תרבות, נוער ופנאי)">
+<div class="city-name">רעננה</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">חיים ברוידא</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-avnei">אבני ראשה</span></div>
+  <div class="pos-detail">מיקי אדלר (מ-2024, החליפה את רויטל שפירא שקודמה למחוז ת״א) — קורס מנהלי אגפי חינוך (אבני ראשה). MA משפט ו-BA חינוך מבר-אילן, B.Ed מכללת תלפיות. לשעבר מנהלת בי״ס ביל״ו 10 שנים. מודל פליאה וסקרנות, חינוך חברתי-רגשי (SEL)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
+  <div class="pos-detail">ענבר קציר-ארליך</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">אריאל הילדסהיימר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">אורית מופז</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">תמר ורשבסקי (מנהלת אגף תרבות, נוער ופנאי)</div>
+</div>
+</div>
+<div class="city-card" data-text="רון חולדאי דליה לין (ראש מינהל חינוך, מ-4/2024, החליפה את שירלי רימון ברכה) — בוגרת מעוז ועתודות לישראל. MA מינהל וחינוך ארגוני (הצטיינות) ו-BA סוציולוגיה מאונ׳ ת״א. לשעבר מנכ״לית מועצת גני תקווה, מנהלת אגף חינוך רמת גן, מפקחת כוללת במשה״ח. מקדמת דמוקרטיה וליברליזם לימור מילר אפרת מייקין-כנפו (רשות חוסן ושוויון, בוגרת מעוז) שירה לב עמי (ראש מערך דיגיטל לאומי) / מנכ"ל: לבדוק משה גילצר דורית טל רונן רונית פרבר (מינהל קהילה, תרבות וספורט)">
+<div class="city-name">תל אביב-יפו</div>
+<div class="pos">
+  <div class="pos-title">ראש עיר </div>
+  <div class="pos-detail">רון חולדאי</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
+  <div class="pos-detail">דליה לין (ראש מינהל חינוך, מ-4/2024, החליפה את שירלי רימון ברכה) — בוגרת מעוז ועתודות לישראל. MA מינהל וחינוך ארגוני (הצטיינות) ו-BA סוציולוגיה מאונ׳ ת״א. לשעבר מנכ״לית מועצת גני תקווה, מנהלת אגף חינוך רמת גן, מפקחת כוללת במשה״ח. מקדמת דמוקרטיה וליברליזם</div>
+</div>
+<div class="pos">
+  <div class="pos-title">חינוך משני </div>
+  <div class="pos-detail">לימור מילר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">יועצ/ת מגדר/שוויון <span class="badge badge-maoz">מעוז</span></div>
+  <div class="pos-detail">אפרת מייקין-כנפו (רשות חוסן ושוויון, בוגרת מעוז)</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנכ"ל/ית </div>
+  <div class="pos-detail">שירה לב עמי (ראש מערך דיגיטל לאומי) / מנכ"ל: לבדוק</div>
+</div>
+<div class="pos">
+  <div class="pos-title">גזבר/ית </div>
+  <div class="pos-detail">משה גילצר</div>
+</div>
+<div class="pos">
+  <div class="pos-title">שפ"ח </div>
+  <div class="pos-detail">דורית טל רונן</div>
+</div>
+<div class="pos">
+  <div class="pos-title">מנהל/ת תרבות </div>
+  <div class="pos-detail">רונית פרבר (מינהל קהילה, תרבות וספורט)</div>
+</div>
+</div>
+</div>
+<script>
+function filterAll() {
+  document.querySelectorAll('.city-card').forEach(c => c.style.display = '');
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn')[0].classList.add('active');
+}
+function filterByText(term) {
+  document.querySelectorAll('.city-card').forEach(c => {
+    c.style.display = c.dataset.text.includes(term) ? '' : 'none';
+  });
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.remove('active');
+    if (b.textContent.includes(term)) b.classList.add('active');
+  });
+}
+</script>
+</body></html>

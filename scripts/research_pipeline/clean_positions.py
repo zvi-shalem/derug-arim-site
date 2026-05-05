@@ -8,9 +8,11 @@ import re
 import json
 import sqlite3
 import os
+from pathlib import Path
 
-HTML_PATH = "/Users/zvishalem/derug-arim-site/municipal_positions.html"
-DB_PATH = "/Users/zvishalem/derug-arim-site/research_unified.db"
+ROOT = Path(__file__).resolve().parents[2]
+HTML_PATH = ROOT / "municipal_positions.html"
+DB_PATH = ROOT / "research_unified.db"
 
 # Training keywords to look for
 TRAINING_KEYWORDS = {

@@ -4,9 +4,11 @@
 import re
 import json
 from collections import defaultdict
+from pathlib import Path
 
-FINDINGS_PATH = '/Users/zvishalem/derug-arim-site/protocol_findings.js'
-HTML_PATH = '/Users/zvishalem/derug-arim-site/municipal_positions.html'
+ROOT = Path(__file__).resolve().parents[2]
+FINDINGS_PATH = ROOT / 'protocol_findings.js'
+HTML_PATH = ROOT / 'municipal_positions.html'
 
 # Step 1: Parse protocol_findings.js using regex to extract field values directly
 with open(FINDINGS_PATH, 'r', encoding='utf-8') as f:

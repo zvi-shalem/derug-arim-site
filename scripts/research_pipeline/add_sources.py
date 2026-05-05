@@ -7,8 +7,10 @@ import sqlite3
 import json
 import time
 import re
+from pathlib import Path
 
-DB_PATH = "/Users/zvishalem/derug-arim-site/research_unified.db"
+ROOT = Path(__file__).resolve().parents[2]
+DB_PATH = ROOT / "research_unified.db"
 
 # Position fields in city_grid that map to position keys
 POSITION_FIELDS = ["mayor", "edu_director", "edu_secondary", "gender_advisor", "ceo", "treasurer", "psych_services", "culture_director"]

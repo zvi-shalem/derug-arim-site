@@ -7,9 +7,11 @@ import sqlite3
 import json
 import time
 import re
+from pathlib import Path
 
-DB_PATH = "/Users/zvishalem/derug-arim-site/research_unified.db"
-HTML_PATH = "/Users/zvishalem/derug-arim-site/municipal_positions.html"
+ROOT = Path(__file__).resolve().parents[2]
+DB_PATH = ROOT / "research_unified.db"
+HTML_PATH = ROOT / "municipal_positions.html"
 
 def get_sources():
     """Get source_urls from DB for all cities."""

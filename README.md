@@ -1,5 +1,12 @@
 # Frontend Data Management Interface
 
+## Current Layout
+
+The active public pages are kept at the repo root and under `research/`.
+Research-generation tools are under `scripts/research_pipeline/`, schemas are under `data/schemas/`, and non-public handoff notes are under `docs/research_worklog/`.
+
+See `docs/REPO_STRUCTURE.md` before adding new generated files or scratch artifacts.
+
 מערכת ניהול נתונים מתקדמת לניהול רשומות URL במערכת דירוג ציונות.
 
 ## תכונות

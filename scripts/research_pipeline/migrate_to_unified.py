@@ -10,7 +10,7 @@ Sources:
 Does NOT touch: programs_metadata MySQL on server
 
 Usage:
-    python migrate_to_unified.py [--dry-run]
+    python scripts/research_pipeline/migrate_to_unified.py [--dry-run]
 """
 
 import sqlite3
@@ -21,18 +21,19 @@ import shutil
 from pathlib import Path
 
 # Paths
-UNIFIED_DB = Path(__file__).parent / "research_unified.db"
-SCHEMA_SQL = Path(__file__).parent / "unified_schema.sql"
+ROOT = Path(__file__).resolve().parents[2]
+UNIFIED_DB = ROOT / "research_unified.db"
+SCHEMA_SQL = ROOT / "data/schemas/unified_schema.sql"
 
 # Source databases — try multiple paths (21MB version FIRST)
 RESEARCH_DB_PATHS = [
     Path.home() / "data/דירוג_ערים/research.db",
-    Path(__file__).parent / "research.db",
+    ROOT / "research.db",
     Path.home() / "persistent-team/projects/city_ranking/research.db",
 ]
 
 REPORTS_META_DB_PATHS = [
-    Path(__file__).parent / "research/reports_metadata.db",
+    ROOT / "research/reports_metadata.db",
 ]
 
 CITY_MATRIX_DB_PATHS = [
@@ -895,12 +896,6 @@ def main():
     if dry_run:
         print("DRY RUN — no changes will be made\n")
 
-    if UNIFIED_DB.exists():
-        bak = UNIFIED_DB.with_suffix('.db.bak')
-        print(f"Backing up existing {UNIFIED_DB.name} → {bak.name} ({UNIFIED_DB.stat().st_size:,} bytes)")
-        shutil.copy2(UNIFIED_DB, bak)
-        UNIFIED_DB.unlink()
-
     # Find source databases
     print("\nLocating source databases...")
     research_db = find_db(RESEARCH_DB_PATHS, "research.db")
@@ -917,6 +912,12 @@ def main():
         if reports_meta_db: print(f"  - reports_metadata.db: {reports_meta_db}")
         if city_matrix_db: print(f"  - city_matrix.db: entities, entity_details, city_entity_links")
         return
+
+    if UNIFIED_DB.exists():
+        bak = UNIFIED_DB.with_suffix('.db.bak')
+        print(f"Backing up existing {UNIFIED_DB.name} → {bak.name} ({UNIFIED_DB.stat().st_size:,} bytes)")
+        shutil.copy2(UNIFIED_DB, bak)
+        UNIFIED_DB.unlink()
 
     # Create unified DB with schema
     print(f"\nCreating {UNIFIED_DB}...")

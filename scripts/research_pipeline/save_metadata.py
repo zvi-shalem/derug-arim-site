@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Save report metadata to reports_metadata.db. Used by translation workers."""
 import sqlite3, json, sys, os, argparse
+from pathlib import Path
 
-DB_PATH = os.path.join(os.path.dirname(__file__), 'reports_metadata.db')
+ROOT = Path(__file__).resolve().parents[2]
+DB_PATH = ROOT / 'research/reports_metadata.db'
 
 def save(filename, name_he, name_en, org_type, year_founded=None, budget_ils=None,
          connected_orgs=None, connected_cities=None, domains=None, key_people=None,

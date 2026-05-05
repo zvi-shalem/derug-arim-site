@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אני יכול להצליח (א.י.ל) — דוח מחקר עומק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px;
+}
+.warning-box {
+  background: #fff5f5; border-right: 4px solid #cc0000;
+  padding: 14px 18px; border-radius: 0 6px 6px 0;
+  margin: 14px 0;
+}
+.warning-box strong { color: #8b0000; }
+.info-box {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 14px 18px; border-radius: 0 6px 6px 0;
+  margin: 14px 0;
+}
+.info-box strong { color: #2a5a8a; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav { padding: 8px 12px; gap: 8px; flex-wrap: wrap; white-space: normal; }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero { padding: 24px 14px 20px; }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר עומק</span>
+  <a href="../">&#8592; חזרה לדירוג</a>
+  <a href="index.html">כל המחקרים</a>
+  <span class="nav-sections">
+    <a href="#section-1">תקציר מנהלים</a>
+    <a href="#section-2">זיהוי מוסדי</a>
+    <a href="#section-3">הצינור: CASEL</a>
+    <a href="#section-4">התוכנית בכיתה</a>
+    <a href="#section-5">מימון ורשתות</a>
+    <a href="#section-6">המבחן: מוצהר מול מעשה</a>
+    <a href="#section-7">סיווג</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>אני יכול להצליח (א.י.ל) &mdash; תוכנית SEL של רייכמן</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני &mdash; הפער בין המוצהר למעשה</div>
+  <div class="subtitle">תוכנית גפ"ן מס' 971 | מפעיל: מרכז SEL.IL, אוניברסיטת רייכמן</div>
+  <div class="meta">דוח מחקר עומק | 23 בתי ספר | 2 ערים</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">&#8592; כל דוחות המחקר</a>
+
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם בעברית</td><td>אלי רייכמן</td></tr>
+      <tr><td>שם באנגלית</td><td>ELI Reichman</td></tr>
+      <tr><td>סוג</td><td>ספק עצמאי</td></tr>
+      <tr><td>סוג</td><td>ספק עצמאי</td></tr>
+    </table>
+  </div>
+  <div class="toc"><h2>תוכן עניינים</h2><ol>
+    <li><a href="#section-1">תקציר מנהלים והתזה המרכזית</a></li>
+    <li><a href="#section-2">זיהוי מוסדי: SEL.IL באוניברסיטת רייכמן</a></li>
+    <li><a href="#section-3">הצינור: מ-CASEL בשיקגו לכיתה בישראל</a></li>
+    <li><a href="#section-4">מה התוכנית מלמדת בפועל?</a></li>
+    <li><a href="#section-5">מימון, רשתות ושותפויות</a></li>
+    <li><a href="#section-6">המבחן: המוצהר מול המעשה</a></li>
+    <li><a href="#section-7">סיווג סופי ומסקנות</a></li>
+  </ol></div>
+
+  <!-- Section 1 -->
+  <div class="section" id="section-1">
+    <h2>תקציר מנהלים והתזה המרכזית</h2>
+
+    <div class="thesis">
+      <strong>התזה:</strong> תוכנית "אני יכול.ה להצליח" (א.י.ל) מציגה את עצמה להורים ולמנהלים כתוכנית אקדמית לשיפור תפקוד לימודי ורגשי. בפועל, מדובר בזרוע היישום הבית-ספרית של מרכז SEL.IL &mdash; המרכז הישראלי ללמידה חברתית-רגשית &mdash; שהוא הנציגות המקומית של ארגון CASEL האמריקאי. מייסד-שותף של CASEL משמש יועץ ישיר למרכז. יד הנדיב (קרן רוטשילד) מממנת את הצינור המלא. ההורה שרואה "תוכנית לשיפור הצלחה לימודית" לא יודע שמדובר במסגרת רעיונית בינלאומית הממומנת על ידי קרנות פילנתרופיות זרות.
+    </div>
+
+    <table>
+      <tr><th>נתון</th><th>ערך</th></tr>
+      <tr><td>מספר גפ"ן</td><td>971</td></tr>
+      <tr><td>שם רשמי</td><td>אני יכול להצליח (א.י.ל) ביסודי</td></tr>
+      <tr><td>מפעיל</td><td>אוניברסיטת רייכמן (חל"צ) &mdash; מרכז SEL.IL</td></tr>
+      <tr><td>תחום בגפ"ן</td><td>רווחתי - רגשי</td></tr>
+      <tr><td>בתי ספר</td><td>23</td></tr>
+      <tr><td>ערים</td><td>2</td></tr>
+      <tr><td>עלות למוסד</td><td>~14,000 ש"ח לשכבת גיל</td></tr>
+      <tr><td>ציון סיכון מחקר</td><td>סוכן א: 2/5 | סוכן ב: 1/5</td></tr>
+    </table>
+
+    <p>הציון הנמוך שנתנו הסוכנים האוטומטיים (1-2 מתוך 5) משקף בדיקה שטחית שזיהתה "אקדמיה; סיכון נמוך - רווחה". המחקר העמוק חושף תמונה שונה לחלוטין.</p>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="section-2">
+    <h2>זיהוי מוסדי: SEL.IL באוניברסיטת רייכמן</h2>
+
+    <h3>מרכז SEL.IL</h3>
+    <p>מרכז SEL.IL הוא "מרכז אקדמי-יישומי הפועל במסגרת בית הספר לפסיכולוגיה ע"ש ברוך איבצ'ר באוניברסיטת רייכמן" (לשעבר המרכז הבינתחומי הרצליה). המרכז משלב מחקר, פיתוח, הכשרה, יישום בשדה וייעוץ למדיניות &mdash; מודל ייחודי המאפשר לו לשלוט בכל שלבי הצינור מהאקדמיה לכיתה.</p>
+
+    <table>
+      <tr><th>מאפיין</th><th>פרט</th></tr>
+      <tr><td>שם מלא</td><td>SEL.IL &mdash; קידום למידה רגשית-חברתית בישראל</td></tr>
+      <tr><td>מוסד אם</td><td>בית הספר לפסיכולוגיה ע"ש ברוך איבצ'ר, אוניברסיטת רייכמן</td></tr>
+      <tr><td>אתר</td><td><a href="https://asel.co.il" target="_blank">asel.co.il</a></td></tr>
+      <tr><td>ראשת המרכז</td><td>ד"ר דפנה קופלמן-רובין</td></tr>
+      <tr><td>יועץ בינלאומי</td><td>פרופ' מארק גרינברג (Mark Greenberg) &mdash; מייסד-שותף של CASEL</td></tr>
+      <tr><td>צוות</td><td>חוקרים, פסיכולוגים, יועצות חינוכיות, מומחים לחינוך מיוחד, מפתחי טכנולוגיה</td></tr>
+      <tr><td>תוכניות</td><td>א.י.ל לבתי ספר יסודיים, א.י.ל לחטיבות ביניים, א.י.ל לגנים</td></tr>
+      <tr><td>מוצרים</td><td>ExSeli (אקסלי), SEL by Milgo, SEL.box</td></tr>
+    </table>
+
+    <h3>ד"ר דפנה קופלמן-רובין</h3>
+    <p>ראשת מרכז SEL.IL והמפתחת הראשית של תוכנית א.י.ל. פרסמה מאמרים אקדמיים בכתבי-עת בינלאומיים (European Journal of Developmental Psychology, Early Education and Development) על יעילות התוכנית. פיתחה את א.י.ל בשיתוף עם <strong>לורה מופסון (Laura Mufson)</strong>, מומחית אמריקאית בפסיכותרפיה בין-אישית למתבגרים מאוניברסיטת קולומביה. שיתוף הפעולה הזה מחבר ישירות בין התוכנית הישראלית לבין הפסיכולוגיה האמריקאית.</p>
+
+    <h3>פרופ' מארק גרינברג</h3>
+    <p>מייסד-שותף של CASEL (Collaborative for Academic, Social, and Emotional Learning) &mdash; הארגון האמריקאי שמגדיר את "חמש המיומנויות" של SEL ברחבי העולם. גרינברג משמש כיועץ בינלאומי ל-SEL.IL <strong>ומנחה דוקטורנטית ישראלית יחד עם ד"ר קופלמן-רובין</strong>. משמעות: זהו לא "השפעה" או "השראה" &mdash; אלא <strong>הנחיה ישירה</strong> של מייסד CASEL על המחקר והתוכניות הישראליות.</p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="section-3">
+    <h2>הצינור: מ-CASEL בשיקגו לכיתה בישראל</h2>
+
+    <div class="warning-box">
+      <strong>ממצא מפתח:</strong> התוכנית "אני יכול להצליח" היא לא תוכנית ישראלית עצמאית. היא חלק מצינור בינלאומי מתואם: CASEL (מסגרת רעיונית, ארה"ב) &rarr; SEL.IL (מחקר ותיקוף, רייכמן) &rarr; אבני ראשה (הכשרת מנהלים) &rarr; חוזרי מנכ"ל משרד החינוך (מנדט) &rarr; שפ"י (יישום) &rarr; מפתח הל"ב / א.י.ל (כיתה) &rarr; תלמידים.
+    </div>
+
+    <h3>מהו CASEL?</h3>
+    <p>CASEL (Collaborative for Academic, Social, and Emotional Learning) הוקם ב-1994 בשיקגו על ידי דניאל גולמן ופרופ' רוג'ר ווייסברג. הארגון מגדיר חמש מיומנויות ליבה: מודעות עצמית, ניהול עצמי, מודעות חברתית, מיומנויות בינאישיות וקבלת החלטות אחראית. מסגרת זו אומצה על ידי UNESCO ומקודמת כחלק מיעדי הפיתוח בר-הקיימא (SDGs).</p>
+
+    <p>הקשר בין CASEL לתוכנית הישראלית אינו עקיף או תיאורטי:</p>
+
+    <table>
+      <tr><th>שכבה בצינור</th><th>גוף</th><th>ראיה</th></tr>
+      <tr><td>מסגרת רעיונית</td><td>CASEL (ארה"ב)</td><td>התוכנית עצמה מצהירה על שימוש במתודולוגיית SAFE של CASEL</td></tr>
+      <tr><td>יועץ בינלאומי</td><td>פרופ' מארק גרינברג</td><td>מייסד-שותף CASEL, יועץ ישיר ל-SEL.IL, מנחה דוקטורנטית</td></tr>
+      <tr><td>מחקר ותיקוף</td><td>SEL.IL (רייכמן)</td><td>מפתח ומפעיל את א.י.ל; מספק "הוכחה מדעית" שמבססת את המנדט</td></tr>
+      <tr><td>מימון משותף</td><td>יד הנדיב (קרן רוטשילד)</td><td>מממנת הן את אבני ראשה והן את SEL.IL &mdash; צינור מתואם</td></tr>
+      <tr><td>הכשרת מנהלים</td><td>אבני ראשה</td><td>מכשיר 3,000+ מנהלים עם מסגרת 10 אינדיקטורים מבוססת CASEL</td></tr>
+      <tr><td>יישום בכיתה</td><td>תוכנית א.י.ל</td><td>גפ"ן 971, 23 בתי ספר, ~14,000 ש"ח לשכבה</td></tr>
+    </table>
+
+    <h3>מתודולוגיית SAFE</h3>
+    <p>התוכנית פועלת לפי עקרונות SAFE שהומלצו על ידי CASEL:</p>
+    <ul>
+      <li><strong>S</strong>equenced (רצף): מבנה רב-שכבתי, מדורג לפי גיל</li>
+      <li><strong>A</strong>ctive (פעיל): למידה חוויתית ופעילה</li>
+      <li><strong>F</strong>ocused (ממוקד): ריכוז במיומנות ספציפית</li>
+      <li><strong>E</strong>xplicit (מפורש): הוראה ישירה ותרגול</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>הקשר ל-UNESCO:</strong> במסד הנתונים של המערכת, ליד תוכנית 971 מקושר מאמר של UNESCO שמתייחס ל"SEL for SDGs" &mdash; למידה חברתית-רגשית לקידום יעדי הפיתוח בר-הקיימא. המאמר מציג את התלמיד כ"סוכן שינוי". זוהי בדיוק המסגרת הרעיונית שא.י.ל מיישמת בכיתות ישראליות.
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section" id="section-4">
+    <h2>מה התוכנית מלמדת בפועל?</h2>
+
+    <h3>תיאור עצמי</h3>
+    <p>התוכנית מתארת את עצמה כ"תוכנית למידה רגשית חברתית (SEL) שמטרתה לקדם תפקוד לימודי, רגשי וחברתי באמצעות טיפוח מיומנויות SEL כגון מודעות עצמית, ניהול עצמי, מודעות חברתית, מיומנויות בינאישיות וקבלת החלטות אחראית ומושכלת." היא מתהדרת בכך שהיא "התוכנית היחידה בארץ שהישגיה מבוססי מחקר."</p>
+
+    <h3>חמש המיומנויות &mdash; מה שנכנס לכיתה</h3>
+    <table>
+      <tr><th>מיומנות CASEL</th><th>תיאור</th><th>מה ההורה שומע</th></tr>
+      <tr><td>מודעות עצמית</td><td>זיהוי רגשות, הערכת נקודות חוזק</td><td>"הילד ילמד להכיר את עצמו"</td></tr>
+      <tr><td>ניהול עצמי</td><td>ויסות רגשי, שליטה בדחפים</td><td>"הילד ילמד להתמודד עם תסכול"</td></tr>
+      <tr><td>מודעות חברתית</td><td>אמפתיה, הערכת גיוון, הבנת נורמות חברתיות</td><td>"הילד ילמד לכבד אחרים"</td></tr>
+      <tr><td>מיומנויות בינאישיות</td><td>תקשורת, שיתוף פעולה, פתרון קונפליקטים</td><td>"הילד ילמד לעבוד בצוות"</td></tr>
+      <tr><td>קבלת החלטות אחראית</td><td>שיקולים אתיים, הערכת השלכות</td><td>"הילד ילמד לקבל החלטות טובות"</td></tr>
+    </table>
+
+    <h3>מחקרים מפורסמים</h3>
+    <p>SEL.IL פרסם שלושה מחקרים עיקריים על א.י.ל:</p>
+    <ul>
+      <li><strong>א.י.ל לגנים:</strong> ניסוי אקראי מבוקר, 92 ילדים ב-6 גנים. נמצא שיפור בידע רגשי, תפקודים ביצועיים ומוכנות ללמידה; הפחתה בבעיות התנהגות הפנמתיות (חרדה, דיכאון). <span class="source-tag">Kats Gold, Kopelman-Rubin, Mufson & Klomek, 2020</span></li>
+      <li><strong>א.י.ל ליסודי:</strong> 419 תלמידים ב-7 בתי ספר, שנתיים, 4 מדידות. נמצא עלייה באסרטיביות ויוזמה; הפחתה בדיכאון, חרדה, בריונות מילולית ופיזית. שיפור בקריאת עברית (אך לא במתמטיקה). <span class="source-tag">Kopelman-Rubin et al., 2020, EJDP</span></li>
+      <li><strong>א.י.ל לחטיבות:</strong> 69 תלמידי כיתה ח' עם לקויות למידה ו/או ADHD. שיפור בתקשורת ואמפתיה; הפחתה בבעיות התנהגות ובריונות; חיזוק מערכות יחסים מורה-תלמיד.</li>
+    </ul>
+
+    <div class="warning-box">
+      <strong>שימו לב לשם:</strong> התוכנית מציגה את עצמה כ"אני יכול.<strong>ה</strong> להצליח" &mdash; עם סיומת נקבה מודגשת. שימוש בכתיב מגדרי מודע ("שפה מכלילה") הוא סמן ידוע של אימוץ שיח מגדרי פרוגרסיבי. זהו לא מקרי &mdash; הוא משקף את המסגרת הרעיונית של CASEL שבה "מודעות חברתית" כוללת "הערכת גיוון" כמיומנות ליבה.
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section" id="section-5">
+    <h2>מימון, רשתות ושותפויות</h2>
+
+    <h3>יד הנדיב (קרן רוטשילד)</h3>
+    <p>על פי מחקר קודם במסגרת הפרויקט, יד הנדיב מממנת הן את אבני ראשה (הכשרת מנהלים) והן את SEL.IL (מחקר ותוכניות). משמעות: <strong>אותה קרן פילנתרופית מממנת את שני קצוות הצינור</strong> &mdash; ההכשרה של המנהלים שיאשרו את התוכניות, והתוכניות עצמן שיכנסו לכיתות.</p>
+
+    <h3>שותפויות מוצהרות</h3>
+    <p>SEL.IL מצהיר על שותפויות עם:</p>
+    <ul>
+      <li>קרנות פילנתרופיות (לא מפורטות באתר)</li>
+      <li>רשויות מקומיות</li>
+      <li>משרד החינוך</li>
+      <li>חוקרים מדיסציפלינות מגוונות</li>
+      <li>בתי ספר והורים</li>
+    </ul>
+
+    <h3>מודל הכנסות</h3>
+    <p>התוכנית נמכרת דרך מערכת גפ"ן בעלות של כ-14,000 ש"ח לשכבת גיל. בתי ספר מממנים אותה מתקציבי "הכלה ורווחה רגשית". הכנסות SEL.IL כוללות גם מוצרים נוספים (ExSeli, SEL by Milgo, SEL.box) ושירותי ייעוץ.</p>
+
+    <h3>הקשר המוסדי</h3>
+    <p>אוניברסיטת רייכמן (לשעבר המרכז הבינתחומי הרצליה, מס' חל"צ הרשום) מספקת ל-SEL.IL לגיטימציה אקדמית. השם "אוניברסיטת רייכמן" מופיע ככותרת המפעיל בגפ"ן &mdash; וזוהי בדיוק המעטפת שמסתירה את הזהות האמיתית של מעצבי התוכנית: צוות קטן שעובד תחת הנחייה ישירה של מייסד CASEL.</p>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section" id="section-6">
+    <h2>המבחן: המוצהר מול המעשה</h2>
+
+    <div class="thesis">
+      <strong>המבחן של הפרויקט:</strong> אם ארגון אומר דבר אחד ועושה דבר אחר &mdash; זה חתרני. אם הוא שקוף לגבי מה שהוא &mdash; זה גלוי.
+    </div>
+
+    <h3>מה ההורה רואה:</h3>
+    <ul>
+      <li>"אני יכול להצליח" &mdash; שם שמשדר שיפור לימודי, הצלחה</li>
+      <li>"אוניברסיטת רייכמן" &mdash; מוסד אקדמי מוכר ויוקרתי</li>
+      <li>"שיפור תפקוד לימודי, רגשי וחברתי" &mdash; נשמע כמו עזרה ללימודים</li>
+      <li>תחום בגפ"ן: "רווחתי - רגשי" &mdash; נשמע טיפולי</li>
+    </ul>
+
+    <h3>מה ההורה לא רואה:</h3>
+    <ul>
+      <li>שהתוכנית היא יישום ישיר של מסגרת CASEL האמריקאית</li>
+      <li>שמייסד-שותף של CASEL מנחה ישירות את הצוות הישראלי</li>
+      <li>שאותה קרן (יד הנדיב) מממנת הן את הכשרת המנהלים והן את התוכנית</li>
+      <li>שהשם המלא כולל סיומת מגדרית ("יכול.ה")</li>
+      <li>שה-UNESCO מקשר SEL ליעדי פיתוח בר-קיימא ולתלמיד כ"סוכן שינוי"</li>
+      <li>שהמחקר שמבסס את "ההוכחה המדעית" נעשה על ידי אותו צוות שמפתח ומוכר את התוכנית</li>
+    </ul>
+
+    <h3>הפער</h3>
+    <table>
+      <tr><th>ממד</th><th>מה ההורה חושב</th><th>מה בפועל</th></tr>
+      <tr><td>מקור</td><td>תוכנית ישראלית של אוניברסיטה</td><td>יישום של מסגרת אמריקאית (CASEL) בהנחיה ישירה של מייסד הארגון</td></tr>
+      <tr><td>מטרה</td><td>שיפור הצלחה לימודית</td><td>הטמעת מסגרת ערכית-חברתית בינלאומית בתוך המערכת הציבורית</td></tr>
+      <tr><td>מימון</td><td>תקציב המדינה/בית הספר</td><td>צינור מתואם של קרן פילנתרופית שמממנת גם את הכשרת המנהלים שמאשרים את התוכנית</td></tr>
+      <tr><td>מחקר</td><td>מחקר אקדמי עצמאי</td><td>המפתח, המפעיל והחוקר הם אותו גוף</td></tr>
+      <tr><td>שפה</td><td>"הצלחה", "יכולת"</td><td>"סוכן שינוי", "הערכת גיוון", "מודעות חברתית"</td></tr>
+    </table>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="section" id="section-7">
+    <h2>סיווג סופי ומסקנות</h2>
+
+    <div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#fde8e8;color:#c0392b;font-weight:600;font-size:0.85em;margin:8px 0;">פרוגרסיבי חתרני &mdash; הפער בין המוצהר למעשה</div>
+
+    <h3>נימוקים לסיווג:</h3>
+    <ol>
+      <li><strong>הסוואת מקור:</strong> התוכנית מציגה את עצמה כ"תוכנית של אוניברסיטת רייכמן" בעוד שמדובר בזרוע ישראלית של ארגון אמריקאי (CASEL). מייסד-שותף של CASEL מנחה ישירות את הצוות.</li>
+      <li><strong>הסוואת מטרה:</strong> השם "אני יכול להצליח" ותיאור הגפ"ן ("רווחתי - רגשי") מציגים תוכנית לשיפור הישגים, בעוד התוכן מלמד חמש מיומנויות של מסגרת בינלאומית הכוללת "מודעות חברתית" ו"הערכת גיוון".</li>
+      <li><strong>צינור מימון מתואם:</strong> יד הנדיב מממנת הן את הכשרת המנהלים (אבני ראשה) והן את התוכנית (SEL.IL). מי שמאשר את הכניסה לבית הספר הוכשר על ידי אותו ממען.</li>
+      <li><strong>ניגוד עניינים מחקרי:</strong> אותו גוף שמפתח, מוכר וחוקר את התוכנית מציג "הוכחות מבוססות מחקר" ליעילותה.</li>
+      <li><strong>שפה מגדרית מודעת:</strong> השימוש ב"יכול.ה" הוא סמן של אימוץ שיח מגדרי שאינו גלוי להורים.</li>
+    </ol>
+
+    <h3>מה זה לא:</h3>
+    <ul>
+      <li>זו לא תוכנית של מורה מקומי שמנסה לעזור לילדים</li>
+      <li>זו לא תוכנית אקדמית ישראלית עצמאית</li>
+      <li>זו לא תוכנית "לימודית" במובן שהורים מבינים את המילה</li>
+    </ul>
+
+    <h3>מה זה כן:</h3>
+    <ul>
+      <li>צינור מתואם בינלאומי &mdash; אמריקאי להטמעת מסגרת ערכית בכיתות ישראליות</li>
+      <li>ממומן על ידי פילנתרופיה זרה (יד הנדיב = קרן רוטשילד)</li>
+      <li>מוסווה כ"מדע" ו"אקדמיה" אך מנוהל כמפעל רעיוני</li>
+    </ul>
+
+    <div class="warning-box">
+      <strong>שורה תחתונה:</strong> ההורה ששולח את ילדו לבית ספר שרכש את א.י.ל חושב שהילד שלו ילמד להצליח בלימודים. בפועל, הילד שלו עובר תוכנית של ארגון אמריקאי שמקדם מסגרת ערכית בינלאומית הקשורה ליעדי האו"ם. הפער בין המוצהר למעשה הוא ברור ומתועד.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  דוח מחקר עומק &mdash; אני יכול להצליח (א.י.ל) | <a href="../">דירוג ערים</a> | <a href="index.html">כל המחקרים</a><br>
+  מקורות: אתר asel.co.il, גפ"ן 971, מחקר CASEL-ישראל (דשבורד אבני ראשה), מסד הנתונים program_lookup.json, מחקרי SEL.IL (EJDP 2020, EED 2020)
+</footer>
+
+</body>
+</html>

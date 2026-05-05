@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אל"י — האגודה להגנת הילד — דוח מחקר מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.risk-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85em; font-weight: 600; margin-top: 10px;
+}
+.risk-high { background: #e74c3c; color: #fff; }
+.risk-medium { background: #f39c12; color: #fff; }
+.risk-low { background: #27ae60; color: #fff; }
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section h4 { font-size: 1em; color: #444; margin: 14px 0 6px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+code {
+  background: #f0f0f0; padding: 1px 5px; border-radius: 3px;
+  font-size: 0.9em;
+}
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px; text-decoration: none;
+}
+.source-tag:hover { background: #d0dff0; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav {
+    padding: 8px 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero {
+    padding: 24px 14px 20px;
+  }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר מעמיק</span>
+  <a href="../">חזרה לדירוג</a>
+  <a href="../research/">כל הדוחות</a>
+  <span class="nav-sections"><a href="#section-1">1. פרטי רישום</a> <a href="#section-2">2. ניתוח פיננסי</a> <a href="#section-3">3. הנהגה</a> <a href="#section-4">4. תוכניות</a> <a href="#section-5">5. התפתחות אידאולוגית</a> <a href="#section-6">6. קשרים בינלאומיים</a> <a href="#section-7">7. קשר לארגוני הגנת ילדים</a> <a href="#section-8">8. ציון שקיפות GuideStar</a> <a href="#section-9">9. קשרי ממשלה</a> <a href="#section-10">10. מחלוקות</a> <a href="#section-11">הערכת התאמת ערכים</a> <a href="#section-12">שאלות פתוחות</a> <a href="#section-13">סיכום</a> <a href="#section-14">מקורות</a></span>
+</nav>
+
+<div class="hero">
+  <h1>אל"י — האגודה להגנת הילד</h1>
+<div style="display:inline-block;padding:4px 14px;border-radius:14px;background:#f0f0f0;color:#666;font-weight:600;font-size:0.85em;margin:8px 0;">לא מוכרע — אין מספיק מידע לסיווג</div>
+  <div class="subtitle">ELI — The Israel Association for Child Protection</div>
+  <div class="meta"></div>
+
+</div>
+
+<div class="container">
+  <a href="../research/" class="back-link">← כל דוחות המחקר</a>
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם הארגון</td><td>אל"י — האגודה להגנת הילד מייסודה של ד"ר חניתה צימרין (ע"ר)</td></tr>
+      <tr><td>סוג</td><td>עמותה רשומה</td></tr>
+      <tr><td>שנת ייסוד</td><td>1979</td></tr>
+      <tr><td>מייסדת</td><td>ד"ר חניתה צימרין</td></tr>
+      <tr><td>מספר עמותה</td><td>580030500</td></tr>
+      <tr><td>מחזור שנתי (2023)</td><td>7,658,350 ₪ (~2.1 מיליון $)</td></tr>
+      <tr><td>מקורות מימון</td><td>תרומות (כמעט 100%), מימון ממשלתי זניח (~0.07%)</td></tr>
+      <tr><td>כתובת</td><td>רחוב בית אלפא 9, תל אביב 6721909</td></tr>
+      <tr><td>טלפון</td><td>03-6091920 (ראשי), *6935 (קו חירום)</td></tr>
+      <tr><td>אתר</td><td><a href="https://www.eli.org.il/" target="_blank" rel="noopener">eli.org.il</a></td></tr>
+    </table>
+  </div>
+
+  <div class="toc"><h2>תוכן עניינים</h2><ol><li><a href="#section-1">1. פרטי רישום</a></li><li><a href="#section-2">2. ניתוח פיננסי</a></li><li><a href="#section-3">3. הנהגה</a></li><li><a href="#section-4">4. תוכניות</a></li><li><a href="#section-5">5. התפתחות אידאולוגית</a></li><li><a href="#section-6">6. קשרים בינלאומיים</a></li><li><a href="#section-7">7. קשר לארגוני הגנת ילדים ישראליים אחרים</a></li><li><a href="#section-8">8. ציון שקיפות GuideStar</a></li><li><a href="#section-9">9. קשרי ממשלה</a></li><li><a href="#section-10">10. מחלוקות</a></li><li><a href="#section-11">הערכת התאמת ערכים</a></li><li><a href="#section-12">שאלות פתוחות לחקירה נוספת</a></li><li><a href="#section-13">סיכום</a></li><li><a href="#section-14">מקורות</a></li></ol></div>
+  <div class="section" id="section-1">
+<h2>1. פרטי רישום</h2>
+<table>
+<tr><th>שדה</th><th>ערך</th></tr>
+<tr><td><strong>שם משפטי (עברית)</strong></td><td>אל"י- האגודה להגנת הילד מייסודה של ד"ר חניתה צימרין (ע"ר)</td></tr>
+<tr><td><strong>שם באנגלית</strong></td><td>ELI — The Israel Association for Child Protection</td></tr>
+<tr><td><strong>מספר עמותה</strong></td><td>580030500</td></tr>
+<tr><td><strong>סוג</strong></td><td>עמותה רשומה</td></tr>
+<tr><td><strong>שנת ייסוד</strong></td><td>1979</td></tr>
+<tr><td><strong>מייסדת</strong></td><td>ד"ר חניתה צימרין</td></tr>
+<tr><td><strong>GuideStar ישראל</strong></td><td><a href="https://www.guidestar.org.il/organization/580030500" target="_blank" rel="noopener">guidestar.org.il/organization/580030500</a></td></tr>
+<tr><td><strong>מספרי תוכנית גפ"ן (משרד החינוך)</strong></td><td>1731, 13928, 11187, 11189</td></tr>
+<tr><td><strong>כתובת</strong></td><td>רחוב בית אלפא 9, תל אביב 6721909</td></tr>
+<tr><td><strong>טלפון</strong></td><td>03-6091920 (ראשי), *6935 (קו חירום)</td></tr>
+<tr><td><strong>אתר</strong></td><td><a href="https://www.eli.org.il/" target="_blank" rel="noopener">eli.org.il</a></td></tr>
+</table>
+<h3>ישות אמריקאית</h3>
+<table>
+<tr><th>שדה</th><th>ערך</th></tr>
+<tr><td><strong>שם משפטי בארה"ב</strong></td><td>Eli-American Friends of the Israel Association for Child Protection Inc.</td></tr>
+<tr><td><strong>EIN</strong></td><td>52-2171745</td></tr>
+<tr><td><strong>כתובת</strong></td><td>P.O. Box 12, Merion, PA 19066</td></tr>
+<tr><td><strong>שנת הכרה של מס הכנסה</strong></td><td>1999</td></tr>
+<tr><td><strong>קוד NTEE</strong></td><td>Q33 (סיוע בינלאומי)</td></tr>
+<tr><td><strong>סטטוס מס</strong></td><td>501(c)(3)</td></tr>
+<tr><td><strong>אתר</strong></td><td><a href="http://eli-usa.org" target="_blank" rel="noopener">ELI-USA.ORG</a></td></tr>
+</table>
+<h3>היסטוריית הקמה</h3>
+<p>אל"י הוקמה בשנת 1979 על ידי ד"ר חניתה צימרין (שם נעורים: חניתה גולדשמיד, 17 במרץ 1945 – 4 במאי 2021). צימרין הייתה ילידת ירושלים שהפכה ל<strong>אדם הראשון בישראל שקיבל דוקטורט בעבודה סוציאלית</strong> (1978). היא שימשה כפרופסור בבית הספר לעבודה סוציאלית באוניברסיטת תל אביב במשך 20 שנה (1970–1988), וניהלה את יחידת הילדים והנוער.</p>
+<p>בשנת 1979 היא הקימה את אל"י כ<strong>ארגון ההתנדבותי הראשון בישראל</strong> המוקדש באופן ספציפי להתעללות בילדים, בתקופה שבה הנושא לא היה מוכר בציבור הישראלי. היא זוכה בכך שהעלתה את נושא ההתעללות בילדים לסדר היום הלאומי.</p>
+<p><strong>הערה חשובה:</strong> המשתמש שאל על הקמה בשנת 1948. זה שגוי. אל"י הוקמה ב-<strong>1979</strong>, לא ב-1948. הבלבול עשוי לנבוע משנת הקמת מדינת ישראל. אל"י בת 45+ שנה, לא 75+.</p>
+
+</div>
+<div class="section" id="section-2">
+<h2>2. ניתוח פיננסי</h2>
+<h3>הישות הישראלית (עמותה 580030500)</h3>
+<table>
+<tr><th>מדד</th><th>ערך</th><th>מקור</th></tr>
+<tr><td><strong>מחזור שנתי (2023)</strong></td><td>7,658,350 ₪ (~2.1 מיליון $)</td><td>obudget.org</td></tr>
+<tr><td><strong>מימון ממשלתי (3 שנים אחרונות)</strong></td><td>~5,000 ₪</td><td>obudget.org</td></tr>
+<tr><td><strong>מימון ממשלתי (סה"כ היסטורי)</strong></td><td>~16,000 ₪ (7 חוזים, כולם משרד המשפטים)</td><td>obudget.org</td></tr>
+<tr><td><strong>מימון ממשלתי כאחוז מההכנסות</strong></td><td>~0.07%</td><td>חישוב</td></tr>
+</table>
+<p><strong>תובנה מרכזית:</strong> אל"י ממומנת באופן מוחלט <strong>מתרומות</strong>. המימון הממשלתי זניח — 5,000 ₪ במשך שלוש שנים מול מחזור שנתי של ~7.6 מיליון ₪. זה חריג עבור ארגון בגודלו ובהיקפו. חוזי משרד המשפטים הם עבור שירותים מומחים ספציפיים (הערכות פסיכולוגיות, הערכות סיכון מיני, ייעוצים בצו בית משפט).</p>
+<p>עם זאת, אל"י מקבלת גם <strong>מימון ממשלתי עקיף</strong> דרך משרד הרווחה והשירותים החברתיים והביטוח הלאומי, המממנים טיפולים הניתנים דרך לשכות הרווחה המקומיות. תשלומים אלה עוברים דרך הרשויות המקומיות, לא ישירות לאל"י, ולכן ייתכן שלא מופיעים באתר obudget.org כהעברות ישירות.</p>
+<h3>הישות האמריקאית (EIN 52-2171745) — נתוני 990 מ-ProPublica</h3>
+<table>
+<tr><th>שנת כספים</th><th>הכנסות ($)</th><th>הוצאות ($)</th><th>רווח נקי ($)</th><th>סך נכסים ($)</th></tr>
+<tr><td><strong>2024</strong></td><td>592,959</td><td>463,202</td><td>+129,757</td><td>241,717</td></tr>
+<tr><td><strong>2023</strong></td><td>698,838</td><td>687,374</td><td>+11,464</td><td>111,960</td></tr>
+<tr><td><strong>2022</strong></td><td>424,739</td><td>625,791</td><td>-201,052</td><td>100,496</td></tr>
+<tr><td><strong>2021</strong></td><td>327,164</td><td>125,784</td><td>+201,380</td><td>301,548</td></tr>
+<tr><td><strong>2020</strong></td><td>273,032</td><td>207,895</td><td>+65,137</td><td>100,168</td></tr>
+<tr><td><strong>2019</strong></td><td>273,350</td><td>275,428</td><td>-2,078</td><td>35,031</td></tr>
+<tr><td><strong>2018</strong></td><td>216,924</td><td>224,585</td><td>-7,661</td><td>37,109</td></tr>
+<tr><td><strong>2016</strong></td><td>195,847</td><td>197,049</td><td>-1,202</td><td>61,210</td></tr>
+</table>
+<p><strong>מקור הכנסות:</strong> 100% תרומות (דיווח 2024). אפס הכנסות מפעילות.</p>
+<p><strong>שכר נושאי משרה:</strong> 0$ בכל השנים לכל נושאי המשרה.</p>
+<p><strong>התחייבויות:</strong> 0$ בכל השנים.</p>
+<h3>מענקים שנשלחו לישראל (מהישות האמריקאית)</h3>
+<table>
+<tr><th>שנה</th><th>סכום ($)</th></tr>
+<tr><td>2024</td><td>431,907</td></tr>
+<tr><td>2023</td><td>670,000</td></tr>
+<tr><td>2022</td><td>610,000</td></tr>
+<tr><td>2021</td><td>120,000</td></tr>
+<tr><td>2020</td><td>195,000</td></tr>
+</table>
+<p><strong>מגמה:</strong> מסלול עלייה חזק, במיוחד לאחר 7 באוקטובר (זינוק ב-2023 ל-670 אלף $, כבר ב-2022 ל-610 אלף $).</p>
+<h3>תורמים/מממנים ידועים</h3>
+<ul>
+<li><strong>קרן יעקב והילדה בלאושטיין</strong> — מענק 50,000$ (2024, לתקופת שנתיים). רשום תחת תחום תוכנית "חיזוק הדמוקרטיה הישראלית".</li>
+<li><strong>ידידי אל"י בארה"ב</strong> (501(c)(3) אמריקאי) — הצינור העיקרי לתרומות אמריקאיות.</li>
+<li><strong>תורמים פרטיים</strong> — דרך IsraelGives, האתר, PayPal ואירועים.</li>
+</ul>
+<h3>תמונה פיננסית מצרפית</h3>
+<table>
+<tr><th>מקור</th><th>הערכה שנתית</th></tr>
+<tr><td>מחזור כולל של העמותה הישראלית</td><td>~7.6 מיליון ₪ (~2.1 מיליון $)</td></tr>
+<tr><td>מענקי הישות האמריקאית לישראל</td><td>~432–670 אלף $ (משתנה לפי שנה)</td></tr>
+<tr><td>העברות ממשלתיות ישירות</td><td>זניח (~2 אלף ₪/שנה)</td></tr>
+<tr><td>ממשלתי עקיף (דרך רשויות מקומיות)</td><td>לא ידוע אך משמעותי — ממן טיפולים</td></tr>
+<tr><td><strong>הערכת זרימת כספים כוללת</strong></td><td><strong>~2.1–2.5 מיליון $ בשנה</strong></td></tr>
+</table>
+
+</div>
+<div class="section" id="section-3">
+<h2>3. הנהגה</h2>
+<h3>הנהגה נוכחית</h3>
+<table>
+<tr><th>תפקיד</th><th>שם</th><th>הערות</th></tr>
+<tr><td><strong>נשיא ומנכ"ל</strong></td><td><strong>ערן צימרין</strong></td><td>בנה של המייסדת ד"ר חניתה צימרין. משמש כמנכ"ל הישות הישראלית וכסגן נשיא הישות האמריקאית. מצוטט בתדירות בתקשורת הישראלית.</td></tr>
+<tr><td><strong>מנהלת תוכניות</strong></td><td><strong>לימור גרינברג</strong></td><td>מנהלת את תוכניות המניעה בבתי הספר. יצירת קשר: limor@eli.org.il</td></tr>
+<tr><td><strong>איש קשר מנהלי</strong></td><td><strong>אירית</strong></td><td>מוזכרת דרך irit@eli.org.il. התפקיד לא מפורט בפומבי; ככל הנראה מנהלת אדמיניסטרטיבית.</td></tr>
+</table>
+<h3>דירקטוריון ארה"ב (ידידי אל"י בארה"ב)</h3>
+<table>
+<tr><th>תפקיד</th><th>שם</th></tr>
+<tr><td>נשיאה</td><td>Beth W. Galinsky</td></tr>
+<tr><td>סגן נשיא</td><td>ערן צימרין</td></tr>
+<tr><td>גזבר/מזכיר</td><td>Alan B. Fogel</td></tr>
+<tr><td>דירקטורית</td><td>Wendy Borodkin</td></tr>
+</table>
+<p><strong>כל נושאי המשרה מקבלים 0$ כתגמול.</strong></p>
+<h3>חששות ממשל תאגידי</h3>
+<ul>
+<li><strong>דירוג Charity Navigator: 2 מתוך 4 כוכבים (72%)</strong> — "זקוק לשיפור"</li>
+<li><strong>0% חברי דירקטוריון בלתי תלויים</strong> (0/8 נקודות לעצמאות)</li>
+<li><strong>אין מדיניות ניגוד עניינים</strong> (0/4 נקודות)</li>
+<li><strong>אין מדיניות חושפי שחיתויות</strong> (0/4 נקודות)</li>
+<li><strong>אין מדיניות שימור מסמכים</strong> (0/4 נקודות)</li>
+<li><strong>אין ביקורת/סקירה/אוסף פיננסי</strong> (0/15 נקודות)</li>
+<li><strong>טופס 990 לא מפורסם באתר</strong> (0/4 נקודות)</li>
+</ul>
+<p>עם זאת:</p>
+<ul>
+<li><strong>השפעה ומדידה: 97/100</strong></li>
+<li><strong>תרבות וקהילה: 100/100</strong></li>
+<li><strong>מנהיגות והתאמה: 100/100</strong></li>
+<li><strong>יחס הוצאות תוכנית: 96.56%</strong> (מצוין — כמעט כל הכספים הולכים לתוכניות)</li>
+<li><strong>התחייבויות לנכסים: 0%</strong> (ללא חוב)</li>
+</ul>
+<p><strong>דפוס:</strong> זוהי עמותה משפחתית קלאסית — מצוינת במשימתה, חלשה בפורמליות ממשל תאגידי. הדירקטוריון נראה מורכב משותפים אישיים/משפחתיים ולא מאנשי מקצוע בלתי תלויים. זה לא מעיד בהכרח על מעשים בלתי תקינים, אך מהווה חולשה מבנית בשקיפות.</p>
+<h3>זיקות פוליטיות</h3>
+<p><strong>לא נמצאו.</strong> אין ראיות לפעילות פוליטית מפלגתית, לובינג בכנסת מעבר לנושאי רווחת ילדים, או הזדהות עם תנועות פוליטיות. אל"י פועלת כארגון מקצועי/קליני, לא כקבוצת סנגור פוליטי. זה שונה באופן מהותי מארגונים אחרים הקשורים לילדים (למשל, אגודה לזכויות האזרח, דרור ישראל) שיש להם ממדים פוליטיים מפורשים.</p>
+<h3>ביוגרפיית המייסדת</h3>
+<p><strong>ד"ר חניתה צימרין</strong> (1945–2021):</p>
+<ul>
+<li>נולדה כחניתה גולדשמיד בירושלים, גדלה בבית הכרם</li>
+<li>הדוקטורט הראשון בישראל בעבודה סוציאלית (1978)</li>
+<li>פרופסור בבית הספר לעבודה סוציאלית באוניברסיטת תל אביב (1970–1988)</li>
+<li>הקימה את אל"י בשנת 1979</li>
+<li>קיבלה את <strong>פרס הקריירה המצטיינת של ISPCAN</strong> (1996) מהאגודה הבינלאומית למניעת התעללות והזנחה בילדים</li>
+<li>חברת המערכת של <em>The International Journal of Child Abuse and Neglect</em> (ארה"ב)</li>
+<li>פרסמה רבות על התעללות בילדים בישראל</li>
+<li>נפטרה ב-4 במאי 2021, בגיל 76, לאחר מחלה. התגוררה בהרצליה.</li>
+</ul>
+
+</div>
+<div class="section" id="section-4">
+<h2>4. תוכניות</h2>
+<h3>4.1 מרכז טיפולי קליני</h3>
+<ul>
+<li><strong>מרכז ראשי:</strong> ראשון לציון (משרת רשויות מקומיות סמוכות)</li>
+<li><strong>מרכז חדש (2023):</strong> רעננה</li>
+<li>סניפים בערים מרובות</li>
+<li><strong>20 חדרי טיפול חדשים</strong> נפתחו לאחר 7 באוקטובר לטיפול בטראומה הקשורה למלחמה</li>
+<li><strong>12,000 שעות טיפול בשנה</strong></li>
+<li><strong>80% שיעור הצלחה</strong> (מטופלים חוזרים לתפקוד תקין)</li>
+<li>שיטות טיפול: פרטני, קבוצתי, דיאדי, משפחתי</li>
+<li>אוכלוסיות מטופלות:</li>
+<li>ילדים/מתבגרים שחוו התעללות</li>
+<li>מבוגרים שהותעללו בהם בילדותם</li>
+<li>הורים שמבצעים התעללות (טיפול במתעללים)</li>
+<li>קטינים עם התנהגות מינית לא מותאמת/מזיקה</li>
+<li>ילדים עם מוגבלויות</li>
+<li>אוכלוסיות דוברות ערבית</li>
+<li>אוכלוסיות דוברות רוסית</li>
+<li>קהילות חרדיות (קהילות סגורות)</li>
+<li>משברים משפחתיים (התבגרות, דיכאון, אובדן, גירושין)</li>
+</ul>
+<h3>4.2 מניעה בבתי ספר (אל"י על הבמה)</h3>
+<ul>
+<li><strong>~100,000 ילדים בשנה</strong> באמצעות חינוך תיאטרלי</li>
+<li><strong>~100 בתי ספר, ~300 פעילויות בשנה</strong></li>
+<li><strong>שיעור חשיפה:</strong> 1.5% מהילדים המשתתפים חושפים התעללות או מזוהים כבסיכון</li>
+<li>פועלת בבתי ספר מאז 1978/1979</li>
+</ul>
+<p><strong>כותרות הצגות לפי גיל:</strong></p>
+<ul>
+<li><strong>גן:</strong> "יעל לומדת לשמור על הגוף שלה" — בטיחות גופנית</li>
+<li><strong>בית ספר יסודי:</strong> "סרט רע", "סוד ברשת" — בריונות ברשת, בטיחות מקוונת</li>
+<li><strong>חטיבת ביניים/תיכון:</strong> "משהו ממך בי" — מודעות להתעללות</li>
+</ul>
+<p><strong>מיקוד תוכן:</strong> גבולות גוף, מניעת התעללות פיזית ומינית, בריונות ברשת, בטיחות מקוונת, הדרה חברתית. ההצגות מותאמות למגזר הדתי-לאומי והחרדי.</p>
+<p><strong>פרוטוקול לאחר ההצגה:</strong> עובדים סוציאליים ויועצים מובילים דיונים לאחר כל הצגה לזיהוי ילדים בסיכון.</p>
+<p><strong>ממצא מרכזי — תוכן SEL ומגדר:</strong></p>
+<ul>
+<li>תוכניות בתי הספר של אל"י <strong>אינן מסגרות SEL (למידה חברתית-רגשית)</strong>. הן מתמקדות באופן צר במניעת התעללות וגילויה.</li>
+<li>הארגון אכן עוסק ב"מיניות בריאה" בהכשרות המורים שלו, אך הכוונה <strong>למודעות להתפתחות מינית מותאמת גיל</strong> עבור מחנכים — לא לאידאולוגיית מגדר או תכנות זהות.</li>
+<li>ההכשרה מכסה: שלבי התפתחות טבעיים, גבולות פרטיות, התנהגות ברשתות חברתיות, זיהוי מדדי התעללות, חובת דיווח.</li>
+<li><strong>לא נמצאו ראיות</strong> לתוכן זהות מגדרית, חינוך לכינויי מגדר, תכנות להט"ב, או הנדסה חברתית מבוססת ערכים בתוכניות בתי הספר של אל"י.</li>
+<li>עם זאת, פרופיל GuideStar בארה"ב מציין התאמה ל-SDG 5 "שוויון מגדרי" — נראה שמדובר בסיווג סטנדרטי של Candid/GuideStar ולא במיקוד תוכניתי.</li>
+</ul>
+<h3>4.3 מרכז הכשרה</h3>
+<ul>
+<li><strong>מוכר על ידי משרד הרווחה והשירותים החברתיים</strong> להכשרת מטפלים</li>
+<li>פיתוח מקצועי למטפלים, עובדי רווחה, אנשי מקצוע רפואיים, אנשי מקצוע משפטיים, מחנכים</li>
+<li>הרצאות, סמינרים, תוכניות הכשרה מותאמות</li>
+<li><strong>שני מסלולי הכשרה למחנכים:</strong></li>
+</ul>
+<ol>
+<li>מיניות בריאה (התפתחות מותאמת גיל, גבולות)</li>
+<li>הגנה ומניעת התעללות מינית (זיהוי, תגובה, חובת דיווח)</li>
+</ol>
+<h3>4.4 שותפות אל"י/צה"ל</h3>
+<ul>
+<li><strong>אל"י הוא הארגון האזרחי היחיד המורשה לטפל בחיילי צה"ל</strong></li>
+<li>מספקת הדרכה למטפלים בצבא ולקציני בריאות הנפש</li>
+<li>מטפלת בחיילים שנפגעו מאלימות מינית או התנהגות לא הולמת</li>
+<li>מכשירה קצינים בצה"ל בגילוי התעללות</li>
+<li>משפיעה על מדיניות צה"ל למניעת התעללות</li>
+</ul>
+<h3>4.5 קו חירום</h3>
+<ul>
+<li><strong>טלפון:</strong> *6935 (24/7)</li>
+<li><strong>10,000+ פניות בשנה</strong></li>
+<li>85% מגיעות דרך ערוצים מקוונים</li>
+<li>פנייה אנונימית מתקבלת</li>
+<li><strong>"הכפתור הסגול":</strong> כלי דיווח 24/7 מבוסס וואטסאפ באתר</li>
+</ul>
+<h3>4.6 יחידה טיפולית ניידת</h3>
+<ul>
+<li>אל"י טוענת שהיא <strong>הארגון היחיד בעולם</strong> המשתמש ביחידה טיפולית ניידת כדי להגיע לנפגעי התעללות שאינם יכולים להרשות לעצמם לנסוע למרכזי טיפול.</li>
+</ul>
+<h3>4.7 בתי ספר להורות בטוחה</h3>
+<ul>
+<li>תוכנית חינוך להורות (פרטים מוגבלים במקורות ציבוריים)</li>
+</ul>
+<h3>4.8 תגובת חירום לאחר 7 באוקטובר</h3>
+<ul>
+<li>קרן חירום הופעלה על ידי ערן צימרין מיד לאחר 7 באוקטובר</li>
+<li><strong>עלייה של 30%</strong> בבקשות לסיוע בשנת 2023</li>
+<li><strong>2,000+ נפגעי טרור טופלו</strong>, כולל:</li>
+<li>~700 ילדים</li>
+<li>~1,300 מבוגרים</li>
+<li>~100 עובדים זרים</li>
+<li>~200 קשישים</li>
+<li>~40 ניצולי שואה</li>
+<li>16.5% מכלל הפניות ב-2023 היו עבור ילדי נפגעי טרור 7 באוקטובר</li>
+<li>2,000+ טיפולי טראומה חירום לתושבי עוטף עזה</li>
+</ul>
+
+</div>
+<div class="section" id="section-5">
+<h2>5. התפתחות אידאולוגית</h2>
+<h3>משימה מקורית (1979)</h3>
+<p>מניעת התעללות קלינית בילדים, טיפול, והכשרה מקצועית. ללא אג'נדה פוליטית או אידאולוגית.</p>
+<h3>משימה נוכחית (2025)</h3>
+<p>מניעת התעללות קלינית בילדים, טיפול, הכשרה מקצועית, מניעה בבתי ספר, שותפות עם צה"ל. <strong>ללא אג'נדה פוליטית או אידאולוגית.</strong></p>
+<h3>הערכה: האם המשימה השתנתה?</h3>
+<p><strong>לא זוהתה סטייה אידאולוגית משמעותית.</strong> אל"י <em>הרחיבה</em> את היקפה (הוספת תוכניות בתי ספר, שותפות עם צה"ל, טיפול נייד, בריונות ברשת) אך לא <em>שינתה</em> את משימתה המרכזית. תצפיות מרכזיות:</p>
+<ol>
+<li><strong>ללא סנגור פוליטי.</strong> בניגוד לאגודה לזכויות האזרח או המועצה הלאומית לשלום הילד, אל"י אינה עוסקת בלובינג מדיני מעבר לנושאי הגנת ילדים.</li>
+<li><strong>ללא תכנות מבוסס ערכים.</strong> תוכניות בתי הספר של אל"י מלמדות בטיחות גופנית וגילוי התעללות, לא ערכים חברתיים או מסגרות זהות.</li>
+<li><strong>ניטרלית מגזרית.</strong> אל"י מתאימה תוכניות לאוכלוסיות חילוניות, דתיות-לאומיות וחרדיות. זה מצביע על מתן שירותים פרגמטי, לא על כוונת הכוונה אידאולוגית.</li>
+<li><strong>מיקוד קליני נשמר.</strong> הזהות העיקרית של הארגון נותרת כספק טיפול קליני, לא כארגון סנגור.</li>
+<li><strong>אין פער מסרים בין עברית לאנגלית.</strong> שתי הגרסאות הלשוניות מתארות את אותה משימה: הגנה על ילדים מפני התעללות. לא זוהה שינוי סמנטי.</li>
+</ol>
+<p>העובדה שמענק קרן בלאושטיין מסווג תחת "חיזוק הדמוקרטיה הישראלית" היא <strong>סיווג של הקרן המממנת</strong>, לא הגדרה עצמית של אל"י. אל"י אינה ממצבת עצמה כארגון דמוקרטיה.</p>
+
+</div>
+<div class="section" id="section-6">
+<h2>6. קשרים בינלאומיים</h2>
+<table>
+<tr><th>ארגון</th><th>קשר</th><th>ראיות</th></tr>
+<tr><td><strong>ISPCAN</strong> (האגודה הבינלאומית למניעת התעללות והזנחה בילדים)</td><td>חזק. המייסדת קיבלה את פרס הקריירה המצטיינת של ISPCAN (1996). המייסדת ישבה במערכת כתב העת של ISPCAN.</td><td>אושר דרך ארכיוני JTA, רשומות אקדמיות</td></tr>
+<tr><td><strong>UNICEF</strong></td><td>לא נמצא שיוך ישיר</td><td>חיפוש בעברית ובאנגלית; אין תיעוד שותפות</td></tr>
+<tr><td><strong>WHO</strong></td><td>לא נמצא שיוך ישיר</td><td>אין ראיות לקשר רשמי</td></tr>
+<tr><td><strong>Candid (GuideStar ארה"ב)</strong></td><td>חותם שקיפות פלטינה (2025)</td><td>אושר — פחות מ-1% מהעמותות בארה"ב משיגות זאת</td></tr>
+<tr><td><strong>התאמת SDG</strong></td><td>רשום עבור SDG 3, 5, 10, 16, 17 ב-GuideStar ארה"ב</td><td>סיווג סטנדרטי של Candid</td></tr>
+<tr><td><strong>Awesome Foundation</strong></td><td>רשום/מפורט</td><td>אזכור מינורי</td></tr>
+</table>
+<p><strong>הערכה:</strong> הקשרים הבינלאומיים של אל"י הם דרך רשתות מקצועיות (ISPCAN) והישות לגיוס כספים בארה"ב, לא דרך ארגוני מדיניות או גופי האו"ם. זה עקבי עם ארגון קליני ולא עם ארגון סנגור.</p>
+
+</div>
+<div class="section" id="section-7">
+<h2>7. קשר לארגוני הגנת ילדים ישראליים אחרים</h2>
+<table>
+<tr><th>ארגון</th><th>יחסים</th><th>ראיות</th></tr>
+<tr><td><strong>המועצה הלאומית לשלום הילד</strong></td><td><strong>נפרד, ארגון שונה.</strong> אין ראיות לשותפות רשמית. המועצה היא גוף מדיניות/סנגור (עמותה 580000818); אל"י הוא קליני.</td><td>חיפוש ספציפי — לא נמצאה שותפות</td></tr>
+<tr><td><strong>לתת פה</strong></td><td>לא נמצא קשר</td><td>אין תוצאות חיפוש המקשרות ביניהם</td></tr>
+<tr><td><strong>מצמיחים</strong></td><td>לא נמצא קשר</td><td>אין תוצאות חיפוש המקשרות ביניהם</td></tr>
+<tr><td><strong>SafeSchool</strong></td><td>לא נמצא קשר</td><td>אין תוצאות חיפוש המקשרות ביניהם</td></tr>
+<tr><td><strong>קמפוס חרוב</strong></td><td>קשר אפשרי — חרוב הוא מרכז הכשרה לאנשי מקצוע בהגנת ילדים</td><td>עקיף, שניהם באותו מערך</td></tr>
+<tr><td><strong>קו לחינוך</strong></td><td>אל"י רשומה במאגר שלהם</td><td>מידע בלבד</td></tr>
+<tr><td><strong>כל שירות</strong></td><td>אל"י רשומה לשירותים בזמן מלחמה</td><td>מאגר שירותים</td></tr>
+<tr><td><strong>כל זכות</strong></td><td>אל"י רשומה כארגון שירות</td><td>מידע</td></tr>
+</table>
+<p><strong>הערכה:</strong> אל"י פועלת באופן עצמאי יחסית. היא אינה נראית כחלק מרשת גדולה יותר של ארגונים בעלי כוונה אידאולוגית. הקשרים שלה הם מקצועיים (אותו תחום) ולא פוליטיים.</p>
+
+</div>
+<div class="section" id="section-8">
+<h2>8. ציון שקיפות GuideStar</h2>
+<h3>GuideStar ישראל</h3>
+<ul>
+<li><strong>מספר רישום:</strong> 580030500</li>
+<li><strong>סטטוס:</strong> רשום (GuideStar ישראל מעובד ב-JS; לא ניתן לשלוף את ציון השקיפות מרחוק)</li>
+<li><strong>ידוע:</strong> לארגון יש פרופיל GuideStar עם נתונים פיננסיים גלויים (מחזור שנתי 7.6 מיליון ₪ לשנת 2023)</li>
+</ul>
+<h3>Candid (GuideStar ארה"ב)</h3>
+<ul>
+<li><strong>חותם:</strong> <strong>חותם שקיפות פלטינה (2025)</strong> — הרמה הגבוהה ביותר</li>
+<li><strong>משמעות:</strong> פחות מ-1% מהעמותות בארה"ב משיגות סטטוס פלטינה</li>
+<li><strong>דרישות:</strong> גילוי מלא של כספים, מדדי השפעה, ממשל, גיוון, תוכנית אסטרטגית</li>
+</ul>
+<h3>Charity Navigator</h3>
+<ul>
+<li><strong>דירוג כולל:</strong> <strong>2/4 כוכבים (72%)</strong> — "זקוק לשיפור"</li>
+<li><strong>אחריותיות וכספים:</strong> 54/100 (נגרר למטה בגלל אפס חברי דירקטוריון בלתי תלויים, מדיניות חסרה)</li>
+<li><strong>השפעה ומדידה:</strong> 97/100 (חזק)</li>
+<li><strong>תרבות וקהילה:</strong> 100/100</li>
+<li><strong>מנהיגות והתאמה:</strong> 100/100</li>
+<li><strong>יחס הוצאות תוכנית:</strong> 96.56% (מצוין)</li>
+</ul>
+<p><strong>פירוש:</strong> הציון הנמוך ב-Charity Navigator משקף חולשות במבנה הממשל (דירקטוריון משפחתי, מדיניות רשמית חסרה) — <strong>לא</strong> ניהול פיננסי כושל או השפעה נמוכה. חותם הפלטינה של Candid ויחס הוצאות התוכנית של 96.56% מצביעים על ניהול פיננסי חזק.</p>
+
+</div>
+<div class="section" id="section-9">
+<h2>9. קשרי ממשלה</h2>
+<h3>משרד הרווחה והשירותים החברתיים</h3>
+<ul>
+<li><strong>מוכר</strong> כגוף הכשרה למטפלים</li>
+<li><strong>ממומן באופן עקיף</strong> — טיפולים הניתנים דרך לשכות הרווחה המקומיות ממומנים על ידי המשרד והביטוח הלאומי</li>
+<li>אל"י משתפת פעולה עם משרדי רווחה מקומיים ברחבי הארץ</li>
+</ul>
+<h3>משרד המשפטים</h3>
+<ul>
+<li><strong>חוזים ישירים:</strong> 7 חוזים בסך ~16,000 ₪ סה"כ</li>
+<li>עבור: הערכות פסיכולוגיות מומחות, הערכות סיכון מיני, ייעוצים בצו בית משפט</li>
+<li>זה מינימלי — בעצם עלויות עד מומחה/הערכה</li>
+</ul>
+<h3>משרד החינוך</h3>
+<ul>
+<li><strong>תוכניות מאושרות גפ"ן:</strong> מספרים 1731, 13928, 11187, 11189</li>
+<li>תוכניות בתי הספר של אל"י נמצאות בקטלוג התוכניות של משרד החינוך (סל תרבות)</li>
+<li>זה אומר שבתי ספר יכולים להזמין את ההצגות התיאטרליות של אל"י דרך ערוצים רשמיים</li>
+</ul>
+<h3>צה"ל (צבא ההגנה לישראל)</h3>
+<ul>
+<li>הארגון האזרחי היחיד המורשה לטפל בחיילים</li>
+<li>מספק הדרכה, הכשרה וטיפול ישיר</li>
+<li>משפיע על מדיניות צה"ל בנושא התעללות מינית</li>
+</ul>
+<h3>הערכה</h3>
+<p>לאל"י יש <strong>קשרי ממשלה פונקציונליים</strong> (ספק שירותים, ספק מאושר) אך <strong>אינה תלויה בממשלה</strong> מבחינה פיננסית. המימון הממשלתי הישיר זניח. עצמאותו של הארגון מכספי הממשלה בולטת — משמעותה שאל"י אינה כבולה למינויים פוליטיים או לסדרי עדיפויות משרדיים משתנים.</p>
+
+</div>
+<div class="section" id="section-10">
+<h2>10. מחלוקות</h2>
+<h3>נמצאו</h3>
+<p><strong>שום דבר.</strong> חיפוש מקיף בעברית ובאנגלית לא העלה:</p>
+<ul>
+<li>ממצאי ביקורת של מבקר המדינה נגד אל"י</li>
+<li>הליכים משפטיים נגד הארגון</li>
+<li>חשיפות תקשורתיות או עיתונות חקירה המתמקדות באל"י</li>
+<li>האשמות בניהול כספי בלתי תקין</li>
+<li>תלונות על תוכן לא מתאים בתוכניות בתי הספר</li>
+<li>מחלוקות פוליטיות</li>
+</ul>
+<h3>חששות מבניים (מצוינים, לא שנויים במחלוקת)</h3>
+<ol>
+<li><strong>ממשל משפחתי:</strong> הארגון הוקם על ידי ד"ר חניתה צימרין, כיום מנוהל על ידי בנה ערן צימרין. אפס חברי דירקטוריון בלתי תלויים בישות האמריקאית. זוהי חולשת ממשל מבנית, אך לא בהכרח בעייתית.</li>
+<li><strong>ציון Charity Navigator (2/4):</strong> ציון נמוך עקב פורמליות ממשל, לא בעיות כספיות.</li>
+<li><strong>היקף קטן ביחס לבעיה:</strong> 12,000 שעות טיפול ו-10,000 פניות לקו חירום בשנה מול מאות אלפי ילדים בישראל. הישג הארגון, אף שמשמעותי, צנוע.</li>
+</ol>
+
+</div>
+<div class="section" id="section-11">
+<h2>הערכת התאמת ערכים</h2>
+<table>
+<tr><th>ערך</th><th>ציון (1-5)</th><th>הערות</th></tr>
+<tr><td><strong>בטיחות ילדים (משימת ליבה)</strong></td><td>5/5</td><td>כל המשימה מתמקדת כאן. 45 שנה של עבודה עקבית.</td></tr>
+<tr><td><strong>ניטרליות פוליטית</strong></td><td>5/5</td><td>ללא פעילות פוליטית, ללא זיקות מפלגתיות, ללא סנגור מעבר לרווחת ילדים</td></tr>
+<tr><td><strong>שקיפות</strong></td><td>3/5</td><td>חותם פלטינה של Candid אך פורמליות ממשל חלשות; דירקטוריון משפחתי</td></tr>
+<tr><td><strong>ניטרליות אידאולוגית בבתי ספר</strong></td><td>5/5</td><td>התוכניות מלמדות בטיחות גופנית, לא ערכים/זהות. מותאמות לכל המגזרים.</td></tr>
+<tr><td><strong>יושרה פיננסית</strong></td><td>4/5</td><td>יחס הוצאות תוכנית 96.56%; אין ביקורת/סקירה אך אין דגלים אדומים</td></tr>
+<tr><td><strong>עצמאות מהממשלה</strong></td><td>5/5</td><td>ממומן כמעט כולו מתרומות. לא כבול לשינויים פוליטיים.</td></tr>
+<tr><td><strong>אמינות מקצועית</strong></td><td>5/5</td><td>הכרת ISPCAN של המייסדת, אישור משרד החינוך, הכרת משרד הרווחה, שותפות צה"ל</td></tr>
+</table>
+
+</div>
+<div class="section" id="section-12">
+<h2>שאלות פתוחות לחקירה נוספת</h2>
+<ol>
+<li><strong>ציון שקיפות GuideStar ישראל</strong> — לא ניתן לשליפה מרחוק (מעובד ב-JS). נדרש חיפוש ידני לאימות הציון ("ניקוד שקיפות").</li>
+<li><strong>דוחות כספיים ישראליים מלאים</strong> — המחזור של 7.6 מיליון ₪ הוא ממטא-נתונים של obudget.org. פירוט מפורט (תרומות מול הכנסות שירות מול ממשלה) דורש את הדוח הכספי השנתי בפועל מרשם העמותות.</li>
+<li><strong>הרכב דירקטוריון הישות הישראלית</strong> — דירקטוריון ארה"ב ידוע (4 חברים, כולם ללא תגמול). חברי דירקטוריון ישראליים נמצאים בדף האנשים של GuideStar אך לא ניתן היה לשלוף אותם.</li>
+<li><strong>היחס המדויק בין תארי המנכ"ל והנשיא של ערן צימרין</strong> — הוא נראה ממלא את שני התפקידים, דבר חריג. האם יש יו"ר דירקטוריון נפרד?</li>
+<li><strong>היקף שותפות צה"ל</strong> — כמה חיילים מטופלים? מהו ההסדר החוזי? האם יש פיצוי?</li>
+<li><strong>תוכנית "חינוך מיני לבנות"</strong> שהוזכרה ב-GuideStar ארה"ב — מה זה בדיוק? דורש חקירה. יכול להיות תוכנית בטיחות גופנית ששווקה אחרת לתורמים אמריקאים, או תוכנית חדשה יותר.</li>
+</ol>
+
+</div>
+<div class="section" id="section-13">
+<h2>סיכום</h2>
+<p>אל"י הוא ארגון קטן, משפחתי, ממוקד קלינית להגנת ילדים. הוא עושה את מה שהוא אומר שהוא עושה: מטפל בנפגעי התעללות, מכשיר אנשי מקצוע, ומפעיל תוכניות מניעה בבתי ספר. אין ראיות לאג'נדה אידאולוגית, אקטיביזם פוליטי, סטייה מהמשימה, או תוכן שנוי במחלוקת בתוכניותיו. הממשל שלו חלש (דירקטוריון משפחתי, ללא פיקוח בלתי תלוי) אך יושרתו התפעולית נראית חזקה (חותם שקיפות פלטינה, יחס תוכנית 96.56%, הכרת ISPCAN, אמון צה"ל). מבין הארגונים שנחקרו בסדרה זו, אל"י בולטת <strong>בהיעדר דגלים אדומים</strong>.</p>
+
+</div>
+<div class="section" id="section-14">
+<h2>מקורות</h2>
+<h3>מקורות ראשוניים</h3>
+<ul>
+<li><a href="https://www.guidestar.org.il/organization/580030500" target="_blank" rel="noopener">GuideStar ישראל — פרופיל אל"י (580030500)</a></li>
+<li><a href="https://www.guidestar.org.il/organization/580030500/people" target="_blank" rel="noopener">GuideStar ישראל — אנשי אל"י/דירקטוריון</a></li>
+<li><a href="https://next.obudget.org/i/org/association/580030500" target="_blank" rel="noopener">obudget.org — העברות ממשלתיות לאל"י</a></li>
+<li><a href="https://www.eli.org.il/about/" target="_blank" rel="noopener">אתר אל"י הרשמי — אודות</a></li>
+<li><a href="https://www.eli.org.il/" target="_blank" rel="noopener">אתר אל"י הרשמי — דף הבית</a></li>
+<li><a href="https://www.eli.org.il/performances/" target="_blank" rel="noopener">אל"י — הצגות</a></li>
+<li><a href="https://www.eli.org.il/services/%D7%94%D7%9B%D7%A9%D7%A8%D7%95%D7%AA-%D7%9C%D7%A6%D7%95%D7%95%D7%AA%D7%99-%D7%97%D7%99%D7%A0%D7%95%D7%9A/" target="_blank" rel="noopener">אל"י — הכשרות לצוותי חינוך</a></li>
+</ul>
+<h3>מקורות הישות האמריקאית</h3>
+<ul>
+<li><a href="https://www.guidestar.org/profile/52-2171745" target="_blank" rel="noopener">GuideStar ארה"ב / Candid — פרופיל אל"י (EIN 52-2171745)</a></li>
+<li><a href="https://app.candid.org/profile/7787418/eli-israel-association-for-child-protection-52-2171745" target="_blank" rel="noopener">פרופיל Candid</a></li>
+<li><a href="https://projects.propublica.org/nonprofits/organizations/522171745" target="_blank" rel="noopener">ProPublica Nonprofit Explorer — דיווחי 990</a></li>
+<li><a href="https://www.instrumentl.com/990-report/eli-american-friends-of-the-israel-associatn-for-child-protection-inc" target="_blank" rel="noopener">Instrumentl — דוח 990</a></li>
+<li><a href="https://www.charitynavigator.org/ein/522171745" target="_blank" rel="noopener">Charity Navigator — דירוג</a></li>
+</ul>
+<h3>מקורות תקשורתיים</h3>
+<ul>
+<li><a href="https://www.maariv.co.il/news/israel/article-978338" target="_blank" rel="noopener">מעריב — זינוק במקרי התעללות</a></li>
+<li><a href="https://www.israelhayom.co.il/news/welfare/article/15026302" target="_blank" rel="noopener">ישראל היום — עלייה של 30% לאחר המלחמה</a></li>
+<li><a href="https://www.israelhayom.co.il/news/welfare/article/17072023" target="_blank" rel="noopener">ישראל היום — 10,000+ פניות ב-2024</a></li>
+<li><a href="https://www.israelhayom.co.il/news/education/article/19402734" target="_blank" rel="noopener">ישראל היום — 1 מכל 5 ילדים חווה אלימות בבתי ספר</a></li>
+<li><a href="https://www.ice.co.il/financial-gossip/news/article/972818" target="_blank" rel="noopener">ICE — אל"י מתרחבת לרעננה</a></li>
+<li><a href="https://www.maariv.co.il/news/Education/Article-1097106" target="_blank" rel="noopener">מעריב — השקת הכפתור הסגול</a></li>
+<li><a href="https://www.jpost.com/israel-news/article-821962" target="_blank" rel="noopener">Jerusalem Post — אל"י נלחמת בהתעללות בילדים</a></li>
+<li><a href="https://www.jpost.com/israel-news/article-819212" target="_blank" rel="noopener">Jerusalem Post — התעללות בילדים בקרב משפחות מפונות</a></li>
+<li><a href="https://www.jns.org/wire/eli-opens-20-new-therapy-rooms-to-support-israels-children-impacted-by-war/" target="_blank" rel="noopener">JNS — 20 חדרי טיפול חדשים</a></li>
+<li><a href="https://www.cbs42.com/business/press-releases/ein-presswire/868812738/eli-the-israel-association-for-child-protection-earns-2025-platinum-seal-of-transparency-from-candid/" target="_blank" rel="noopener">הודעת חותם פלטינה של Candid</a></li>
+<li><a href="https://www.tzomet-hrz.co.il/news/45740" target="_blank" rel="noopener">צומת השרון — הספד ד"ר חניתה צימרין</a></li>
+</ul>
+<h3>מקורות עזר</h3>
+<ul>
+<li><a href="https://www.kolzchut.org.il/he/%D7%90%D7%9C%22%D7%99_-_%D7%94%D7%90%D7%92%D7%95%D7%93%D7%94_%D7%9C%D7%94%D7%92%D7%A0%D7%AA_%D7%94%D7%99%D7%9C%D7%93" target="_blank" rel="noopener">כל זכות — אל"י</a></li>
+<li><a href="https://self-help.org.il/organizations/%D7%90%D7%9C%D7%99-%D7%94%D7%90%D7%92%D7%95%D7%93%D7%94-%D7%9C%D7%94%D7%92%D7%A0%D7%AA-%D7%94%D7%99%D7%9C%D7%93" target="_blank" rel="noopener">Self-Help — אל"י</a></li>
+<li><a href="https://blaufund.org/eli-the-israel-association-for-child-protection-2/" target="_blank" rel="noopener">קרן בלאושטיין — מענק אל"י</a></li>
+<li><a href="https://jewishlink.news/eli-an-israel-association-for-child-protection/" target="_blank" rel="noopener">Jewish Link — פרופיל אל"י</a></li>
+<li><a href="https://anglo-list.com/eli-child-protection-services/" target="_blank" rel="noopener">Anglo-List — אל"י</a></li>
+<li><a href="https://www.jta.org/archive/behind-the-headlines-child-abuse-in-israel" target="_blank" rel="noopener">ארכיוני JTA — התעללות בילדים בישראל</a></li>
+<li><a href="https://lilith.org/articles/israels-abused-children/" target="_blank" rel="noopener">Lilith — ילדי ישראל המותעללים</a></li>
+</ul>
+
+</div>
+</div>
+
+<footer>
+  פרויקט זהות ציונית — דוח מחקר מעמיק | <a href="../">דירוג ערים</a> | <a href="../research/">כל הדוחות</a>
+</footer>
+
+</body>
+</html>

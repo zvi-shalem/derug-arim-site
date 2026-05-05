@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשת מעוז — השמת כוח אדם בעיריות — דוח מחקר מעמיק</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f5f5f8;
+  color: #1a1a2e;
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 17px;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  overflow-x: auto; white-space: nowrap;
+}
+nav .brand { font-weight: 700; color: #ff8800; flex-shrink: 0; }
+nav a { color: #ccc; text-decoration: none; font-size: 0.85em; padding: 8px 4px; border-bottom: 2px solid transparent; flex-shrink: 0; }
+nav a:hover { color: #ff8800; border-bottom-color: #ff8800; }
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a5a8a 100%);
+  color: #fff; padding: 50px 20px 40px; text-align: center;
+}
+.hero h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+.hero .subtitle { font-size: 1.05em; color: #b0c4de; margin-bottom: 6px; }
+.hero .meta { font-size: 0.9em; color: #ff8800; margin-top: 8px; }
+.risk-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.85em; font-weight: 600; margin-top: 10px;
+}
+.risk-high { background: #e74c3c; color: #fff; }
+.risk-medium { background: #f39c12; color: #fff; }
+.risk-low { background: #27ae60; color: #fff; }
+.lens-badge {
+  display: inline-block; padding: 3px 12px; border-radius: 14px;
+  font-size: 0.78em; font-weight: 600; margin: 3px 4px;
+  color: #fff;
+}
+.quality-badge {
+  display: inline-block; padding: 3px 12px; border-radius: 14px;
+  font-size: 0.78em; font-weight: 600; margin: 6px 4px;
+  color: #fff;
+}
+.lenses-bar {
+  margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+.toc {
+  background: #fff; border-radius: 8px; padding: 22px 26px;
+  margin-bottom: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.toc h2 { font-size: 1.15em; color: #2a5a8a; margin-bottom: 12px; border-bottom: 2px solid #667eea; padding-bottom: 6px; }
+.toc ol { padding-right: 22px; font-size: 0.93em; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: #2a5a8a; text-decoration: none; }
+.toc a:hover { color: #ff8800; text-decoration: underline; }
+.section {
+  background: #fff; border-radius: 8px; padding: 28px 26px;
+  margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section h2 { font-size: 1.4em; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid #667eea; }
+.section h3 { font-size: 1.1em; color: #2a5a8a; margin: 18px 0 8px; }
+.section h4 { font-size: 1em; color: #444; margin: 14px 0 6px; }
+.section p { margin-bottom: 12px; text-align: justify; }
+.section ul, .section ol { padding-right: 22px; margin-bottom: 12px; }
+.section li { margin-bottom: 5px; }
+blockquote {
+  background: #f0f4fa; border-right: 4px solid #667eea;
+  padding: 12px 18px; margin: 12px 0; border-radius: 0 6px 6px 0;
+  font-size: 0.94em; color: #333;
+}
+.thesis {
+  background: #fff8f0; border-right: 3px solid #ff8800;
+  padding: 14px 18px; margin: 12px 0; border-radius: 0 5px 5px 0;
+  font-size: 0.96em; color: #6b4500;
+}
+.info-box {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e8eef6 100%);
+  border: 2px solid #667eea; border-radius: 10px;
+  padding: 20px 24px; margin-bottom: 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.info-box h3 { color: #2a5a8a; margin-bottom: 10px; font-size: 1.15em; border-bottom: 1px solid #667eea; padding-bottom: 6px; }
+.info-box table td { padding: 4px 10px; vertical-align: top; }
+.info-box table td:first-child { font-weight: 600; color: #1a1a2e; white-space: nowrap; }
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.91em;
+}
+th {
+  background: #667eea; color: #fff; padding: 8px 12px;
+  text-align: right; position: sticky; top: 44px; z-index: 5;
+}
+td {
+  padding: 7px 12px; border-bottom: 1px solid #e8e8e8;
+  text-align: right; vertical-align: top;
+}
+tr:nth-child(even) { background: #f8f9fc; }
+a { color: #2a5a8a; }
+a:hover { color: #ff8800; }
+.back-link {
+  display: inline-block; margin-bottom: 20px; padding: 6px 14px;
+  background: #667eea; color: #fff; border-radius: 4px;
+  text-decoration: none; font-size: 0.88em;
+}
+.back-link:hover { background: #5a6fd6; color: #fff; }
+footer {
+  text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em;
+}
+strong { color: #1a1a2e; }
+code {
+  background: #f0f0f0; padding: 1px 5px; border-radius: 3px;
+  font-size: 0.9em;
+}
+.source-tag {
+  display: inline-block; background: #e8eef6; padding: 2px 8px;
+  border-radius: 10px; font-size: 0.78em; color: #2a5a8a;
+  margin: 2px 3px; text-decoration: none;
+}
+.source-tag:hover { background: #d0dff0; }
+nav .nav-sections { display: contents; }
+@media (max-width: 768px) {
+  nav {
+    padding: 8px 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+  nav .brand { font-size: 0.9em; }
+  nav .nav-sections { display: none; }
+  .hero {
+    padding: 24px 14px 20px;
+  }
+  .hero h1 { font-size: 1.25em; line-height: 1.3; }
+  .hero .subtitle { font-size: 0.9em; }
+  .container { padding: 16px 12px 50px; }
+  .section { padding: 18px 14px; }
+  .section h2 { font-size: 1.15em; }
+  .toc { padding: 14px 16px; }
+  .toc ol { font-size: 0.85em; }
+  table { font-size: 0.82em; display: block; overflow-x: auto; }
+  th { position: static; }
+  blockquote { padding: 10px 12px; font-size: 0.88em; }
+  .thesis { padding: 10px 12px; font-size: 0.9em; }
+  body { font-size: 15px; line-height: 1.65; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">דוח מחקר מעמיק</span>
+  <a href="../">חזרה לדירוג</a>
+  <a href="../research/">כל הדוחות</a>
+  <span class="nav-sections">
+    <a href="#section-1">תזה מרכזית</a>
+    <a href="#section-2">1. מבנה ארגוני</a>
+    <a href="#section-3">2. ניתוח כלכלי</a>
+    <a href="#section-4">3. הנהגה ופוליטיקה</a>
+    <a href="#section-5">4. אידיאולוגיה ותכניות</a>
+    <a href="#section-6">5. מנגנוני השפעה</a>
+    <a href="#section-7">6. ביקורת שמרנית</a>
+    <a href="#section-8">הערכת התאמה ערכית</a>
+    <a href="#section-9">שאלות פתוחות</a>
+    <a href="#section-10">מקורות</a>
+  </span>
+</nav>
+
+<div class="hero">
+  <h1>רשת מעוז — השמת כוח אדם בעיריות</h1>
+  <div class="subtitle">מעוז — מנהיגות ציונית לעתיד (MAOZ / SEAL)</div>
+  <div class="meta">מחקר מעמיק | 2026-03-01</div>
+  <span class="quality-badge" style="background:#27ae60">איכות גבוהה (90/100)</span>
+  <div class="lenses-bar">
+    <span class="lens-badge" style="background:#27ae60">הסטה סמנטית</span>
+    <span class="lens-badge" style="background:#e67e22">דינמיקה של זהות</span>
+    <span class="lens-badge" style="background:#c0392b">לכידה מוסדית</span>
+  </div>
+</div>
+
+<div class="container">
+  <a href="../research/" class="back-link">← כל דוחות המחקר</a>
+
+  <div class="info-box">
+    <h3>כרטיס ארגון</h3>
+    <table>
+      <tr><td>שם הארגון</td><td>מעוז — מנהיגות ציונית לעתיד (MAOZ)</td></tr>
+      <tr><td>שם תוכנית הדגל</td><td>SEAL (Strategic Executive Advancement in Leadership)</td></tr>
+      <tr><td>סוג</td><td>חנ"צ (חברה לתועלת הציבור)</td></tr>
+      <tr><td>יו"ר</td><td>ג'פרי שוורץ</td></tr>
+      <tr><td>מנכ"ל</td><td>יואב הלר</td></tr>
+      <tr><td>תקציב שנתי</td><td>כ-69–70 מיליון ש"ח</td></tr>
+      <tr><td>מספר עובדים</td><td>כ-217</td></tr>
+      <tr><td>גורם מממן עיקרי</td><td>יד הנדיב (קרן רוטשילד)</td></tr>
+      <tr><td>מימון ממשלתי</td><td>כ-8 מיליון ש"ח (שירותים לממשלה)</td></tr>
+    </table>
+  </div>
+
+  <div class="toc">
+    <h2>תוכן עניינים</h2>
+    <ol>
+      <li><a href="#section-1">תזה מרכזית</a></li>
+      <li><a href="#section-2">1. מבנה ארגוני ומיפוי הרשת</a></li>
+      <li><a href="#section-3">2. ניתוח כלכלי ומקורות מימון</a></li>
+      <li><a href="#section-4">3. הנהגה ופוליטיקה</a></li>
+      <li><a href="#section-5">4. אידיאולוגיה ותכניות הכשרה</a></li>
+      <li><a href="#section-6">5. מנגנוני השפעה וחדירה למוסדות</a></li>
+      <li><a href="#section-7">6. ביקורת שמרנית ופערי שקיפות</a></li>
+      <li><a href="#section-8">הערכת התאמה ערכית</a></li>
+      <li><a href="#section-9">שאלות פתוחות לחקירה נוספת</a></li>
+      <li><a href="#section-10">מקורות ונושאים לעשרה</a></li>
+    </ol>
+  </div>
+
+  <div class="section" id="section-1">
+    <h2>תזה מרכזית</h2>
+    <div class="thesis">
+      <p>ארגון 'מעוז' פועל כמנגנון ריכוזי להכשרת דרג ניהולי בכיר ולהשתלתו בעמדות מפתח סטטוטוריות ברשויות המקומיות ובמשרדי הממשלה. באמצעות תוכנית העמיתים 'SEAL' ושיתוף הפעולה עם קרן 'יד הנדיב' (רוטשילד), תוכניות 'מפתח' ו'מקומיות', יוצר הארגון רצף ניהולי עם תפיסת עולם אחידה החסינה מפני שינויי שלטון פוליטיים. בוגרי הרשת מאיישים תפקידים קריטיים כגון גזברות עיריית רמת גן (כ-1.84 מיליארד ש"ח) וניהול אגפי חינוך ודוברות בתל אביב ובחיפה — תוך הטמעת מושגים של 'חוסן חברתי', 'צדק חלוקתי' ו'שוויון מגדרי' כמדיניות ממסדית. המודל מתפקד כ'מיקור חוץ' של המנהיגות הציבורית, ומאפשר לגוף פרטי הנשען על מימון פילנתרופי זר ורחב להפוך לספק המרכזי של השדרה הניהולית במדינה.</p>
+    </div>
+  </div>
+
+  <div class="section" id="section-2">
+    <h2>1. מבנה ארגוני ומיפוי הרשת</h2>
+
+    <h3>1.1 מבנה ורשת בוגרים</h3>
+    <p>מחקר רשת מעוז ותפקידי בוגריה מגלה נוכחות משמעותית במוקדי הכוח של הרשויות המקומיות. בוגרים אלו מאיישים תפקידים סטטוטוריים קריטיים כמו גזברות עיריית רמת גן, המנהלת כ-1.84 מיליארד ש"ח, וניהול אגפי החינוך והדוברות בערים אסטרטגיות כתל אביב וחיפה. נוכחות זו מעידה על רשת השפעה חוצת מגזרים, המאפשרת הטמעה של תפיסות עולם אחידות בתוך המנגנון הציבורי תחת מעטפת של 'חוסן עירוני' ו'שוויון מגדרי'.</p>
+
+    <h3>1.2 תוכנית SEAL — מנגנון המיון וההכשרה</h3>
+    <p>תוכנית העמיתים של הארגון מפעילה מנגנון מיון קפדני בן חמישה שלבים, הכולל ועדת קבלה עם הוועד המנהל המלא. תנאי הסף דורשים לא רק מצוינות אקדמית אלא גם 'מחויבות להובלה ארוכת טווח במרחב הציבורי' — דרישה המנתחת ככלי להבטחת נאמנות אידיאולוגית בקרב בוגרים המוצבים בעמדות כוח.</p>
+
+    <h3>1.3 קשרים לתוכניות משיקות</h3>
+    <p>המעורבות של קרן 'יד הנדיב' במיזמים מקבילים כמו 'מקומיות' ו'מפתח' מחזקת את קיומה של רשת השפעה צולבת המקיפה את השלטון המקומי ומשרד החינוך כאחד. תוכנית 'מפתח' של משרד החינוך משמשת כפלטפורמה להחדרת ערכי הארגון למערכת החינוך הפורמלית.</p>
+
+    <h3>1.4 'הדלת המסתובבת'</h3>
+    <p>ניתוח מבני מזהה שיטה של 'דלת מסתובבת' בין הארגון לבין המגזר הציבורי. בוגרי הרשת עוברים מהמגזר הפרטי והחברתי ישירות לעמדות השפעה סטטוטוריות בשירות הציבורי, תוך שמירה על קשר הדוק עם רשת הארגון.</p>
+  </div>
+
+  <div class="section" id="section-3">
+    <h2>2. ניתוח כלכלי ומקורות מימון</h2>
+
+    <h3>2.1 תקציב ומחזור</h3>
+    <p>סינתזה של הנתונים הכספיים חושפת מחזור הכנסות מרשים של קרוב ל-70 מיליון ש"ח, המורכב מתמהיל של תרומות חוץ ופנים משמעותיות לצד תמיכה ממשלתית ישירה של כ-8 מיליון ש"ח. הארגון מצליח למנף שירותים לממשלה בהיקף של עשרות מיליוני שקלים, מה שמעיד על השתרשות עמוקה בתוך המנגנונים המדינתיים.</p>
+
+    <table>
+      <tr><th>מקור הכנסה</th><th>הערכת היקף</th><th>הערות</th></tr>
+      <tr><td>תרומות פנים (ישראל)</td><td>חלק משמעותי ממחזור כולל</td><td>כולל פדרציות יהודיות</td></tr>
+      <tr><td>תרומות חוץ</td><td>עשרות מיליוני ש"ח</td><td>בעיקר יד הנדיב, שוסטרמן, עזריאלי, מיימונידיס</td></tr>
+      <tr><td>שירותים לממשלה</td><td>כ-8 מיליון ש"ח</td><td>תמיכה ממשלתית ישירה</td></tr>
+      <tr><td>סה"כ מחזור</td><td>כ-69–70 מיליון ש"ח</td><td>נתוני 2022–2023</td></tr>
+    </table>
+
+    <h3>2.2 מודל 'הפרטת המדיניות'</h3>
+    <p>ניתוח הנתונים הפיננסיים מצביע על מודל של 'הפרטת המדיניות' לידי גופים פילנתרופיים המקדמים סדר יום ערכי ספציפי תחת כסות מקצועית. תלות מבנית של משרדי ממשלה בשירותי הארגון מעידה על השתרשות עמוקה בתוך המנגנון הממלכתי.</p>
+
+    <h3>2.3 קרנות מממנות עיקריות</h3>
+    <ul>
+      <li><strong>יד הנדיב (קרן רוטשילד)</strong> — גורם המימון הראשי, מעורב גם בתוכניות 'מפתח' ו'מקומיות'</li>
+      <li><strong>קרן שוסטרמן</strong> — תרומות שנתיות לפעילות הארגון</li>
+      <li><strong>קרן עזריאלי</strong> — מימון תוכניות הכשרה</li>
+      <li><strong>קרן מיימונידיס</strong> — תמיכה בפעילות ניהולית</li>
+      <li><strong>פדרציות יהודיות</strong> — מכמה מרכזים בצפון אמריקה</li>
+    </ul>
+  </div>
+
+  <div class="section" id="section-4">
+    <h2>3. הנהגה ופוליטיקה</h2>
+
+    <h3>3.1 הוועד המנהל</h3>
+    <p>הוועד המנהל, בראשות ג'פרי שוורץ, פועל בתיאום הדוק עם שורה ארוכה של קרנות פילנתרופיות בינלאומיות ופדרציות יהודיות, מה שמעיד על רשת תמיכה רחבה המזרימה עשרות מיליוני שקלים בשנה. זיהוי זהות חברי האסיפה הכללית מגלה זיקות עומק לגופים המקדמים אג'נדות זרות.</p>
+
+    <h3>3.2 דמויות מפתח</h3>
+    <table>
+      <tr><th>שם</th><th>תפקיד</th><th>הערות</th></tr>
+      <tr><td>ג'פרי שוורץ</td><td>יו"ר הוועד המנהל</td><td>פועל בתיאום עם קרנות פילנתרופיות בינלאומיות</td></tr>
+      <tr><td>יואב הלר</td><td>מנכ"ל</td><td>מובילת הפעילות השוטפת</td></tr>
+    </table>
+
+    <h3>3.3 שיטת 'הדלת המסתובבת' בהנהגה</h3>
+    <p>ניתוח מבנה הנהגת הארגון מעלה שיטה של 'דלת מסתובבת', המאפשרת מעבר מהיר של בכירים מהמגזר הפרטי והחברתי ישירות לצומתי קבלת החלטות ציבוריים. מנגנון זה יוצר רצף ניהולי עם תפיסת עולם אחידה ברשויות המקומיות.</p>
+  </div>
+
+  <div class="section" id="section-5">
+    <h2>4. אידיאולוגיה ותכניות הכשרה</h2>
+
+    <h3>4.1 מונחים אידיאולוגיים מרכזיים</h3>
+    <p>סריקת מסמכי המדיניות ותוכניות ההכשרה מגלה שימוש במושגים כמו 'חוסן חברתי', 'גיוון', 'שוויון מגדרי' ו'צדק חלוקתי' — סמנים להשפעות פרוגרסיביות. מושגים אלה מוטמעים בקרב בוגרי הרשת ומתורגמים לאחר מכן להחלטות תקציביות ומנהליות בשטח.</p>
+
+    <h3>4.2 תוכנית SEAL ונסיעות לבוסטון</h3>
+    <p>תוכנית העמיתים 'SEAL' כוללת מסלולי הכשרה במוסדות אקדמיים בבוסטון, המשמשים ככר פורה להטמעת מושגים פרוגרסיביים. הזיקה ההדוקה בין תוכנית העמיתים לבין מוסדות אקדמיים בבוסטון מהווה מוקד להפצת תפיסות עולם של 'צדק חלוקתי' ו'פוליטיקת זהויות'.</p>
+
+    <h3>4.3 תוכנית 'מפתח' — חדירה למערכת החינוך</h3>
+    <p>הקשר המבני בין תוכנית 'מפתח' של יד הנדיב לבין רשת בוגרי מעוז מאפשר שימוש בתוכנית כפלטפורמה להחדרת תפיסות של 'גיוון' ו'הכלה' לתוך מערכת החינוך הממלכתית. השילוב בין תוכניות 'מפתח' ו'מקומיות' יוצר רצף ניהולי אידיאולוגי שאינו כפוף לשינויי שלטון פוליטיים.</p>
+
+    <h3>4.4 יישום בשטח</h3>
+    <p>תוכניות אלו מיושמות בערים כמו תל אביב ורמת גן, מה שיוצר רצף ניהולי אידיאולוגי שאינו כפוף למצפון המסורתי-לאומי של נבחרי הציבור. דוגמאות ספציפיות כוללות יוזמות לשוויון מגדרי ושינוי תוכניות לימוד שקודמו על ידי אנשי הרשת ברשויות השונות.</p>
+  </div>
+
+  <div class="section" id="section-6">
+    <h2>5. מנגנוני השפעה וחדירה למוסדות</h2>
+
+    <h3>5.1 'צעדה ארוכה דרך המוסדות'</h3>
+    <p>הארגון פועל בשיטה של 'צעדה ארוכה דרך המוסדות', כאשר בוגריו מוצבים בעמדות סטטוטוריות רגישות המשפיעות על תקציבי עתק וקביעת מדיניות בערים אסטרטגיות. מנגנון זה מאפשר הטמעה של תפיסות עולם ספציפיות ללא תלות בשינויי שלטון פוליטיים.</p>
+
+    <h3>5.2 'ריבונות חלופית'</h3>
+    <p>יצירת מודל של 'ריבונות חלופית' — גוף פרטי הופך לספק המרכזי של השדרה הניהולית במדינה, תוך עקיפת המנגנונים הדמוקרטיים המסורתיים והחלפת הדרג המקצועי בדרג האוחז בתפיסות עולם אחידות. פעילות זו מקבלת מימון ממשלתי ישיר, ובכך מייצרת תלות מבנית של המדינה בגוף פרטי הנשלט על ידי רשת פילנתרופית.</p>
+
+    <h3>5.3 נוכחות ברשויות מקומיות</h3>
+    <table>
+      <tr><th>רשות מקומית</th><th>תפקיד</th><th>תיאור</th></tr>
+      <tr><td>עיריית רמת גן</td><td>גזברות</td><td>ניהול תקציב של כ-1.84 מיליארד ש"ח</td></tr>
+      <tr><td>עיריית תל אביב</td><td>ניהול אגף חינוך ודוברות</td><td>תפקידי מפתח בעיר האסטרטגית</td></tr>
+      <tr><td>עיריית חיפה</td><td>ניהול אגף חינוך</td><td>השפעה על תוכניות לימוד עירוניות</td></tr>
+    </table>
+
+    <h3>5.4 'יוזמת עיר שווה' בתל אביב</h3>
+    <p>יוזמת 'עיר שווה' בתל אביב מדגימה כיצד ערכים פרוגרסיביים מתורגמים להחלטות תקציביות ומנהליות ספציפיות, תוך מינוף עמדות סטטוטוריות של בוגרי הרשת להשפעה על סדר היום הציבורי.</p>
+  </div>
+
+  <div class="section" id="section-7">
+    <h2>6. ביקורת שמרנית ופערי שקיפות</h2>
+
+    <h3>6.1 הביקורת השמרנית</h3>
+    <p>גופי מחקר שמרניים זיהו את פעילות הארגון כחלק ממהלך רחב של 'צעדה ארוכה דרך המוסדות'. הביקורה מזהה את הפער בין המצג הליברלי-מקצועי של הארגון לבין המהות האידיאולוגית המסתתרת מאחוריו — שימוש בתוכניות מקצועיות לכאורה לקידום אג'נדה ערכית ספציפית.</p>
+
+    <h3>6.2 'שיטת מעוז' — ממצאים ביקורתיים</h3>
+    <p>ניתוח ביקורתי מזהה אסטרטגיה מתוחכמת להחלפת הדרג המקצועי המזדהה עם ערכי המסורת בדרג ניהולי האוחז בתפיסות עולם פרוגרסיביות. הארגון משמש כ'חממה' להצבת בוגרים בתפקידים סטטוטוריים רגישים, ובכך יוצר רצף ניהולי החסין מפני שינויי שלטון פוליטיים.</p>
+
+    <h3>6.3 פערי שקיפות</h3>
+    <p>זוהה פער משמעותי בשקיפות לגבי תהליכי התיאום המוקדמים להצבת בוגרים ברשויות השונות. קיים חשש למנגנון של 'חבר מביא חבר' במסווה של מצוינות ניהולית. נדרשות בקשות חופש מידע סביב תיאום המינויים הסטטוטוריים של בוגרי הרשת.</p>
+
+    <h3>6.4 בקשות חופש מידע מומלצות</h3>
+    <ul>
+      <li>פרוטוקולים עירוניים שבהם הייתה מעורבות של בוגרי הרשת בקביעת סדר היום הציבורי</li>
+      <li>קולות קוראים ומכרזי ייעוץ אסטרטגי בערים המדוברות — לאיתור העדפות לטובת עמותות מקורבות לרשת</li>
+      <li>פרטי תהליכי המינוי לתפקידים סטטוטוריים שאוישו על ידי בוגרי 'SEAL'</li>
+      <li>חוזי שירות בין הרשויות המקומיות לבין ארגון מעוז ותוכניות משיקות</li>
+    </ul>
+  </div>
+
+  <div class="section" id="section-8">
+    <h2>הערכת התאמה ערכית</h2>
+    <div class="thesis">
+      <p>ארגון מעוז מציג אתגר ייחודי להערכה: מצד אחד, הוא מקדם מצוינות ניהולית ומנהיגות בשלטון המקומי — ערכים חיוביים בפני עצמם. מצד שני, מנגנון המיון, תכני ההכשרה בבוסטון, ומבנה הזיקות לקרנות פילנתרופיות בינלאומיות מצביעים על כך שהמצוינות המקצועית משמשת כמעטפת להחדרת תפיסות עולם ספציפיות. השאלה המרכזית היא: האם מדובר בארגון מנהיגות לגיטימי הפועל לשיפור השלטון המקומי, או בפלטפורמה אידיאולוגית המנצלת את הכסות המקצועית לצרכים שאינם מוצהרים?</p>
+    </div>
+
+    <h3>נקודות זכות</h3>
+    <ul>
+      <li>פיתוח מנהיגות ציבורית ומקצועית ברשויות מקומיות</li>
+      <li>שיפור יכולות ניהוליות בשלטון המקומי</li>
+      <li>קידום שקיפות וממשל תקין</li>
+    </ul>
+
+    <h3>נקודות לבחינה ביקורתית</h3>
+    <ul>
+      <li>תלות מבנית בקרנות פילנתרופיות זרות ובינלאומיות</li>
+      <li>מנגנון מיון המבטיח נאמנות אידיאולוגית</li>
+      <li>הטמעת מושגים פרוגרסיביים תוך עקיפת הדרג הנבחר</li>
+      <li>יצירת רצף ניהולי החסין מפני שינויי שלטון</li>
+      <li>פערי שקיפות בתהליכי המינוי</li>
+    </ul>
+  </div>
+
+  <div class="section" id="section-9">
+    <h2>שאלות פתוחות לחקירה נוספת</h2>
+    <ul>
+      <li>האם קיים תיאום מכוון במינוי בוגרי הרשת לתפקידים משפיעים, ומי מתאם?</li>
+      <li>מהם תכני ההכשרה המדויקים המועברים בנסיעות לבוסטון, ואילו מוסדות אקדמיים מעורבים?</li>
+      <li>כיצד בדיוק מיושמות החלטות מדיניות ספציפיות בערים שבהן יש נוכחות בוגרי הרשת?</li>
+      <li>מה הקשר בין גורמי המימון הפרוגרסיביים לתכני הלימוד?</li>
+      <li>האם קיים קשר בין 'מעוז' לבין 'הקרן החדשה לישראל' או ארגונים אחרים בספקטרום השמאל הפרוגרסיבי?</li>
+      <li>מה היקף ה'דלת המסתובבת' בין המגזר הפרטי לתפקידים ציבוריים דרך רשת הארגון?</li>
+      <li>כיצד משתלב מימון ממשלתי ישיר (כ-8 מיליון ש"ח) עם האג'נדה הפילנתרופית?</li>
+    </ul>
+  </div>
+
+  <div class="section" id="section-10">
+    <h2>מקורות ונושאים לעשרה</h2>
+
+    <h3>נושאים שלא כוסו מספיק ודורשים מחקר נוסף</h3>
+    <ul>
+      <li><strong>תמצית ניהולית</strong> — דוח סיכום מובנה של ממצאי המחקר</li>
+      <li><strong>ניתוח אידיאולוגי מעמיק</strong> — בחינה שיטתית של תכני ההכשרה ומסמכי מדיניות</li>
+      <li><strong>מקרי בוחן ספציפיים</strong> — החלטות תקציביות ומנהליות שקידמו בוגרי הרשת</li>
+      <li><strong>מיפוי בוגרים</strong> — רשימה שמית מלאה של בוגרי 'SEAL' ותפקידיהם הנוכחיים</li>
+      <li><strong>השוואה בינלאומית</strong> — מודלים דומים במדינות אחרות</li>
+    </ul>
+
+    <h3>מקורות מרכזיים</h3>
+    <ul>
+      <li>דוחות כספיים של עמותת 'מעוז — סיל' ברשם העמותות</li>
+      <li>אתר הארגון ותכני תוכנית SEAL</li>
+      <li>מאגר obudget.org — נתוני תקציב</li>
+      <li>מחקרי NGO Monitor בנושא קרן 'יד הנדיב' ותוכניות משיקות</li>
+      <li>פרוטוקולים עירוניים מתל אביב, רמת גן וחיפה</li>
+      <li>גופי מחקר שמרניים שפרסמו על פעילות הרשת</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  פרויקט זהות ציונית — דוח ארגון מעמיק | <a href="../">דירוג ערים</a> | <a href="./">כל הדוחות</a>
+</footer>
+
+</body>
+</html>

@@ -1,611 +1,1075 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="version" content="1774529791000">
+<script>const FILE_VERSION=1774531092;(function(){const p=new URLSearchParams(location.search),r=p.get('rand');if(r&&+r!==FILE_VERSION)document.addEventListener('DOMContentLoaded',()=>alert('גרסה '+FILE_VERSION+' בקובץ, '+r+' בקישור. נסה Ctrl+Shift+R'))})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>עמדות מוניציפליות — 20 ערים</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f5f5f5; color: #1a1a2e; padding: 16px; line-height: 1.5; }
-h1 { text-align: center; color: #1a1a2e; margin-bottom: 6px; font-size: 1.6em; }
-.subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 0.9em; }
-.stats { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; padding: 14px; background: white; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-.stat { text-align: center; }
-.stat-num { font-size: 1.8em; font-weight: 700; color: #667eea; }
-.stat-label { font-size: 0.8em; color: #666; }
-.filter-bar { text-align: center; margin-bottom: 16px; }
-.filter-btn { padding: 5px 12px; margin: 3px; border: 1px solid #667eea; border-radius: 16px; background: white; color: #667eea; cursor: pointer; font-size: 0.82em; }
-.filter-btn.active { background: #667eea; color: white; }
-.city-card { background: white; border-radius: 10px; padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-.city-name { font-size: 1.2em; font-weight: 700; color: #667eea; margin-bottom: 10px; border-bottom: 2px solid #667eea; padding-bottom: 4px; }
-.pos { padding: 8px 10px; margin-bottom: 6px; background: #f8f9fa; border-radius: 6px; border-right: 3px solid #667eea; }
-.pos-title { font-size: 0.78em; color: #888; font-weight: 600; margin-bottom: 2px; }
-.pos-detail { font-size: 0.9em; color: #1a1a2e; }
-.badge { padding: 1px 6px; border-radius: 10px; font-size: 0.72em; margin-right: 4px; color: white; }
-.badge-maoz { background: #ff8800; }
-.badge-avnei { background: #e74c3c; }
-.badge-mandel { background: #9b59b6; }
-.badge-gender { background: #e91e90; }
+    <title>תפקידים מוניציפליים — 20 ערים</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: #f0f2f5; color: #333; direction: rtl; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2em; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .stats-bar { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 16px 20px; background: white; border-bottom: 2px solid #e0e0e0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .stat-item { text-align: center; padding: 8px 16px; }
+        .stat-number { font-size: 1.8em; font-weight: 700; color: #667eea; }
+        .stat-number.maoz { color: #ff8800; }
+        .stat-number.avnei { color: #e74c3c; }
+        .stat-number.protocol { color: #8e44ad; }
+        
+        .stat-label { font-size: 0.85em; color: #666; }
+        .filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 16px 20px; background: #fafafa; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; }
+        .filter-btn { padding: 8px 20px; border: 2px solid #667eea; border-radius: 25px; background: white; color: #667eea; cursor: pointer; font-size: 0.95em; font-family: inherit; transition: all 0.2s; }
+        .filter-btn:hover { background: #667eea; color: white; }
+        .filter-btn.active { background: #667eea; color: white; }
+        .filter-btn.maoz { border-color: #ff8800; color: #ff8800; }
+        .filter-btn.maoz:hover, .filter-btn.maoz.active { background: #ff8800; color: white; }
+        .filter-btn.avnei { border-color: #e74c3c; color: #e74c3c; }
+        .filter-btn.avnei:hover, .filter-btn.avnei.active { background: #e74c3c; color: white; }
+        .filter-btn.gender { border-color: #9b59b6; color: #9b59b6; }
+        .filter-btn.gender:hover, .filter-btn.gender.active { background: #9b59b6; color: white; }
+        .filter-btn.protocol { border-color: #8e44ad; color: #8e44ad; }
+        .filter-btn.protocol:hover, .filter-btn.protocol.active { background: #8e44ad; color: white; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .city-card { background: white; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow: hidden; transition: box-shadow 0.2s; }
+        .city-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+        .city-card.hidden { display: none; }
+        .city-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .city-name { font-size: 1.5em; font-weight: 700; }
+        .city-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+        .badge { padding: 4px 12px; border-radius: 15px; font-size: 0.8em; font-weight: 600; }
+        .badge-maoz { background: #ff8800; color: white; }
+        .badge-avnei { background: #e74c3c; color: white; }
+        .badge-mandel { background: #7b1fa2; color: white; }
+        .badge-protocol { background: #8e44ad; color: white; }
+        
+        .badge-gender { background: #e91e63; color: white; }
+        .positions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; padding: 20px; }
+        .position-item { border: 1px solid #e8e8e8; border-radius: 8px; padding: 12px 16px; background: #fafafa; }
+        .position-item.empty { opacity: 0.4; background: #f5f5f5; }
+        .position-title { font-weight: 700; color: #667eea; font-size: 0.9em; margin-bottom: 6px; }
+        .position-value { font-size: 0.95em; color: #333; line-height: 1.5; }
+        .position-value .maoz-tag { background: #fff3e0; color: #e65100; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; font-weight: 600; display: inline-block; margin-top: 4px; }
+        .position-value .avnei-tag { background: #fce4ec; color: #c62828; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; font-weight: 600; display: inline-block; margin-top: 4px; }
+        .protocol-section { border-top: 2px solid #e8e8e8; padding: 20px; }
+        .protocol-section-title { font-size: 1.1em; font-weight: 700; color: #8e44ad; margin-bottom: 16px; }
+        .finding-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin-bottom: 12px; background: #fafafa; }
+        .finding-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+        .finding-date { font-size: 0.85em; color: #888; font-weight: 600; }
+        .vote-badge { padding: 3px 12px; border-radius: 12px; font-size: 0.8em; font-weight: 600; white-space: nowrap; }
+        .vote-approved { background: #e8f5e9; color: #2e7d32; }
+        .vote-rejected { background: #ffebee; color: #c62828; }
+        .vote-proposal { background: #fff3e0; color: #e65100; }
+        .vote-policy { background: #e3f2fd; color: #1565c0; }
+        .vote-signed { background: #f3e5f5; color: #7b1fa2; }
+        .vote-established { background: #e0f7fa; color: #00695c; }
+        .vote-appointed { background: #fce4ec; color: #ad1457; }
+        .vote-declaration { background: #f1f8e9; color: #558b2f; }
+        .vote-confirmed { background: #e8f5e9; color: #2e7d32; }
+        .vote-agenda { background: #fff8e1; color: #f57f17; }
+        .vote-active { background: #e8eaf6; color: #283593; }
+        .vote-removed { background: #efebe9; color: #4e342e; }
+        .finding-summary { font-size: 0.95em; color: #333; margin-bottom: 10px; line-height: 1.6; }
+        .finding-quote { background: #f8f9ff; border-right: 4px solid #667eea; padding: 12px 16px; margin: 10px 0; font-size: 0.9em; color: #555; line-height: 1.7; border-radius: 0 8px 8px 0; }
+        .finding-source { margin-top: 8px; font-size: 0.85em; }
+        .finding-source a { color: #667eea; text-decoration: none; }
+        .finding-source a:hover { text-decoration: underline; }
+        .no-results { text-align: center; padding: 60px 20px; color: #888; font-size: 1.1em; display: none; }
+        .search-box { text-align: center; padding: 12px 20px 0; }
+        .search-box input { width: 100%; max-width: 400px; padding: 10px 16px; border: 2px solid #ddd; border-radius: 25px; font-size: 1em; font-family: inherit; direction: rtl; outline: none; transition: border-color 0.2s; }
+        .search-box input:focus { border-color: #667eea; }
+        .stat-number.source { color: #27ae60; }
+        .filter-btn.source { border-color: #27ae60; color: #27ae60; }
+        .filter-btn.source:hover, .filter-btn.source.active { background: #27ae60; color: white; }
+        .source-link { display: inline-block; margin-right: 6px; font-size: 0.8em; vertical-align: middle; }
+        .source-link a { color: #27ae60; text-decoration: none; font-weight: 600; }
+        .source-link a:hover { text-decoration: underline; }
+        .source-missing { display: inline-block; margin-right: 6px; font-size: 0.75em; color: #bbb; font-style: italic; }
+
+        
+        .show-more-btn { background: none; border: 1px dashed #2980b9; color: #2980b9; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.85em; margin-top: 6px; }
+        .show-more-btn:hover { background: #ebf5fb; }
+
+        /* Mentions section */
+        .mentions-section { border-top: 2px solid #e8e8e8; padding: 20px; }
+        .mentions-section-title { font-size: 1.1em; font-weight: 700; color: #e67e22; margin-bottom: 16px; }
+        .mention-item { border: 1px solid #fdebd0; border-radius: 6px; padding: 10px 14px; margin: 6px 0; background: #fef9e7; font-size: 0.9em; }
+        .mention-org { font-weight: 700; color: #e67e22; }
+        .mention-risk { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-right: 8px; }
+        .risk-high { background: #fdedec; color: #c0392b; }
+        .risk-moderate,.risk-low-moderate { background: #fef9e7; color: #d4ac0d; }
+        .risk-low { background: #eafaf1; color: #27ae60; }
+
+        /* Findings section */
+        .findings-section { border-top: 2px solid #e8e8e8; padding: 20px; }
+        .findings-section-title { font-size: 1.1em; font-weight: 700; color: #16a085; margin-bottom: 16px; }
+
+        /* Framework intro section */
+        .framework-wrapper { max-width: 1200px; margin: 20px auto 0; padding: 0 20px; }
+        .framework-section { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 8px; }
+        .framework-toggle { width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px 24px; border: none; cursor: pointer; font-family: inherit; font-size: 1.15em; font-weight: 700; text-align: right; display: flex; justify-content: space-between; align-items: center; direction: rtl; }
+        .framework-toggle:hover { opacity: 0.95; }
+        .framework-toggle .arrow { transition: transform 0.3s; font-size: 0.8em; }
+        .framework-toggle .arrow.collapsed { transform: rotate(180deg); }
+        .framework-body { padding: 24px 28px; line-height: 1.85; color: #333; font-size: 0.95em; }
+        .framework-body h3 { color: #667eea; font-size: 1.1em; margin: 20px 0 8px; }
+        .framework-body h3:first-child { margin-top: 0; }
+        .framework-body h4 { color: #764ba2; font-size: 1em; margin: 16px 0 6px; }
+        .framework-body p { margin-bottom: 10px; }
+        .framework-body .mechanism { background: #f8f9ff; border-right: 4px solid #667eea; padding: 12px 16px; margin: 8px 0; border-radius: 0 8px 8px 0; }
+        .framework-body .mechanism strong { color: #764ba2; }
+        .framework-body .example { color: #888; font-size: 0.9em; }
+        .framework-body .sub-mechanism { background: #faf8ff; border-right: 3px solid #9b59b6; padding: 8px 14px; margin: 6px 0 6px 20px; border-radius: 0 6px 6px 0; font-size: 0.93em; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .stats-bar { gap: 10px; }
+            .stat-item { padding: 6px 10px; }
+            .stat-number { font-size: 1.4em; }
+            .positions-grid { grid-template-columns: 1fr; gap: 8px; padding: 12px; }
+            .city-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+            .filters { gap: 6px; }
+            .filter-btn { padding: 6px 14px; font-size: 0.85em; }
+            .protocol-section, .claims-section, .mentions-section, .findings-section { padding: 12px; }
+            .framework-wrapper { padding: 0 12px; }
+            .framework-body { padding: 16px; font-size: 0.9em; }
+        }
+    
+.framework-body { overflow-wrap: break-word; word-wrap: break-word; padding: 12px; }
+.framework-body p, .framework-body div { overflow-wrap: break-word; word-wrap: break-word; max-width: 100%; }
+.mechanism { overflow-wrap: break-word; word-wrap: break-word; }
+@media (max-width: 768px) {
+  .framework-section { margin: 0 -8px; padding: 0 8px; }
+  .framework-body { padding: 8px; font-size: 0.88em; }
+  .mechanism { padding: 8px !important; }
+}
 </style>
 </head>
 <body>
-<h1>עמדות מוניציפליות — 20 ערים</h1>
-<div class="subtitle">כל המידע מ-research_unified.db/city_grid | מרץ 2026</div>
+<div class="header">
+    <h1>תפקידים מוניציפליים — 20 ערים נבחרות</h1>
+    <p>מיפוי בעלי תפקידים, טענות מובנות ועדויות מפרוטוקולים בנושאי מגדר</p>
+</div>
+<div class="stats-bar">
+    <div class="stat-item"><div class="stat-number">20</div><div class="stat-label">ערים</div></div>
+    <div class="stat-item"><div class="stat-number" id="stat-positions">0</div><div class="stat-label">תפקידים מאוישים</div></div>
+    <div class="stat-item"><div class="stat-number maoz" id="stat-maoz">0</div><div class="stat-label">בוגרי מעוז</div></div>
+    <div class="stat-item"><div class="stat-number avnei" id="stat-avnei">0</div><div class="stat-label">בוגרי אבני ראשה</div></div>
+    <div class="stat-item"><div class="stat-number" id="stat-claims">0</div><div class="stat-label">טענות מובנות</div></div>
+    <div class="stat-item"><div class="stat-number protocol" id="stat-protocols">0</div><div class="stat-label">ממצאי פרוטוקולים</div></div>
+    <div class="stat-item"><div class="stat-number source" id="stat-sources">0</div><div class="stat-label">מקורות מאומתים</div></div>
+</div>
+<div class="filters" style="display:none">
+    <button class="filter-btn active" data-filter="all">הכל</button>
+</div>
+<div class="search-box"><input type="text" id="search" placeholder="חיפוש לפי עיר או שם..."></div>
 
-<div class="stats">
-<div class="stat"><div class="stat-num">20</div><div class="stat-label">ערים</div></div>
-<div class="stat"><div class="stat-num">121</div><div class="stat-label">תפקידים</div></div>
-<div class="stat"><div class="stat-num">6</div><div class="stat-label">בוגרי מעוז</div></div>
-<div class="stat"><div class="stat-num">4</div><div class="stat-label">בוגרי אבני ראשה</div></div>
+<div class="framework-wrapper">
+<div class="framework-section">
+    <button class="framework-toggle" id="framework-toggle" onclick="toggleFramework()">
+        <span>מסגור: ניגודי עניינים בהכוונת המשאבים והסמכות של הממשל</span>
+        <span class="arrow" id="framework-arrow">&#9650;</span>
+    </button>
+    <div class="framework-body" id="framework-body">
+
+        <h3>ניגודי עניינים בהכוונת המשאבים והסמכות של הממשל</h3>
+
+        <h4>1. הבעיה המוכרת: הון-שלטון</h4>
+        <p>בדמוקרטיה, מקור הסמכות של השלטון הוא בחירת העם. פקידי ציבור מופקדים על משאבי המדינה מתוך הנחה שהם פועלים לטובת הציבור. כאשר אותו אדם מחזיק בשני כובעים — גם כנציג שלטוני וגם כבעל אינטרס כלכלי — נוצר ניגוד עניינים מבני. <strong>דלת מסתובבת:</strong> מומחה מהתעשייה נכנס לתפקיד רגולטורי → מנצל את הסמכות לטובת התעשייה → חוזר לתעשייה עם הקשרים שרכש. התוצאה: הכפפת משאבים וסמכות של המדינה לאינטרסים הנוגדים את אלה של הציבור. זה בלתי נמנע — בעלי המומחיות הם אנשי התעשייה עצמם. לכן: לא מניעה, אלא ערנות מתמדת.</p>
+
+        <h4>2. ניגוד עניינים מקביל: פילנתרופיה-שלטון</h4>
+        <p>באותו מבנה, גם הפילנתרופיה יכולה להכפיף משאבי מדינה לאינטרסים שלה — אינטרסים שאינם בהלימה למה שציבור הבוחרים מעוניין בו. ההבדל: בהון-שלטון האינטרס הוא כסף. בפילנתרופיה-שלטון האינטרס הוא אידאולוגיה — חזון חברתי שלא עבר הצבעה. למה פחות גלוי: הפילנתרופ לא מרוויח כסף, הפעולה מוצגת כ'עזרה', הטרמינולוגיה מקצועית מסווה את האידאולוגיה.</p>
+
+        <h4>3. מנגנוני ניגוד העניינים</h4>
+
+        <div class="mechanism">
+            <strong>מנגנון 1: כוח רך + אינרציה</strong> — עצם מתן הכסף יוצר אינטרס 'לשמור על הקשר'. הגוף המפעיל מחזיק בהגה — קובע תכנים, מכשיר צוותים. ברשות הנבחרת אין יכולת מעשית לשנות מה שקורה בשטח. השליטה זוחלת מהרשות לגוף המפעיל.
+        </div>
+
+        <div class="mechanism">
+            <strong>מנגנון 2: דלת מסתובבת</strong> — אותו אדם עובר בין הקרן למדינה.<br>
+            <span class="example">דוגמה: מיכל כהן — מנכ"לית משרד החינוך &larr; CEO רש"י &larr; יו"ר מועצה לתרבות.</span>
+        </div>
+
+        <div class="mechanism">
+            <strong>מנגנון 3: הכשרת כוח אדם (Pipeline)</strong> — הקרן מכשירה אנשים שנכנסים לתפקידי מפתח. כשבוגר הקרן יושב בתפקיד — הוא לא צריך 'להתייחס' לאג'נדה, הוא כבר מאמין בה.<br>
+            <span class="example">דוגמה: 15/20 מנהלי חינוך עירוניים — בוגרי מנדל.</span>
+        </div>
+
+        <div class="mechanism">
+            <strong>מנגנון 4: כיבוש מוסדי</strong> — גוף פילנתרופי מפעיל מוסד בתוך משרד ממשלתי, בפטור ממכרז.<br><br>
+            <span class="example">דוגמה: אבני ראשה — המכון למנהיגות בית ספרית</span><br><br>
+            התהליך: (1) יד הנדיב + וקסנר + שוסטרמן מקימים מכון להכשרת מנהלי בי"ס. (2) התקשרות עם משרד החינוך בפטור ממכרז — המכון פועל בתוך המשרד. (3) המכון נעשה הגוף היחיד שמכשיר מנהלים — אין חלופה ממשלתית. (4) ההכשרה הופכת לדרישה חוקית — אי אפשר להיות מנהל בלי לעבור את אבני ראשה. (5) מי שמכשיר קובע מה המנהל לומד — כולל 'מנהיגות', 'ערכים', 'חזון' ואף שפה חדשה. (6) רשת של 1,000+ בתי ספר. התוצאה: קרן פרטית שולטת בהכשרת כל מנהלי בתי הספר בישראל, ללא אחריותיות דמוקרטית.
+        </div>
+
+        <div class="mechanism">
+            <strong>מנגנון 5: השגת לגיטימציה</strong> — שלושה נתיבים:
+            <div class="sub-mechanism">
+                <strong>5א — כביסה אקדמית:</strong> יד הנדיב מממנת את 'יוזמה — מרכז לחקר וחדשנות בחינוך'. יוזמה נכנסת לתוך האקדמיה הישראלית הלאומית למדעים — לא כגוף נפרד, אלא כחלק מגוף סטטוטורי עם סמכות מדעית. האקדמיה מוציאה המלצות לרפורמה בחינוך — לא 'יד הנדיב ממליצה' אלא 'האקדמיה הלאומית למדעים ממליצה'. משרד החינוך מאמץ. המנוף: הפילנתרופיה השקיעה X &rarr; קיבלה שליטה על 100X. משאבי וסמכות בסדרי גודל יותר מהפילנתרופיה.
+            </div>
+            <div class="sub-mechanism">
+                <strong>5ב — יצירת תחום חדש:</strong> SEL כ'מדע', 'רגישות מגדרית' כ'ערך מוסרי' — עצם השאלה פוסלת את השואל.
+            </div>
+            <div class="sub-mechanism">
+                <strong>5ג — סמכות בינלאומית:</strong> UNESCO, EU, OECD כ'חובה'. מי שמתנגד = לא עומד בסטנדרט.
+            </div>
+        </div>
+
+    </div>
+</div>
 </div>
 
-<div class="filter-bar">
-<button class="filter-btn active" onclick="filterAll()">הכל (20)</button>
-<button class="filter-btn" onclick="filterByText('מעוז')">מעוז (6)</button>
-<button class="filter-btn" onclick="filterByText('אבני ראשה')">אבני ראשה (4)</button>
-<button class="filter-btn" onclick="filterByText('מגדר')">מגדר</button>
-</div>
-
-<div id="cities">
-<div class="city-card" data-text="עודד רביבי אמיר בן גל רויטל קולין (גם סגנית גזבר) יפה שטרית שרון הורביץ">
-<div class="city-name">אפרת</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">עודד רביבי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">אמיר בן גל</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">רויטל קולין (גם סגנית גזבר)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">יפה שטרית</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">שרון הורביץ</div>
-</div>
-</div>
-<div class="city-card" data-text="יאיר שטבון ד"ר איתמר רוזנפלד (חינוך מבוסס מקום) ציפי ערמי (יועצת ראש העיר למעמד האישה) דודו ג׳מו זהבית דרויש אולגה בס לינצ׳וק (מנהלת מדור קליני) ינה גונן-רוזן (מנהלת היכל התרבות — גוונים)">
-<div class="city-name">אריאל</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">יאיר שטבון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">ד"ר איתמר רוזנפלד (חינוך מבוסס מקום)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">ציפי ערמי (יועצת ראש העיר למעמד האישה)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">דודו ג׳מו</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">זהבית דרויש</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">אולגה בס לינצ׳וק (מנהלת מדור קליני)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">ינה גונן-רוזן (מנהלת היכל התרבות — גוונים)</div>
-</div>
-</div>
-<div class="city-card" data-text="רוביק דנילוביץ׳ אבי אוחיון (מנהל מינהל החינוך, החליף את זהבה הראל) — MA מינהל חינוכי, דוקטורנט לחינוך. מודלים להעלאת הישגים וצמצום פערים בנגב. קשרים עם קרן רש״י ועמותת יחדיו ורד ששון אמנון יוסף תמי מריאנו נתי מסינג (מנהל תרבות וקהילה — כיוונים)">
-<div class="city-name">באר שבע</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">רוביק דנילוביץ׳</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">אבי אוחיון (מנהל מינהל החינוך, החליף את זהבה הראל) — MA מינהל חינוכי, דוקטורנט לחינוך. מודלים להעלאת הישגים וצמצום פערים בנגב. קשרים עם קרן רש״י ועמותת יחדיו</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">ורד ששון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">אמנון יוסף</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">תמי מריאנו</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">נתי מסינג (מנהל תרבות וקהילה — כיוונים)</div>
-</div>
-</div>
-<div class="city-card" data-text="יוסי ברודני מוטי סגל (מנהל אגף חינוך) — מצוינות אקדמית, חינוך ערכי וטכנולוגי. קשרים עם אונ׳ בר-אילן. אוכלוסייה דתית-לאומית ואקדמית נירית מוסיוף גבי חדד צחי פרץ ג׳ודי וינקלר שלי שמש-בורי (מנהלת מתנ"ס מרחב)">
-<div class="city-name">גבעת שמואל</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">יוסי ברודני</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">מוטי סגל (מנהל אגף חינוך) — מצוינות אקדמית, חינוך ערכי וטכנולוגי. קשרים עם אונ׳ בר-אילן. אוכלוסייה דתית-לאומית ואקדמית</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">נירית מוסיוף</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">גבי חדד</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">צחי פרץ</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">ג׳ודי וינקלר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">שלי שמש-בורי (מנהלת מתנ"ס מרחב)</div>
-</div>
-</div>
-<div class="city-card" data-text="רן קוניק אורית גור-כהן (ראש מנהל חינוך, נוער וצעירים) אור-לי ניב (סגנית ראש עיר, אחראית להט"ב) אבי מוטולה (מ-2024, לשעבר: יאיר אונפסונק) שרון אבן-טוב (מנכ"ל קהילתיים — חברה עירונית לתרבות)">
-<div class="city-name">גבעתיים</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">רן קוניק</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">אורית גור-כהן (ראש מנהל חינוך, נוער וצעירים)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">אור-לי ניב (סגנית ראש עיר, אחראית להט"ב)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">אבי מוטולה (מ-2024, לשעבר: יאיר אונפסונק)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">שרון אבן-טוב (מנכ"ל קהילתיים — חברה עירונית לתרבות)</div>
-</div>
-</div>
-<div class="city-card" data-text="אמיר כוכבי מיכל אפרתי (מנהלת אגף חינוך) — קידום נשים במדעים וטכנולוגיה, בחינה ביקורתית של חומרי לימוד מגדריים רועי תומר (מ-2024) בני זיני אלון אדלמן רון שבת">
-<div class="city-name">הוד השרון</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">אמיר כוכבי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-gender">מגדר</span></div>
-  <div class="pos-detail">מיכל אפרתי (מנהלת אגף חינוך) — קידום נשים במדעים וטכנולוגיה, בחינה ביקורתית של חומרי לימוד מגדריים</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">רועי תומר (מ-2024)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">בני זיני</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">אלון אדלמן</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">רון שבת</div>
-</div>
-</div>
-<div class="city-card" data-text="משה פדלון אדר ארד (ראש מינהל חינוך וערכים מ-2025, בוגר אבני ראשה, דגש על חינוך ערכי ודמוקרטי) / לימור מילר (מנהלת אגף חינוך על-יסודי, לשעבר ת״א, חדשנות דיגיטלית) אריאל פיכמן (מנהל מחלקת שוויון מגדרי) אלכס גולדשטיין רוני חדד שושי קנובל רן שלהבי (מנהל אגף תרבות, נוער וקהילה, מ-10/2024)">
-<div class="city-name">הרצליה</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">משה פדלון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-avnei">אבני ראשה</span></div>
-  <div class="pos-detail">אדר ארד (ראש מינהל חינוך וערכים מ-2025, בוגר אבני ראשה, דגש על חינוך ערכי ודמוקרטי) / לימור מילר (מנהלת אגף חינוך על-יסודי, לשעבר ת״א, חדשנות דיגיטלית)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון <span class="badge badge-gender">מגדר</span></div>
-  <div class="pos-detail">אריאל פיכמן (מנהל מחלקת שוויון מגדרי)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">אלכס גולדשטיין</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">רוני חדד</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">שושי קנובל</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">רן שלהבי (מנהל אגף תרבות, נוער וקהילה, מ-10/2024)</div>
-</div>
-</div>
-<div class="city-card" data-text="יונה יהב (מ-2024) אילנה טורק (ראש מינהל חינוך תרבות ופנאי) — בוגרת מעוז. מקדמת רב-תרבותיות וקיום משותף, מודל חינוך לאורך כל היום. קשרים עם ארגוני חברה אזרחית בחיפה אלונה סולאד גדי מרגלית (מ-2024) שרון פילובסקי בתיה ברנטל (מ-2024)">
-<div class="city-name">חיפה</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">יונה יהב (מ-2024)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
-  <div class="pos-detail">אילנה טורק (ראש מינהל חינוך תרבות ופנאי) — בוגרת מעוז. מקדמת רב-תרבותיות וקיום משותף, מודל חינוך לאורך כל היום. קשרים עם ארגוני חברה אזרחית בחיפה</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">אלונה סולאד</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">גדי מרגלית (מ-2024)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">שרון פילובסקי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">בתיה ברנטל (מ-2024)</div>
-</div>
-</div>
-<div class="city-card" data-text="משה ליאון אריק וירצבורגר (ראש מנח"י, מ-10/2024, החליף את יואב זימרן) — ניהול חינוך ממלכתי, ממ״ד, חרדי וערבי. בניית מוסדות חדשים וצמצום פערים מזרח-מערב אורלי בן אהרון אריאלה רג'ואן (מנכ"לית, מ-2024, ראשונה בתפקיד) אלי זיטוק (מ-2020) ד"ר זהבה רוזנטל אורית דולב (ראש מינהל תרבות, חברה וספורט)">
-<div class="city-name">ירושלים</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">משה ליאון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">אריק וירצבורגר (ראש מנח"י, מ-10/2024, החליף את יואב זימרן) — ניהול חינוך ממלכתי, ממ״ד, חרדי וערבי. בניית מוסדות חדשים וצמצום פערים מזרח-מערב</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">אורלי בן אהרון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">אריאלה רג'ואן (מנכ"לית, מ-2024, ראשונה בתפקיד)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">אלי זיטוק (מ-2020)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">ד"ר זהבה רוזנטל</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">אורית דולב (ראש מינהל תרבות, חברה וספורט)</div>
-</div>
-</div>
-<div class="city-card" data-text="משה קונינסקי אודי איזק (ראש מינהל חינוך) — בוגר מעוז. לשעבר מנהל מחלקת חינוך מועצה אזורית מגילות ים המלח, תפקידי הדרכה בהנוער העובד והלומד, יועץ ארגוני למוסדות חינוך. פיתוח חוסן קהילתי יפה רז ד"ר שולה מנחם לילך וקסמן-רנה (ראשת מינהלת התרבות + פסטיבל המחולות)">
-<div class="city-name">כרמיאל</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">משה קונינסקי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
-  <div class="pos-detail">אודי איזק (ראש מינהל חינוך) — בוגר מעוז. לשעבר מנהל מחלקת חינוך מועצה אזורית מגילות ים המלח, תפקידי הדרכה בהנוער העובד והלומד, יועץ ארגוני למוסדות חינוך. פיתוח חוסן קהילתי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">יפה רז</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">ד"ר שולה מנחם</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">לילך וקסמן-רנה (ראשת מינהלת התרבות + פסטיבל המחולות)</div>
-</div>
-</div>
-<div class="city-card" data-text="יחיאל זוהר ציפי הרפנס (מנהלת אגף חינוך) — בוגרת מעוז. צמצום פערים דיגיטליים וחברתיים, קידום הייטק ומצוינות בפריפריה הדרומית. קשרים עם קרן רש״י דבי נגר ראובן פיניש (מ"מ) ברק ישראל דבי ציטמן נטלי זוהר">
-<div class="city-name">נתיבות</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">יחיאל זוהר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
-  <div class="pos-detail">ציפי הרפנס (מנהלת אגף חינוך) — בוגרת מעוז. צמצום פערים דיגיטליים וחברתיים, קידום הייטק ומצוינות בפריפריה הדרומית. קשרים עם קרן רש״י</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">דבי נגר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">ראובן פיניש (מ"מ)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">ברק ישראל</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">דבי ציטמן</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">נטלי זוהר</div>
-</div>
-</div>
-<div class="city-card" data-text="אליהו גפני משה חזקיה (מנהל מחלקת חינוך) — ניהול הסעות, חינוך מיוחד, תוכנית ניצנים. עבודה עם משה״ח על בטיחות וביטחון במוסדות תורניים. מיומנות פוליטית בין-מגזרית יצחק חלה גיטי וינשטוק (רכזת תרבות)">
-<div class="city-name">עמנואל</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">אליהו גפני</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">משה חזקיה (מנהל מחלקת חינוך) — ניהול הסעות, חינוך מיוחד, תוכנית ניצנים. עבודה עם משה״ח על בטיחות וביטחון במוסדות תורניים. מיומנות פוליטית בין-מגזרית</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">יצחק חלה</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">גיטי וינשטוק (רכזת תרבות)</div>
-</div>
-</div>
-<div class="city-card" data-text="מיכל רוזנשיין (בוגרת אבני ראשה, מ-2024) ד"ר בלה באסן (מנהלת אגף חינוך + יועצת ראש העיר למעמד האישה) — חינוך מודע מגדר (Gender-informed education), קידום שוויון הזדמנויות ונשים במדע וטכנולוגיה ד"ר בלה באסן (תפקיד כפול) שרון קרן (מ-1.9.2024, החליף את חיים סופר) רו"ח יבגני ורניק אירנה בוכמן דרור קוממי (תרבות הדיור)">
-<div class="city-name">קריית אונו</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר <span class="badge badge-avnei">אבני ראשה</span></div>
-  <div class="pos-detail">מיכל רוזנשיין (בוגרת אבני ראשה, מ-2024)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-gender">מגדר</span></div>
-  <div class="pos-detail">ד"ר בלה באסן (מנהלת אגף חינוך + יועצת ראש העיר למעמד האישה) — חינוך מודע מגדר (Gender-informed education), קידום שוויון הזדמנויות ונשים במדע וטכנולוגיה</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">ד"ר בלה באסן (תפקיד כפול)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">שרון קרן (מ-1.9.2024, החליף את חיים סופר)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">רו"ח יבגני ורניק</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">אירנה בוכמן</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">דרור קוממי (תרבות הדיור)</div>
-</div>
-</div>
-<div class="city-card" data-text="כפיר סויסה זהבה גור (שותפויות אסטרטגיות, עבודה עם אורט) אוריה אריס נורית עזרד (מנהלת תרבות)">
-<div class="city-name">קריית גת</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">כפיר סויסה</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">זהבה גור (שותפויות אסטרטגיות, עבודה עם אורט)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">אוריה אריס</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">נורית עזרד (מנהלת תרבות)</div>
-</div>
-</div>
-<div class="city-card" data-text="אביחי שטרן אסנת רון רסקי (מנהלת אגף חינוך) — MA טכנולוגיות חדשניות בחינוך, BA ביולוגיה והוראת מדעים. לשעבר מתאמת מחוז צפון במשה״ח, מנהלת בי״ס בראש פינה. למידה מרחוק ורצף חינוכי בתנאי חירום אמירה אברהם יורם ביטון מיכאל יעקבי הילה לוי (מנהלת מחלקת התרבות)">
-<div class="city-name">קריית שמונה</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">אביחי שטרן</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">אסנת רון רסקי (מנהלת אגף חינוך) — MA טכנולוגיות חדשניות בחינוך, BA ביולוגיה והוראת מדעים. לשעבר מתאמת מחוז צפון במשה״ח, מנהלת בי״ס בראש פינה. למידה מרחוק ורצף חינוכי בתנאי חירום</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">אמירה אברהם</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">יורם ביטון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">מיכאל יעקבי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">הילה לוי (מנהלת מחלקת התרבות)</div>
-</div>
-</div>
-<div class="city-card" data-text="רז שגיא גלית בר-אל (ראש מינהל חינוך מ-9/2024, החליפה את שפרה סטרוסקי) — בוגרת אבני ראשה. MA מינהל חינוך, BA מדעי החברה. פדגוגיה דיגיטלית חדשנית ושיפור הישגים מיכל סופרין דיסטניק חיים רחבעם אבי עזר חגית נגר (תרבות + מורשת ישראל)">
-<div class="city-name">ראש העין</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">רז שגיא</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-avnei">אבני ראשה</span></div>
-  <div class="pos-detail">גלית בר-אל (ראש מינהל חינוך מ-9/2024, החליפה את שפרה סטרוסקי) — בוגרת אבני ראשה. MA מינהל חינוך, BA מדעי החברה. פדגוגיה דיגיטלית חדשנית ושיפור הישגים</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">מיכל סופרין דיסטניק</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">חיים רחבעם</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">אבי עזר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">חגית נגר (תרבות + מורשת ישראל)</div>
-</div>
-</div>
-<div class="city-card" data-text="כרמל שאמה-הכהן לימור מרקנזון סגל אודם אלג׳ם דוד בנימין גלית שניידר מימרן (בוגרת מעוז) טובה פלר פיני ביתן (תרבות תורנית)">
-<div class="city-name">רמת גן</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">כרמל שאמה-הכהן</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">לימור מרקנזון סגל</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">אודם אלג׳ם</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">דוד בנימין</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית <span class="badge badge-maoz">מעוז</span></div>
-  <div class="pos-detail">גלית שניידר מימרן (בוגרת מעוז)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">טובה פלר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">פיני ביתן (תרבות תורנית)</div>
-</div>
-</div>
-<div class="city-card" data-text="יצחק רוכברגר (מ-2024) שלומית שפיגלבלט פזית הק קרין גל-מיכלזון מיכאל אוריון (ראש אגף תרבות ואמנות)">
-<div class="city-name">רמת השרון</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">יצחק רוכברגר (מ-2024)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך </div>
-  <div class="pos-detail">שלומית שפיגלבלט</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">פזית הק</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">קרין גל-מיכלזון</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">מיכאל אוריון (ראש אגף תרבות ואמנות)</div>
-</div>
-</div>
-<div class="city-card" data-text="חיים ברוידא מיקי אדלר (מ-2024, החליפה את רויטל שפירא שקודמה למחוז ת״א) — קורס מנהלי אגפי חינוך (אבני ראשה). MA משפט ו-BA חינוך מבר-אילן, B.Ed מכללת תלפיות. לשעבר מנהלת בי״ס ביל״ו 10 שנים. מודל פליאה וסקרנות, חינוך חברתי-רגשי (SEL) ענבר קציר-ארליך אריאל הילדסהיימר אורית מופז תמר ורשבסקי (מנהלת אגף תרבות, נוער ופנאי)">
-<div class="city-name">רעננה</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">חיים ברוידא</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-avnei">אבני ראשה</span></div>
-  <div class="pos-detail">מיקי אדלר (מ-2024, החליפה את רויטל שפירא שקודמה למחוז ת״א) — קורס מנהלי אגפי חינוך (אבני ראשה). MA משפט ו-BA חינוך מבר-אילן, B.Ed מכללת תלפיות. לשעבר מנהלת בי״ס ביל״ו 10 שנים. מודל פליאה וסקרנות, חינוך חברתי-רגשי (SEL)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון </div>
-  <div class="pos-detail">ענבר קציר-ארליך</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">אריאל הילדסהיימר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">אורית מופז</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">תמר ורשבסקי (מנהלת אגף תרבות, נוער ופנאי)</div>
-</div>
-</div>
-<div class="city-card" data-text="רון חולדאי דליה לין (ראש מינהל חינוך, מ-4/2024, החליפה את שירלי רימון ברכה) — בוגרת מעוז ועתודות לישראל. MA מינהל וחינוך ארגוני (הצטיינות) ו-BA סוציולוגיה מאונ׳ ת״א. לשעבר מנכ״לית מועצת גני תקווה, מנהלת אגף חינוך רמת גן, מפקחת כוללת במשה״ח. מקדמת דמוקרטיה וליברליזם לימור מילר אפרת מייקין-כנפו (רשות חוסן ושוויון, בוגרת מעוז) שירה לב עמי (ראש מערך דיגיטל לאומי) / מנכ"ל: לבדוק משה גילצר דורית טל רונן רונית פרבר (מינהל קהילה, תרבות וספורט)">
-<div class="city-name">תל אביב-יפו</div>
-<div class="pos">
-  <div class="pos-title">ראש עיר </div>
-  <div class="pos-detail">רון חולדאי</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת חינוך <span class="badge badge-maoz">מעוז</span></div>
-  <div class="pos-detail">דליה לין (ראש מינהל חינוך, מ-4/2024, החליפה את שירלי רימון ברכה) — בוגרת מעוז ועתודות לישראל. MA מינהל וחינוך ארגוני (הצטיינות) ו-BA סוציולוגיה מאונ׳ ת״א. לשעבר מנכ״לית מועצת גני תקווה, מנהלת אגף חינוך רמת גן, מפקחת כוללת במשה״ח. מקדמת דמוקרטיה וליברליזם</div>
-</div>
-<div class="pos">
-  <div class="pos-title">חינוך משני </div>
-  <div class="pos-detail">לימור מילר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">יועצ/ת מגדר/שוויון <span class="badge badge-maoz">מעוז</span></div>
-  <div class="pos-detail">אפרת מייקין-כנפו (רשות חוסן ושוויון, בוגרת מעוז)</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנכ"ל/ית </div>
-  <div class="pos-detail">שירה לב עמי (ראש מערך דיגיטל לאומי) / מנכ"ל: לבדוק</div>
-</div>
-<div class="pos">
-  <div class="pos-title">גזבר/ית </div>
-  <div class="pos-detail">משה גילצר</div>
-</div>
-<div class="pos">
-  <div class="pos-title">שפ"ח </div>
-  <div class="pos-detail">דורית טל רונן</div>
-</div>
-<div class="pos">
-  <div class="pos-title">מנהל/ת תרבות </div>
-  <div class="pos-detail">רונית פרבר (מינהל קהילה, תרבות וספורט)</div>
-</div>
-</div>
-</div>
+<div class="container" id="cards-container"></div>
+<div class="no-results" id="no-results">לא נמצאו תוצאות</div>
 <script>
-function filterAll() {
-  document.querySelectorAll('.city-card').forEach(c => c.style.display = '');
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.filter-btn')[0].classList.add('active');
+function toggleFramework() {
+    var body = document.getElementById('framework-body');
+    var arrow = document.getElementById('framework-arrow');
+    if (body.style.display === 'none') {
+        body.style.display = 'block';
+        arrow.classList.remove('collapsed');
+    } else {
+        body.style.display = 'none';
+        arrow.classList.add('collapsed');
+    }
 }
-function filterByText(term) {
-  document.querySelectorAll('.city-card').forEach(c => {
-    c.style.display = c.dataset.text.includes(term) ? '' : 'none';
-  });
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.remove('active');
-    if (b.textContent.includes(term)) b.classList.add('active');
-  });
+var cities = [
+{
+"name": "אפרת",
+"positions": {
+"mayor": "עודד רביבי | Gemini: Dovi Shefler, מ-2024, Management, CEO NGO, Religious Zionist",
+"edu_director": "אמיר בן גל | DB: מנהל אגף חינוך [מקור: efrat.muni.il]",
+"edu_secondary": "",
+"gender_advisor": "רויטל קולין (גם סגנית גזבר) | Gemini: Revital Kolin, מ-2024, Finance / CPA, Deputy Treasurer, Professional",
+"ceo": "יפה שטרית",
+"treasurer": "שרון הורביץ",
+"psych_services": "",
+"culture_director": ""
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://efrat.muni.il/"
 }
+},
+{
+"name": "אריאל",
+"positions": {
+"mayor": "יאיר שטבון | Gemini: Yair Chetboun, Education / Mandel, School Principal, Mandel Foundation [תגיות: מנדל]",
+"edu_director": "ד\"ר איתמר רוזנפלד (חינוך מבוסס מקום) | DB: מנהל אגף חינוך [מקור: ariel.muni.il]",
+"edu_secondary": "מיכל אוחנה | Michal Ohana, מ-2024, Education, Registrar, Professional",
+"gender_advisor": "ציפי ערמי (יועצת ראש העיר למעמד האישה)",
+"ceo": "דודו ג׳מו",
+"treasurer": "זהבית דרויש",
+"psych_services": "אולגה בס לינצ׳וק (מנהלת מדור קליני)",
+"culture_director": "ינה גונן-רוזן (מנהלת היכל התרבות — גוונים)"
+},
+"protocols": [],
+"source_urls": {}
+},
+{
+"name": "באר שבע",
+"positions": {
+"mayor": "רוביק דנילוביץ׳ | Gemini: Political Science, Deputy Mayor, Independent",
+"edu_director": "אבי אוחיון (מנהל מינהל החינוך, החליף את זהבה הראל) — MA מינהל חינוכי, דוקטורנט לחינוך. מודלים להעלאת הישגים וצמצום פערים בנגב. קשרים עם קרן רש״י ועמותת יחדיו | DB: מנהל אגף חינוך [מקור: beer-sheva.muni.il]",
+"edu_secondary": "",
+"gender_advisor": "ורד ששון | Gemini: Vered Sasson, מ-2021, Social Policy, HR, Ministry of Equality",
+"ceo": "אמנון יוסף",
+"treasurer": "",
+"psych_services": "תמי מריאנו | Gemini: Ruthy Ohana, Psych / Maoz, Supervisor, Maoz Network [תגיות: מעוז]",
+"culture_director": "נתי מסינג (מנהל תרבות וקהילה — כיוונים) | Gemini: Yair Nagid, מ-2018, Arts Management, Mishkan Director, Cultural Sector"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://www.beer-sheva.muni.il/Lists/List1/DispForm.aspx?ID=2624",
+"gender_advisor": "https://www.themarker.com/labels/local/beersheba/2021-07-05/ty-article-labels/0000017f-f88f-d318-afff-fbef7dea0000"
+}
+},
+{
+"name": "גבעת שמואל",
+"positions": {
+"mayor": "יוסי ברודני | Gemini: Business, CEO, Religious Zionist",
+"edu_director": "מוטי סגל (מנהל אגף חינוך) — מצוינות אקדמית, חינוך ערכי וטכנולוגי. קשרים עם אונ׳ בר-אילן. אוכלוסייה דתית-לאומית ואקדמית | Gemini: Motti Segal, מ-2023, Mandel, Dept. Manager, Mandel Foundation [תגיות: מנדל]",
+"edu_secondary": "לימור אונגר | Limor Unger, מ-2024, Education, Registrar, Professional",
+"gender_advisor": "נירית מוסיוף",
+"ceo": "גבי חדד",
+"treasurer": "צחי פרץ",
+"psych_services": "ג׳ודי וינקלר | Gemini: Judy Winkler, מ-2021, Psych, Senior Psychologist, Academic",
+"culture_director": "שלי שמש-בורי (מנהלת מתנ\"ס מרחב)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://givat-shmuel.muni.il/%D7%91%D7%A2%D7%9C%D7%99-%D7%AA%D7%A4%D7%A7%D7%99%D7%93%D7%99%D7%9D/"
+}
+},
+{
+"name": "גבעתיים",
+"positions": {
+"mayor": "רן קוניק",
+"edu_director": "אורית גור-כהן (ראש מנהל חינוך, נוער וצעירים) | Gemini: Irit Aharonsky, מ-2018, Mandel, Principal, Mandel Foundation [תגיות: מנדל]",
+"edu_secondary": "",
+"gender_advisor": "אור-לי ניב (סגנית ראש עיר, אחראית להט\"ב) | Gemini: Sigal Machlev, מ-2022, Gender Studies, Social Services, NGO Sector",
+"ceo": "אבי מוטולה (מ-2024, לשעבר: יאיר אונפסונק)",
+"treasurer": "",
+"psych_services": "",
+"culture_director": "שרון אבן-טוב (מנכ\"ל קהילתיים — חברה עירונית לתרבות)"
+},
+"protocols": [
+{
+"summary": "המועצה אישרה פה אחד מדיניות של שוויון מגדרי בייצוג באירועי תרבות, אמנות, חינוך והעשרה עירוניים.",
+"date": "2023-07-05",
+"vote": "approved",
+"quote": "הצעה לסדר מאת חבר המועצה, מר רונאן קפלן, בנושא ייצוג נשים בפעילויות תרבות, אמנות, חינוך והעשרה בגבעתיים. הצבעה: פה אחד. החלטה: באירועים העירוניים יהיה שיויון מגדרי ככל שניתן.",
+"url": "https://www.givatayim.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה להקמת ועדה עירונית לשוויון מגדרי נדחתה ברוב של 9 נגד 4 בעד. העירייה טענה שהנושא כבר מטופל היטב על ידי סגנית ראש העירייה.",
+"date": "2019-05-15",
+"vote": "rejected",
+"quote": "הצעה לסדר מאת גב' ויוי וולפסון: הקמת ועדה לקידום שוויון מגדרי. [...] אני מבקשת מראש העירייה להקים ועדה עירונית לשוויון מגדרי דומה לשאר הועדות [...] הצבעה 9 נגד [...] 4 בעד [...] החלטה כל נושא השוויון המגדרי מטופל בתקופה האחרונה באופן מצוין.",
+"url": "https://www.givatayim.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה בנושא \\\"הפרדה מגדרית\\\" הורדה מסדר היום בהצבעה של 11 בעד הסרה, 4 נגד. המועצה סירבה לדון בנושא כלל.",
+"date": "2022-12-07",
+"vote": "removed",
+"quote": "הצעה לסדר מאת חבר המועצה, רונאן קפלן, בנושא הפרדה מגדרית. הצבעה על הורדת הסעיף מסדר היום: 11 בעד [...] 4 נגד [...] החלטה הצעה לסדר של חבר המועצה רונאן קפלן ירדה מסדר היום, ברוב קולות.",
+"url": "https://www.givatayim.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה לשוויון מגדרי (50/50) בתעודות ופרסי הוקרה עירוניים. הצעה בלבד — תוצאת ההצבעה לא נראית.",
+"date": "2025-09-03",
+"vote": "agenda",
+"quote": "הצעה לסדר מאת חבר המועצה, ניר קורן, שוויון מגדרי (5050) בתעודות ופרסי הוקרה",
+"url": "https://www.givatayim.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה שבחירת אמנים לאירועי יום העצמאות ואירועים עירוניים תייצג גיוון מגדרי. הצעה בלבד — תוצאת הצבעה לא נראית.",
+"date": "2022-02-08",
+"vote": "agenda",
+"quote": "בחירת האמנים תייצג גיוון מגדרי, תוך כדי שיתוף אמנים ואמניות תושבי.ות גבעתיים וגיל הזהב.",
+"url": "https://www.givatayim.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+}
+],
+"source_urls": {
+"gender_advisor": "https://gov.il/he/departments/topics/gender-equality-advisors-contact/govil-landing-page"
+}
+},
+{
+"name": "הוד השרון",
+"positions": {
+"mayor": "אמיר כוכבי | Gemini: Law / Policy, Deputy Mayor, Liberal-Independent",
+"edu_director": "מיכל אפרתי (מנהלת אגף חינוך) — קידום נשים במדעים וטכנולוגיה, בחינה ביקורתית של חומרי לימוד מגדריים | Gemini: Michal Ephrati, מ-2023, Mandel, Dept. Manager, Mandel Foundation [תגיות: מנדל]",
+"edu_secondary": "",
+"gender_advisor": "",
+"ceo": "רועי תומר (מ-2024)",
+"treasurer": "בני זיני",
+"psych_services": "אלון אדלמן",
+"culture_director": "רון שבת"
+},
+"protocols": [
+{
+"summary": "המועצה אישרה שינוי הרכב הוועדה לשוויון מגדרי, במסגרת שינויים ב-15 ועדות. עצם קיום הוועדה — מסגרת מוסדית מתמשכת.",
+"date": "2019-07-02",
+"vote": "approved",
+"quote": "על סדר היום: ד. שינוי הרכב ועדות. 11. אישור שינוי הרכב הוועדה לשוויון מגדרי.",
+"url": "https://www.hod-hasharon.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+}
+],
+"source_urls": {
+"edu_director": "https://www.hod-hasharon.muni.il/%D7%90%D7%92%D7%A3-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A/"
+}
+},
+{
+"name": "הרצליה",
+"positions": {
+"mayor": "משה פדלון | Gemini: Yariv Fischer, מ-2024, Law / Business, Opposition Leader, Liberal-Progressive",
+"edu_director": "אדר ארד (ראש מינהל חינוך וערכים מ-2025, בוגר אבני ראשה, דגש על חינוך ערכי ודמוקרטי) / לימור מילר (מנהלת אגף חינוך על-יסודי, לשעבר ת״א, חדשנות דיגיטלית) [תגיות: אבני ראשה]",
+"edu_secondary": "",
+"gender_advisor": "אריאל פיכמן (מנהל מחלקת שוויון מגדרי) | Gemini: Ariella Fichman, מנהל מחלקת שוויון מגדרי",
+"ceo": "אלכס גולדשטיין",
+"treasurer": "רוני חדד",
+"psych_services": "שושי קנובל",
+"culture_director": "רן שלהבי (מנהל אגף תרבות, נוער וקהילה, מ-10/2024)"
+},
+"protocols": [
+{
+"summary": "ראש העיר פדלון הצהיר בישיבת מועצה שעיריית הרצליה לא תעניק רישיון עסק לבתי עסק המפלים על רקע דת, גזע, מין או נטייה מינית. הצהרה על המשך חינוך לפלורליזם — מוצגת כהתנגדות למדיניות ממשלה.",
+"date": "2022-12-27",
+"vote": "declaration",
+"quote": "עיריית הרצליה מסמנת כאן הערב קו אדום חד וברור — כאן בהרצליה אין ולא יהיה מקום לאפליה, לגזענות ולשנאת חינם. [...] העירייה לא תעניק רישיון עסק לבתי עסק בעיר ומסחר בעיר אשר יפלו אנשים על רקע דת, גזע, מין או נטייה מינית.",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "מנהל אגף החינוך אישר שהעירייה ערוכה תקציבית להמשך מימון תוכניות ליברליות (אזרחות, דמוקרטיה, שוויון מגדרי, מאבק בגזענות, מיניות בריאה) מתקציבים עירוניים, גם אם תוכנית גפ\\\"ן הלאומית תעבור לשליטה שמרנית.",
+"date": "2022-12-27",
+"vote": "confirmed",
+"quote": "נעננו כי האגף ערוך תקציבית להמשך מימון כל פעילות התואמת את המתואר לעיל באמצעות תקציבים עירוניים, וכי אף תכנית ליברלית לא תופסק בשל העדר תקציב.",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "תוכנית חינוך"
+},
+{
+"summary": "הצעה לאמץ את הדו\\\"ח הממשלתי למאבק בהדרת נשים כמדיניות עירונית מחייבת. הגדרת הפרדה מגדרית כאפליה שיש להילחם בה במרחב הציבורי.",
+"date": "2022-03-15",
+"vote": "proposal",
+"quote": "הצעה לסדר [...] בנושא: אימוץ הדו\\\"ח הממשלתי למאבק בהדרת נשים כמדיניות מחייבת. הדרת נשים במרחב הציבורי היא תופעה חמורה המתגברת [...] הפרדה מגדרית היא אחת מצורות הדרת הנשים הנפוצות ביותר בישראל.",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה לתקצוב מגדרי: לפחות 50% נשים בדירקטוריונים של חברות עירוניות, מדדים מגדריים לבחינת פעילות העירייה, פילוח תקציב בראיה מגדרית, דו\\\"ח שנתי על השפעת החלטות על נשים.",
+"date": "2020-12-22",
+"vote": "proposal",
+"quote": "לוודא שיש לפחות 50 אחוז נשים בדירקטוריונים של החברות העירונית. צורך בקיום מדדים מגדריים הבוחנים את פעילות העירייה בראיה מגדרית. פילוח תקציב העירייה בראיה מגדרית — קיום דו\\\"ח שנתי המגדיר כיצד משפיעות כל החלטות העירייה על הנשים בעיר.",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "ראש העיר פדלון תמך פומבית בתהליך שינוי זהות מגדרית של תלמיד כיתה ב' בבית ספר יסודי. גינה חבר מועצה שהתנגד ל\\\"מפגש שיתוף\\\" שנערך בנושא. הצהיר שהעירייה תמשיך לפעול על פי ערכי שוויון, הכלה וסובלנות בנוגע לזהות מגדרית.",
+"date": "2022-06-28",
+"vote": "declaration",
+"quote": "בעיר דמוקרטית הדוגלת בשוויון, הכלה וסובלנות, לא יהיה מקום לאמירות פוגעניות ולא נסכים לקבלן. העירייה תמשיך לתמוך ולפעול על פי ערכים של שוויון, הכלה, סובלנות וכבוד כלפי כל אדם באשר הוא.",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "תוכנית חינוך"
+},
+{
+"summary": "מינוי יועצת לקידום מעמד האישה כסעיף בסדר יום ישיבת המועצה. ממשיך מסורת של \\\"מנהל נשים\\\" ו\\\"יועצת ראש העיר לקידום מעמד האישה\\\" הפועלים בעיר.",
+"date": "2025-11-18",
+"vote": "agenda",
+"quote": "11. מינוי יועצת לקידום מעמד האישה",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "עמותת תהל\\\"ה (תמיכת הורים להורים של ילדים מהקהילה הלהט\\\"בית) מפעילה קבוצת תמיכה במרכז הבריאות העירוני, בשיתוף מחלקת הבריאות העירונית של עיריית הרצליה.",
+"date": "",
+"vote": "active",
+"quote": "עמותת תהל\\\"ה מפעילה קבוצת תמיכה, העצמה וידע להורים לילדים מהקהילה הגאה בעיר הרצליה, בשיתוף עם עיריית הרצליה — מחלקת הבריאות העירונית.",
+"url": "https://www.herzliya.muni.il/protocols/",
+"category": "שיתוף פעולה עם ארגון"
+}
+],
+"source_urls": {
+"mayor": "https://he.wikipedia.org/wiki/%D7%A2%D7%99%D7%A8%D7%99%D7%99%D7%AA_%D7%94%D7%A8%D7%A6%D7%9C%D7%99%D7%94",
+"edu_director": "https://www.herzliya.muni.il/news/item/5968/",
+"gender_advisor": "https://www.herzliya.muni.il/phonebook/"
+}
+},
+{
+"name": "חיפה",
+"positions": {
+"mayor": "יונה יהב (מ-2024) | Gemini: Law, Former Mayor (returned 2024), Liberal-Secular",
+"edu_director": "אילנה טורק (ראש מינהל חינוך תרבות ופנאי) — בוגרת מעוז. מקדמת רב-תרבותיות וקיום משותף, מודל חינוך לאורך כל היום. קשרים עם ארגוני חברה אזרחית בחיפה | Gemini: Ilana Truk, מ-2025, Mandel, Dept. Manager, Mandel Foundation [תגיות: מעוז, מנדל]",
+"edu_secondary": "אביבה אלבז | Aviva Elbaz, מ-2024, Avnei Rosha, Principal, Education Sector [תגיות: אבני ראשה]",
+"gender_advisor": "אלונה סולאד",
+"ceo": "גדי מרגלית (מ-2024)",
+"treasurer": "",
+"psych_services": "שרון פילובסקי",
+"culture_director": "בתיה ברנטל (מ-2024)"
+},
+"protocols": [
+{
+"summary": "מועצת העיר חיפה אישרה בהצבעה תוכנית עירונית כוללת לעיר רגישה מגדרית. הוועדה לשוויון מגדרי קיבלה סמכות לייצר מסמכי עבודה, שיתופי פעולה עם ועדות הרשות, ועדכון מדיניות. חיפה הוגדרה כ\\\"מובילת הדרך\\\" בקידום ערים רגישות מגדרית בישראל.",
+"date": "2020-09-08",
+"vote": "approved",
+"quote": "תחת הועדה לשוויון מגדרי, תתן מועצת העיר את הסמכות לוועדה לייצר מסמכי עבודה מסודרים בנושא, לשם יצירת פלטפורמות עבודה מול גורמי הרשות, שיתופי פעולה עם הועדות השונות ברשות, עדכון מדיניות ויישום ניירות עמדה [...] על חיפה להיות מובילת הדרך בעידוד וקידום יצירת ערים רגישות מגדרית בישראל, להיות חוד החנית בכנסים ארציים, מול משרדי ממשלה ועשיה משותפת למען חקיקה ושינוי מדיניות ארצית בנושאים אלו.",
+"url": "https://www.haifa.muni.il/city-and-muni/city-council/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "קריטריוני מימון עירוניים לארגונים כוללים דרישת קידום שוויון מגדרי, כולל ארגוני להט\\\"ב. תנאי סף לקבלת תמיכה עירונית.",
+"date": "",
+"vote": "policy",
+"quote": "קידום שוויון מגדרי כתנאי לתמיכה עירונית — כולל ארגוני להט\\\"ב",
+"url": "https://www.haifa.muni.il/city-and-muni/city-council/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הסכם קואליציוני בין \\\"חיים בחיפה\\\" (עינת קליש-רותם) לסיעת מרצ כולל במפורש \\\"קידום שיוויון מגדרי\\\" כיעד מדיניות יסודי של הקואליציה.",
+"date": "2018",
+"vote": "signed",
+"quote": "שתי הסיעות מבקשות לקדם נושאים מוניציפליים כגון: [...] קידום שיוויון מגדרי, קידום ההעסקה הישירה במוסדות העירייה",
+"url": "https://www.haifa.muni.il/city-and-muni/city-council/protocols/",
+"category": "הסכם קואליציוני"
+},
+{
+"summary": "ראש העיר מינה את פרופ' גדי לנדאו לעמוד בראשות ועדה ציבורית לקהילת הלהט\\\"ב — חינוך, רווחה, תרבות, פנאי, ובניית קו פתוח בין גורמי העירייה לקהילה.",
+"date": "2014-02-04",
+"vote": "established",
+"quote": "לפני מספר חודשים מינה ראש העיר את פרופ' גדי לנדאו לעמוד בראשות ועדה ציבורית שתבחן תחומים רחבים הנוגעים לקהילת הלהט\\\"ב ולצרכיה, חינוך, רווחה, תרבות, פעילות פנאי, בניית קו פתוח ונגיש בין גורמי העירייה להורים לחברי הקהילה, ובעצם לכל דבר ועניין.",
+"url": "https://www.haifa.muni.il/city-and-muni/city-council/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "ביאטריס רוזן כץ נבחרה במכרז לתפקיד יועצת ראש העיר למעמד האישה. בפרוטוקולים מ-2017 והלאה התפקיד שונה ל\\\"יועצת ראש העיר לשוויון מגדרי\\\" — שינוי מ\\\"מעמד האישה\\\" ל\\\"שוויון מגדרי\\\".",
+"date": "2014-09-02",
+"vote": "appointed",
+"quote": "גב' ביאטריס רוזן כץ, נבחרה במכרז לתפקיד יועצת ראש העיר למעמד האישה.",
+"url": "https://www.haifa.muni.il/city-and-muni/city-council/protocols/",
+"category": "מסגרת מוסדית"
+}
+],
+"source_urls": {
+"edu_director": "https://arugot.org/he/%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D-%D7%95%D7%97%D7%93%D7%A9%D7%95%D7%AA/%D7%90%D7%95%D7%A8%D7%97%D7%99%D7%9D-%D7%91%D7%9E%D7%9B%D7%95%D7%9F/",
+"edu_secondary": "https://www3.haifa.muni.il/files/education.pdf"
+}
+},
+{
+"name": "ירושלים",
+"positions": {
+"mayor": "משה ליאון | Gemini: CPA / Public Admin, Director General PMO, Religious-Nationalist",
+"edu_director": "אריק וירצבורגר (ראש מנח\"י, מ-10/2024, החליף את יואב זימרן) — ניהול חינוך ממלכתי, ממ״ד, חרדי וערבי. בניית מוסדות חדשים וצמצום פערים מזרח-מערב | DB: ראש מינהל חינוך (מנח\"י)",
+"edu_secondary": "יהודה נוימן | Yehuda Neuman, מ-2023, Mandel, Principal, Mandel Foundation [תגיות: מנדל]",
+"gender_advisor": "אורלי בן אהרון | Gemini: Sima Sinai, Social Work, Community Welfare, NGO/Ministry of Equality",
+"ceo": "אריאלה רג'ואן (מנכ\"לית, מ-2024, ראשונה בתפקיד) | Gemini: Itzik Larry, מ-2019, Management, CEO Toto Lottery, Professional",
+"treasurer": "אלי זיטוק (מ-2020)",
+"psych_services": "ד\"ר זהבה רוזנטל",
+"culture_director": "אורית דולב (ראש מינהל תרבות, חברה וספורט) | Gemini: Yoram Braverman, מ-2017, Arts Admin, Director Arts Dept, Cultural Sector"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://jerusalem.muni.il/he/residents/education/contactedu/",
+"gender_advisor": "https://gov.il/he/departments/topics/gender-equality-advisors-contact/govil-landing-page"
+}
+},
+{
+"name": "כרמיאל",
+"positions": {
+"mayor": "משה קונינסקי | Gemini: Management, CEO Sports Assoc., Independent",
+"edu_director": "אודי איזק (ראש מינהל חינוך) — בוגר מעוז. לשעבר מנהל מחלקת חינוך מועצה אזורית מגילות ים המלח, תפקידי הדרכה בהנוער העובד והלומד, יועץ ארגוני למוסדות חינוך. פיתוח חוסן קהילתי | Gemini: Dr. Audelia Sitbon, מ-2024, Avnei Rosha, Dept. Manager, Education Sector [תגיות: מעוז, אבני ראשה]",
+"edu_secondary": "",
+"gender_advisor": "יפה רז",
+"ceo": "ד\"ר שולה מנחם",
+"treasurer": "הרצל מלול | Herzl Maloul, מ-2024, CPA, Finance, Professional",
+"psych_services": "גילת שדה | Gilat Sade, מ-2022, Psych, Supervisor, Academic",
+"culture_director": "לילך וקסמן-רנה (ראשת מינהלת התרבות + פסטיבל המחולות)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://maoz-il.org/%D7%A8%D7%A9%D7%AA-%D7%9E%D7%A2%D7%95%D7%96/"
+}
+},
+{
+"name": "נתיבות",
+"positions": {
+"mayor": "יחיאל זוהר | DB: ראש עיר (מאז 1989) [מקור: ידוע]",
+"edu_director": "ציפי הרפנס (מנהלת אגף חינוך) — בוגרת מעוז. צמצום פערים דיגיטליים וחברתיים, קידום הייטק ומצוינות בפריפריה הדרומית. קשרים עם קרן רש״י | Gemini: Avi Edri, מ-2023, Maoz, Principal, Maoz Network [תגיות: מעוז]",
+"edu_secondary": "רחל קורן-פרץ | Rachel Koren-Peretz, מ-2025, Education, Dept. Manager, Professional",
+"gender_advisor": "דבי נגר | Gemini: Debi Nagar, מ-2024, Community Admin, Dept. Manager, Ministry of Equality",
+"ceo": "ראובן פיניש (מ\"מ)",
+"treasurer": "ברק ישראל",
+"psych_services": "דבי ציטמן",
+"culture_director": "נטלי זוהר | DB: מנהלת שירותים חברתיים [מקור: netivot.muni.il]"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://www.kipa.co.il/%D7%94%D7%95%D7%A8%D7%99%D7%9D-%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D/%D7%97%D7%99%D7%A0%D7%95%D7%9A/1110798-%D7%A6%D7%99%D7%A4%D7%99-%D7%94%D7%A8%D7%A4%D7%A0%D7%A1-%D7%94%D7%AA%D7%A9%D7%AA%D7%99%D7%95%D7%AA-%D7%94%D7%9B%D7%99-%D7%97%D7%96%D7%A7%D7%95%D7%AA-%D7%A9%D7%9C%D7%A0%D7%95-%D7%94%D7%9F-%D7%90%D7%9E%D7%95%D7%9F-%D7%A9%D7%A7%D7%99%D7%A4%D7%95%D7%AA-%D7%95%D7%90%D7%9E%D7%95%D7%A0%D7%94/",
+"gender_advisor": "https://gov.il/he/departments/topics/gender-equality-advisors-contact/govil-landing-page"
+}
+},
+{
+"name": "עמנואל",
+"positions": {
+"mayor": "אליהו גפני | Gemini: Rabbinical, Community Leader, Degel HaTorah",
+"edu_director": "משה חזקיה (מנהל מחלקת חינוך) — ניהול הסעות, חינוך מיוחד, תוכנית ניצנים. עבודה עם משה״ח על בטיחות וביטחון במוסדות תורניים. מיומנות פוליטית בין-מגזרית",
+"edu_secondary": "",
+"gender_advisor": "",
+"ceo": "",
+"treasurer": "יצחק חלה",
+"psych_services": "",
+"culture_director": "גיטי וינשטוק (רכזת תרבות)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://www.emanuel.muni.il/%D7%97%D7%99%D7%A0%D7%95%D7%9A/",
+"psych_services": "https://www.emanuel.muni.il/%D7%97%D7%99%D7%A0%D7%95%D7%9A/"
+}
+},
+{
+"name": "קריית אונו",
+"positions": {
+"mayor": "מיכל רוזנשיין (בוגרת אבני ראשה, מ-2024) | Gemini: Education / Maoz, Dept. Manager, Maoz Network [תגיות: אבני ראשה, מעוז]",
+"edu_director": "ד\"ר בלה באסן (מנהלת אגף חינוך + יועצת ראש העיר למעמד האישה) — חינוך מודע מגדר (Gender-informed education), קידום שוויון הזדמנויות ונשים במדע וטכנולוגיה | Gemini: Dr. Bella Basan, מ-2018, Mandel, Principal, Mandel Foundation + תפקיד כפול כיועצת מעמד האישה [תגיות: מנדל]",
+"edu_secondary": "",
+"gender_advisor": "ד\"ר בלה באסן (תפקיד כפול)",
+"ceo": "שרון קרן (מ-1.9.2024, החליף את חיים סופר)",
+"treasurer": "רו\"ח יבגני ורניק",
+"psych_services": "אירנה בוכמן",
+"culture_director": "דרור קוממי (תרבות הדיור)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://ononews.co.il/news-kiryat-ono/%D7%9E%D7%A0%D7%94%D7%9C%D7%AA-%D7%90%D7%92%D7%A3-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%94%D7%97%D7%93%D7%A9%D7%94-%D7%91%D7%A2%D7%99%D7%A8%D7%99%D7%99%D7%AA-%D7%A7%D7%A8%D7%99%D7%99%D7%AA-%D7%90/",
+"gender_advisor": "https://ononews.co.il/news-kiryat-ono/local-kiryat-ono/%D7%93%D7%A8-%D7%91%D7%9C%D7%94-%D7%91%D7%A1%D7%9F-%D7%9E%D7%A0%D7%94%D7%9C%D7%AA-%D7%90%D7%92%D7%A3-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%94%D7%97%D7%93%D7%A9%D7%94-%D7%A9%D7%9C-%D7%A7%D7%A8"
+}
+},
+{
+"name": "קריית גת",
+"positions": {
+"mayor": "כפיר סויסה | DB: ראש עיר (2024, לשעבר מנכ\"ל משרד התרבות) [מקור: Wikipedia]",
+"edu_director": "זהבה גור (שותפויות אסטרטגיות, עבודה עם אורט)",
+"edu_secondary": "",
+"gender_advisor": "אוריה אריס",
+"ceo": "",
+"treasurer": "",
+"psych_services": "",
+"culture_director": "נורית עזרד (מנהלת תרבות)"
+},
+"protocols": [],
+"source_urls": {
+"mayor": "https://he.wikipedia.org/wiki/%D7%A2%D7%99%D7%A8%D7%99%D7%99%D7%AA_%D7%A7%D7%A8%D7%99%D7%99%D7%AA_%D7%92%D7%AA"
+}
+},
+{
+"name": "קריית שמונה",
+"positions": {
+"mayor": "אביחי שטרן | Gemini: Law, Lawyer, Independent",
+"edu_director": "אסנת רון רסקי (מנהלת אגף חינוך) — MA טכנולוגיות חדשניות בחינוך, BA ביולוגיה והוראת מדעים. לשעבר מתאמת מחוז צפון במשה״ח, מנהלת בי״ס בראש פינה. למידה מרחוק ורצף חינוכי בתנאי חירום | DB: מנהלת אגף חינוך (מ-2021, מראש פינה) [מקור: k-8.co.il]",
+"edu_secondary": "",
+"gender_advisor": "אמירה אברהם",
+"ceo": "יורם ביטון",
+"treasurer": "",
+"psych_services": "מיכאל יעקבי",
+"culture_director": "הילה לוי (מנהלת מחלקת התרבות)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://www.k-8.co.il/articles/item/1395/"
+}
+},
+{
+"name": "ראש העין",
+"positions": {
+"mayor": "רז שגיא | Gemini: Mgmt / IDF Col., Opposition Leader, Independent",
+"edu_director": "גלית בר-אל (ראש מינהל חינוך מ-9/2024, החליפה את שפרה סטרוסקי) — בוגרת אבני ראשה. MA מינהל חינוך, BA מדעי החברה. פדגוגיה דיגיטלית חדשנית ושיפור הישגים [תגיות: אבני ראשה]",
+"edu_secondary": "",
+"gender_advisor": "מיכל סופרין דיסטניק",
+"ceo": "",
+"treasurer": "חיים רחבעם",
+"psych_services": "אבי עזר",
+"culture_director": "חגית נגר (תרבות + מורשת ישראל)"
+},
+"protocols": [],
+"source_urls": {
+"gender_advisor": "https://gov.il/he/departments/topics/gender-equality-advisors-contact/govil-landing-page"
+}
+},
+{
+"name": "רמת גן",
+"positions": {
+"mayor": "כרמל שאמה-הכהן",
+"edu_director": "לימור מרקנזון סגל | DB: מנהלת אגף חינוך [מקור: ramat-gan.muni.il]",
+"edu_secondary": "",
+"gender_advisor": "אודם אלג׳ם",
+"ceo": "דוד בנימין",
+"treasurer": "גלית שניידר מימרן (בוגרת מעוז) [תגיות: מעוז] | DB: גזברית (תקציב 1.58B ₪) [מקור: ידוע]",
+"psych_services": "טובה פלר",
+"culture_director": "פיני ביתן (תרבות תורנית)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://www.ramat-gan.muni.il/profiles/phonebook-education/"
+}
+},
+{
+"name": "רמת השרון",
+"positions": {
+"mayor": "יצחק רוכברגר (מ-2024) | Gemini: Public Admin, Former Mayor (returned 2024), Independent",
+"edu_director": "שלומית שפיגלבלט | Gemini: Shlomit Spiegelblatt, מ-2023, Mandel, Principal, Mandel Foundation [תגיות: מנדל]",
+"edu_secondary": "רינת פייראייזן | Rinat Fireisen, מ-2024, Education, Dept. Manager, Professional",
+"gender_advisor": "פזית הק",
+"ceo": "",
+"treasurer": "",
+"psych_services": "קרין גל-מיכלזון | DB: מנהלת שירות פסיכולוגי [מקור: ramat-hasharon.muni.il]",
+"culture_director": "מיכאל אוריון (ראש אגף תרבות ואמנות)"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://ramat-hasharon.muni.il/%D7%91%D7%A2%D7%9C%D7%99-%D7%AA%D7%A4%D7%A7%D7%99%D7%93%D7%99%D7%9D-%D7%91%D7%90%D7%92%D7%A3-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A/"
+}
+},
+{
+"name": "רעננה",
+"positions": {
+"mayor": "חיים ברוידא",
+"edu_director": "מיקי אדלר (מ-2024, החליפה את רויטל שפירא שקודמה למחוז ת״א) — קורס מנהלי אגפי חינוך (אבני ראשה). MA משפט ו-BA חינוך מבר-אילן, B.Ed מכללת תלפיות. לשעבר מנהלת בי״ס ביל״ו 10 שנים. מודל פליאה וסקרנות, חינוך חברתי-רגשי (SEL) | Gemini: Catherine Amit, מ-2023, Mandel, Dept. Manager, Mandel Foundation [תגיות: אבני ראשה, מנדל]",
+"edu_secondary": "רונית בטאט | Ronit Batat, מ-2025, Education, Supervisor, Professional",
+"gender_advisor": "ענבר קציר-ארליך | Gemini: Merav Heller, מ-2022, Social Work, Community Welfare, NGO Sector",
+"ceo": "אריאל הילדסהיימר",
+"treasurer": "אמיר בר-עוז | Amir Bar-Oz, מ-2023, CPA, Finance Dept, Professional",
+"psych_services": "אורית מופז",
+"culture_director": "תמר ורשבסקי (מנהלת אגף תרבות, נוער ופנאי)"
+},
+"protocols": [
+{
+"summary": "ועדת השמות אימצה מדיניות מפורשת של קריאת רחובות על שם נשים משמעותיות, מתוך \\\"קידום עקרונות שוויון מגדרי במרחב הציבורי\\\" ולצמצום הפער הקיים.",
+"date": "2024-09-23",
+"vote": "policy",
+"quote": "הוצג הרצון להמשיך החלטות קודמות בנושא זה ולשלב קריאת רחובות ע\\\"ש נשים משמעותיות בהיסטוריה הישראלית והמקומית, מתוך מקום ומדיניות של קידום עקרונות שוויון מגדרי במרחב הציבורי, ומתוך תכלית לפעול לצמצום הפער הקיים כיום.",
+"url": "https://www.raanana.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה למספר שווה של נשים וגברים במציגים בכל אירוע בו העירייה שותפה במימונו, ולא לחתום הסכמים עם נותני שירותים המדירים נשים.",
+"date": "2023-03-01",
+"vote": "proposal",
+"quote": "מועצת העיר מחליטה בזאת כי בכל אירוע בו העירייה שותפה במימונו יהיה מספר שווה של נשים וגברים במציגים. מועצת העיר מחליטה כי לא ייחתמו הסכמים בין העירייה לבין נותני שירותים המדירים נשים משורותיהם.",
+"url": "https://www.raanana.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הגשה מחודשת ומורחבת של הצעה לייצוג הולם לנשים, כעת מכסה גם שימוש במתקנים עירוניים (לא רק מימון ישיר).",
+"date": "2023-06-25",
+"vote": "proposal",
+"quote": "מועצת העיר מחליטה בזאת כי בכל אירוע בו העירייה שותפה במימונו, גם אם לא מימון ישיר, אלא גם שימוש במתקן עירוני, יהיה מספר שווה של נשים וגברים במציגים ככל שניתן.",
+"url": "https://www.raanana.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+},
+{
+"summary": "הצעה לתמוך בפעילות הסברה בבתי הספר לקידום זכויות קהילת הלהט\\\"ב, לממן תוכניות ברוח שוויון וסובלנות מכספי הרשות, ולשתף פעולה עם ארגון חוש\\\"ן.",
+"date": "2022-12",
+"vote": "proposal",
+"quote": "מועצת העיר רעננה מתחייבת לתמוך במערכת החינוך [...] פעילות הסברה בבתי הספר לקידום זכויות קהילת הלהט\\\"ב [...] עיריית רעננה מתחייבת לממן מכספי הרשות תכניות ברוח זו של חופש מחשבתי, שוויון בין בני האדם [...] הסברה בתחום הגאווה והסובלנות — זכויות קהילת הלהט\\\"ב, מנהיגות נשים...",
+"url": "https://www.raanana.muni.il/protocols/",
+"category": "תוכנית חינוך"
+},
+{
+"summary": "הצעה להקמת צוות היגוי בהובלת אגפי תרבות ואסטרטגיה לקידום דיאלוג בין קהילות בעיר, עם דיון בוועדת החינוך.",
+"date": "2022-12",
+"vote": "proposal",
+"quote": "מתבקשת המועצה לקבל החלטה על הקמת צוות היגוי וחשיבה בהובלת מנהלת אגף תרבות, מנהל אגף אסטרטגיה ומנהלים נוספים. לקידום צעדים מעשיים שיסייעו בחיבור בין הקהילות בעיר.",
+"url": "https://www.raanana.muni.il/protocols/",
+"category": "מסגרת מוסדית"
+}
+],
+"source_urls": {
+"edu_director": "https://www.rashuiot.co.il/html5/arclookup.taf?&_id=73249&did=1118&g=11669",
+"gender_advisor": "https://gov.il/he/departments/topics/gender-equality-advisors-contact/govil-landing-page"
+}
+},
+{
+"name": "תל אביב-יפו",
+"positions": {
+"mayor": "רון חולדאי | Gemini: IDF Staff College, מנהל התיכון הרצליה, Labor/Liberal Zionism",
+"edu_director": "דליה לין (ראש מינהל חינוך, מ-4/2024, החליפה את שירלי רימון ברכה) — בוגרת מעוז ועתודות לישראל. MA מינהל וחינוך ארגוני (הצטיינות) ו-BA סוציולוגיה מאונ׳ ת״א. לשעבר מנכ״לית מועצת גני תקווה, מנהלת אגף חינוך רמת גן, מפקחת כוללת במשה״ח. מקדמת דמוקרטיה וליברליזם | Gemini: Nir Wittenberg, מ-2024, Maoz / Avnei Rosha, High School Principal, Maoz Network [תגיות: מעוז, עתודות לישראל, אבני ראשה]",
+"edu_secondary": "לימור מילר | DB: מנהלת חינוך עירונית (SEL, PBL) [מקור: ידוע מדוחות קודמים]",
+"gender_advisor": "אפרת מייקין-כנפו (רשות חוסן ושוויון, בוגרת מעוז) [תגיות: מעוז] | DB: מנהלת הרשות לחוסן ושוויון חברתי + יועצת מעמד האישה [מקור: ידוע]",
+"ceo": "שירה לב עמי (ראש מערך דיגיטל לאומי) / מנכ\"ל: לבדוק",
+"treasurer": "משה גילצר",
+"psych_services": "דורית טל רונן",
+"culture_director": "רונית פרבר (מינהל קהילה, תרבות וספורט) | Gemini: Giora Yahalom, מ-2020, Media/Arts, Director Culture Dept, Arts Industry"
+},
+"protocols": [],
+"source_urls": {
+"edu_director": "https://www.tel-aviv.gov.il/Contact/Pages/Management.aspx",
+"gender_advisor": "https://www.themarker.com/labels/2021-06-02/ty-article-labels/0000017f-f88e-d460-afff-fbee72e10000",
+"edu_secondary": "https://tel-aviv.gov.il/he/Education/HighSchool/Pages/staff.aspx"
+}
+}
+];
+
+var claimsData = {};
+var mentionsData = {};
+var mentionsData_backup = {"באר שבע": [{"org": "דלת פתוחה", "risk": "high", "snippet": "עשה ב עז ר ת ה׳‪ ,‬אסייע ו א ע זו ר לכל מי שירצה‪ ,‬ו כ ו ל ם ידידיי פה‪,‬‬ ‫כולם חבריי‪ ,‬ב א מ ת הדלת פתוחה אצלי‪ .‬תודה רבה לכול ם‪.‬‬  ‫<עסב טרגי‪:‬‬ ‫הכינונו לרב סבן ידידנו מ ז כ ר ת ‪ -‬סמל העיר‪ ,‬עי צו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "התנגדתי‪ ,‬א תם כול כם התנגדתם לזה‪.‬‬  ‫עו״ד א לי ש ע פלג ‪ -‬יו ע מ ״ ש‪:‬‬  ‫אנדרי‪ ,‬אתה מתפרץ לדלת פתוחה‪ .‬אדוני ראש העיר‪ ,‬אני יכול להסביר?‬  ‫יעקב טרגר‪:‬‬  ‫כן•‬  ‫עו״ד א לי ש ע פלג ‪ -‬יו ע מ ״ ש ‪:"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "ה על סדר היום‪ ,‬כי אני חושב שראוי שחב רי המועצה יידעו‬ ‫איזה פרוי קט גדול וחשוב מגיע לבאר‪-‬שבע‪ .‬קרן מנדל היא הקרן השנייה בגודלה‬ ‫בעולם‪ ,‬בהי קפה תקציבית לחינוך‪ ,‬הקרן השנייה בגודלה בעולם בתק ציבי ם לחי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "עולם המודרני צועד לדבר הזה ‪ ,‬אבל גם צריך להתייחס לכל מה שאמרו פה חברי‬ ‫המועצה ‪ ,‬וכולם מתפרצים לדלת פתוחה ‪ .‬ראש העיר הודיע כאן שבעוד חודשיים‬ ‫יהי ו נתונים מדויקים ‪ ,‬נוכל להביא את זה לדיון בהנהלה ‪ ,‬נ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "יו ‪ .‬זה דב ר‬ ‫שבאמת גרם לנו השראה להמשיך וליזום פרויקטים ותכניות ‪ ,‬ולהאמין שיש‬ ‫בממ שלת ישראל דלת פתוחה ואוזן קשבת לעשות את אותם דברים חשובי ם‬ ‫וחיוניים לפיתוח הנגב ‪ ,‬למען תושבי באר שבע והאזור כולו ‪"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "אתן לעמירם דרורי ‪ ,‬הממונה על הכנסות העירייה להשיב ‪ .‬א בל‬ ‫אני חושב שכחבר מועצה ותיק שגם יש לו דלת פתוחה ‪ ,‬יכולת להעלות את זה‬ ‫בפורומים הנכונים ‪.‬‬ ‫יוסי דדוש ‪:‬‬ ‫לא ‪ ,‬לא ‪ ,‬אני אגיד לך ‪ ,‬אני ר"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ים טובים מאוד ‪ .‬אני חייב לומר שגם כ אזר ח או כמנהל‬ ‫ארגון ‪ ,‬גם כחבר מועצה לשעבר ‪ ,‬תמיד הייתה דלת פתוחה ותמיד דברים ענייניים ‪,‬‬ ‫תמיד דברים טובים ‪ ,‬גם לעורך דין אלישע פלג וגם לקובי נודלמן שנתנו שירות"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ר שבע‬ ‫ישיבת מועצה מן המניין מס' ‪ 11‬מיום ‪22.7.2009‬‬ ‫זאב פריימן ‪:‬‬ ‫אני חושב שאתה קצת מתפרץ לדלת פתוחה ‪ ,‬אם בכלל יש פה דלת ‪ .‬אני חוש ב‬ ‫שאליזה צודקת ‪ ,‬עם זה אתה היית צריך לפנות לוועדה שמטפלת בדבר"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ורה לדפדף בפרוטוקולים ולראות‪ .‬אני רק רוצה לחדד ולהדגיש‪ .‬מבחינתנו ההצעה לסדר‬ ‫הזאת היא התפרצות לדלת פתוחה‪ .‬אם תחזרו ותעיינו בפרוטוקולים של ועדת חינוך נדמה‬ ‫לי השנייה‪ ,‬הנושא הזה נכנס לסדר היום‪ ,‬אושר‪"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ת‬ ‫הכללים‪ ,‬הוא יודע את החוקים‪ ,‬הוא יודע את התקנות‪ ,‬אני מוכרח לציין באופן אישי שזכיתי‬ ‫ממנו לדלת פתוחה‪ ,‬לאוזן קשבת‪ ,‬יודעים את הכול‪ .‬עשינו את כל מה שצריך לעשות‪ ,‬אמרתי‬ ‫בתקופה האחרונה‪ .‬ההידברות"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "רזים להפעלת מזנונים במוסדות‬ ‫חינוך‪ .‬עכשיו‪ ,‬זכריה‪ ,‬אני חייב לומר שההצעה לסדר שלך בעצם התפרצת לדלת פתוחה‬ ‫ולמזלי זה היה עוד לפני שהצעת את ההצעה לסדר‪ ,‬כיוון שנדמה לי שמשהו בסביבות לפני‬ ‫שבוע‪,‬‬ ‫זכריה"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "עוסקים בזה‪ .‬ואני רוצה להציע לכל חבר מועצה שיש לו יוזמה‪ ,‬שיש לו רעיון‪,‬‬ ‫ימצא אצלי אוזן קשבת ודלת פתוחה‪ .‬אי אפשר להתחיל להקים ועדות וליצור כל מיני דברים‬ ‫כאלה שזה סתם‪ ,‬יסרבלו את כל העסק הזה‪ .‬אני מ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "שו אני לא יודע אם כל ראש רשות ברחבי מדינת ישראל נמצא‬ ‫פעם בשבוע‪ ,‬פעם בשבועיים במשרד האוצר ויש לו דלת פתוחה‪ .‬יהיו הטבות ייעודיות‬ ‫לחברות שיגיעו לבאר שבע‪ .‬זאת אומרת‪ ,‬גם נלמד מסיפור ‪ ,E.C.I‬עוד פעם חשו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‬בוא‪ ,‬אני מציע‪ ,‬אנחנו עכשיו בנושא המחזור‪.‬‬ ‫אם יהיה משהו קונקרטי בדברים אחרים אתה יודע שיש לך דלת פתוחה‪ .‬בבקשה‪ ,‬בוא‬ ‫תסכם‪ ,‬כי יש עוד הרבה אנשים שרוצים להתבטא‪ .‬בבקשה‪.‬‬  ‫\u0007\u0007‬  \f‫עיריית באר שבע‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "אמר לשר‬ ‫האוצר? קיבלו אותי יפה‪ ,‬התייחסו אליי‪ ,‬אתה יודע‪ ,‬ראשי הערים האלה מקבלים את‬ ‫האנשים הדלת פתוחה‪ ,‬אין פלדלת‪ ,‬אז הם באים לשמה לפעמים‪ ,‬לנו לא באים כי יש‬ ‫פלדלת‪ .‬אז פה אני מבקש לא לעשות את ה"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ם אמרתי‪.‬‬ ‫יוסי שלי‪:‬‬ ‫זה החברה למסחר ותעשייה?‬ ‫רוביק דנילוביץ'‪:‬‬ ‫זה בעצם לקבל את היזמים עם דלת פתוחה‪ ,‬לפרוש בפניהם מה הם יכולים‪ ,‬שטיח ירוק‬ ‫וכל הדברים האלה‪ ,‬לעודד‪.‬‬ ‫יוסי שלי‪:‬‬ ‫זה דבר חדש?"}, {"org": "דלת פתוחה", "risk": "high", "snippet": ",‬חושב שאתה מדבר לעניין בשאילתה הזו‪ ,‬אני איתך עד הסוף‪ .‬אם העלית את‬ ‫זה‪ ,‬אתה יודע מה? התפרצת לדלת פתוחה‪ .‬אני חושב שצריך לקבל תשובה עניינית לא אם‬ ‫אתה יש לך‪ ,‬אם אתה אלוף העולם‪ ,‬היית מח\"ט בשיריון או"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "י שיכול להיות קרוב ביותר לתת מענה‪.‬‬ ‫רוביק דנילוביץ'‪:‬‬ ‫טוב‪ ,‬חברים יקרים‪ ,‬קודם כל \"התפרצתם לדלת פתוחה\"‪ .‬אנחנו עוסקים בנושא הזה‬ ‫בחודשים האחרונים‪ .‬יצאו שתי פניות כבר למשרד הפנים ביוזמה שלנו‪ .‬לצער"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "העניין של ליחצ\"ן את‬ ‫התחום החברתי בצורה שזה ראוי‪.‬‬ ‫הרב גדי מאזוז‪:‬‬ ‫דליה‪ ,‬אני מזמין אותך והדלת פתוחה לקבל ממך ייעוץ מהניסיון הגדול שלך‪.‬‬ ‫רוביק דנילוביץ'‪:‬‬ ‫תודה רבה‪ .‬טל אל על בבקשה‪,‬‬ ‫טל אל ע"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‫טוב‪ ,‬חיים רוצה להעיר משהו‪.‬‬ ‫עו\"ד חיים טורקל‪:‬‬ ‫אני אומר זכריה בנושא הזה לדעתי אתה 'התפרצת לדלת פתוחה' ושלא יתפרצו אחרים‬ ‫לדלת הפתוחה הזאת‪,‬‬ ‫זכריה אוהב שלום‪:‬‬ ‫‪37‬‬  \f‫עיריית באר שבע‬  ‫ישיבת מו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "מסחר‪ ,‬יש את אדון יחיאל שהוא ממונה על ההכנסות של העירייה לבעלי עסקים‬ ‫בארנונה ואנחנו יושבים אתו והדלת פתוחה ויתרה מכך‪ ,‬אני חושב שבצורה מכובדת אנחנו‬ ‫משיגים הרבה יותר ואני רוצה להגיד לך שאחת הסיבות שאני יו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "נחנו רוצים משהו‪.‬‬ ‫טל אל על‪:‬‬ ‫עופר‪ ,‬חפצי רק התייחסות מאוד מאוד קצרה‪ .‬עופר‪ ,‬אתה לא מתפרץ לדלת פתוחה אתה‬ ‫מתפרץ לרבע דלת פתוחה אבל זה בהחלט רעיון ששווה לשקול אותו בצורה משמעותית‬ ‫כמדיניות‪ ,‬בוא‪ ,‬"}, {"org": "מכון שלום הרטמן", "risk": "medium", "snippet": "בסך של ‪ 1.2‬מיליון ‪ ₪‬עבור פעילות פינוי פסולת למחזור ע\"י חברת‬ ‫קמ\"מ‪.‬‬  ‫אושר‬ ‫‪ .4‬מענק בארי מכון שלום הרטמן בסך של ‪ ₪ 150,000‬עבור תוכנית ללימוד תרבות ישראל והעמקת‬ ‫הזהות היהודית‪-‬ישראלית במקיף א'‪ ,‬מקיף"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ון‪ ,‬על זה קודם כל שהם סבלו אותי‪ ,‬כי אני עסקת חבילה יחד עם תיק איכות‬ ‫הסביבה‪ .‬על זה שהייתה לי דלת פתוחה‪ ,‬שהם הקשיבו‪ ,‬שמעו‪ ,‬שקידמנו דברים‪ ,‬התחלנו‬ ‫איזשהו תהליך שאני מרגישה שהוא בעיצומו‪ ,‬אז בגלל"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ד גם דברים זה‪ ,‬אני לא אענה כאן על דברים פרטניים‪ .‬תרצה‪ ,‬אתה‬ ‫יודע איך להגיע אלי‪ .‬אתה יודע שהדלת פתוחה בפניך‪ .‬יהיו דברים פרטניים‪ ,‬נבחן אותם‬ ‫לגופו של עניין‪ .‬אני לא חושב שצריך להעסיק את כל חברי מו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ו נעשה עכשיו בדיקה שלנו‪ .‬אנחנו נחייב אותם לפתוח את החניון הזה‪ .‬אין כזה‬ ‫דבר היו אצלי התושבים \"בדלת פתוחה\"‪ .‬כבר הנושא לפני כ‪ 10 -‬ימים‪ ,‬עכשיו נמצא‬ ‫בבדיקה‪.‬‬ ‫הרב גדי מזוז‪:‬‬ ‫אני זוכר בוועדת בניין"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "ע‬ ‫פרוטוקול ישיבת מועצה מן המניין מס' ‪45‬‬ ‫ביום רביעי‪ ,‬י' אייר תשע\"ו‪18.5.16 ,‬‬  ‫‪ .11‬תרומת קרן מנדל בסך של ‪ ₪ 792,394‬עבור השלמת הלונדע ( פערים בגין הפרשי‬ ‫הדולר ‪ -‬המענק אושר במועצה ‪ 3‬מיום ‪ 11"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "דברים‪ .‬אם יש מנהלים כאלה‬ ‫שבאמת במקום לפנות לזהבה ולחפצי פנו אליך‪ ,‬זה הדבר החמור‪ .‬למה? יש פה דלת פתוחה ויש פה את‬ ‫פורום המנהלים‪.‬‬ ‫משה ינאי‪:‬‬ ‫או שאולי פנו ולא קיבלו מענה‪.‬‬ ‫רוביק דנילוביץ'‪:‬‬ ‫"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "קשה מאוד‪.‬‬ ‫יסמין סקס פרידמן‪:‬‬ ‫לא‪ ,‬לא‪ .‬אני באמת רוצה להגיד תודה‪ .‬מענה מהיר‪ ,‬מקצועי ‪ .‬דלת פתוחה כל הזמן‪ .‬קשוב בכל שעה‪.‬‬ ‫דובר‪:‬‬ ‫‪...‬‬ ‫יסמין סקס פרידמן‪:‬‬ ‫לא‪ ,‬סליחה‪ .‬אני חייבת‪ .‬אי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "בעיות לבירור‪ ,‬נקודה ! תודה !‬ ‫רוביק דנילוביץ'‪:‬‬ ‫אז דלתה של מנכ\"לית יעדים ושל היועץ המשפטי‪ ,‬הדלת פתוחה לכל אחד לתמיד‪ ,‬כל‬ ‫הזמן‪ ,‬לבוא‪ ,‬לשבת‪ ,‬להקשיב‪ ,‬אם אפשר לעזור על פי חוק – תעזרו ותסייעו למי"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "רביעי‪ ,‬ו' באב תשע\"ט ‪07.08.19‬‬ ‫‪ .18‬תקציב בסך של ‪ ₪ 70,485000‬עבור פרויקט נגב ‪: ZOO‬‬ ‫מענק קרן מנדל באמצעות קרן ב\"ש בסך של ‪ $ 20,000,000‬אמריקאי ( לפי ‪₪ 3.5‬‬ ‫לדולר) וכן השתתפות הרשות מהקרן לעבודו"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "התיקים‬ ‫שהתקבלו‬ ‫ורשימת החלוקה‬ ‫המדויקת ‪-‬‬ ‫לתיוק בתיק‬ ‫התרומה‬  ‫ממליצים לאשר‬ ‫את התרומה‬  ‫קרן מנדל‬  ‫תרומה כספית להקמת‬ ‫מרכז לבעלי חיים‬ ‫מדבריים‬  ‫‪ 20‬מיליון ‪$‬‬  ‫התיקים‬ ‫מועברים‬ ‫לאגף‬ ‫הר"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‫‪ ‬הכשרת פעילי בריאות בשכונות‬ ‫‪ ‬קבוצות הליכה לאזרחים וותיקים‬ ‫‪ ‬חינוך למיניות בריאה(חשיפת דלת פתוחה בוועדה הבאה)‬ ‫‪ ‬מזון בריא במובן הרחב‪-‬יום ללא בשר‪ ,‬הגברת השימוש היומיומי במזון‬ ‫בריא(שיתוף פ"}, {"org": "חינוך למיניות בריאה", "risk": "high", "snippet": "גבי ביטוח מתאמנים בפארקים‬ ‫‪ ‬הכשרת פעילי בריאות בשכונות‬ ‫‪ ‬קבוצות הליכה לאזרחים וותיקים‬ ‫‪ ‬חינוך למיניות בריאה(חשיפת דלת פתוחה בוועדה הבאה)‬ ‫‪ ‬מזון בריא במובן הרחב‪-‬יום ללא בשר‪ ,‬הגברת השימוש היומיומי במזו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "אני רוצה להגיד לך שההצעה שלך היא במקומה‪ ,‬ויש מה לעשות עם‬ ‫הדבר הזה‪ .‬אנחנו גם 'נפלנו' מה שנקרא לדלת פתוחה‪ ,‬אני ויוסי בן עמי דיברנו לא פעם‬ ‫על הדבר הזה שאנחנו רוצים לקדם‪ .‬זה נמצא אצל ראש העיר‪.‬‬ ‫רובי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "נו בבחינה גם ככה של הנושא הזה‪.‬‬ ‫משה ינאי‪:‬‬ ‫או קיי‪.‬‬ ‫רוביק דנילוביץ'‪:‬‬ ‫בנושא הזה התפרצת לדלת פתוחה‪ ,‬זה נמצא כבר בבחינה מס' חודשים‪.‬‬  \f‫עיריית באר שבע‬ ‫ועדת כספים מס' ‪ 17/341‬מיום ‪04.12.19‬‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "אים בה היום‪ ,‬תקופת הקורונה‪.‬‬ ‫רוביק דנילוביץ'‪:‬‬ ‫תודה‪ .‬אני מוכרח להתייחס‪ ,‬משה באמת התפרץ לדלת פתוחה‪ ,‬הוא שוחח איתי אתמול על‬ ‫הנושא הזה‪ .‬וחשוב לי שתדעו‪ ,‬אנחנו מאוד ערים לנושא הזה‪ .‬איך שהחלה ה"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "גם ינאי מציין‪ ,‬שיתופי פעולה בלתי רגילים‪ .‬כמו שתמיד אמרתי‪,‬‬ ‫אנחנו כחברי מועצה צריכה להיות לנו דלת פתוחה‪ ,‬למנהלי האגפים‪ .‬הכל בשקט‪,‬‬ ‫בצניעות‪ ,‬בלי פרסומות‪ ,‬בלי עיתונות‪ ,‬בלי שום דבר‪ ,‬ובלי לערב"}, {"org": "שער שוויון", "risk": "moderate", "snippet": "בוגר תוכנית מנדל למנהיגות בנגב‪.‬‬ ‫התנדבתי בעמותת עמך הפועלת לרווחת ניצולי השואה‪ .‬התנדבתי בעמותת שער שוויון‬ ‫ואימנתי כדורגל תלמידים מבית הספר חזון עובדיה‪ .‬אני הבעלים של בית הקפה לולה‬ ‫בעיר העתיקה‪ .‬במהל"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "רכז גני ילדים\"‪.‬‬ ‫‪ .2‬דיון בחלוקת תמיכות לתחום סל ספורט‪.‬‬ ‫‪ .3‬דיון בבקשת תמיכה שהגישה עמותת 'יסודות לצמיחה דרור'‪.‬‬ ‫‪ .1‬עדכון בנוגע לבקשת התמיכה של עמותת \"מרכז גני ילדים\" ‪580217263‬‬ ‫העמותה הגישה השנה‪ ,‬לר"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "מניין מס' ‪68‬‬ ‫מיום רביעי‪ ,‬ח' אדר א' תשפ\"ב‪09.02.2022 ,‬‬  ‫מרכז מנדל למנהיגות בנגב‪ ,‬הוקם ע\"י קרן מנדל ומטרתו שפור איכות החיים של תושבי‬ ‫הנגב‪ -‬שוכן בבאר שבע‪.‬‬ ‫מבקש‪/‬ת‪ :‬ד\"ר עדי ניר שגיא‪ ,‬מנ' מ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "עמותה\" יקיר לי\"‪ -‬שכול אזרחי‬ ‫אני אבא של דסי ‪ ,‬דסי נפטרה לפני ‪ 25‬שנה ‪ .‬רעייתי ואנוכי הפכנו לדלת פתוחה ויצאתי‬ ‫למסע להעלות את המודעות השכול שבאה מכוון הסרטן במחלקה אונקולוגית ירושלים‬ ‫לארגוני החברה הא"}, {"org": "מכללת בית ברל", "risk": "medium", "snippet": "ד הפועל של‬ ‫ההסתדרות‪ .‬למד באוניברסיטה העברית היסטוריה כללית‪ ,‬כלכלה וסוציולוגיה‪ .‬היה ממקימי‬ ‫מכללת בית ברל‪ ,‬לימד שם סוציולוגיה והיה מנהלו בפועל בשנים ‪.1957–1955‬‬ ‫ידלין הוצב במקום ה‪ 48-‬ברשימת מפא\"י לכ"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "יש הגישה לפרויקט \"מדבריום\" מכביש ‪ 25‬על שם מורטון מנדל (‪ ,)2019-1921‬מייסד עם אחייו ג'ק וג'ו‬ ‫את קרן מנדל ומרכז מנדל למנהיגות בנגב‪.‬‬ ‫אושר במועצה מס' ‪ 68‬מ‪. 9.2.2022-‬‬ ‫‪.5‬קריאת כיכר תנועה ברחוב מקס"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "קלמן חדד‪:‬‬ ‫לא‪ ,‬זה יום עיון כזה‪ ,‬אוקיי?‬ ‫גדי מזוז‪:‬‬ ‫לא צריך‪.‬‬ ‫עו\"ד מינה קלמן חדד‪:‬‬ ‫דלת פתוחה של אגף ההנדסה‪.‬‬ ‫רוביק דנילוביץ'‪:‬‬ ‫יום עיון עושים כשיש תוכנית מתאר חדשה‪ ,‬כשעושים שינויים דרמ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‬הבת שלי בת ‪ ,18‬האמצעית והקטנה בת ‪ ,12‬ושתיהן לא נשארות לבד בבית‪ .‬ילדה בת‬ ‫‪ 18‬היא מתקלחת עם דלת פתוחה‪ ,‬בסדר? החיים שם גיהינום‪ .‬כשמשטרה מגיעה‪ ,‬הרי זה משת\"פים‪,‬‬ ‫אז הם לא רואים אותם ממטר‪.‬‬ ‫רוב"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "עצת העיר‪ ,‬אני בשמחה‪ ,‬זאת הבמה להתדיינות‪ ,‬אבל חשוב לי שתקשיבו למה שאני אומר‪,‬‬ ‫וזאת התפרצות לדלת פתוחה‪ ,‬כי במקרה חשוב לי שתקשיבו חברים‪ ,‬אליעזר‪ ,‬חשוב לי שתקשיבו‬ ‫כי במקרה השבוע‪ ,‬הייתה פגישה עם נ"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "ין התאריכים ה‪ 3‬עד ה‪ 6‬באפריל תצא ד\"ר חפצי זוהר‪,‬‬ ‫אמתכם הנאמנה‪ ,‬סגנית ומ\"מ ראש העיר להשתלמות קרן מנדל תוכנית מעמקים בפריז‪ ,‬ללא כל‬ ‫בקשת עלויות מהרשות‪ .‬בשל חופשת החג משרדי העירייה יהיו סגורים מיום"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "ם‬ ‫בשווי כולל‬ ‫של ‪1000‬‬ ‫ש\"ח‬  ‫‪ JNF‬קנדה‬ ‫באמצעות קרן‬ ‫באר שבע‬  ‫אוניברסיטת‬ ‫בן גוריון‬  ‫קרן מנדל‬ ‫באמצעות קרן‬ ‫באר שבע‬  ‫התרומה‬ ‫מיועדת‬ ‫לחיזוק ילדי‬ ‫ביה\"ס חזון‬ ‫עובדיה‬ ‫בשכונה ג'‬ ‫תרומה‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "הבנה בין שני הרבנים‪ ,‬חבל שכבוד הרב לא‬ ‫נמצא כאן‪ ,‬לא פעם אחת‪ ,‬לא רק שציינו‪ ,‬היית יכול לראות דלת פתוחה‬ ‫לשני הרבנים ולא חשוב מאיזו עדה ומאיזה מקום אתה בא‪ .‬על כל שאלה‬ ‫ותשובה קיבלת בסבר פנים יפות את"}, {"org": "אפשר אחרת", "risk": "high", "snippet": "‪.‬‬  ‫גם אצלי‬  ‫יש מחלקת הדרכה לעובדים‪.‬‬  ‫מעט עובדים יש לי‪•,‬־‬  ‫אבל יש לי הדרכה קבועה‪ .‬אי אפשר אחרת‪ ,‬וגם בחינת שיטות‬ ‫זה הכל השתנה‪ ,‬זה לא אותם טפסים‪,‬‬  ‫עבודה‪* .‬‬  ‫וזה לא אותם דרכי החלטות‪."}], "אפרת": [{"org": "דלת פתוחה", "risk": "high", "snippet": "‪ 18‬משפחות יהיה ‪ ,80‬הבעיה תהיה יותר חריפה ולא פחות‪.‬‬ ‫עודד רביבי‪:‬‬  ‫מנחם בואו אתם מתפרצים לדלת פתוחה‪ ,‬אני‪ ,‬אני הבן אדם שנותן את‬ ‫תשומת הלב והליווי וההדרכה‪ .‬אבי הביא את הדוגמה של מנורת המאור‪,‬‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": ":‬‬  ‫מותר לנו לעשות?‬  ‫עודד רביבי‪:‬‬  ‫דבר ראשון הבקשה שלך תגיע‪ ,‬דבר שני אני אומר אתם מתפרצים לדלת פתוחה‪,‬‬ ‫כי כבר בכתובים יש תיעוד של תכתובת שלי אליו להאיץ את הקצב‪ ,‬בגלל פניות‬ ‫שאני קיבלתי ממשרד הפנ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "זה חיסכון בכסף מזומן של המועצה שיכול לפנות כספים כבר ב‪.2020 -‬‬  ‫עודד רביבי‪:‬‬  ‫דובי אתה מתפרץ לדלת פתוחה‪ ,‬אנחנו בקטע של המחזור תמיד מתגאים בלהגיד‬ ‫שבאפרת בעבר לפחות ייצרו חצי מכמות הפסולת הממוצעת לבתי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "קודם כל‬ ‫חשוב שתדעו שהיה פה רצון כן ואמיתי‪ ,‬אני אומר את זה כחבר מועצה שפעל‪,‬‬ ‫ואני הרגשתי כן שהדלת פתוחה‪ .‬והיום בבוקר בלי שנקבעה מראש פגישה הגענו‬ ‫פה למשרדים של המועצה‪ ,‬וקיבלו אותנו באמצע היום באמצע"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "יהודה שווייגר‪ :‬כמו שכל בקשה גם אם זה לא בכיתה ז'‪.‬‬ ‫מנחם שפיץ‪:‬‬  ‫ואין לו רצון ‪ - - -‬כאילו בדלת פתוחה?‬  ‫עודד רביבי‪:‬‬  ‫לא‪ ,‬ממש לא‪.‬‬  ‫מנחם שפיץ‪:‬‬  ‫ממש לא?‬  ‫עודד רביבי‪:‬‬  ‫לא‪ .‬הוא מבין"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "מקום ואחר כך לבדנר שלקחת את המושכות‪ ,‬וצורי כיושב ראש הנהלה‪ .‬ההערה האחרונה‬ ‫שלך‪ ,‬היא מתפרצת לדלת פתוחה‪ .‬אנחנו נמצאים כרגע באחד הפרויקטים האחרונים שיהודה רוצה‬ ‫להשלים לפני שהוא מסיים את התפקיד‪ .‬לחתי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "להיות במדים‪ ,‬זיהוי בוודאי שכן עם תג‪ ,‬אם אתה שואל אותי אישית‪-‬‬ ‫ד\"ר אילן דיין‪ :‬אז אתה מתפרץ לדלת פתוחה שיש לי תג ואני נכנס עם התג הזה ואני אומר להם \"שלום‪ ,‬אני‬ ‫מהשירות הווטרינרי\"‪.‬‬ ‫חנוך וולפה‪ :‬ב"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לות עד ‪ 24‬לילד‪ .‬אנחנו לא שואלים שום שאלה‪ .‬אם בן אדם‬ ‫התקשר ומרגיש שהמצב הבטחוני משפיע עליי והדלת פתוחה‪ .‬זה מסלול עוקף בירוקרטיה‪ .‬בעצם‪ ,‬ביטוח‬ ‫לאומי קורא לזה נוהל חרדה‪ .‬בשפה של מטפלים אנחנו קורא"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לות עד ‪ 24‬לילד‪ .‬אנחנו לא שואלים שום שאלה‪ .‬אם בן אדם‬ ‫התקשר ומרגיש שהמצב הבטחוני משפיע עליי והדלת פתוחה‪ .‬זה מסלול עוקף בירוקרטיה‪ .‬בעצם‪ ,‬ביטוח‬ ‫לאומי קורא לזה נוהל חרדה‪ .‬בשפה של מטפלים אנחנו קורא"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "שאם חברי מועצה רוצים להצטרף זה מעולה‪ .‬פעם‬ ‫שעברה אבי היה איתי‬ ‫דובי שפלר [ראש המועצה]‪ :‬עדיין הדלת פתוחה לחברי המועצה להצטרף חוץ ממה שהוצע‪ .‬זאת זכותם‬ ‫המלאה‪.‬‬ ‫צורי דותן [חבר מועצה]‪ :‬פעם שעברה היו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ם‪ ,‬אז זה מתחיל אפילו בדבר נורא נורא בסיסי‪ ,‬של יחס אישי‪ .‬לראות את העובד‪ ,‬להקשיב לו‬ ‫ולנהוג בדלת פתוחה‪ .‬אז זה באמת אחד הדברים שאנחנו נעבוד עליהם‪ ,‬ממשיכים לעבוד‪ .‬חיזוק מחוברות‬ ‫ארגונית גם‪ ,‬ככל ש"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "עמים‪.‬‬ ‫חנני פייגין [חבר מועצה]‪ :‬לא‪ ,‬לא בגלל זה הסברתי את עצמי‪.‬‬ ‫אמיר בן גל‪ :‬אז מבחינתי הדלת פתוחה בשמחה רבה‪ ,‬אני אוהב אנשים סך הכול‪.‬‬ ‫צורי דותן [סגן ראש המועצה ומ\"מ]‪ :‬אני אגיד כמה דברים‪ ,‬ק"}, {"org": "אפשר אחרת", "risk": "high", "snippet": "אבל משרד הפנים רוצה את כל הרשויות‪.‬‬ ‫עו\"ד עקיבא סילבצקי [יועמ\"ש המועצה]‪ :‬משרד הפנים דורש‪ .‬לא מאפשר אחרת‪ .‬אין מה לעשות‪.‬‬ ‫ישי יעקב פליישר [חבר מועצה]‪ :‬אם היית אומר לי שזה לפי נפשות‪ 5 ,‬נפשות ככה‪ ,"}], "גבעתיים": [{"org": "דלת פתוחה", "risk": "high", "snippet": ",‬לסיכומו של דבר‪ ,‬הסברתי פה ובטח קראתם את החשיבות של‬ ‫הדבר הזה‪ .‬אבל אני באמת מקווה שאני מתפרץ לדלת פתוחה ונוכל לקדם את הדבר‬ ‫הזה‪ .‬וכמובן אני אשמח להירתם בכל דרך‪ .‬תודה‪.‬‬ ‫מר מושיק גולדשטיין‪ :‬אני ב"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "דרגים המקצועיים לחדש את חידוש פרויקט \"חניית אקספרס\"‪.‬‬ ‫ראש העיר הגיב ליו\"ר האופוזיציה‪\" :‬התפרצת לדלת פתוחה אבל אני מפרגן‪ ,‬כי זו באמת‬ ‫הייתה יוזמה שלך‪ ,‬ואנחנו נצביע בעד‪ ,‬כי אנחנו הולכים לעשות את זה גם"}, {"org": "דלת פתוחה", "risk": "high", "snippet": ",‬לסיכומו של דבר‪ ,‬הסברתי פה ובטח קראתם את החשיבות של‬ ‫הדבר הזה‪ .‬אבל אני באמת מקווה שאני מתפרץ לדלת פתוחה ונוכל לקדם את הדבר‬ ‫הזה‪ .‬וכמובן אני אשמח להירתם בכל דרך‪ .‬תודה‪.‬‬ ‫מר מושיק גולדשטיין‪ :‬אני ב"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‫יצוץ יש מאין‪ .‬אלא לעשות משהו אקטיבי כדי לקבל את זה‪.‬‬ ‫מר רן קוניק‪ :‬חבר'ה‪ ,‬לא צריך להתפרץ לדלת פתוחה‪ .‬ולא צריך לומר דברים שהם‬ ‫מובנים מאליהם‪ .‬אני חושב שגבעתיים‪ ,‬עם כל הכבוד‪ ,‬ניר‪ ,‬עם כל הכבו"}, {"org": "אפשר אחרת", "risk": "high", "snippet": "קפלן‪ :‬אני לא מתכוון להפריע ולא להתפרץ‪.‬‬ ‫מר רן קוניק‪ :‬כל פעם שתבקש לדבר תבקש אישור‪ .‬פשוט אי אפשר אחרת לנהל ישיבה‬ ‫בזום כשאני מדבר ואתה מתפרץ ואתה מדבר ואני מתפרץ‪.‬‬  ‫‪6‬‬  \f‫מר רונאן אפנר‪-‬קפלן‪ :‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‫מר רן קוניק‪ :‬אנחנו החלטנו הרי ביחד שנעשה את זה‪ .‬וזה לא היה מתאים לפני‬ ‫הבחירות‪ .‬קצת התפרצת לדלת פתוחה אבל אני מפרגן‪ ,‬כי זו באמת היתה יוזמה שלך‪.‬‬ ‫ואנחנו נצביע‪ .‬כי אנחנו הולכים לעשות את זה גם ככה‪"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‪ .‬אני אגיד בנוסף לזה למה זה הועלה גם לשולחן מועצת העיר‪ .‬ייאמר לזכותו‬ ‫של מנכ\"ל העירייה שיש לנו דלת פתוחה בנושאים מקצועיים וכו'‪ .‬בחודשיים האחרונים‬  ‫‪33‬‬  \f‫פשוט לא יצא לנו לשבת לאיזושהי פגישה מסודרת‪"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "נים את שבוע השוויון לאנשים עם מוגבלות והצבע הפך לסגול‪ .‬יפה‪,‬‬ ‫כן‪ .‬גם פה‪ ,‬מגוון פעילויות‪ .‬הדלת פתוחה שם? אם אפשר לסגור‪ ,‬תודה‪ .‬עם מגוון‬ ‫פעילויות‪ .‬ורק לפני יומיים היה גם אירוע מאוד מוצלחות למשפח"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ישירה מול משרד התחבורה ומול הרשויות הרלוונטיות‪.‬‬ ‫גב' אור‪-‬לי ניב‪ :‬תודה‪ ,‬ניר‪ .‬אז התפרצתם לדלת פתוחה‪ ,‬כי ממש בקרוב יוצא מכרז‬ ‫למנהל מחלקת תנועה ותחבורה‪.‬‬ ‫מר ניר קורן‪ :‬גם על הספריות בשבת אמרתם"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "דרגים המקצועיים לחדש את חידוש פרויקט \"חניית אקספרס\"‪.‬‬ ‫ראש העיר הגיב ליו\"ר האופוזיציה‪\" :‬התפרצת לדלת פתוחה אבל אני מפרגן‪ ,‬כי זו באמת‬ ‫הייתה יוזמה שלך‪ ,‬ואנחנו נצביע בעד‪ ,‬כי אנחנו הולכים לעשות את זה גם"}], "חיפה": [{"org": "דלת פתוחה", "risk": "high", "snippet": "‬‬ ‫‪2‬‬ ‫‪3‬‬ ‫‪3‬‬ ‫‪2‬‬ ‫‪134‬‬  ‫‪ .5‬רווחה‬ ‫האגודה הישראלית לתכנון המשפחה ‪ -‬מרכז ארצי (ע\"ר) דלת פתוחה‬ ‫ספקטר ‪ -‬המרכז לרפואה מונעת איכות הסביבה‬ ‫האגודה לסוכרת נעורים בישראל‬ ‫קרן עזר ליולדת‬  ‫‪4‬‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "בנייה‪.‬‬ ‫ד\"ר עינת קליש‪-‬רותם‬ ‫אז לא רק שמשרד התחבורה לא חתום‪ ,‬נשמע כאילו שהוא והאוצר משאירים דלת פתוחה להתנער‬ ‫מההתחייבות לרמ\"י‪ .‬בסוף טיוטת ההסכם בין רמ\"י‪ ,‬האוצר ועיריית חיפה שזה עמוד שש‪ ,‬הפיסקה‬"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ש מערכת חינוך‪ ,‬תרבות‪ ,‬רווחה ושירותים קהילתיים‬ ‫אני רק רוצה להגיד שלגבי תכנית הניקיון הוא נכנס לדלת פתוחה‪ ,‬יונה חזר מיפן והוא היה נפעם‬ ‫מהניקיון ששם וישבנו כבר על זה‪ ,‬אילנה וגמן שנמצאת פה תוביל השנה ב"}, {"org": "דלת פתוחה", "risk": "high", "snippet": ")‬ ‫‪7‬‬ ‫יחד – העמותה לחייל הבודד (ע\"ר)‬ ‫‪16‬‬ ‫האגודה הישראלית לתכנון המשפחה ‪ ,‬מרכז ארצי (ע\"ר) דלת פתוחה חיפה‬ ‫‪9‬‬ ‫קרן נפש כל חי (ע\"ר)‬ ‫‪8‬‬ ‫התאחדות עולי רומניה בחיפה (ע\"ר)‬ ‫‪8‬‬ ‫זקא – איתור חילוץ"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "לחינוך (ע\"ר)‬ ‫בית ‪ 9‬בית ספר ובית יוצר לתיאטרון בובות בגליל (ע\"ר)‬ ‫בית יעקב – תהילה חיפה (ע\"ר)‬ ‫יסודות לצמיחה דרור (ע\"ר)‬ ‫ארגון המהנדסים והאדריכלים עולים (ע\"ר)‬  ‫‪46‬‬  \f‫עירית חיפה‬ ‫התקציב‬ ‫באלפי ש''ח‬  ‫שם הג"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ידה ומדובר בפעילויות יקרות‪.‬‬ ‫גב' חדוה אלמוג‪ ,‬סגנית ומ\"מ ראש העיר‬ ‫אני אגיד רגע‪ ,‬היא התפרצה לדלת פתוחה‪ ,‬תתני את ההמשך‪.‬‬ ‫גב' אילנה טרוק‪ ,‬ראשת מינהל החת\"ר‬ ‫אני אקדים‪ ,‬מנכ\"ל העירייה הקצה לשם שטח‪"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "(ע\"ר)‬ ‫‪7‬‬ ‫יחד ‪ -‬העמותה לחייל הבודד (ע\"ר)‬ ‫האגודה הישראלית לתכנון המשפחה ‪ ,‬מרכז ארצי (ע\"ר) דלת פתוחה‬ ‫‪13‬‬ ‫חיפה‬ ‫‪13‬‬ ‫קרן נפש כל חי (ע\"ר)‬ ‫‪7‬‬ ‫התאחדות עולי רומניה בחיפה (ע\"ר)‬ ‫‪7‬‬ ‫זקא ‪ -‬"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "(ע\"ר)‬ ‫ידיד לחינוך (ע\"ר)‬ ‫בית יעקב ‪ -‬תהילה חיפה (ע\"ר)‬ ‫ארגון המהנדסים והאדריכלים עולים (ע\"ר)‬ ‫יסודות לצמיחה דרור (ע\"ר)‬ ‫אגודת שערי דעה (ע\"ר)‬  ‫‪45‬‬  ‫התקציב‬ ‫באלפי ש''ח‬  ‫ביצוע בפועל ‪2018‬‬ ‫באלפי ש''ח‬  ‫‪"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ים להגיע לשם‪ ,‬הלוואי ונגיע לאפס‪ ,‬אבל אנחנו חייבים לשאוף למקום הזה‪ ,‬אז קודם כל‬ ‫אתה מתפרץ פה לדלת פתוחה‪ ,‬אנחנו נתחיל‪ ,‬דרך אגב‪ ,‬הדבר הראשון שנעשה זה לעבור‬ ‫באזורים הומי ילדים‪ ,‬בתי ספר וכל האזורים"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ר)‬ ‫בית חב\"ד כרמל ‪ -‬אחוזה שע\"י צעירי אגודת חב\"ד (ע\"ר)‬ ‫ערוגות המרכז לקידום הילד והמשפחה (ע\"ר)‬ ‫דלת פתוחה לקידום מיניות בריאה (ע\"ר)‬ ‫קרן נפש כל חי (ע\"ר)‬ ‫התאחדות עולי רומניה בחיפה (ע\"ר)‬ ‫זקא ‪ -‬איתור ח"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‬‬ ‫‪11‬‬ ‫‪10‬‬  \f‫עירית חיפה‬ ‫שם הגוף הנתמך או המתוקצב‬ ‫ארגון המהנדסים והאדריכלים עולים (ע\"ר)‬ ‫יסודות לצמיחה דרור (ע\"ר)‬ ‫אגודת שערי דעה (ע\"ר)‬ ‫המדרשה לחקר ולימודי היהדות חיפה‬ ‫פותח שערים (ע\"ר)‬ ‫דרור ‪ -‬בתי חי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": ",‬זה דבר ראשון‪ ,‬אני מאחל לו בהצלחה‪ .‬דבר‬ ‫שני‪ ,‬הייתה מסורת שלפחות המנכ\"ל הקודם הנהיג אותה של דלת פתוחה לחברי המועצה‪ ,‬אני‬ ‫ישיבה שלא מן המניין של מועצת העיר חיפה‪ 14‬בפברואר ‪2019‬‬  \f‫‪107‬‬ ‫הייתי ח"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "רותם‪ ,‬ראש העיר‬ ‫הם באו לשאול‪ ,‬אני אמרתי להם שאני מבקשת זמן לבדוק את זה‪ .‬חבל שמתפרצים ככה‬ ‫לדלת פתוחה‪ .‬שום דבר לא השתנה‪ .‬כשיהיה פארק הייטק בצ'ק פוסט‪ ,‬ואני רוצה פה רק‬ ‫להגיד מה אני חושבת על התוכנ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "י מייסדים‪ ,‬אני השאלה שלי היא‬ ‫כלפייך‪ ,‬אני רוצה להבין איך זה נעלם‪.‬‬  ‫מר יוסי שלום‬ ‫יש לו שם דלת פתוחה‪ ,‬לא?‬  ‫גב' סופי נקש‬ ‫סליחה גיל‪ ,‬סליחה‬  ‫מר יוסי שלום‬ ‫אתה רוצה גם להגיד לה מה להגיד?‬  ‫גב'"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "רגע‬ ‫שאתם הגעתם ועשיתם הכל כדי לחבל במערכת היחסית שנוצרה מול משרד התחבורה‪.‬‬ ‫החברה הזאת הייתה לה דלת פתוחה אצל שר התחבורה‪ ,‬שר התחבורה היה עונה לטלפונים‬ ‫ומבין מה שצריך ועושה מה שצריך למען העיר חיפה‪ ,‬אי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "טי זה ייפתר‬ ‫בתקופה הקרובה‪ ,‬ודבר אחרון‪ ,‬בהמשך להצעתו של ידידי יואב‪ ,‬אני מבחינתי הוא התפרץ‬ ‫לדלת פתוחה‪ .‬אני חושב שנכון להקים או לחזק מנגנון של איזון חוזר בין המשטרה לבין‬ ‫גופים קטנים של שכונות או של"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "היום עם מי לדבר‪ ,‬לספק להם ודאות‪ ,‬ודאות תכנונית‪ ,‬כי זה מה שיזמים‬ ‫צריכים‪ .‬להתקין מדיניות של דלת פתוחה לתושבים שלוקח להם שנים כדי לקבל אישור לסגור‬ ‫מרפסת או להתקין ממ\"ד‪ .‬אני אמסור את הטלפון שלי לתושב"}, {"org": "דלת פתוחה", "risk": "high", "snippet": ".‬זה הספר שהביא אותנו עד הלום‪ .‬אחרי כמה זמן‪,‬‬ ‫תראו‪ ,‬אנחנו לפחות אני מודה ומתוודה השארנו את הדלת פתוחה כי רצינו לתרום ולעזור‬ ‫לעיר חיפה להתפתח ‪ ,‬לעזור ככל שאנחנו יכולים ‪ ,‬בכוחנו הדל‪ ,‬איך אמר פעם"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ה של ועדת כספים‪ ,‬ובכל זאת אנחנו אישרנו את זה ואני שמח שגם אישרנו את זה‬ ‫היום פה במועצה‪ .‬כלומר הדלת פתוחה למרות שאתם בדרך כלל לא הגעתם או לא נתנו לכם‬ ‫להגיע‪ .‬לישיבות ועדת כספים למועצת העיר אתם כל הזמן מ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ו שליטה על‬ ‫הלוח זמנים ועל האפשרות של היזם‪ .‬אבל אנחנו מסתכלים על זה‪ .‬מה שאתה אומר אתה‬ ‫מתפרץ לדלת פתוחה‪ .‬אנחנו מסתכלים על זה על לצמצם את ההפרעה‪ .‬בדרך כלל זה לא‬ ‫מסתדר כי הלוחות זמנים של היזמים לחלוט"}, {"org": "האגודה לזכויות האזרח בישראל", "risk": "high", "snippet": "1926‬בבגדאד (עיראק) והגיע לחיפה בשנת ‪ .1949‬היה‬ ‫סופר‪ ,‬מחזאי‪ ,‬מתרגם ופעיל חברתי‪ .‬כיהן כנשיא האגודה לזכויות האזרח בישראל‪.‬‬ ‫ספריו לשפות רבות וזכו בפרסים יוקרתיים‪ .‬חלקם עובדו גם לתיאטרון‪ ,‬לטלוויזיה‬ ‫ולקולנוע‪ .‬בשנ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לך הוא‪ .‬הרבה בזכות אותו אמון ואותו קרדיט שנתת‬ ‫לי‪ .‬אני עוברת לתפקיד החדש שלי‪ ,‬אבל היא מותירה דלת פתוחה‪ ,‬כמו שאמר יונה‪,‬‬ ‫התחייבתי והנה אני נותנת לך את ההתחייבות פה לפני כולם‪ ,‬אז אני לא אוכל‬ ‫להתח"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "בחיפה חבר בשלושה ארגונים עולמיים ובארגון גני החיות הישראלי‪ .‬חברותו בארגונים‬ ‫אלה מקנה לגן החיות דלת פתוחה לקבלת חיות מגני חיות אחרים בארץ ובעולם והוא נתון תחת‬ ‫פיקוח ובקרה של הארגונים הנ\"ל‪.‬‬  ‫תפקיד גן"}, {"org": "קרן מנדל", "risk": "low-moderate", "snippet": "ים תושבי‬ ‫חיפה‬  ‫כלל עירוני‬  ‫המחלקה למשאבי‬ ‫קהילה‬ ‫אגף קהילה‪,‬‬ ‫מרכזים קהילתיים‬ ‫דוברות‪ ,‬קרן מנדל‬  ‫שנתי‬  ‫הגדלת היצע‬ ‫אפשרויות ההעשרה‬ ‫ופעילות חברתית‬ ‫איכותית לתושבי‬ ‫הואדי‪ ,‬גידול‬ ‫בצריכת"}, {"org": "ידידות טורונטו", "risk": "medium", "snippet": "עירוני‬ ‫והסביבה‪,‬‬ ‫מגיל ‪18‬‬ ‫ואילך‬  ‫עמותת יסמין‪,‬‬ ‫עמותת צורים‪,‬‬ ‫חברת‬ ‫קווליטקסט‪,‬‬ ‫ידידות טורונטו‬ ‫יועצת ראש‬ ‫העיר למעמד‬ ‫האישה‬  ‫בניית שולחן עגול לנושא הצעירים ותכנית‬ ‫עבודה משותפת לכלל הארגו"}, {"org": "ערי חינוך", "risk": "medium", "snippet": "בם על‪-‬ידי ג'וינט ישראל (\"אשלים\")‪ ,‬משרד הבריאות והעירייה‪.‬‬ ‫ב‪ .‬הקהילה חתומה על הסכם עם חברת \"ערי חינוך\" המנהלת את פרוייקט מל\"ל (מלידה‬ ‫לבגרות) בקרית חיים‪ .‬מדובר בפרוייקט חינוכי קהילתי‪ ,‬המכוון ליצור"}], "הרצליה": [{"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "דה להתנדבות שירות לאומי‬ ‫מרכז סיוע לנפגעות ונפגעי תקיפה מינית‬ ‫פו\"ש‬ ‫בית הגלגלים‬ ‫ידיד לחינוך‬ ‫יסודות לצמיחה דרור‬  ‫תמיכה‬ ‫סה\"כ‬ ‫התבחינים לשנת‬ ‫בש\"ח‪:‬‬ ‫‪10,000‬‬ ‫‪1,580‬‬ ‫‪32,731‬‬ ‫‪18,908‬‬ ‫‪6,331‬‬ ‫‪1"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‫כל ישראל חברים‬  ‫‪43,262‬‬  ‫מרחבים חברה לחינוך ותרבות‬  ‫‪40,643‬‬  ‫עם ישראל אחד‬  ‫‪20,000‬‬  ‫יסודות לצמיחה דרור‬  ‫‪51,376‬‬  ‫עלה נעלה המחנות העולים‬  ‫‪9,000‬‬  ‫ב‪ .‬ועדת התמיכות המקצועית מחליטה להמליץ בפני מ"}, {"org": "מכללת בית ברל", "risk": "medium", "snippet": "ץ יצירתיים חינם לכל המשפחה‪.‬‬ ‫\"דיאלוג רב תרבותי\" ‪ -‬קורס אקדמי המתקיים במוזיאון בשיתוף המדרשה‪ ,‬מכללת בית ברל‬ ‫והמרכז לחיים משותפים במכללה בו סטודנטיות ערביות ועבריות לומדות חינוך מוזיאלי‬ ‫ומדריכות בתי ספר ע"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‬‬ ‫‪34‬‬ ‫‪78‬‬  \f‫‪469‬‬  ‫קהילה‬ ‫תחום הקהילה הוא תחום מוביל במתנ\"ס‪.‬‬ ‫אנו מאמינים במדיניות של דלת פתוחה לכל תושב ‪,‬איסוף צרכים מדויק מהשטח ותכנון‬ ‫פעילות עפ\"י הצרכים הנאספים ויחד עם פעילים‪ .‬בנוסף כל"}, {"org": "אשכולות חשיבה", "risk": "medium", "snippet": "ות‪ ,‬שירה‪ ,‬בע\"ח‪ ,‬רובוטיקה‪ ,‬תיאטרון‪ ,‬טבחים צעירים‪ ,‬מוסיקה‪ ,‬מחשבים‪ ,‬גינה‬ ‫אקולוגית‪ ,‬אשכולות חשיבה‪ ,‬קרקס‪ ,‬תנועה ועוד‪....‬‬ ‫בחירת תכני הלימודים נעשית בשיתוף נציגות ההורים‪.‬‬ ‫אגף החינוך משתתף"}, {"org": "מכללת בית ברל", "risk": "medium", "snippet": "ץ יצירתיים חינם לכל המשפחה‪.‬‬ ‫\"דיאלוג רב תרבותי\" ‪ -‬קורס אקדמי המתקיים במוזיאון בשיתוף המדרשה‪ ,‬מכללת בית ברל‬ ‫והמרכז לחיים משותפים במכללה בו סטודנטיות ערביות ועבריות לומדות חינוך מוזיאלי‬ ‫ומדריכות בתי ספר ע"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‬‬ ‫‪34‬‬ ‫‪78‬‬  \f‫‪469‬‬  ‫קהילה‬ ‫תחום הקהילה הוא תחום מוביל במתנ\"ס‪.‬‬ ‫אנו מאמינים במדיניות של דלת פתוחה לכל תושב ‪,‬איסוף צרכים מדויק מהשטח ותכנון‬ ‫פעילות עפ\"י הצרכים הנאספים ויחד עם פעילים‪ .‬בנוסף כל"}, {"org": "אשכולות חשיבה", "risk": "medium", "snippet": "ות‪ ,‬שירה‪ ,‬בע\"ח‪ ,‬רובוטיקה‪ ,‬תיאטרון‪ ,‬טבחים צעירים‪ ,‬מוסיקה‪ ,‬מחשבים‪ ,‬גינה‬ ‫אקולוגית‪ ,‬אשכולות חשיבה‪ ,‬קרקס‪ ,‬תנועה ועוד‪....‬‬ ‫בחירת תכני הלימודים נעשית בשיתוף נציגות ההורים‪.‬‬ ‫אגף החינוך משתתף"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‬  ‫‪3,708‬‬  ‫פו\"ש‬  ‫‪₪ 41,583‬‬  ‫‪₪‬‬  ‫ידיד לחינוך‬  ‫‪2,613‬‬  ‫זהות ישראלית‬  ‫‪₪ 10,117‬‬  ‫יסודות לצמיחה דרור‬  ‫‪₪ 23,074‬‬  ‫בית הגלגלים‬  ‫‪₪ 14,306‬‬  ‫מרכז סיוע לנפגעות ונפגעי תקיפה מינית‬  ‫‪₪ 15,599‬‬"}, {"org": "מכללת בית ברל", "risk": "medium", "snippet": "גשים מקוונים‪.‬‬ ‫דיאלוג רב תרבותי – קורס אקדמי סימסטריאלי המתקיים במוזיאון בשיתוף המדרשה‬ ‫לאמנות במכללת בית ברל והמרכז לחיים משותפים ובו סטודנטיות‪.‬ים עבריות וערביות‬ ‫לומדות חינוך מוזיאלי ומתנסות בהיות המוזיאו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ן הפעולות שננקטו במהלך שנת ‪ 2020‬במסגרת תחום מניעת הטרדה מינית במקום‬ ‫העבודה ולהתוויית מדיניות של דלת פתוחה לקבלת תלונות בנושא הטרדה מינית או‬ ‫התנכלות במסגרת יחסי עבודה‪.‬‬ ‫‪ .1‬כחלק מתוכנית הדרכה שנתית כמ"}, {"org": "אשכולות חשיבה", "risk": "medium", "snippet": "ות‪ ,‬שירה‪ ,‬בע\"ח‪ ,‬רובוטיקה‪ ,‬תיאטרון‪ ,‬טבחים צעירים‪ ,‬מוסיקה‪ ,‬מחשבים‪,‬‬ ‫גינה אקולוגית‪ ,‬אשכולות חשיבה‪ ,‬קרקס‪ ,‬תנועה ועוד‪....‬‬ ‫בחירת תכני הלימודים נעשית בשיתוף נציגות ההורים‪.‬‬ ‫אגף החינוך משתתף"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "לת העמותה ומרו\"ח‬ ‫שלה לצרף לבקשה הבהרה בדבר הסיבות לעודף הנצבר‪.‬‬ ‫‪ .3‬בית אולפנה ללימודי יהדות ויסודות לצמיחה דרור‬ ‫בהתאם להמלצת הרפרנטית‪ ,‬גב' מירב רייניש‪ ,‬הם לא עומדים בתנאי הסף למתן תמיכה‬ ‫לשנה זו‪ ,‬כפי שי"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‬ ‫קרן החינוך למען בתי הספר תל\"י‬ ‫אחל\"ה ‪ -‬איכות חיים לתושבי השרון‬ ‫החברה להגנת הטבע‬ ‫אקואושן‬ ‫יסודות לצמיחה דרור‬  ‫תמיכה‬ ‫סה\"כ‬ ‫התבחינים לשנת‬ ‫בש\"ח‪:‬‬ ‫‪7,234‬‬ ‫‪15,674‬‬ ‫‪17,844‬‬ ‫‪15,191‬‬ ‫‪12,057‬‬  ‫"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "יתר מבקשי התמיכה הומלצו על ידי הרפרנטית המקצועית למתן תמיכה לשנה זו‬ ‫בהתאם לממצאי בדיקתה‪.‬‬ ‫‪ .6‬יסודות לצמיחה דרור‪:‬‬ ‫עפ\"י תקציב הפעילות הנתמכת לשנת ‪ 2022‬שהוגש ע\"י מבקש התמיכה‪ ,‬סכום הבקשה‬ ‫לתמיכה של העמותה נ"}, {"org": "חינוך למיניות בריאה", "risk": "high", "snippet": "אגים מהאפשרות‬ ‫שתכניות המקדמות חינוך לאזרחות ולדמוקרטיה‪ ,‬שוויון והעצמת נשים‪ ,‬מאבק בגזענות‪,‬‬ ‫חינוך למיניות בריאה וכיו\"ב עשויות להיפסל‪ .‬לחילופין‪ ,‬יתכן שתכניות אלו יוצעו ע\"י גופים‬ ‫וארגונים אשר ייצקו לתוכן השק"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ו‪ ,‬בכפוף להשלמת מסמכים‬ ‫חסרים בבקשה‪ ,‬ככל שישנם‪ ,‬ובכפוף לתנאים המפורטים להלן‪:‬‬ ‫שם המוסד‬  ‫יסודות לצמיחה דרור‬  ‫סה\"כ תמיכה עפ\"י‬ ‫לשנת‬ ‫התבחינים‬ ‫‪ 2024‬בש\"ח‬ ‫‪₪ 67,500‬‬  ‫‪ .4‬לא לחלק את יתרת התקציב בסך"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ו‪ ,‬בכפוף להשלמת מסמכים חסרים בבקשה‪ ,‬ככל‬ ‫שישנם‪ ,‬ובכפוף לתנאים המפורטים להלן‪:‬‬ ‫שם המוסד‬  ‫יסודות לצמיחה דרור‬  ‫סה\"כ תמיכה עפ\"י‬ ‫לשנת‬ ‫התבחינים‬ ‫‪ 2025‬בש\"ח‬ ‫‪₪ 67,500‬‬  ‫‪ .2‬לא לחלק את יתרת התקציב בסך"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "זה נכון‬ ‫וצריך להרחיבו‪ .‬בבתי הספר מתקיימות פעילויות בנושאי בטחון ומוגנות‪ ,‬קשיים ברמה האישית‬ ‫ודלת פתוחה‪ .‬המרפאה הינה פרויקט מדהים ובלתי תלוי (אנונימי) המעודד ילדים לפנות‬ ‫בדיסקרטיות‪ .‬מסכים עם איתמר"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‫כל ישראל חברים‬  ‫‪43,262‬‬  ‫מרחבים חברה לחינוך ותרבות‬  ‫‪40,643‬‬  ‫עם ישראל אחד‬  ‫‪20,000‬‬  ‫יסודות לצמיחה דרור‬  ‫‪51,376‬‬  ‫עלה נעלה המחנות העולים‬  ‫‪9,000‬‬  ‫ב‪ .‬ועדת התמיכות המקצועית מחליטה להמליץ בפני מ"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לחפש להביא מזון מחנות קרובה או משהו‪ .‬שם‬ ‫כמו יותר מאשר במלון‪ ,‬יש להם שולחנות ערוכים‪ ,‬יש להם דלת פתוחה כל‬ ‫הזמן והעיקר העיקר‪ ,‬שגם האנשים ששם ובני המשפחות שלהם מרגישים‬ ‫מצוין וכל אחד רוצה להרגיש שההו"}, {"org": "המכון הישראלי לדמוקרטיה", "risk": "medium", "snippet": "רת‪ ,‬אבל אין לי סקר כרגע‪ .‬אנחנו נסמכים על סקר ארצי שנערך ממש השנה‪ .‬יותר‬ ‫נכון בסוף ‪ 2011‬ע\"י המכון הישראלי לדמוקרטיה‪.‬‬ ‫סביר זה כאלה שיש להם רכבים פרטיים‪.‬‬ ‫לא‪ ,‬שאלו‪ ,‬סך הכל ‪ 67%‬מצדדים‪ ,‬דרך אגב גם מתוך הד"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לותם‬ ‫ועמידתם בהגבלות‪ ,‬כולל סנקציות במקרה של הפרה‪.‬‬ ‫יהונתן יסעור‪ :‬טוב‪ ,‬מכיוון שאתה מתפרץ לדלת פתוחה‪ ,‬ובהסכמים של המזנונים שהחברה‬ ‫לפיתוח התיירות כרתה עם הזכיינים‪ ,‬יש סעיף של הגבלת תעריפים בחלק‬"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "מכים חסרים בבקשה‪ ,‬ככל‬ ‫שישנם‪:‬‬ ‫מבקש התמיכה‬  ‫סה\"כ תמיכה עפ\"י התבחינים‬ ‫לשנת ‪2016‬‬  ‫עמותת יסודות לצמיחה דרור‬  ‫‪₪ 47,167‬‬  ‫התנועה ליהדות מתקדמת בישראל‬  ‫‪₪ 20,123‬‬  \f‫דף ‪ 7‬מפרוטוקול מועצה מס' ‪ 38‬מן ה"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‫ככל שניתנו‪ ,‬ובכפוף להשלמת מסמכים חסרים בבקשה‪ ,‬ככל שישנם‪:‬‬ ‫מבקש התמיכה‬  ‫סכום בש\"ח‬  ‫עמותת יסודות לצמיחה דרור‬  ‫‪₪ 18,626‬‬  ‫התנועה ליהדות מתקדמת בישראל‬  ‫‪₪0‬‬  ‫עם ישראל אחד‬  ‫‪₪ 5,596‬‬  ‫כל ישראל חברים"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "רך מפגש מקצועי להידוק שיתוף‬ ‫הפעולה בין העירייה למשטרה בזירה התקשורתית‪.‬‬ ‫‪\" ‬יום הורים\" קמפיין דלת פתוחה להורי ילדי הגנים והיול\"א ‪ -‬בלשכת ראש‬ ‫העיר למפגש אישי עם הנהלת העירייה ואנשי המקצוע‪.‬‬ ‫‪\" ‬נר"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‫כל ישראל חברים‬  ‫‪43,262‬‬  ‫מרחבים חברה לחינוך ותרבות‬  ‫‪40,643‬‬  ‫עם ישראל אחד‬  ‫‪20,000‬‬  ‫יסודות לצמיחה דרור‬  ‫‪51,376‬‬  ‫עלה נעלה המחנות העולים‬  ‫‪9,000‬‬  ‫ב‪.‬‬  ‫ועדת התמיכות המקצועית מחליטה להמליץ בפנ"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‬ ‫מבקש התמיכה‬  ‫סכום בש\"ח‬  ‫כל ישראל חברים‬  ‫‪6,666‬‬  ‫מרחבים חברה לחינוך ותרבות‬  ‫‪6,667‬‬  ‫יסודות לצמיחה דרור‬  ‫‪6,667‬‬  ‫סה\"כ‬  ‫‪20,000‬‬  \f‫דף ‪ 15‬מפרוטוקול מועצה מס' ‪ 61‬מן המניין – ‪21.11.17‬‬ ‫‪ .7‬ח"}, {"org": "מכללת בית ברל", "risk": "medium", "snippet": "כדלקמן‪:‬‬ ‫‪ .1‬א‪.‬מ‬ ‫רקע‪ :‬העובד מועסק כרכז סטודנטים ויוזמות חינוכיות‪ .‬מבקש לעבוד כמתרגל‬ ‫במכללת בית ברל‪.‬‬ ‫החלטה‪ :‬הוועדה ממליצה לאשר את הבקשה למשך שנה אחת‪.‬‬ ‫‪ .2‬א‪.‬נ‬ ‫רקע‪ :‬העובדת מועסקת כמנהל"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "עממי‬  ‫‪₪ 120,000‬‬  ‫ב‪ .‬אי מתן תמיכה למבקשי התמיכה להלן בשל אי עמידתם בתנאי הסף‪:‬‬ ‫‪ .1‬עמותת יסודות לצמיחה דרור‪.‬‬ ‫‪ .2‬זיו נעורים‪.‬‬ ‫‪ .3‬העמותה לקידום ספורט הקליעה למטרה‪.‬‬ ‫( ‪)141‬‬  ‫מחליטים פ\"א לאשר‪."}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ית ‪ -‬השרון‬  ‫‪37,717‬‬  ‫פו\"ש‬  ‫‪20,712‬‬  ‫שיעור אחר‬  ‫‪16,495‬‬  ‫ידיד לחינוך‬  ‫‪13,271‬‬  ‫יסודות לצמיחה דרור‬  ‫‪39,228‬‬  ‫ב‪ .‬שלא לתת תמיכה למבקש התמיכה‪ ,‬מוסדות חב\"ד‪ ,‬בשל אי עמידתו בתנאי הסף‬ ‫לפיו \"המ"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "2020‬בש\"ח‬ ‫‪₪ 3,708‬‬ ‫‪₪ 41,583‬‬ ‫‪₪‬‬  ‫ידיד לחינוך‬  ‫‪2,613‬‬  ‫זהות ישראלית‬  ‫‪₪ 10,117‬‬  ‫יסודות לצמיחה דרור‬  ‫‪₪ 23,074‬‬  ‫בית הגלגלים‬ ‫מרכז סיוע לנפגעות ונפגעי תקיפה מינית‬  ‫‪₪ 14,306‬‬ ‫‪₪ 15,599‬‬  \f‫"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "להמלצת הרפרנטית המקצועית לנושא זה‬ ‫כמפורט לעיל‪.‬‬ ‫‪ .5.3‬לדחות את בקשת התמיכה של מבקש התמיכה‪ ,‬יסודות לצמיחה דרור‪ ,‬בשל אי‬ ‫עמידתו בתנאי הסף מאחר ואינו פועל בשיתוף או בבקרה של אגף תנו\"ס‬  \f‫דף ‪ 27‬מפרוטוקול מוע"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "‫אחל\"ה ‪ -‬איכות חיים לתושבי השרון‬ ‫‪17,844‬‬ ‫החברה להגנת הטבע‬ ‫‪15,191‬‬ ‫אקואושן‬ ‫‪12,057‬‬ ‫יסודות לצמיחה דרור‬ ‫‪ .2‬יובהר כי בהתאם להוראות התבחין‪ ,‬מתן התמיכה לכל אחד ממבקשי התמיכה‬ ‫בסעיף ‪ 1‬לעיל מותנה בהג"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ונפגעי תקיפה מינית‬ ‫‪18,908‬‬ ‫פו\"ש‬ ‫‪6,331‬‬ ‫בית הגלגלים‬ ‫‪10,420‬‬ ‫ידיד לחינוך‬ ‫‪27,182‬‬ ‫יסודות לצמיחה דרור‬  \f‫דף ‪ 15‬מפרוטוקול מועצה מס' ‪ 60‬מן המניין – ‪28.6.22‬‬ ‫(*)‬ ‫סכום התמיכה הינו בגובה סכום הבקש"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ים ישראל הוסטל השחר‬  ‫‪8,556‬‬  ‫האגודה למען העיוור הרצליה‬  ‫‪10,004‬‬  ‫יאמר ליעקב‬  ‫‪2,378‬‬  ‫יסודות לצמיחה דרור‬  ‫‪3,820‬‬  ‫ארגון אלמנות ויתומי צה\"ל‬  ‫‪7,936‬‬  ‫‪ .2‬סכום התמיכה האושר בסעיף ‪ 1‬כמפורט לעיל ל"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "דה להתנדבות שירות לאומי‬ ‫מרכז סיוע לנפגעות ונפגעי תקיפה מינית‬ ‫פו\"ש‬ ‫בית הגלגלים‬ ‫ידיד לחינוך‬ ‫יסודות לצמיחה דרור‬  ‫תמיכה‬ ‫סה\"כ‬ ‫התבחינים לשנת‬ ‫בש\"ח‪:‬‬ ‫‪10,000‬‬ ‫‪1,580‬‬ ‫‪32,731‬‬ ‫‪18,908‬‬ ‫‪6,331‬‬ ‫‪1"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "יה ע״ר‬ ‫מקהלת לי ‪ -‬רון הרצליה‬ ‫אקים ישראל הוסטל השחר‬ ‫האגודה למען העיוור הרצליה‬ ‫יאמר ליעקב‬ ‫יסודות לצמיחה דרור‬ ‫ארגון אלמנות ויתומי צה\"ל‬  ‫סה\"כ תמיכה עפ\"י התבחינים‬ ‫לשנת ‪ 2022‬בש\"ח‪:‬‬ ‫‪16,100‬‬ ‫‪18,062‬‬"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "יתר מבקשי התמיכה הומלצו על ידי הרפרנטית המקצועית למתן תמיכה לשנה זו‬ ‫בהתאם לממצאי בדיקתה‪.‬‬ ‫‪ .6‬יסודות לצמיחה דרור‪:‬‬ ‫עפ\"י תקציב הפעילות הנתמכת לשנת ‪ 2022‬שהוגש ע\"י מבקש התמיכה‪ ,‬סכום הבקשה‬ ‫לתמיכה של העמותה נ"}, {"org": "חינוך למיניות בריאה", "risk": "high", "snippet": "אגים‬ ‫מהאפשרות שתכניות המקדמות חינוך לאזרחות ולדמוקרטיה‪ ,‬שוויון והעצמת נשים‪ ,‬מאבק‬ ‫בגזענות‪ ,‬חינוך למיניות בריאה וכיו\"ב עשויות להיפסל‪ .‬לחילופין‪ ,‬יתכן שתכניות אלו יוצעו‬ ‫ע\"י גופים וארגונים אשר ייצקו לתוכן השק"}, {"org": "המכון הישראלי לדמוקרטיה", "risk": "medium", "snippet": "שים במשרות ניהול בחירות בעירייה‪ .‬הוסיף ואמר כי בכנס חירום‬ ‫המתקיים בימים אלה בשיתוף מועצת הנשים והמכון הישראלי לדמוקרטיה סגניות רה\"ע‬ ‫יתבטאו בנושא‪ .‬הדגיש כי מנהל נשים בעירייה הינו גוף מתוקצב הפועל ביתר שאת תוך‬ ‫שיתופ"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "המוסד‬ ‫המחנות העולים )*(‬  ‫סה\"כ תמיכה עפ\"י‬ ‫התבחינים לשנת‬ ‫‪ 2023‬בש\"ח‬ ‫‪30,000‬‬  ‫‪61,470‬‬ ‫יסודות לצמיחה דרור‬ ‫(*)סכום התמיכה הינו בגובה סכום הבקשה לשנת ‪ 2023‬ונמוך מהסכום עפ\"י‬ ‫התבחינים לשנת ‪.2023‬‬ ‫‪ .2"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "מינית (*)‬  ‫‪50,000‬‬  ‫פו\"ש‬  ‫‪15,277‬‬  ‫בית הגלגלים‬  ‫‪10,022‬‬  ‫ידיד לחינוך‬  ‫‪16,663‬‬  ‫יסודות לצמיחה דרור‬  ‫‪4,542‬‬  ‫‪9,676‬‬ ‫עמותת מצמיחים המרכז להפחתת אלימות בבתי ספר‬ ‫(*) סכום התמיכה הינו בגובה סכו"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "כ תמיכה עפ\"י‬ ‫התבחינים לשנת‬ ‫‪ 2023‬בש\"ח‬ ‫‪30,000‬‬  ‫שם המוסד‬ ‫המחנות העולים )*(‬  ‫‪61,470‬‬ ‫יסודות לצמיחה דרור‬ ‫(*)סכום התמיכה הינו בגובה סכום הבקשה לשנת ‪ 2023‬ונמוך מהסכום עפ\"י התבחינים‬ ‫לשנת ‪.2023‬‬ ‫ב‪ ."}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ו‪ ,‬בכפוף להשלמת מסמכים‬ ‫חסרים בבקשה‪ ,‬ככל שישנם‪ ,‬ובכפוף לתנאים המפורטים להלן‪:‬‬ ‫שם המוסד‬  ‫יסודות לצמיחה דרור‬  ‫סה\"כ תמיכה עפ\"י‬ ‫לשנת‬ ‫התבחינים‬ ‫‪ 2024‬בש\"ח‬ ‫‪₪ 67,500‬‬  ‫‪ .4‬לא לחלק את יתרת התקציב בסך"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ד‬ ‫מועדון ליונס הרצליה‬ ‫מרכז סיוע לנפגעות ונפגעי תקיפה מינית‬ ‫פו\"ש‬ ‫בית הגלגלים‬ ‫ידיד לחינוך‬ ‫יסודות לצמיחה דרור‬  ‫סה\"כ תמיכה עפ\"י התבחינים‬ ‫לשנת ‪ 2024‬בש\"ח‬ ‫‪1,923₪‬‬ ‫‪37,421₪‬‬ ‫‪7,212₪‬‬ ‫‪19,011₪‬‬ ‫‪26,"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "צתה הבקשה הנ\"ל עומדת בתנאי הסף לקבלת‬ ‫התמיכה בהתאם לטבלה המונחת בפניכם‪.‬‬ ‫להלן הערותיי‪:‬‬ ‫א‪ .‬יסודות לצמיחה דרור‬ ‫בהתאם להוראות תבחין זה סכום התמיכה המקסימלי למבקש תמיכה עומד על סך‬ ‫‪.₪ 67,500‬‬ ‫מבקש התמיכה הנ"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "נית‬  ‫‪₪ 37,421‬‬  ‫פו\"ש‬  ‫‪₪ 7,212‬‬  ‫בית הגלגלים‬  ‫‪₪ 19,011‬‬  ‫ידיד לחינוך‬  ‫‪₪ 26,431‬‬  ‫יסודות לצמיחה דרור‬  ‫‪₪ 16,002‬‬  ‫ב‪ .‬ועדת התמיכות המקצועית מחליטה‪ ,‬פה אחד‪ ,‬לקזז מסכום התמיכה המאושר למבקש‬ ‫הת"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ישנם‪ ,‬ובכפוף לתנאים המפורטים להלן‪:‬‬ ‫שם המוסד‬ ‫המרכז למעשים טובים יד התשעה (*)‬ ‫אקואושן (*)‬ ‫יסודות לצמיחה דרור (*)‬  ‫סה\"כ תמיכה עפ\"י‬ ‫לשנת‬ ‫התבחינים‬ ‫‪ 2025‬בש\"ח‬ ‫‪,00050 ₪‬‬ ‫‪,00030 ₪‬‬ ‫‪,00035 ₪‬‬  ‫(*"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "ו‪ ,‬בכפוף להשלמת מסמכים חסרים בבקשה‪ ,‬ככל‬ ‫שישנם‪ ,‬ובכפוף לתנאים המפורטים להלן‪:‬‬ ‫שם המוסד‬  ‫יסודות לצמיחה דרור‬  ‫סה\"כ תמיכה עפ\"י‬ ‫לשנת‬ ‫התבחינים‬ ‫‪ 2025‬בש\"ח‬ ‫‪₪ 67,500‬‬  ‫‪ .2‬לא לחלק את יתרת התקציב בסך"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "א איזה שהוא פתרון לאוכלוסייה החילונית שצועדת לחופים ולא מצליחה לעבור שם?‬ ‫צבי וייס‪:‬‬ ‫אתה מתפרץ לדלת פתוחה‪ .‬היה פה חבר מועצת העיר והוא היה אומר נטו‪-‬נטו‪ ,‬פרופסור דן‬ ‫גבידזון‪ .‬העלו את הנושא הזה ודנו"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ין העירייה‬ ‫למשטרה בזירה התקשורתית‪.‬‬ ‫התחלנו במסורת ונמשיך עם זה גם לגופים אחרים‪ .‬יום הורים‪ ,‬דלת פתוחה להורים של ילדי‬ ‫הגנים ביול\"א בלשכת ראש העיר‪ .‬כל אנשי המקצוע של אגף החינוך והנהלת העיר ישבו וקיבל"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ששולחים מכתב בגלל ש‪ ...‬העמותה מתפקדת‪ ,‬עובדת‪,‬‬ ‫בצורה רציפה‪ .‬אין שום בעיה‪ ,‬מעולם לא הייתה הדלת פתוחה אצל ראש‬ ‫העיר‪ ,‬אני לא מבין מה הבעיה‪ ... .‬זה ‪ 100‬אלף שקל‪ ... ,‬אין שום בעיה‪ .‬אני‬ ‫חוזר כל"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "לגבי התבחינים‬ ‫ואי עמידה בתנאי סף‪ ,‬אני באמת חושב שבמקרה כזה‪ ,‬עוד פעם‪ ,‬אני לא‬ ‫יודע על עמותת יסודות לצמיחה דרור והעמותה לקידום ספורט קליעה‬ ‫למטרה‪ ,‬אני לא מכיר אותן אז אני לא רוצה להמעיט בערכן‪ ,‬אבל זיו‬  ‫\"ח"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ב‪ ,‬למרות שרונן דיבר על זה בהצעה לסדר שלו לפני‬ ‫כמה חודשים‪.‬‬ ‫רונן וסרמן‪:‬‬  ‫אמרת שאני מתפרץ לדלת פתוחה‪.‬‬  ‫מאיה כץ‪:‬‬  ‫הוא דיבר על זה לפני כמה חודשים כן לעשות כרטיס ת ושב ולכן אם זה‬ ‫כבר היה מבוצע"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "וסרמן‪:‬‬  ‫אז עובדים כרגע על סוקולוב ההצעה שלי לבחור ‪ 3‬אזורים‪.‬‬  ‫יהודה בן עזרא‪ :‬אתה מ תפרץ לדלת פתוחה ברוב יהיה דיון בועדת התנועה ראש העיר‬ ‫ודניאל מקדמים את המהלך הזה‪ ,‬אנחנו יודעים באיזה אזורים‪ ,‬ר"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‪.‬‬ ‫אני ודניאל נפגשנו עם סגנית ראש עיריית תל אביב בשביל ללמוד ולבחון אבל‬ ‫כרגיל אתה אוהב להתפרץ לדלת פתוחה ולא מחכה בשביל אולי אפילו איזה‬ ‫כתבה או איזה שורה ששרון יונתן יתן לך בכותרת או משהו כזה‪ .‬לראיה א"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "להגיד לך משה שאני לא יודע מה קרה היום זה פשוט מגוחך מה‬ ‫שקורה פה‪.‬‬ ‫משה פדלון‪:‬‬  ‫אפשר להתפרץ לדלת פתוחה‪.‬‬  ‫יונתן יעקובוביץ'‪ :‬אם אתה מתפרץ לדלת פתוחה אז תפתח אותה‪.‬‬ ‫משה פדלון‪:‬‬  ‫אבל לא פתחנו את"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ם מהקבוצת כדורסל בוגרים של בני‬ ‫הרצליה להתייעל? שהתייעלו‪.‬‬  ‫משה פדלון‪:‬‬  ‫חברים‪ ,‬אתה מתפרץ לדלת פתוחה‪ .‬קם צוות חיצוני שבודק את כל‬ ‫הנושאים של בני הרצליה‪,‬‬  ‫יונתן יעקובוביץ‪:‬‬  ‫מה המשכורת שהבעלי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "הדברים שהייתם רוצים שנתעסק איתם‪.‬‬ ‫נכון‪.‬‬ ‫מאיה כץ‪:‬‬ ‫ואנחנו אומרים לכם חברים‪ ,‬לא התפרצתם לדלת פתוחה‪ ,‬חברים רגע‪.‬‬ ‫אהוד לזר‪:‬‬ ‫יונתן יעקובוביץ'‪ :‬אבל אהוד‪ ,‬עוד פעם‪ ,‬כל הדברים שאתה מדבר עליה"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "הגידול הדרסטי של ‪ 37‬אחוז‪.‬‬ ‫אמת‪ .‬מסייעים לכולם‪.‬‬ ‫נכון‪ .‬בהתאם כמובן לכל הקריטריונים אבל הדלת פתוחה לכל מי שרוצה‬ ‫לקבל סיוע וכל מי שנזקק‪ ,‬וצריך ומקבל‪ .‬כפי שהזכיר ראש העיר‪ ,‬יש לנו‬  ‫\"חבר\" – הק"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לעבוד איתם על ללמוד‬ ‫איך ללמוד ואת זה אני לא ראיתי בכלל‪.‬‬ ‫ד\"ר יעקב נחום‪ :‬אתה קודם כל התפרצת לדלת פתוחה‪ ,‬קודם כל תודה על הדברים שאתה‬ ‫מעלה‪.‬‬ ‫אורן אוריאלי‪ :‬אגב חגית היא החינוך העל יסודי אני מעריך"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ה על היהירות או אם זה ישמע יהיר‪,‬‬ ‫אהוד לזר‪:‬‬ ‫יונתן יעקובוביץ'‪ :‬התרגלנו‪.‬‬ ‫אתה מתפרץ מאוד לדלת פתוחה‪ .‬לכל הליך תכנון סדור יש הליך של‬ ‫אהוד לזר‪:‬‬ ‫הכנת פרוגרמה‪ .‬אמה מה יש הנחות (רעש רקע‪ ,‬לא בר"}, {"org": "אפשר אחרת", "risk": "high", "snippet": "התקנים בהנהלה‪ ,‬אנחנו לא מסכימים עם זה הם מסכימים עם זה‪,‬‬ ‫זה מאוד פשוט זה הכל‪ .‬אנחנו חושבים שאפשר אחרת הם לא‪ .‬שאלה שכר‬ ‫דירה‪ 100 ,‬אלף ש\"חמ ה זה יש פה המון סעיפים של שכר דירה בהרבה מאוד‬ ‫אגפים למי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "ת מלאות‪ ,‬עולים עושים נזקים ואנחנו נשארים עם הצרה הזאת‬ ‫אחר כך‪.‬‬ ‫אני רק רציתי להגיד כי התפרצת לדלת פתוחה בעניין מאה שנה להרצליה‬ ‫הצוות המקצועי שמלווה את התכנית שמאיה אלדר מרכזת אותו החלטנו‬  ‫\"חֶ בֶ ר\" –"}, {"org": "יסודות לצמיחה דרור", "risk": "high", "snippet": "058‬‬ ‫ו‪ .‬מתן תמיכה לשנת ‪ 2024‬בנושא זכות יהודית דמוקרטית‪ :‬לחלק את תקציב‬ ‫התמיכות כדלקמן‪:‬‬ ‫יסודות לצמיחה דרור – ‪.₪ 67,500‬‬  ‫‪.16‬‬  ‫ניגוד עניינים – חברי המועצה‪.‬‬  ‫ג'ו ניסימוב ‪:‬‬  ‫יריב פישר ‪:‬‬  ‫ג'ו"}, {"org": "המכון הישראלי לדמוקרטיה", "risk": "medium", "snippet": "אני גם חושבת שהרוב פה‬ ‫באמת מבין את מהות השיח פה‪ ,‬ולכן אין צורך להסביר‪ .‬הבאתי‬ ‫פה את ההצעה של המכון הישראלי לדמוקרטיה‪ ,‬שהכין את‬ ‫ההצעה‪ ,‬ומנמק בצורה מאוד ברורה מדוע זה נכון לעשות את זה‪.‬‬ ‫ואת התהליכים שהם עוברים"}, {"org": "אפשר אחרת", "risk": "high", "snippet": "‬בדיוק‪ ,‬אולי מע לים‬ ‫אותה‪ ,‬אולי מבטלים אותה‪ ,‬אני כבר לא יודעת מה קורה‬ ‫ברשויות אחרות‪ .‬היה אפשר אחרת‪ .‬ויריב‪ ,‬אתה‪ ,‬שאתה נלחמת‬ ‫להורדת הארנונה ביחד איתנו הרבה פעמים‪ ,‬בעיניי‪ ,‬זו החלטה‬ ‫שהיא ‪"}], "הוד השרון": [{"org": "דלת פתוחה", "risk": "high", "snippet": "ותך ‪-‬‬  ‫חיים שא בי‪:‬‬  ‫דקה אני אגיד לך ולמה אני אומר את זה?‬  ‫יפעת קריב ‪:‬‬  ‫אבל אתה מתפרץ לדלת פתוחה‪.‬‬  ‫חיים שאבי‪:‬‬  ‫ולמה אני אומר את זה‪ ,‬אני אומר את זה מתוך ניסיון‪ ,‬אני כמה ‪ 12‬או‬ ‫‪ 15‬ש"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "לך ותק‪ ,‬אני חדשה יחסית‪.‬‬  ‫כנרת א‪ .‬כהן‪:‬‬  ‫פעילה גם‪.‬‬  ‫רינה שבתאי‪:‬‬  ‫גם פעילה תודה‪ .‬דלת פתוחה‪ ,‬אוזן קשבת‪ ,‬נקודות‬ ‫שהעליתי שהיו חסרות לי קיבלו מענה‪ ,‬ואם הם לא קיבלו‬ ‫מענה אז הם קיבלו את"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "‬‬  ‫משה חנוכה‪:‬‬  ‫מהנדס העיר שאתם רוצים שזה יעבור בז'בוטינסקי ‪-‬‬  ‫יגאל שמעון‪:‬‬  ‫אתה מתפרץ לדלת פתוחה אדוני‪.‬‬  ‫משה חנוכה‪:‬‬  ‫אני שמח‪.‬‬  ‫יגאל שמעון‪:‬‬  ‫אתה מתפרץ לדלת פתוחה‪.‬‬  ‫רפאל בן מרדכי"}, {"org": "דלת פתוחה", "risk": "high", "snippet": "וגם בבקרה וניקיון הכפיים של כל‬ ‫העוסקים במלאכה‪ .‬תודה‪.‬‬ ‫אמיר כוכ בי‪:‬‬  ‫אני אענה לך שהתפרצת לדלת פתוחה‪ ,‬קצת ‪-‬‬  ‫רפאל בן מרדכי‪:‬‬  ‫משמח אותי‪.‬‬  ‫אמיר כוכבי‪:‬‬  ‫דנו על זה בעבר‪ ,‬אבל אנחנו נמצא"}]};
+var findingsData = {"גבעתיים": [{"title": "גבעתיים - מסגרת מוסדית", "summary": "המועצה אישרה פה אחד מדיניות של שוויון מגדרי בייצוג באירועי תרבות, אמנות, חינוך והעשרה עירוניים.", "cat": "institutional_framework", "quote": "הצעה לסדר מאת חבר המועצה, מר רונאן קפלן, בנושא ייצוג נשים בפעילויות תרבות, אמנות, חינוך והעשרה בגבעתיים. הצבעה: פה אחד. החלטה: באירועים העירוניים יהיה שיויון מגדרי ככל שניתן.", "qs": "רונאן קפלן, חבר המועצה", "vote": "approved", "date": "2023-07-05", "url": "https://www.givatayim.muni.il/uploads/n/1688889172.5189.pdf"}, {"title": "גבעתיים - מסגרת מוסדית", "summary": "הצעה להקמת ועדה עירונית לשוויון מגדרי נדחתה ברוב של 9 נגד 4 בעד. העירייה טענה שהנושא כבר מטופל היטב על ידי סגנית ראש העירייה.", "cat": "institutional_framework", "quote": "הצעה לסדר מאת גב' ויוי וולפסון: הקמת ועדה לקידום שוויון מגדרי. [...] אני מבקשת מראש העירייה להקים ועדה עירונית לשוויון מגדרי דומה לשאר הועדות [...] הצבעה 9 נגד [...] 4 בעד [...] החלטה כל נושא השוויון המגדרי מטופל בתקופה האחרונה באופן מצוין.", "qs": "ויוי וולפסון", "vote": "rejected", "date": "2019-05-15", "url": "https://www.givatayim.muni.il/uploads/n/1656841465.4961.pdf"}, {"title": "גבעתיים - מסגרת מוסדית", "summary": "הצעה בנושא \"הפרדה מגדרית\" הורדה מסדר היום בהצבעה של 11 בעד הסרה, 4 נגד. המועצה סירבה לדון בנושא כלל.", "cat": "institutional_framework", "quote": "", "qs": "רונאן קפלן, חבר המועצה", "vote": "removed", "date": "2022-12-07", "url": "https://www.givatayim.muni.il/uploads/n/1671016079.7064.pdf"}, {"title": "גבעתיים - מסגרת מוסדית", "summary": "הצעה לשוויון מגדרי (50/50) בתעודות ופרסי הוקרה עירוניים. הצעה בלבד — תוצאת ההצבעה לא נראית.", "cat": "institutional_framework", "quote": "ר‏הדרישה‏מתוך‏המדריך‏לנבחר‏‬\n‫(עמוד‏‪,26‬‏פירוט‏הדו\"ח‏בעמוד‏‪:)194‬‬\n\n\f‫‏‬\n\n‫שאלתי‏היא‏–‏מדוע לא הוגש דו\"ח רבעוני לסיכום הרבעון הראשון של‬\n‫שנת ‪ 2019‬עד לסוף חודש מאי? מתי יוגש דו\"ח זה? ‏‬\n‫‏‬\n‫‪ .2‬הצעה לסדר מאת חבר המועצה ניר קורן‪:‬‬\n‫‏‬\n‫פיקוח‏מוניציפלי‏וולונטרי‏על‏מעונות‏וגני‏ילדים‏בגילאי‏‪ .0-3‬‏‬\n‫דברי‏הסבר‪ :‬‏‬\n‫בשבועות‏האחרונים‏עלה‏אל‏סדר‏היום‏הציבורי‏והתקשורתי‏נושא‏הפיקוח‏‬\n‫על‏המעונות", "qs": "ניר קורן, חבר המועצה", "vote": "agenda", "date": "2025-09-03", "url": "https://www.givatayim.muni.il/uploads/n/1756905511.2740.pdf"}, {"title": "גבעתיים - מסגרת מוסדית", "summary": "הצעה שבחירת אמנים לאירועי יום העצמאות ואירועים עירוניים תייצג גיוון מגדרי. הצעה בלבד — תוצאת הצבעה לא נראית.", "cat": "institutional_framework", "quote": "בחירת האמנים תייצג גיוון מגדרי, תוך כדי שיתוף אמנים ואמניות תושבי.ות גבעתיים וגיל הזהב.", "qs": "רונאן קפלן, חבר המועצה", "vote": "agenda", "date": "2022-02-08", "url": "https://www.givatayim.muni.il/uploads/n/1663593963.6684.pdf"}], "חיפה": [{"title": "חיפה - מסגרת מוסדית", "summary": "מועצת העיר חיפה אישרה בהצבעה תוכנית עירונית כוללת לעיר רגישה מגדרית. הוועדה לשוויון מגדרי קיבלה סמכות לייצר מסמכי עבודה, שיתופי פעולה עם ועדות הרשות, ועדכון מדיניות. חיפה הוגדרה כ\"מובילת הדרך\" בקידום ערים רגישות מגדרית בישראל.", "cat": "institutional_framework", "quote": "תחת הועדה לשוויון מגדרי, תתן מועצת העיר את הסמכות לוועדה לייצר מסמכי עבודה מסודרים בנושא, לשם יצירת פלטפורמות עבודה מול גורמי הרשות, שיתופי פעולה עם הועדות השונות ברשות, עדכון מדיניות ויישום ניירות עמדה [...] על חיפה להיות מובילת הדרך בעידוד וקידום יצירת ערים רגישות מגדרית בישראל, להיות חוד החנית בכנסים ארציים, מול משרדי ממשלה ועשיה משותפת למען חקיקה ושינוי מדיניות ארצית בנושאים אלו.", "qs": "נעמה לזימי, חברת מועצת העירייה", "vote": "approved", "date": "2020-09-08", "url": "https://www.haifa.muni.il/wp-content/uploads/2021/07/08.09.2020-תקציר.pdf"}, {"title": "חיפה - מסגרת מוסדית", "summary": "קריטריוני מימון עירוניים לארגונים כוללים דרישת קידום שוויון מגדרי, כולל ארגוני להט\"ב. תנאי סף לקבלת תמיכה עירונית.", "cat": "institutional_framework", "quote": "מצא‪ ,‬כי חלקן הגדול של הוצאות התחזוקה בוצע מסעיף התקציב המשתלם של האגף‪,‬‬\n‫המיועד‪ ,‬במהותו‪ ,‬לביצוע פעולות תרבות (חלק קטן של ההוצאות‪ -‬בוצע מתקציב רגיל‪,‬‬\n‫סעיף ייעודי לעבודות קבלניות‪ ,‬המשמש למימון הוצאות הניקיון)‪.‬‬\n\n‫סיכום‬\n‫‪.1‬‬\n\n‫בית פאני קפלן‪ ,‬הממוקם בשכונת שער העלייה‪ ,‬שבכניסה הדרום מערבית של העיר‬\n‫חיפה‪ ,‬הוקם בשנות ה‪ 80-‬בידי הרבנית פאני קפלן‪ ,‬במטרה לעזור לאוכלוסיות חלשות‬", "qs": "", "vote": "policy", "date": "", "url": "https://www.haifa.muni.il/wp-content/uploads/2025/11/שיוויון-מגדרי.pdf"}, {"title": "חיפה - הסכם קואליציוני", "summary": "הסכם קואליציוני בין \"חיים בחיפה\" (עינת קליש-רותם) לסיעת מרצ כולל במפורש \"קידום שיוויון מגדרי\" כיעד מדיניות יסודי של הקואליציה.", "cat": "coalition_agreement", "quote": "חוצות בשטח פרטי כאשר הפרסום הוא ללא זיקה למהות העסק המתנהל במקום‪ ,‬על בעל‬\n‫המקרקעין או על בעל חברת הפרסום להגיש בקשה למתן רישיון לשלט ולצרף אליה הסמכה‬\n‫והרשאה של בעלי המקרקעין להציב את השלט ולהציג הסכם בינו לבין חברת הפרסום בנושא‬\n‫ובנוסף‪ ,‬להגיש מסמכים רלוונטיים בדומה לבקשה לרישוי שלט רגיל‪.‬‬\n‫על פי נוהל \"שילוט חוצות אלקטרוני\" של המחלקה לשילוט‪ ,‬על מנת להציב שלט מואר יש‬\n‫להגיש בקשה לרישיון", "qs": "", "vote": "signed", "date": "2018", "url": "https://www.haifa.muni.il/wp-content/uploads/2021/08/חיים-בחיפה-ומרץ.pdf"}, {"title": "חיפה - מסגרת מוסדית", "summary": "ראש העיר מינה את פרופ' גדי לנדאו לעמוד בראשות ועדה ציבורית לקהילת הלהט\"ב — חינוך, רווחה, תרבות, פנאי, ובניית קו פתוח בין גורמי העירייה לקהילה.", "cat": "institutional_framework", "quote": "לפני מספר חודשים מינה ראש העיר את פרופ' גדי לנדאו לעמוד בראשות ועדה ציבורית שתבחן תחומים רחבים הנוגעים לקהילת הלהט\"ב ולצרכיה, חינוך, רווחה, תרבות, פעילות פנאי, בניית קו פתוח ונגיש בין גורמי העירייה להורים לחברי הקהילה, ובעצם לכל דבר ועניין.", "qs": "", "vote": "established", "date": "2014-02-04", "url": "https://www.haifa.muni.il/wp-content/uploads/2021/08/04.02.2014-סיכום.pdf"}, {"title": "חיפה - מסגרת מוסדית", "summary": "ביאטריס רוזן כץ נבחרה במכרז לתפקיד יועצת ראש העיר למעמד האישה. בפרוטוקולים מ-2017 והלאה התפקיד שונה ל\"יועצת ראש העיר לשוויון מגדרי\" — שינוי מ\"מעמד האישה\" ל\"שוויון מגדרי\".", "cat": "institutional_framework", "quote": "גב' ביאטריס רוזן כץ, נבחרה במכרז לתפקיד יועצת ראש העיר למעמד האישה.", "qs": "", "vote": "appointed", "date": "2014-09-02", "url": "https://www.haifa.muni.il/wp-content/uploads/2021/08/02.09.2014-סיכום.pdf"}], "הרצליה": [{"title": "הרצליה - מסגרת מוסדית", "summary": "ראש העיר פדלון הצהיר בישיבת מועצה שעיריית הרצליה לא תעניק רישיון עסק לבתי עסק המפלים על רקע דת, גזע, מין או נטייה מינית. הצהרה על המשך חינוך לפלורליזם — מוצגת כהתנגדות למדיניות ממשלה.", "cat": "institutional_framework", "quote": "עיריית הרצליה מסמנת כאן הערב קו אדום חד וברור — כאן בהרצליה אין ולא יהיה מקום לאפליה, לגזענות ולשנאת חינם. [...] העירייה לא תעניק רישיון עסק לבתי עסק בעיר ומסחר בעיר אשר יפלו אנשים על רקע דת, גזע, מין או נטייה מינית.", "qs": "ראש העיר משה פדלון", "vote": "declaration", "date": "2022-12-27", "url": "https://www.herzliya.muni.il/protocols/"}, {"title": "הרצליה - תוכנית חינוך", "summary": "מנהל אגף החינוך אישר שהעירייה ערוכה תקציבית להמשך מימון תוכניות ליברליות (אזרחות, דמוקרטיה, שוויון מגדרי, מאבק בגזענות, מיניות בריאה) מתקציבים עירוניים, גם אם תוכנית גפ\"ן הלאומית תעבור לשליטה שמרנית.", "cat": "education_program", "quote": "‫סגנית רה\"ע וחברת הוועדה‬\n‫סגנית ומ\"מ רה\"ע‪ ,‬חברת ועדה‬\n‫סגנית רה\"ע וחברת ועדה‬\n‫חבר מועצה וחבר הוועדה‬\n‫חבר מועצה וחבר הוועדה‬\n\n‫‬‫‬‫‬‫‬‫‪-‬‬\n\n‫מנכ\"ל העירייה‬\n‫גזבר העירייה‬\n‫יועצת משפטית לעירייה‬\n‫מנהלת אגף חוזים ותב\"רים‬\n‫מנהלת ועדות עירוניות ומרכזת הוועדה‬\n‫מנהל אגף הכנסות העירייה‬\n‫התובע העירוני‬\n‫ס' מנהל מח' הספורט‬\n‫יועצת משפטית לעירייה‪ ,‬הררי טויסטר משרד עו\"ד‬\n‫יועץ כלכלי ועסקי לעירייה‬\n", "qs": "סיעות יש עתיד והחופש לבחור", "vote": "confirmed", "date": "2022-12-27", "url": "https://www.herzliya.muni.il/uploads/n/1672144512.2491.pdf"}, {"title": "הרצליה - מסגרת מוסדית", "summary": "הצעה לאמץ את הדו\"ח הממשלתי למאבק בהדרת נשים כמדיניות עירונית מחייבת. הגדרת הפרדה מגדרית כאפליה שיש להילחם בה במרחב הציבורי.", "cat": "institutional_framework", "quote": "הצעה לסדר [...] בנושא: אימוץ הדו\"ח הממשלתי למאבק בהדרת נשים כמדיניות מחייבת. הדרת נשים במרחב הציבורי היא תופעה חמורה המתגברת [...] הפרדה מגדרית היא אחת מצורות הדרת הנשים הנפוצות ביותר בישראל.", "qs": "דנה אורן ינאי", "vote": "proposal", "date": "2022-03-15", "url": "https://www.herzliya.muni.il/uploads/n/1648030212.6069.pdf"}, {"title": "הרצליה - מסגרת מוסדית", "summary": "הצעה לתקצוב מגדרי: לפחות 50% נשים בדירקטוריונים של חברות עירוניות, מדדים מגדריים לבחינת פעילות העירייה, פילוח תקציב בראיה מגדרית, דו\"ח שנתי על השפעת החלטות על נשים.", "cat": "institutional_framework", "quote": "לוודא שיש לפחות 50 אחוז נשים בדירקטוריונים של החברות העירונית. צורך בקיום מדדים מגדריים הבוחנים את פעילות העירייה בראיה מגדרית. פילוח תקציב העירייה בראיה מגדרית — קיום דו\"ח שנתי המגדיר כיצד משפיעות כל החלטות העירייה על הנשים בעיר.", "qs": "חבר מועצה פביאן", "vote": "proposal", "date": "2020-12-22", "url": "https://www.herzliya.muni.il/uploads/n/1608535890.7642.pdf"}, {"title": "הרצליה - תוכנית חינוך", "summary": "ראש העיר פדלון תמך פומבית בתהליך שינוי זהות מגדרית של תלמיד כיתה ב' בבית ספר יסודי. גינה חבר מועצה שהתנגד ל\"מפגש שיתוף\" שנערך בנושא. הצהיר שהעירייה תמשיך לפעול על פי ערכי שוויון, הכלה וסובלנות בנוגע לזהות מגדרית.", "cat": "education_program", "quote": "‫עיריית הרצליה‬\n‫פרוטוקול ועדת תנועה מקומית מיום ‪ 2‬במרס ‪2016‬‬\n‫הנושא‬\n\n‫מס'‬\n‫‪.1‬‬\n‫‪.2‬‬\n‫‪.3‬‬\n\n‫‪.4‬‬\n\n‫‪.5‬‬\n\n‫‪.6‬‬\n‫‪.7‬‬\n\n‫בקשת העירייה לסגור כבישים מרכזיים‬\n‫לרגל חגיגות ה‪-‬עדלאידע ב‪24/3/16 -‬‬\n‫גליל ים – אישור תכניות הסדרי תנועה‬\n‫זמניים כולל חסימה חלקית ‪/‬הרמטית של‬\n‫ציר שבעת הכוכבים – הרב קוק‬\n‫מתחם הנוריות –אישור הסדרי תנועה‬\n‫זמניים לעבודות פיתוח של החברה‬\n‫לפיתוח‪ .‬שישה שלבי", "qs": "ראש העיר משה פדלון", "vote": "declaration", "date": "2022-06-28", "url": "https://www.herzliya.muni.il/uploads/n/1658313818.3006.pdf"}, {"title": "הרצליה - מסגרת מוסדית", "summary": "מינוי יועצת לקידום מעמד האישה כסעיף בסדר יום ישיבת המועצה. ממשיך מסורת של \"מנהל נשים\" ו\"יועצת ראש העיר לקידום מעמד האישה\" הפועלים בעיר.", "cat": "institutional_framework", "quote": "11. מינוי יועצת לקידום מעמד האישה", "qs": "", "vote": "agenda", "date": "2025-11-18", "url": "https://www.herzliya.muni.il/uploads/n/1763380718.8750.pdf"}, {"title": "הרצליה - שיתוף פעולה עם ארגון", "summary": "עמותת תהל\"ה (תמיכת הורים להורים של ילדים מהקהילה הלהט\"בית) מפעילה קבוצת תמיכה במרכז הבריאות העירוני, בשיתוף מחלקת הבריאות העירונית של עיריית הרצליה.", "cat": "org_partnership", "quote": "עמותת תהל\"ה מפעילה קבוצת תמיכה, העצמה וידע להורים לילדים מהקהילה הגאה בעיר הרצליה, בשיתוף עם עיריית הרצליה — מחלקת הבריאות העירונית.", "qs": "", "vote": "active", "date": "", "url": "https://www.herzliya.muni.il/uploads/n/1612352688.9210.pdf"}], "הוד השרון": [{"title": "הוד השרון - מסגרת מוסדית", "summary": "המועצה אישרה שינוי הרכב הוועדה לשוויון מגדרי, במסגרת שינויים ב-15 ועדות. עצם קיום הוועדה — מסגרת מוסדית מתמשכת.", "cat": "institutional_framework", "quote": "על סדר היום: ד. שינוי הרכב ועדות. 11. אישור שינוי הרכב הוועדה לשוויון מגדרי.", "qs": "", "vote": "approved", "date": "2019-07-02", "url": "https://www.hod-hasharon.muni.il/uploads/n/1574775021.3618.pdf"}], "רעננה": [{"title": "רעננה - מסגרת מוסדית", "summary": "ועדת השמות אימצה מדיניות מפורשת של קריאת רחובות על שם נשים משמעותיות, מתוך \"קידום עקרונות שוויון מגדרי במרחב הציבורי\" ולצמצום הפער הקיים.", "cat": "institutional_framework", "quote": "הוצג הרצון להמשיך החלטות קודמות בנושא זה ולשלב קריאת רחובות ע\"ש נשים משמעותיות בהיסטוריה הישראלית והמקומית, מתוך מקום ומדיניות של קידום עקרונות שוויון מגדרי במרחב הציבורי, ומתוך תכלית לפעול לצמצום הפער הקיים כיום.", "qs": "מירב מאיר, יו\"ר הוועדה", "vote": "policy", "date": "2024-09-23", "url": "https://www.raanana.muni.il/wp-content/uploads/2025/11/%D7%A4%D7%A8%D7%95%D7%98%D7%95%D7%A7%D7%95%D7%9C-%D7%95%D7%A2%D7%93%D7%AA-%D7%A9%D7%9E%D7%95%D7%AA-23.9.24.pdf"}, {"title": "רעננה - מסגרת מוסדית", "summary": "הצעה למספר שווה של נשים וגברים במציגים בכל אירוע בו העירייה שותפה במימונו, ולא לחתום הסכמים עם נותני שירותים המדירים נשים.", "cat": "institutional_framework", "quote": "מועצת העיר מחליטה בזאת כי בכל אירוע בו העירייה שותפה במימונו יהיה מספר שווה של נשים וגברים במציגים. מועצת העיר מחליטה כי לא ייחתמו הסכמים בין העירייה לבין נותני שירותים המדירים נשים משורותיהם.", "qs": "מירב מאיר (מרצ רעננה)", "vote": "proposal", "date": "2023-03-01", "url": "https://www.raanana.muni.il/wp-content/uploads/2025/11/%D7%94%D7%A6%D7%A2%D7%94-%D7%9C%D7%A1%D7%93%D7%A8-%D7%A9%D7%9C-%D7%97%D7%91%D7%A8%D7%AA-%D7%94%D7%9E%D7%95%D7%A2%D7%A6%D7%94-%D7%9E%D7%99%D7%A8%D7%91-%D7%9E%D7%90%D7%99%D7%A8-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%99%D7%99%D7%A6%D7%95%D7%92-%D7%94%D7%95%D7%9C%D7%9D-%D7%9C%D7%A0%D7%A9%D7%99%D7%9D-%D7%91%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D-%D7%95%D7%9B%D7%A0%D7%A1%D7%99%D7%9D-%D7%A2%D7%99%D7%A8%D7%95%D7%A0%D7%99%D7%99%D7%9D-%D7%9E%D7%99%D7%95%D7%9D-01.03.2023.pdf"}, {"title": "רעננה - מסגרת מוסדית", "summary": "הגשה מחודשת ומורחבת של הצעה לייצוג הולם לנשים, כעת מכסה גם שימוש במתקנים עירוניים (לא רק מימון ישיר).", "cat": "institutional_framework", "quote": "מועצת העיר מחליטה בזאת כי בכל אירוע בו העירייה שותפה במימונו, גם אם לא מימון ישיר, אלא גם שימוש במתקן עירוני, יהיה מספר שווה של נשים וגברים במציגים ככל שניתן.", "qs": "מירב מאיר (מרצ רעננה)", "vote": "proposal", "date": "2023-06-25", "url": "https://www.raanana.muni.il/wp-content/uploads/2025/11/%D7%94%D7%A6%D7%A2%D7%94-%D7%9C%D7%A1%D7%93%D7%A8-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%99%D7%99%D7%A6%D7%95%D7%92-%D7%94%D7%95%D7%9C%D7%9D-%D7%9C%D7%A0%D7%A9%D7%99%D7%9D-%D7%91%D7%90%D7%99%D7%A8%D7%95%D7%A2%D7%99%D7%9D-%D7%95%D7%9B%D7%A0%D7%A1%D7%99%D7%9D-%D7%A9%D7%9C-%D7%97%D7%91%D7%A8%D7%AA-%D7%94%D7%9E%D7%95%D7%A2%D7%A6%D7%94-%D7%9E%D7%99%D7%A8%D7%91-%D7%9E%D7%90%D7%99%D7%A8.pdf"}, {"title": "רעננה - תוכנית חינוך", "summary": "הצעה לתמוך בפעילות הסברה בבתי הספר לקידום זכויות קהילת הלהט\"ב, לממן תוכניות ברוח שוויון וסובלנות מכספי הרשות, ולשתף פעולה עם ארגון חוש\"ן.", "cat": "education_program", "quote": "מועצת העיר רעננה מתחייבת לתמוך במערכת החינוך [...] פעילות הסברה בבתי הספר לקידום זכויות קהילת הלהט\"ב [...] עיריית רעננה מתחייבת לממן מכספי הרשות תכניות ברוח זו של חופש מחשבתי, שוויון בין בני האדם [...] הסברה בתחום הגאווה והסובלנות — זכויות קהילת הלהט\"ב, מנהיגות נשים...", "qs": "רונית וינטראוב", "vote": "proposal", "date": "2022-12", "url": "https://www.raanana.muni.il/wp-content/uploads/2025/11/%D7%94%D7%A6%D7%A2%D7%94-%D7%9C%D7%A1%D7%93%D7%A8-%D7%A9%D7%9C-%D7%97%D7%91%D7%A8%D7%AA-%D7%94%D7%9E%D7%95%D7%A2%D7%A6%D7%94-%D7%A8%D7%95%D7%A0%D7%99%D7%AA-%D7%95%D7%99%D7%A0%D7%98%D7%A8%D7%90%D7%95%D7%91-%D7%91%D7%A0%D7%95%D7%A9%D7%90-%D7%94%D7%92%D7%A0%D7%94-%D7%A2%D7%9C-%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9A-%D7%A9%D7%9C-%D7%A8%D7%A2%D7%A0%D7%A0%D7%94-%D7%A2%D7%A6%D7%9E%D7%90%D7%95%D7%AA-%D7%94%D7%A6%D7%95%D7%95%D7%AA-%D7%94%D7%97%D7%99%D7%A0%D7%95%D7%9B%D7%99-%D7%95%D7%93%D7%9E%D7%95%D7%AA%D7%94-%D7%94%D7%A2%D7%A8%D7%9B%D7%99%D7%AA-%D7%95%D7%94%D7%97%D7%95%D7%A4%D7%A9%D7%99%D7%AA.pdf"}, {"title": "רעננה - מסגרת מוסדית", "summary": "הצעה להקמת צוות היגוי בהובלת אגפי תרבות ואסטרטגיה לקידום דיאלוג בין קהילות בעיר, עם דיון בוועדת החינוך.", "cat": "institutional_framework", "quote": "מתבקשת המועצה לקבל החלטה על הקמת צוות היגוי וחשיבה בהובלת מנהלת אגף תרבות, מנהל אגף אסטרטגיה ומנהלים נוספים. לקידום צעדים מעשיים שיסייעו בחיבור בין הקהילות בעיר.", "qs": "לורן עייאש", "vote": "proposal", "date": "2022-12", "url": "https://www.raanana.muni.il/protocols/"}]};
+
+var claimTypeNames = {
+    person_appointment: "מינויים",
+    budget_amount: "תקציבים",
+    org_connection: "קשרי ארגונים",
+    policy_decision: "החלטות מדיניות",
+    training_program: "תוכניות הכשרה"
+};
+
+var positionNames = {
+    mayor: "ראש עיר",
+    edu_director: "מנהל/ת חינוך",
+    edu_secondary: "חינוך משני",
+    gender_advisor: "יועצ/ת מגדר/שוויון",
+    ceo: 'מנכ"ל/ית',
+    treasurer: "גזבר/ית",
+    psych_services: 'שפ"ח',
+    culture_director: "מנהל/ת תרבות"
+};
+
+var voteLabels = {
+    approved: "אושר", rejected: "נדחה", proposal: "הצעה", policy: "מדיניות",
+    signed: "נחתם", established: "הוקם", appointed: "מינוי", declaration: "הצהרה",
+    confirmed: "אושר", agenda: "סדר יום", active: "פעיל", removed: "הוסר"
+};
+
+function hasMaoz(c) { return Object.values(c.positions).some(function(v) { return v && v.indexOf("מעוז") !== -1; }); }
+function hasAvnei(c) { return Object.values(c.positions).some(function(v) { return v && v.indexOf("אבני ראשה") !== -1; }); }
+function hasGender(c) { return c.positions.gender_advisor && c.positions.gender_advisor.trim() !== ""; }
+function hasProtocol(c) { return c.protocols.length > 0; }
+function hasSource(c) { return c.source_urls && Object.keys(c.source_urls).length > 0; }
+function hasClaims(c) { return !!claimsData[c.name]; }
+function hasMentions(c) { return !!mentionsData[c.name]; }
+function hasFindings(c) { return !!findingsData[c.name]; }
+
+function cityClaimCount(c) {
+    var d = claimsData[c.name];
+    if (!d) return 0;
+    var n = 0;
+    for (var t in d) n += d[t].length;
+    return n;
+}
+
+function hl(t) {
+    if (!t) return "";
+    return t.replace(/\n/g, "<br>")
+        .replace(/(מעוז)/g, '<span class="maoz-tag">$1</span>')
+        .replace(/(אבני ראשה)/g, '<span class="avnei-tag">$1</span>')
+        .replace(/(מנדל)/g, '<span style="background:#e8d5f5;color:#6a1b9a;padding:2px 8px;border-radius:4px;font-size:0.85em;font-weight:600;display:inline-block;margin-top:4px">$1</span>')
+        .replace(/(וקסנר|Wexner)/g, '<span style="background:#e0f2f1;color:#00695c;padding:2px 8px;border-radius:4px;font-size:0.85em;font-weight:600;display:inline-block;margin-top:4px">$1</span>');
+}
+
+function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+function renderClaimsSection(cityName) {
+    var data = claimsData[cityName];
+    if (!data) return "";
+    var totalClaims = 0;
+    for (var t in data) totalClaims += data[t].length;
+    if (totalClaims === 0) return "";
+
+    var typeNames = {person_appointment:'מינויים',budget_amount:'תקציבים',org_connection:'קשרי ארגונים',policy_decision:'החלטות מדיניות',training_program:'תכניות הכשרה'};
+    var typeOrder = ['person_appointment', 'budget_amount', 'org_connection', 'policy_decision', 'training_program'];
+    var h = '<div class="claims-section" style="border-top:2px solid #e8e8e8;padding:20px;">';
+    h += '<div style="font-size:1.1em;font-weight:700;color:#2980b9;margin-bottom:16px;" onclick="toggleSection(this)"><span class="toggle-icon">&#9660;</span> טענות מובנות (' + totalClaims + ')</div>';
+    h += '<div>';
+    typeOrder.forEach(function(type) {
+        var items = data[type];
+        if (!items || items.length === 0) return;
+        var gid = cityName.replace(/[^\u0590-\u05FF]/g,'') + '_' + type;
+        h += '<div style="margin-bottom:12px;"><div style="font-weight:600;color:#2980b9;margin-bottom:6px;cursor:pointer;" onclick="toggleGroup(this)">' + (typeNames[type]||type) + ' (' + items.length + ') <span class="toggle-icon">&#9660;</span></div>';
+        h += '<div>';
+        var limit = Math.min(items.length, 10);
+        for (var i = 0; i < limit; i++) {
+            h += '<div style="border:1px solid #d6eaf8;border-radius:6px;padding:10px 14px;margin:6px 0;background:#ebf5fb;font-size:0.9em">' + esc(items[i].text || items[i].summary || JSON.stringify(items[i])) + '</div>';
+        }
+        if (items.length > 10) {
+            h += '<div id="extra_' + gid + '" style="display:none">';
+            for (var i = 10; i < items.length; i++) {
+                h += '<div style="border:1px solid #d6eaf8;border-radius:6px;padding:10px 14px;margin:6px 0;background:#ebf5fb;font-size:0.9em">' + esc(items[i].text || items[i].summary || JSON.stringify(items[i])) + '</div>';
+            }
+            h += '</div>';
+            h += '<button class="show-more-btn" onclick="toggleExtra(this, \'' + gid + '\')">' + (items.length - 10) + ' נוספים &#8592;</button>';
+        }
+        h += '</div></div>';
+    });
+    h += '</div></div>';
+    return h;
+}
+
+function renderMentionsSection(cityName) {
+    var data = mentionsData[cityName];
+    if (!data || data.length === 0) return "";
+    var h = '<div class="mentions-section">';
+    h += '<div class="mentions-section-title" onclick="toggleSection(this)"><span class="toggle-icon">&#9660;</span> אזכורים בפרוטוקולים (' + data.length + ')</div>';
+    h += '<div>';
+    var limit = Math.min(data.length, 10);
+    for (var i = 0; i < limit; i++) {
+        var m = data[i];
+        var riskClass = m.risk === 'high' ? 'risk-high' : (m.risk && m.risk.indexOf('moderate') !== -1 ? 'risk-moderate' : 'risk-low');
+        h += '<div class="mention-item">';
+        h += '<span class="mention-org">' + esc(m.org) + '</span>';
+        if (m.risk) h += ' <span class="mention-risk ' + riskClass + '">' + esc(m.risk) + '</span>';
+        if (m.snippet) h += '<div style="margin-top:6px;color:#666;font-size:0.85em">' + esc(m.snippet) + '</div>';
+        h += '</div>';
+    }
+    if (data.length > 10) {
+        var mid = cityName.replace(/[^\u0590-\u05FF]/g,'') + '_mentions';
+        h += '<div id="extra_' + mid + '" style="display:none">';
+        for (var i = 10; i < data.length; i++) {
+            var m = data[i];
+            var riskClass = m.risk === 'high' ? 'risk-high' : (m.risk && m.risk.indexOf('moderate') !== -1 ? 'risk-moderate' : 'risk-low');
+            h += '<div class="mention-item">';
+            h += '<span class="mention-org">' + esc(m.org) + '</span>';
+            if (m.risk) h += ' <span class="mention-risk ' + riskClass + '">' + esc(m.risk) + '</span>';
+            if (m.snippet) h += '<div style="margin-top:6px;color:#666;font-size:0.85em">' + esc(m.snippet) + '</div>';
+            h += '</div>';
+        }
+        h += '</div>';
+        h += '<button class="show-more-btn" onclick="toggleExtra(this, \'' + mid + '\')">' + (data.length - 10) + ' נוספים &#8592;</button>';
+    }
+    h += '</div></div>';
+    return h;
+}
+
+function renderFindingsSection(cityName) {
+    var data = findingsData[cityName];
+    if (!data || data.length === 0) return "";
+    var h = '<div class="findings-section">';
+    h += '<div class="findings-section-title" onclick="toggleSection(this)"><span class="toggle-icon">&#9660;</span> ממצאי פרוטוקולים מפורטים (' + data.length + ')</div>';
+    h += '<div>';
+    data.forEach(function(f) {
+        h += '<div class="finding-card">';
+        if (f.title) h += '<div style="font-weight:700;margin-bottom:6px;color:#16a085">' + esc(f.title) + '</div>';
+        h += '<div class="finding-summary">' + esc(f.summary) + '</div>';
+        if (f.quote) {
+            h += '<div class="finding-quote">' + esc(f.quote);
+            if (f.qs) h += '<div style="margin-top:6px;font-style:italic;color:#888">— ' + esc(f.qs) + '</div>';
+            h += '</div>';
+        }
+        if (f.url) h += '<div class="finding-source"><a href="' + f.url + '" target="_blank">מקור: פרוטוקול מועצת העיר &#8592;</a></div>';
+        h += '</div>';
+    });
+    h += '</div></div>';
+    return h;
+}
+
+function toggleSection(el) {
+    var body = el.nextElementSibling;
+    var icon = el.querySelector('.toggle-icon');
+    if (body.style.display === 'none') {
+        body.style.display = '';
+        if (icon) icon.classList.remove('collapsed');
+    } else {
+        body.style.display = 'none';
+        if (icon) icon.classList.add('collapsed');
+    }
+}
+
+function toggleGroup(el) {
+    var body = el.nextElementSibling;
+    body.classList.toggle('collapsed');
+}
+
+function toggleExtra(btn, gid) {
+    var el = document.getElementById('extra_' + gid);
+    if (el.style.display === 'none') {
+        el.style.display = '';
+        btn.textContent = 'הסתר';
+    } else {
+        el.style.display = 'none';
+        var cnt = el.children.length;
+        btn.textContent = cnt + ' נוספים \u2190';
+    }
+}
+
+function renderCity(c) {
+    var card = document.createElement("div");
+    card.className = "city-card";
+    card.dataset.maoz = hasMaoz(c) ? "1" : "0";
+    card.dataset.avnei = hasAvnei(c) ? "1" : "0";
+    card.dataset.gender = hasGender(c) ? "1" : "0";
+    card.dataset.protocol = hasProtocol(c) ? "1" : "0";
+    card.dataset.sourced = hasSource(c) ? "1" : "0";
+    card.dataset.claims = hasClaims(c) ? "1" : "0";
+    var st = c.name + " ";
+    Object.values(c.positions).forEach(function(v) { st += (v || "") + " "; });
+    c.protocols.forEach(function(p) { st += p.summary + " " + (p.quote || "") + " "; });
+    card.dataset.search = st;
+
+    var badges = "";
+    if (hasMaoz(c)) badges += '<span class="badge badge-maoz">מעוז</span>';
+    if (hasAvnei(c)) badges += '<span class="badge badge-avnei">אבני ראשה</span>';
+    if (hasProtocol(c)) badges += '<span class="badge badge-protocol">' + c.protocols.length + ' ממצאים</span>';
+    var cc = cityClaimCount(c);
+    if (cc > 0) badges += '<span class="badge badge-claims">' + cc + ' טענות</span>';
+
+    var ph = "";
+    for (var k in positionNames) {
+        var v = c.positions[k], empty = !v || v.trim() === "";
+        var srcUrl = c.source_urls && c.source_urls[k];
+        var srcHtml = "";
+        if (!empty) {
+            if (srcUrl) {
+                srcHtml = '<span class="source-link"><a href="' + srcUrl + '" target="_blank" title="מקור מאומת">&#128279; מקור</a></span>';
+            } else {
+                srcHtml = '<span class="source-missing">מקור חסר</span>';
+            }
+        }
+        ph += '<div class="position-item' + (empty ? " empty" : "") + '"><div class="position-title">' + positionNames[k] + ' ' + srcHtml + '</div><div class="position-value">' + (empty ? "לא ידוע" : hl(v)) + '</div></div>';
+    }
+
+    var prh = "";
+    if (c.protocols.length > 0) {
+        prh = '<div class="protocol-section"><div class="protocol-section-title">עדויות מפרוטוקולים מוניציפליים (' + c.protocols.length + ')</div>';
+        c.protocols.forEach(function(p) {
+            var ds = p.date || "לא ידוע";
+            var vc = "vote-" + (p.vote || "proposal");
+            var vl = voteLabels[p.vote] || p.vote || "";
+            prh += '<div class="finding-card"><div class="finding-header"><span class="finding-date">' + ds + '</span><span class="vote-badge ' + vc + '">' + vl + '</span></div><div class="finding-summary">' + p.summary + '</div>' + (p.quote ? '<div class="finding-quote">' + p.quote + '</div>' : '') + (p.url ? '<div class="finding-source"><a href="' + p.url + '" target="_blank">מקור: פרוטוקול מועצת העיר &#8592;</a></div>' : '') + '</div>';
+        });
+        prh += "</div>";
+    }
+
+    var claimsHtml = renderClaimsSection(c.name);
+    var mentionsHtml = renderMentionsSection(c.name);
+    var findingsHtml = renderFindingsSection(c.name);
+
+    card.innerHTML = '<div class="city-header"><span class="city-name">' + c.name + '</span><div class="city-badges">' + badges + '</div></div><div class="positions-grid">' + ph + '</div>' + prh + claimsHtml + mentionsHtml + findingsHtml;
+    return card;
+}
+
+function computeStats() {
+    var pos = 0, mz = 0, av = 0, pr = 0, sr = 0, cl = 0;
+    cities.forEach(function(c) {
+        Object.values(c.positions).forEach(function(v) {
+            if (v && v.trim()) { pos++; if (v.indexOf("מעוז") !== -1) mz++; if (v.indexOf("אבני ראשה") !== -1) av++; }
+        });
+        pr += c.protocols.length;
+        if (c.source_urls) { Object.keys(c.source_urls).forEach(function(k) { if (c.source_urls[k]) sr++; }); }
+        cl += cityClaimCount(c);
+    });
+    // Add findings count
+    for (var city in findingsData) pr += findingsData[city].length;
+    document.getElementById("stat-positions").textContent = pos;
+    document.getElementById("stat-maoz").textContent = mz;
+    document.getElementById("stat-avnei").textContent = av;
+    document.getElementById("stat-protocols").textContent = pr;
+    document.getElementById("stat-sources").textContent = sr;
+    document.getElementById("stat-claims").textContent = cl.toLocaleString();
+}
+
+var activeFilter = "all";
+function applyFilter() {
+    var s = document.getElementById("search").value.trim().toLowerCase();
+    var cards = document.querySelectorAll(".city-card");
+    var vis = 0;
+    cards.forEach(function(card) {
+        var show = true;
+        if (activeFilter === "maoz") show = card.dataset.maoz === "1";
+        else if (activeFilter === "avnei") show = card.dataset.avnei === "1";
+        else if (activeFilter === "gender") show = card.dataset.gender === "1";
+        else if (activeFilter === "protocol") show = card.dataset.protocol === "1";
+        else if (activeFilter === "sourced") show = card.dataset.sourced === "1";
+        else if (activeFilter === "claims") show = card.dataset.claims === "1";
+        if (show && s) show = card.dataset.search.toLowerCase().indexOf(s) !== -1;
+        if (show) { card.classList.remove("hidden"); vis++; } else { card.classList.add("hidden"); }
+    });
+    document.getElementById("no-results").style.display = vis === 0 ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var ct = document.getElementById("cards-container");
+    cities.forEach(function(c) { ct.appendChild(renderCity(c)); });
+    computeStats();
+    document.querySelectorAll(".filter-btn").forEach(function(b) {
+        b.addEventListener("click", function() {
+            document.querySelectorAll(".filter-btn").forEach(function(x) { x.classList.remove("active"); });
+            b.classList.add("active");
+            activeFilter = b.dataset.filter;
+            applyFilter();
+        });
+    });
+    document.getElementById("search").addEventListener("input", applyFilter);
+});
 </script>
-</body></html>
+</body>
+</html>

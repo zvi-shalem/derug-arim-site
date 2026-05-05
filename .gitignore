@@ -19,6 +19,9 @@ click_*.py
 
 # Database files
 *.db
+*.db-shm
+*.db-wal
+*.db.backup_*
 *.db.bak*
 db_backups/
 research_backups/
@@ -31,3 +34,6 @@ data/*.xlsx
 
 # Other dev artifacts
 orgs_database.js
+*.bak
+*_broken.html
+*_pre_enrichment.html

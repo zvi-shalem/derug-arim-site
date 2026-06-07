@@ -869,6 +869,33 @@
     </style>
 </head>
 <body>
+    <!-- ── Password gate (added 2026-06-07) ── -->
+    <div id="pwgate" style="position:fixed;inset:0;z-index:2147483647;background:#1a1a2e;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,'Segoe UI',Arial,sans-serif;direction:rtl">
+        <div style="font-size:1.4em;font-weight:700;margin-bottom:18px">דירוג ערים</div>
+        <div style="margin-bottom:14px;color:#aab">הזן סיסמה לכניסה</div>
+        <input id="pwgate-input" type="password" autocomplete="off" inputmode="numeric"
+               style="font-size:1.2em;padding:10px 14px;border-radius:8px;border:none;text-align:center;width:200px;direction:ltr"
+               onkeydown="if(event.key==='Enter')pwgateCheck()">
+        <button onclick="pwgateCheck()" style="margin-top:14px;font-size:1em;padding:10px 28px;border:none;border-radius:8px;background:#ff8800;color:#fff;font-weight:700;cursor:pointer">כניסה</button>
+        <div id="pwgate-err" style="margin-top:12px;color:#ff6b6b;min-height:1.2em"></div>
+    </div>
+    <script>
+        function pwgateCheck(){
+            var v=document.getElementById('pwgate-input').value;
+            if(v==='888'){
+                try{sessionStorage.setItem('pwgate_ok','1');}catch(e){}
+                document.getElementById('pwgate').style.display='none';
+            }else{
+                document.getElementById('pwgate-err').textContent='סיסמה שגויה';
+                document.getElementById('pwgate-input').value='';
+                document.getElementById('pwgate-input').focus();
+            }
+        }
+        (function(){
+            try{ if(sessionStorage.getItem('pwgate_ok')==='1'){ document.getElementById('pwgate').style.display='none'; return; } }catch(e){}
+            var el=document.getElementById('pwgate-input'); if(el) el.focus();
+        })();
+    </script>
     <!-- Top Navigation -->
     <nav class="top-nav">
         <div class="nav-inner">

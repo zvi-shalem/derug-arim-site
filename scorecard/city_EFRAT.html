@@ -13,9 +13,9 @@ nav{position:sticky;top:0;z-index:100;background:#1a1a2e;color:#fff;box-shadow:0
 .brand-pill{display:inline-block;padding:2px 12px;border-radius:12px;font-size:.72em;font-weight:600;background:#ff8800;color:#1a1a2e}
 .nav-link{color:#aab;text-decoration:none;font-size:.85em;padding:6px 10px}
 .nav-link:hover{color:#fff}
-.hero{background:#fff;border-bottom:1px solid #e8e8e8;color:#1a1a2e;padding:40px 20px 30px;text-align:center}
-.hero h1{font-size:1.9em;font-weight:700;margin-bottom:10px}
-.hero .subtitle{color:#555;font-size:1.0em;max-width:760px;margin:0 auto 4px}
+.hero{background:linear-gradient(180deg,#fff 0%,#f8f9fc 100%);border-bottom:1px solid #e8e8e8;color:#1a1a2e;padding:46px 20px 34px;text-align:center}
+.hero h1{font-size:2.15em;font-weight:800;margin-bottom:12px;letter-spacing:-.3px}
+.hero .subtitle{color:#4a4a58;font-size:1.02em;max-width:780px;margin:0 auto 4px}
 .hero .meta{color:#ff8800;font-size:.85em;margin-top:10px;font-weight:600}
 .hero .stats-row{display:flex;justify-content:center;gap:34px;margin-top:16px;flex-wrap:wrap}
 .hero .stat .num{font-size:1.7em;font-weight:800;color:#ff8800;text-align:center}
@@ -27,19 +27,24 @@ nav{position:sticky;top:0;z-index:100;background:#1a1a2e;color:#fff;box-shadow:0
 .city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:900px){.city-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.city-grid{grid-template-columns:1fr}.hero h1{font-size:1.45em}}
-.city-card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px solid #e8e8e8;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column;color:inherit;text-decoration:none}
-.city-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.12);border-color:#667eea}
+.city-card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(26,26,46,.06),0 4px 14px rgba(26,26,46,.05);border:1px solid #ecedf2;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column;color:inherit;text-decoration:none;position:relative;overflow:hidden}
+.city-card::before{content:'';position:absolute;top:0;right:0;left:0;height:4px}
+.lvl-high.city-card::before{background:linear-gradient(90deg,#e74c3c,#ff7761)}
+.lvl-mid.city-card::before{background:linear-gradient(90deg,#ff8800,#ffb054)}
+.lvl-low.city-card::before{background:linear-gradient(90deg,#f0b429,#f8d477)}
+.lvl-min.city-card::before{background:linear-gradient(90deg,#b8bdc4,#d5d9de)}
+.city-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(26,26,46,.13);border-color:#c8ccf0}
 .card-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
 .city-name{font-size:1.25em;font-weight:700}
 .rank{font-size:.75em;color:#999}
 .score-row{display:flex;align-items:center;gap:12px;margin:6px 0 12px}
-.score-big{font-size:2.5em;font-weight:800;line-height:1}
+.score-big{font-size:2.6em;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 .score-of{font-size:.75em;color:#999}
-.score-badge{display:inline-block;padding:2px 12px;border-radius:12px;font-size:.72em;font-weight:600;color:#fff}
-.lvl-high .score-big{color:#e74c3c}.lvl-high .score-badge{background:#e74c3c}
-.lvl-mid .score-big{color:#ff8800}.lvl-mid .score-badge{background:#ff8800}
-.lvl-low .score-big{color:#d69e12}.lvl-low .score-badge{background:#f0b429;color:#1a1a2e}
-.lvl-min .score-big{color:#9aa0a6}.lvl-min .score-badge{background:#9aa0a6}
+.score-badge{display:inline-block;padding:3px 13px;border-radius:12px;font-size:.72em;font-weight:700}
+.lvl-high .score-big{color:#e74c3c}.lvl-high .score-badge{background:#fdecea;color:#c0392b}
+.lvl-mid .score-big{color:#f08300}.lvl-mid .score-badge{background:#fff2e0;color:#c96e00}
+.lvl-low .score-big{color:#d69e12}.lvl-low .score-badge{background:#fdf6dd;color:#a37a08}
+.lvl-min .score-big{color:#9aa0a6}.lvl-min .score-badge{background:#f0f1f3;color:#71767c}
 .sub-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
 .sub-label{flex:0 0 128px;font-size:.72em;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sub-track{display:block;flex:1;height:7px;background:#eef0f4;border-radius:4px;overflow:hidden}
@@ -52,12 +57,13 @@ nav{position:sticky;top:0;z-index:100;background:#1a1a2e;color:#fff;box-shadow:0
 .note{text-align:center;font-size:.78em;color:#999;margin-top:28px}
 footer{background:#eef0f4;color:#666;border-top:1px solid #e0e2e8;text-align:center;padding:16px 20px;font-size:.8em;margin-top:20px}
 /* ---- city page ---- */
-.group-section{background:#fff;border-radius:8px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.group-head{display:flex;align-items:center;gap:10px;font-size:1.08em;font-weight:700;padding-bottom:8px;border-bottom:2px solid #ff8800;margin-bottom:10px}
-.group-count{margin-right:auto;font-size:.78em;color:#888;font-weight:400}
-.move{border:1px solid #eee;border-radius:8px;margin:10px 0;overflow:hidden}
-.move-head{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;background:#fafafa}
-.move-head:hover{background:#f2f3f7}
+.group-section{background:#fff;border-radius:14px;padding:22px 26px;margin-bottom:18px;box-shadow:0 1px 3px rgba(26,26,46,.06),0 4px 14px rgba(26,26,46,.04)}
+.group-head{display:flex;align-items:center;gap:10px;font-size:1.1em;font-weight:700;padding-bottom:10px;border-bottom:2px solid #ffd9a8;margin-bottom:12px}
+.group-count{margin-right:auto;font-size:.78em;color:#999;font-weight:500;background:#f6f7fa;border-radius:10px;padding:2px 10px}
+.move{border:1px solid #eceef2;border-radius:11px;margin:10px 0;overflow:hidden;transition:border-color .2s}
+.move:hover{border-color:#d9ddf0}
+.move-head{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;background:#fafbfd}
+.move-head:hover{background:#f1f3f9}
 .move-name{font-weight:600;font-size:.95em}
 .move-brief{color:#666;font-size:.82em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .move-amount{color:#c0392b;font-size:.82em;font-weight:700;white-space:nowrap}
@@ -68,8 +74,16 @@ footer{background:#eef0f4;color:#666;border-top:1px solid #e0e2e8;text-align:cen
 .layer{margin-bottom:14px}
 .layer h4{font-size:.85em;color:#667eea;margin-bottom:6px}
 .layer .factual{font-size:.9em;color:#333}
-.quote-box{background:#f8f6f0;border-right:4px solid #ff8800;padding:12px 16px;margin:10px 0;border-radius:0 8px 8px 0;font-size:.92em}
-.quote-box .qmeta{font-size:.8em;color:#888;margin-top:6px}
+.quote-box{background:#fbf8f1;border-right:3px solid #ff8800;padding:13px 17px;margin:10px 0;border-radius:2px 10px 10px 2px;font-size:.93em;line-height:1.85;box-shadow:0 1px 2px rgba(26,26,46,.03)}
+.quote-box .qmeta{font-size:.8em;color:#8a8a94;margin-top:7px;border-top:1px dashed #eee3cc;padding-top:6px}
+/* glossary term decoder (spec: humpty_scorecard_integration_proposal + fable check) */
+.egg-term{border-bottom:2px dotted #ff8800;cursor:pointer;position:relative;white-space:nowrap}
+.egg-term sup{font-size:.8em;margin-right:1px}
+.egg-pop{display:none;position:absolute;bottom:120%;right:0;z-index:30;width:min(270px,72vw);background:#fff;border:1px solid #e8e8ee;border-radius:10px;box-shadow:0 6px 20px rgba(26,26,46,.18);padding:12px 14px;font-size:.82em;line-height:1.6;white-space:normal;text-align:right}
+.egg-term:hover .egg-pop,.egg-term:focus-within .egg-pop,.egg-term:focus .egg-pop{display:block}
+.egg-pop .orig{color:#2d7a3a;margin-bottom:4px}
+.egg-pop .hijk{color:#c0392b}
+.egg-pop .egg-link{display:block;margin-top:8px;color:#667eea;font-size:.95em;text-decoration:none}
 a.src{color:#667eea;text-decoration:none;font-size:.9em}
 a.src:hover{text-decoration:underline}
 .lwarn{color:#e67e22;font-size:.85em;margin-right:4px;cursor:help}
@@ -110,7 +124,7 @@ function pwgateCheck(){var v=document.getElementById('pwgate-input').value;
 <div><a class="nav-link" href="index.html">← כל הערים</a></div></div></nav>
 <div class="hero"><h1>אפרת</h1>
 <div class="subtitle">מקום 18 מתוך 20 · 1 מתוך 32 מהלכים תועדו בעיר</div>
-<div class="score-row" style="justify-content:center"><span class="score-big" style="font-size:3em" class="lvl-min">3</span><span class="score-of">/ 100</span><span class="score-badge" style="background:#ff8800">נוכחות נמוכה</span></div></div>
+<div class="score-row" style="justify-content:center"><span class="score-big" style="font-size:3em" class="lvl-min">3</span><span class="score-of">ניקוד משוקלל<br>(1/32 מהלכים)</span><span class="score-badge" style="background:#ff8800">נוכחות נמוכה</span></div></div>
 <div class="container">
 <div class="group-section"><div class="group-head"><span>📊</span><span>פירוט לפי אשכולות</span></div><div class='sub-row'><span class='sub-label'>📘 חדירה לחינוך הפורמלי (גפ״ן)</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/6</span></div><div class='sub-row'><span class='sub-label'>🏥 מסלולים עוקפים (בריאות/רוחב)</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/3</span></div><div class='sub-row'><span class='sub-label'>🏕 חינוך בלתי פורמלי ונוער</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/4</span></div><div class='sub-row'><span class='sub-label'>⚖️ זירה משפטית</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/1</span></div><div class='sub-row'><span class='sub-label'>🎭 תרבות ואירועים</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/3</span></div><div class='sub-row'><span class='sub-label'>🌐 רשתות בינלאומיות ומימון</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/3</span></div><div class='sub-row'><span class='sub-label'>🗞 הצהרות ושיוך פורומים</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/3</span></div><div class='sub-row'><span class='sub-label'>🔥 אותות פרוטוקולים</span><span class='sub-track'><span class='sub-fill f-min' style='width:50%'></span></span><span class='sub-val'>1/2</span></div><div class='sub-row'><span class='sub-label'>👩‍💼 כוח אדם ומבנה בירוקרטי</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/4</span></div><div class='sub-row'><span class='sub-label'>📝 פעילות מתועדת (לא-תקציבית)</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/2</span></div><div class='sub-row'><span class='sub-label'>🚫 אכיפת שבטיות</span><span class='sub-track'><span class='sub-fill f-min' style='width:0%'></span></span><span class='sub-val'>0/1</span></div>
 <div class="absent-note">לחצו על כל מהלך למטה כדי להעמיק: תמצית ← ראיות וציטוטים ← מקור ראשוני ← היסטוריית ביקורת.</div></div>
